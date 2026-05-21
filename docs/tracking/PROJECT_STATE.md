@@ -34,7 +34,7 @@
 - Paradigm: Offline-first
 
 ## 5. Active Modules
-- Freelancer Income Tracking
+- Phase 7: Freelancer Income Pipeline (spec ready, implementation pending)
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

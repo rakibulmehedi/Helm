@@ -132,24 +132,39 @@
 
 ---
 
-## Milestone: v0.2-cashflow-operations (Planned)
+## Milestone: v0.2-cashflow-operations (In Progress)
 
-> Status: **NOT STARTED**
+> Status: **SPEC READY — IMPLEMENTATION PENDING**
 > Forward-looking cashflow clarity and operational peace of mind.
+> Specs finalized: 2026-05-22
 
-### Phase 7 — Income Pipeline
-- Track pending vs cleared income
-- Escrow/Transit states
-- Expected arrival dates
+### Phase 7 — Income Pipeline (Current)
+- Spec: `docs/specs/PHASE_7_FREELANCER_INCOME_TRACKING.md`
+- MVP spec: `docs/specs/INCOME_PIPELINE_MVP.md`
+- Three-state model: Expected → Pending → Received
+- Income entry CRUD with client/project tracking
+- Dashboard income summary integration
+- Sub-phases: 7a (data layer) → 7b (entry UI) → 7c (list/filter) → 7d (dashboard) → 7e (status transitions)
 
-### Phase 8 — Safe-to-Spend & Virtual Wallets
-- Calculation: (Current Cash + Cleared Income) - (Fixed Expenses + Tax) = Safe to Spend
-- Virtual separation of Business, Personal, and Tax funds
+### Phase 8 — Safe-to-Spend Model (Spec Ready)
+- Spec: `docs/specs/SAFE_TO_SPEND_MODEL.md`
+- Depends on Phase 7 Income Pipeline
+- Formula: (Liquid Cash) - (Tax Reserve + Fixed Costs + Anxiety Buffer) = Safe to Spend
+- Pending income excluded from primary Safe-to-Spend number
+- "Waterline" concept for visual display
 
-### Phase 9 — Subscription Leakage Radar
-- Recurring transaction detection
-- Subscription cost accumulation
-- Cancel-reminder alerts
+### Phase 8+ — Virtual Wallets (Future)
+- Spec: `docs/specs/VIRTUAL_WALLETS.md`
+- Mental separation of Business / Personal / Tax / Reserve
+- No actual banking integration
+- Depends on Phase 7 + transaction tagging
+
+### Phase 9 — Subscription Leakage Radar (Spec Ready)
+- Spec: `docs/specs/SUBSCRIPTION_LEAKAGE_RADAR.md`
+- Manual stack builder first, then recurring detection
+- SaaS burn rate tracking
+- Non-judgmental "optimization opportunity" framing
+- Pro monetization potential
 
 ---
 

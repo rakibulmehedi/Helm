@@ -76,3 +76,33 @@ Freelancers suffer from future cashflow uncertainty (pending payments, subscript
 
 Impact:
 Income Pipeline and Safe-to-Spend Balance are now the highest priority modules. AI chatbot, complex invoicing, and deep budgeting are explicitly deprioritized.
+
+---
+
+## Decision 006 — Three-State Income Model (Not Five)
+
+Date: 2026-05-22
+
+Decision:
+Phase 7 Income Pipeline uses three states (Expected, Pending, Received) instead of the five-state model described in research (Invoiced, Escrow, Transit, Pending, Cleared).
+
+Reason:
+Research describes the full freelancer payment lifecycle, but implementing all states in MVP creates unnecessary complexity. Three states capture the core psychological distinction: money I expect, money in motion, and money I have. Sub-states (Escrow vs Transit) can be added later if user demand validates them.
+
+Impact:
+Data model uses a simple enum. Status transitions are straightforward. Future phases can add granularity without breaking the existing model.
+
+---
+
+## Decision 007 — Income Entries Separate From Transactions
+
+Date: 2026-05-22
+
+Decision:
+Income Pipeline entries will be a separate entity (IncomeEntry) from existing Transactions, stored in a separate Hive box.
+
+Reason:
+Transactions represent completed financial events (expenses and income that already happened). Income Pipeline entries represent future/in-progress cashflow with status tracking. Merging them would complicate the existing stable transaction system and create confusion between "income I received" (transaction) and "income I'm expecting" (pipeline entry).
+
+Impact:
+New feature module at `lib/features/income/`. Separate data layer, domain entities, and providers. Dashboard integrates both but does not merge the data models.

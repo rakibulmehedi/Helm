@@ -49,6 +49,22 @@ One agent should not freely plan, code, and expand scope without review.
 
 ---
 
+## Research-to-Spec Lessons
+
+### 1. Research must be converted into spec boundaries, not left as general knowledge
+Research docs contain rich insights but without explicit “build this / don't build this” boundaries, implementation agents will either ignore research or over-interpret it into feature bloat.
+
+### 2. Three states are enough for MVP income tracking
+Research describes 5+ states (Invoiced, Escrow, Transit, Pending, Cleared). For MVP, collapsing to Expected/Pending/Received captures 90% of the value without over-engineering the data model.
+
+### 3. Color theory from research directly translates to UX rules
+“No red for pending money” is a research-backed decision, not a style preference. Encoding behavioral findings as explicit UX rules in specs prevents implementation agents from defaulting to standard red/green patterns.
+
+### 4. Pending money must never be treated as liquid cash in any calculation
+This is the single most important insight from all research docs. It directly shapes both the Income Pipeline (Phase 7) and Safe-to-Spend (Phase 8) architecture.
+
+---
+
 ## UX Lessons
 
 ### 1. Undo is better than heavy confirmation for frequent actions
@@ -59,3 +75,6 @@ Better list readability matters before visualization.
 
 ### 3. Empty states are product education moments
 They should guide the user, not just say “No data”.
+
+### 4. Empty states should be reassuring, not hollow
+For a finance app targeting anxious users, “No pending payments right now” should feel calming, not alarming. Research shows freelancers scan for danger — empty states should signal safety.
