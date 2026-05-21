@@ -9,16 +9,25 @@
 
 Before implementing **any** feature, every agent must:
 
-1. **Read** these documents in order:
+1. **Follow the Session Start Protocol** — execute all steps in `docs/SESSION_START_PROTOCOL.md`.
+2. **Read** these core documents:
    - `docs/POCKETA_BRAIN.md` — understand the product
    - `docs/ARCHITECTURE_RULES.md` — understand the constraints
    - `docs/ROADMAP.md` — understand what's been done and what's next
    - `AGENTS.md` — understand your role and boundaries
 
-2. **Confirm scope** — only implement what was explicitly requested
-3. **Check analyzer** — run `dart analyze` before and after changes
-4. **Preserve existing flows** — never break working features
-5. **Ask before expanding** — if scope is ambiguous, ask the Chief Architect
+3. **Confirm scope** — only implement what was explicitly requested
+4. **Check analyzer** — run `dart analyze` before and after changes
+5. **Preserve existing flows** — never break working features
+6. **Ask before expanding** — if scope is ambiguous, ask the Chief Architect
+
+---
+
+## Post-Flight Checklist
+
+After completing any feature, every agent must:
+
+1. **Follow the Session End Protocol** — execute all steps in `docs/SESSION_END_PROTOCOL.md`.
 
 ---
 

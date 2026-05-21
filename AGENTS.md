@@ -85,6 +85,13 @@ All agents share and must respect:
 | Architecture Rules | How code must be structured | `docs/ARCHITECTURE_RULES.md` |
 | Agent Workflow | How to execute phases | `docs/AGENT_WORKFLOW.md` |
 | Roadmap | What's done and what's next | `docs/ROADMAP.md` |
+| Session Start | Initialization rules | `docs/SESSION_START_PROTOCOL.md` |
+| Session End | Completion rules | `docs/SESSION_END_PROTOCOL.md` |
+| Project State | Current stability and debt | `docs/PROJECT_STATE.md` |
+| Current Sprint | Active goals | `docs/CURRENT_SPRINT.md` |
+| Context Recovery | Re-onboarding rules | `docs/CONTEXT_RECOVERY.md` |
+| Anti-Patterns | Forbidden practices | `docs/ANTI_PATTERNS.md` |
+| Escalation Rules | When to stop and ask | `docs/ESCALATION_RULES.md` |
 | Feature Spec Template | How to request features | `docs/FEATURE_SPEC_TEMPLATE.md` |
 | Review Checklist | Quality gates | `docs/REVIEW_CHECKLIST.md` |
 
