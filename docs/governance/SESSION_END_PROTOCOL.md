@@ -2,6 +2,24 @@
 
 > Mandatory completion protocol for all AI agents when wrapping up a session or task.
 
+## Documentation Operating Purpose
+
+**Core principle: Documentation is not archive. Documentation is the active operating memory of the product.**
+
+Every agent must use docs to:
+1. Understand product identity
+2. Verify current sprint
+3. Prevent scope creep
+4. Preserve architecture decisions
+5. Avoid repeating past mistakes
+6. Convert research into product decisions
+7. Convert specs into implementation boundaries
+8. Update state after every meaningful change
+
+> **WARNING:** If documentation is not updated after changes, the Agentic OS becomes stale and future agents will make bad decisions.
+
+---
+
 ## 1. Analyzer Verification
 - Run `dart analyze lib/`.
 - Target must be: 0 errors, 0 warnings, 0 infos.
@@ -15,8 +33,12 @@
   `- dart analyze clean`
 
 ## 3. Documentation Update Requirements
-- Update `docs/core/ROADMAP.md` if a phase was completed.
-- Update `docs/tracking/PROJECT_STATE.md` if stable modules or tech debt changed.
+- Update `docs/tracking/TASKS.md` after completing any tracked task.
+- Update `docs/tracking/CURRENT_SPRINT.md` if sprint progress or goals changed.
+- Update `docs/tracking/PROJECT_STATE.md` if architecture or stable/frozen systems changed.
+- Update `docs/core/ROADMAP.md` if a phase was completed or major direction changed.
+- Update `docs/tracking/DECISION_LOG.md` for major architectural or technical decisions.
+- Update `docs/tracking/LESSONS.md` for important mistakes, reusable learnings, or discoveries.
 
 ## 4. Lessons Learned Logging
 - Log any major challenges or discoveries in `docs/tracking/LESSONS.md`.
