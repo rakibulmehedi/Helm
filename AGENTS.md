@@ -81,19 +81,19 @@ All agents share and must respect:
 
 | Document | Purpose | Location |
 |---|---|---|
-| Product Brain | What Pocketa is and isn't | `docs/POCKETA_BRAIN.md` |
-| Architecture Rules | How code must be structured | `docs/ARCHITECTURE_RULES.md` |
-| Agent Workflow | How to execute phases | `docs/AGENT_WORKFLOW.md` |
-| Roadmap | What's done and what's next | `docs/ROADMAP.md` |
-| Session Start | Initialization rules | `docs/SESSION_START_PROTOCOL.md` |
-| Session End | Completion rules | `docs/SESSION_END_PROTOCOL.md` |
-| Project State | Current stability and debt | `docs/PROJECT_STATE.md` |
-| Current Sprint | Active goals | `docs/CURRENT_SPRINT.md` |
-| Context Recovery | Re-onboarding rules | `docs/CONTEXT_RECOVERY.md` |
-| Anti-Patterns | Forbidden practices | `docs/ANTI_PATTERNS.md` |
-| Escalation Rules | When to stop and ask | `docs/ESCALATION_RULES.md` |
-| Feature Spec Template | How to request features | `docs/FEATURE_SPEC_TEMPLATE.md` |
-| Review Checklist | Quality gates | `docs/REVIEW_CHECKLIST.md` |
+| Product Brain | What Pocketa is and isn't | `docs/core/POCKETA_BRAIN.md` |
+| Architecture Rules | How code must be structured | `docs/core/ARCHITECTURE_RULES.md` |
+| Agent Workflow | How to execute phases | `docs/governance/AGENT_WORKFLOW.md` |
+| Roadmap | What's done and what's next | `docs/core/ROADMAP.md` |
+| Session Start | Initialization rules | `docs/governance/SESSION_START_PROTOCOL.md` |
+| Session End | Completion rules | `docs/governance/SESSION_END_PROTOCOL.md` |
+| Project State | Current stability and debt | `docs/tracking/PROJECT_STATE.md` |
+| Current Sprint | Active goals | `docs/tracking/CURRENT_SPRINT.md` |
+| Context Recovery | Re-onboarding rules | `docs/governance/CONTEXT_RECOVERY.md` |
+| Anti-Patterns | Forbidden practices | `docs/governance/ANTI_PATTERNS.md` |
+| Escalation Rules | When to stop and ask | `docs/governance/ESCALATION_RULES.md` |
+| Feature Spec Template | How to request features | `docs/templates/FEATURE_SPEC_TEMPLATE.md` |
+| Review Checklist | Quality gates | `docs/governance/REVIEW_CHECKLIST.md` |
 
 ---
 
@@ -132,7 +132,7 @@ Always re-read documentation at the start of a new task.
 When one agent hands off to another:
 
 1. **Commit** all changes with a proper message
-2. **Update** `docs/ROADMAP.md` with completed phase
+2. **Update** `docs/core/ROADMAP.md` with completed phase
 3. **Report** what was done (completion report)
 4. The receiving agent must:
    - Read all shared docs

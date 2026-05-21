@@ -9,7 +9,7 @@
 
 You are working on **Pocketa** — a Freelancer Finance OS for emerging Bangladeshi earners.
 Category: **Cashflow Operations & Financial Mental Health**.
-This is NOT a backward-looking expense tracker. Read `docs/POCKETA_BRAIN.md` for full product context.
+This is NOT a backward-looking expense tracker. Read `docs/core/POCKETA_BRAIN.md` for full product context.
 
 ---
 
@@ -25,10 +25,10 @@ You execute. You do not decide product direction.
 ## Mandatory Pre-Flight
 
 Before every task, read these files:
-1. `docs/POCKETA_BRAIN.md` — product identity and philosophy
-2. `docs/ARCHITECTURE_RULES.md` — technical constraints
-3. `docs/ROADMAP.md` — current state and phase history
-4. `docs/AGENT_WORKFLOW.md` — execution protocol
+1. `docs/core/POCKETA_BRAIN.md` — product identity and philosophy
+2. `docs/core/ARCHITECTURE_RULES.md` — technical constraints
+3. `docs/core/ROADMAP.md` — current state and phase history
+4. `docs/governance/AGENT_WORKFLOW.md` — execution protocol
 
 ---
 
@@ -89,8 +89,8 @@ Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`
 ## Antigravity-Specific Notes
 
 - You have access to subagents — use them for parallelized research, not for writing code in parallel on the same files
-- When creating implementation plans, reference `docs/ARCHITECTURE_RULES.md` for structure decisions
-- Always check `docs/ROADMAP.md` to understand what's already been built
+- When creating implementation plans, reference `docs/core/ARCHITECTURE_RULES.md` for structure decisions
+- Always check `docs/core/ROADMAP.md` to understand what's already been built
 - Use `write_to_file` for new files and `replace_file_content` / `multi_replace_file_content` for edits
 - Verify with `dart analyze` using the FVM path before reporting completion
 
@@ -106,6 +106,6 @@ Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`
 
 ## When Unsure
 
-1. Check `docs/POCKETA_BRAIN.md`
-2. Check `docs/ARCHITECTURE_RULES.md`
+1. Check `docs/core/POCKETA_BRAIN.md`
+2. Check `docs/core/ARCHITECTURE_RULES.md`
 3. If still unclear — **ask the Chief Architect**. Do not guess.

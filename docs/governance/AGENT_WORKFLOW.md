@@ -9,11 +9,11 @@
 
 Before implementing **any** feature, every agent must:
 
-1. **Follow the Session Start Protocol** — execute all steps in `docs/SESSION_START_PROTOCOL.md`.
+1. **Follow the Session Start Protocol** — execute all steps in `docs/governance/SESSION_START_PROTOCOL.md`.
 2. **Read** these core documents:
-   - `docs/POCKETA_BRAIN.md` — understand the product
-   - `docs/ARCHITECTURE_RULES.md` — understand the constraints
-   - `docs/ROADMAP.md` — understand what's been done and what's next
+   - `docs/core/POCKETA_BRAIN.md` — understand the product
+   - `docs/core/ARCHITECTURE_RULES.md` — understand the constraints
+   - `docs/core/ROADMAP.md` — understand what's been done and what's next
    - `AGENTS.md` — understand your role and boundaries
 
 3. **Confirm scope** — only implement what was explicitly requested
@@ -27,7 +27,7 @@ Before implementing **any** feature, every agent must:
 
 After completing any feature, every agent must:
 
-1. **Follow the Session End Protocol** — execute all steps in `docs/SESSION_END_PROTOCOL.md`.
+1. **Follow the Session End Protocol** — execute all steps in `docs/governance/SESSION_END_PROTOCOL.md`.
 
 ---
 

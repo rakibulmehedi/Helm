@@ -4,19 +4,19 @@
 
 ## 1. Mandatory Reading Order
 Every agent must read these documents in exact order before writing any code:
-1. `docs/POCKETA_BRAIN.md` — Core identity and philosophy
-2. `docs/ARCHITECTURE_RULES.md` — Technical boundaries
-3. `docs/PROJECT_STATE.md` — Current system stability
-4. `docs/CURRENT_SPRINT.md` — Active goals and priorities
-5. `docs/ROADMAP.md` — Historical context and future phases
-6. `docs/AGENT_WORKFLOW.md` — Execution rules
+1. `docs/core/POCKETA_BRAIN.md` — Core identity and philosophy
+2. `docs/core/ARCHITECTURE_RULES.md` — Technical boundaries
+3. `docs/tracking/PROJECT_STATE.md` — Current system stability
+4. `docs/tracking/CURRENT_SPRINT.md` — Active goals and priorities
+5. `docs/core/ROADMAP.md` — Historical context and future phases
+6. `docs/governance/AGENT_WORKFLOW.md` — Execution rules
 
 ## 2. Project Identity Verification
 - Verify the task aligns with: *"Pocketa is a Freelancer Finance OS for emerging Bangladeshi earners."*
 - Reject generic expense tracker features.
 
 ## 3. Sprint Verification
-- Check `docs/CURRENT_SPRINT.md` to ensure the task belongs to the active sprint.
+- Check `docs/tracking/CURRENT_SPRINT.md` to ensure the task belongs to the active sprint.
 - Do not execute tasks outside the current sprint scope without explicit Chief Architect approval.
 
 ## 4. Task Boundary Setup

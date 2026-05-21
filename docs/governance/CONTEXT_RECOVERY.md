@@ -8,11 +8,11 @@
 - Follow the steps below systematically.
 
 ## 2. Mandatory Files to Reread
-1. `docs/POCKETA_BRAIN.md`
-2. `docs/ARCHITECTURE_RULES.md`
-3. `docs/ROADMAP.md`
-4. `docs/CURRENT_SPRINT.md`
-5. `docs/PROJECT_STATE.md`
+1. `docs/core/POCKETA_BRAIN.md`
+2. `docs/core/ARCHITECTURE_RULES.md`
+3. `docs/core/ROADMAP.md`
+4. `docs/tracking/CURRENT_SPRINT.md`
+5. `docs/tracking/PROJECT_STATE.md`
 
 ## 3. Architecture Recovery Steps
 - Check `pubspec.yaml` for current dependencies.
