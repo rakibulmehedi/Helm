@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/l10n/app_localization.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
@@ -78,7 +80,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               const Spacer(),
               AppButton(
                 label: context.l10n.getStarted,
-                onPressed: () => Navigator.pushNamed(context, '/onboarding'),
+                onPressed: () => context.go(RouteNames.onboarding),
                 isEnabled: true,
               ),
               ResponsiveUtilities.spacing(context),

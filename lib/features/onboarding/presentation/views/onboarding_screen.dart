@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 
@@ -20,6 +22,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
+  }
+
+  /// Marks onboarding as complete in SharedPreferences,
+  /// then navigates to the dashboard via GoRouter.
+  Future<void> _completeOnboarding() async {
+    await SharedPrefServices.setOnboardingCompleted(true);
+    if (mounted) context.go(RouteNames.dashboard);
   }
 
   @override
@@ -140,7 +149,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       curve: Curves.easeInOut,
                     );
                   } else {
-                    Navigator.pushNamed(context, '/welcome');
+                    _completeOnboarding();
                   }
                 },
               ),

@@ -1,12 +1,13 @@
+// lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart'; // ✅ Correct Import
+import 'package:pocketa_v2/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/config/router/routes.dart';
-import 'package:pocketa_v2/core/constants/app_language.dart';
+import 'package:pocketa_v2/config/router/app_router.dart';
 import 'package:pocketa_v2/core/themes/app_theme.dart';
 
 import 'application/providers/language_provider.dart';
+import 'core/constants/app_language.dart';
 import 'core/local_storage/hive_service.dart';
 import 'core/local_storage/shared_pref_service.dart';
 
@@ -24,8 +25,9 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lang = ref.watch(languageProvider);
 
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Pocketa',
+      // ── Localisation ───────────────────────────────────────────────────────
       locale: lang.local,
       supportedLocales: const [Locale('en'), Locale('bn')],
       localizationsDelegates: const [
@@ -34,12 +36,13 @@ class MyApp extends ConsumerWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      theme: AppThemeData.lightTheme(context, lang),
-      darkTheme: AppThemeData.darkTheme(context, lang),
-      themeMode: ThemeMode.system,
+      // ── Theme ──────────────────────────────────────────────────────────────
+      theme:      AppThemeData.lightTheme(context, lang),
+      darkTheme:  AppThemeData.darkTheme(context, lang),
+      themeMode:  ThemeMode.system,
+      // ── Router ─────────────────────────────────────────────────────────────
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: appRoutes,
     );
   }
 }

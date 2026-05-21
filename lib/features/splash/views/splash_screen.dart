@@ -1,9 +1,20 @@
+// lib/features/splash/views/splash_screen.dart
+//
+// Splash screen — shown briefly at app startup.
+//
+// Routing decision is intentionally NOT made here.
+// GoRouter's global redirect in app_router.dart handles where the user
+// lands after this screen exits (dashboard vs welcome), based on
+// SharedPrefServices.getOnboardingCompleted().
+//
+// This screen only handles the fade-in animation and the timed exit.
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-
-import '../../../core/themes/colors.dart';
-import '../../onboarding/presentation/views/welcome_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/themes/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,44 +25,51 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
+  late AnimationController _controller;
+  late Animation<double>   _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
+
+    _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 1800),
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
     );
-    _animationController.forward();
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const WelcomeScreen()),
-      );
+
+    _controller.forward();
+
+    // After the splash duration, navigate away.
+    // GoRouter's global redirect decides the actual destination:
+    //   - onboarding not done  → /welcome
+    //   - onboarding done      → /dashboard
+    Timer(const Duration(seconds: 2), () {
+      if (mounted) context.go(RouteNames.welcome);
     });
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primary, // Deep blue background
-      body: FadeTransition(opacity: _fadeAnimation, child: buildCenter()),
+      backgroundColor: AppColors.primary,
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: _buildCenter(),
+      ),
     );
   }
 
-  Center buildCenter() {
+  Widget _buildCenter() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -59,17 +77,13 @@ class _SplashScreenState extends State<SplashScreen>
           CircleAvatar(
             radius: 40,
             backgroundColor: Colors.white,
-            child: Stack(
-              children: [
-                Text(
-                  'P',
-                  style: TextStyle(
-                    fontSize: 52,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary,
-                  ),
-                ),
-              ],
+            child: Text(
+              'P',
+              style: TextStyle(
+                fontSize: 52,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primary,
+              ),
             ),
           ),
           SizedBox(height: 24),
