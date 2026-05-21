@@ -36,7 +36,7 @@ class AppButton extends StatelessWidget {
     switch (type) {
       case AppButtonType.primary:
         backgroundColor =
-            disabled ? AppColors.primary.withOpacity(0.4) : AppColors.primary;
+            disabled ? AppColors.primary.withValues(alpha: 0.4) : AppColors.primary;
         foregroundColor = Colors.white;
         borderColor = Colors.transparent;
         break;
