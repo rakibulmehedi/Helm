@@ -1,6 +1,6 @@
 // lib/features/dashboard/presentation/views/dashboard_screen.dart
 //
-// Phase 4: Dashboard Transaction Filtering and Grouping
+// Phase 6: Dashboard with delete-undo flow and UX hardening.
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +25,33 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   TransactionFilter _filter = TransactionFilter.all;
+
+  /// Deletes a transaction and shows a SnackBar with an Undo action.
+  /// The deleted transaction is kept in memory so it can be re-added
+  /// if the user taps Undo within the SnackBar timeout window.
+  void _deleteWithUndo(TransactionModel tx) {
+    // Delete immediately
+    ref.read(transactionsProvider.notifier).deleteTransaction(tx.id);
+
+    // Show undo SnackBar
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('"${tx.title}" deleted'),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        duration: const Duration(seconds: 4),
+        action: SnackBarAction(
+          label: 'Undo',
+          textColor: AppColors.primary,
+          onPressed: () {
+            // Re-add the exact same transaction (preserves original ID)
+            ref.read(transactionsProvider.notifier).addTransaction(tx);
+          },
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -304,9 +331,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           transaction: tx,
                           isDark: isDark,
                           currency: currency,
-                          onDelete: () {
-                            ref.read(transactionsProvider.notifier).deleteTransaction(tx.id);
-                          },
+                          onDeleteWithUndo: () => _deleteWithUndo(tx),
                         );
                       },
                     );
@@ -377,13 +402,13 @@ class _TransactionListItem extends StatelessWidget {
     required this.transaction,
     required this.isDark,
     required this.currency,
-    required this.onDelete,
+    required this.onDeleteWithUndo,
   });
 
   final TransactionModel transaction;
   final bool isDark;
   final String currency;
-  final VoidCallback onDelete;
+  final VoidCallback onDeleteWithUndo;
 
   @override
   Widget build(BuildContext context) {
@@ -396,38 +421,9 @@ class _TransactionListItem extends StatelessWidget {
     return Dismissible(
       key: Key(transaction.id),
       direction: DismissDirection.endToStart,
-      confirmDismiss: (direction) async {
-        return await showDialog<bool>(
-          context: context,
-          builder: (BuildContext dialogContext) {
-            return AlertDialog(
-              backgroundColor: isDark ? AppColors.cardDark : AppColors.cardLight,
-              title: const Text('Delete Transaction'),
-              content: const Text('Are you sure you want to delete this transaction?'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(dialogContext).pop(false),
-                  child: const Text('Cancel', style: TextStyle(color: AppColors.textSecondary)),
-                ),
-                TextButton(
-                  onPressed: () => Navigator.of(dialogContext).pop(true),
-                  child: const Text('Delete', style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold)),
-                ),
-              ],
-            );
-          },
-        );
-      },
-      onDismissed: (_) {
-        onDelete();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Transaction deleted'),
-            backgroundColor: isDark ? AppColors.white : AppColors.black,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        );
+      confirmDismiss: (_) async {
+        onDeleteWithUndo();
+        return false; // Don't remove from the tree — provider rebuild handles it
       },
       background: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -446,91 +442,91 @@ class _TransactionListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         child: Container(
           padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: isDark ? AppColors.cardDark : AppColors.cardLight,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isDark ? AppColors.grey.withValues(alpha: 0.15) : AppColors.border,
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                color: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                isIncome ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded,
-                color: amountColor,
-              ),
+          decoration: BoxDecoration(
+            color: isDark ? AppColors.cardDark : AppColors.cardLight,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: isDark ? AppColors.grey.withValues(alpha: 0.15) : AppColors.border,
             ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  isIncome ? Icons.arrow_downward_rounded : Icons.arrow_upward_rounded,
+                  color: amountColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      transaction.title,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: ResponsiveUtilities.font(context, 15),
+                        color: isDark ? AppColors.textLight : AppColors.textDark,
+                      ),
+                    ),
+                    if (transaction.categoryId != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        transaction.categoryId!,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                          fontSize: ResponsiveUtilities.font(context, 12),
+                        ),
+                      ),
+                    ],
+                    if (transaction.note != null && transaction.note!.isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        transaction.note!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: AppColors.grey,
+                          fontSize: ResponsiveUtilities.font(context, 11),
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    transaction.title,
+                    '$prefix$currency ${formatter.format(transaction.amount)}',
                     style: theme.textTheme.titleSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: ResponsiveUtilities.font(context, 15),
-                      color: isDark ? AppColors.textLight : AppColors.textDark,
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveUtilities.font(context, 14),
+                      color: amountColor,
                     ),
                   ),
-                  if (transaction.categoryId != null) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      transaction.categoryId!,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontSize: ResponsiveUtilities.font(context, 12),
-                      ),
+                  const SizedBox(height: 4),
+                  Text(
+                    DateFormat('MMM dd, yyyy').format(transaction.date),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: AppColors.textSecondary,
+                      fontSize: ResponsiveUtilities.font(context, 11),
                     ),
-                  ],
-                  if (transaction.note != null && transaction.note!.isNotEmpty) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      transaction.note!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: AppColors.grey,
-                        fontSize: ResponsiveUtilities.font(context, 11),
-                        fontStyle: FontStyle.italic,
-                      ),
-                    ),
-                  ]
+                  ),
                 ],
               ),
-            ),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '$prefix$currency ${formatter.format(transaction.amount)}',
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontSize: ResponsiveUtilities.font(context, 14),
-                    color: amountColor,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  DateFormat('MMM dd, yyyy').format(transaction.date),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
-                    fontSize: ResponsiveUtilities.font(context, 11),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+            ],
+          ),
         ),
       ),
     );

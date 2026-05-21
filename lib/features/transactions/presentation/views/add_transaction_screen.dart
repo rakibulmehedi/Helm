@@ -1,8 +1,10 @@
 // lib/features/transactions/presentation/views/add_transaction_screen.dart
 //
-// Phase 2: Add Transaction screen.
-// Collects title, amount, type, category, date, and note.
-// Saves via transactionsProvider and navigates back to dashboard.
+// Phase 6: Add / Edit Transaction screen with UX hardening.
+// - Handles missing transaction gracefully in edit mode
+// - Uses IdGenerator for collision-safe local IDs
+// - Guards every setState with mounted check
+// - Double-submit prevention via _isSaving flag
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 
@@ -53,12 +56,17 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   DateTime _selectedDate = DateTime.now();
   bool _isSaving = false;
 
+  /// True when editing and the target transaction was not found in the cache.
+  bool _transactionNotFound = false;
+
   @override
   void initState() {
     super.initState();
     if (widget.transactionId != null) {
       final transactions = ref.read(transactionsProvider).valueOrNull ?? [];
-      final tx = transactions.where((t) => t.id == widget.transactionId).firstOrNull;
+      final tx = transactions
+          .where((t) => t.id == widget.transactionId)
+          .firstOrNull;
       if (tx != null) {
         _titleController.text = tx.title;
         _amountController.text = tx.amount.toString();
@@ -66,6 +74,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         _selectedType = tx.type;
         if (tx.categoryId != null) _selectedCategory = tx.categoryId!;
         _selectedDate = tx.date;
+      } else {
+        _transactionNotFound = true;
       }
     }
   }
@@ -88,42 +98,60 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       firstDate: DateTime(now.year - 5),
       lastDate: now,
     );
-    if (picked != null) setState(() => _selectedDate = picked);
+    if (picked != null && mounted) setState(() => _selectedDate = picked);
   }
 
   Future<void> _submit() async {
+    if (_isSaving) return; // double-submit guard
     if (!_formKey.currentState!.validate()) return;
 
     setState(() => _isSaving = true);
 
-    final transaction = TransactionModel(
-      id: widget.transactionId ?? DateTime.now().millisecondsSinceEpoch.toString(),
-      title: _titleController.text.trim(),
-      amount: double.parse(_amountController.text.trim()),
-      date: _selectedDate,
-      categoryId: _selectedCategory,
-      type: _selectedType,
-      note: _noteController.text.trim().isEmpty
-          ? null
-          : _noteController.text.trim(),
-    );
+    try {
+      final transaction = TransactionModel(
+        id: widget.transactionId ?? IdGenerator.uniqueId(),
+        title: _titleController.text.trim(),
+        amount: double.parse(_amountController.text.trim()),
+        date: _selectedDate,
+        categoryId: _selectedCategory,
+        type: _selectedType,
+        note: _noteController.text.trim().isEmpty
+            ? null
+            : _noteController.text.trim(),
+      );
 
-    if (widget.transactionId != null) {
-      await ref.read(transactionsProvider.notifier).updateTransaction(transaction);
-    } else {
-      await ref.read(transactionsProvider.notifier).addTransaction(transaction);
-    }
+      if (widget.transactionId != null) {
+        await ref.read(transactionsProvider.notifier).updateTransaction(transaction);
+      } else {
+        await ref.read(transactionsProvider.notifier).addTransaction(transaction);
+      }
 
-    if (mounted) {
+      if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(widget.transactionId != null ? 'Transaction updated successfully' : 'Transaction saved successfully'),
+          content: Text(
+            widget.transactionId != null
+                ? 'Transaction updated successfully'
+                : 'Transaction saved successfully',
+          ),
           backgroundColor: AppColors.success,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
       context.pop();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _isSaving = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Failed to save transaction. Please try again.'),
+          backgroundColor: AppColors.error,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
     }
   }
 
@@ -133,6 +161,66 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    // ── Missing transaction error state ──────────────────────────────────────
+    if (_transactionNotFound) {
+      return Scaffold(
+        backgroundColor:
+            isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+        appBar: AppBar(
+          title: Text(
+            'Edit Transaction',
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: ResponsiveUtilities.font(context, 18),
+            ),
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+            onPressed: () => context.pop(),
+          ),
+        ),
+        body: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: ResponsiveUtilities.symmetricPadding(context),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.error_outline_rounded,
+                    size: ResponsiveUtilities.icon(context, 64),
+                    color: AppColors.error.withValues(alpha: 0.7),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Transaction not found',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isDark ? AppColors.textLight : AppColors.textDark,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'This transaction may have been deleted.',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: AppColors.textSecondary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  AppButton(
+                    label: 'Go Back',
+                    onPressed: () => context.pop(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor:
@@ -322,7 +410,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
                 // ── Submit button ────────────────────────────────────────────
                 AppButton(
-                  label: widget.transactionId != null ? 'Update Transaction' : 'Save Transaction',
+                  label: widget.transactionId != null
+                      ? 'Update Transaction'
+                      : 'Save Transaction',
                   isLoading: _isSaving,
                   isEnabled: !_isSaving,
                   onPressed: _submit,
