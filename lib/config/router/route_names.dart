@@ -14,6 +14,7 @@ abstract final class RouteNames {
 
   // ── transactions ────────────────────────────────────────────────────────────
   static const String addTransaction = '/add-transaction';
+  static const String editTransaction = '/edit-transaction/:id';
 
   // ── future (reserved, not yet wired) ──────────────────────────────────────
   // static const String transactions    = '/transactions';

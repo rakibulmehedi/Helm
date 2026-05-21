@@ -52,6 +52,14 @@ final GoRouter appRouter = GoRouter(
       name: 'addTransaction',
       builder: (context, state) => const AddTransactionScreen(),
     ),
+    GoRoute(
+      path: RouteNames.editTransaction,
+      name: 'editTransaction',
+      builder: (context, state) {
+        final id = state.pathParameters['id'];
+        return AddTransactionScreen(transactionId: id);
+      },
+    ),
   ],
 );
 

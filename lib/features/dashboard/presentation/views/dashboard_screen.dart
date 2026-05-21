@@ -438,8 +438,14 @@ class _TransactionListItem extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: const Icon(Icons.delete_outline_rounded, color: AppColors.white),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(16),
+      child: InkWell(
+        onTap: () => context.pushNamed(
+          RouteNames.editTransaction,
+          pathParameters: {'id': transaction.id},
+        ),
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isDark ? AppColors.cardDark : AppColors.cardLight,
           borderRadius: BorderRadius.circular(16),
@@ -524,6 +530,7 @@ class _TransactionListItem extends StatelessWidget {
               ],
             ),
           ],
+        ),
         ),
       ),
     );

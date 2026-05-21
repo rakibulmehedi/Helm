@@ -34,7 +34,8 @@ const List<String> _defaultCategories = [
 ];
 
 class AddTransactionScreen extends ConsumerStatefulWidget {
-  const AddTransactionScreen({super.key});
+  final String? transactionId;
+  const AddTransactionScreen({super.key, this.transactionId});
 
   @override
   ConsumerState<AddTransactionScreen> createState() =>
@@ -51,6 +52,23 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   String _selectedCategory = _defaultCategories.first;
   DateTime _selectedDate = DateTime.now();
   bool _isSaving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.transactionId != null) {
+      final transactions = ref.read(transactionsProvider).valueOrNull ?? [];
+      final tx = transactions.where((t) => t.id == widget.transactionId).firstOrNull;
+      if (tx != null) {
+        _titleController.text = tx.title;
+        _amountController.text = tx.amount.toString();
+        if (tx.note != null) _noteController.text = tx.note!;
+        _selectedType = tx.type;
+        if (tx.categoryId != null) _selectedCategory = tx.categoryId!;
+        _selectedDate = tx.date;
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -79,7 +97,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     setState(() => _isSaving = true);
 
     final transaction = TransactionModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: widget.transactionId ?? DateTime.now().millisecondsSinceEpoch.toString(),
       title: _titleController.text.trim(),
       amount: double.parse(_amountController.text.trim()),
       date: _selectedDate,
@@ -90,12 +108,16 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           : _noteController.text.trim(),
     );
 
-    await ref.read(transactionsProvider.notifier).addTransaction(transaction);
+    if (widget.transactionId != null) {
+      await ref.read(transactionsProvider.notifier).updateTransaction(transaction);
+    } else {
+      await ref.read(transactionsProvider.notifier).addTransaction(transaction);
+    }
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Transaction saved successfully'),
+          content: Text(widget.transactionId != null ? 'Transaction updated successfully' : 'Transaction saved successfully'),
           backgroundColor: AppColors.success,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -117,7 +139,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         title: Text(
-          'Add Transaction',
+          widget.transactionId != null ? 'Edit Transaction' : 'Add Transaction',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             fontSize: ResponsiveUtilities.font(context, 18),
@@ -300,7 +322,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
                 // ── Submit button ────────────────────────────────────────────
                 AppButton(
-                  label: 'Save Transaction',
+                  label: widget.transactionId != null ? 'Update Transaction' : 'Save Transaction',
                   isLoading: _isSaving,
                   isEnabled: !_isSaving,
                   onPressed: _submit,

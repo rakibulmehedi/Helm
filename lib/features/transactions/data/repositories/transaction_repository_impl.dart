@@ -13,6 +13,11 @@ class TransactionRepositoryImpl implements TransactionRepository {
   }
 
   @override
+  Future<void> updateTransaction(TransactionModel transaction) {
+    return localDataSource.updateTransaction(transaction);
+  }
+
+  @override
   Future<void> clearTransactions() {
     return localDataSource.clearTransactions();
   }

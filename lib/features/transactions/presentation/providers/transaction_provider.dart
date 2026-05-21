@@ -47,6 +47,15 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<TransactionMode
     }
   }
 
+  Future<void> updateTransaction(TransactionModel transaction) async {
+    try {
+      await _repository.updateTransaction(transaction);
+      await loadTransactions();
+    } catch (e, st) {
+      state = AsyncValue.error(e, st);
+    }
+  }
+
   Future<void> deleteTransaction(String id) async {
     try {
       await _repository.deleteTransaction(id);

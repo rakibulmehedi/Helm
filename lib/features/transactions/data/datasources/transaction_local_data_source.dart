@@ -4,6 +4,7 @@ import '../models/transaction_model.dart';
 
 abstract class TransactionLocalDataSource {
   Future<void> addTransaction(TransactionModel transaction);
+  Future<void> updateTransaction(TransactionModel transaction);
   Future<List<TransactionModel>> getTransactions();
   Future<void> deleteTransaction(String id);
   Future<void> clearTransactions();
@@ -14,6 +15,11 @@ class TransactionLocalDataSourceImpl implements TransactionLocalDataSource {
 
   @override
   Future<void> addTransaction(TransactionModel transaction) async {
+    await _box.put(transaction.id, transaction);
+  }
+
+  @override
+  Future<void> updateTransaction(TransactionModel transaction) async {
     await _box.put(transaction.id, transaction);
   }
 
