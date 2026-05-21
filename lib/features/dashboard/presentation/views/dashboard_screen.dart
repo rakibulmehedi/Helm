@@ -1,6 +1,6 @@
 // lib/features/dashboard/presentation/views/dashboard_screen.dart
 //
-// Phase 3: Dashboard Transaction List + Basic Summary
+// Phase 4: Dashboard Transaction Filtering and Grouping
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,11 +14,20 @@ import 'package:pocketa_v2/features/transactions/data/models/transaction_model.d
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
 
-class DashboardScreen extends ConsumerWidget {
+enum TransactionFilter { all, income, expense }
+
+class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  TransactionFilter _filter = TransactionFilter.all;
+
+  @override
+  Widget build(BuildContext context) {
     final theme  = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final currency = SharedPrefServices.getUserCurrency();
@@ -28,14 +37,22 @@ class DashboardScreen extends ConsumerWidget {
 
     double totalIncome = 0;
     double totalExpense = 0;
+    List<TransactionModel> filteredTransactions = [];
 
     transactionsAsync.whenData((data) {
       for (var tx in data) {
+        // Summary uses all transactions
         if (tx.type == TransactionType.income) {
           totalIncome += tx.amount;
         } else {
           totalExpense += tx.amount;
         }
+        
+        // Filtering
+        if (_filter == TransactionFilter.income && tx.type != TransactionType.income) continue;
+        if (_filter == TransactionFilter.expense && tx.type != TransactionType.expense) continue;
+        
+        filteredTransactions.add(tx);
       }
     });
 
@@ -134,11 +151,47 @@ class DashboardScreen extends ConsumerWidget {
 
               ResponsiveUtilities.spacing(context, multiplier: 1.5),
 
-              Text(
-                'Recent Transactions',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: ResponsiveUtilities.font(context, 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recent Transactions',
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveUtilities.font(context, 16),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 12),
+              
+              // ── Filter Chips ───────────────────────────────────────────────
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    _FilterChip(
+                      label: 'All',
+                      isSelected: _filter == TransactionFilter.all,
+                      onTap: () => setState(() => _filter = TransactionFilter.all),
+                      isDark: isDark,
+                    ),
+                    const SizedBox(width: 8),
+                    _FilterChip(
+                      label: 'Income',
+                      isSelected: _filter == TransactionFilter.income,
+                      onTap: () => setState(() => _filter = TransactionFilter.income),
+                      isDark: isDark,
+                    ),
+                    const SizedBox(width: 8),
+                    _FilterChip(
+                      label: 'Expense',
+                      isSelected: _filter == TransactionFilter.expense,
+                      onTap: () => setState(() => _filter = TransactionFilter.expense),
+                      isDark: isDark,
+                    ),
+                  ],
                 ),
               ),
               
@@ -182,12 +235,71 @@ class DashboardScreen extends ConsumerWidget {
                         ),
                       );
                     }
+                    
+                    if (filteredTransactions.isEmpty) {
+                      return Center(
+                        child: Text(
+                          'No ${_filter.name} transactions found.',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      );
+                    }
+                    
+                    // Grouping Logic
+                    final Map<String, List<TransactionModel>> grouped = {};
+                    final now = DateTime.now();
+                    final todayStr = DateFormat('yyyy-MM-dd').format(now);
+                    final yesterdayStr = DateFormat('yyyy-MM-dd').format(now.subtract(const Duration(days: 1)));
+
+                    for (var tx in filteredTransactions) {
+                      final txDateStr = DateFormat('yyyy-MM-dd').format(tx.date);
+                      String groupKey;
+                      if (txDateStr == todayStr) {
+                        groupKey = 'Today';
+                      } else if (txDateStr == yesterdayStr) {
+                        groupKey = 'Yesterday';
+                      } else {
+                        groupKey = DateFormat('MMM dd, yyyy').format(tx.date);
+                      }
+                      
+                      grouped.putIfAbsent(groupKey, () => []).add(tx);
+                    }
+
+                    // Flatten for list view
+                    final List<dynamic> listItems = [];
+                    for (var entry in grouped.entries) {
+                      listItems.add(entry.key); // Header string
+                      listItems.addAll(entry.value); // Transactions
+                    }
+
                     return ListView.separated(
                       padding: const EdgeInsets.only(bottom: 80),
-                      itemCount: data.length,
-                      separatorBuilder: (context, index) => const SizedBox(height: 12),
+                      itemCount: listItems.length,
+                      separatorBuilder: (context, index) {
+                        // Smaller spacing after a header
+                        if (listItems[index] is String || (index + 1 < listItems.length && listItems[index + 1] is String)) {
+                          return const SizedBox(height: 8);
+                        }
+                        return const SizedBox(height: 12);
+                      },
                       itemBuilder: (context, index) {
-                        final tx = data[index];
+                        final item = listItems[index];
+                        if (item is String) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 12, bottom: 4),
+                            child: Text(
+                              item,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          );
+                        }
+                        
+                        final tx = item as TransactionModel;
                         return _TransactionListItem(
                           transaction: tx,
                           isDark: isDark,
@@ -212,6 +324,53 @@ class DashboardScreen extends ConsumerWidget {
 }
 
 // ── Private sub-widgets ──────────────────────────────────────────────────────
+
+class _FilterChip extends StatelessWidget {
+  const _FilterChip({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+    required this.isDark,
+  });
+
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final bool isDark;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: isSelected 
+              ? AppColors.primary 
+              : (isDark ? AppColors.cardDark : AppColors.white),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isSelected 
+                ? AppColors.primary 
+                : (isDark ? AppColors.grey.withValues(alpha: 0.2) : AppColors.border),
+          ),
+        ),
+        child: Text(
+          label,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+            fontSize: ResponsiveUtilities.font(context, 13),
+            color: isSelected 
+                ? AppColors.white 
+                : (isDark ? AppColors.textLight : AppColors.textDark),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class _TransactionListItem extends StatelessWidget {
   const _TransactionListItem({
