@@ -61,3 +61,18 @@ Feature bloat can destroy UX clarity.
 
 Impact:
 Next major module should be Freelancer Income Tracking, not generic chart expansion.
+
+---
+
+## Decision 005 — Cashflow Operations Over Expense Tracking
+
+Date: 2026-05-22
+
+Decision:
+Adopt Cashflow Operations & Financial Mental Health as the strategic category framing.
+
+Reason:
+Freelancers suffer from future cashflow uncertainty (pending payments, subscriptions) more than past spending categorization.
+
+Impact:
+Income Pipeline and Safe-to-Spend Balance are now the highest priority modules. AI chatbot, complex invoicing, and deep budgeting are explicitly deprioritized.

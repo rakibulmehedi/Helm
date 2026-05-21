@@ -132,49 +132,40 @@
 
 ---
 
-## Milestone: v0.2-insights (Planned)
+## Milestone: v0.2-cashflow-operations (Planned)
 
 > Status: **NOT STARTED**
-> Visualization, categories, and spending awareness.
+> Forward-looking cashflow clarity and operational peace of mind.
 
-### Phase 7 — Charts & Spending Visualization
-- Monthly spending chart
-- Income vs expense comparison
-- Category breakdown pie/donut chart
+### Phase 7 — Income Pipeline
+- Track pending vs cleared income
+- Escrow/Transit states
+- Expected arrival dates
 
-### Phase 8 — Category Management
-- Category model with icons and colors
-- Category CRUD
-- Assign categories to transactions
-- Category-based filtering
+### Phase 8 — Safe-to-Spend & Virtual Wallets
+- Calculation: (Current Cash + Cleared Income) - (Fixed Expenses + Tax) = Safe to Spend
+- Virtual separation of Business, Personal, and Tax funds
 
-### Phase 9 — Budget Module
-- Monthly budget target
-- Budget vs actual tracking
-- Budget progress indicators
-- Over-budget alerts
+### Phase 9 — Subscription Leakage Radar
+- Recurring transaction detection
+- Subscription cost accumulation
+- Cancel-reminder alerts
 
 ---
 
-## Milestone: v0.3-power (Planned)
+## Milestone: v0.3-pro-power (Planned)
 
 > Status: **NOT STARTED**
-> Recurring transactions, multi-wallet, and data export.
+> Advanced freelancer tools and monetization foundation.
 
-### Phase 10 — Recurring Transactions
-- Recurring transaction model
-- Auto-generation on schedule
-- Subscription tracking
+### Phase 10 — Client & Project ROI
+- Track income/expense per client
+- Client profitability tracking
+- Multi-currency support (USD/BDT)
 
-### Phase 11 — Multi-Wallet Support
-- Wallet model (Cash, bKash, Nagad, Bank)
-- Per-wallet balance
-- Transfer between wallets
-
-### Phase 12 — Data Export
-- CSV export
-- PDF report generation
-- Date range selection
+### Phase 11 — Export & Reporting
+- PDF/CSV generation for taxes and clients
+- Advanced cashflow insights
 
 ---
 

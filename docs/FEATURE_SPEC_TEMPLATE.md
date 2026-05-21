@@ -70,28 +70,27 @@ After implementation, provide:
 ## Example Usage
 
 ```markdown
-## Feature: Charts & Spending Visualization
+## Feature: Income Pipeline
 
 ### Phase: 7
 
 ### Goal
-Add visual spending insights to the dashboard.
+Add the ability to track pending, escrow, and cleared income to reduce freelancer cashflow anxiety.
 
 ### Implement
-1. Add monthly spending bar chart.
-2. Add income vs expense comparison.
-3. Add category breakdown donut chart.
-4. Use fl_chart package (approved).
+1. Add pending and cleared status flags to Transaction model.
+2. Build UI to show expected income timeline.
+3. Update summary cards to show "Safe-to-Spend" balance.
 
 ### Acceptance Criteria
-- [ ] Dashboard shows spending chart
-- [ ] Chart updates when transactions change
+- [ ] Dashboard shows pending vs cleared income
+- [ ] Safe-to-Spend balance updates correctly
 - [ ] Dark mode compatible
 - [ ] dart analyze clean
 
 ### Scope Guardrails
 Do NOT:
-- Add budget logic
+- Add complex invoicing PDF generation
 - Redesign dashboard layout
 - Add cloud sync
 ```

@@ -7,12 +7,13 @@
 
 ## Identity
 
-Pocketa is **NOT** a generic expense tracker.
+Pocketa is **NOT** a backward-looking expense tracker.
 
 Pocketa is a:
 > **Freelancer Finance OS for emerging Bangladeshi earners.**
+> Category: Cashflow Operations & Financial Mental Health
 
-The app helps freelancers, creators, online earners, agency owners, and small operators reduce financial chaos and gain money clarity.
+The app shifts focus from backward-looking expense categorization to forward-looking cashflow clarity, helping freelancers, creators, online earners, and small operators reduce financial chaos.
 
 ---
 
@@ -39,18 +40,20 @@ Pocketa exists to reduce this chaos.
 
 Pocketa should feel:
 - ✅ Calm — no information overload
+- ✅ Reassuring — the app should reduce stress, not add it
+- ✅ Operational — focused on what happens next, not just what happened before
+- ✅ Low-cognitive-load — easy to understand at a glance
+- ✅ Non-judgmental — tracking without scolding
 - ✅ Fast — instant transaction entry, no loading walls
 - ✅ Premium — feels like a $10/month app, even if free
-- ✅ Trustworthy — user's financial data is sacred
-- ✅ Lightweight — works on $100 phones over 3G
-- ✅ Emotionally reassuring — the app should reduce stress, not add it
 
 Pocketa must **avoid**:
-- ❌ Clutter
+- ❌ AI chatbots (no scolding the user)
 - ❌ Enterprise accounting complexity
-- ❌ Banking-style cold UX
-- ❌ Unnecessary financial jargon
-- ❌ Feature-for-the-sake-of-feature additions
+- ❌ Complex invoicing systems
+- ❌ Tax filing engines
+- ❌ Deep budgeting/envelope systems
+- ❌ Chart-heavy analytics
 
 ---
 
@@ -99,21 +102,16 @@ Every new feature must pass:
 - Date grouping and filtering
 - Offline-first local persistence
 
-### Near-Future Modules (v0.2 — v0.4)
-- Charts and spending visualization
-- Category management system
-- Budget module
-- Recurring transaction tracking
-- Business vs personal separation
-- Financial insights and trends
+### Near-Future Modules (v0.2 — Cashflow Clarity)
+- Income Pipeline (Pending to Cleared)
+- Safe-to-Spend Balance calculation
+- Virtual Wallets (separating business, personal, tax)
+- Subscription Leakage Radar
+- Client/Project Profitability tracking
 
-### Long-Term Vision (v1.0+)
-- Multi-wallet support (bKash, Nagad, bank)
-- Pending invoice/payment tracker
-- Client management lite
-- Export (CSV/PDF)
-- Supabase cloud sync
-- Multi-currency awareness (BDT + USD)
+### Monetization & AI Strategy (Long-Term)
+- **Monetization:** Freemium core. Potential Pro tier offers multi-currency, unlimited clients/projects, reports/export, subscription leakage detection, and advanced cashflow insights.
+- **AI Integration:** Useful AI later to reduce friction (smart categorization, receipt parsing, cashflow forecasting). No conversational AI chatbots.
 
 ---
 
@@ -133,13 +131,13 @@ Do **NOT** turn Pocketa into:
 
 ## Technical Philosophy
 
-- **Offline-first** — app must work without internet
-- **Fast local persistence** — Hive for structured data, SharedPreferences for flags
-- **Minimal dependencies** — every package must justify its existence
-- **Feature-first clean architecture** — domain/data/presentation per feature
-- **Riverpod state management** — predictable, testable, no provider spaghetti
-- **GoRouter navigation** — declarative, typed routes
-- **Supabase later** — cloud sync is a future concern, not a current one
+- **Offline-first** — Double down on this. The app must be fast and work without internet.
+- **Fast local persistence** — Hive for structured data, SharedPreferences for flags.
+- **Minimal dependencies** — every package must justify its existence.
+- **Feature-first clean architecture** — domain/data/presentation per feature.
+- **Riverpod state management** — predictable, testable, no provider spaghetti.
+- **GoRouter navigation** — declarative, typed routes.
+- **Cloud Sync** — Keep cloud sync delayed and background-oriented later. Do not break offline-first.
 
 ---
 

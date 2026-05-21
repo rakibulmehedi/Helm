@@ -8,7 +8,8 @@
 ## Project Identity
 
 You are working on **Pocketa** — a Freelancer Finance OS for emerging Bangladeshi earners.
-This is NOT a generic expense tracker. Read `docs/POCKETA_BRAIN.md` for full product context.
+Category: **Cashflow Operations & Financial Mental Health**.
+This is NOT a backward-looking expense tracker. Read `docs/POCKETA_BRAIN.md` for full product context.
 
 ---
 

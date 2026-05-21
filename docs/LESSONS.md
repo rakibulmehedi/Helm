@@ -12,7 +12,10 @@ Generic expense apps are crowded and weakly differentiated. Pocketa is stronger 
 ### 2. Freelancer pain is more monetizable than general expense tracking
 Irregular income, pending payments, subscriptions, and business/personal separation create stronger product value.
 
-### 3. Calm UX matters more than feature count
+### 3. Pocketa must solve forward-looking freelancer cashflow uncertainty, not just backward-looking expense categorization
+Users need to know "Am I okay this month?" and "When is this USD clearing?" Tracking past expenses doesn't solve this primary anxiety.
+
+### 4. Calm UX matters more than feature count
 Finance users need clarity, not dashboard noise.
 
 ---
