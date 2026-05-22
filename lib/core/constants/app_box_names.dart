@@ -18,5 +18,8 @@ abstract final class AppBoxNames {
   /// Stores [IncomeModel] objects. Opened in Phase 7.
   static const String incomeBox = 'income_box';
 
+  /// Stores [FixedCostModel] objects. Opened in Phase 8b.
+  static const String fixedCostsBox = 'fixed_costs_box';
+
   // Add future box names here — never hard-code strings at the call site.
 }

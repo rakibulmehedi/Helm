@@ -6,12 +6,12 @@
 
 **Phase 8 — Safe-to-Spend Engine**
 Sub-phase: **Phase 8a (Formula & Data Contract) ✅ COMPLETE**
-Sub-phase: **Phase 8b (Calculation Engine) — NEXT**
+Sub-phase: **Phase 8b (Calculation Engine) ✅ COMPLETE**
+Sub-phase: **Phase 8c (Settings Screen) — NEXT**
 
 ## 2. Current Priority
 
-- **Phase 8b**: Implement `SafeToSpendCalculator`, `FixedCostEntry` domain entity, `FixedCostModel`,
-  `StsSettings` value object, and all data layer components.
+- **Phase 8c**: Implement `StsSettingsScreen` for tax rate slider, anxiety buffer input, and fixed costs CRUD.
 - Formula is locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
 - Execution plan is locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
 - Acceptance checklist is locked in `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md`.
@@ -30,8 +30,8 @@ Sub-phase: **Phase 8b (Calculation Engine) — NEXT**
 | Phase 7e — Status Transitions | Done (2026-05-22) |
 | Phase 7f — Storage Abstraction & Domain Cleanup | Done (2026-05-23) |
 | Phase 8a — Formula & Data Contract | Done (2026-05-23) |
-| Phase 8b — Calculation Engine | **NEXT** |
-| Phase 8c — Settings Screen | Pending 8b |
+| Phase 8b — Calculation Engine | Done (2026-05-23) |
+| Phase 8c — Settings Screen | **NEXT** |
 | Phase 8d — Dashboard Hero Number | Pending 8c |
 | Phase 8e — UX Hardening | Pending 8d |
 

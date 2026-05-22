@@ -52,7 +52,12 @@
   - `IncomeModel` now has `fromJson()`, `toJson()`
   - Zero Hive imports in domain or presentation layers
   - `dart analyze` clean: 0/0/0
-- **Next**: Phase 8 — Safe-to-Spend Engine
+- **Phase 8b COMPLETE**: Safe-to-Spend Calculation Engine
+  - `SafeToSpendCalculator` built as pure Dart logic with 10 edge cases tested.
+  - `FixedCostEntry`, `StsSettings`, `SafeToSpendResult` domain value objects.
+  - `FixedCostModel` (typeId 3) registered with Hive.
+  - `safe_to_spend_providers.dart` Riverpod providers set up.
+- **Next**: Phase 8c — Settings Screen
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

@@ -155,12 +155,13 @@
 - Ref: `docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md` (Option C)
 - Authority: Chief Architect — Decision 012
 
-### Phase 8 — Safe-to-Spend Model (Spec Ready)
+### Phase 8 — Safe-to-Spend Model (In Progress)
 - Spec: `docs/specs/SAFE_TO_SPEND_MODEL.md`
 - Depends on Phase 7f (Storage Abstraction & Domain Cleanup)
 - Formula: (Liquid Cash) - (Tax Reserve + Fixed Costs + Anxiety Buffer) = Safe to Spend
 - Pending income excluded from primary Safe-to-Spend number
 - "Waterline" concept for visual display
+- Sub-phases: 8a (Formula/Contract) ✅ → 8b (Calculation Engine) ✅ → 8c (Settings UI) → 8d (Dashboard Hero) → 8e (UX Hardening)
 
 ### Post-Phase 8 — User Validation Sprint (Mandatory)
 - 30 days with 5–10 real Bangladeshi freelancers

@@ -180,3 +180,13 @@ Phase 8 uses typeId: 3 for `FixedCostModel`. Document this in the spec and check
 checklist. Future features must consult this registry before assigning a new typeId.
 
 ### 8. Hive typeIds are global architecture state and require a registry.
+
+---
+
+## Phase 8b Lessons (2026-05-23)
+
+### 1. Pure dart business logic layers are easy to test
+The calculation logic was kept pure Dart (no Hive/Flutter imports), allowing immediate and easy unit tests with 10 edge cases.
+
+### 2. Riverpod asynchronous state handling requires care
+Deriving computed state like `safeToSpendProvider` from both synchronous notifiers and asynchronous sources (like `transactionsProvider`) needs `.valueOrNull ?? []` with proper fallback logic.
