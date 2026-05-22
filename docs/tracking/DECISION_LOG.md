@@ -106,3 +106,18 @@ Transactions represent completed financial events (expenses and income that alre
 
 Impact:
 New feature module at `lib/features/income/`. Separate data layer, domain entities, and providers. Dashboard integrates both but does not merge the data models.
+
+---
+
+## Decision 008 — Income list remains flat in Phase 7c
+
+Date: 2026-05-22
+
+Decision:
+The income pipeline list displays as a flat list sorted by expectedDate / updatedAt without month grouping.
+
+Reason:
+To keep the MVP cognitive load low and defer month grouping until real usage shows list length is actually a problem.
+
+Impact:
+Income list has a simple flat list layout. No sections or complex adapter header logic are introduced yet.
