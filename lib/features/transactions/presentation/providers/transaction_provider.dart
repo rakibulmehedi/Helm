@@ -1,25 +1,36 @@
+// lib/features/transactions/presentation/providers/transaction_provider.dart
+//
+// Riverpod providers for the transaction feature.
+//
+// Phase 7f — Provider now exposes TransactionEntity (domain type).
+// TransactionModel is no longer imported in the presentation layer.
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/datasources/transaction_local_data_source.dart';
-import '../../data/models/transaction_model.dart';
 import '../../data/repositories/transaction_repository_impl.dart';
+import '../../domain/entities/transaction_entity.dart';
 import '../../domain/repositories/transaction_repository.dart';
 
-final transactionLocalDataSourceProvider = Provider<TransactionLocalDataSource>((ref) {
+final transactionLocalDataSourceProvider =
+    Provider<TransactionLocalDataSource>((ref) {
   return TransactionLocalDataSourceImpl();
 });
 
-final transactionRepositoryProvider = Provider<TransactionRepository>((ref) {
+final transactionRepositoryProvider =
+    Provider<TransactionRepository>((ref) {
   final localDataSource = ref.watch(transactionLocalDataSourceProvider);
   return TransactionRepositoryImpl(localDataSource);
 });
 
-final transactionsProvider = StateNotifierProvider<TransactionsNotifier, AsyncValue<List<TransactionModel>>>((ref) {
+final transactionsProvider = StateNotifierProvider<
+    TransactionsNotifier, AsyncValue<List<TransactionEntity>>>((ref) {
   final repository = ref.watch(transactionRepositoryProvider);
   return TransactionsNotifier(repository);
 });
 
-class TransactionsNotifier extends StateNotifier<AsyncValue<List<TransactionModel>>> {
+class TransactionsNotifier
+    extends StateNotifier<AsyncValue<List<TransactionEntity>>> {
   final TransactionRepository _repository;
 
   TransactionsNotifier(this._repository) : super(const AsyncValue.loading()) {
@@ -38,7 +49,7 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<TransactionMode
     }
   }
 
-  Future<void> addTransaction(TransactionModel transaction) async {
+  Future<void> addTransaction(TransactionEntity transaction) async {
     try {
       await _repository.addTransaction(transaction);
       await loadTransactions();
@@ -47,7 +58,7 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<TransactionMode
     }
   }
 
-  Future<void> updateTransaction(TransactionModel transaction) async {
+  Future<void> updateTransaction(TransactionEntity transaction) async {
     try {
       await _repository.updateTransaction(transaction);
       await loadTransactions();
@@ -64,7 +75,7 @@ class TransactionsNotifier extends StateNotifier<AsyncValue<List<TransactionMode
       state = AsyncValue.error(e, st);
     }
   }
-  
+
   Future<void> clearTransactions() async {
     try {
       await _repository.clearTransactions();

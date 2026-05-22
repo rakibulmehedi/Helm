@@ -1,0 +1,1 @@
+/Users/rakibulislammehedi/Flutter Projects/Pocketa/.claude/skills/gstack/ios-fix/SKILL.md

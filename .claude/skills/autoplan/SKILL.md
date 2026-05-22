@@ -1,0 +1,1 @@
+/Users/rakibulislammehedi/Flutter Projects/Pocketa/.claude/skills/gstack/autoplan/SKILL.md

@@ -16,7 +16,7 @@ import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 
-import '../../data/models/transaction_model.dart';
+import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
 import '../providers/transaction_provider.dart';
 
@@ -108,7 +108,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     setState(() => _isSaving = true);
 
     try {
-      final transaction = TransactionModel(
+      final transaction = TransactionEntity(
         id: widget.transactionId ?? IdGenerator.uniqueId(),
         title: _titleController.text.trim(),
         amount: double.parse(_amountController.text.trim()),

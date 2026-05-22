@@ -112,3 +112,19 @@ Gemini research audit and Claude architecture audit gave opposite advice on Hive
 
 ### 7. Never start a new feature phase without verifying the previous phase acceptance checklist is fully satisfied
 Phase 7 acceptance checklist had status transition items unchecked. TASKS.md said it was done. The checklist is the ground truth — always verify it, not just the task tracker.
+
+---
+
+## Phase 7f Lessons (2026-05-23)
+
+### 1. Moving a Hive adapter out of the domain is a surgical one-file change
+When `@HiveType` annotations live in the domain layer, the fix is: (a) strip the annotation and `part` directive from the domain enum, (b) create a manual TypeAdapter in `data/adapters/`, (c) delete the stale `.g.dart`, (d) update `HiveService` import. Zero stored data changes, zero typeId changes. The entire operation is safe and reversible.
+
+### 2. All generated adapters must have a matching manual fallback strategy documented
+If build_runner ever fails, manual adapters in `data/adapters/` serve as a safe fallback. The key rule: preserve typeId and byte-index assignments exactly. Changing either causes irreversible data corruption.
+
+### 3. Domain purity is testability — not just architecture theory
+A pure Dart domain layer can be tested without Flutter, without Hive, without any platform setup. This is the real payoff. A domain that imports Hive forces all tests to mock storage infrastructure before testing business logic.
+
+### 4. Repository interface type defines the domain boundary contract
+If `TransactionRepository` accepts `TransactionModel`, every caller in the presentation layer must know about Hive models. Changing the interface to accept `TransactionEntity` ripples through exactly the right files — presentation and domain — without touching the data layer internals.

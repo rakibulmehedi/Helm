@@ -14,7 +14,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:pocketa_v2/features/transactions/data/models/transaction_model.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:pocketa_v2/features/transactions/data/adapters/transaction_type_adapter.dart';
 import 'package:pocketa_v2/features/income/data/models/income_model.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 

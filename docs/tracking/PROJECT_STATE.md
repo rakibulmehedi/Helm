@@ -14,6 +14,7 @@
 - undo delete
 - UX hardening
 - income pipeline (Phase 7 complete: data layer, entry UI, list/filter, dashboard, status transitions)
+- transaction domain abstraction (Phase 7f complete: TransactionEntity, clean repository interface, Hive boundary enforcement)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -26,9 +27,6 @@
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
-- `TransactionType` enum has `@HiveType` in domain layer (architecture violation — must move to data layer)
-- No `TransactionEntity` — `TransactionRepository` interface currently imports `TransactionModel` directly (domain depends on data)
-- No `fromJson`/`toJson` on `IncomeModel` or `TransactionModel` (limits export/import/debugging)
 
 ## 4. Current Architecture
 - Framework: Flutter
@@ -45,7 +43,16 @@
   - /income route wired; accepts optional initialFilter for deep-link from dashboard
   - dashboard income pipeline summary: Expected/Pending/Received totals, calm colors, empty state, tap-to-filter navigation
   - status quick-action transitions (Expected→Pending, Pending→Received), UX hardening, financial trust fixes
-- **Next**: Phase 7f — Storage Abstraction & Domain Cleanup (Decision 012), then Phase 8 Safe-to-Spend
+- **Phase 7f COMPLETE**: Storage Abstraction & Domain Cleanup
+  - `TransactionEntity` created (pure Dart, zero Hive/Flutter imports)
+  - `TransactionType` enum cleaned (Hive adapter moved to `data/adapters/` layer)
+  - `TransactionRepository` interface now accepts/returns `TransactionEntity`
+  - `TransactionRepositoryImpl` maps entity↔model internally — data layer boundary enforced
+  - `TransactionModel` now has `fromEntity()`, `toEntity()`, `fromJson()`, `toJson()`
+  - `IncomeModel` now has `fromJson()`, `toJson()`
+  - Zero Hive imports in domain or presentation layers
+  - `dart analyze` clean: 0/0/0
+- **Next**: Phase 8 — Safe-to-Spend Engine
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

@@ -1,11 +1,26 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
+// lib/features/transactions/data/adapters/transaction_type_adapter.dart
+//
+// Hive TypeAdapter for [TransactionType].
+//
+// This adapter was previously generated (transaction_type.g.dart) and lived
+// in the domain layer. Phase 7f moves it here so that the domain enum
+// remains pure Dart with zero Hive dependencies.
+//
+// typeId: 4 — FIXED. Do not change. Matches previously stored data.
+//
+// Field index assignments are PERMANENT:
+//   0 → TransactionType.income
+//   1 → TransactionType.expense
+//
+// Phase 7f — Storage Abstraction & Domain Cleanup
 
-part of 'transaction_type.dart';
+import 'package:hive/hive.dart';
+import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 
-// **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
+/// Hive adapter for the [TransactionType] enum.
+///
+/// Registered in [HiveService._registerAdapters] with typeId 4.
+/// Kept in the data layer so the domain enum stays Hive-free.
 class TransactionTypeAdapter extends TypeAdapter<TransactionType> {
   @override
   final int typeId = 4;

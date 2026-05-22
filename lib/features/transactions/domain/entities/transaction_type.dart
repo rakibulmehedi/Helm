@@ -1,12 +1,19 @@
-import 'package:hive/hive.dart';
+// lib/features/transactions/domain/entities/transaction_type.dart
+//
+// Pure Dart domain enum — zero Hive dependencies.
+// The Hive TypeAdapter lives in the data layer:
+//   lib/features/transactions/data/adapters/transaction_type_adapter.dart
+//
+// Phase 7f — Storage Abstraction & Domain Cleanup
 
-part 'transaction_type.g.dart';
-
-@HiveType(typeId: 4)
+/// The type of a financial transaction.
+///
+/// Used by both [TransactionEntity] (domain) and [TransactionModel] (data).
+/// Hive serialisation is handled by [TransactionTypeAdapter] in the data layer.
 enum TransactionType {
-  @HiveField(0)
+  /// An income transaction (money received / credited).
   income,
-  
-  @HiveField(1)
+
+  /// An expense transaction (money spent / debited).
   expense,
 }

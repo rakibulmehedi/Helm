@@ -1,0 +1,1 @@
+/Users/rakibulislammehedi/Flutter Projects/Pocketa/.claude/skills/gstack/land-and-deploy/SKILL.md

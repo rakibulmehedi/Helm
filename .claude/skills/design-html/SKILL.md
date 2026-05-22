@@ -1,0 +1,1 @@
+/Users/rakibulislammehedi/Flutter Projects/Pocketa/.claude/skills/gstack/design-html/SKILL.md

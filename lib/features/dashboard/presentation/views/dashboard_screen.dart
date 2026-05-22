@@ -11,7 +11,7 @@ import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 import 'package:pocketa_v2/features/income/presentation/widgets/income_pipeline_summary.dart';
-import 'package:pocketa_v2/features/transactions/data/models/transaction_model.dart';
+import 'package:pocketa_v2/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
 
@@ -30,7 +30,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   /// Deletes a transaction and shows a SnackBar with an Undo action.
   /// The deleted transaction is kept in memory so it can be re-added
   /// if the user taps Undo within the SnackBar timeout window.
-  void _deleteWithUndo(TransactionModel tx) {
+  void _deleteWithUndo(TransactionEntity tx) {
     // Delete immediately
     ref.read(transactionsProvider.notifier).deleteTransaction(tx.id);
 
@@ -65,7 +65,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     double totalIncome = 0;
     double totalExpense = 0;
-    List<TransactionModel> filteredTransactions = [];
+    List<TransactionEntity> filteredTransactions = [];
 
     transactionsAsync.whenData((data) {
       for (var tx in data) {
@@ -284,7 +284,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     }
                     
                     // Grouping Logic
-                    final Map<String, List<TransactionModel>> grouped = {};
+                    final Map<String, List<TransactionEntity>> grouped = {};
                     final now = DateTime.now();
                     final todayStr = DateFormat('yyyy-MM-dd').format(now);
                     final yesterdayStr = DateFormat('yyyy-MM-dd').format(now.subtract(const Duration(days: 1)));
@@ -335,7 +335,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           );
                         }
                         
-                        final tx = item as TransactionModel;
+                        final tx = item as TransactionEntity;
                         return _TransactionListItem(
                           transaction: tx,
                           isDark: isDark,
@@ -414,7 +414,7 @@ class _TransactionListItem extends StatelessWidget {
     required this.onDeleteWithUndo,
   });
 
-  final TransactionModel transaction;
+  final TransactionEntity transaction;
   final bool isDark;
   final String currency;
   final VoidCallback onDeleteWithUndo;

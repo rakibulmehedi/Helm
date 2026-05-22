@@ -96,6 +96,28 @@ class IncomeModel extends HiveObject {
     );
   }
 
+  /// Creates an [IncomeModel] from a JSON map.
+  ///
+  /// The `statusIndex` field is stored as an integer.
+  /// All [DateTime] fields are stored as ISO-8601 strings.
+  factory IncomeModel.fromJson(Map<String, dynamic> json) {
+    return IncomeModel(
+      id: json['id'] as String,
+      clientName: json['clientName'] as String,
+      projectName: json['projectName'] as String,
+      amount: (json['amount'] as num).toDouble(),
+      currency: json['currency'] as String,
+      statusIndex: json['statusIndex'] as int,
+      expectedDate: DateTime.parse(json['expectedDate'] as String),
+      receivedDate: json['receivedDate'] != null
+          ? DateTime.parse(json['receivedDate'] as String)
+          : null,
+      notes: json['notes'] as String?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+    );
+  }
+
   // ── Converters ─────────────────────────────────────────────────────────────
 
   /// Converts this Hive model to the domain [IncomeEntryEntity].
@@ -120,5 +142,24 @@ class IncomeModel extends HiveObject {
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
+  }
+
+  /// Serialises this model to a JSON map.
+  ///
+  /// All [DateTime] fields are stored as ISO-8601 strings.
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'clientName': clientName,
+      'projectName': projectName,
+      'amount': amount,
+      'currency': currency,
+      'statusIndex': statusIndex,
+      'expectedDate': expectedDate.toIso8601String(),
+      'receivedDate': receivedDate?.toIso8601String(),
+      'notes': notes,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+    };
   }
 }
