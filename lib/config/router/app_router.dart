@@ -19,6 +19,7 @@ import 'package:pocketa_v2/features/splash/views/splash_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/add_income_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/income_list_screen.dart';
 import 'package:pocketa_v2/features/transactions/presentation/views/add_transaction_screen.dart';
+import 'package:pocketa_v2/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
 
 /// The single [GoRouter] instance used by [MaterialApp.router].
 ///
@@ -84,6 +85,11 @@ final GoRouter appRouter = GoRouter(
         }
         return AddIncomeScreen(incomeId: id);
       },
+    ),
+    GoRoute(
+      path: RouteNames.stsSettings,
+      name: 'stsSettings',
+      builder: (context, state) => const StsSettingsScreen(),
     ),
   ],
 );

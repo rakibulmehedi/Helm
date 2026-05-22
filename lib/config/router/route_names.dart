@@ -21,6 +21,9 @@ abstract final class RouteNames {
   static const String addIncome      = '/add-income';
   static const String editIncome     = '/edit-income/:id';
 
+  // ── safe to spend ─────────────────────────────────────────────────────────────
+  static const String stsSettings    = '/sts-settings';
+
   // ── future (reserved, not yet wired) ──────────────────────────────────────
   // static const String transactions    = '/transactions';
   // static const String budget          = '/budget';

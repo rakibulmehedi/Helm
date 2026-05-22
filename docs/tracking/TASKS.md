@@ -10,7 +10,6 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 
 ## Next
 
-- [ ] **Phase 8c** — Settings Screen: tax rate slider, anxiety buffer input, fixed costs CRUD
 - [ ] **Phase 8d** — Dashboard Hero Number: `SafeToSpendHeroCard`, breakdown on tap, Horizon Number
 - [ ] **Phase 8e** — UX Hardening: edge case copy, USD note, future-date soft warn, all EC display
 - [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
@@ -57,3 +56,4 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 - [x] Phase 7f — Storage Abstraction & Domain Cleanup (2026-05-23)
 - [x] Phase 8a — Formula & Data Contract: formula locked, 10 ECs defined, data contract finalized (2026-05-23)
 - [x] Phase 8b — Calculation Engine: pure Dart logic, models, Hive data layer, providers, tests (2026-05-23)
+- [x] Phase 8c — Settings Screen: tax rate slider, anxiety buffer input, fixed costs CRUD (2026-05-23)

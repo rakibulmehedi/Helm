@@ -161,7 +161,7 @@
 - Formula: (Liquid Cash) - (Tax Reserve + Fixed Costs + Anxiety Buffer) = Safe to Spend
 - Pending income excluded from primary Safe-to-Spend number
 - "Waterline" concept for visual display
-- Sub-phases: 8a (Formula/Contract) ✅ → 8b (Calculation Engine) ✅ → 8c (Settings UI) → 8d (Dashboard Hero) → 8e (UX Hardening)
+- Sub-phases: 8a (Formula/Contract) ✅ → 8b (Calculation Engine) ✅ → 8c (Settings UI) ✅ → 8d (Dashboard Hero) → 8e (UX Hardening)
 
 ### Post-Phase 8 — User Validation Sprint (Mandatory)
 - 30 days with 5–10 real Bangladeshi freelancers

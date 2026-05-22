@@ -57,7 +57,11 @@
   - `FixedCostEntry`, `StsSettings`, `SafeToSpendResult` domain value objects.
   - `FixedCostModel` (typeId 3) registered with Hive.
   - `safe_to_spend_providers.dart` Riverpod providers set up.
-- **Next**: Phase 8c — Settings Screen
+- **Phase 8c COMPLETE**: Safe-to-Spend Settings Screen
+  - `StsSettingsScreen` built with tax rate slider, anxiety buffer input, and fixed costs CRUD.
+  - Configured route `/sts-settings`.
+  - Delete with Undo implemented for fixed costs.
+- **Next**: Phase 8d — Dashboard Hero Number
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)
