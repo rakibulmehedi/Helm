@@ -122,19 +122,11 @@ Execute Option C → D (actual Drift migration) when ANY of the following become
 | Audit says Virtual Wallets are "Build Next" vs. ROADMAP.md shows Phase 8+ | **Roadmap wins. S2S first, wallets second. Both agree on order, audit just has tighter framing.** |
 | TASKS.md shows Phase 7e as done vs. CURRENT_SPRINT.md shows it as "Not started" | **TASKS.md is incorrect. Phase 7e status transitions are NOT yet implemented. See below.** |
 
-### Critical Stale Doc Discovery: TASKS.md is Incorrect
+### Critical Discovery Correction: TASKS.md Was Stale (Now Resolved)
 
-`docs/tracking/TASKS.md` line 13 marks Phase 7e as:
-```
-- [x] Phase 7e: Income Flow Stabilization & UX Hardening
-```
+`docs/tracking/TASKS.md` line 13 had marked Phase 7e as done but an earlier CURRENT_SPRINT.md showed it as "Not started." Investigation of `git log` confirmed:
 
-But `docs/tracking/CURRENT_SPRINT.md` line 26 shows:
-```
-| Phase 7e — Status Transitions | Not started |
-```
-
-**TASKS.md is STALE.** Phase 7e (status quick-action buttons on income cards) has NOT been implemented. The acceptance checklist in `PHASE_7_ACCEPTANCE_CHECKLIST.md` confirms status transition items are unchecked. This must be corrected — see Section 8.
+**Phase 7e WAS completed** — commit `3daaff9` (feat(income): Phase 7e — Income flow stabilization & UX hardening) by Claude, dated 2026-05-22. CURRENT_SPRINT.md was the stale document, not TASKS.md. Both have been corrected to reflect Phase 7 as fully complete.
 
 ---
 
@@ -224,29 +216,22 @@ None of the original paths A–D are exactly right in isolation. The recommended
 
 ## 7. Next 3 Execution Moves
 
-### Move 1: Complete Phase 7e — Status Transitions (IMMEDIATE)
-**What:** Implement the quick-action status transition buttons on income cards (Expected → Pending, Pending → Received). This is the last unchecked Phase 7 item.
-**Why first:** Phase 7 is not done. The acceptance checklist gates Phase 8. Phase 8 cannot be started on an incomplete pipeline.
-**Effort:** ~4–6h
-**Owner:** Implementation agent (Claude Code or Antigravity)
-**Success gate:** All items in `PHASE_7_ACCEPTANCE_CHECKLIST.md` checked. `dart analyze` 0/0/0.
-
-### Move 2: Domain Cleanup Sprint (PRE-PHASE 8, ~7–11h)
+### Move 1: Domain Cleanup Sprint (PRE-PHASE 8, ~7–11h)
 **What:**
 - Create `TransactionEntity` (pure Dart domain class)
 - Fix `TransactionRepository` interface to accept/return entities
 - Move `TransactionType @HiveType` annotation to data layer copy only
 - Add `fromEntity`/`toEntity` to `TransactionModel`
-- Add `fromJson`/`toJson` to both `IncomeModel` and `TransactionModel`
 - Update transaction providers for entity types
-**Why now:** Before Phase 8 adds more cross-domain logic (S2S aggregates across both domains). Cheap now, expensive later. Fixes real architecture violations confirmed by codebase audit.
+- Add `fromJson`/`toJson` to both `IncomeModel` and `TransactionModel`
+**Why first:** Phase 7 is complete (7a–7e all done). Before Phase 8 adds more cross-domain logic (S2S aggregates across both domains), the transaction domain violations should be resolved. Cheap now, expensive later.
 **Effort:** ~7–11h (Option A + partial Option C from migration analysis)
 **Owner:** Implementation agent
 **Success gate:** `dart analyze` 0/0/0. No domain layer imports Hive.
 
-### Move 3: Build Phase 8 — Safe-to-Spend Engine
+### Move 2: Build Phase 8 — Safe-to-Spend Engine
 **What:** Implement the S2S formula, settings screens (tax slider, anxiety buffer, fixed costs), and dashboard hero widget. Full spec in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
-**Why third:** Depends on Phase 7e being complete (needs Received income data). Benefits from domain cleanup (S2S aggregates across both boxes). This is the product's singular value proposition — it should ship as soon as its dependencies are stable.
+**Why second:** Depends on Phase 7e being complete (needs Received income data). Benefits from domain cleanup (S2S aggregates across both boxes). This is the product's singular value proposition — it should ship as soon as its dependencies are stable.
 **Effort:** TBD (spec is ready; implementation has not been scoped in hours)
 **Owner:** Implementation agent
 **Success gate:** User can open app and see Safe-to-Spend number within 3 seconds. Setup (tax + buffer + 1 fixed cost) takes < 2 minutes. Pending/Expected income never included in the primary number.

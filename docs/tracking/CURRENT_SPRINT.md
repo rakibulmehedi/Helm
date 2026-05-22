@@ -4,13 +4,13 @@
 
 ## 1. Active Sprint
 
-**Phase 7 — Freelancer Income Pipeline**
+**Phase 7 — Freelancer Income Pipeline ✅ COMPLETE**
+**Next Sprint: Domain Cleanup + Phase 8 — Safe-to-Spend Engine**
 
 ## 2. Current Priority
 
-- Implement Income Pipeline (Expected / Pending / Received states)
-- New feature module: `lib/features/income/`
-- Dashboard income summary integration
+- Domain Cleanup Sprint (pre-Phase 8): TransactionEntity, @HiveType fix, fromJson/toJson (~7–11h)
+- Phase 8: Safe-to-Spend Model (spec ready at `docs/specs/SAFE_TO_SPEND_MODEL.md`)
 
 ## 3. Sprint Status
 
@@ -23,7 +23,7 @@
 | Phase 7b — Income Entry UI | Done (2026-05-22) |
 | Phase 7c — Income List & Filtering | Done (2026-05-22) |
 | Phase 7d — Dashboard Integration | Done (2026-05-22) |
-| Phase 7e — Status Transitions | **Pending — NOT yet implemented** |
+| Phase 7e — Status Transitions | Done (2026-05-22) |
 
 ## 4. Out-of-Scope Systems
 

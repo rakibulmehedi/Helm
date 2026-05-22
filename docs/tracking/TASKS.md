@@ -10,7 +10,7 @@ Sprint: Phase 7 — Freelancer Income Pipeline
 - [x] Phase 7b: Income Entry UI (AddIncomeScreen, form, validation, routes)
 - [x] Phase 7c: Income List & Filtering (IncomeListScreen, status tabs, card display, delete + undo)
 - [x] Phase 7d: Dashboard Integration (income summary cards, navigation to filtered list)
-- [ ] Phase 7e: Status Transitions (quick-action buttons on income cards — NOT YET IMPLEMENTED)
+- [x] Phase 7e: Status Transitions & UX Hardening (quick-action buttons, stability, financial trust fixes)
 
 ## Next
 

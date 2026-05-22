@@ -144,7 +144,7 @@
 - Three-state model: Expected → Pending → Received
 - Income entry CRUD with client/project tracking
 - Dashboard income summary integration
-- Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) ✅ → 7e (status transitions) ⏳ PENDING
+- Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) ✅ → 7e (status transitions + UX hardening) ✅
 
 ### Domain Cleanup Sprint (Pre-Phase 8)
 - Create `TransactionEntity` (pure Dart domain class)
