@@ -206,3 +206,10 @@ The calculation logic was kept pure Dart (no Hive/Flutter imports), allowing imm
 
 ### 2. Riverpod asynchronous state handling requires care
 Deriving computed state like `safeToSpendProvider` from both synchronous notifiers and asynchronous sources (like `transactionsProvider`) needs `.valueOrNull ?? []` with proper fallback logic.
+
+---
+
+## Phase 8f Lessons (2026-05-23)
+
+### 1. QA preparation is separate from development
+Separating real device QA preparation and validation metrics definition into its own phase ensures that the product is actually ready for user feedback, moving the focus from building to observing.

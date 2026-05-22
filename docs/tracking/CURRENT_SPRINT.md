@@ -9,10 +9,12 @@ Sub-phase: **Phase 8a (Formula & Data Contract) ✅ COMPLETE**
 Sub-phase: **Phase 8c (Settings Screen) ✅ COMPLETE**
 Sub-phase: **Phase 8d (Dashboard Hero Number) ✅ COMPLETE**
 Sub-phase: **Phase 8e (UX Hardening) ✅ COMPLETE**
+Sub-phase: **Phase 8f (Real Device QA + Validation Prep) ✅ COMPLETE**
 
 ## 2. Current Priority
 
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
+- **Phase 8f COMPLETE** — QA and Validation matrices prepared.
 - Next: Post-Phase 8 User Validation Sprint (Decision 013) — 5–10 real users, 30 days.
 - Formula locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
 - Execution plan locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
@@ -35,6 +37,7 @@ Sub-phase: **Phase 8e (UX Hardening) ✅ COMPLETE**
 | Phase 8c — Settings Screen | Done (2026-05-23) |
 | Phase 8d — Dashboard Hero Number | Done (2026-05-23) |
 | Phase 8e — UX Hardening | Done (2026-05-23) |
+| Phase 8f — Real Device QA + Validation Prep | Done (2026-05-23) |
 
 ## 4. Out-of-Scope Systems
 
@@ -70,5 +73,8 @@ A freelancer should be able to:
 ## 7. Post-Audit Strategic Context
 
 See `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` for full strategic synthesis.
+Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011).
+User validation sprint planned post-Phase 8 (Decision 013). STS formula locked (Decision 014).
+ee `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` for full strategic synthesis.
 Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011).
 User validation sprint planned post-Phase 8 (Decision 013). STS formula locked (Decision 014).

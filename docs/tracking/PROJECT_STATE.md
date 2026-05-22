@@ -71,6 +71,11 @@
   - USD exclusion transparency row added to breakdown when `excludedUsdIncome > 0`.
   - Reserve-mode context note added to breakdown when `rawSafeToSpend < 0`.
   - `Colors.grey` replaced with `AppColors.textSecondary` throughout settings screen.
+- **Phase 8f COMPLETE**: Real Device QA + Validation Prep
+  - `PHASE_8_REAL_DEVICE_QA_CHECKLIST.md` for manual device testing.
+  - `SAFE_TO_SPEND_SCENARIO_MATRIX.md` for formula edge cases.
+  - `FOUNDER_VALIDATION_SCRIPT.md` and user interview questions prepared.
+  - `VALIDATION_METRICS.md` defined for assessing product-market fit.
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
 - **Next**: Post-Phase 8 User Validation Sprint
 
