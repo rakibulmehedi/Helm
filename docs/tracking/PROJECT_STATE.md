@@ -45,7 +45,7 @@
   - /income route wired; accepts optional initialFilter for deep-link from dashboard
   - dashboard income pipeline summary: Expected/Pending/Received totals, calm colors, empty state, tap-to-filter navigation
   - status quick-action transitions (Expected→Pending, Pending→Received), UX hardening, financial trust fixes
-- **Next**: Domain Cleanup Sprint (TransactionEntity, @HiveType fix, fromJson/toJson) then Phase 8 Safe-to-Spend
+- **Next**: Phase 7f — Storage Abstraction & Domain Cleanup (Decision 012), then Phase 8 Safe-to-Spend
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

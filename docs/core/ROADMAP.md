@@ -146,18 +146,18 @@
 - Dashboard income summary integration
 - Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) ✅ → 7e (status transitions + UX hardening) ✅
 
-### Domain Cleanup Sprint (Pre-Phase 8)
+### Phase 7f — Storage Abstraction & Domain Cleanup (Decision 012)
 - Create `TransactionEntity` (pure Dart domain class)
 - Fix `TransactionRepository` to use entities, not `TransactionModel`
 - Move `TransactionType @HiveType` annotation out of domain layer
 - Add `fromJson`/`toJson` to `IncomeModel` and `TransactionModel`
 - Estimated effort: ~7–11h
-- Ref: `docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md` (Option C + Option A)
-- Decision: Decision 010 (Hive migration deferred; domain cleanup only)
+- Ref: `docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md` (Option C)
+- Authority: Chief Architect — Decision 012
 
 ### Phase 8 — Safe-to-Spend Model (Spec Ready)
 - Spec: `docs/specs/SAFE_TO_SPEND_MODEL.md`
-- Depends on Phase 7 complete (including 7e) + Domain Cleanup Sprint
+- Depends on Phase 7f (Storage Abstraction & Domain Cleanup)
 - Formula: (Liquid Cash) - (Tax Reserve + Fixed Costs + Anxiety Buffer) = Safe to Spend
 - Pending income excluded from primary Safe-to-Spend number
 - "Waterline" concept for visual display
@@ -165,7 +165,7 @@
 ### Post-Phase 8 — User Validation Sprint (Mandatory)
 - 30 days with 5–10 real Bangladeshi freelancers
 - Primary question: Will users maintain the pipeline manually?
-- Decision 012: Phase 9 scope is conditional on validation outcome
+- Decision 013: Phase 9 scope is conditional on validation outcome
 - Ref: `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md`
 
 ### Phase 8+ — Virtual Wallets (Future)

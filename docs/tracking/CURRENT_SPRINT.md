@@ -5,12 +5,12 @@
 ## 1. Active Sprint
 
 **Phase 7 — Freelancer Income Pipeline ✅ COMPLETE**
-**Next Sprint: Domain Cleanup + Phase 8 — Safe-to-Spend Engine**
+**Next Sprint: Phase 7f — Storage Abstraction & Domain Cleanup (Decision 012)**
 
 ## 2. Current Priority
 
-- Domain Cleanup Sprint (pre-Phase 8): TransactionEntity, @HiveType fix, fromJson/toJson (~7–11h)
-- Phase 8: Safe-to-Spend Model (spec ready at `docs/specs/SAFE_TO_SPEND_MODEL.md`)
+- **Phase 7f**: Create TransactionEntity, fix TransactionRepository, move @HiveType out of domain layer, add fromJson/toJson to models (~7–11h)
+- Phase 8: Safe-to-Spend Model (spec ready at `docs/specs/SAFE_TO_SPEND_MODEL.md`) — begins after Phase 7f
 
 ## 3. Sprint Status
 

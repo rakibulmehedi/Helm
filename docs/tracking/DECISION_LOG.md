@@ -181,7 +181,40 @@ Candidate directions: "Active Cashflow Guardian", "Cashflow Survival Guide", "Sa
 
 ---
 
-## Decision 012 — Post-Phase 8 User Validation Sprint Is Mandatory
+## Decision 012 — Adopt Storage Abstraction First (Phase 7f)
+
+Date: 2026-05-22
+Authority: Chief Architect
+Trigger: External Brutal Product Audit recommended immediate Hive → Drift migration. Repo-aware audit (Claude) contradicted this.
+
+Decision:
+Pocketa will NOT immediately migrate from Hive to Drift before Phase 8. Instead, it will first clean the transaction domain and storage boundaries so future migration becomes low-risk.
+
+This work is scoped as Phase 7f and runs before Phase 8 (Safe-to-Spend).
+
+Reason:
+- Repo-aware audit found the external audit's integer-key sync concern does not apply — Pocketa uses string IDs with box.put(id, model), not integer auto-keys
+- Full Drift migration now delays Safe-to-Spend by 1–2 weeks for sync readiness that is 12+ months away
+- Option C (Storage Abstraction First) provides the best risk/reward at this stage
+- Safe-to-Spend is the singular product value proposition and must not be delayed for infrastructure
+
+Impact:
+- Phase 7f will clean transaction domain boundaries before Safe-to-Spend
+- Creates TransactionEntity, fixes TransactionRepository domain violation, moves @HiveType out of domain, adds fromJson/toJson
+- Migration surface reduced to ~4 files when Drift is actually needed
+- Drift/PowerSync remains the confirmed long-term target before cloud sync (Phase 13+)
+
+Migration gate criteria (when to execute actual Drift migration):
+- Cloud sync is scheduled within 2 phases, OR
+- Active users exceed 200 (data recovery becomes critical), OR
+- A third data domain is added, OR
+- Hive breaks on a Flutter stable release
+
+Ref: docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md, docs/architecture/HIVE_TO_DRIFT_MIGRATION_OPTIONS.md
+
+---
+
+## Decision 013 — Post-Phase 8 User Validation Sprint Is Mandatory
 
 Date: 2026-05-22
 Trigger: Brutal Product Audit + Gemini validation identified manual pipeline maintenance as the #1 product failure vector.

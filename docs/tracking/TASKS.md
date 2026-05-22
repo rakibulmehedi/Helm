@@ -14,10 +14,10 @@ Sprint: Phase 7 — Freelancer Income Pipeline
 
 ## Next
 
-- [ ] Domain Cleanup Sprint (pre-Phase 8): Create TransactionEntity, fix TransactionRepository, move @HiveType out of domain, add fromJson/toJson to models (~7–11h)
-- [ ] Phase 8: Safe-to-Spend Model (spec ready, depends on Phase 7 complete + domain cleanup)
-- [ ] Post-Phase 8 User Validation Sprint (5–10 real users, 30 days — validate pipeline maintenance behavior)
-- [ ] Virtual Wallets (spec ready, depends on Phase 7 + transaction tagging)
+- [ ] **Phase 7f** — Storage Abstraction & Domain Cleanup (Decision 012): Create TransactionEntity, fix TransactionRepository, move @HiveType out of domain, add fromJson/toJson (~7–11h)
+- [ ] Phase 8: Safe-to-Spend Model (spec ready, depends on Phase 7f)
+- [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
+- [ ] Virtual Wallets (depends on Phase 7 + transaction tagging)
 - [ ] Phase 9: Subscription Leakage Radar (spec ready)
 
 ## Backlog
