@@ -12,12 +12,15 @@ This checklist is designed for real-device testing of Pocketa after completing P
 - [ ] **Fixed Cost CRUD Test:** Add, edit, delete a fixed cost item. Verify settings update and Safe-to-Spend recalculates based on 30-day proximity.
 
 ## 3. Safe-to-Spend Logic & Engine
-- [ ] **Income Status Transition:** Change an income from Expected -> Pending -> Received. Verify Safe-to-Spend only includes it when 'Received'.
+- [ ] **Income Status Transition:** Change an income from Expected -> Pending -> Received. Verify Safe-to-Spend only includes it when Received.
 - [ ] **Pending/Expected Exclusion:** Add massive pending/expected income. Verify Safe-to-Spend does not increase.
-- [ ] **USD Exclusion State:** Toggle 'Exclude USD Income' in settings. Ensure USD-denominated received income is added/removed from the STS calculation immediately.
-- [ ] **Reserve Mode Test:** Toggle 'Reserve Mode' (percentage vs fixed). Update amounts/percentages and verify the Anxiety Buffer/Tax Reserve deductions.
-- [ ] **Fully Allocated Test:** Ensure that if reserves + fixed costs > received income, Safe-to-Spend clamps exactly to 0 (no negative values displayed to user, though raw may be negative).
-- [ ] **No-Income State Test:** App gracefully handles zero received income (STS = 0).
+- [ ] **USD Exclusion State:** Add received USD income. Verify Safe-to-Spend does not include it and the breakdown clearly explains USD exclusion.
+- [ ] **Tax Reserve Test:** Change tax rate and verify tax reserve updates based on gross received BDT income.
+- [ ] **Anxiety Buffer Test:** Change anxiety buffer amount and verify it is deducted from Safe-to-Spend.
+- [ ] **Fixed Cost Due Window:** Add a fixed cost due within 30 days and verify it is deducted. Add one outside the window and verify it is not deducted.
+- [ ] **Reserve Mode Test:** Ensure when rawSafeToSpend < 0, the UI shows reserve-mode copy while displaying ৳0 as the user-facing amount.
+- [ ] **Fully Allocated Test:** Ensure when rawSafeToSpend == 0, the UI shows fully allocated copy.
+- [ ] **No-Income State Test:** App gracefully handles zero received income and shows a calm empty state.
 
 ## 4. UI & Aesthetics
 - [ ] **Safe-to-Spend Hero Test:** Verify the big number animation/display looks crisp.
@@ -30,3 +33,15 @@ This checklist is designed for real-device testing of Pocketa after completing P
 - [ ] **Low-End Device Smoothness:** Scroll lists and open bottom sheets on an older device to check for jank.
 - [ ] **App Restart Persistence:** Force close app and reopen. Data and STS calculation must load accurately without manual refresh.
 - [ ] **Analyzer/Test Verification:** Ensure `dart analyze` passes cleanly with no warnings or errors, and `flutter test` completes successfully.
+
+## 6. Financial Trust Checks
+- [ ] Safe-to-Spend never increases from Expected income.
+- [ ] Safe-to-Spend never increases from Pending income.
+- [ ] TransactionType.income entries do not count as received income.
+- [ ] Expenses reduce Liquid Cash.
+- [ ] Tax Reserve is calculated from gross received BDT income, not net cash.
+- [ ] rawSafeToSpend is used for state detection.
+- [ ] safeToSpend is displayed as clamped >= 0.
+- [ ] Breakdown explains every deduction.
+- [ ] No aggressive red color is used for low/zero Safe-to-Spend state.
+- [ ] No tax/legal certainty claim appears in UI copy.
