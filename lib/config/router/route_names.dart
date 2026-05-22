@@ -17,6 +17,7 @@ abstract final class RouteNames {
   static const String editTransaction = '/edit-transaction/:id';
 
   // ── income ───────────────────────────────────────────────────────────────────
+  static const String income         = '/income';
   static const String addIncome      = '/add-income';
   static const String editIncome     = '/edit-income/:id';
 

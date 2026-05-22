@@ -21,7 +21,7 @@
 | Income Pipeline MVP spec | Done (2026-05-22) |
 | Phase 7a — Income Data Layer | Done (2026-05-22) |
 | Phase 7b — Income Entry UI | Done (2026-05-22) |
-| Phase 7c — Income List & Filtering | Not started |
+| Phase 7c — Income List & Filtering | Done (2026-05-22) |
 | Phase 7d — Dashboard Integration | Not started |
 | Phase 7e — Status Transitions | Not started |
 
@@ -47,4 +47,4 @@ A freelancer should be able to:
 
 ## 6. Immediate Next Step
 
-Begin Phase 7c — Income List & Filtering implementation.
+Begin Phase 7d — Dashboard Integration (income summary cards).

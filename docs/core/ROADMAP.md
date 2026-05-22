@@ -144,7 +144,7 @@
 - Three-state model: Expected → Pending → Received
 - Income entry CRUD with client/project tracking
 - Dashboard income summary integration
-- Sub-phases: 7a (data layer) → 7b (entry UI) → 7c (list/filter) → 7d (dashboard) → 7e (status transitions)
+- Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) → 7e (status transitions)
 
 ### Phase 8 — Safe-to-Spend Model (Spec Ready)
 - Spec: `docs/specs/SAFE_TO_SPEND_MODEL.md`

@@ -178,6 +178,68 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
               ResponsiveUtilities.spacing(context, multiplier: 1.5),
 
+              // ── Income Pipeline navigation entry (Phase 7c — minimal link only) ─────
+              // Dashboard income summary cards will be added in Phase 7d.
+              // This row provides basic navigation to the income list.
+              InkWell(
+                onTap: () => context.push(RouteNames.income),
+                borderRadius: BorderRadius.circular(14),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+                  decoration: BoxDecoration(
+                    color: isDark ? AppColors.cardDark : AppColors.cardLight,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: isDark
+                          ? AppColors.grey.withValues(alpha: 0.15)
+                          : AppColors.border,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.shadow,
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 34,
+                        height: 34,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withValues(alpha: 0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(
+                          Icons.account_balance_wallet_outlined,
+                          size: 18,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Income Pipeline',
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: ResponsiveUtilities.font(context, 14),
+                            color: isDark ? AppColors.textLight : AppColors.textDark,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 14,
+                        color: AppColors.textSecondary,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              ResponsiveUtilities.spacing(context, multiplier: 1.5),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

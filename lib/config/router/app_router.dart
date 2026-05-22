@@ -17,6 +17,7 @@ import 'package:pocketa_v2/features/onboarding/presentation/views/onboarding_scr
 import 'package:pocketa_v2/features/onboarding/presentation/views/welcome_screen.dart';
 import 'package:pocketa_v2/features/splash/views/splash_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/add_income_screen.dart';
+import 'package:pocketa_v2/features/income/presentation/views/income_list_screen.dart';
 import 'package:pocketa_v2/features/transactions/presentation/views/add_transaction_screen.dart';
 
 /// The single [GoRouter] instance used by [MaterialApp.router].
@@ -60,6 +61,11 @@ final GoRouter appRouter = GoRouter(
         final id = state.pathParameters['id'];
         return AddTransactionScreen(transactionId: id);
       },
+    ),
+    GoRoute(
+      path: RouteNames.income,
+      name: 'income',
+      builder: (context, state) => const IncomeListScreen(),
     ),
     GoRoute(
       path: RouteNames.addIncome,
