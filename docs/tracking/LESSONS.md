@@ -178,3 +178,5 @@ Hive typeIds are global to the app — not scoped to a feature. Two features acc
 same typeId will cause runtime corruption with no useful error. The rule: maintain a registry.
 Phase 8 uses typeId: 3 for `FixedCostModel`. Document this in the spec and check the acceptance
 checklist. Future features must consult this registry before assigning a new typeId.
+
+### 8. Hive typeIds are global architecture state and require a registry.
