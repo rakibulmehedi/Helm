@@ -1,6 +1,6 @@
 // lib/features/dashboard/presentation/views/dashboard_screen.dart
 //
-// Phase 6: Dashboard with delete-undo flow and UX hardening.
+// Phase 7d: Dashboard with income pipeline summary integration.
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +10,7 @@ import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
+import 'package:pocketa_v2/features/income/presentation/widgets/income_pipeline_summary.dart';
 import 'package:pocketa_v2/features/transactions/data/models/transaction_model.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
@@ -178,64 +179,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
               ResponsiveUtilities.spacing(context, multiplier: 1.5),
 
-              // ── Income Pipeline navigation entry (Phase 7c — minimal link only) ─────
-              // Dashboard income summary cards will be added in Phase 7d.
-              // This row provides basic navigation to the income list.
-              InkWell(
-                onTap: () => context.push(RouteNames.income),
-                borderRadius: BorderRadius.circular(14),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-                  decoration: BoxDecoration(
-                    color: isDark ? AppColors.cardDark : AppColors.cardLight,
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                      color: isDark
-                          ? AppColors.grey.withValues(alpha: 0.15)
-                          : AppColors.border,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.shadow,
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 34,
-                        height: 34,
-                        decoration: BoxDecoration(
-                          color: AppColors.primary.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(
-                          Icons.account_balance_wallet_outlined,
-                          size: 18,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Income Pipeline',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: ResponsiveUtilities.font(context, 14),
-                            color: isDark ? AppColors.textLight : AppColors.textDark,
-                          ),
-                        ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 14,
-                        color: AppColors.textSecondary,
-                      ),
-                    ],
-                  ),
-                ),
+              // ── Income Pipeline Summary (Phase 7d) ──────────────────────────
+              IncomePipelineSummary(
+                isDark: isDark,
+                currency: currency,
               ),
 
               ResponsiveUtilities.spacing(context, multiplier: 1.5),

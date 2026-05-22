@@ -50,14 +50,32 @@ extension IncomeFilterLabel on IncomeFilter {
 // ── Screen ────────────────────────────────────────────────────────────────────
 
 class IncomeListScreen extends ConsumerStatefulWidget {
-  const IncomeListScreen({super.key});
+  const IncomeListScreen({super.key, this.initialFilter});
+
+  /// Optional initial filter name ('expected', 'pending', 'received').
+  /// If null or unrecognized, defaults to 'all'.
+  final String? initialFilter;
 
   @override
   ConsumerState<IncomeListScreen> createState() => _IncomeListScreenState();
 }
 
 class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
-  IncomeFilter _filter = IncomeFilter.all;
+  late IncomeFilter _filter;
+
+  @override
+  void initState() {
+    super.initState();
+    _filter = _parseFilter(widget.initialFilter);
+  }
+
+  IncomeFilter _parseFilter(String? name) {
+    if (name == null) return IncomeFilter.all;
+    for (final f in IncomeFilter.values) {
+      if (f.name == name) return f;
+    }
+    return IncomeFilter.all;
+  }
 
   // ── Delete with Undo ───────────────────────────────────────────────────────
 
