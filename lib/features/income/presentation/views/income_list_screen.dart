@@ -83,13 +83,19 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   /// If Undo is tapped within the timeout, the entry is re-added.
   ///
   /// Consistent with Phase 6 transaction delete pattern.
-  void _deleteWithUndo(IncomeEntryEntity entry) {
-    ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
+  Future<void> _deleteWithUndo(IncomeEntryEntity entry) async {
+    await ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
+    if (!mounted) return;
+
+    final formatter = NumberFormat('#,##0.00', 'en_US');
+    final amountText = '${entry.currency} ${formatter.format(entry.amount)}';
 
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('"${entry.clientName} — ${entry.projectName}" deleted'),
+        content: Text(
+          '${entry.clientName} — $amountText deleted',
+        ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         duration: const Duration(seconds: 4),
@@ -198,7 +204,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
             const SizedBox(height: 8),
 
             // ── Entry count label ────────────────────────────────────────────
-            if (allEntries.isNotEmpty)
+            if (displayed.isNotEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: ResponsiveUtilities.width(context, 0.06),
@@ -289,8 +295,9 @@ class _IncomeFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(20),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -376,11 +383,12 @@ class _IncomeCard extends StatelessWidget {
   final IncomeEntryEntity entry;
   final bool isDark;
 
+  static final _formatter = NumberFormat('#,##0.00', 'en_US');
+  static final _dateFormatter = DateFormat('dd MMM yyyy');
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final formatter = NumberFormat('#,##0.00', 'en_US');
-    final dateFormatter = DateFormat('dd MMM yyyy');
 
     final statusColor = _statusColor(entry.status);
     final statusLabel = _statusLabel(entry.status);
@@ -486,7 +494,7 @@ class _IncomeCard extends StatelessWidget {
             children: [
               // Amount
               Text(
-                '${entry.currency} ${formatter.format(entry.amount)}',
+                '${entry.currency} ${_formatter.format(entry.amount)}',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   fontSize: ResponsiveUtilities.font(context, 18),
@@ -509,7 +517,7 @@ class _IncomeCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'By ${dateFormatter.format(entry.expectedDate)}',
+                        'By ${_dateFormatter.format(entry.expectedDate)}',
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontSize: ResponsiveUtilities.font(context, 11),
                           color: AppColors.textSecondary,
@@ -532,7 +540,7 @@ class _IncomeCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Received ${dateFormatter.format(entry.receivedDate!)}',
+                          'Received ${_dateFormatter.format(entry.receivedDate!)}',
                           style: theme.textTheme.bodySmall?.copyWith(
                             fontSize: ResponsiveUtilities.font(context, 11),
                             color: AppColors.success,

@@ -47,6 +47,10 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   /// True when editing and the target income entry was not found.
   bool _incomeNotFound = false;
 
+  /// Cached createdAt from the original entry (edit mode).
+  /// Avoids re-reading provider during submit.
+  DateTime? _originalCreatedAt;
+
   @override
   void initState() {
     super.initState();
@@ -57,12 +61,13 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       if (entry != null) {
         _clientNameController.text = entry.clientName;
         _projectNameController.text = entry.projectName;
-        _amountController.text = entry.amount.toString();
+        _amountController.text = entry.amount.toStringAsFixed(2);
         if (entry.notes != null) _noteController.text = entry.notes!;
         _selectedStatus = entry.status;
         _selectedCurrency = entry.currency;
         _expectedDate = entry.expectedDate;
         _receivedDate = entry.receivedDate;
+        _originalCreatedAt = entry.createdAt;
       } else {
         _incomeNotFound = true;
       }
@@ -104,7 +109,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
   Future<void> _submit() async {
     if (_isSaving) return; // double-submit guard
-    if (!_formKey.currentState!.validate()) return;
+    if (!(_formKey.currentState?.validate() ?? false)) return;
 
     // Additional: receivedDate required when status is received
     if (_selectedStatus == IncomeStatus.received && _receivedDate == null) {
@@ -124,11 +129,13 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
     try {
       final now = DateTime.now();
+      final parsedAmount =
+          double.tryParse(_amountController.text.trim()) ?? 0;
       final entity = IncomeEntryEntity(
         id: widget.incomeId ?? IdGenerator.uniqueId(),
         clientName: _clientNameController.text.trim(),
         projectName: _projectNameController.text.trim(),
-        amount: double.parse(_amountController.text.trim()),
+        amount: parsedAmount,
         currency: _selectedCurrency,
         status: _selectedStatus,
         expectedDate: _expectedDate,
@@ -137,14 +144,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         notes: _noteController.text.trim().isEmpty
             ? null
             : _noteController.text.trim(),
-        createdAt: widget.incomeId != null
-            ? ref
-                  .read(incomeNotifierProvider)
-                  .where((e) => e.id == widget.incomeId)
-                  .firstOrNull
-                  ?.createdAt ??
-              now
-            : now,
+        createdAt: _originalCreatedAt ?? now,
         updatedAt: now,
       );
 
@@ -215,10 +215,12 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
           onPressed: () => context.pop(),
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: ResponsiveUtilities.symmetricPadding(context),
-          child: Form(
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: ResponsiveUtilities.symmetricPadding(context),
+            child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,6 +378,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
               ],
             ),
           ),
+        ),
         ),
       ),
     );

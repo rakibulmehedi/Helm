@@ -121,3 +121,18 @@ To keep the MVP cognitive load low and defer month grouping until real usage sho
 
 Impact:
 Income list has a simple flat list layout. No sections or complex adapter header logic are introduced yet.
+
+---
+
+## Decision 009 — Dashboard Pipeline Totals Filter by Dashboard Currency
+
+Date: 2026-05-22
+
+Decision:
+IncomePipelineSummary on the dashboard only sums entries matching the dashboard's active currency (e.g. BDT). Mixed-currency totals are not shown.
+
+Reason:
+Summing BDT and USD amounts into a single total is financially misleading. Multi-currency display requires conversion logic that is out of scope for Phase 7. Filtering by currency is the safest minimal fix.
+
+Impact:
+Users with USD income entries will not see those amounts in a BDT dashboard summary. Full multi-currency pipeline totals are deferred to a future phase.

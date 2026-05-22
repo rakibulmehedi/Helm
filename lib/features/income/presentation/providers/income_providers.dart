@@ -81,21 +81,30 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
 
   /// Persists [entity] and appends it to state.
   ///
+  /// If an entry with the same ID already exists, it is silently ignored
+  /// to prevent duplicate state entries from double-taps.
   /// Throws on Hive write failure (caller handles error display).
   Future<void> addIncome(IncomeEntryEntity entity) async {
+    if (state.any((e) => e.id == entity.id)) return;
     await _repository.addIncome(entity);
     state = [...state, entity];
   }
 
   /// Persists [entity] (overwrite) and replaces the matching entry in state.
   ///
-  /// If [entity.id] is not found in state, the entry is appended (defensive).
+  /// If [entity.id] is not found in state, the entry is appended defensively
+  /// to keep Hive and in-memory state consistent.
   Future<void> updateIncome(IncomeEntryEntity entity) async {
     await _repository.updateIncome(entity);
-    state = [
-      for (final e in state)
-        if (e.id == entity.id) entity else e,
-    ];
+    final found = state.any((e) => e.id == entity.id);
+    if (found) {
+      state = [
+        for (final e in state)
+          if (e.id == entity.id) entity else e,
+      ];
+    } else {
+      state = [...state, entity];
+    }
   }
 
   /// Removes the entry with [id] from Hive and from state.

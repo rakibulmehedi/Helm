@@ -66,7 +66,7 @@ final GoRouter appRouter = GoRouter(
       path: RouteNames.income,
       name: 'income',
       builder: (context, state) => IncomeListScreen(
-        initialFilter: state.extra as String?,
+        initialFilter: state.extra is String ? state.extra as String : null,
       ),
     ),
     GoRoute(
@@ -79,6 +79,9 @@ final GoRouter appRouter = GoRouter(
       name: 'editIncome',
       builder: (context, state) {
         final id = state.pathParameters['id'];
+        if (id == null || id.isEmpty) {
+          return const AddIncomeScreen();
+        }
         return AddIncomeScreen(incomeId: id);
       },
     ),

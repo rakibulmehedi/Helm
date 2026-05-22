@@ -34,19 +34,23 @@ class IncomePipelineSummary extends ConsumerWidget {
   final bool isDark;
   final String currency;
 
+  static final _formatter = NumberFormat('#,##0.00', 'en_US');
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final allEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
-    final formatter = NumberFormat('#,##0.00', 'en_US');
 
     // Compute totals for current month — per STATE_FLOW $7
+    // NOTE: Totals only include entries matching the dashboard currency.
+    // Mixed-currency display is a known limitation — logged for future phases.
     double expectedTotal = 0;
     double pendingTotal = 0;
     double receivedTotal = 0;
 
     for (final entry in allEntries) {
+      if (entry.currency != currency) continue;
       switch (entry.status) {
         case IncomeStatus.expected:
           if (_isSameMonth(entry.expectedDate, now)) {
@@ -64,8 +68,14 @@ class IncomePipelineSummary extends ConsumerWidget {
       }
     }
 
+    // Clamp accumulated doubles to 2 decimal places to prevent
+    // floating-point drift from misleading the zero check or display.
+    expectedTotal = double.parse(expectedTotal.toStringAsFixed(2));
+    pendingTotal = double.parse(pendingTotal.toStringAsFixed(2));
+    receivedTotal = double.parse(receivedTotal.toStringAsFixed(2));
+
     final allZero =
-        expectedTotal == 0 && pendingTotal == 0 && receivedTotal == 0;
+        expectedTotal < 0.01 && pendingTotal < 0.01 && receivedTotal < 0.01;
 
     // Empty state: no entries or all totals zero for this month
     if (allEntries.isEmpty || allZero) {
@@ -153,12 +163,19 @@ class IncomePipelineSummary extends ConsumerWidget {
               ),
               GestureDetector(
                 onTap: () => context.push(RouteNames.income),
-                child: Text(
-                  'View all',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: ResponsiveUtilities.font(context, 12),
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w500,
+                behavior: HitTestBehavior.opaque,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    'View all',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontSize: ResponsiveUtilities.font(context, 12),
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -168,7 +185,7 @@ class IncomePipelineSummary extends ConsumerWidget {
           // Received — highest prominence
           _StatusRow(
             label: 'Received',
-            amount: '$currency ${formatter.format(receivedTotal)}',
+            amount: '$currency ${_formatter.format(receivedTotal)}',
             color: AppColors.success,
             icon: Icons.check_circle_outline_rounded,
             isDark: isDark,
@@ -178,7 +195,7 @@ class IncomePipelineSummary extends ConsumerWidget {
           // Pending — secondary prominence
           _StatusRow(
             label: 'Pending',
-            amount: '$currency ${formatter.format(pendingTotal)}',
+            amount: '$currency ${_formatter.format(pendingTotal)}',
             color: AppColors.info,
             icon: Icons.sync_rounded,
             isDark: isDark,
@@ -188,7 +205,7 @@ class IncomePipelineSummary extends ConsumerWidget {
           // Expected — lowest prominence
           _StatusRow(
             label: 'Expected',
-            amount: '$currency ${formatter.format(expectedTotal)}',
+            amount: '$currency ${_formatter.format(expectedTotal)}',
             color: AppColors.grey,
             icon: Icons.schedule_rounded,
             isDark: isDark,
@@ -258,7 +275,7 @@ class _StatusRow extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
+        padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(
           children: [
             Container(

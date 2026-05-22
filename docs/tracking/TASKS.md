@@ -9,8 +9,8 @@ Sprint: Phase 7 — Freelancer Income Pipeline
 - [x] Phase 7a: Income Data Layer (IncomeEntryEntity, IncomeModel, DataSource, Repository, Notifier, providers)
 - [x] Phase 7b: Income Entry UI (AddIncomeScreen, form, validation, routes)
 - [x] Phase 7c: Income List & Filtering (IncomeListScreen, status tabs, card display, delete + undo)
-- [ ] Phase 7d: Dashboard Integration (income summary cards, navigation to filtered list)
-- [ ] Phase 7e: Status Transitions (quick-action status advance, auto-set receivedDate)
+- [x] Phase 7d: Dashboard Integration (income summary cards, navigation to filtered list)
+- [x] Phase 7e: Income Flow Stabilization & UX Hardening
 
 ## Next
 

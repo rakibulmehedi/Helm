@@ -78,3 +78,12 @@ They should guide the user, not just say “No data”.
 
 ### 4. Empty states should be reassuring, not hollow
 For a finance app targeting anxious users, “No pending payments right now” should feel calming, not alarming. Research shows freelancers scan for danger — empty states should signal safety.
+
+### 5. Cache entity data at form load, not at submit time
+Re-reading provider state during async submit creates race conditions. If entry is deleted between form open and submit, original data (like createdAt) is lost. Cache at initState.
+
+### 6. Mixed-currency totals are financially misleading
+Summing BDT and USD into one number is wrong. Dashboard summary must filter by active currency until proper conversion logic exists.
+
+### 7. Delete undo snackbar should include amount
+Users need to verify they deleted the right entry. Showing only client+project name is insufficient — the amount is the primary identifier in a financial app.
