@@ -15,5 +15,8 @@ abstract final class AppBoxNames {
   /// Stores [TransactionCategory] objects. Opened in Phase 1.
   static const String categories   = 'categories';
 
+  /// Stores [IncomeModel] objects. Opened in Phase 7.
+  static const String incomeBox = 'income_box';
+
   // Add future box names here — never hard-code strings at the call site.
 }

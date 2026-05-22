@@ -19,7 +19,7 @@
 | Research-to-spec refinement | Done (2026-05-22) |
 | Phase 7 spec finalized | Done (2026-05-22) |
 | Income Pipeline MVP spec | Done (2026-05-22) |
-| Phase 7a — Income Data Layer | Not started |
+| Phase 7a — Income Data Layer | Done (2026-05-22) |
 | Phase 7b — Income Entry UI | Not started |
 | Phase 7c — Income List & Filtering | Not started |
 | Phase 7d — Dashboard Integration | Not started |
@@ -47,4 +47,4 @@ A freelancer should be able to:
 
 ## 6. Immediate Next Step
 
-Begin Phase 7a — Income Data Layer implementation.
+Begin Phase 7b — Income Entry UI implementation.

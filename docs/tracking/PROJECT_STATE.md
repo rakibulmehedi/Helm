@@ -34,7 +34,8 @@
 - Paradigm: Offline-first
 
 ## 5. Active Modules
-- Phase 7: Freelancer Income Pipeline (spec ready, implementation pending)
+- Phase 7: Freelancer Income Pipeline (7a data layer DONE; 7b–7e pending)
+- income domain entity, Hive model (typeId:2), local data source, repository, providers — all stable
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

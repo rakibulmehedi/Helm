@@ -15,6 +15,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:pocketa_v2/features/transactions/data/models/transaction_model.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:pocketa_v2/features/income/data/models/income_model.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 
 class HiveService {
@@ -38,6 +39,7 @@ class HiveService {
     if (!Hive.isAdapterRegistered(0)) Hive.registerAdapter(TransactionModelAdapter());
     if (!Hive.isAdapterRegistered(4)) Hive.registerAdapter(TransactionTypeAdapter());
     // if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(TransactionCategoryAdapter());
+    if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(IncomeModelAdapter());
   }
 
   /// Open all Hive boxes here.
@@ -45,6 +47,7 @@ class HiveService {
   static Future<void> _openBoxes() async {
     await Hive.openBox<TransactionModel>(AppBoxNames.transactions);
     // await Hive.openBox<TransactionCategory>(AppBoxNames.categories);
+    await Hive.openBox<IncomeModel>(AppBoxNames.incomeBox);
   }
 
   /// Generic helper — only use for boxes not managed by [_openBoxes].
