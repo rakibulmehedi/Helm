@@ -11,6 +11,7 @@ import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 import 'package:pocketa_v2/features/income/presentation/widgets/income_pipeline_summary.dart';
+import 'package:pocketa_v2/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
@@ -84,8 +85,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       }
     });
 
-    final totalBalance = totalIncome - totalExpense;
-
     return Scaffold(
       backgroundColor: isDark
           ? AppColors.backgroundDark
@@ -122,33 +121,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ── Welcome banner ─────────────────────────────────────────────
-              _SectionCard(
-                isDark: isDark,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Total Balance',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textSecondary,
-                        fontSize: ResponsiveUtilities.font(context, 13),
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      '$currency ${formatter.format(totalBalance)}',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: ResponsiveUtilities.font(context, 32),
-                        fontWeight: FontWeight.bold,
-                        color: isDark
-                            ? AppColors.textLight
-                            : AppColors.textDark,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // ── Safe-to-Spend Hero ─────────────────────────────────────────
+              const SafeToSpendHero(),
 
               ResponsiveUtilities.spacing(context),
 

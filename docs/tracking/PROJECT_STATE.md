@@ -59,9 +59,11 @@
   - `safe_to_spend_providers.dart` Riverpod providers set up.
 - **Phase 8c COMPLETE**: Safe-to-Spend Settings Screen
   - `StsSettingsScreen` built with tax rate slider, anxiety buffer input, and fixed costs CRUD.
-  - Configured route `/sts-settings`.
-  - Delete with Undo implemented for fixed costs.
-- **Next**: Phase 8d — Dashboard Hero Number
+- **Phase 8d COMPLETE**: Safe-to-Spend Dashboard Hero
+  - `SafeToSpendHero` replaces raw Total Balance on the dashboard.
+  - Transparent math breakdown via bottom sheet.
+  - Excludes pending and expected income safely.
+- **Next**: Phase 8e — UX Hardening
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)
