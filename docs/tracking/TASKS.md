@@ -2,23 +2,22 @@
 
 ## Current Sprint
 
-Sprint: Phase 7 — Freelancer Income Pipeline
+Sprint: Phase 8 — Safe-to-Spend Engine
 
 ## In Progress
 
-- [x] Phase 7a: Income Data Layer (IncomeEntryEntity, IncomeModel, DataSource, Repository, Notifier, providers)
-- [x] Phase 7b: Income Entry UI (AddIncomeScreen, form, validation, routes)
-- [x] Phase 7c: Income List & Filtering (IncomeListScreen, status tabs, card display, delete + undo)
-- [x] Phase 7d: Dashboard Integration (income summary cards, navigation to filtered list)
-- [x] Phase 7e: Status Transitions & UX Hardening (quick-action buttons, stability, financial trust fixes)
+- [x] Phase 8a: Formula & Data Contract (formula locked, docs created — 2026-05-23)
 
 ## Next
 
-- [ ] **Phase 7f** — Storage Abstraction & Domain Cleanup (Decision 012): Create TransactionEntity, fix TransactionRepository, move @HiveType out of domain, add fromJson/toJson (~7–11h)
-- [ ] Phase 8: Safe-to-Spend Model (spec ready, depends on Phase 7f)
+- [ ] **Phase 8b** — Calculation Engine: `SafeToSpendCalculator`, `FixedCostEntry` entity,
+  `FixedCostModel` (typeId:3), `StsSettings` value object, data layer, unit tests for all 10 ECs
+- [ ] **Phase 8c** — Settings Screen: tax rate slider, anxiety buffer input, fixed costs CRUD
+- [ ] **Phase 8d** — Dashboard Hero Number: `SafeToSpendHeroCard`, breakdown on tap, Horizon Number
+- [ ] **Phase 8e** — UX Hardening: edge case copy, USD note, future-date soft warn, all EC display
 - [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
 - [ ] Virtual Wallets (depends on Phase 7 + transaction tagging)
-- [ ] Phase 9: Subscription Leakage Radar (spec ready)
+- [ ] Phase 9: Subscription Leakage Radar (spec ready — conditional on user validation)
 
 ## Backlog
 
@@ -49,6 +48,13 @@ Sprint: Phase 7 — Freelancer Income Pipeline
 - [x] Research-to-spec refinement (2026-05-22)
 - [x] Phase 7 spec finalized (2026-05-22)
 - [x] Income Pipeline MVP spec created (2026-05-22)
-- [x] Safe-to-Spend Model spec created — Phase 8 candidate (2026-05-22)
+- [x] Safe-to-Spend Model spec created — hypothesis stage (2026-05-22)
 - [x] Virtual Wallets spec created — future phase (2026-05-22)
 - [x] Subscription Leakage Radar spec created — Phase 9 candidate (2026-05-22)
+- [x] Phase 7a — Income Data Layer (2026-05-22)
+- [x] Phase 7b — Income Entry UI (2026-05-22)
+- [x] Phase 7c — Income List & Filtering (2026-05-22)
+- [x] Phase 7d — Dashboard Integration (2026-05-22)
+- [x] Phase 7e — Status Transitions & UX Hardening (2026-05-22)
+- [x] Phase 7f — Storage Abstraction & Domain Cleanup (2026-05-23)
+- [x] Phase 8a — Formula & Data Contract: formula locked, 10 ECs defined, data contract finalized (2026-05-23)

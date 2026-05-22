@@ -4,12 +4,17 @@
 
 ## 1. Active Sprint
 
-**Phase 7f — Storage Abstraction & Domain Cleanup ✅ COMPLETE**
-**Next Sprint: Phase 8 — Safe-to-Spend Engine**
+**Phase 8 — Safe-to-Spend Engine**
+Sub-phase: **Phase 8a (Formula & Data Contract) ✅ COMPLETE**
+Sub-phase: **Phase 8b (Calculation Engine) — NEXT**
 
 ## 2. Current Priority
 
-- **Phase 8**: Safe-to-Spend Model (spec ready at `docs/specs/SAFE_TO_SPEND_MODEL.md`) — begins now
+- **Phase 8b**: Implement `SafeToSpendCalculator`, `FixedCostEntry` domain entity, `FixedCostModel`,
+  `StsSettings` value object, and all data layer components.
+- Formula is locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
+- Execution plan is locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
+- Acceptance checklist is locked in `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md`.
 
 ## 3. Sprint Status
 
@@ -24,32 +29,45 @@
 | Phase 7d — Dashboard Integration | Done (2026-05-22) |
 | Phase 7e — Status Transitions | Done (2026-05-22) |
 | Phase 7f — Storage Abstraction & Domain Cleanup | Done (2026-05-23) |
+| Phase 8a — Formula & Data Contract | Done (2026-05-23) |
+| Phase 8b — Calculation Engine | **NEXT** |
+| Phase 8c — Settings Screen | Pending 8b |
+| Phase 8d — Dashboard Hero Number | Pending 8c |
+| Phase 8e — UX Hardening | Pending 8d |
 
 ## 4. Out-of-Scope Systems
 
-- Safe-to-Spend calculation (Phase 8)
 - Virtual Wallets (future phase)
-- Subscription Leakage Radar (Phase 9)
+- Subscription Leakage Radar (Phase 9 — conditional on user validation)
 - AI assistant
 - Supabase sync
-- Charts / analytics
+- Charts / analytics dashboards
 - Multi-currency conversion
 - Invoice generation
 - Tax filing
+- Bank balance sync
+- Auto-detected recurring expenses (Phase 9)
 
 ## 5. Sprint Success Metric
 
 A freelancer should be able to:
-- Add an expected payment with client name, project, amount, and expected date
-- Track that payment through Expected → Pending → Received
-- See a dashboard summary of total Expected, Pending, and Received income
-- Answer "Am I okay this month?" within 3 seconds of opening the app
+- Open the app and immediately see how much they can spend freely (within 3 seconds)
+- Tap to see exactly how that number was calculated (full breakdown)
+- Trust the number because pending money is explicitly excluded
+- Configure tax rate, anxiety buffer, and fixed costs in under 2 minutes
 
-## 6. Immediate Next Step
+## 6. Phase 8a Deliverables (Complete)
 
-Begin Phase 8 — Safe-to-Spend Engine. Architecture and domain cleanup are complete.
+- `docs/specs/SAFE_TO_SPEND_MODEL.md` — Formula contract locked (overwritten from hypothesis)
+- `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md` — Execution plan created
+- `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md` — Acceptance checklist created
+- `docs/tracking/DECISION_LOG.md` — Decision 014 logged (formula finalized)
+- `docs/tracking/LESSONS.md` — Phase 8a lessons added
+- `docs/tracking/TASKS.md` — Updated
+- `docs/tracking/CURRENT_SPRINT.md` — This update
 
 ## 7. Post-Audit Strategic Context
 
 See `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` for full strategic synthesis.
-Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011). User validation sprint planned post-Phase 8 (Decision 012).
+Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011).
+User validation sprint planned post-Phase 8 (Decision 013). STS formula locked (Decision 014).

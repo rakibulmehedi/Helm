@@ -128,3 +128,53 @@ A pure Dart domain layer can be tested without Flutter, without Hive, without an
 
 ### 4. Repository interface type defines the domain boundary contract
 If `TransactionRepository` accepts `TransactionModel`, every caller in the presentation layer must know about Hive models. Changing the interface to accept `TransactionEntity` ripples through exactly the right files — presentation and domain — without touching the data layer internals.
+
+---
+
+## Phase 8a Lessons (2026-05-23)
+
+### 1. Formula work is product work — it deserves its own phase
+The Safe-to-Spend formula has ten edge cases, two separate formulas (primary vs horizon), and a
+full liquidity taxonomy. Jumping into implementation without locking the contract would have
+produced a calculator that handles some edge cases and silently ignores others. Phase 8a treated
+formula design as a first-class deliverable — the result is a deterministic, auditable contract
+that Phase 8b can implement without guessing.
+
+### 2. A "data contract phase" prevents implementation drift
+Naming a phase "Formula & Data Contract" (rather than "research" or "planning") gives it
+artifact authority: the spec is the law, not a suggestion. Phase 8b implementers have a locked
+formula, named edge cases, a typed value object contract, and an acceptance checklist — zero
+ambiguity.
+
+### 3. The tax reserve base is gross income, not net liquid cash
+A subtlety that could have silently produced wrong numbers: tax is owed on income earned, not on
+income-minus-expenses. If a freelancer earns ৳100,000 and spends ৳60,000, their taxable income
+is ৳100,000 — not ৳40,000. The formula correctly applies `tax_rate × received_income`, not
+`tax_rate × liquid_cash`. This distinction only surfaces when you spell out every term explicitly.
+
+### 4. Two income systems coexist — the calculator must not conflate them
+Phase 8 introduces a critical accounting distinction: `TransactionEntity` with
+`type == TransactionType.income` (the old Phase 1–6 transaction system) and `IncomeEntryEntity`
+with `status == received` (the Phase 7 income pipeline) are SEPARATE. A careless calculator
+implementation could double-count income by summing both. The contract explicitly states: only
+`IncomeEntryEntity` with `status == received` AND `currency == 'BDT'` feeds the liquid cash
+calculation. Old income transactions are not counted.
+
+### 5. Clamping negative to zero is a UX decision, not a math decision — preserve the raw value
+The formula can produce a negative Safe-to-Spend result (e.g., fixed costs + buffer exceed liquid
+cash). The UI must never show a bare negative number — it must show ৳0 with calming contextual
+copy. But the raw negative value must be stored in `SafeToSpendResult.rawSafeToSpend` so the
+breakdown can be mathematically accurate. This distinction — display value vs computed value —
+must be encoded in the value object, not hacked in the UI widget.
+
+### 6. The dueDayOfMonth range of 1–28 prevents month-length bugs
+Days 29, 30, 31 do not exist in all months. A fixed cost "due on day 31" would silently never
+trigger in February, April, June, September, November. Constraining the input to 1–28 prevents
+this class of bug entirely in the MVP. Advanced recurrence logic (end-of-month, last business day,
+etc.) is a future enhancement — not a Phase 8 concern.
+
+### 7. TypeId assignment must be documented as a global registry
+Hive typeIds are global to the app — not scoped to a feature. Two features accidentally using the
+same typeId will cause runtime corruption with no useful error. The rule: maintain a registry.
+Phase 8 uses typeId: 3 for `FixedCostModel`. Document this in the spec and check the acceptance
+checklist. Future features must consult this registry before assigning a new typeId.

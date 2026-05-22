@@ -1,265 +1,474 @@
-# Safe-to-Spend Model — Phase 8 Candidate
+# Safe-to-Spend Model — Phase 8 Formula Contract
 
-> Status: FUTURE PHASE — NOT IMPLEMENTATION READY
-> Depends on: Phase 7 (Income Pipeline) completion
-> Phase: 8 (candidate)
-> Last Updated: 2026-05-22
+> Status: **IMPLEMENTATION READY — CONTRACT LOCKED**
+> Phase: 8 (Formula & Data Contract defined in Phase 8a)
+> Depends on: Phase 7 (Income Pipeline) ✅ COMPLETE | Phase 7f (Storage Abstraction) ✅ COMPLETE
+> Last Updated: 2026-05-23
+> Authored by: Antigravity (Phase 8a)
 
 ---
 
 ## 1. Problem Statement
 
-Freelancers in Bangladesh cannot answer "How much can I safely spend right now?" because their bank balance conflates liquid cash, tax obligations, upcoming fixed costs, and pending income into a single misleading number. A freelancer with 50,000 BDT in their account may actually have only 15,000 BDT safe to spend after accounting for rent, taxes, and internet — but they don't know that without running the math in their head every time.
+Freelancers in Bangladesh cannot answer "How much can I safely spend right now?" because their bank
+balance conflates liquid cash, tax obligations, upcoming fixed costs, and pending income into a
+single misleading number. A freelancer with ৳50,000 in their account may only have ৳15,000 safe
+to spend after accounting for rent, taxes, and internet — but they cannot know that without running
+the math in their head every time.
 
 **Research backing:**
-- Behavioral Finance Research: "Mental Accounting Fatigue" — the brain constantly runs background simulations ("If I buy this, will my internet bill bounce?")
-- User Psychology Research: The primary anxiety is not "What did I spend?" but "Am I okay this month?"
+- Behavioral Finance: "Mental Accounting Fatigue" — the brain runs constant background simulations
+  ("If I buy this, will my internet bill bounce?")
+- User Psychology: The primary anxiety is NOT "What did I spend?" — it is "Am I okay this month?"
 - Cashflow Research: Freelancers need a single guilt-free number, not a budget spreadsheet
 
 ---
 
-## 2. Target User Need
+## 2. MVP Formula — LOCKED
 
-The user needs one number — the **Safe-to-Spend** number — that tells them exactly how much they can spend right now without risking bills, taxes, or their personal anxiety buffer. This number must:
+### Formula: The Safe-to-Spend Number (Primary Hero)
 
-- Exclude money reserved for taxes
-- Exclude upcoming fixed survival costs (rent, internet, utilities)
-- Exclude the user's personal "panic point" buffer
-- NEVER include pending/expected income (that money is not liquid yet)
-- Update in real-time as income arrives and expenses occur
+```
+Safe_to_Spend = Liquid_Cash - Tax_Reserve - Fixed_Costs_Due - Anxiety_Buffer
+```
+
+Where each term is defined as:
+
+```
+Liquid_Cash         = Σ(received income, BDT only)
+                    - Σ(all recorded expenses)
+
+Tax_Reserve         = Liquid_Cash_From_Income × Tax_Rate
+                    (Tax_Rate default: 10%, user-configurable 0%–40%)
+
+Fixed_Costs_Due     = Σ(user-entered recurring costs due within 30-day rolling window)
+                    [MANUAL ENTRY in Phase 8 MVP — no auto-detection]
+
+Anxiety_Buffer      = user-defined floor amount (default: ৳0 if not set)
+```
+
+### Fully Expanded Formula
+
+```
+Safe_to_Spend =   [Σ received_income (BDT only)]
+                - [Σ all_expenses]
+                - [Σ received_income (BDT only) × tax_rate]
+                - [Σ fixed_costs due ≤ 30 days from today]
+                - [anxiety_buffer]
+```
+
+**This is the ONLY formula that drives the hero number.**
+It is deterministic, auditable, and fully reproducible from stored data.
 
 ---
 
-## 3. Required Inputs
+## 3. Secondary Formula — Horizon Number (Non-Primary)
 
-### Primary Inputs (From Phase 7 Income Pipeline)
+```
+Horizon_Number = Safe_to_Spend
+               + (Pending_Income × 0.8)
+               + (Expected_Income × 0.3)
+```
 
-| Input | Source | Notes |
-|-------|--------|-------|
-| Total Received Income | Phase 7 `IncomeEntry` where status = `received` | Only cleared, liquid money |
-| Pending Income | Phase 7 `IncomeEntry` where status = `pending` | Used ONLY for Horizon Number, never for primary Safe-to-Spend |
-| Expected Income | Phase 7 `IncomeEntry` where status = `expected` | Used ONLY for Horizon Number with heavy discount |
-
-### Secondary Inputs (User-Provided, Low Friction)
-
-| Input | Type | Notes |
-|-------|------|-------|
-| Tax Rate | Slider (0% - 40%) | User sets once, applied to all income. Hypothesis: Default 10% for BD freelancers |
-| Panic Point / Anxiety Buffer | BDT amount | "I feel stressed if my balance drops below ___" — user sets their personal floor |
-| Fixed Survival Costs | List of recurring amounts | Rent, utilities, internet — entered once, applied monthly |
-
-### Future Dependencies (NOT for Phase 8 MVP)
-
-| Input | Why Deferred |
-|-------|-------------|
-| Auto-detected recurring expenses | Requires Phase 9 Subscription Leakage Radar |
-| Bank balance sync | Requires bank API integration (Phase 13+) |
-| Client reliability scoring | Requires historical payment data across multiple months |
-| Multi-currency balances | Requires multi-currency support (Phase 10) |
+**Critical rules for the Horizon Number:**
+- NEVER replaces or equals the Safe-to-Spend primary number
+- NEVER feeds into any downstream calculation
+- Is rendered ONLY on explicit user tap (progressive disclosure)
+- The 0.8 and 0.3 discount factors are starting hypotheses — subject to user validation
+- Labeled "What could be available" — never "Your balance"
 
 ---
 
-## 4. Formula Hypothesis
+## 4. Data Sources
 
-**Hypothesis: These formulas require user testing before committing to implementation.**
+### 4.1 Primary Data Sources (Available Now — Phase 7 Complete)
 
-### Formula 1: The Guilt-Free Number (Strict Safety)
+| Data Input | Source Entity | Source Field | Condition | Liquidity |
+|---|---|---|---|---|
+| Received Income (BDT) | `IncomeEntryEntity` | `amount` | `status == IncomeStatus.received` AND `currency == 'BDT'` | ✅ LIQUID |
+| Received Income Date | `IncomeEntryEntity` | `receivedDate` | Used for period filtering only | — |
+| All Expenses | `TransactionEntity` | `amount` | `type == TransactionType.expense` | ✅ REDUCES LIQUID CASH |
+
+### 4.2 User-Provided Inputs (Require Phase 8b Setup Screen)
+
+| Input | Storage | Type | Default | Range |
+|---|---|---|---|---|
+| Tax Rate (%) | `SharedPreferences` key `stsSettings_taxRate` | `double` | `0.10` (10%) | 0.00 – 0.40 |
+| Fixed Costs | `Hive` box `fixedCostsBox` | `List<FixedCostEntry>` | `[]` (empty) | 0–20 entries |
+| Anxiety Buffer (BDT) | `SharedPreferences` key `stsSettings_anxietyBuffer` | `double` | `0.0` | ≥ 0 |
+
+### 4.3 Non-Liquid Sources — EXCLUDED FROM SAFE-TO-SPEND
+
+| Data Input | Source | Status | Why Excluded |
+|---|---|---|---|
+| Pending Income | `IncomeEntryEntity` where `status == pending` | ❌ NON-LIQUID | Payment in transit — not confirmed received |
+| Expected Income | `IncomeEntryEntity` where `status == expected` | ❌ NON-LIQUID | Promised but not initiated — may be delayed or cancelled |
+| Income in USD | `IncomeEntryEntity` where `currency == 'USD'` | ❌ EXCLUDED (Phase 8 MVP) | No conversion logic in Phase 8. Deferred to Phase 10. |
+
+### 4.4 Future Data Sources (NOT for Phase 8 MVP)
+
+| Input | Why Deferred | When Available |
+|---|---|---|
+| Auto-detected recurring expenses | Requires Phase 9 Subscription Leakage Radar | Phase 9 |
+| Bank balance sync | Requires bank API integration | Phase 13+ |
+| Client reliability scoring | Requires multi-month historical data | Phase 10+ |
+| Multi-currency BDT conversion | Requires currency conversion logic | Phase 10 |
+| Virtual wallet balances | Requires Phase 8+ Virtual Wallets feature | Future |
+
+**Mark in UI:** USD income entries display a note: "USD income excluded from Safe-to-Spend until
+received and converted to BDT." This is non-alarming, informational copy.
+
+---
+
+## 5. Liquid vs Non-Liquid Rules — LOCKED
+
+These rules are absolute and cannot be overridden by UI or user preference in Phase 8 MVP.
+
+| Money State | Liquid? | Included in Safe-to-Spend? | Included in Horizon? |
+|---|---|---|---|
+| Received income (BDT) | ✅ YES | ✅ YES — full amount | ✅ YES |
+| Received income (USD) | ⚠️ EXCLUDED | ❌ NO (Phase 8 MVP — no conversion) | ❌ NO |
+| Pending income (any currency) | ❌ NO | ❌ NEVER | ✅ YES — at 0.8× discount |
+| Expected income (any currency) | ❌ NO | ❌ NEVER | ✅ YES — at 0.3× discount |
+| Expense transactions | N/A (outflow) | ✅ YES — reduces Liquid_Cash | ✅ YES |
+| Tax reserve | N/A (deduction) | ✅ YES — subtracted from result | ✅ YES |
+| Fixed costs (not yet due) | N/A | ❌ NO — only within 30-day window | ❌ NO |
+
+**The single most important product rule:**
+> Pending and Expected income are NEVER treated as spendable. The user has not received this
+> money. Including it in any primary number would create false confidence and potential overspend.
+
+---
+
+## 6. What Must NOT Be Included in Safe-to-Spend
+
+The following are explicitly excluded and must be enforced at the calculation layer:
+
+| Excluded Item | Reason |
+|---|---|
+| Pending income (`status == pending`) | Money in transit — not confirmed |
+| Expected income (`status == expected`) | Promised — not initiated |
+| USD income (any status in Phase 8) | No conversion logic available |
+| Future-dated received income (beyond today) | Handled by edge case rule EC-04 below |
+| Tax reserve amount | This is subtracted FROM the result, not added |
+| Anxiety buffer amount | This is subtracted FROM the result, not added |
+| Fixed costs NOT in the 30-day window | Only deduct what is due within 30 days |
+| Bank balance (if ever synced in future) | Not available in Phase 8; do not scaffold |
+| Investment amounts | Out of scope — Pocketa is not an investment tracker |
+| Loan / credit amounts | Out of scope — no liability tracking in Phase 8 |
+
+---
+
+## 7. Edge Cases — LOCKED
+
+All edge cases are defined as named constants for Phase 8b implementer reference.
+
+### EC-01: No Income Entries Exist
+
+**Condition:** `IncomeEntryEntity` list is empty (no received income ever recorded).
+**Result:**
+```
+Liquid_Cash = 0.0
+Safe_to_Spend = 0.0 - 0.0 - Fixed_Costs_Due - Anxiety_Buffer
+             ≤ 0.0 (negative if fixed costs or buffer set)
+```
+**Display:** Show income pipeline empty state callout. Copy: "Add your first received income to
+see your Safe-to-Spend." Do not show a raw negative number without context.
+
+### EC-02: No Expense Transactions Exist
+
+**Condition:** `TransactionEntity` list has no `expense` type entries.
+**Result:**
+```
+Liquid_Cash = Σ received_income (BDT only)
+Safe_to_Spend = Liquid_Cash - Tax_Reserve - Fixed_Costs_Due - Anxiety_Buffer
+```
+**Display:** Normal calculation. No special state needed.
+
+### EC-03: Negative Safe-to-Spend Result
+
+**Condition:** Deductions (tax + fixed costs + buffer) exceed liquid cash.
+**Result:** `Safe_to_Spend < 0`
+**Display rule:**
+- NEVER show a negative number with a minus sign as the hero
+- Show ৳0 as the hero with a subtitle: "Your protective reserves exceed current income."
+- Show a calming secondary message: "Your next income is expected by [earliest expectedDate of
+  a pending or expected entry]." If no upcoming income, show: "Add income to your pipeline."
+- Color state: Grey/neutral — NEVER red
+- The Horizon Number CAN be shown (positive, reflecting expected future income)
+
+### EC-04: Future-Dated Received Income
+
+**Condition:** An `IncomeEntryEntity` has `status == received` but `receivedDate` is in the future
+(e.g., user marked it received in advance, or set a future date).
+**Rule:** Include it in `Liquid_Cash` regardless of `receivedDate` future dating.
+**Reason:** If the user explicitly marked it `received`, they have confirmed the money is in hand.
+Trust the user's explicit status action — do not second-guess by date. Log a note in the UI
+breakdown: "Marked received on [date]."
+**Validation note:** The UI should gently warn when marking received with a future date:
+"Setting received date to [future date] — are you sure?" — a soft confirm, not a hard block.
+
+### EC-05: Edited Income Status (Status Changed After Marking Received)
+
+**Condition:** An entry previously marked `received` is changed back to `pending` or `expected`
+via the edit screen.
+**Rule:** Recalculate immediately. Remove that entry's `amount` from `Liquid_Cash`. The Riverpod
+provider must listen to `incomeNotifierProvider` reactively.
+**Display:** Safe-to-Spend number updates on the next frame after save. No stale state.
+
+### EC-06: Deleted Income Entry
+
+**Condition:** A `received` income entry is deleted.
+**Rule:** Recalculate immediately. Remove that entry's `amount` from `Liquid_Cash`. Undo restores
+the entry AND restores the Safe-to-Spend number to its prior value (reactive via Riverpod).
+**Display:** Safe-to-Spend updates reactively. Undo SnackBar shows amount for identification.
+
+### EC-07: All Fixed Costs Fall Outside 30-Day Window
+
+**Condition:** User has entered fixed costs, but none are due within the next 30 days.
+**Result:** `Fixed_Costs_Due = 0.0`
+**Display:** Normal calculation. No deduction for fixed costs. Do NOT warn the user that no fixed
+costs are due — this is an expected and good state.
+
+### EC-08: Tax Rate Set to 0%
+
+**Condition:** User sets tax rate slider to 0%.
+**Result:** `Tax_Reserve = 0.0`
+**Display:** Normal calculation. No deduction for tax. This is user choice — no warning.
+
+### EC-09: Anxiety Buffer Not Set
+
+**Condition:** User has never set an anxiety buffer (first-time user, or deliberately cleared).
+**Result:** `Anxiety_Buffer = 0.0` (default)
+**Display:** Normal calculation. Buffer row shows ৳0 in breakdown.
+
+### EC-10: Multiple Currency Entries — USD + BDT Mixed
+
+**Condition:** User has some received income in BDT and some in USD.
+**Rule (Phase 8 MVP):** Only include BDT-denominated received income in `Liquid_Cash`.
+USD entries are excluded. Show a non-alarming note in the transparency breakdown:
+"USD income (৳X USD) not included — enter in BDT when converted."
+**Future resolution:** Phase 10 multi-currency support will add conversion and include USD entries.
+
+---
+
+## 8. Transparency Requirements
+
+The user MUST be able to see how the Safe-to-Spend number was calculated. This is non-negotiable.
+A black-box number breeds distrust. A transparent number breeds confidence.
+
+### 8.1 Required Breakdown (Accessible on Tap)
+
+The UI must provide an expandable breakdown showing:
 
 ```
-Safe_to_Spend = Total_Liquid_Cash
-              - Tax_Reserve
-              - Upcoming_Fixed_Survival_Costs
-              - Anxiety_Buffer
+Safe-to-Spend Breakdown
+═══════════════════════════════════════════
+
+Received Income (BDT)          +৳XX,XXX
+Recorded Expenses               -৳XX,XXX
+                               ──────────
+Liquid Cash                    =৳XX,XXX
+
+Tax Reserve (10%)               -৳X,XXX
+Fixed Costs (due in 30 days)    -৳X,XXX
+Anxiety Buffer                  -৳X,XXX
+                               ──────────
+Safe to Spend                  =৳XX,XXX
+
+═══════════════════════════════════════════
+
+📌 Pending income (৳XX,XXX) is not counted
+   until you mark it received.
 ```
 
-Where:
-- `Total_Liquid_Cash` = Sum of all Received income (Phase 7) minus all recorded expenses
-- `Tax_Reserve` = `Tax_Rate%` x total income received in current period
-- `Upcoming_Fixed_Survival_Costs` = Sum of user-defined recurring costs due within the next 30 days
-- `Anxiety_Buffer` = User-defined personal floor ("I don't want to go below X")
+### 8.2 Transparency Rules
 
-**This is the hero number. It appears largest on the dashboard.**
+| Rule | Requirement |
+|---|---|
+| Hero number shown first | Safe-to-Spend is the large, primary display |
+| Breakdown on tap | One tap reveals the full breakdown above |
+| Each line item labeled | Every addend/deduction labeled clearly |
+| Excluded items noted | Pending income exclusion explicitly stated |
+| No black-box calculation | Every number must be traceable to a data source |
+| USD exclusion noted | If user has USD income, note it in the breakdown |
+| Negative result explained | Never show bare negative — always explain context |
 
-### Formula 2: The Horizon Number (Expected Safety)
+### 8.3 What Must NOT Be Transparent (Anti-Patterns)
+
+| Anti-Pattern | Why Forbidden |
+|---|---|
+| Showing raw formula string to user | Too technical — replace with labeled rows |
+| Showing multiple conflicting numbers at once | Breeds confusion — Safe-to-Spend is the hero |
+| Showing Horizon Number without clear label | Risks conflating hope with confirmed cash |
+| Showing percentage breakdowns as pie charts | Out of scope — avoid chart complexity in Phase 8 |
+
+---
+
+## 9. UX Contract (Binding for Phase 8b)
+
+### 9.1 Color Rules
+
+| State | Color | Trigger |
+|---|---|---|
+| Safe to spend freely | Green (gentle, from AppColors) | `Safe_to_Spend > Anxiety_Buffer` |
+| Dipping into runway | Amber/Yellow (from AppColors) | `0 < Safe_to_Spend ≤ Anxiety_Buffer` |
+| Pause mode | Grey/Neutral (from AppColors) | `Safe_to_Spend ≤ 0` |
+| Any state | ❌ NEVER RED | Pocketa rule: red is forbidden for money states |
+
+### 9.2 Copy Rules
+
+| Scenario | Required Copy Pattern |
+|---|---|
+| Income received, positive balance | "৳XX,XXX available to spend freely. Taxes and bills are covered." |
+| Balance positive but below buffer | "You're in your safety zone. Your bills are covered." |
+| Balance at or below zero | "Pause mode — your reserves are protecting you. Next income expected [date]." |
+| No income yet | "Add received income to see your Safe-to-Spend." |
+| USD income excluded | "USD income not included until converted to BDT." |
+
+**Forbidden copy:**
+- "You overspent!"
+- "Budget exceeded"
+- "Warning: low balance"
+- Any scolding or shame-inducing language
+
+### 9.3 Display Architecture
 
 ```
-Expected_Safe = Safe_to_Spend
-              + (Pending_Income * 0.8)
-              + (Expected_Income * 0.3)
-```
+DASHBOARD
+├── [HERO] Safe-to-Spend Number (largest element)
+│     └── Subtitle: "Taxes, rent, and bills through [30 days from today] are covered."
+├── [TAP EXPAND] Breakdown rows (EC rules applied)
+└── [TAP AGAIN] Horizon Number (labelled clearly as "What could be available")
 
-Where:
-- `Pending_Income` = Sum of income entries with status `pending` (money in transit, high probability)
-- `Expected_Income` = Sum of income entries with status `expected` (promised but not initiated, lower probability)
-- Discount factors (0.8 and 0.3) are hypothetical — require validation
-
-**Hypothesis:** Pending income gets 80% weight (high probability of clearing). Expected income gets 30% weight (may be delayed or cancelled). These weights are arbitrary starting points — user research needed.
-
-**Critical rule: Pending and Expected income are NEVER added to the primary Safe-to-Spend number. The Horizon Number is a secondary, aspirational metric only.**
-
-### The Waterline Metaphor
-
-A mental model for the UI:
-
-```
- ☁ The Clouds (Expected/Pending) — hope, not cash
------------------------------------------------ waterline
- 🌊 The Surface (Safe-to-Spend) — guilt-free money
------------------------------------------------
- 🧊 The Depths (Protected) — taxes, bills, buffer
+SEPARATE SCREEN: Safe-to-Spend Settings
+├── Tax rate slider (0%–40%)
+├── Anxiety buffer (BDT amount input)
+└── Fixed Costs list (add/edit/delete recurring costs)
 ```
 
 ---
 
-## 5. UX Requirements
+## 10. FixedCostEntry — New Domain Entity Required for Phase 8b
 
-### Hero Number Display
+Phase 8b requires a new minimal domain entity to store recurring fixed costs.
 
-- The Safe-to-Spend number must be the largest, most prominent element on the dashboard
-- Subtitle: "Taxes, rent, and bills through [date] are already covered."
-- Bank balance shown smaller, greyed out below — not the hero metric
-- Hypothesis: The hero number framing reduces compulsive balance checking by answering the anxiety question immediately
+### Proposed Entity Contract
 
-### No Red Colors for Money States
+```dart
+// CONTRACTUAL DEFINITION — implementation target for Phase 8b
 
-- Green: Safe to spend (above anxiety buffer)
-- Yellow/Amber: "You're dipping into next month's runway" (between zero and anxiety buffer)
-- Grey: "Pause — wait for next income" (at or below zero). Never red.
-- Hypothesis: Grey signals "neutral/on hold" without triggering shame or panic
+class FixedCostEntry {
+  final String id;          // IdGenerator.uniqueId()
+  final String label;       // e.g., "Rent", "Internet", "Electricity"
+  final double amount;      // BDT amount per cycle
+  final int dueDayOfMonth;  // 1–28 (safe range — avoids 29/30/31 edge cases)
+  final DateTime createdAt;
 
-### Progressive Disclosure
+  // NO currency field — Phase 8 fixed costs are BDT only
+  // NO recurrence enum — Phase 8 MVP assumes monthly
+  // NO end date — assumed ongoing until deleted
+}
+```
 
-- Dashboard: Show only the Safe-to-Spend number and subtitle
-- Tap to expand: Show breakdown (liquid cash, tax reserve, fixed costs, buffer)
-- Deep dive: Show full formula inputs and Horizon Number
-- Hypothesis: Most users only need the hero number; power users want the breakdown
-
-### Non-Judgmental Copy
-
-- When Safe-to-Spend drops after a big payment: "You are fully protected! Taxes and bills are covered." (empowerment, not restriction)
-- When Safe-to-Spend is low: "Your next expected income arrives [date]. You're covered until then." (reassurance)
-- When Safe-to-Spend is zero: "Time to pause non-essential spending. Your next income is expected by [date]." (neutral guidance)
-- NEVER: "You overspent!" or "Budget exceeded!" or any scolding language
+**Hive TypeId:** `typeId: 3` (incomeBox = 2, transactionBox = 0/1 — never reuse)
+**Storage box name:** `AppBoxNames.fixedCostsBox` (add to `app_box_names.dart`)
+**30-day window filter:** Due within 30 days = `today.day ≤ dueDayOfMonth ≤ (today + 30d).day`
+(Handle month rollover: if `today.day > dueDayOfMonth`, the cost is due in the NEXT month cycle.)
 
 ---
 
-## 6. UX Risks
+## 11. SafeToSpendResult — Calculation Output Contract
 
-### Risk 1: Loss Aversion After Big Payment
+Phase 8b must expose a value object (not a raw double) that the UI can display with full transparency.
 
-**Problem:** A freelancer receives 100,000 BDT. After tax reserve (25,000), rent (15,000), and buffer (10,000), Safe-to-Spend shows 50,000. The freelancer feels punished — "I just earned 100k and I can only spend 50k?"
+```dart
+// CONTRACTUAL DEFINITION — implementation target for Phase 8b
 
-**Mitigation:** Frame as empowerment. "You earned 100,000 BDT. 50,000 is yours to spend freely — taxes, rent, and your safety net are already handled." The word "freely" is key.
+class SafeToSpendResult {
+  final double liquidCash;             // receivedIncomeBdt - totalExpenses
+  final double totalReceivedIncomeBdt; // Σ received BDT income
+  final double totalExpenses;          // Σ expense transactions
+  final double taxReserve;             // liquidCash from income × taxRate
+  final double fixedCostsDue;          // Σ fixed costs due within 30 days
+  final double anxietyBuffer;          // user-set floor
+  final double safeToSpend;            // final result (may be 0 — never negative in display)
+  final double rawSafeToSpend;         // actual computed value (can be negative)
+  final double pendingIncome;          // for Horizon Number calculation only
+  final double expectedIncome;         // for Horizon Number calculation only
+  final double horizonNumber;          // Safe_to_Spend + (pending×0.8) + (expected×0.3)
+  final double excludedUsdIncome;      // USD received entries (not counted, but shown)
+  final int excludedUsdEntryCount;     // how many USD entries were excluded
+}
+```
 
-### Risk 2: Zero Balance Shock
-
-**Problem:** If Safe-to-Spend reaches zero, displaying a large "0 BDT" is emotionally triggering.
-
-**Mitigation:** Never show a stark zero. Instead: "You're in pause mode until [expected income date]. Your bills are covered." Show the Horizon Number as hope.
-
-### Risk 3: Over-Complexity If Too Many Inputs
-
-**Problem:** If the user has to enter tax rate, anxiety buffer, and 10 recurring bills before seeing any value, they'll abandon the feature.
-
-**Mitigation:** Minimum viable inputs: just tax rate slider and one survival cost (rent). Buffer defaults to 0 if not set. Progressive onboarding — add more inputs over time.
-
-### Risk 4: Multi-Currency Confusion
-
-**Problem:** If a user has USD income and BDT expenses, which currency is the Safe-to-Spend number in?
-
-**Mitigation:** Phase 8 operates in single currency (BDT). Multi-currency is Phase 10. If user has USD income entries, they are excluded from Safe-to-Spend until marked as Received (at which point they are presumably converted to BDT).
+This value object feeds both the hero number AND the transparency breakdown rows with zero
+additional computation in the UI layer.
 
 ---
 
-## 7. Dependencies
+## 12. Edge Case Matrix (Quick Reference for Phase 8b Implementer)
 
-### Hard Dependencies
+| # | Condition | Liquid_Cash | Safe_to_Spend | Display |
+|---|---|---|---|---|
+| EC-01 | No income | 0.0 | ≤ 0 | Empty income callout |
+| EC-02 | No expenses | received_income | Normal calc | Normal display |
+| EC-03 | Negative result | Any | Show ৳0 hero | Grey + "reserve mode" copy |
+| EC-04 | Future receivedDate | Included | Normal calc | Soft warn on marking |
+| EC-05 | Status edited (un-received) | Reduced | Recalculate reactively | Live update |
+| EC-06 | Received entry deleted | Reduced | Recalculate reactively | Live update + undo |
+| EC-07 | No fixed costs due in window | No deduction | Normal calc | Normal display |
+| EC-08 | Tax rate = 0% | No deduction | Normal calc | Normal display |
+| EC-09 | No anxiety buffer set | No deduction | Normal calc | Buffer row = ৳0 |
+| EC-10 | USD + BDT mixed | BDT only | BDT-only calc | Note USD exclusion |
+
+---
+
+## 13. Out of Scope for Phase 8 MVP
+
+| Item | Why Out of Scope |
+|---|---|
+| Bank balance sync | Phase 13+ |
+| Auto-detected recurring expenses | Phase 9 (Subscription Leakage Radar) |
+| Multi-currency conversion | Phase 10 |
+| Client reliability scoring | Requires months of historical data |
+| "Can I buy this?" simulator | Phase 8+ / Phase 9 |
+| Income smoothing / simulated paychecks | Requires 3+ months data |
+| Amortized lumpy expenses (annual subs) | Phase 9+ |
+| AI cashflow forecasting | No ML in Phase 8 |
+| Virtual wallet separation | Future phase |
+| Push notifications for upcoming fixed costs | Future |
+| PDF export of breakdown | Phase 11 |
+
+---
+
+## 14. Dependencies
+
+### Hard Dependencies (All Complete ✅)
 
 | Dependency | Status | Why Required |
-|-----------|--------|-------------|
-| Phase 7 Income Pipeline | Spec ready | Safe-to-Spend requires knowing Received vs Pending vs Expected income |
-| Transaction expense tracking | Complete (Phase 1-6) | Need total expenses to calculate liquid cash |
+|---|---|---|
+| Phase 7 Income Pipeline | ✅ COMPLETE | Provides `IncomeEntryEntity` with `status` and `amount` fields |
+| Phase 7f Storage Abstraction | ✅ COMPLETE | `TransactionEntity` and `IncomeEntryEntity` both use domain purity |
+| Transaction expense tracking (Phases 1–6) | ✅ COMPLETE | Provides `TransactionEntity` with `type == expense` and `amount` |
 
 ### Soft Dependencies
 
 | Dependency | Status | Why Helpful |
-|-----------|--------|------------|
-| Transaction categorization improvements | Not started | Better categorization helps auto-detect fixed vs discretionary expenses |
-| Recurring expense detection | Phase 9 | Auto-populating fixed costs reduces manual entry |
-| Virtual Wallets | Future phase | Tax Reserve wallet aligns with Safe-to-Spend tax deduction |
+|---|---|---|
+| Transaction categorization improvements | Not started | Better fixed vs discretionary separation |
+| Phase 9 Subscription Leakage Radar | Future | Auto-populates fixed costs |
+| Virtual Wallets | Future | Tax Reserve wallet aligns with this deduction |
 
 ---
 
-## 8. Out of Scope
+## 15. References
 
-- Bank API integration (no Plaid, no bKash sync)
-- Auto-sweeping to sub-accounts (no actual money movement)
-- Invoice factoring / cash advances (no lending features)
-- AI-driven cashflow forecasting (no ML models)
-- Client reliability scoring (requires months of historical data)
-- "Can I Buy This?" simulator (high-value but Phase 8+ or Phase 9)
-- Simulated paychecks / income smoothing (requires 3+ months of data)
-- Amortized lumpy expense detection (annual subs, quarterly taxes — Phase 9+)
-
----
-
-## 9. Open Questions
-
-1. **Default tax rate for BD freelancers?**
-   Hypothesis: 10% as starting default. Bangladesh income tax for freelancers varies, but a conservative low default prevents sticker shock. User can adjust upward.
-
-2. **Should the anxiety buffer be user-configurable or auto-calculated?**
-   Hypothesis: User-configurable with a suggested default. Auto-calculation requires income history we don't have yet. Default suggestion: 1 week of average expenses (calculated from existing transaction data if available).
-
-3. **How to handle multi-currency before multi-currency support?**
-   Hypothesis: Ignore USD-denominated income entries in Safe-to-Spend calculation. Only include BDT entries. Show a note: "USD income not included until received in BDT." This is imperfect but prevents false precision.
-
-4. **Should the Horizon Number be visible by default or hidden?**
-   Hypothesis: Hidden by default, available on tap. Showing it alongside Safe-to-Spend risks users conflating hope with reality. The primary number must be the strict, liquid-only Safe-to-Spend.
-
-5. **Fixed costs: manual entry or auto-detected?**
-   Hypothesis: Manual entry for Phase 8 MVP. Auto-detection depends on Phase 9 Subscription Leakage Radar. Start with user entering 2-5 recurring costs manually.
-
-6. **Time horizon for fixed cost deduction?**
-   Hypothesis: 30 days rolling. Deduct fixed costs due within the next 30 days. Adjust dynamically if user's average income gap is longer (e.g., if paid every 45 days, extend to 45 days). This dynamic adjustment is a Phase 8+ enhancement — MVP uses fixed 30 days.
-
----
-
-## 10. Validation Plan
-
-### Before Building Full UI
-
-1. **Paper prototype test:** Show 5 freelancers a mockup with just the Safe-to-Spend number and subtitle. Ask: "Does this answer your primary financial question?" Measure comprehension and emotional response.
-
-2. **Formula validation with real data:** Take 3 freelancers' actual income/expense history from the past 3 months. Apply the formula retrospectively. Ask: "Would this number have been accurate on [date]? Would you have trusted it?"
-
-3. **Input friction test:** Time how long it takes a user to set up tax rate, anxiety buffer, and fixed costs. Target: under 2 minutes for initial setup.
-
-### Test Personas
-
-| Persona | Monthly Income | Pattern | Key Test |
-|---------|---------------|---------|----------|
-| Steady Rafiq | ~50,000 BDT | Regular Upwork payments | Does the number stay stable? |
-| Volatile Ayesha | 20k-150k BDT | Feast/famine cycle | Does the number handle volatility without panic? |
-| New Freelancer Karim | ~15,000 BDT | Just starting, few clients | Does the number work with minimal data? |
-
----
-
-## 11. Success Criteria (Hypothesis)
-
-- [ ] User can see Safe-to-Spend number within 3 seconds of opening app
-- [ ] Setup (tax rate + anxiety buffer + 1 fixed cost) takes under 2 minutes
-- [ ] 80%+ of test users report the number "makes sense" and "reduces anxiety"
-- [ ] Safe-to-Spend number never includes pending/expected income
-- [ ] Loss aversion framing ("You are fully protected!") tested and validated
-- [ ] Zero-balance state does not trigger app abandonment
-
----
-
-## 12. References
-
-- `docs/research/SAFE_TO_SPEND_MODEL.md` — Full Waterline model research
+- `docs/research/SAFE_TO_SPEND_MODEL.md` — Full Waterline model research (original)
 - `docs/research/BEHAVIORAL_FINANCE_RESEARCH.md` — Scarcity trap, mental accounting fatigue
 - `docs/research/USER_PSYCHOLOGY.md` — "Am I okay?" syndrome, pending money psychology
 - `docs/research/FREELANCER_CASHFLOW_RESEARCH.md` — Velocity over volume, institutional helplessness
-- `docs/specs/PHASE_7_FREELANCER_INCOME_TRACKING.md` — Hard dependency (income states)
+- `docs/specs/INCOME_PIPELINE_MVP.md` — `IncomeEntryEntity` fields and status model
+- `docs/tracking/DECISION_LOG.md` — Decision 014 (formula finalized in Phase 8a)
+- `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md` — Phase 8b implementation plan
+- `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md` — Phase 8b acceptance criteria

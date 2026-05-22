@@ -235,3 +235,48 @@ Impact:
 Phase 9 scope is conditional on validation outcome. SMS parsing (local Android) is the contingency feature if manual entry proves fatal.
 
 Ref: docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md
+
+---
+
+## Decision 014 — Safe-to-Spend MVP Formula Finalized (Phase 8a)
+
+Date: 2026-05-23
+Authority: Chief Architect (Phase 8a mission brief)
+Trigger: Phase 8a formula & data contract task.
+
+Decision:
+The Safe-to-Spend MVP formula is locked as:
+
+```
+Safe_to_Spend = Liquid_Cash − Tax_Reserve − Fixed_Costs_Due − Anxiety_Buffer
+
+Where:
+  Liquid_Cash       = Σ received BDT income − Σ all expenses
+  Tax_Reserve       = Σ received BDT income × tax_rate (default 10%)
+  Fixed_Costs_Due   = Σ user-entered fixed costs due within 30-day rolling window
+  Anxiety_Buffer    = user-defined floor (default ৳0)
+```
+
+Sub-decisions:
+1. **Pending and Expected income are NEVER included in Safe-to-Spend.** Absolute rule, no UI override.
+2. **USD income is excluded in Phase 8 MVP.** No conversion logic available. Shown in breakdown as excluded note.
+3. **Tax reserve base = received income, not liquid cash.** Tax is owed on gross income, not net-of-expenses.
+4. **rawSafeToSpend preserves negative values; displayed safeToSpend is clamped to ৳0.** Never show negative to user without context.
+5. **FixedCostEntry.dueDayOfMonth range: 1–28.** Days 29/30/31 excluded to avoid month-length edge cases in MVP.
+6. **FixedCostModel typeId = 3.** Next available typeId after transaction (0/1) and income (2).
+7. **SafeToSpendResult is a value object** carrying all breakdown fields — UI renders without re-computing.
+8. **Horizon Number uses 0.8× pending and 0.3× expected discount factors.** Starting hypotheses subject to user validation — NOT a locked value.
+9. **30-day rolling window for fixed cost deduction.** MVP uses a fixed 30-day window. Dynamic adjustment (e.g., 45-day income cycle) is a Phase 8+ enhancement.
+10. **TransactionType.income entries (old system) are NOT counted in received income.** Only IncomeEntryEntity with `status == received` and `currency == 'BDT'` counts as liquid income.
+
+Reason:
+All formula decisions align with the primary product rule: a freelancer's Safe-to-Spend must reflect
+only confirmed liquid money. Pending/expected money is hope, not cash. Including it in the primary
+number would create false confidence and risk overspend. The formula is intentionally conservative
+and transparent — every deduction is visible and user-auditable in the breakdown.
+
+Impact:
+Phase 8b implementation must conform exactly to this formula. No deviation without Chief Architect approval.
+Full contract: `docs/specs/SAFE_TO_SPEND_MODEL.md` (overwritten from hypothesis to locked state in Phase 8a).
+
+Ref: docs/specs/SAFE_TO_SPEND_MODEL.md, docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md
