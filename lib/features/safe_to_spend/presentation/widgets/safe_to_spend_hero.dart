@@ -48,8 +48,8 @@ class SafeToSpendHero extends ConsumerWidget {
       return _buildEmptyState(context, theme, isDark);
     }
 
-    final bool isNegative = result.safeToSpend < 0;
-    final bool isZero = result.safeToSpend == 0;
+    final bool isNegative = result.rawSafeToSpend < 0;
+    final bool isZero = result.rawSafeToSpend == 0;
 
     Color amountColor = isDark ? AppColors.textLight : AppColors.textDark;
     String statusCopy = 'Safe to spend';
@@ -245,6 +245,29 @@ class SafeToSpendHero extends ConsumerWidget {
                   isDark: isDark,
                   isPositive: false,
                 ),
+              if (result.excludedUsdIncome > 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.info_outline_rounded,
+                        size: 14,
+                        color: AppColors.textSecondary,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          'USD income (${formatter.format(result.excludedUsdIncome)} USD) excluded — only BDT received income counts.',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.textSecondary,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8),
                 child: Divider(),
@@ -256,7 +279,31 @@ class SafeToSpendHero extends ConsumerWidget {
                 formatter: formatter,
                 isDark: isDark,
                 isBold: true,
+                overrideColor: result.rawSafeToSpend < 0 ? AppColors.warning : null,
               ),
+              if (result.rawSafeToSpend < 0)
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.info_outline_rounded,
+                        size: 14,
+                        color: AppColors.warning,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          'Your reserves exceed received income. Safe to Spend is shown as ৳0 to keep your view calm.',
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: AppColors.textSecondary,
+                            height: 1.4,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 24),
               Container(
                 padding: const EdgeInsets.all(12),
@@ -303,6 +350,7 @@ class _BreakdownRow extends StatelessWidget {
   final bool isDark;
   final bool? isPositive;
   final bool isBold;
+  final Color? overrideColor;
 
   const _BreakdownRow({
     required this.label,
@@ -312,6 +360,7 @@ class _BreakdownRow extends StatelessWidget {
     required this.isDark,
     this.isPositive,
     this.isBold = false,
+    this.overrideColor,
   });
 
   @override
@@ -323,10 +372,13 @@ class _BreakdownRow extends StatelessWidget {
     if (isPositive != null) {
       if (amount > 0) {
         prefix = isPositive! ? '+' : '-';
-        amountColor = isPositive! ? AppColors.success : AppColors.error;
+        amountColor = isPositive! ? AppColors.success : AppColors.textSecondary;
       }
     } else if (isBold && amount < 0) {
       amountColor = AppColors.warning;
+    }
+    if (overrideColor != null) {
+      amountColor = overrideColor!;
     }
 
     return Padding(

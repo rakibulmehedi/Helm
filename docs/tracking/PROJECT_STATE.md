@@ -63,7 +63,16 @@
   - `SafeToSpendHero` replaces raw Total Balance on the dashboard.
   - Transparent math breakdown via bottom sheet.
   - Excludes pending and expected income safely.
-- **Next**: Phase 8e — UX Hardening
+- **Phase 8e COMPLETE**: Safe-to-Spend UX Hardening
+  - Critical fix: `rawSafeToSpend` used for "In reserve mode" / "Fully allocated" state detection (was always dead code).
+  - Critical fix: tax slider max capped at 40% (entity asserts ≤ 0.40; slider was 50%).
+  - Anxiety buffer validation: explicit SnackBar on invalid input; `FilteringTextInputFormatter` added.
+  - Breakdown deduction rows use `AppColors.textSecondary` not `AppColors.error` (no anxiety-inducing red).
+  - USD exclusion transparency row added to breakdown when `excludedUsdIncome > 0`.
+  - Reserve-mode context note added to breakdown when `rawSafeToSpend < 0`.
+  - `Colors.grey` replaced with `AppColors.textSecondary` throughout settings screen.
+- **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
+- **Next**: Post-Phase 8 User Validation Sprint
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision)

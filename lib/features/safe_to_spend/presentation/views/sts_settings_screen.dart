@@ -35,13 +35,20 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
   }
 
   void _saveBuffer() {
-    final bufferVal = double.tryParse(_bufferController.text) ?? 0.0;
-    if (bufferVal >= 0) {
-      ref.read(stsSettingsProvider.notifier).updateAnxietyBuffer(bufferVal);
+    final text = _bufferController.text.trim();
+    final bufferVal = double.tryParse(text);
+    if (bufferVal == null || bufferVal < 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Anxiety buffer saved')),
+        SnackBar(
+          content: Text(bufferVal == null ? 'Enter a valid number' : 'Amount cannot be negative'),
+        ),
       );
+      return;
     }
+    ref.read(stsSettingsProvider.notifier).updateAnxietyBuffer(bufferVal);
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Anxiety buffer saved')),
+    );
   }
 
   void _showAddEditFixedCostSheet(BuildContext context, [FixedCostEntry? entry]) {
@@ -82,7 +89,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
             const SizedBox(height: 8),
             const Text(
               'Estimated percentage of income to reserve for taxes.',
-              style: TextStyle(color: Colors.grey, fontSize: 13),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),
             Row(
@@ -91,7 +98,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                   child: Slider(
                     value: settings.taxRate,
                     min: 0.0,
-                    max: 0.5,
+                    max: 0.4,
                     divisions: 50,
                     activeColor: AppColors.primary,
                     label: '${(settings.taxRate * 100).round()}%',
@@ -117,7 +124,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
             const SizedBox(height: 8),
             const Text(
               'A calm cushion kept out of your Safe-to-Spend calculation.',
-              style: TextStyle(color: Colors.grey, fontSize: 13),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),
             Row(
@@ -126,6 +133,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                   child: TextFormField(
                     controller: _bufferController,
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
                     decoration: InputDecoration(
                       labelText: 'Amount',
                       border: OutlineInputBorder(
@@ -156,7 +164,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
             const SizedBox(height: 8),
             const Text(
               'Recurring monthly expenses deducted from Safe-to-Spend 30 days before they are due.',
-              style: TextStyle(color: Colors.grey, fontSize: 13),
+              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),
             if (fixedCosts.isEmpty)
@@ -169,7 +177,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                 child: const Center(
                   child: Text(
                     'No fixed costs added yet.',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: AppColors.textSecondary),
                   ),
                 ),
               )

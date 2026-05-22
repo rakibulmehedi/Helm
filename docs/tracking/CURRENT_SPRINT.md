@@ -8,14 +8,14 @@
 Sub-phase: **Phase 8a (Formula & Data Contract) ✅ COMPLETE**
 Sub-phase: **Phase 8c (Settings Screen) ✅ COMPLETE**
 Sub-phase: **Phase 8d (Dashboard Hero Number) ✅ COMPLETE**
-Sub-phase: **Phase 8e (UX Hardening) — NEXT**
+Sub-phase: **Phase 8e (UX Hardening) ✅ COMPLETE**
 
 ## 2. Current Priority
 
-- **Phase 8e**: Hardening edge cases, USD currency note, future-date soft warnings.
-- Formula is locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
-- Execution plan is locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
-- Acceptance checklist is locked in `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md`.
+- **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
+- Next: Post-Phase 8 User Validation Sprint (Decision 013) — 5–10 real users, 30 days.
+- Formula locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
+- Execution plan locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
 
 ## 3. Sprint Status
 
@@ -34,7 +34,7 @@ Sub-phase: **Phase 8e (UX Hardening) — NEXT**
 | Phase 8b — Calculation Engine | Done (2026-05-23) |
 | Phase 8c — Settings Screen | Done (2026-05-23) |
 | Phase 8d — Dashboard Hero Number | Done (2026-05-23) |
-| Phase 8e — UX Hardening | **NEXT** |
+| Phase 8e — UX Hardening | Done (2026-05-23) |
 
 ## 4. Out-of-Scope Systems
 

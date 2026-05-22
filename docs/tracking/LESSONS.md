@@ -90,6 +90,22 @@ Users need to verify they deleted the right entry. Showing only client+project n
 
 ---
 
+## Phase 8e Lessons (2026-05-23)
+
+### 1. Clamped values mask state detection bugs — always check the raw value
+`SafeToSpendCalculator` clamps `safeToSpend = max(0.0, rawSafeToSpend)`. The hero checked `result.safeToSpend < 0` for "In reserve mode" — which is permanently false. Any derived value used for UI state must be the raw computed value, not the display-safe clamped one.
+
+### 2. Widget input constraints must match entity assertions
+The tax slider allowed 0–50% but `StsSettings` asserts `taxRate ≤ 0.40`. Input widgets must be bounded to match domain invariants — never rely on the entity to catch an assertion at runtime.
+
+### 3. Silent fallbacks in financial inputs hide user errors
+`double.tryParse(text) ?? 0.0` silently resets the buffer to zero on bad input. In a financial app, every input failure must produce explicit feedback. Users should never wonder "did my save work?"
+
+### 4. Red for deductions creates unnecessary financial anxiety
+`AppColors.error` on expense/tax/fixed-cost breakdown rows triggers alarm signals in users who are already anxious about money. Neutral grey for deductions; amber only for true reserve/warning states.
+
+---
+
 ## Post-Audit Lessons (2026-05-22)
 
 ### 1. External audits must be verified against actual code, not just ecosystem knowledge

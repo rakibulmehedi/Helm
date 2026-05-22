@@ -10,7 +10,6 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 
 ## Next
 
-- [ ] **Phase 8e** — UX Hardening: edge case copy, USD note, future-date soft warn, all EC display
 - [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
 - [ ] Virtual Wallets (depends on Phase 7 + transaction tagging)
 - [ ] Phase 9: Subscription Leakage Radar (spec ready — conditional on user validation)
@@ -57,3 +56,4 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 - [x] Phase 8b — Calculation Engine: pure Dart logic, models, Hive data layer, providers, tests (2026-05-23)
 - [x] Phase 8c — Settings Screen: tax rate slider, anxiety buffer input, fixed costs CRUD (2026-05-23)
 - [x] Phase 8d — Dashboard Hero Number: `SafeToSpendHeroCard`, breakdown on tap, Horizon Number (2026-05-23)
+- [x] Phase 8e — UX Hardening: rawSafeToSpend state detection fix, slider assertion fix, buffer validation, deduction color polish, USD exclusion row, reserve-mode breakdown note (2026-05-23)

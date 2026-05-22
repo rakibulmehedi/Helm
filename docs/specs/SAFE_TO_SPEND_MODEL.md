@@ -392,8 +392,8 @@ class SafeToSpendResult {
   final double taxReserve;             // liquidCash from income × taxRate
   final double fixedCostsDue;          // Σ fixed costs due within 30 days
   final double anxietyBuffer;          // user-set floor
-  final double safeToSpend;            // final result (may be 0 — never negative in display)
-  final double rawSafeToSpend;         // actual computed value (can be negative)
+  final double safeToSpend;            // display-safe result: max(0, rawSafeToSpend) — NEVER use for state detection
+  final double rawSafeToSpend;         // actual computed value (can be negative) — USE THIS for "In reserve mode" / state logic
   final double pendingIncome;          // for Horizon Number calculation only
   final double expectedIncome;         // for Horizon Number calculation only
   final double horizonNumber;          // Safe_to_Spend + (pending×0.8) + (expected×0.3)
