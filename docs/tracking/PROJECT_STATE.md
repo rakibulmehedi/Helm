@@ -25,6 +25,9 @@
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
+- `TransactionType` enum has `@HiveType` in domain layer (architecture violation — must move to data layer)
+- No `TransactionEntity` — `TransactionRepository` interface currently imports `TransactionModel` directly (domain depends on data)
+- No `fromJson`/`toJson` on `IncomeModel` or `TransactionModel` (limits export/import/debugging)
 
 ## 4. Current Architecture
 - Framework: Flutter

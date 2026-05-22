@@ -87,3 +87,28 @@ Summing BDT and USD into one number is wrong. Dashboard summary must filter by a
 
 ### 7. Delete undo snackbar should include amount
 Users need to verify they deleted the right entry. Showing only client+project name is insufficient — the amount is the primary identifier in a financial app.
+
+---
+
+## Post-Audit Lessons (2026-05-22)
+
+### 1. External audits must be verified against actual code, not just ecosystem knowledge
+The Brutal Product Audit's most alarming architectural claim ("Hive mandates integer primary keys") was factually wrong for this specific codebase. Pocketa uses string IDs throughout. The audit read ecosystem documentation but not the repo. Always validate audit claims against actual source before acting on them.
+
+### 2. TASKS.md is an agent contract — stale tasks mislead future agents
+Phase 7e was marked `[x]` in TASKS.md but was NOT implemented. The next agent would have started Phase 8 on an incomplete Phase 7, breaking the pipeline feature. Docs must be updated at the moment a task is completed, not retroactively.
+
+### 3. Architecture debt and product debt have different urgency profiles
+Architecture violations (TransactionType @HiveType in domain) have low urgency but compound over time. Product behavioral gaps (manual friction) have unknown urgency but can kill the product immediately. Prioritize behavioral validation over architecture optimization whenever both are options.
+
+### 4. Manual entry discipline is a behavioral hypothesis, not an engineering problem
+No amount of good architecture, clean UI, or Riverpod providers can save an app whose core data goes stale because users stopped updating it. This must be validated with real users, not assumed.
+
+### 5. "OS" positioning is a dual-use term — keep it internal, drop it externally
+"Freelancer Finance OS" helps contributors and agents think systematically about product scope. To consumers, it signals ERP/accounting software they don't want. Both uses are valid — keep the internal framing, control the external framing.
+
+### 6. When two AI agents contradict each other, the one who read the actual source code wins
+Gemini research audit and Claude architecture audit gave opposite advice on Hive migration timing. Claude's audit was codebase-verified. Gemini's was ecosystem-verified. The codebase verification takes precedence for implementation decisions.
+
+### 7. Never start a new feature phase without verifying the previous phase acceptance checklist is fully satisfied
+Phase 7 acceptance checklist had status transition items unchecked. TASKS.md said it was done. The checklist is the ground truth — always verify it, not just the task tracker.

@@ -144,14 +144,29 @@
 - Three-state model: Expected → Pending → Received
 - Income entry CRUD with client/project tracking
 - Dashboard income summary integration
-- Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) → 7e (status transitions)
+- Sub-phases: 7a (data layer) ✅ → 7b (entry UI) ✅ → 7c (list/filter) ✅ → 7d (dashboard) ✅ → 7e (status transitions) ⏳ PENDING
+
+### Domain Cleanup Sprint (Pre-Phase 8)
+- Create `TransactionEntity` (pure Dart domain class)
+- Fix `TransactionRepository` to use entities, not `TransactionModel`
+- Move `TransactionType @HiveType` annotation out of domain layer
+- Add `fromJson`/`toJson` to `IncomeModel` and `TransactionModel`
+- Estimated effort: ~7–11h
+- Ref: `docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md` (Option C + Option A)
+- Decision: Decision 010 (Hive migration deferred; domain cleanup only)
 
 ### Phase 8 — Safe-to-Spend Model (Spec Ready)
 - Spec: `docs/specs/SAFE_TO_SPEND_MODEL.md`
-- Depends on Phase 7 Income Pipeline
+- Depends on Phase 7 complete (including 7e) + Domain Cleanup Sprint
 - Formula: (Liquid Cash) - (Tax Reserve + Fixed Costs + Anxiety Buffer) = Safe to Spend
 - Pending income excluded from primary Safe-to-Spend number
 - "Waterline" concept for visual display
+
+### Post-Phase 8 — User Validation Sprint (Mandatory)
+- 30 days with 5–10 real Bangladeshi freelancers
+- Primary question: Will users maintain the pipeline manually?
+- Decision 012: Phase 9 scope is conditional on validation outcome
+- Ref: `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md`
 
 ### Phase 8+ — Virtual Wallets (Future)
 - Spec: `docs/specs/VIRTUAL_WALLETS.md`
@@ -159,12 +174,14 @@
 - No actual banking integration
 - Depends on Phase 7 + transaction tagging
 
-### Phase 9 — Subscription Leakage Radar (Spec Ready)
+### Phase 9 — Subscription Leakage Radar (Spec Ready, Conditional)
 - Spec: `docs/specs/SUBSCRIPTION_LEAKAGE_RADAR.md`
 - Manual stack builder first, then recurring detection
 - SaaS burn rate tracking
 - Non-judgmental "optimization opportunity" framing
 - Pro monetization potential
+- **Scope conditional on post-Phase 8 user validation outcome**
+
 
 ---
 

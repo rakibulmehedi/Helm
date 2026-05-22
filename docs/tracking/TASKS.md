@@ -10,11 +10,13 @@ Sprint: Phase 7 — Freelancer Income Pipeline
 - [x] Phase 7b: Income Entry UI (AddIncomeScreen, form, validation, routes)
 - [x] Phase 7c: Income List & Filtering (IncomeListScreen, status tabs, card display, delete + undo)
 - [x] Phase 7d: Dashboard Integration (income summary cards, navigation to filtered list)
-- [x] Phase 7e: Income Flow Stabilization & UX Hardening
+- [ ] Phase 7e: Status Transitions (quick-action buttons on income cards — NOT YET IMPLEMENTED)
 
 ## Next
 
-- [ ] Phase 8: Safe-to-Spend Model (spec ready, depends on Phase 7)
+- [ ] Domain Cleanup Sprint (pre-Phase 8): Create TransactionEntity, fix TransactionRepository, move @HiveType out of domain, add fromJson/toJson to models (~7–11h)
+- [ ] Phase 8: Safe-to-Spend Model (spec ready, depends on Phase 7 complete + domain cleanup)
+- [ ] Post-Phase 8 User Validation Sprint (5–10 real users, 30 days — validate pipeline maintenance behavior)
 - [ ] Virtual Wallets (spec ready, depends on Phase 7 + transaction tagging)
 - [ ] Phase 9: Subscription Leakage Radar (spec ready)
 
