@@ -11,10 +11,15 @@ Sub-phase: **Phase 8d (Dashboard Hero Number) ✅ COMPLETE**
 Sub-phase: **Phase 8e (UX Hardening) ✅ COMPLETE**
 Sub-phase: **Phase 8f (Real Device QA + Validation Prep) ✅ COMPLETE**
 
+**Phase 9 — Pre-Beta QA & Validation**
+Sub-phase: **Phase 9a (Cognitive Persona Simulation) ✅ COMPLETE**
+Sub-phase: **Phase 9b (Hypothesis-Based Validation) ✅ COMPLETE**
+
 ## 2. Current Priority
 
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
 - **Phase 8f COMPLETE** — QA and Validation matrices prepared.
+- **Phase 9b COMPLETE** — Core hypotheses evaluated. Friction around manual pipeline updates identified as primary risk.
 - Next: Post-Phase 8 User Validation Sprint (Decision 013) — 5–10 real users, 30 days.
 - Formula locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
 - Execution plan locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
@@ -38,6 +43,8 @@ Sub-phase: **Phase 8f (Real Device QA + Validation Prep) ✅ COMPLETE**
 | Phase 8d — Dashboard Hero Number | Done (2026-05-23) |
 | Phase 8e — UX Hardening | Done (2026-05-23) |
 | Phase 8f — Real Device QA + Validation Prep | Done (2026-05-23) |
+| Phase 9a — Cognitive Persona Simulation | Done (2026-05-23) |
+| Phase 9b — Hypothesis-Based Validation | Done (2026-05-23) |
 
 ## 4. Out-of-Scope Systems
 

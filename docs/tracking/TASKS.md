@@ -6,11 +6,10 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 
 ## In Progress
 
-- [x] Phase 8a: Formula & Data Contract (formula locked, docs created — 2026-05-23)
+- [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
 
 ## Next
 
-- [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
 - [ ] Virtual Wallets (depends on Phase 7 + transaction tagging)
 - [ ] Phase 9: Subscription Leakage Radar (spec ready — conditional on user validation)
 
@@ -59,3 +58,5 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 - [x] Phase 8e — UX Hardening: rawSafeToSpend state detection fix, slider assertion fix, buffer validation, deduction color polish, USD exclusion row, reserve-mode breakdown note (2026-05-23)
 - [x] Phase 8f — Real Device QA + Validation Prep: QA checklist, scenario matrix, founder validation script, user interview questions, validation metrics (2026-05-23)
 - [x] Pre-Flight Deep QA Validation Sprint: Adversarial audit, bug fixes for Dashboard Income mismatch, and AddTransaction strict expense enforcement (2026-05-23)
+- [x] Phase 9a — Cognitive Persona Simulation QA (2026-05-23)
+- [x] Phase 9b — Hypothesis-Based Validation Sprint (2026-05-23)

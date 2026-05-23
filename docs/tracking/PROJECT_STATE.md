@@ -78,6 +78,8 @@
   - `VALIDATION_METRICS.md` defined for assessing product-market fit.
 - **Pre-Flight Deep QA Complete**: Found and fixed trust mismatch on Dashboard Income chip. Re-routed to `SafeToSpendResult`. Hardened `AddTransactionScreen` to strictly enforce `TransactionType.expense` and dropped legacy income categories. Ready for human QA.
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
+- **Phase 9a COMPLETE** — Cognitive Persona Simulation QA. Validated core concepts, identified friction points (manual pipeline status updates).
+- **Phase 9b COMPLETE** — Hypothesis-Based Validation Sprint. Core hypotheses validated as strong, while manual maintenance discipline flagged as critical risk.
 - **Next**: Post-Phase 8 User Validation Sprint
 
 ## 6. Blocked Modules
