@@ -45,3 +45,8 @@ This checklist is designed for real-device testing of Pocketa after completing P
 - [ ] Breakdown explains every deduction.
 - [ ] No aggressive red color is used for low/zero Safe-to-Spend state.
 - [ ] No tax/legal certainty claim appears in UI copy.
+
+## 7. Pre-Human QA Observations (from Cognitive Simulation)
+- [ ] **Zero State Styling:** Verify that the ৳0 / negative `rawSafeToSpend` state uses neutral, calm colors (no aggressive reds).
+- [ ] **USD Exclusion Copy:** Verify the Breakdown Sheet explicitly states why USD is excluded (e.g., "USD balances excluded from liquid BDT until withdrawn").
+- [ ] **Status Update UX:** Review the Income Pipeline UI on the dashboard to ensure it is obvious and fast to update a pending item to received.

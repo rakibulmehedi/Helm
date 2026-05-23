@@ -25,8 +25,11 @@ Ask the user to perform the following tasks while you observe:
 ## 4. Post-Test Interview Questions (3 mins)
 - **Comprehension:** "What do you think that big 'Safe to Spend' number means?"
 - **Trust:** "If that number said you had ৳5,000 left to spend, would you trust it enough to buy something for ৳4,000 today?"
+- **Trust (USD Exclusion):** "If you have $500 in Payoneer, do you consider that money 'Safe to Spend' today?"
 - **Friction:** "How did it feel to add those items manually? Would you do this every time you got a new client?"
+- **Friction (Status Updates):** "How annoying would it be to manually tap 'Mark as Received' every time a client pays you?"
 - **Emotional Reaction:** "How does seeing your pending vs. received money separated make you feel?"
+- **Emotional Reaction (Zero State):** "When you see ৳0 here, does the app feel like it's helping you or judging you?"
 - **Willingness to Pay:** "If this app automatically synced your bank and Upwork data to give you this exact number every morning, what would you pay for it per month?"
 
 ## 5. Debrief & Notes

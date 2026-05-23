@@ -222,3 +222,13 @@ Deriving computed state like `safeToSpendProvider` from both synchronous notifie
 
 ### 1. QA preparation is separate from development
 Separating real device QA preparation and validation metrics definition into its own phase ensures that the product is actually ready for user feedback, moving the focus from building to observing.
+
+---
+
+## Phase 9a Lessons (2026-05-23)
+
+### 1. Cognitive simulations predict friction before users experience it
+Simulating specific target personas (e.g., F-commerce Seller vs. Spreadsheet Power User) revealed that manual status updates (Pending -> Received) might be a significant friction point that disrupts the app's usefulness. Identifying this early allows us to observe this specific behavior during real human QA.
+
+### 2. USD exclusion requires explicit UI explanation
+While the logic to exclude USD from liquid BDT is correct, the simulation highlighted that users might feel this is an error or untrustworthy if not explicitly explained. The UI must proactively state *why* it's excluded to maintain trust.
