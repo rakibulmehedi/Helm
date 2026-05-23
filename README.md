@@ -5,9 +5,10 @@
 [![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-26%20passing-brightgreen)](#testing)
-[![CI](https://github.com/MehedisGits/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/MehedisGits/Pocketa-V2/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](LICENSE)
+[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/releases)
+[![Last Commit](https://img.shields.io/github/last-commit/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/commits/main)
+[![CI](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml)
 
 Pocketa is a Freelancer Finance OS for unstable-income earners. It helps you understand received, pending, and expected money — then calculates exactly what is safe to spend right now, without anxiety.
 
@@ -110,7 +111,7 @@ See [docs/STATUS.md](docs/STATUS.md) for full current state.
 
 ```bash
 # 1. Clone
-git clone https://github.com/MehedisGits/Pocketa-V2.git
+git clone https://github.com/rakibulmehedi/Pocketa-V2.git
 cd Pocketa-V2
 
 # 2. Install dependencies
