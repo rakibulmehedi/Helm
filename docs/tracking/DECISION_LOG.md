@@ -280,3 +280,21 @@ Phase 8b implementation must conform exactly to this formula. No deviation witho
 Full contract: `docs/specs/SAFE_TO_SPEND_MODEL.md` (overwritten from hypothesis to locked state in Phase 8a).
 
 Ref: docs/specs/SAFE_TO_SPEND_MODEL.md, docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md
+
+---
+
+## Decision 015 — Legacy Income Obsolescence
+
+Date: 2026-05-23
+Trigger: Post-Phase 8 Deep QA Validation Sprint revealed confusion when mixing legacy transaction income and pipeline income on the Dashboard.
+
+Decision:
+`TransactionType.income` records become legacy-only. They are permanently hidden from primary dashboard summaries and the recent transactions list.
+
+Reason:
+Safe-to-Spend uses the Income Pipeline as the only trusted income source. Keeping transaction income active creates double-income confusion and violates the single source of truth for liquid cash.
+
+Impact:
+- Add Transaction is strictly expense-only.
+- Existing legacy income records remain stored in the database but will not affect Safe-to-Spend or primary summaries.
+- Dashboard completely filters out `TransactionType.income` from the "Recent Transactions" list.

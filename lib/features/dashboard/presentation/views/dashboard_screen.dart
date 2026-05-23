@@ -17,7 +17,7 @@ import 'package:pocketa_v2/features/transactions/domain/entities/transaction_ent
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
 
-enum TransactionFilter { all, income, expense }
+enum TransactionFilter { all, expense }
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -73,8 +73,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
     transactionsAsync.whenData((data) {
       for (var tx in data) {
+        // Hide legacy income transactions (Decision 015)
+        if (tx.type == TransactionType.income) continue;
+
         // Filtering
-        if (_filter == TransactionFilter.income && tx.type != TransactionType.income) continue;
         if (_filter == TransactionFilter.expense && tx.type != TransactionType.expense) continue;
         
         filteredTransactions.add(tx);
