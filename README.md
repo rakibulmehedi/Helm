@@ -1,137 +1,177 @@
+# Pocketa
 
-# 📱 Pocketa — Your Pocket Accountant
+**Know what money is actually safe to spend.**
 
-![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)
-![State Management](https://img.shields.io/badge/State%20Management-Riverpod-7C4DFF?logo=dart)
-![Architecture](https://img.shields.io/badge/Architecture-MVVM-blueviolet)
-![Platform](https://img.shields.io/badge/Platform-Android%20%7C%20iOS-brightgreen)
-![License](https://img.shields.io/github/license/MehedisGits/Pocketa-V2)
-![Localization](https://img.shields.io/badge/Language-English%20%7C%20Bengali-yellow)
+[![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
+[![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
+[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-26%20passing-brightgreen)](#testing)
 
----
+Pocketa is a Freelancer Finance OS for unstable-income earners. It helps you understand received, pending, and expected money — then calculates exactly what is safe to spend right now, without anxiety.
 
-## 🧾 Overview
-
-**Pocketa** is a personal finance and budget management app tailored for Bangladeshi users. It helps track income and expenses, categorize spending, and visualize financial trends. With bilingual support, dark mode, and a clean user experience — Pocketa simplifies money management.
+> Built for Bangladeshi freelancers and anyone whose income does not arrive on a fixed schedule.
 
 ---
 
-## ✨ Features
+## The Problem
 
-- ✅ Step-by-step onboarding (Income, Budget, Categories)
-- 📒 Record daily transactions with category tags
-- 📊 Budget insights and monthly summaries
-- 🌗 Theme switching (Dark / Light)
-- 🌍 Localization: English 🇬🇧 & Bengali 🇧🇩
-- 🗃 Local data: Hive + SharedPreferences
-- ☁️ Firebase-ready architecture (coming soon)
-- 🧩 Clean Architecture (MVVM) + Riverpod
+Traditional finance apps assume you have a stable monthly salary. Freelancers do not. Money arrives in bursts — some received, some pending, some expected. Without clarity, you either overspend money that has not arrived yet, or under-spend money that is already in your pocket.
+
+Pocketa solves this with a single, honest number: **your Safe-to-Spend balance**.
 
 ---
 
-## 📸 Screenshots
+## Key Features
 
-<p float="left">
+### Income Pipeline
+Track every income entry across three status layers:
+- **Expected** — invoiced or promised, not yet confirmed
+- **Pending** — client confirmed, payment in transit
+- **Received** — money in hand, safe to count
 
-  <img src="screenshots/onboarding1.png" width="250" />
+### Safe-to-Spend Hero
+A single number on the dashboard — not your total balance — showing what you can actually spend after deducting:
+- Tax reserve (your estimated rate, not spent yet)
+- Upcoming fixed costs (due within 30 days)
+- Anxiety buffer (your personal safety margin)
 
-  <img src="screenshots/dashboard.png" width="250" />
+### Transparent Breakdown
+Tap the Safe-to-Spend number to see the full math: every deduction, every reason, no black box.
 
-  <img src="screenshots/analytics.png" width="250" />
+### Transaction Tracking
+Log daily expenses. Transactions reduce your liquid cash in real time.
 
-</p>
+### Fixed Cost Management
+Define recurring costs (rent, subscriptions, tools). The engine deducts only what is due within 30 days.
+
+### Tax Reserve Estimate
+Set your tax rate (0–40%). Tax is reserved from gross received income, not from net cash. This is an estimate — not legal or tax advice.
+
+### Anxiety Buffer
+A personal safety margin you set. Keeps a cushion so you never feel financially exposed.
+
+### Offline-First
+No account required. All data is stored locally on device. Nothing leaves your phone.
 
 ---
 
-## 🧠 Tech Stack
+## Architecture
 
-| Layer         | Tools & Frameworks                             |
-|---------------|-------------------------------------------------|
-| UI            | Flutter, Custom Widgets                        |
-| State Mgmt    | Riverpod (StateNotifier)                       |
-| Architecture  | MVVM (Clean Architecture)                      |
-| Local Storage | Hive, SharedPreferences                        |
-| Cloud Ready   | Firebase (Auth, Firestore, Functions)          |
-| Theming       | Custom AppTheme                               |
-| Localization  | ARB, `intl`, `flutter_localizations`           |
+| Layer | Technology |
+|---|---|
+| Framework | Flutter (Dart 3.7+) |
+| State Management | Riverpod (StateNotifier) |
+| Local Storage | Hive (MVP; migration to Drift planned post-validation) |
+| Navigation | GoRouter |
+| Architecture | Feature-first clean architecture |
+| Domain separation | Entity / Model split; zero Hive imports in domain layer |
+| Engineering OS | Agentic engineering with full governance documentation |
 
----
-
-## 🗂️ Folder Structure
+### Folder Structure
 
 ```
-
 lib/
-├── application/        # Providers, services, use-cases (Global)
-├── config/             # Routes, constants, themes
-├── core/               # Shared components and utils
-├── data/               # Hive models, static data
-├── features/           # Feature-based modules
-├── l10n/               # ARB files for localization
-└── main.dart           # Entry point
-
-````
+├── config/           # Routes, constants
+├── core/             # Shared themes, utils, widgets, local storage
+├── features/
+│   ├── dashboard/    # Dashboard screen
+│   ├── income/       # Income pipeline (data, domain, presentation)
+│   ├── safe_to_spend/ # Safe-to-Spend engine (calculator, settings, hero)
+│   ├── splash/       # Splash screen
+│   └── transactions/ # Transaction CRUD (data, domain, presentation)
+└── l10n/             # Localization (English + Bengali)
+```
 
 ---
 
-## 🚀 Getting Started
+## Current Status
+
+**Phase 8 Complete — MVP core is production-grade.**
+
+| Phase | Description | Status |
+|---|---|---|
+| Phase 7 | Freelancer Income Pipeline | Complete |
+| Phase 7f | Domain / Storage Abstraction | Complete |
+| Phase 8a | Safe-to-Spend Formula & Data Contract | Complete |
+| Phase 8b | Calculation Engine (26 unit tests) | Complete |
+| Phase 8c | Settings Screen | Complete |
+| Phase 8d | Dashboard Hero | Complete |
+| Phase 8e | UX Hardening | Complete |
+| Phase 8f | Real Device QA + Validation Prep | Complete |
+| Next | User Validation Sprint (5–10 real users, 30 days) | Planned |
+
+See [docs/STATUS.md](docs/STATUS.md) for full current state.
+
+---
+
+## Setup
 
 ```bash
-# 1. Clone the repository
+# 1. Clone
 git clone https://github.com/MehedisGits/Pocketa-V2.git
 cd Pocketa-V2
 
 # 2. Install dependencies
 flutter pub get
 
-# 3. Generate localization & Hive adapters
-flutter gen-l10n
-flutter packages pub run build_runner build --delete-conflicting-outputs
-
-# 4. Run the app
+# 3. Run the app
 flutter run
-````
+```
+
+### Analyzer
+
+```bash
+dart analyze
+# Expected: No issues found!
+```
+
+### Tests
+
+```bash
+flutter test
+# Expected: 26 tests passing
+```
+
+> If using FVM: replace `flutter` with `/path/to/fvm/versions/stable/bin/flutter`
+> and `dart` with `/path/to/fvm/versions/stable/bin/dart`
 
 ---
 
-## 🧪 Testing
+## Documentation
 
-📌 **Coming Soon:**
+Full documentation is organized under [`docs/`](docs/README.md).
 
-* Unit testing for logic
-* Widget testing for UI
-* Integration testing
-
----
-
-## 👨‍💻 Author
-
-**Rakibul Islam Mehedi**  
-🎯 Flutter Developer | Clean Architecture | Local & Cloud storage | Localization & UI/UX Focused  
-📍 Rampal, Bagerhat, Bangladesh
-
-I’m passionate about building purposeful, scalable, and beautiful mobile apps that solve real-life problems — especially for users in Bangladesh. With strong expertise in Flutter, Riverpod, and MVVM architecture, I aim to create local-first solutions that empower users through thoughtful design and robust functionality.
-
-📬 Let’s connect and build something impactful:  
-🔗 [GitHub: @MehedisGits](https://github.com/MehedisGits)  
-🔗 [LinkedIn: Rakibul Islam Mehedi](https://www.linkedin.com/in/flutter-developer-rakibul-islam-mehedi/)  
-🌐 Portfolio: *(Coming Soon)*  
-📧 Email: rakibulmehedi.dev@gmail.com
+| Category | Path |
+|---|---|
+| Product Brain | [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) |
+| Architecture Rules | [docs/core/ARCHITECTURE_RULES.md](docs/core/ARCHITECTURE_RULES.md) |
+| Roadmap | [docs/core/ROADMAP.md](docs/core/ROADMAP.md) |
+| Safe-to-Spend Formula | [docs/specs/SAFE_TO_SPEND_MODEL.md](docs/specs/SAFE_TO_SPEND_MODEL.md) |
+| Current Sprint | [docs/tracking/CURRENT_SPRINT.md](docs/tracking/CURRENT_SPRINT.md) |
+| Project State | [docs/tracking/PROJECT_STATE.md](docs/tracking/PROJECT_STATE.md) |
+| Decision Log | [docs/tracking/DECISION_LOG.md](docs/tracking/DECISION_LOG.md) |
+| All Docs Index | [docs/README.md](docs/README.md) |
 
 ---
 
-## 📃 License
+## Disclaimer
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 🙌 Acknowledgments
-
-* Inspired by finance apps like Wallet, Spendee, and Money Manager.
-* Thanks to the Flutter, Riverpod, and Firebase communities.
+Tax reserve figures are estimates based on the rate you configure. Pocketa is not a tax advisor and does not provide legal or financial advice. Always consult a qualified professional for tax obligations.
 
 ---
 
-> “Simple tools for powerful financial awareness — that’s the Pocketa promise.” 🇧🇩
+## Author
 
+**Rakibul Islam Mehedi** — Flutter Developer
+[GitHub](https://github.com/MehedisGits) · [LinkedIn](https://www.linkedin.com/in/flutter-developer-rakibul-islam-mehedi/) · rakibulmehedi.dev@gmail.com
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
