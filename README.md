@@ -1,18 +1,31 @@
-# Pocketa
+# Pocketa — Flutter Finance App for Freelancers
 
 **Know what money is actually safe to spend.**
 
+[![CI](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/releases)
+[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/commits/main)
 [![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
-[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](LICENSE)
-[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/releases)
-[![Last Commit](https://img.shields.io/github/last-commit/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/commits/main)
-[![CI](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml)
 
-Pocketa is a Freelancer Finance OS for unstable-income earners. It helps you understand received, pending, and expected money — then calculates exactly what is safe to spend right now, without anxiety.
+Pocketa is a Flutter finance app for freelancers with unstable income. Unlike traditional expense trackers that assume a fixed monthly salary, Pocketa calculates a single Safe-to-Spend number from received income minus tax reserve, upcoming fixed costs, and anxiety buffer — so you always know what is actually safe to spend, without anxiety.
 
 > Built for Bangladeshi freelancers and anyone whose income does not arrive on a fixed schedule.
+
+---
+
+## Table of Contents
+
+- [The Problem](#the-problem)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
+- [Current Status](#current-status)
+- [Setup](#setup)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
@@ -117,7 +130,10 @@ cd Pocketa-V2
 # 2. Install dependencies
 flutter pub get
 
-# 3. Run the app
+# 3. Generate Hive adapters
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# 4. Run the app
 flutter run
 ```
 
@@ -166,7 +182,7 @@ Tax reserve figures are estimates based on the rate you configure. Pocketa is no
 ## Author
 
 **Rakibul Islam Mehedi** — Flutter Developer
-[GitHub](https://github.com/MehedisGits) · [LinkedIn](https://www.linkedin.com/in/flutter-developer-rakibul-islam-mehedi/) · rakibulmehedi.dev@gmail.com
+[GitHub](https://github.com/rakibulmehedi) · [LinkedIn](https://www.linkedin.com/in/flutter-developer-rakibul-islam-mehedi/) · rakibulmehedi.dev@gmail.com
 
 ---
 
