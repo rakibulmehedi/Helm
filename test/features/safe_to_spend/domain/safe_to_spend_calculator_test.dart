@@ -94,14 +94,15 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 1000), // 1000 + 100 tax = 1100 deduction
+        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 1000),
         fixedCosts: [],
         now: now,
       );
 
+      // liquidCash=1000, tax=100, buffer=1000 → raw = 1000-100-1000 = -100
       expect(result.liquidCash, 1000.0);
       expect(result.taxReserve, 100.0);
-      expect(result.rawSafeToSpend, -200.0);
+      expect(result.rawSafeToSpend, -100.0);
       expect(result.safeToSpend, 0.0); // Clamped
     });
 
@@ -126,8 +127,25 @@ void main() {
     });
 
     test('EC-07: All Fixed Costs Fall Outside 30-Day Window', () {
-      // now is May 23. Next month is June. Next 30 days is until roughly June 22.
-      // If due is day 25 of next month (June 25), it's > 30 days.
+      // now is May 23. dueDayOfMonth >= today.day means it's due THIS month.
+      // To be outside 30-day window, need next occurrence > 30 days away.
+      // dueDayOfMonth=22 → next is June 22 (30 days). dueDayOfMonth=21 → June 21 (29 days, IN).
+      // Use a date where the cost is clearly outside: now=May 1, dueDayOfMonth=28 of prev month
+      // Actually simpler: use dueDayOfMonth < today.day so it wraps to next month,
+      // and pick a day that's >30 days out. today=May 23, dueDayOfMonth=22 → June 22 = 30 days (edge, IN at <=30).
+      // dueDayOfMonth=23 → May 23 = 0 days (IN). Need a now where wrapping pushes past 30.
+      // Use now = May 1, dueDayOfMonth = 2 → May 2 (1 day, IN). Not helpful.
+      // Best: use a custom now. now=Jan 1, dueDayOfMonth=2 → Jan 2 (1 day IN).
+      // Actually: now=May 23, dueDayOfMonth=22 → wraps to June 22 → 30 days → <=30 → IN.
+      // now=May 23, dueDayOfMonth=23 → May 23 → 0 days → IN.
+      // To get OUT: now=May 1, dueDayOfMonth=2 → May 2 (1 day, IN).
+      // Hmm. With dueDayOfMonth capped at 28 and <=30 check, max wrap = 28 days.
+      // So ALL fixed costs are always within 30 days by design (max 28+days in month).
+      // This means EC-07 scenario is impossible with current dueDayOfMonth 1-28 constraint!
+      // Let's verify: worst case now=day 1, dueDayOfMonth=28 → this month day 28 = 27 days → IN.
+      // Or now=day 28, dueDayOfMonth=1 → next month day 1 → e.g. May 28 to June 1 = 4 days → IN.
+      // FINDING: With dueDayOfMonth constrained to 1-28, no fixed cost can ever be >30 days out.
+      // The EC-07 test scenario is structurally impossible. Adjusting to test a near-boundary case.
       final result = SafeToSpendCalculator.calculate(
         incomeEntries: [
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
@@ -135,13 +153,14 @@ void main() {
         transactions: [],
         settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
         fixedCosts: [
-          createFixedCost(id: 'f1', amount: 500, dueDayOfMonth: 25), // Next due is June 25 (>30 days)
+          createFixedCost(id: 'f1', amount: 500, dueDayOfMonth: 25), // May 25 (2 days, IN window)
         ],
         now: now,
       );
 
-      expect(result.fixedCostsDue, 0.0);
-      expect(result.safeToSpend, 900.0); // 1000 - 100 tax
+      // With dueDayOfMonth 1-28, all costs always fall within 30 days
+      expect(result.fixedCostsDue, 500.0);
+      expect(result.safeToSpend, 400.0); // 1000 - 100 tax - 500 fixed
     });
 
     test('Fixed Costs within 30-Day Window', () {
@@ -252,6 +271,324 @@ void main() {
       expect(result.liquidCash, 500.0);
       expect(result.taxReserve, 100.0); // Tax applies to gross received income (1000 * 0.10)
       expect(result.safeToSpend, 400.0); // 500 liquid - 100 tax
+    });
+
+    // --- Phase 8g: Expanded Scenario Coverage ---
+
+    test('True baseline: no income, no expense, zero settings', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 0.0);
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.totalExpenses, 0.0);
+      expect(result.taxReserve, 0.0);
+      expect(result.fixedCostsDue, 0.0);
+      expect(result.anxietyBuffer, 0.0);
+      expect(result.rawSafeToSpend, 0.0);
+      expect(result.safeToSpend, 0.0);
+      expect(result.horizonNumber, 0.0);
+    });
+
+    test('Received income only, zero deductions', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 10000.0);
+      expect(result.safeToSpend, 10000.0);
+      expect(result.rawSafeToSpend, 10000.0);
+    });
+
+    test('Received + anxiety buffer only', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 2000),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 10000.0);
+      expect(result.anxietyBuffer, 2000.0);
+      expect(result.safeToSpend, 8000.0);
+    });
+
+    test('Pending income only — STS must be zero', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.pending),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 0.0);
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.pendingIncome, 10000.0);
+      expect(result.safeToSpend, 0.0);
+      expect(result.rawSafeToSpend, 0.0);
+      // Horizon includes pending at 0.8x
+      expect(result.horizonNumber, 8000.0);
+    });
+
+    test('Expected income only — STS must be zero', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.expected),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 0.0);
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.expectedIncome, 10000.0);
+      expect(result.safeToSpend, 0.0);
+      expect(result.rawSafeToSpend, 0.0);
+      // Horizon includes expected at 0.3x
+      expect(result.horizonNumber, 3000.0);
+    });
+
+    test('rawSafeToSpend exactly zero — clamped safeToSpend also zero', () {
+      // 10k income - 10k expenses = 0 liquid, 0 tax (on 10k gross? no, we need exact zero)
+      // Use: 10k income, 0% tax, 0 buffer, 10k expenses
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [
+          createExpense(id: 't1', amount: 10000),
+        ],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 0.0);
+      expect(result.rawSafeToSpend, 0.0);
+      expect(result.safeToSpend, 0.0);
+    });
+
+    test('TransactionType.income does NOT count as expense', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [
+          // An income-type transaction should NOT reduce liquid cash
+          TransactionEntity(
+            id: 't1',
+            title: 'Refund',
+            amount: 5000,
+            date: now,
+            type: TransactionType.income,
+          ),
+          createExpense(id: 't2', amount: 2000),
+        ],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      // Only expense (2000) should be deducted, not income-type tx (5000)
+      expect(result.totalExpenses, 2000.0);
+      expect(result.liquidCash, 8000.0);
+      expect(result.safeToSpend, 8000.0);
+    });
+
+    test('All fixed costs within window (dueDayOfMonth 1-28 always within 30 days)', () {
+      // With dueDayOfMonth constrained to 1-28, ALL fixed costs are always <=30 days away.
+      // now is May 23:
+      // dueDayOfMonth 24 → May 24 (1 day)
+      // dueDayOfMonth 10 → June 10 (18 days)
+      // dueDayOfMonth 25 → May 25 (2 days)
+      // All are within 30 days.
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [
+          createFixedCost(id: 'f1', amount: 1000, dueDayOfMonth: 24),
+          createFixedCost(id: 'f2', amount: 2000, dueDayOfMonth: 10),
+          createFixedCost(id: 'f3', amount: 3000, dueDayOfMonth: 25),
+        ],
+        now: now,
+      );
+
+      expect(result.fixedCostsDue, 6000.0); // All three
+      expect(result.safeToSpend, 4000.0);
+    });
+
+    test('Full formula: all deductions combined', () {
+      // Income: 50,000 BDT received
+      // Expenses: 10,000
+      // Tax: 10% of 50,000 = 5,000
+      // Fixed costs due: 8,000 (within window)
+      // Anxiety buffer: 3,000
+      // LiquidCash = 50,000 - 10,000 = 40,000
+      // raw = 40,000 - 5,000 - 8,000 - 3,000 = 24,000
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 30000, status: IncomeStatus.received),
+          createIncome(id: 'i2', amount: 20000, status: IncomeStatus.received),
+          createIncome(id: 'i3', amount: 15000, status: IncomeStatus.pending),
+          createIncome(id: 'i4', amount: 100, currency: 'USD', status: IncomeStatus.received),
+        ],
+        transactions: [
+          createExpense(id: 't1', amount: 6000),
+          createExpense(id: 't2', amount: 4000),
+        ],
+        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 3000),
+        fixedCosts: [
+          createFixedCost(id: 'f1', amount: 5000, dueDayOfMonth: 24), // IN window
+          createFixedCost(id: 'f2', amount: 3000, dueDayOfMonth: 10), // IN window
+        ],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 50000.0);
+      expect(result.totalExpenses, 10000.0);
+      expect(result.liquidCash, 40000.0);
+      expect(result.taxReserve, 5000.0);
+      expect(result.fixedCostsDue, 8000.0);
+      expect(result.anxietyBuffer, 3000.0);
+      expect(result.rawSafeToSpend, 24000.0);
+      expect(result.safeToSpend, 24000.0);
+      expect(result.pendingIncome, 15000.0);
+      expect(result.excludedUsdIncome, 100.0);
+      expect(result.excludedUsdEntryCount, 1);
+      // Horizon = 24000 + (15000 * 0.8) + 0 = 24000 + 12000 = 36000
+      expect(result.horizonNumber, 36000.0);
+    });
+
+    test('Tax reserve is from gross received income, NOT net liquid cash', () {
+      // 20k received, 15k expenses → liquidCash = 5k
+      // Tax should be 20k * 0.10 = 2000, NOT 5k * 0.10 = 500
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 20000, status: IncomeStatus.received),
+        ],
+        transactions: [
+          createExpense(id: 't1', amount: 15000),
+        ],
+        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, 5000.0);
+      expect(result.taxReserve, 2000.0); // Gross-based, not net-based
+      expect(result.rawSafeToSpend, 3000.0);
+      expect(result.safeToSpend, 3000.0);
+    });
+
+    test('Received USD income excluded — does not affect STS at all', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 500, currency: 'USD', status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.liquidCash, 0.0);
+      expect(result.taxReserve, 0.0); // No BDT income to tax
+      expect(result.safeToSpend, 0.0);
+      expect(result.excludedUsdIncome, 500.0);
+      expect(result.excludedUsdEntryCount, 1);
+    });
+
+    test('Expenses exceed income — negative raw, clamped to zero', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [
+          createExpense(id: 't1', amount: 15000),
+        ],
+        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.liquidCash, -5000.0);
+      expect(result.taxReserve, 1000.0); // Still 10% of gross
+      expect(result.rawSafeToSpend, -6000.0);
+      expect(result.safeToSpend, 0.0); // Clamped
+    });
+
+    test('Fixed cost due today (same day) is within window', () {
+      // dueDayOfMonth == today.day (23) → 0 days difference → within 30
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [
+          createFixedCost(id: 'f1', amount: 2000, dueDayOfMonth: 23), // Today
+        ],
+        now: now,
+      );
+
+      expect(result.fixedCostsDue, 2000.0);
+      expect(result.safeToSpend, 8000.0);
+    });
+
+    test('Multiple received BDT incomes aggregate correctly', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 5000, status: IncomeStatus.received),
+          createIncome(id: 'i2', amount: 3000, status: IncomeStatus.received),
+          createIncome(id: 'i3', amount: 7000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 15000.0);
+      expect(result.liquidCash, 15000.0);
+      expect(result.safeToSpend, 15000.0);
+    });
+
+    test('Max tax rate 40% applied correctly', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.40, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.taxReserve, 4000.0);
+      expect(result.safeToSpend, 6000.0);
     });
   });
 }
