@@ -21,6 +21,43 @@ Any change to product behavior, a new feature, or a new entity requires a spec i
 
 ---
 
+## Development Setup
+
+### Prerequisites
+
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (Dart 3.7+)
+- Android Studio or Xcode (for device/emulator)
+- Optional: [FVM](https://fvm.app/) for Flutter version pinning
+
+### Steps
+
+```bash
+# 1. Clone
+git clone https://github.com/rakibulmehedi/Pocketa-V2.git
+cd Pocketa-V2
+
+# 2. Install dependencies
+flutter pub get
+
+# 3. Run code generation (Hive adapters)
+dart run build_runner build --delete-conflicting-outputs
+
+# 4. Verify analyzer is clean
+dart analyze
+# Expected: No issues found!
+
+# 5. Run tests
+flutter test
+# Expected: All 26 tests passing
+
+# 6. Run the app
+flutter run
+```
+
+> Using FVM? Replace `flutter` with `fvm flutter` and `dart` with `fvm dart`.
+
+---
+
 ## Technical Requirements
 
 - Flutter / Dart 3.7+
