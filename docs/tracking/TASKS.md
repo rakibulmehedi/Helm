@@ -58,3 +58,4 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 - [x] Phase 8d — Dashboard Hero Number: `SafeToSpendHeroCard`, breakdown on tap, Horizon Number (2026-05-23)
 - [x] Phase 8e — UX Hardening: rawSafeToSpend state detection fix, slider assertion fix, buffer validation, deduction color polish, USD exclusion row, reserve-mode breakdown note (2026-05-23)
 - [x] Phase 8f — Real Device QA + Validation Prep: QA checklist, scenario matrix, founder validation script, user interview questions, validation metrics (2026-05-23)
+- [x] Pre-Flight Deep QA Validation Sprint: Adversarial audit, bug fixes for Dashboard Income mismatch, and AddTransaction strict expense enforcement (2026-05-23)

@@ -30,9 +30,6 @@ const List<String> _defaultCategories = [
   'Entertainment',
   'Health',
   'Education',
-  'Salary',
-  'Freelance',
-  'Gift',
   'Other',
 ];
 
@@ -51,7 +48,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
 
-  TransactionType _selectedType = TransactionType.expense;
+  final TransactionType _selectedType = TransactionType.expense;
   String _selectedCategory = _defaultCategories.first;
   DateTime _selectedDate = DateTime.now();
   bool _isSaving = false;
@@ -71,7 +68,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         _titleController.text = tx.title;
         _amountController.text = tx.amount.toString();
         if (tx.note != null) _noteController.text = tx.note!;
-        _selectedType = tx.type;
         if (tx.categoryId != null) _selectedCategory = tx.categoryId!;
         _selectedDate = tx.date;
       } else {
@@ -247,15 +243,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ── Type toggle ──────────────────────────────────────────────
-                _TypeToggle(
-                  selected: _selectedType,
-                  isDark: isDark,
-                  onChanged: (t) => setState(() => _selectedType = t),
-                ),
-
-                const SizedBox(height: 24),
-
                 // ── Title ────────────────────────────────────────────────────
                 _FieldLabel('Title', isDark: isDark),
                 const SizedBox(height: 8),
@@ -494,62 +481,6 @@ class _FieldLabel extends StatelessWidget {
             fontSize: ResponsiveUtilities.font(context, 13),
             color: isDark ? AppColors.textLight : AppColors.textDark,
           ),
-    );
-  }
-}
-
-class _TypeToggle extends StatelessWidget {
-  const _TypeToggle({
-    required this.selected,
-    required this.isDark,
-    required this.onChanged,
-  });
-
-  final TransactionType selected;
-  final bool isDark;
-  final ValueChanged<TransactionType> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: isDark ? AppColors.cardDark : AppColors.greyLight,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.all(4),
-      child: Row(
-        children: TransactionType.values.map((type) {
-          final isActive = selected == type;
-          final color =
-              type == TransactionType.expense ? AppColors.error : AppColors.success;
-          return Expanded(
-            child: GestureDetector(
-              onTap: () => onChanged(type),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: isActive ? color : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  type == TransactionType.expense ? 'Expense' : 'Income',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: ResponsiveUtilities.font(context, 14),
-                    color: isActive
-                        ? AppColors.white
-                        : (isDark
-                            ? AppColors.textLight
-                            : AppColors.textSecondary),
-                  ),
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
     );
   }
 }

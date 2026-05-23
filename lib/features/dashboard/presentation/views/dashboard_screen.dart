@@ -12,6 +12,7 @@ import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 import 'package:pocketa_v2/features/income/presentation/widgets/income_pipeline_summary.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart';
+import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
 import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
@@ -64,19 +65,14 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     
     final transactionsAsync = ref.watch(transactionsProvider);
 
-    double totalIncome = 0;
-    double totalExpense = 0;
+    final stsResult = ref.watch(safeToSpendProvider);
+    double totalIncome = stsResult.totalReceivedIncomeBdt;
+    double totalExpense = stsResult.totalExpenses;
+
     List<TransactionEntity> filteredTransactions = [];
 
     transactionsAsync.whenData((data) {
       for (var tx in data) {
-        // Summary uses all transactions
-        if (tx.type == TransactionType.income) {
-          totalIncome += tx.amount;
-        } else {
-          totalExpense += tx.amount;
-        }
-        
         // Filtering
         if (_filter == TransactionFilter.income && tx.type != TransactionType.income) continue;
         if (_filter == TransactionFilter.expense && tx.type != TransactionType.expense) continue;
@@ -185,13 +181,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       label: 'All',
                       isSelected: _filter == TransactionFilter.all,
                       onTap: () => setState(() => _filter = TransactionFilter.all),
-                      isDark: isDark,
-                    ),
-                    const SizedBox(width: 8),
-                    _FilterChip(
-                      label: 'Income',
-                      isSelected: _filter == TransactionFilter.income,
-                      onTap: () => setState(() => _filter = TransactionFilter.income),
                       isDark: isDark,
                     ),
                     const SizedBox(width: 8),

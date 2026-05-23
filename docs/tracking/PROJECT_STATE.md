@@ -76,6 +76,7 @@
   - `SAFE_TO_SPEND_SCENARIO_MATRIX.md` for formula edge cases.
   - `FOUNDER_VALIDATION_SCRIPT.md` and user interview questions prepared.
   - `VALIDATION_METRICS.md` defined for assessing product-market fit.
+- **Pre-Flight Deep QA Complete**: Found and fixed trust mismatch on Dashboard Income chip. Re-routed to `SafeToSpendResult`. Hardened `AddTransactionScreen` to strictly enforce `TransactionType.expense` and dropped legacy income categories. Ready for human QA.
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
 - **Next**: Post-Phase 8 User Validation Sprint
 

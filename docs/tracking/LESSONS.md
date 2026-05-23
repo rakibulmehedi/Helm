@@ -209,6 +209,15 @@ Deriving computed state like `safeToSpendProvider` from both synchronous notifie
 
 ---
 
+## Pre-Flight Deep QA Validation Lessons (2026-05-23)
+
+### 1. Single Source of Truth for Display Totals
+**Context:** The Dashboard showed an "Income" chip and a "Safe-to-Spend" hero. The hero correctly used `safeToSpendProvider` (which sums BDT received income), but the Income chip manually iterated over transactions looking for `TransactionType.income`.
+**The Mistake:** Duplicating aggregation logic in the UI layer instead of asking the domain layer for the total.
+**The Fix:** The UI must extract `totalReceivedIncomeBdt` directly from the `SafeToSpendResult` object. Never manually sum transactions in a presentation widget if the domain already models that aggregate state.
+
+---
+
 ## Phase 8f Lessons (2026-05-23)
 
 ### 1. QA preparation is separate from development
