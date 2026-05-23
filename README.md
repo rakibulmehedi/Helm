@@ -7,6 +7,7 @@
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-26%20passing-brightgreen)](#testing)
+[![CI](https://github.com/MehedisGits/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/MehedisGits/Pocketa-V2/actions/workflows/ci.yml)
 
 Pocketa is a Freelancer Finance OS for unstable-income earners. It helps you understand received, pending, and expected money — then calculates exactly what is safe to spend right now, without anxiety.
 

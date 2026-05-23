@@ -51,6 +51,19 @@ Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`, `test`
 
 ---
 
+## Continuous Integration
+
+Every push to `main` and every pull request runs the CI quality gate automatically:
+
+```
+dart analyze   → must be clean (0 errors, 0 warnings, 0 infos)
+flutter test   → all tests must pass
+```
+
+**CI must pass before any PR is merged.** Do not merge a PR with a failing CI run. If CI fails on your branch, fix it locally before requesting review.
+
+---
+
 ## Pull Request Checklist
 
 - [ ] Read all mandatory pre-flight docs

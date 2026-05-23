@@ -45,6 +45,7 @@ Post-validation gate: if validated, proceed to Phase 9 (Subscription Leakage Rad
 
 | Type | Status |
 |---|---|
+| CI (GitHub Actions) | Configured — runs on push/PR to main |
 | Unit tests (SafeToSpendCalculator) | 26 passing |
 | dart analyze | Clean — 0 errors, 0 warnings, 0 infos |
 | Simulated QA | Complete — see [docs/qa/PHASE_8_SIMULATED_QA_REPORT.md](qa/PHASE_8_SIMULATED_QA_REPORT.md) |
