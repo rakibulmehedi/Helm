@@ -298,3 +298,129 @@ Impact:
 - Add Transaction is strictly expense-only.
 - Existing legacy income records remain stored in the database but will not affect Safe-to-Spend or primary summaries.
 - Dashboard completely filters out `TransactionType.income` from the "Recent Transactions" list.
+
+---
+
+## Decision 016 — Final Product Doctrine Adopted as Canon
+
+Date: 2026-06-04
+Trigger: Chief Architect approved `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` as the highest strategic authority.
+
+Decision:
+The Final Product Doctrine supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts. All future product, architecture, and scope decisions must align with the Doctrine. Conflicting documents must be updated or marked as superseded.
+
+Reason:
+Prior docs contained scope drift (F-commerce, Subscription Leakage Radar, generic expense tracking) and lacked validation gates. The Doctrine enforces disciplined execution with binary go/no-go thresholds.
+
+Impact:
+- Strategic Authority Hierarchy established: Doctrine > CLAUDE.md > BRAIN > ARCHITECTURE_RULES > ROADMAP > Specs
+- All agent pre-flight checklists updated to read Doctrine first
+- ROADMAP.md restructured to match Doctrine version scope
+
+---
+
+## Decision 017 — F-Commerce and Generic Expense Tracking Permanently Killed
+
+Date: 2026-06-04
+Trigger: Final Product Doctrine §2, §8
+
+Decision:
+F-commerce operators (Facebook/Instagram sellers, COD, inventory, POS) are permanently excluded from target users. Generic expense categorization is permanently excluded from product scope. These are not deferred — they are killed.
+
+Reason:
+F-commerce is a different product entirely (COD tracking, inventory, POS). Generic expense tracking is TallyKhata/Hishabee territory with no Pocketa advantage. Both dilute the core wedge (pipeline-aware Safe-to-Spend for USD→BDT freelancers).
+
+Impact:
+- Target Users updated in POCKETA_BRAIN.md
+- ROADMAP.md scope cleaned
+- No future agent may propose these features
+
+---
+
+## Decision 018 — Subscription Leakage Radar Killed
+
+Date: 2026-06-04
+Trigger: Final Product Doctrine — feature not present in any version scope (MVP/V1/V2/V3)
+
+Decision:
+Subscription Leakage Radar is killed. The spec at `docs/specs/SUBSCRIPTION_LEAKAGE_RADAR.md` is superseded. No implementation will occur.
+
+Reason:
+The Doctrine explicitly scopes MVP through V3. Subscription tracking does not appear in any version. It was a pre-doctrine feature proposal that does not serve the core S2S wedge.
+
+Impact:
+- `docs/specs/SUBSCRIPTION_LEAKAGE_RADAR.md` marked as SUPERSEDED
+- Removed from ROADMAP and CURRENT_SPRINT out-of-scope lists
+
+---
+
+## Decision 019 — Multi-Wallet Deferred to V1, Tax Reserve to V2, Invoice-Lite to V2
+
+Date: 2026-06-04
+Trigger: Final Product Doctrine §4, §5, §6
+
+Decision:
+- Multi-wallet: V1 scope (after MVP beta clears thresholds). MVP uses single aggregated balance.
+- Tax Reserve: V2 scope. User-declared %, never algorithmic. Explicit "This is not tax advice" disclaimer required.
+- Invoice-Lite: V2 scope. 3-sprint allocation, non-negotiable. Sequential numbering, TIN, BDT-equivalent, PDF, email delivery.
+
+Reason:
+MVP must validate S2S trust with minimal complexity. Multi-wallet doubles complexity before trust is proven. Tax reserve has ambiguity that could become a trust bomb. Invoice-Lite is a 2–3 sprint feature, too heavy for MVP.
+
+Impact:
+- Virtual Wallets spec (`docs/specs/VIRTUAL_WALLETS.md`) is superseded for MVP scope
+- Current S2S formula's tax rate slider remains in app but is Doctrine-deferred to V2 for the formal Tax Reserve feature
+- ROADMAP restructured with V1/V2 milestones
+
+---
+
+## Decision 020 — Closed Beta Validation Gates Are Mandatory
+
+Date: 2026-06-04
+Trigger: Final Product Doctrine §4, §16
+
+Decision:
+MVP closed beta (15–25 freelancers, 4 weeks) with specific go/no-go thresholds is mandatory before V1 begins. Thresholds:
+- Pipeline update compliance: ≥85%
+- Override-equivalent rate: <5%
+- 30-day retention: ≥60%
+- Onboarding completion: ≥70%
+- S2S comprehension: ≥80%
+
+**If 2+ thresholds miss → KILL. Do not ship V1.**
+
+Reason:
+The Doctrine treats the beta as a controlled experiment, not a soft launch. If the core S2S loop doesn't work with 15–25 users, it won't work with 1,000.
+
+Impact:
+- Supersedes Decision 013's softer "50% maintain pipeline" threshold
+- Builds on Decision 013's validation mandate with stricter criteria
+- Closed-beta instrumentation must be built into MVP
+
+---
+
+## Decision 021 — Trust Layer is Non-Negotiable from MVP
+
+Date: 2026-06-04
+Trigger: Final Product Doctrine §10
+
+Decision:
+All 8 trust layers from the Doctrine must be addressed in MVP:
+1. Auth: Magic Link + mandatory PIN/biometric on every app open
+2. Calculation: S2S always computed, never stored; "—" on failure
+3. Agency: Users edit inputs, never override S2S output
+4. Audit: Every financial edit logged immutably
+5. Sovereignty: CSV export + account deletion from Day 1
+6. Multi-device: No last-write-wins; single-device acceptable in MVP
+7. Storage: Integer paisa, event-sourced financial operations
+8. Legal: PDPO 2026 opinions required before Sprint 1
+
+Reason:
+Trust is the product. A finance app that loses trust on Day 1 never recovers.
+
+Impact:
+- Auth system (Magic Link + PIN) must be built — currently MISSING
+- Audit log must be built — currently MISSING
+- CSV export must be built — currently MISSING
+- Account deletion must be built — currently MISSING
+- These are MVP-blocking gaps

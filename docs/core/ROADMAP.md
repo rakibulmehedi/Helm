@@ -163,55 +163,62 @@
 - "Waterline" concept for visual display
 - Sub-phases: 8a (Formula/Contract) ✅ → 8b (Calculation Engine) ✅ → 8c (Settings UI) ✅ → 8d (Dashboard Hero) ✅ → 8e (UX Hardening) ✅ → 8f (Real Device QA + Validation Prep) ✅
 
-### Post-Phase 8 — User Validation Sprint (Mandatory)
-- 30 days with 5–10 real Bangladeshi freelancers
-- Primary question: Will users maintain the pipeline manually?
-- Decision 013: Phase 9 scope is conditional on validation outcome
-- Ref: `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md`
+### Doctrine Gap Resolution Sprint (Next)
+- Align existing implementation with Final Doctrine MVP requirements
+- Auth: Magic Link + PIN/biometric gate
+- Onboarding: conversational 3-minute flow
+- Missing MVP features: audit log, CSV export, account deletion, closed-beta instrumentation
+- Ref: `docs/planning/DOCTRINE_TO_CODE_GAP_ANALYSIS.md`
 
-### Phase 8+ — Virtual Wallets (Future)
-- Spec: `docs/specs/VIRTUAL_WALLETS.md`
-- Mental separation of Business / Personal / Tax / Reserve
-- No actual banking integration
-- Depends on Phase 7 + transaction tagging
-
-### Phase 9 — Subscription Leakage Radar (Spec Ready, Conditional)
-- Spec: `docs/specs/SUBSCRIPTION_LEAKAGE_RADAR.md`
-- Manual stack builder first, then recurring detection
-- SaaS burn rate tracking
-- Non-judgmental "optimization opportunity" framing
-- Pro monetization potential
-- **Scope conditional on post-Phase 8 user validation outcome**
-
+### Closed Beta (per Doctrine §16)
+- 15–25 freelancers, 4 weeks, invitation-only
+- Thresholds: pipeline compliance ≥85%, override-equivalent <5%, retention ≥60%, onboarding ≥70%, S2S comprehension ≥80%
+- **2+ threshold misses = KILL. Do not ship V1.**
 
 ---
 
-## Milestone: v0.3-pro-power (Planned)
+## Milestone: V1 — Multi-Wallet + Polish (Planned, Conditional)
 
-> Status: **NOT STARTED**
-> Advanced freelancer tools and monetization foundation.
+> Status: **BLOCKED — Requires MVP closed beta to clear all thresholds**
+> Per Final Doctrine §5. Earned only after beta clears.
 
-### Phase 10 — Client & Project ROI
-- Track income/expense per client
-- Client profitability tracking
-- Multi-currency support (USD/BDT)
-
-### Phase 11 — Export & Reporting
-- PDF/CSV generation for taxes and clients
-- Advanced cashflow insights
+### V1 Features
+- Multi-wallet (Payoneer USD, bKash BDT, Bank BDT, Cash, Custom)
+- Intra-wallet transfer (record-only, audit-logged)
+- Manual USD→BDT conversion with sanity validation
+- Transactional ETA notifications
+- Dashboard state colors (Safe / Tight / At Risk)
+- Duplicate-last-entry pipeline template
+- Empty/error states polished
 
 ---
 
-## Milestone: v1.0-cloud (Planned)
+## Milestone: V2 — Workflow + Monetization (Planned, Conditional)
 
-> Status: **NOT STARTED**
-> Cloud sync, auth, and multi-device.
+> Status: **NOT STARTED — Requires V1 completion**
+> Per Final Doctrine §6. Monetization begins here.
 
-### Phase 13+ — Supabase Integration
-- User authentication
-- Cloud sync for transactions
-- Multi-device support
-- Conflict resolution
+### V2 Features
+- Invoice-Lite (3-sprint allocation, non-negotiable)
+- Invoice → Pipeline auto-entry
+- Minimal client profile (name, email, currency, terms)
+- Tax Reserve (user-declared %, not algorithmic)
+- Overdue invoice flagging + follow-up template
+- Paid tier activation (Free / Pro ৳299 / Power ৳599)
+
+---
+
+## Superseded Items
+
+> The following were in prior roadmap versions but are superseded by the Final Doctrine:
+
+| Item | Status | Reason |
+|---|---|---|
+| Virtual Wallets as Phase 8+ | Moved to V1 | Doctrine §5 places multi-wallet in V1 |
+| Subscription Leakage Radar | **KILLED** | Not in any doctrine version scope |
+| Client & Project ROI (Phase 10) | **KILLED** | Not in doctrine; different product category |
+| v0.3-pro-power milestone | **REPLACED** | Replaced by V1/V2 doctrine milestones |
+| v1.0-cloud / Supabase Integration | **DEFERRED** | Backend decisions per Doctrine §14; not a version milestone |
 
 ---
 
@@ -227,8 +234,19 @@ Current Stack (v0.1):
 ├── Google Fonts (typography)
 └── intl (localization + formatting)
 
-Future Additions (planned):
-├── fl_chart or syncfusion (charts)
-├── Supabase (cloud sync + auth)
-└── TBD (export, notifications)
+Doctrine-Required Additions (planned):
+├── Magic Link auth provider (Resend/Postmark)
+├── PIN/biometric gate (local_auth)
+├── CSV export
+├── Backend: Next.js API routes OR Supabase (pick before Sprint 1)
+├── PostgreSQL (managed, event-sourced, integer paisa)
+└── Bangladesh-residency-aware hosting
 ```
+
+---
+
+## Doctrine Alignment Note
+
+> This roadmap was updated on 2026-06-04 to align with `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`.
+> The Final Doctrine is the authoritative source for version scope.
+> Prior items superseded: Subscription Leakage Radar, Client/Project ROI, v0.3-pro-power, v1.0-cloud milestones.

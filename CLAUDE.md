@@ -35,8 +35,8 @@ Every agent must use docs to:
 
 ## Project Identity
 
-You are working on **Pocketa** — a Freelancer Finance OS for emerging Bangladeshi earners.
-Category: **Cashflow Operations & Financial Mental Health**.
+You are working on **Pocketa** — a single-purpose calm cockpit for Bangladeshi USD-earning freelancers, answering one question: "How many BDT can I actually spend right now?"
+Category: **Freelancer Cashflow Clarity**.
 This is NOT a backward-looking expense tracker. Read `docs/core/POCKETA_BRAIN.md` for full product context.
 
 ---
@@ -50,13 +50,34 @@ You execute. You do not decide product direction.
 
 ---
 
+## Strategic Authority
+
+The **Final Product Doctrine** (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`) is the highest product strategy authority for Pocketa. It supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts.
+
+When any document conflicts with the Final Doctrine:
+- The Doctrine wins
+- The conflicting document must be updated or marked as superseded
+- No agent may implement features killed or deferred by the Doctrine
+
+Key doctrine constraints:
+- Pocketa = Freelancer Cashflow Clarity (not a generic expense tracker)
+- Core wedge = pipeline-aware Safe-to-Spend
+- F-commerce, generic expense tracking = permanently killed
+- Multi-wallet = V1 (not MVP)
+- Tax reserve, Invoice-Lite = V2
+- Trust layer = non-negotiable
+- Closed beta validation gates = mandatory before V1
+
+---
+
 ## Mandatory Pre-Flight
 
 Before every task, read these files:
-1. `docs/core/POCKETA_BRAIN.md` — product identity and philosophy
-2. `docs/core/ARCHITECTURE_RULES.md` — technical constraints
-3. `docs/core/ROADMAP.md` — current state and phase history
-4. `docs/governance/AGENT_WORKFLOW.md` — execution protocol
+1. `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority**
+2. `docs/core/POCKETA_BRAIN.md` — product identity and philosophy
+3. `docs/core/ARCHITECTURE_RULES.md` — technical constraints
+4. `docs/core/ROADMAP.md` — current state and phase history
+5. `docs/governance/AGENT_WORKFLOW.md` — execution protocol
 
 ---
 

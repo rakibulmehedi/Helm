@@ -10,10 +10,10 @@
 Pocketa is **NOT** a backward-looking expense tracker.
 
 Pocketa is a:
-> **Freelancer Finance OS for emerging Bangladeshi earners.**
-> Category: Cashflow Operations & Financial Mental Health
+> **A single-purpose calm cockpit for Bangladeshi USD-earning freelancers.**
+> Category: Freelancer Cashflow Clarity
 
-The app shifts focus from backward-looking expense categorization to forward-looking cashflow clarity, helping freelancers, creators, online earners, and small operators reduce financial chaos.
+Pocketa answers one question: 'After escrow, FX, fixed costs, buffer, and reserves — how many BDT can I actually spend right now?' It is a read-only intelligence + workflow layer that sits above the chaotic Bangladeshi freelancer financial stack and produces one trusted number.
 
 ---
 
@@ -23,16 +23,11 @@ Our users struggle with:
 
 | Problem | Impact |
 |---|---|
-| Irregular income | Can't predict monthly budget |
-| Financial anxiety | Stress from unclear money picture |
-| Mixed personal/business spending | Tax confusion, lifestyle creep |
-| Lack of savings discipline | No emergency buffer |
-| Poor cashflow awareness | Surprised by month-end shortfall |
-| Subscription leakage | Forgotten recurring charges |
-| Pending client payments | Cash crunch from delayed invoices |
-| Fragmented wallets | Cash, bKash, Nagad, bank — no unified view |
-
-Pocketa exists to reduce this chaos.
+| Two currencies (USD earn, BDT spend) | Mental math under stress with shifting FX rates |
+| Pipeline timing uncertainty | Escrow (5-14 days) → FX (1-3 days) → withdrawal delays |
+| Mistaking pending for spendable | Overspend incidents from treating hope as cash |
+| Fixed cost surprise | Forgot obligations, rent comes due, account is short |
+| Fragmented wallets | Payoneer + bKash + bank + cash — no single view |
 
 ---
 
@@ -76,56 +71,78 @@ Every new feature must pass:
 
 ## Target Users
 
-### Primary
-- Bangladeshi freelancers (Upwork, Fiverr, local contracts)
-- Online earners (YouTube, affiliate, digital products)
-- Agency owners (1–10 person teams)
-- F-commerce operators (Facebook/Instagram sellers)
-- Creators (content, design, development)
+### Primary ICP (per Final Doctrine)
+- Bangladeshi intermediate freelancer, $800–$3,000/month, USD income → BDT spending
+- Uses Payoneer, nsave, or ElevatePay as USD receiver
+- Has experienced at least one overspend incident from mistaking pending USD for spendable BDT
+- Already maintains a Google Sheet or mental ledger and finds it tiring
+- Has 1–4 recurring or repeat clients
+- Carries fixed monthly obligations (internet, subscriptions, family support)
 
-### Secondary
-- Students earning online
-- Young professionals with side income
-- Anyone with irregular multi-source income
+### Disqualifying Signals (NOT our users)
+- Freelancer who checks bKash and never feels surprise
+- F-commerce / COD sellers (different product entirely)
+- Pure marketplace beginners earning <$500/month
+- Salaried employees with side income
+- YouTubers/TikTokers (revenue-sharing model)
 
 ### User Persona: Rafiq
-> Rafiq is a 26-year-old freelance web developer in Dhaka. He earns from Upwork in USD, receives payments to bKash and bank. He has no accountant, no bookkeeper, and no time to manually track finances. He wants to open his phone and instantly know: "Am I doing okay this month?"
+> Rafiq is a 28-year-old freelance web developer in Dhaka earning $1,500/month from Upwork. He receives payments to Payoneer, converts to BDT via bank transfer. He has experienced overspend incidents from mistaking escrow money as available BDT. He maintains a Google Sheet but finds it tiring. He wants to open his phone and instantly see one trusted BDT number: what is actually safe to spend right now.
 
 ---
 
-## Current Product Direction
+## Current Product Direction (per Final Doctrine)
 
-### Active Focus (v0.1 — MVP Foundation)
-- Transaction CRUD (create, read, update, delete)
-- Income + expense tracking
-- Dashboard with summary cards
-- Date grouping and filtering
-- Offline-first local persistence
+### MVP (Current Build — Validate S2S Trust)
+- Magic Link auth + mandatory PIN/biometric
+- 3-minute conversational onboarding
+- Single aggregated balance (no wallet partitioning)
+- Income Pipeline (Expected → Pending → Received)
+- One-tap Pending → Received gesture
+- Fixed Costs registry
+- Safe-to-Spend hero metric (computed, never stored)
+- Calculation breakdown drawer
+- Editable inputs (FX rate, expected date, exclude entry)
+- Audit log on financial edits
+- CSV data export
+- Account deletion (full purge)
+- Default 15% safety buffer (editable 5–30%)
+- "—" fallback on calc failure
+- Closed-beta instrumentation
 
-### Near-Future Modules (v0.2 — Cashflow Clarity)
-- Income Pipeline (Pending to Cleared)
-- Safe-to-Spend Balance calculation
-- Virtual Wallets (separating business, personal, tax)
-- Subscription Leakage Radar
-- Client/Project Profitability tracking
+### V1 (After MVP beta clears thresholds)
+- Multi-wallet (Payoneer USD, bKash BDT, Bank BDT, Cash, Custom)
+- Intra-wallet transfer (record-only)
+- Manual USD→BDT conversion with sanity validation
+- Transactional ETA notifications
+- Dashboard state colors (Safe / Tight / At Risk)
 
-### Monetization & AI Strategy (Long-Term)
-- **Monetization:** Freemium core. Potential Pro tier offers multi-currency, unlimited clients/projects, reports/export, subscription leakage detection, and advanced cashflow insights.
-- **AI Integration:** Useful AI later to reduce friction (smart categorization, receipt parsing, cashflow forecasting). No conversational AI chatbots.
+### V2 (Monetization begins)
+- Invoice-Lite (3-sprint allocation, non-negotiable)
+- Invoice → Pipeline auto-entry
+- Tax Reserve (user-declared %, not algorithmic)
+- Paid tier activation (Free / Pro ৳299 / Power ৳599)
 
 ---
 
-## NOT Priority — Scope Guardrails
+## Permanent Kill List (per Final Doctrine §8)
 
-Do **NOT** turn Pocketa into:
-- ❌ ERP software
-- ❌ Enterprise accounting software
-- ❌ Crypto trading platform
-- ❌ Stock market app
-- ❌ Social network
-- ❌ Feature-heavy bookkeeping system
-- ❌ Invoice generator (initially)
-- ❌ POS system
+NEVER build under Pocketa brand:
+- Generic expense categorization (TallyKhata territory)
+- F-commerce, COD, inventory, POS (wrong product entirely)
+- Gamification (points, streaks, badges — patronizing)
+- AI insights / financial advice (hallucination risk on financial data)
+- Social / community features (Facebook/Telegram own this)
+- Charts/reports without S2S context (noise)
+- Hard override of S2S number (trains distrust)
+- Stored S2S values (always compute, never store)
+- Last-write-wins on financial entries (must be event-sourced)
+- Email-only account recovery (email compromise = full income visibility)
+- Engagement push notifications (trains uninstall)
+- Ads monetization (trust collapse)
+- Affiliate FX/banking routing (conflict with neutrality)
+- Enterprise accounting / ERP
+- Crypto / stock market features
 
 ---
 
@@ -171,3 +188,10 @@ The **Chief Architect** (human operator) has final say on:
 - When to proceed to the next phase
 
 No AI agent may unilaterally expand scope, add packages, or refactor architecture.
+
+---
+
+## Doctrine Alignment
+
+> This document was updated on 2026-06-04 to align with `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`, the highest strategic authority.
+> Prior versions included F-commerce operators, generic expense tracking focus, broader target user definitions, and Subscription Leakage Radar — all now killed or narrowed by the Final Doctrine.

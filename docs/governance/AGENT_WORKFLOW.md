@@ -39,6 +39,7 @@ Before implementing **any** feature, every agent must:
 
 1. **Follow the Session Start Protocol** — execute all steps in `docs/governance/SESSION_START_PROTOCOL.md`.
 2. **Read** these core documents:
+   - `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority; supersedes all prior roadmaps**
    - `docs/core/POCKETA_BRAIN.md` — understand the product
    - `docs/core/ARCHITECTURE_RULES.md` — understand the constraints
    - `docs/core/ROADMAP.md` — understand what's been done and what's next
@@ -161,10 +162,26 @@ Ready-to-use commit message.
 
 When instructions are ambiguous:
 
-1. **Check POCKETA_BRAIN.md** — does it answer the question?
-2. **Check ARCHITECTURE_RULES.md** — is there a binding constraint?
-3. **Check ROADMAP.md** — is this feature in scope for the current phase?
-4. **If still unclear** — ask the Chief Architect. Do not guess.
+1. **Check POCKETA_FINAL_PRODUCT_DOCTRINE.md** — does the Doctrine address it?
+2. **Check POCKETA_BRAIN.md** — does it answer the question?
+3. **Check ARCHITECTURE_RULES.md** — is there a binding constraint?
+4. **Check ROADMAP.md** — is this feature in scope for the current phase?
+5. **If still unclear** — ask the Chief Architect. Do not guess.
+
+---
+
+## Strategic Authority Hierarchy
+
+When documents conflict, resolve using this precedence order:
+
+1. **Final Product Doctrine** (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`) — supreme authority
+2. **CLAUDE.md** — project-level agent instructions
+3. **POCKETA_BRAIN.md** — product identity and philosophy
+4. **ARCHITECTURE_RULES.md** — technical constraints
+5. **ROADMAP.md** — phase history and current state
+6. **Spec documents** (`docs/specs/`) — feature-level details
+
+If a spec or roadmap contradicts the Final Doctrine, the Doctrine wins. Update the conflicting document or flag it for Chief Architect review.
 
 ---
 

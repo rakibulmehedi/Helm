@@ -83,9 +83,31 @@
 - **Next**: Post-Phase 8 User Validation Sprint
 
 ## 6. Blocked Modules
-- Cloud sync (requires authentication decision)
+- Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
+- Auth system (Magic Link + PIN/biometric — not yet implemented)
 
-## 7. Current Product Direction
-- Focus: Freelancer Finance OS
-- Goal: Calm, premium, fast, operational, low stress
-- Avoid: Clutter, chart overload, finance jargon
+## 7. Current Product Direction (per Final Doctrine)
+- Focus: Freelancer Cashflow Clarity
+- Identity: Single-purpose calm cockpit for Bangladeshi USD-earning freelancers
+- Core Wedge: Pipeline-aware Safe-to-Spend
+- Target: $800–$3,000/month USD earners using Payoneer/nsave/ElevatePay
+- MVP Goal: Validate manual pipeline maintenance + S2S trust
+- Next: Doctrine gap resolution → Closed Beta (15–25 freelancers, 4 weeks)
+- Strategic Authority: `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`
+
+## 8. Doctrine-Killed Features
+- F-commerce / COD / inventory / POS — wrong product entirely
+- Generic expense categorization — TallyKhata territory
+- Subscription Leakage Radar — not in doctrine scope
+- AI insights / financial advice — hallucination risk
+- Gamification — patronizing
+- Charts/reports without S2S context — noise
+- Client/Project ROI tracking — different product
+
+## 9. Doctrine-Deferred Features
+- Multi-wallet → V1 (after MVP beta clears)
+- Tax reserve → V2 (user-declared %, not algorithmic)
+- Invoice-Lite → V2 (3-sprint allocation)
+- Push notifications → V1 transactional only (never engagement)
+- Reports/charts → V3
+- Email auto-ingestion → V4+ if ever

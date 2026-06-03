@@ -1,8 +1,10 @@
-# Subscription Leakage Radar — Future Phase Spec
+# Subscription Leakage Radar — SUPERSEDED
 
-> Status: FUTURE PHASE — NOT IMPLEMENTATION READY
-> Depends on: Recurring transaction detection, Transaction categorization
-> Phase: 9 (candidate, per ROADMAP.md)
+> **Status: SUPERSEDED / KILLED**
+> **Superseded by:** `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` (2026-06-04)
+> **Reason:** Feature does not appear in any doctrine version scope (MVP/V1/V2/V3). Killed per Decision 018.
+> **Original Status:** FUTURE PHASE — NOT IMPLEMENTATION READY
+> **Original Phase:** 9 (candidate, per ROADMAP.md)
 > Last Updated: 2026-05-22
 
 ---

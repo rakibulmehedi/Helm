@@ -1,8 +1,10 @@
-# Virtual Wallets — Future Phase Spec
+# Virtual Wallets — DEFERRED TO V1
 
-> Status: FUTURE PHASE — NOT IMPLEMENTATION READY
-> Depends on: Phase 7 (Income Pipeline), Transaction Tagging
-> Phase: TBD (post Phase 8)
+> **Status: DEFERRED TO V1**
+> **Per:** `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` S5 (2026-06-04)
+> **Reason:** MVP uses single aggregated balance. Multi-wallet is V1 scope, earned only after MVP beta clears thresholds. Per Decision 019.
+> **Original Status:** FUTURE PHASE — NOT IMPLEMENTATION READY
+> **Original Phase:** TBD (post Phase 8)
 > Last Updated: 2026-05-22
 
 ---

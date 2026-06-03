@@ -17,12 +17,17 @@ Sub-phase: **Phase 9b (Hypothesis-Based Validation) ✅ COMPLETE**
 
 ## 2. Current Priority
 
-- **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
-- **Phase 8f COMPLETE** — QA and Validation matrices prepared.
-- **Phase 9b COMPLETE** — Core hypotheses evaluated. Friction around manual pipeline updates identified as primary risk.
-- Next: Post-Phase 8 User Validation Sprint (Decision 013) — 5–10 real users, 30 days.
-- Formula locked in `docs/specs/SAFE_TO_SPEND_MODEL.md`.
-- Execution plan locked in `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md`.
+- **Final Doctrine adopted** — `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` is now canon (2026-06-04)
+- **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade
+- **Phase 9b COMPLETE** — Hypothesis validation done
+- **Next: Doctrine Gap Resolution** — align existing implementation with doctrine MVP requirements
+- **Then: Closed Beta** — 15–25 freelancers, 4 weeks, per Doctrine §16
+- MVP success criteria locked per Doctrine §4:
+  - Pipeline update compliance ≥85%
+  - Override-equivalent rate <5%
+  - 30-day retention ≥60%
+  - Onboarding completion ≥70%
+  - S2S comprehension ≥80%
 
 ## 3. Sprint Status
 
@@ -46,18 +51,20 @@ Sub-phase: **Phase 9b (Hypothesis-Based Validation) ✅ COMPLETE**
 | Phase 9a — Cognitive Persona Simulation | Done (2026-05-23) |
 | Phase 9b — Hypothesis-Based Validation | Done (2026-05-23) |
 
-## 4. Out-of-Scope Systems
+## 4. Out-of-Scope Systems (Per Final Doctrine)
 
-- Virtual Wallets (future phase)
-- Subscription Leakage Radar (Phase 9 — conditional on user validation)
-- AI assistant
-- Supabase sync
-- Charts / analytics dashboards
-- Multi-currency conversion
-- Invoice generation
-- Tax filing
-- Bank balance sync
-- Auto-detected recurring expenses (Phase 9)
+- Virtual Wallets (V1 — after MVP beta clears)
+- Subscription Leakage Radar (**KILLED** — not in doctrine)
+- AI assistant (**KILLED**)
+- Supabase sync (V1+)
+- Charts / analytics dashboards (V3)
+- Multi-currency conversion (V1)
+- Invoice generation (V2)
+- Tax reserve (V2)
+- Bank balance sync (**KILLED** — never)
+- F-commerce / inventory / POS (**KILLED** — wrong product)
+- Generic expense categorization (**KILLED**)
+- Gamification (**KILLED**)
 
 ## 5. Sprint Success Metric
 
@@ -77,11 +84,10 @@ A freelancer should be able to:
 - `docs/tracking/TASKS.md` — Updated
 - `docs/tracking/CURRENT_SPRINT.md` — This update
 
-## 7. Post-Audit Strategic Context
+## 7. Strategic Context
 
-See `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` for full strategic synthesis.
-Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011).
-User validation sprint planned post-Phase 8 (Decision 013). STS formula locked (Decision 014).
-ee `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` for full strategic synthesis.
-Key decisions: Hive migration deferred (Decision 010). External positioning pivot (Decision 011).
-User validation sprint planned post-Phase 8 (Decision 013). STS formula locked (Decision 014).
+- **Final Product Doctrine** adopted 2026-06-04 — supersedes all prior roadmaps
+- See `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` for canonical product scope
+- See `docs/planning/DOCTRINE_TO_CODE_GAP_ANALYSIS.md` for implementation gaps
+- See `docs/planning/DOCTRINE_ALIGNED_EXECUTION_ROADMAP.md` for next steps
+- Prior decisions (010–015) remain valid where aligned with doctrine
