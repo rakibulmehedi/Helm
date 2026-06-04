@@ -80,11 +80,18 @@
 - **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade.
 - **Phase 9a COMPLETE** — Cognitive Persona Simulation QA. Validated core concepts, identified friction points (manual pipeline status updates).
 - **Phase 9b COMPLETE** — Hypothesis-Based Validation Sprint. Core hypotheses validated as strong, while manual maintenance discipline flagged as critical risk.
-- **Next**: Post-Phase 8 User Validation Sprint
+- **UX Canon Extraction & Planning COMPLETE** (2026-06-05)
+  - 10 source docs processed, 12 extracted docs, 1 canonical spec, 3 planning docs
+  - 81 implementation tasks across 8 sprints defined
+  - 7 doc conflicts resolved via authority hierarchy
+  - 33 code-vs-doctrine gaps documented, 8 MVP-blocking
+  - See `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical spec
+  - See `docs/planning/UX_EXECUTION_TODO.md` for task list
+- **Next**: Sprint 1 (UX-5 Visual Identity / Design System) — 12 tasks, zero dependencies
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
-- Auth system (Magic Link + PIN/biometric — not yet implemented)
+- Auth system (Magic Link + PIN/biometric — scheduled for Sprint 6 / D1)
 
 ## 7. Current Product Direction (per Final Doctrine)
 - Focus: Freelancer Cashflow Clarity

@@ -4,24 +4,21 @@
 
 ## 1. Active Sprint
 
-**Phase 8 — Safe-to-Spend Engine**
-Sub-phase: **Phase 8a (Formula & Data Contract) ✅ COMPLETE**
-Sub-phase: **Phase 8c (Settings Screen) ✅ COMPLETE**
-Sub-phase: **Phase 8d (Dashboard Hero Number) ✅ COMPLETE**
-Sub-phase: **Phase 8e (UX Hardening) ✅ COMPLETE**
-Sub-phase: **Phase 8f (Real Device QA + Validation Prep) ✅ COMPLETE**
+**UX Canon Implementation — Sprint 1: UX-5 Visual Identity / Design System**
+Status: **NOT STARTED** — awaiting Chief Architect approval to begin
 
-**Phase 9 — Pre-Beta QA & Validation**
-Sub-phase: **Phase 9a (Cognitive Persona Simulation) ✅ COMPLETE**
-Sub-phase: **Phase 9b (Hypothesis-Based Validation) ✅ COMPLETE**
+**Prior Phases (All Complete):**
+- Phase 8 — Safe-to-Spend Engine ✅
+- Phase 9 — Pre-Beta QA & Validation ✅
+- UX Canon Extraction & Planning Sprint ✅ (2026-06-05)
 
 ## 2. Current Priority
 
-- **Final Doctrine adopted** — `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` is now canon (2026-06-04)
-- **Phase 8 COMPLETE** — Safe-to-Spend engine is production-grade
-- **Phase 9b COMPLETE** — Hypothesis validation done
-- **Next: Doctrine Gap Resolution** — align existing implementation with doctrine MVP requirements
-- **Then: Closed Beta** — 15–25 freelancers, 4 weeks, per Doctrine §16
+- **UX Canon complete** — 81 atomic tasks across 8 sprints defined
+- **Sprint 1 (UX-5) is next** — 12 tasks: color tokens, typography, spacing, motion, theme rebuild, 6 widgets, number formatter
+- **Sprint 1 has zero dependencies** — can start immediately
+- **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `UX_SPRINT_SEQUENCE.md`, `UX_TO_CODE_FILE_MAP.md`
+- **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
 - MVP success criteria locked per Doctrine §4:
   - Pipeline update compliance ≥85%
   - Override-equivalent rate <5%
@@ -29,27 +26,28 @@ Sub-phase: **Phase 9b (Hypothesis-Based Validation) ✅ COMPLETE**
   - Onboarding completion ≥70%
   - S2S comprehension ≥80%
 
-## 3. Sprint Status
+## 3. Sprint Status — UX Canon Implementation
+
+| Sprint | ID | Status | Tasks |
+|--------|-----|--------|-------|
+| 1 | UX-5 Visual Identity / Design System | **Next** | 12 |
+| 2 | UX-1 Dashboard Cockpit Redesign | Pending | 14 |
+| 3 | UX-2 Onboarding Redesign | Pending | 11 |
+| 4 | UX-3 Pipeline Quick-Update | Pending | 10 |
+| 5 | UX-4 Microcopy Replacement | Pending | 8 |
+| 6 | D1 Trust Layer Foundation | Pending | 12 |
+| 7 | D2 Beta Instrumentation | Pending | 6 |
+| 8 | D3 Closed Beta Readiness | Pending | 8 |
+
+### Prior Sprints (Complete)
 
 | Item | Status |
 |------|--------|
-| Research-to-spec refinement | Done (2026-05-22) |
-| Phase 7 spec finalized | Done (2026-05-22) |
-| Income Pipeline MVP spec | Done (2026-05-22) |
-| Phase 7a — Income Data Layer | Done (2026-05-22) |
-| Phase 7b — Income Entry UI | Done (2026-05-22) |
-| Phase 7c — Income List & Filtering | Done (2026-05-22) |
-| Phase 7d — Dashboard Integration | Done (2026-05-22) |
-| Phase 7e — Status Transitions | Done (2026-05-22) |
-| Phase 7f — Storage Abstraction & Domain Cleanup | Done (2026-05-23) |
-| Phase 8a — Formula & Data Contract | Done (2026-05-23) |
-| Phase 8b — Calculation Engine | Done (2026-05-23) |
-| Phase 8c — Settings Screen | Done (2026-05-23) |
-| Phase 8d — Dashboard Hero Number | Done (2026-05-23) |
-| Phase 8e — UX Hardening | Done (2026-05-23) |
-| Phase 8f — Real Device QA + Validation Prep | Done (2026-05-23) |
-| Phase 9a — Cognitive Persona Simulation | Done (2026-05-23) |
+| UX Canon Extraction & Planning | Done (2026-06-05) |
 | Phase 9b — Hypothesis-Based Validation | Done (2026-05-23) |
+| Phase 9a — Cognitive Persona Simulation | Done (2026-05-23) |
+| Phase 8 — Safe-to-Spend Engine (all sub-phases) | Done (2026-05-23) |
+| Phase 7 — Income Pipeline (all sub-phases) | Done (2026-05-22/23) |
 
 ## 4. Out-of-Scope Systems (Per Final Doctrine)
 
@@ -74,20 +72,36 @@ A freelancer should be able to:
 - Trust the number because pending money is explicitly excluded
 - Configure tax rate, anxiety buffer, and fixed costs in under 2 minutes
 
-## 6. Phase 8a Deliverables (Complete)
+## 6. UX Canon Planning Deliverables (2026-06-05)
 
-- `docs/specs/SAFE_TO_SPEND_MODEL.md` — Formula contract locked (overwritten from hypothesis)
-- `docs/implementation/PHASE_8_SAFE_TO_SPEND_EXECUTION_PLAN.md` — Execution plan created
-- `docs/implementation/PHASE_8_ACCEPTANCE_CHECKLIST.md` — Acceptance checklist created
-- `docs/tracking/DECISION_LOG.md` — Decision 014 logged (formula finalized)
-- `docs/tracking/LESSONS.md` — Phase 8a lessons added
-- `docs/tracking/TASKS.md` — Updated
-- `docs/tracking/CURRENT_SPRINT.md` — This update
+**Extraction (Pass 1):**
+- `docs/ux/extracted/01_product_constraints.md` — 79 constraints
+- `docs/ux/extracted/02_ux_constraints.md` — 104 constraints
+- `docs/ux/extracted/03_dashboard_requirements.md` — full cockpit model
+- `docs/ux/extracted/04_onboarding_requirements.md` — 49 requirements
+- `docs/ux/extracted/05_pipeline_requirements.md` — 50 requirements
+- `docs/ux/extracted/06_microcopy_requirements.md` — 46 requirements
+- `docs/ux/extracted/07_visual_identity_requirements.md` — 45 requirements
+- `docs/ux/extracted/08_visual_identity_refinements.md` — 34 refinements
+- `docs/ux/extracted/09_research_evidence.md` — behavioral findings
+- `docs/ux/extracted/10_acceptance_criteria.md` — testable gates
+- `docs/ux/extracted/11_implementation_atoms.md` — 42 codebase atoms
+- `docs/ux/extracted/12_conflicts_and_overrides.md` — 33 gaps, 8 MVP-blocking
+
+**Canonical Spec (Pass 2):**
+- `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` — single source of truth
+
+**Planning (Pass 3):**
+- `docs/planning/UX_TO_CODE_FILE_MAP.md` — file impact map
+- `docs/planning/UX_SPRINT_SEQUENCE.md` — 8 sprints, dependency graph
+- `docs/planning/UX_EXECUTION_TODO.md` — 81 atomic tasks with 11 fields each
 
 ## 7. Strategic Context
 
 - **Final Product Doctrine** adopted 2026-06-04 — supersedes all prior roadmaps
+- **UX Canon** created 2026-06-05 — supersedes ad-hoc UX decisions
 - See `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` for canonical product scope
+- See `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical UX spec
+- See `docs/planning/UX_EXECUTION_TODO.md` for implementation task list
 - See `docs/planning/DOCTRINE_TO_CODE_GAP_ANALYSIS.md` for implementation gaps
-- See `docs/planning/DOCTRINE_ALIGNED_EXECUTION_ROADMAP.md` for next steps
-- Prior decisions (010–015) remain valid where aligned with doctrine
+- Prior decisions (010–021) remain valid where aligned with doctrine and UX canon

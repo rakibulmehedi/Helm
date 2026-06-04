@@ -2,27 +2,40 @@
 
 ## Current Sprint
 
-Sprint: Phase 8 — Safe-to-Spend Engine
+Sprint: UX Canon Implementation — Sprint 1 (UX-5 Visual Identity / Design System)
 
 ## In Progress
 
-- [ ] Post-Phase 8 User Validation Sprint (Decision 013: 5–10 real users, 30 days)
+- [ ] UX Canon Implementation (8 sprints, 81 tasks — see `docs/planning/UX_EXECUTION_TODO.md`)
 
-## Next
+## Next (Sprint Order)
 
-- [ ] Virtual Wallets (depends on Phase 7 + transaction tagging)
-- [ ] Phase 9: Subscription Leakage Radar (spec ready — conditional on user validation)
+1. [ ] Sprint 1: UX-5 Visual Identity / Design System (12 tasks) — **START HERE**
+2. [ ] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks)
+3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks)
+4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
+5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
+6. [ ] Sprint 6: D1 Trust Layer Foundation (12 tasks)
+7. [ ] Sprint 7: D2 Beta Instrumentation (6 tasks)
+8. [ ] Sprint 8: D3 Closed Beta Readiness (8 tasks)
 
-## Backlog
+## Backlog (Post-Beta / Deferred)
 
-- [ ] Custom categories
-- [ ] Client/project profitability tracking
-- [ ] Multi-currency support (USD/BDT conversion)
-- [ ] Budget goals
-- [ ] Savings buckets
-- [ ] Supabase sync
-- [ ] AI smart insights
-- [ ] Export & reporting
+- [ ] Virtual Wallets (V1 — after beta clears)
+- [ ] Tax reserve (V2)
+- [ ] Invoice-Lite (V2)
+- [ ] Multi-currency conversion (V1)
+- [ ] Supabase sync (V1+)
+- [ ] Push notifications (V1 transactional only)
+
+## Killed (Per Doctrine)
+
+- ~~Custom categories~~ — generic expense tracker territory
+- ~~Client/project profitability tracking~~ — different product
+- ~~Budget goals~~ — banned concept
+- ~~Savings buckets~~ — not in doctrine
+- ~~AI smart insights~~ — hallucination risk
+- ~~Subscription Leakage Radar~~ — not in doctrine scope
 
 ## Blocked
 
@@ -30,6 +43,8 @@ Sprint: Phase 8 — Safe-to-Spend Engine
 
 ## Done
 
+- [x] UX Canon Extraction & Implementation Planning Sprint (2026-06-05)
+  - 10 source docs processed, 12 extracted docs, 1 canonical spec, 3 planning docs, 81 tasks defined
 - [x] Phase 0: Foundation
 - [x] Phase 1: Transaction data layer
 - [x] Phase 2: Add transaction UI

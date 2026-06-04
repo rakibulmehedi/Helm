@@ -232,3 +232,28 @@ Simulating specific target personas (e.g., F-commerce Seller vs. Spreadsheet Pow
 
 ### 2. USD exclusion requires explicit UI explanation
 While the logic to exclude USD from liquid BDT is correct, the simulation highlighted that users might feel this is an error or untrustworthy if not explicitly explained. The UI must proactively state *why* it's excluded to maintain trust.
+
+---
+
+## UX Canon Extraction & Planning Lessons (2026-06-05)
+
+### 1. Document authority hierarchy prevents contradictory implementations
+10 source docs had 7 direct contradictions (e.g., "thin accent line" vs "3pt Ledger Rail", "chronometer" vs "cashflow ledger"). Without explicit authority ranking (Final Doctrine > UX Doctrine > Visual Identity Critique > earlier docs), agents would implement whichever doc they read last. The hierarchy resolved every conflict deterministically.
+
+### 2. Solid hex colors are mandatory for Bangladesh Android-first design
+Alpha-based color tokens (e.g., `#141413 @ 60%`) render inconsistently on budget Android devices. The Visual Identity Critique explicitly converts all text/UI colors to solid hex equivalents (e.g., `#3B3A36`). This is a hardware constraint, not a style preference.
+
+### 3. Sprint sequencing by dependency graph, not by doc order
+Initial requirement said UX-1 (Dashboard) first. Analysis showed UX-5 (Design System) is a dependency for ALL other sprints. Reordering UX-5 to Sprint 1 prevents every subsequent sprint from building on wrong tokens. Always build foundation before consumers.
+
+### 4. 81 tasks is the right granularity for 8 sprints
+Each task is atomic (one file or one logical change), verifiable (`dart analyze` clean), and has explicit acceptance criteria. Vague tasks like "improve dashboard" were decomposed into 14 specific tasks. Future agents can execute any single task without reading the entire sprint.
+
+### 5. Extracted requirements must be numbered for traceability
+Every constraint (PC-001 to PC-079, UX-001 to UX-104, etc.) has a unique ID. Implementation tasks reference these IDs. When a future agent asks "why is this widget built this way?", the answer traces back to a specific numbered requirement in a specific extracted doc.
+
+### 6. Code-to-doctrine gap analysis reveals MVP-blocking items early
+8 of 33 gaps are MVP-blocking (no auth, no audit log, no export, no account deletion, wrong buffer format, missing FX fields). Discovering these during planning — not during implementation — prevents wasted sprints building on incomplete foundations.
+
+### 7. Parallel agent extraction is effective but requires race condition awareness
+6 agents writing 12 files simultaneously worked well, but Glob queries during agent execution returned partial results. Always wait for all agents to complete before verifying file counts. Agent output timing is non-deterministic.

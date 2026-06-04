@@ -424,3 +424,74 @@ Impact:
 - CSV export must be built — currently MISSING
 - Account deletion must be built — currently MISSING
 - These are MVP-blocking gaps
+
+---
+
+## Decision 022 — UX Canon as Implementation Authority
+
+Date: 2026-06-05
+Trigger: UX Canon Extraction & Implementation Planning Sprint
+
+Decision:
+The Canonical UX Implementation Spec (`docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`) is now the single source of truth for all UX implementation decisions. It merges and resolves conflicts across 10 source documents using this authority hierarchy:
+1. Final Product Doctrine (highest product authority)
+2. UX Doctrine (highest UX authority)
+3. Visual Identity Critique & Refined System (overrides earlier VI System)
+4. Tier-1 Dashboard Critique v2 (overrides earlier Dashboard Redesign)
+5. Microcopy System (copy authority)
+6. Pipeline Interaction Optimization (pipeline authority)
+7. Onboarding Redesign (onboarding authority)
+8. UX Research (evidence, not law)
+9. Existing code (reality, not authority)
+
+Reason:
+10 source documents contained 7+ direct contradictions. Without a canonical merged spec, implementation agents would make inconsistent choices depending on which doc they read. The canonical spec resolves every contradiction explicitly.
+
+Impact:
+- All implementation sprints reference the canonical spec, not individual source docs
+- 7 conflicts explicitly resolved (accent line → Ledger Rail, chronometer → cashflow ledger, alpha → solid colors, dashboard layout, tax reserve timing, onboarding steps, card borders)
+- Supersedes ad-hoc UX decisions from earlier phases
+
+---
+
+## Decision 023 — Sprint Sequence Reordered: Design System First
+
+Date: 2026-06-05
+Trigger: Dependency analysis during UX-to-code planning
+
+Decision:
+Implementation sprint order changed from doc-order (UX-1 first) to dependency-order (UX-5 first):
+1. UX-5 Visual Identity / Design System (foundation — no dependencies)
+2. UX-1 Dashboard Cockpit Redesign (depends on UX-5)
+3. UX-2 Onboarding Redesign (depends on UX-5)
+4. UX-3 Pipeline Quick-Update (depends on UX-1, UX-5)
+5. UX-4 Microcopy Replacement (depends on UX-1, UX-2, UX-3)
+6. D1 Trust Layer Foundation (depends on UX-2)
+7. D2 Beta Instrumentation (depends on D1)
+8. D3 Closed Beta Readiness (depends on all above)
+
+Reason:
+Every sprint uses color tokens, typography, spacing, and widgets defined in UX-5. Building Dashboard (UX-1) first would require using wrong tokens then migrating — double work. Design system first means every subsequent sprint builds on correct foundations.
+
+Impact:
+- 81 tasks across 8 sprints
+- Sprint 1 (UX-5) has zero dependencies — can start immediately
+- Each sprint end gate: `dart analyze` 0/0/0
+
+---
+
+## Decision 024 — 81 Atomic Tasks as Implementation Contract
+
+Date: 2026-06-05
+Trigger: UX Canon planning Pass 3
+
+Decision:
+All UX implementation work is decomposed into 81 atomic, verifiable tasks documented in `docs/planning/UX_EXECUTION_TODO.md`. Each task has 11 mandatory fields: task ID, source requirement, affected screen/module, files affected, expected outcome, non-goals, acceptance criteria, verification method, docs update requirement, learning note, and suggested commit message.
+
+Reason:
+Vague tasks ("improve dashboard") cause agent drift, scope creep, and unverifiable outcomes. Atomic tasks with explicit acceptance criteria allow any agent to execute a single task without needing full project context. The 11-field format prevents the most common planning failures: unclear scope, missing non-goals, and no verification method.
+
+Impact:
+- Future implementation agents must use `UX_EXECUTION_TODO.md` as their task contract
+- Each task completion must update `CURRENT_SPRINT.md`
+- No task may be marked complete without passing its verification method
