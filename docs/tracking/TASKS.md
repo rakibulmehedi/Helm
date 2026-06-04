@@ -2,7 +2,7 @@
 
 ## Current Sprint
 
-Sprint: UX Canon Implementation — Sprint 1 (UX-5 Visual Identity / Design System)
+Sprint: UX Canon Implementation — Sprint 2 (UX-1 Dashboard Cockpit Redesign)
 
 ## In Progress
 
@@ -10,8 +10,8 @@ Sprint: UX Canon Implementation — Sprint 1 (UX-5 Visual Identity / Design Syst
 
 ## Next (Sprint Order)
 
-1. [ ] Sprint 1: UX-5 Visual Identity / Design System (12 tasks) — **START HERE**
-2. [ ] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks)
+1. [x] Sprint 1: UX-5 Visual Identity / Design System (12 tasks) — **COMPLETE [2026-06-05]**
+2. [ ] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks) — **START HERE**
 3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks)
 4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
 5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
@@ -42,6 +42,24 @@ Sprint: UX Canon Implementation — Sprint 1 (UX-5 Visual Identity / Design Syst
 - None
 
 ## Done
+
+## UX-5: Visual Identity / Design System Foundation — COMPLETED [2026-06-05]
+
+### Completed
+- [x] UX-5.01: pocketa_colors.dart — ThemeExtension, 13 tokens, light+dark
+- [x] UX-5.02: pocketa_typography.dart — Inter/JetBrains Mono/Hind Siliguri, 18 styles
+- [x] UX-5.03: pocketa_spacing.dart — 8pt grid tokens + component dimensions
+- [x] UX-5.04: pocketa_motion.dart — timing tokens, ease-out only
+- [x] UX-5.05: app_theme.dart rebuilt — new tokens, legacy API preserved
+- [x] UX-5.06: PocketaAmount widget — mono font, BDT/USD, lakh/crore
+- [x] UX-5.07: PocketaLedgerRail widget — state rail with label
+- [x] UX-5.08: PocketaTrustStrip widget — timestamp/source/audit strip
+- [x] UX-5.09: PocketaToast widget — financial-safe snackbar
+- [x] UX-5.10: 5 card widgets — HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard
+- [x] UX-5.11: number_formatter.dart — BDT lakh/crore, USD Western
+- [x] UX-5.12: dart analyze 0/0/0 verified
+
+---
 
 - [x] UX Canon Extraction & Implementation Planning Sprint (2026-06-05)
   - 10 source docs processed, 12 extracted docs, 1 canonical spec, 3 planning docs, 81 tasks defined

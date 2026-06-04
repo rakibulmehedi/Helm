@@ -90,6 +90,16 @@ Users need to verify they deleted the right entry. Showing only client+project n
 
 ---
 
+## UX-5 Sprint Lessons (2026-06-05)
+
+1. **google_fonts already in pubspec** — No approval needed for Inter/JetBrains Mono/Hind Siliguri. All three available via GoogleFonts.*().
+2. **Legacy API preservation** — app_theme.dart legacy AppThemeData wrapper preserved so main.dart compiles unchanged. New API: AppTheme.light/AppTheme.dark. Feature files still use AppColors.* via re-export shim. Migration to context.colors.* is per-sprint, not big-bang.
+3. **Solid colors over alpha for text** — VISR-008 rule: all text tokens are solid hex (inkSecondary: #3B3A36, inkTertiary: #6A6760). Only decorative elements (rails, dots) use withValues(alpha:). Prevents contrast inconsistency on Bangladesh Android screens.
+4. **Token files are non-ThemeExtension where sensible** — PocketaSpacing and PocketaMotion are plain static-constant classes. Only PocketaColors and PocketaTypography need ThemeExtension (they vary light/dark).
+5. **Card borders > shadows** — All cards use 1pt divider border, elevation: 0, no BoxShadow anywhere. This is enforced at widget level.
+
+---
+
 ## Phase 8e Lessons (2026-05-23)
 
 ### 1. Clamped values mask state detection bugs — always check the raw value

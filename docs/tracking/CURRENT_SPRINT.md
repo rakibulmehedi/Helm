@@ -4,19 +4,21 @@
 
 ## 1. Active Sprint
 
-**UX Canon Implementation — Sprint 1: UX-5 Visual Identity / Design System**
-Status: **NOT STARTED** — awaiting Chief Architect approval to begin
+**UX Canon Implementation — Sprint 2: UX-1 Dashboard Cockpit Redesign**
+Status: **READY TO START** — Sprint 1 (UX-5) complete, token foundation stable
 
 **Prior Phases (All Complete):**
 - Phase 8 — Safe-to-Spend Engine ✅
 - Phase 9 — Pre-Beta QA & Validation ✅
 - UX Canon Extraction & Planning Sprint ✅ (2026-06-05)
+- Sprint 1: UX-5 Visual Identity / Design System ✅ (2026-06-05)
 
 ## 2. Current Priority
 
-- **UX Canon complete** — 81 atomic tasks across 8 sprints defined
-- **Sprint 1 (UX-5) is next** — 12 tasks: color tokens, typography, spacing, motion, theme rebuild, 6 widgets, number formatter
-- **Sprint 1 has zero dependencies** — can start immediately
+- **Sprint 1 (UX-5) COMPLETE** — 12/12 tasks done, dart analyze 0/0/0, 26 tests pass
+- **Sprint 2 (UX-1) is next** — 14 tasks: Dashboard Cockpit Redesign
+- **Token foundation is stable** — new widgets can consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
+- **Feature files not yet migrated** — still use AppColors.* via re-export shim; migration is per-sprint
 - **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `UX_SPRINT_SEQUENCE.md`, `UX_TO_CODE_FILE_MAP.md`
 - **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
 - MVP success criteria locked per Doctrine §4:
@@ -30,8 +32,8 @@ Status: **NOT STARTED** — awaiting Chief Architect approval to begin
 
 | Sprint | ID | Status | Tasks |
 |--------|-----|--------|-------|
-| 1 | UX-5 Visual Identity / Design System | **Next** | 12 |
-| 2 | UX-1 Dashboard Cockpit Redesign | Pending | 14 |
+| 1 | UX-5 Visual Identity / Design System | **COMPLETE** ✅ | 12/12 |
+| 2 | UX-1 Dashboard Cockpit Redesign | **Next** | 14 |
 | 3 | UX-2 Onboarding Redesign | Pending | 11 |
 | 4 | UX-3 Pipeline Quick-Update | Pending | 10 |
 | 5 | UX-4 Microcopy Replacement | Pending | 8 |
@@ -43,6 +45,7 @@ Status: **NOT STARTED** — awaiting Chief Architect approval to begin
 
 | Item | Status |
 |------|--------|
+| Sprint 1: UX-5 Visual Identity / Design System | Done (2026-06-05) |
 | UX Canon Extraction & Planning | Done (2026-06-05) |
 | Phase 9b — Hypothesis-Based Validation | Done (2026-05-23) |
 | Phase 9a — Cognitive Persona Simulation | Done (2026-05-23) |

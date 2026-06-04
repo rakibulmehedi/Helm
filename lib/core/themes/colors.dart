@@ -1,3 +1,8 @@
+// DEPRECATED: Use PocketaColors ThemeExtension instead.
+// This file remains only for backward compatibility during migration.
+// TODO: Remove after all references migrated to pocketa_colors.dart
+export 'pocketa_colors.dart';
+
 import 'package:flutter/material.dart';
 
 class AppColors {

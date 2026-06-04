@@ -9,7 +9,7 @@
 
 ## Sprint 1: UX-5 Visual Identity / Design System
 
-### UX-5.01: Create pocketa_colors.dart
+### UX-5.01: Create pocketa_colors.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -27,7 +27,7 @@
 
 ---
 
-### UX-5.02: Create pocketa_typography.dart
+### UX-5.02: Create pocketa_typography.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -45,7 +45,7 @@
 
 ---
 
-### UX-5.03: Create pocketa_spacing.dart
+### UX-5.03: Create pocketa_spacing.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -63,7 +63,7 @@
 
 ---
 
-### UX-5.04: Create pocketa_motion.dart
+### UX-5.04: Create pocketa_motion.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -81,7 +81,7 @@
 
 ---
 
-### UX-5.05: Rebuild app_theme.dart
+### UX-5.05: Rebuild app_theme.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -99,7 +99,7 @@
 
 ---
 
-### UX-5.06: Create PocketaAmount widget
+### UX-5.06: Create PocketaAmount widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -117,7 +117,7 @@
 
 ---
 
-### UX-5.07: Create PocketaLedgerRail widget
+### UX-5.07: Create PocketaLedgerRail widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -135,7 +135,7 @@
 
 ---
 
-### UX-5.08: Create PocketaTrustStrip widget
+### UX-5.08: Create PocketaTrustStrip widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -153,7 +153,7 @@
 
 ---
 
-### UX-5.09: Create PocketaToast widget
+### UX-5.09: Create PocketaToast widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -171,7 +171,7 @@
 
 ---
 
-### UX-5.10: Create 5 card widgets
+### UX-5.10: Create 5 card widgets — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -189,7 +189,7 @@
 
 ---
 
-### UX-5.11: Create number_formatter.dart
+### UX-5.11: Create number_formatter.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -207,7 +207,7 @@
 
 ---
 
-### UX-5.12: Sprint 1 dart analyze clean
+### UX-5.12: Sprint 1 dart analyze clean — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|

@@ -264,7 +264,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
         100, // bottom padding above FAB
       ),
       itemCount: displayed.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
+      separatorBuilder: (_, _) => const SizedBox(height: 12),
       itemBuilder: (context, index) {
         final entry = displayed[index];
         return _IncomeListItem(

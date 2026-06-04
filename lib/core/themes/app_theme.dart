@@ -1,11 +1,174 @@
-// lib/core/theme/app_theme.dart
+// lib/core/themes/app_theme.dart
+// UX-5.05 — Rebuilt using Pocketa design token foundation.
+//
+// Preserves AppThemeData.lightTheme / AppThemeData.darkTheme signatures
+// so main.dart continues to compile without modification.
+//
+// New AppTheme.light / AppTheme.dark static getters are the forward-looking API.
+// AppThemeData delegates to AppTheme internally.
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../utils/responsive_utils.dart';
 import '../constants/app_language.dart';
-import 'colors.dart';
+import 'colors.dart'; // exports AppColors (legacy) + PocketaColors (via re-export)
+import 'pocketa_motion.dart';
+import 'pocketa_spacing.dart';
+import 'pocketa_typography.dart';
 
+// ---------------------------------------------------------------------------
+// AppTheme — new token-based API (ThemeMode.system only)
+// ---------------------------------------------------------------------------
+class AppTheme {
+  static ThemeData get light => _buildTheme(isLight: true);
+  static ThemeData get dark  => _buildTheme(isLight: false);
+
+  static ThemeData _buildTheme({required bool isLight}) {
+    final colors     = isLight ? PocketaColors.light : PocketaColors.dark;
+    final typography = PocketaTypography.build(colors);
+
+    return ThemeData(
+      useMaterial3: true,
+      brightness: isLight ? Brightness.light : Brightness.dark,
+      scaffoldBackgroundColor: colors.canvas,
+
+      // ── ColorScheme ────────────────────────────────────────────────────────
+      // NOT ColorScheme.fromSeed — hand-mapped from PocketaColors tokens.
+      colorScheme: ColorScheme(
+        brightness:   isLight ? Brightness.light : Brightness.dark,
+        primary:      colors.interactive,
+        onPrimary:    colors.surface,
+        secondary:    colors.interactive,
+        onSecondary:  colors.surface,
+        error:        colors.stateAtRisk,
+        onError:      colors.surface,
+        surface:      colors.surface,
+        onSurface:    colors.inkPrimary,
+      ),
+
+      // ── ThemeExtensions ────────────────────────────────────────────────────
+      extensions: <ThemeExtension<dynamic>>[colors, typography],
+
+      // ── AppBar ─────────────────────────────────────────────────────────────
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.canvas,
+        foregroundColor: colors.inkPrimary,
+        elevation: 0,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+      ),
+
+      // ── Card — zero elevation, hairline border ─────────────────────────────
+      cardTheme: CardThemeData(
+        elevation: 0,
+        color: colors.surface,
+        shadowColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          side: BorderSide(
+            color: colors.divider,
+            width: PocketaSpacing.cardBorder,
+          ),
+        ),
+      ),
+
+      // ── ElevatedButton ─────────────────────────────────────────────────────
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          elevation: 0,
+          shadowColor: Colors.transparent,
+          backgroundColor: colors.interactive,
+          foregroundColor: colors.surface,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
+          ),
+          textStyle: typography.headingSm,
+          animationDuration: PocketaMotion.base,
+        ),
+      ),
+
+      // ── TextButton ─────────────────────────────────────────────────────────
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colors.interactive,
+          textStyle: typography.bodyMd,
+        ),
+      ),
+
+      // ── InputDecoration ────────────────────────────────────────────────────
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: colors.surface,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderSide: BorderSide(color: colors.divider),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderSide: BorderSide(color: colors.divider),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderSide: BorderSide(color: colors.interactive, width: 2),
+        ),
+        labelStyle: typography.labelMd.copyWith(color: colors.inkSecondary),
+        hintStyle:  typography.bodyMd.copyWith(color: colors.inkTertiary),
+      ),
+
+      // ── Divider ────────────────────────────────────────────────────────────
+      dividerTheme: DividerThemeData(
+        color: colors.hairline,
+        thickness: PocketaSpacing.cardBorder,
+        space: 0,
+      ),
+
+      // ── BottomNavigationBar ────────────────────────────────────────────────
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colors.surface,
+        selectedItemColor: colors.interactive,
+        unselectedItemColor: colors.inkTertiary,
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+      ),
+
+      // ── TextTheme — mapped from PocketaTypography ──────────────────────────
+      textTheme: TextTheme(
+        displayLarge:  typography.displayLarge,
+        displayMedium: typography.displayHero,
+        titleLarge:    typography.headingLg,
+        titleMedium:   typography.headingMd,
+        titleSmall:    typography.headingSm,
+        bodyLarge:     typography.bodyLg,
+        bodyMedium:    typography.bodyMd,
+        bodySmall:     typography.bodySm,
+        labelLarge:    typography.labelMd,
+        labelSmall:    typography.labelSm,
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// AppThemeData — legacy API preserved for main.dart backward compatibility.
+// Delegates to AppTheme._buildTheme internally; lang param kept for signature
+// compatibility but typography is now handled via PocketaTypography extension.
+// TODO: Remove lang parameter after all callers migrate to context.textStyles.
+// ---------------------------------------------------------------------------
+class AppThemeData {
+  static ThemeData lightTheme(BuildContext context, AppLanguage lang) =>
+      AppTheme.light;
+
+  static ThemeData darkTheme(BuildContext context, AppLanguage lang) =>
+      AppTheme.dark;
+}
+
+// ---------------------------------------------------------------------------
+// getFontStyle — retained for backward compatibility with feature files
+// that have not yet migrated to PocketaTypography.
+// TODO: Remove after all feature files migrate to context.textStyles.*
+// ---------------------------------------------------------------------------
 TextStyle getFontStyle(
   AppLanguage lang,
   double size,
@@ -13,144 +176,14 @@ TextStyle getFontStyle(
   Color color,
 ) {
   return lang == AppLanguage.bangla
-      ? GoogleFonts.notoSansBengali(
-        fontSize: size,
-        fontWeight: weight,
-        color: color,
-      )
-      : GoogleFonts.poppins(fontSize: size, fontWeight: weight, color: color);
-}
-
-class AppThemeData {
-  static ThemeData lightTheme(BuildContext context, AppLanguage lang) =>
-      ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: AppColors.backgroundLight,
-        primaryColor: AppColors.primary,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.backgroundLight,
-          foregroundColor: AppColors.textDark,
-          elevation: 0,
-        ),
-        textTheme: TextTheme(
-          displayLarge: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 32),
-            FontWeight.bold,
-            AppColors.primary,
-          ),
-          titleMedium: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 18),
-            FontWeight.w500,
-            AppColors.textDark,
-          ),
-          bodyMedium: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 14),
-            FontWeight.normal,
-            AppColors.grey,
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            textStyle: getFontStyle(
-              lang,
-              ResponsiveUtilities.font(context, 16),
-              FontWeight.w600,
-              Colors.white,
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primary, width: 2),
-          ),
-          labelStyle: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 14),
-            FontWeight.normal,
-            AppColors.grey,
-          ),
-        ),
-      );
-
-  static ThemeData darkTheme(BuildContext context, AppLanguage lang) =>
-      ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.backgroundDark,
-        primaryColor: AppColors.primary,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.backgroundDark,
-          foregroundColor: AppColors.textLight,
-          elevation: 0,
-        ),
-        textTheme: TextTheme(
-          displayLarge: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 32),
-            FontWeight.bold,
-            AppColors.primary,
-          ),
-          titleMedium: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 18),
-            FontWeight.w500,
-            AppColors.textLight,
-          ),
-          bodyMedium: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 14),
-            FontWeight.normal,
-            AppColors.grey,
-          ),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            textStyle: getFontStyle(
-              lang,
-              ResponsiveUtilities.font(context, 16),
-              FontWeight.w600,
-              Colors.white,
-            ),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: AppColors.textDark,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: AppColors.primary, width: 2),
-          ),
-          labelStyle: getFontStyle(
-            lang,
-            ResponsiveUtilities.font(context, 14),
-            FontWeight.normal,
-            AppColors.grey,
-          ),
-        ),
-      );
+      ? GoogleFonts.hindSiliguri(
+          fontSize: size,
+          fontWeight: weight,
+          color: color,
+        )
+      : GoogleFonts.inter(
+          fontSize: size,
+          fontWeight: weight,
+          color: color,
+        );
 }

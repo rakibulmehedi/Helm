@@ -87,7 +87,16 @@
   - 33 code-vs-doctrine gaps documented, 8 MVP-blocking
   - See `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical spec
   - See `docs/planning/UX_EXECUTION_TODO.md` for task list
-- **Next**: Sprint 1 (UX-5 Visual Identity / Design System) — 12 tasks, zero dependencies
+- **Sprint 1 (UX-5) COMPLETE** (2026-06-05): Visual Identity / Design System — 12 tasks, dart analyze 0/0/0
+- **Next**: Sprint 2 (UX-1 Dashboard Cockpit Redesign) — 14 tasks
+
+## Visual Foundation Status (2026-06-05)
+- Token system: STABLE (pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion)
+- app_theme.dart: REBUILT (new tokens, legacy shim intact)
+- Core widgets: STABLE (PocketaAmount, PocketaLedgerRail, PocketaTrustStrip, PocketaToast)
+- Card widgets: STABLE (HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard)
+- NumberFormatter: STABLE
+- Feature files: NOT YET migrated to new tokens (still using AppColors.* via re-export)
 
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
