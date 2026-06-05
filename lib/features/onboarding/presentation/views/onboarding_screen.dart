@@ -70,9 +70,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       ));
     }
 
-    // Buffer: convert % → flat BDT (anxietyBuffer field in StsSettings)
+    // Buffer: store as percentage in StsSettings (D1.11).
     final stsNotifier = ref.read(stsSettingsProvider.notifier);
-    await stsNotifier.updateAnxietyBuffer(_draft.bufferAmountBdt);
+    await stsNotifier.updateBufferPercent(_draft.bufferPercent.toDouble());
 
     await SharedPrefServices.setOnboardingCompleted(true);
     if (mounted) context.go(RouteNames.home);

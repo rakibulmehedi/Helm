@@ -15,7 +15,7 @@ Sprint: UX Canon Implementation — Sprint 3 (UX-2 Onboarding Redesign)
 3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks) — **START HERE**
 4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
 5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
-6. [ ] Sprint 6: D1 Trust Layer Foundation (12 tasks)
+6. [x] Sprint 6: D1 Trust Layer Foundation (11/12 tasks) — **COMPLETE [2026-06-06]** (D1.04 biometric deferred)
 7. [ ] Sprint 7: D2 Beta Instrumentation (6 tasks)
 8. [ ] Sprint 8: D3 Closed Beta Readiness (8 tasks)
 

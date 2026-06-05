@@ -28,4 +28,17 @@ abstract final class RouteNames {
 
   // ── safe to spend ─────────────────────────────────────────────────────────────
   static const String stsSettings = '/sts-settings';
+
+  // ── auth (D1 Trust Layer) ──────────────────────────────────────────────────
+  static const String pinSetup = '/pin-setup';
+  static const String pinEntry = '/pin-entry';
+
+  // ── audit log (D1.07) ─────────────────────────────────────────────────────
+  static const String auditLog = '/audit-log';
+
+  // ── account management (D1.10) ────────────────────────────────────────────
+  static const String deleteAccount = '/delete-account';
+
+  // ── export (D1.09) ────────────────────────────────────────────────────────
+  static const String exportData = '/export-data';
 }

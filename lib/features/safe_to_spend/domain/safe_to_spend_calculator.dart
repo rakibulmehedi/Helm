@@ -67,8 +67,13 @@ class SafeToSpendCalculator {
       }
     }
 
+    // Buffer is a percentage of total received income (D1.11).
+    // No formula logic change — only how the buffer value is derived changes.
+    final double computedBuffer =
+        (settings.bufferPercent / 100.0) * totalReceivedIncomeBdt;
+
     final double rawSafeToSpend =
-        liquidCash - taxReserve - fixedCostsDue - settings.anxietyBuffer;
+        liquidCash - taxReserve - fixedCostsDue - computedBuffer;
     final double safeToSpend = max(0.0, rawSafeToSpend);
 
     final double horizonNumber =
@@ -80,7 +85,7 @@ class SafeToSpendCalculator {
       totalExpenses: totalExpenses,
       taxReserve: taxReserve,
       fixedCostsDue: fixedCostsDue,
-      anxietyBuffer: settings.anxietyBuffer,
+      anxietyBuffer: computedBuffer,
       safeToSpend: safeToSpend,
       rawSafeToSpend: rawSafeToSpend,
       pendingIncome: pendingIncome,

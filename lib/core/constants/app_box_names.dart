@@ -21,5 +21,13 @@ abstract final class AppBoxNames {
   /// Stores [FixedCostModel] objects. Opened in Phase 8b.
   static const String fixedCostsBox = 'fixed_costs_box';
 
+  /// Stores PIN hash and auth setup status. Opened in D1 Trust Layer.
+  /// Untyped dynamic box — no HiveType adapter needed.
+  static const String authBox = 'auth_box';
+
+  /// Stores [AuditEventModel] objects. Opened in D1 Trust Layer (D1.05).
+  /// Registration and adapter handled by the audit_log agent.
+  static const String auditEventsBox = 'audit_events_box';
+
   // Add future box names here — never hard-code strings at the call site.
 }

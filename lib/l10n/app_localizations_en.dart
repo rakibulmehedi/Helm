@@ -15,7 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeMessage => 'Welcome to Pocketa!';
 
   @override
-  String get tagLine => 'How much can you spend right now?';
+  String get tagLine => 'Your pocket accountant for\nSmart budgeting';
 
   @override
   String get getStarted => 'Get Started';
@@ -58,7 +58,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectMonthlyIncome => 'Select your monthly income range';
 
   @override
-  String get setupYourBudgetCategories => 'Set up your fixed costs';
+  String get setupYourBudgetCategories => 'Set up your budget categories';
 
   @override
   String get freelance => 'Freelance';
@@ -97,7 +97,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get add => 'Add';
 
   @override
-  String get budget => 'Fixed costs';
+  String get budget => 'Budget';
 
   @override
   String get profile => 'Profile';
@@ -109,10 +109,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get expense => 'Expense';
 
   @override
-  String get totalBalance => 'Liquid BDT';
+  String get totalBalance => 'Total Balance';
 
   @override
-  String get recentTransactions => 'Recent payments';
+  String get recentTransactions => 'Recent Transactions';
 
   @override
   String get categoryDistribution => 'Category Distribution';
@@ -136,13 +136,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get date => 'Date';
 
   @override
-  String get addExpense => 'Add fixed cost';
+  String get addExpense => 'Add Expense';
 
   @override
   String get addIncome => 'Add Income';
 
   @override
-  String get setBudget => 'Set fixed costs';
+  String get setBudget => 'Set Monthly Budget';
 
   @override
   String get setCategoryLimit => 'Set category-wise limit';

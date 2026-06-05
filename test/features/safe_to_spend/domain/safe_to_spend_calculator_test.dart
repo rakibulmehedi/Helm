@@ -63,17 +63,18 @@ void main() {
     }
 
     test('EC-01: No Income Entries Exist', () {
+      // Buffer is % of received income. No income → buffer = 0 regardless of %.
       final result = SafeToSpendCalculator.calculate(
         incomeEntries: [],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 100),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 15.0),
         fixedCosts: [],
         now: now,
       );
 
       expect(result.liquidCash, 0.0);
-      expect(result.rawSafeToSpend, -100.0);
-      expect(result.safeToSpend, 0.0); // Clamped
+      expect(result.rawSafeToSpend, 0.0); // buffer = 15% of 0 = 0
+      expect(result.safeToSpend, 0.0);
     });
 
     test('EC-02: No Expense Transactions Exist', () {
@@ -82,7 +83,7 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -93,19 +94,21 @@ void main() {
     });
 
     test('EC-03: Negative Safe-to-Spend Result (Deductions exceed liquid)', () {
+      // bufferPercent: 100.0 → buffer = 100% of 1000 BDT = 1000 BDT
+      // liquidCash=1000, tax=100, buffer=1000 → raw = 1000-100-1000 = -100
       final result = SafeToSpendCalculator.calculate(
         incomeEntries: [
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 1000),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 100.0),
         fixedCosts: [],
         now: now,
       );
 
-      // liquidCash=1000, tax=100, buffer=1000 → raw = 1000-100-1000 = -100
       expect(result.liquidCash, 1000.0);
       expect(result.taxReserve, 100.0);
+      expect(result.anxietyBuffer, 1000.0); // 100% of 1000 = 1000
       expect(result.rawSafeToSpend, -100.0);
       expect(result.safeToSpend, 0.0); // Clamped
     });
@@ -121,7 +124,7 @@ void main() {
           ),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -155,7 +158,7 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [
           createFixedCost(id: 'f1', amount: 500, dueDayOfMonth: 25), // May 25 (2 days, IN window)
         ],
@@ -174,7 +177,7 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [
           createFixedCost(id: 'f1', amount: 100, dueDayOfMonth: 24), // May 24 (1 day)
           createFixedCost(id: 'f2', amount: 200, dueDayOfMonth: 5),  // June 5 (13 days)
@@ -192,7 +195,7 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -207,7 +210,7 @@ void main() {
           createIncome(id: 'i1', amount: 1000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0), // Default
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0), // Default
         fixedCosts: [],
         now: now,
       );
@@ -223,7 +226,7 @@ void main() {
           createIncome(id: 'i2', amount: 50, currency: 'USD', status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -242,7 +245,7 @@ void main() {
           createIncome(id: 'i3', amount: 3000, status: IncomeStatus.expected),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -265,7 +268,7 @@ void main() {
           createExpense(id: 't1', amount: 200),
           createExpense(id: 't2', amount: 300),
         ],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -283,7 +286,7 @@ void main() {
       final result = SafeToSpendCalculator.calculate(
         incomeEntries: [],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -305,7 +308,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -316,18 +319,19 @@ void main() {
     });
 
     test('Received + anxiety buffer only', () {
+      // bufferPercent: 20.0 → buffer = 20% of 10000 = 2000 BDT
       final result = SafeToSpendCalculator.calculate(
         incomeEntries: [
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 2000),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 20.0),
         fixedCosts: [],
         now: now,
       );
 
       expect(result.liquidCash, 10000.0);
-      expect(result.anxietyBuffer, 2000.0);
+      expect(result.anxietyBuffer, 2000.0); // 20% of 10000
       expect(result.safeToSpend, 8000.0);
     });
 
@@ -337,7 +341,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.pending),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -357,7 +361,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.expected),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -381,7 +385,7 @@ void main() {
         transactions: [
           createExpense(id: 't1', amount: 10000),
         ],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -407,7 +411,7 @@ void main() {
           ),
           createExpense(id: 't2', amount: 2000),
         ],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -430,7 +434,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [
           createFixedCost(id: 'f1', amount: 1000, dueDayOfMonth: 24),
           createFixedCost(id: 'f2', amount: 2000, dueDayOfMonth: 10),
@@ -462,7 +466,7 @@ void main() {
           createExpense(id: 't1', amount: 6000),
           createExpense(id: 't2', amount: 4000),
         ],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 3000),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 6.0), // 6% of 50000 = 3000 BDT
         fixedCosts: [
           createFixedCost(id: 'f1', amount: 5000, dueDayOfMonth: 24), // IN window
           createFixedCost(id: 'f2', amount: 3000, dueDayOfMonth: 10), // IN window
@@ -495,7 +499,7 @@ void main() {
         transactions: [
           createExpense(id: 't1', amount: 15000),
         ],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -512,7 +516,7 @@ void main() {
           createIncome(id: 'i1', amount: 500, currency: 'USD', status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -533,7 +537,7 @@ void main() {
         transactions: [
           createExpense(id: 't1', amount: 15000),
         ],
-        settings: const StsSettings(taxRate: 0.10, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.10, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -551,7 +555,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [
           createFixedCost(id: 'f1', amount: 2000, dueDayOfMonth: 23), // Today
         ],
@@ -570,7 +574,7 @@ void main() {
           createIncome(id: 'i3', amount: 7000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -586,7 +590,7 @@ void main() {
           createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.40, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.40, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -610,7 +614,7 @@ void main() {
           ),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -634,7 +638,7 @@ void main() {
           ),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -663,7 +667,7 @@ void main() {
           ),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );
@@ -697,7 +701,7 @@ void main() {
           ),
         ],
         transactions: [],
-        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
         fixedCosts: [],
         now: now,
       );

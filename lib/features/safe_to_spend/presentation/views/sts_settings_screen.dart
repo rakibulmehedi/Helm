@@ -1,74 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 
-class StsSettingsScreen extends ConsumerStatefulWidget {
+class StsSettingsScreen extends ConsumerWidget {
   const StsSettingsScreen({super.key});
 
   @override
-  ConsumerState<StsSettingsScreen> createState() => _StsSettingsScreenState();
-}
-
-class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
-  late TextEditingController _bufferController;
-
-  @override
-  void initState() {
-    super.initState();
-    _bufferController = TextEditingController();
-    // Initialize buffer controller with current value once provider is loaded
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final settings = ref.read(stsSettingsProvider);
-      _bufferController.text = settings.anxietyBuffer.toStringAsFixed(0);
-    });
-  }
-
-  @override
-  void dispose() {
-    _bufferController.dispose();
-    super.dispose();
-  }
-
-  void _saveBuffer() {
-    final text = _bufferController.text.trim();
-    final bufferVal = double.tryParse(text);
-    if (bufferVal == null || bufferVal < 0) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(bufferVal == null ? 'Enter a valid number' : 'Amount cannot be negative'),
-        ),
-      );
-      return;
-    }
-    ref.read(stsSettingsProvider.notifier).updateAnxietyBuffer(bufferVal);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Anxiety buffer saved')),
-    );
-  }
-
-  void _showAddEditFixedCostSheet(BuildContext context, [FixedCostEntry? entry]) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return _AddEditFixedCostSheet(entry: entry);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(stsSettingsProvider);
     final fixedCosts = ref.watch(fixedCostNotifierProvider);
+    final colors = Theme.of(context).extension<PocketaColors>()!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -82,6 +30,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ── Tax Reserve ──────────────────────────────────────────────────
             const Text(
               'Tax Reserve Rate',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -116,47 +65,59 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                 ),
               ],
             ),
+
             const SizedBox(height: 32),
+
+            // ── Breathing Room (buffer %) ─────────────────────────────────────
             const Text(
-              'Anxiety Buffer',
+              'Breathing room',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             const Text(
-              'A calm cushion kept out of your Safe-to-Spend calculation.',
+              'Reserve this % of expected income as a buffer',
               style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${settings.bufferPercent.round()}% of expected income',
+              style: const TextStyle(
+                color: AppColors.textSecondary,
+                fontSize: 13,
+                fontStyle: FontStyle.italic,
+              ),
             ),
             const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
-                  child: TextFormField(
-                    controller: _bufferController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
-                    decoration: InputDecoration(
-                      labelText: 'Amount',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      prefixText: '৳ ',
-                    ),
+                  child: Slider(
+                    value: settings.bufferPercent.clamp(5.0, 30.0),
+                    min: 5.0,
+                    max: 30.0,
+                    divisions: 25,
+                    activeColor: AppColors.primary,
+                    label: '${settings.bufferPercent.round()}%',
+                    onChanged: (val) {
+                      ref
+                          .read(stsSettingsProvider.notifier)
+                          .updateBufferPercent(val);
+                    },
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  flex: 0,
-                  child: SizedBox(
-                    width: 100,
-                    child: AppButton(
-                      label: 'Save',
-                      onPressed: _saveBuffer,
-                    ),
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    '${settings.bufferPercent.round()}%',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
+
             const SizedBox(height: 32),
+
+            // ── Fixed Costs ───────────────────────────────────────────────────
             const Text(
               'Fixed Costs',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -186,7 +147,8 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: fixedCosts.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 8),
                 itemBuilder: (context, index) {
                   final cost = fixedCosts[index];
                   return Dismissible(
@@ -199,7 +161,9 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                       child: const Icon(Icons.delete, color: Colors.white),
                     ),
                     onDismissed: (_) {
-                      ref.read(fixedCostNotifierProvider.notifier).deleteFixedCost(cost.id);
+                      ref
+                          .read(fixedCostNotifierProvider.notifier)
+                          .deleteFixedCost(cost.id);
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -207,7 +171,9 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                           action: SnackBarAction(
                             label: 'UNDO',
                             onPressed: () {
-                              ref.read(fixedCostNotifierProvider.notifier).addFixedCost(cost);
+                              ref
+                                  .read(fixedCostNotifierProvider.notifier)
+                                  .addFixedCost(cost);
                             },
                           ),
                         ),
@@ -222,9 +188,11 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                       subtitle: Text('Due: Day ${cost.dueDayOfMonth}'),
                       trailing: Text(
                         '৳ ${cost.amount.toStringAsFixed(0)}',
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      onTap: () => _showAddEditFixedCostSheet(context, cost),
+                      onTap: () =>
+                          _showAddEditFixedCostSheet(context, cost),
                     ),
                   );
                 },
@@ -244,10 +212,55 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
                 ),
               ),
             ),
+
             const SizedBox(height: 40),
+
+            // ── Data export ────────────────────────────────────────────────────
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.download_outlined),
+              title: const Text('Export my data'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push(RouteNames.exportData),
+            ),
+
+            // ── Danger zone ────────────────────────────────────────────────────
+            const Divider(),
+            ListTile(
+              leading: Icon(
+                Icons.delete_forever_outlined,
+                color: colors.stateAtRisk,
+              ),
+              title: Text(
+                'Delete all data',
+                style: TextStyle(color: colors.stateAtRisk),
+              ),
+              trailing: Icon(
+                Icons.chevron_right,
+                color: colors.stateAtRisk,
+              ),
+              onTap: () => context.push(RouteNames.deleteAccount),
+            ),
+
+            const SizedBox(height: 24),
           ],
         ),
       ),
+    );
+  }
+
+  void _showAddEditFixedCostSheet(BuildContext context,
+      [FixedCostEntry? entry]) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return _AddEditFixedCostSheet(entry: entry);
+      },
     );
   }
 }
@@ -258,10 +271,12 @@ class _AddEditFixedCostSheet extends ConsumerStatefulWidget {
   const _AddEditFixedCostSheet({this.entry});
 
   @override
-  ConsumerState<_AddEditFixedCostSheet> createState() => _AddEditFixedCostSheetState();
+  ConsumerState<_AddEditFixedCostSheet> createState() =>
+      _AddEditFixedCostSheetState();
 }
 
-class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> {
+class _AddEditFixedCostSheetState
+    extends ConsumerState<_AddEditFixedCostSheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _labelController;
   late TextEditingController _amountController;
@@ -270,12 +285,17 @@ class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> 
   @override
   void initState() {
     super.initState();
-    _labelController = TextEditingController(text: widget.entry?.label ?? '');
+    _labelController =
+        TextEditingController(text: widget.entry?.label ?? '');
     _amountController = TextEditingController(
-      text: widget.entry != null ? widget.entry!.amount.toStringAsFixed(0) : '',
+      text: widget.entry != null
+          ? widget.entry!.amount.toStringAsFixed(0)
+          : '',
     );
     _dueDayController = TextEditingController(
-      text: widget.entry != null ? widget.entry!.dueDayOfMonth.toString() : '',
+      text: widget.entry != null
+          ? widget.entry!.dueDayOfMonth.toString()
+          : '',
     );
   }
 
@@ -301,14 +321,18 @@ class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> 
           dueDayOfMonth: dueDay,
           createdAt: DateTime.now(),
         );
-        ref.read(fixedCostNotifierProvider.notifier).addFixedCost(newEntry);
+        ref
+            .read(fixedCostNotifierProvider.notifier)
+            .addFixedCost(newEntry);
       } else {
         final updatedEntry = widget.entry!.copyWith(
           label: label,
           amount: amount,
           dueDayOfMonth: dueDay,
         );
-        ref.read(fixedCostNotifierProvider.notifier).updateFixedCost(updatedEntry);
+        ref
+            .read(fixedCostNotifierProvider.notifier)
+            .updateFixedCost(updatedEntry);
       }
       Navigator.pop(context);
     }
@@ -331,17 +355,21 @@ class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> 
           children: [
             Text(
               widget.entry == null ? 'Add Fixed Cost' : 'Edit Fixed Cost',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _labelController,
               decoration: InputDecoration(
                 labelText: 'Label (e.g. Internet, Rent)',
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12)),
               ),
               validator: (val) {
-                if (val == null || val.trim().isEmpty) return 'Label is required';
+                if (val == null || val.trim().isEmpty) {
+                  return 'Label is required';
+                }
                 return null;
               },
             ),
@@ -352,12 +380,17 @@ class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> 
                   flex: 2,
                   child: TextFormField(
                     controller: _amountController,
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d*'))],
+                    keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^\d+\.?\d*'))
+                    ],
                     decoration: InputDecoration(
                       labelText: 'Amount',
                       prefixText: '৳ ',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
                       if (val == null || val.isEmpty) return 'Required';
@@ -369,20 +402,24 @@ class _AddEditFixedCostSheetState extends ConsumerState<_AddEditFixedCostSheet> 
                 ),
                 const SizedBox(width: 16),
                 Expanded(
-                  flex: 1,
                   child: TextFormField(
                     controller: _dueDayController,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     decoration: InputDecoration(
                       labelText: 'Due Day',
                       hintText: '1-28',
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
                       if (val == null || val.isEmpty) return 'Required';
                       final num = int.tryParse(val);
-                      if (num == null || num < 1 || num > 28) return '1-28 only';
+                      if (num == null || num < 1 || num > 28) {
+                        return '1-28 only';
+                      }
                       return null;
                     },
                   ),

@@ -1065,7 +1065,7 @@
 
 ## Sprint 6: D1 Trust Layer Foundation
 
-### D1.01: Create auth feature module
+### D1.01: Create auth feature module — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1083,7 +1083,7 @@
 
 ---
 
-### D1.02: Create PIN state management
+### D1.02: Create PIN state management — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1101,7 +1101,7 @@
 
 ---
 
-### D1.03: Wire auth guard into router
+### D1.03: Wire auth guard into router — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1119,7 +1119,7 @@
 
 ---
 
-### D1.04: Create biometric support
+### D1.04: Create biometric support — ⏸ DEFERRED (needs local_auth pkg)
 
 | Field | Value |
 |-------|-------|
@@ -1137,7 +1137,7 @@
 
 ---
 
-### D1.05: Create audit event entity + Hive model
+### D1.05: Create audit event entity + Hive model — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1155,7 +1155,7 @@
 
 ---
 
-### D1.06: Wire audit logging to financial edit paths
+### D1.06: Wire audit logging to financial edit paths — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1173,7 +1173,7 @@
 
 ---
 
-### D1.07: Create audit log display screen
+### D1.07: Create audit log display screen — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1191,7 +1191,7 @@
 
 ---
 
-### D1.08: Create CSV export service
+### D1.08: Create CSV export service — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1209,7 +1209,7 @@
 
 ---
 
-### D1.09: Create export screen with share action
+### D1.09: Create export screen with share action — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1227,7 +1227,7 @@
 
 ---
 
-### D1.10: Create account deletion flow
+### D1.10: Create account deletion flow — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1248,7 +1248,7 @@
 
 ---
 
-### D1.11: Convert anxiety buffer to percentage
+### D1.11: Convert anxiety buffer to percentage — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1266,7 +1266,7 @@
 
 ---
 
-### D1.12: Sprint 6 dart analyze clean
+### D1.12: Sprint 6 dart analyze clean — ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|

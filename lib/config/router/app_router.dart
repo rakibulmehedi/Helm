@@ -14,17 +14,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/constants/app_box_names.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:pocketa_v2/features/auth/presentation/views/pin_entry_screen.dart';
+import 'package:pocketa_v2/features/auth/presentation/views/pin_setup_screen.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/views/dashboard_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/add_income_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/income_list_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/pipeline_screen.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/welcome_screen.dart';
+import 'package:pocketa_v2/features/account/presentation/views/delete_account_screen.dart';
+import 'package:pocketa_v2/features/audit_log/presentation/views/audit_log_screen.dart';
+import 'package:pocketa_v2/features/export/presentation/views/export_screen.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
 import 'package:pocketa_v2/features/splash/views/splash_screen.dart';
 import 'package:pocketa_v2/features/transactions/presentation/views/add_transaction_screen.dart';
@@ -121,6 +128,39 @@ final GoRouter appRouter = GoRouter(
       path: RouteNames.stsSettings,
       name: 'stsSettings',
       builder: (context, state) => const StsSettingsScreen(),
+    ),
+
+    // ── Auth routes (D1 Trust Layer) ──────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.pinSetup,
+      name: 'pinSetup',
+      builder: (context, state) => const PinSetupScreen(),
+    ),
+    GoRoute(
+      path: RouteNames.pinEntry,
+      name: 'pinEntry',
+      builder: (context, state) => const PinEntryScreen(),
+    ),
+
+    // ── Audit log (D1.07) ─────────────────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.auditLog,
+      name: 'auditLog',
+      builder: (context, state) => const AuditLogScreen(),
+    ),
+
+    // ── Account management (D1.10) ────────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.deleteAccount,
+      name: 'deleteAccount',
+      builder: (context, state) => const DeleteAccountScreen(),
+    ),
+
+    // ── Export (D1.09) ────────────────────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.exportData,
+      name: 'exportData',
+      builder: (context, state) => const ExportScreen(),
     ),
   ],
 );
@@ -236,6 +276,27 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   if (currentPath == RouteNames.splash ||
       currentPath == RouteNames.welcome) {
     return RouteNames.home;
+  }
+
+  // ── Auth guard (D1 Trust Layer) ────────────────────────────────────────────
+  // Read auth state directly from Hive to avoid Riverpod timing issues during
+  // cold-start redirects.
+  final bool isPinRoute =
+      currentPath == RouteNames.pinEntry ||
+      currentPath == RouteNames.pinSetup;
+
+  if (!isPinRoute && Hive.isBoxOpen(AppBoxNames.authBox)) {
+    final box = Hive.box<dynamic>(AppBoxNames.authBox);
+    final bool pinIsSetUp =
+        box.get('pin_is_setup', defaultValue: false) as bool;
+
+    if (!pinIsSetUp) {
+      return RouteNames.pinSetup;
+    }
+    // PIN is set up — in-memory session auth is handled at the screen level
+    // via authProvider. The redirect does not lock on every navigation to
+    // avoid infinite redirect loops; PinEntryScreen is the entry point when
+    // the app cold-starts with a set PIN.
   }
 
   return null;

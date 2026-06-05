@@ -95,11 +95,16 @@ class StsSettingsNotifier extends StateNotifier<StsSettings> {
     state = newSettings;
   }
 
-  Future<void> updateAnxietyBuffer(double buffer) async {
-    final newSettings = state.copyWith(anxietyBuffer: buffer);
+  Future<void> updateBufferPercent(double percent) async {
+    final newSettings = state.copyWith(bufferPercent: percent);
     await _repository.saveSettings(newSettings);
     state = newSettings;
   }
+
+  /// Migration compatibility. Use [updateBufferPercent] instead.
+  @Deprecated('Use updateBufferPercent instead')
+  Future<void> updateAnxietyBuffer(double buffer) =>
+      updateBufferPercent(buffer);
 }
 
 // --- Safe-to-Spend Computed Provider ---

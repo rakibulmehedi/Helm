@@ -1,0 +1,158 @@
+// lib/features/export/presentation/views/export_screen.dart
+// D1.09 — CSV Export: user-facing export screen
+
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
+
+class ExportScreen extends ConsumerStatefulWidget {
+  const ExportScreen({super.key});
+
+  @override
+  ConsumerState<ExportScreen> createState() => _ExportScreenState();
+}
+
+class _ExportScreenState extends ConsumerState<ExportScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final status = ref.watch(exportProvider);
+    final isExporting = status == ExportStatus.exporting;
+
+    ref.listen<ExportStatus>(exportProvider, (prev, next) {
+      if (!mounted) return;
+      if (next == ExportStatus.success) {
+        final notifier = ref.read(exportProvider.notifier);
+        _showSuccessDialog(notifier.lastResult?.directoryPath ?? '');
+      } else if (next == ExportStatus.error) {
+        final notifier = ref.read(exportProvider.notifier);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Export failed: ${notifier.lastResult?.errorMessage ?? 'Unknown error'}',
+            ),
+          ),
+        );
+        notifier.reset();
+      }
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Export my data'),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Your data belongs to you',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: colors.inkPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Export all your Pocketa data as CSV files. '
+              'Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.',
+              style: TextStyle(
+                fontSize: 14,
+                color: colors.inkSecondary,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'What will be exported',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: colors.inkPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            ..._exportItems(colors),
+            const SizedBox(height: 32),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: isExporting
+                    ? null
+                    : () => ref.read(exportProvider.notifier).export(),
+                child: isExporting
+                    ? const SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('Export all data'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _exportItems(PocketaColors colors) {
+    const items = [
+      'Income entries',
+      'Transactions',
+      'Fixed costs',
+      'Settings',
+      'Change history',
+    ];
+    return items
+        .map(
+          (name) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.check_circle_outline,
+                  size: 20,
+                  color: colors.stateSafe,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: colors.inkSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+        .toList();
+  }
+
+  void _showSuccessDialog(String dirPath) {
+    // TODO: Replace with share_plus share sheet when package approved.
+    // Currently saves to documents directory only.
+    showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Export complete'),
+        content: Text(
+          'Your data has been saved to:\n\n$dirPath\n\n'
+          "Find the CSV files in your phone's Files app.",
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              ref.read(exportProvider.notifier).reset();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+}
