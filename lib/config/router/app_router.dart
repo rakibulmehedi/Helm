@@ -22,6 +22,7 @@ import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/views/dashboard_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/add_income_screen.dart';
 import 'package:pocketa_v2/features/income/presentation/views/income_list_screen.dart';
+import 'package:pocketa_v2/features/income/presentation/views/pipeline_screen.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/welcome_screen.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
@@ -66,10 +67,7 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: RouteNames.pipeline,
           name: 'pipeline',
-          builder: (context, state) => IncomeListScreen(
-            initialFilter:
-                state.extra is String ? state.extra as String : null,
-          ),
+          builder: (context, state) => const PipelineScreen(),
         ),
         GoRoute(
           path: RouteNames.history,

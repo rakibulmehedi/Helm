@@ -681,7 +681,7 @@
 
 ## Sprint 4: UX-3 Pipeline Quick-Update
 
-### UX-3.01: Add fxRate, excludeFromCalculation, sourceLabel fields
+### UX-3.01: Add fxRate, excludeFromCalculation, sourceLabel fields — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -699,7 +699,7 @@
 
 ---
 
-### UX-3.02: Create ConfirmReceivedSheet
+### UX-3.02: Create ConfirmReceivedSheet — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -717,7 +717,7 @@
 
 ---
 
-### UX-3.03: Create PipelineEntryCard
+### UX-3.03: Create PipelineEntryCard — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -735,7 +735,7 @@
 
 ---
 
-### UX-3.04: Create PipelineScreen
+### UX-3.04: Create PipelineScreen — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -753,7 +753,7 @@
 
 ---
 
-### UX-3.05: Create PocketaFxEstimate widget
+### UX-3.05: Create PocketaFxEstimate widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -771,7 +771,7 @@
 
 ---
 
-### UX-3.06: Create PocketaMoneySourceLabel widget
+### UX-3.06: Create PocketaMoneySourceLabel widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -789,7 +789,7 @@
 
 ---
 
-### UX-3.07: Add FX rate input + exclude toggle to add_income_screen
+### UX-3.07: Add FX rate input + exclude toggle to add_income_screen — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -807,7 +807,7 @@
 
 ---
 
-### UX-3.08: Update STS calculator
+### UX-3.08: Update STS calculator — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -825,7 +825,7 @@
 
 ---
 
-### UX-3.09: Implement "Duplicate last" gesture
+### UX-3.09: Implement "Duplicate last" gesture — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -843,7 +843,7 @@
 
 ---
 
-### UX-3.10: Sprint 4 dart analyze clean
+### UX-3.10: Sprint 4 dart analyze clean — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|

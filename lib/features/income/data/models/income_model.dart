@@ -63,6 +63,21 @@ class IncomeModel extends HiveObject {
   @HiveField(10)
   final DateTime updatedAt;
 
+  /// Conservative USD→BDT rate. Null for BDT entries or when not set.
+  /// HiveField 11 — nullable, migration-safe.
+  @HiveField(11)
+  final double? fxRate;
+
+  /// When true, excluded from S2S calculation. Default false.
+  /// HiveField 12 — nullable stored as bool?, treated as false when null.
+  @HiveField(12)
+  final bool? excludeFromCalculation;
+
+  /// Source label (e.g. "Upwork"). Null when not set.
+  /// HiveField 13 — nullable, migration-safe.
+  @HiveField(13)
+  final String? sourceLabel;
+
   IncomeModel({
     required this.id,
     required this.clientName,
@@ -75,6 +90,9 @@ class IncomeModel extends HiveObject {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
+    this.fxRate,
+    this.excludeFromCalculation,
+    this.sourceLabel,
   });
 
   // ── Factory constructors ───────────────────────────────────────────────────
@@ -93,6 +111,9 @@ class IncomeModel extends HiveObject {
       notes: entity.notes,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+      fxRate: entity.fxRate,
+      excludeFromCalculation: entity.excludeFromCalculation,
+      sourceLabel: entity.sourceLabel,
     );
   }
 
@@ -115,6 +136,9 @@ class IncomeModel extends HiveObject {
       notes: json['notes'] as String?,
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      fxRate: (json['fxRate'] as num?)?.toDouble(),
+      excludeFromCalculation: json['excludeFromCalculation'] as bool?,
+      sourceLabel: json['sourceLabel'] as String?,
     );
   }
 
@@ -141,6 +165,9 @@ class IncomeModel extends HiveObject {
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      fxRate: fxRate,
+      excludeFromCalculation: excludeFromCalculation ?? false,
+      sourceLabel: sourceLabel,
     );
   }
 
@@ -160,6 +187,9 @@ class IncomeModel extends HiveObject {
       'notes': notes,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
+      'fxRate': fxRate,
+      'excludeFromCalculation': excludeFromCalculation,
+      'sourceLabel': sourceLabel,
     };
   }
 }

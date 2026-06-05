@@ -16,6 +16,8 @@ void main() {
       String currency = 'BDT',
       required IncomeStatus status,
       DateTime? receivedDate,
+      double? fxRate,
+      bool excludeFromCalculation = false,
     }) {
       return IncomeEntryEntity(
         id: id,
@@ -28,6 +30,8 @@ void main() {
         receivedDate: receivedDate,
         createdAt: now,
         updatedAt: now,
+        fxRate: fxRate,
+        excludeFromCalculation: excludeFromCalculation,
       );
     }
 
@@ -589,6 +593,119 @@ void main() {
 
       expect(result.taxReserve, 4000.0);
       expect(result.safeToSpend, 6000.0);
+    });
+
+    // ── UX-3.08: Per-entry FX rate + excludeFromCalculation ──────────────────
+
+    test('UX-3.08: USD received with fxRate counts in S2S as BDT', () {
+      // 100 USD at 110.5 rate → 11,050 BDT counted
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(
+            id: 'i1',
+            amount: 100,
+            currency: 'USD',
+            status: IncomeStatus.received,
+            fxRate: 110.5,
+          ),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 11050.0);
+      expect(result.liquidCash, 11050.0);
+      expect(result.safeToSpend, 11050.0);
+      expect(result.excludedUsdIncome, 0.0);
+      expect(result.excludedUsdEntryCount, 0);
+    });
+
+    test('UX-3.08: USD received without fxRate remains excluded', () {
+      // Backwards-compat: no fxRate → still goes to excludedUsdIncome
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(
+            id: 'i1',
+            amount: 100,
+            currency: 'USD',
+            status: IncomeStatus.received,
+          ),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.safeToSpend, 0.0);
+      expect(result.excludedUsdIncome, 100.0);
+      expect(result.excludedUsdEntryCount, 1);
+    });
+
+    test('UX-3.08: excludeFromCalculation=true skips entry regardless of status', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 5000, status: IncomeStatus.received),
+          createIncome(
+            id: 'i2',
+            amount: 3000,
+            status: IncomeStatus.received,
+            excludeFromCalculation: true, // should be skipped
+          ),
+          createIncome(
+            id: 'i3',
+            amount: 2000,
+            status: IncomeStatus.pending,
+            excludeFromCalculation: true, // should be skipped (not in horizon either)
+          ),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 5000.0); // only i1 counted
+      expect(result.liquidCash, 5000.0);
+      expect(result.pendingIncome, 0.0); // i3 excluded
+      expect(result.safeToSpend, 5000.0);
+    });
+
+    test('UX-3.08: mixed BDT + USD with fxRate + excluded', () {
+      // i1: 10,000 BDT received → counts
+      // i2: 50 USD @ 112.0 → 5,600 BDT counted
+      // i3: 200 USD received, excludeFromCalculation → skipped
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, status: IncomeStatus.received),
+          createIncome(
+            id: 'i2',
+            amount: 50,
+            currency: 'USD',
+            status: IncomeStatus.received,
+            fxRate: 112.0,
+          ),
+          createIncome(
+            id: 'i3',
+            amount: 200,
+            currency: 'USD',
+            status: IncomeStatus.received,
+            excludeFromCalculation: true,
+          ),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, anxietyBuffer: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 15600.0); // 10000 + 5600
+      expect(result.liquidCash, 15600.0);
+      expect(result.safeToSpend, 15600.0);
+      expect(result.excludedUsdIncome, 0.0); // i3 skipped before exclusion tracking
     });
   });
 }

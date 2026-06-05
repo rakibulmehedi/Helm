@@ -28,13 +28,16 @@ class IncomeModelAdapter extends TypeAdapter<IncomeModel> {
       notes: fields[8] as String?,
       createdAt: fields[9] as DateTime,
       updatedAt: fields[10] as DateTime,
+      fxRate: fields[11] as double?,
+      excludeFromCalculation: fields[12] as bool?,
+      sourceLabel: fields[13] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, IncomeModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +59,13 @@ class IncomeModelAdapter extends TypeAdapter<IncomeModel> {
       ..writeByte(9)
       ..write(obj.createdAt)
       ..writeByte(10)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(11)
+      ..write(obj.fxRate)
+      ..writeByte(12)
+      ..write(obj.excludeFromCalculation)
+      ..writeByte(13)
+      ..write(obj.sourceLabel);
   }
 
   @override

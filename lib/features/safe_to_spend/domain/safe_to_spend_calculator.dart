@@ -27,12 +27,21 @@ class SafeToSpendCalculator {
     int excludedUsdEntryCount = 0;
 
     for (final entry in incomeEntries) {
+      // UX-3.08: skip entries explicitly excluded by the user
+      if (entry.excludeFromCalculation) continue;
+
       if (entry.status == IncomeStatus.received) {
         if (entry.currency == 'BDT') {
           totalReceivedIncomeBdt += entry.amount;
         } else if (entry.currency == 'USD') {
-          excludedUsdIncome += entry.amount;
-          excludedUsdEntryCount++;
+          if (entry.fxRate != null) {
+            // UX-3.08: per-entry conservative FX → counts in liquid BDT
+            totalReceivedIncomeBdt += entry.amount * entry.fxRate!;
+          } else {
+            // No FX rate set → still excluded (shown for transparency)
+            excludedUsdIncome += entry.amount;
+            excludedUsdEntryCount++;
+          }
         }
       } else if (entry.status == IncomeStatus.pending) {
         pendingIncome += entry.amount;

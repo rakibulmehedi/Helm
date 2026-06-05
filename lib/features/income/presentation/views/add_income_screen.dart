@@ -37,12 +37,15 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   final _projectNameController = TextEditingController();
   final _amountController = TextEditingController();
   final _noteController = TextEditingController();
+  final _fxRateController = TextEditingController();
+  final _sourceLabelController = TextEditingController();
 
   IncomeStatus _selectedStatus = IncomeStatus.expected;
   String _selectedCurrency = _currencies.first;
   DateTime _expectedDate = DateTime.now();
   DateTime? _receivedDate;
   bool _isSaving = false;
+  bool _excludeFromCalculation = false;
 
   /// True when editing and the target income entry was not found.
   bool _incomeNotFound = false;
@@ -68,6 +71,11 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         _expectedDate = entry.expectedDate;
         _receivedDate = entry.receivedDate;
         _originalCreatedAt = entry.createdAt;
+        if (entry.fxRate != null) {
+          _fxRateController.text = entry.fxRate!.toStringAsFixed(2);
+        }
+        _sourceLabelController.text = entry.sourceLabel ?? '';
+        _excludeFromCalculation = entry.excludeFromCalculation;
       } else {
         _incomeNotFound = true;
       }
@@ -80,6 +88,8 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
     _projectNameController.dispose();
     _amountController.dispose();
     _noteController.dispose();
+    _fxRateController.dispose();
+    _sourceLabelController.dispose();
     super.dispose();
   }
 
@@ -146,6 +156,13 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
             : _noteController.text.trim(),
         createdAt: _originalCreatedAt ?? now,
         updatedAt: now,
+        fxRate: _selectedCurrency == 'USD'
+            ? double.tryParse(_fxRateController.text.trim())
+            : null,
+        sourceLabel: _sourceLabelController.text.trim().isEmpty
+            ? null
+            : _sourceLabelController.text.trim(),
+        excludeFromCalculation: _excludeFromCalculation,
       );
 
       if (widget.incomeId != null) {
@@ -308,6 +325,22 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   ],
                 ),
 
+                // ── FX Rate (USD only) ───────────────────────────────────
+                if (_selectedCurrency == 'USD') ...[
+                  const SizedBox(height: 20),
+                  _FieldLabel('FX Rate (BDT per USD)', isDark: isDark),
+                  const SizedBox(height: 8),
+                  TextFormField(
+                    controller: _fxRateController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true),
+                    decoration: _inputDecoration(
+                      hint: 'e.g. 110.5',
+                      isDark: isDark,
+                    ),
+                  ),
+                ],
+
                 const SizedBox(height: 20),
 
                 // ── Status selector ──────────────────────────────────────
@@ -361,6 +394,62 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   decoration: _inputDecoration(
                     hint: 'Add a note…',
                     isDark: isDark,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // ── Payment Source (optional) ────────────────────────────
+                _FieldLabel('Payment Source (optional)', isDark: isDark),
+                const SizedBox(height: 8),
+                TextFormField(
+                  controller: _sourceLabelController,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: _inputDecoration(
+                    hint: 'e.g. Upwork, Fiverr, Direct client',
+                    isDark: isDark,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // ── Exclude from Safe-to-Spend ───────────────────────────
+                Container(
+                  decoration: BoxDecoration(
+                    color: isDark ? AppColors.cardDark : AppColors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: isDark
+                          ? AppColors.grey.withValues(alpha: 0.2)
+                          : AppColors.border,
+                    ),
+                  ),
+                  child: SwitchListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 4),
+                    title: Text(
+                      'Exclude from Safe-to-Spend',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: ResponsiveUtilities.font(context, 13),
+                            color: isDark
+                                ? AppColors.textLight
+                                : AppColors.textDark,
+                          ),
+                    ),
+                    subtitle: Text(
+                      "Use when this payment shouldn't affect your numbers",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontSize: ResponsiveUtilities.font(context, 12),
+                            color: isDark
+                                ? AppColors.textLight.withValues(alpha: 0.6)
+                                : AppColors.textSecondary,
+                          ),
+                    ),
+                    value: _excludeFromCalculation,
+                    activeThumbColor: AppColors.primary,
+                    onChanged: (v) =>
+                        setState(() => _excludeFromCalculation = v),
                   ),
                 ),
 

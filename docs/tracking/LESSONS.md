@@ -288,3 +288,21 @@ Every constraint (PC-001 to PC-079, UX-001 to UX-104, etc.) has a unique ID. Imp
 
 ### 7. Parallel agent extraction is effective but requires race condition awareness
 6 agents writing 12 files simultaneously worked well, but Glob queries during agent execution returned partial results. Always wait for all agents to complete before verifying file counts. Agent output timing is non-deterministic.
+---
+
+## UX-3 Sprint Engineering Lessons (2026-06-05)
+
+### 8. PocketaColors field names diverge from spec descriptions — always read the file
+The implementation spec described fields as `stateCaution` and `stateNeutral`. The actual `PocketaColors` extension uses `stateTight` (amber) and `stateHope` (blue-grey). Agents who read the spec but not the actual token file produced compile-time errors. Rule: always read the live token file before using field names, never trust spec prose alone.
+
+### 9. Manually updating Hive generated adapters is safe and necessary
+`income_model.g.dart` cannot be regenerated (would overwrite custom changes). Adding nullable HiveFields (11/12/13) by hand is safe when: (1) new fields are nullable, (2) existing field indices 0-10 are untouched, (3) the `writeByte` count header is incremented from 11 to 14. Nullable migration = backwards-compatible Hive box opens.
+
+### 10. Parallel agent parameter name mismatches require a post-agent verify pass
+Agent D used `PocketaMoneySourceLabel(label: ...)` when Agent A created the widget with `source:`. Both agents completed clean in isolation but introduced a cross-file error. Fix: always run full `dart analyze` after all parallel agents complete — never trust individual agent analyzer results alone.
+
+### 11. Calculator conservatism: fxRate=null means excluded, fxRate=value means counted
+Old behavior: all USD received entries → excluded. New behavior: USD with `fxRate != null` → converts to BDT and counts in S2S; USD without fxRate → still excluded (backwards-compat). This design lets users opt-in to FX conversion per entry rather than forcing global conversion or breaking existing data.
+
+### 12. Boolean excludeFromCalculation is simpler than an Excluded enum state
+The pipeline spec mentions an `Excluded` state, but the task spec uses a boolean flag. The boolean approach is simpler: reversible with a toggle, works alongside any pipeline status, doesn't require state machine changes. The enum approach would require handling Excluded→Previous transitions. When in doubt, prefer a boolean flag over a new enum variant for reversible user preferences.

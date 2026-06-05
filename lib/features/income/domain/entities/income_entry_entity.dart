@@ -70,6 +70,17 @@ class IncomeEntryEntity {
   /// When this entry was last modified.
   final DateTime updatedAt;
 
+  /// Conservative USD→BDT rate set by user at entry creation.
+  /// Null for BDT-native entries. Used by calculator for FX conversion.
+  final double? fxRate;
+
+  /// When true, this entry is excluded from all S2S calculations.
+  /// Reversible. Replaces the old "USD entries always excluded" behaviour.
+  final bool excludeFromCalculation;
+
+  /// Display label for the payment source (e.g. "Upwork", "Fiverr", "Direct").
+  final String? sourceLabel;
+
   const IncomeEntryEntity({
     required this.id,
     required this.clientName,
@@ -82,6 +93,9 @@ class IncomeEntryEntity {
     this.notes,
     required this.createdAt,
     required this.updatedAt,
+    this.fxRate,
+    this.excludeFromCalculation = false,
+    this.sourceLabel,
   });
 
   /// Returns a new [IncomeEntryEntity] with the specified fields replaced.
@@ -98,8 +112,13 @@ class IncomeEntryEntity {
     String? notes,
     DateTime? createdAt,
     DateTime? updatedAt,
+    double? fxRate,
+    bool? excludeFromCalculation,
+    String? sourceLabel,
     bool clearReceivedDate = false,
     bool clearNotes = false,
+    bool clearFxRate = false,
+    bool clearSourceLabel = false,
   }) {
     return IncomeEntryEntity(
       id: id ?? this.id,
@@ -113,6 +132,9 @@ class IncomeEntryEntity {
       notes: clearNotes ? null : (notes ?? this.notes),
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      fxRate: clearFxRate ? null : (fxRate ?? this.fxRate),
+      excludeFromCalculation: excludeFromCalculation ?? this.excludeFromCalculation,
+      sourceLabel: clearSourceLabel ? null : (sourceLabel ?? this.sourceLabel),
     );
   }
 
