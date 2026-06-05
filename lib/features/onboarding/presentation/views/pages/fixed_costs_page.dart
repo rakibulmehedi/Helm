@@ -35,7 +35,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
     _FixedCostCategory('Subscriptions', 15),
     _FixedCostCategory('Family support / Parents', 5),
     _FixedCostCategory('Loan EMI', 10),
-    _FixedCostCategory('Other recurring expense', 1),
+    _FixedCostCategory('Other fixed cost', 1),
   ];
 
   late final List<bool> _checked;
@@ -132,7 +132,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                 ),
                 const SizedBox(height: PocketaSpacing.s2),
                 Text(
-                  'Tap any that apply. Enter the amount and due date.',
+                  'Monthly costs due in the next 30 days. Tap any that apply.',
                   style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                 ),
               ],
@@ -179,13 +179,13 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'No fixed monthly costs? That\'s uncommon.',
+                      'No fixed monthly costs selected.',
                       style:
                           typo.headingSm.copyWith(color: colors.inkPrimary),
                     ),
                     const SizedBox(height: PocketaSpacing.s1),
                     Text(
-                      'You can add them in Settings later.',
+                      'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.',
                       style:
                           typo.bodyMd.copyWith(color: colors.inkSecondary),
                     ),
@@ -194,7 +194,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                       children: [
                         Expanded(
                           child: AppButton(
-                            label: 'Continue anyway',
+                            label: 'Skip for now',
                             onPressed: () => widget.onContinue([]),
                             isEnabled: true,
                             type: AppButtonType.secondary,
@@ -322,7 +322,7 @@ class _CategoryRow extends StatelessWidget {
                     style: typo.bodyMd
                         .copyWith(color: colors.inkPrimary),
                     decoration: InputDecoration(
-                      hintText: 'Amount',
+                      hintText: 'tk _____',
                       hintStyle: typo.bodyMd
                           .copyWith(color: colors.inkTertiary),
                       isDense: true,

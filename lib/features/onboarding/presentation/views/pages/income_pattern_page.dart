@@ -88,7 +88,7 @@ class _IncomePatternPageState extends State<IncomePatternPage> {
               ),
               const Spacer(),
               AppButton(
-                label: 'Continue',
+                label: 'Save — sets income pattern',
                 onPressed: () => widget.onContinue(_selected),
                 isEnabled: true,
               ),

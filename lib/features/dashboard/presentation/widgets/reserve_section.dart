@@ -34,14 +34,14 @@ class ReserveSection extends StatelessWidget {
       children: [
         // Section header
         Text(
-          'Reserve protected',
+          'Safety buffer',
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
         const SizedBox(height: PocketaSpacing.s1),
 
         // Sub-label
         Text(
-          'Kept aside for peace of mind',
+          'Not locked — a safety margin inside the calculation',
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
@@ -49,7 +49,7 @@ class ReserveSection extends StatelessWidget {
 
         if (result.anxietyBuffer == 0)
           Text(
-            'No buffer set',
+            'No safety buffer set. Safe-to-Spend uses your full liquid BDT.',
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           )
         else

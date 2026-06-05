@@ -20,6 +20,23 @@ Finance users need clarity, not dashboard noise.
 
 ---
 
+### 5. UX-4 — Microcopy is a trust surface, not decoration
+"Safe-to-Spend", "Not counted yet", "Added to liquid BDT", "Fixed costs" are product vocabulary that builds the user's mental model of the app. Inconsistent copy (e.g., "Reserve Mode" vs "At Risk", "Expenses Deducted" vs "Fixed costs") breaks that model and undermines trust. Audit and fix copy as a first-class sprint, not as an afterthought.
+
+### 8. UX-4 — "Fixed costs" as a label is ambiguous — verify what value it describes
+The S2S calculator has two distinct deduction paths: `totalExpenses` (sum of `TransactionType.expense` outflows) and `fixedCostsDue` (sum of `FixedCostEntry` monthly costs due in 30 days). Labeling both rows "Fixed costs" in the calc trace caused a mismatch: the formula has two separate `−` rows with colliding labels. Rule: always verify what `result.fieldName` comes from before assigning a copy label. `totalExpenses` → "Cash out". `fixedCostsDue` → "Fixed costs due". These are not interchangeable.
+
+### 9. UX-4 — "Add expected payment" belongs to the income pipeline, not the expense screen
+`add_transaction_screen.dart` has `TransactionType _selectedType = TransactionType.expense` hardcoded. It is a general expense outflow screen, not the income pipeline entry screen. "Add expected payment" is income pipeline language (add_income_screen). Applying income copy to an expense screen inverts the product model. Copy replacement requires reading the screen's domain, not just its title.
+
+### 6. UX-4 — Parallel agents hit rate limits on microcopy sprints
+Rate limits cut agent work mid-execution. Mitigation: dispatch agents, check what was done via git diff, then continue manually for the remainder. Do not re-dispatch fresh agents for the same files.
+
+### 7. UX-4 — Legacy l10n keys are dead weight but not urgent
+Keys like `categoryDistribution`, `spendingTrend`, `walletOverview` are unused in the new UX. They do not appear in any screen or widget. They are safe to leave for a cleanup sprint but do not need immediate deletion.
+
+---
+
 ## Engineering Lessons
 
 ### 1. Foundation before features
@@ -118,6 +135,16 @@ Users need to verify they deleted the right entry. Showing only client+project n
 4. **Qualifier 12s inactivity rephrase = `Timer` in `initState`** — Cancel on first interaction, show Bangla rephrase at 12s. Cancel the timer in `dispose()`. Track whether rephrase already shown (one re-ask only, per ONB-023).
 5. **`NeverScrollableScrollPhysics` enforces ONB-002** — User must not be able to swipe between onboarding steps. `PageView(physics: NeverScrollableScrollPhysics())` enforces the linear commitment funnel without extra navigation guards.
 6. **lakh/crore formatter needs `TextInputFormatter` + display helper** — `FilteringTextInputFormatter.digitsOnly` clears commas; `_LakhFormatter` re-applies South Asian grouping on every keystroke. South Asian format: last 3 digits + groups of 2 from right (e.g., 12,34,567).
+
+---
+
+## UX-3P Pipeline Interaction Polish Lessons (2026-06-05)
+
+1. **`Dismissible` is the right swipe primitive for open-sheet-on-swipe** — `Dismissible(confirmDismiss: ... return false)` gives 60%-threshold swipe, snap-back on false return, and background reveal for free. No custom drag tracking needed. Works cleanly inside `ListView` with no scroll-axis conflict.
+2. **Capture `ScaffoldMessenger` and colors before `Navigator.pop()`** — After pop, `context` is unmounted. Capture `final messenger = ScaffoldMessenger.of(context)` and `final safeColor = context.colors.stateSafe` before the pop call, then use captured refs in the snackbar.
+3. **Undo uses the captured notifier, not `ref.read()` in closure** — `ref` from `ConsumerStatefulWidget` is valid inside closures but capturing `notifier = ref.read(...)` before the async boundary is cleaner and avoids any potential ref invalidation issue.
+4. **Split overdue bucket at 30 days with `.where()` chaining** — `overdueBase.where(e => days >= 30)` and `overdueBase.where(e => days < 30)` is idiomatic. No extra list allocations. Each sub-list gets its own header via the same `_SectionHeader` widget.
+5. **PIPE-020 enforces "swipe opens question, not answer"** — The swipe gesture opens the ConfirmReceivedSheet but never commits. This is the critical safety rule: no state change from swipe alone. `confirmDismiss: return false` is the enforcement mechanism.
 
 ---
 

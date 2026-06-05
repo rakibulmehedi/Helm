@@ -41,7 +41,7 @@ class WelcomeScreen extends StatelessWidget {
               ),
               const Spacer(),
               AppButton(
-                label: 'Continue',
+                label: 'Continue — sets up your Safe-to-Spend',
                 onPressed: () => context.go(RouteNames.onboarding),
                 isEnabled: true,
               ),

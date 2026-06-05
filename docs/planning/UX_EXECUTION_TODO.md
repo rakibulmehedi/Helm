@@ -861,6 +861,62 @@
 
 ---
 
+## Sprint 4P: UX-3P Pipeline Interaction Polish
+
+### UX-3P.01: Add "Needs decision" sub-header for 30+ day overdue — ✅ DONE [2026-06-05]
+
+| Field | Value |
+|-------|-------|
+| **Task ID** | UX-3P.01 |
+| **Source Requirement** | PIPE-013 |
+| **Affected Screen/Module** | `features/income/presentation/views` |
+| **Likely Files Affected** | `lib/features/income/presentation/views/pipeline_screen.dart` |
+| **Expected Outcome** | Overdue bucket split: entries 30+ days overdue get "Needs decision" header above "Overdue — needs attention". Both sections use `stateAtRisk` color. Sort by expected date ascending within each group. |
+| **Non-Goals** | No new pipeline states. No badge change on card. |
+| **Acceptance Criteria** | "Needs decision" section appears above "Overdue" when entries are 30+ days past expected date. `dart analyze` clean. |
+| **Verification Method** | `dart analyze` |
+| **Docs Update** | CURRENT_SPRINT.md, LESSONS.md |
+| **Learning/Reflection** | Split via `.where()` chaining on same base iterable — no extra allocation |
+| **Suggested Commit** | `feat(pipeline): add Needs decision sub-header for 30+ day overdue entries (PIPE-013)` |
+
+---
+
+### UX-3P.02: Add swipe-to-advance gesture — ✅ DONE [2026-06-05]
+
+| Field | Value |
+|-------|-------|
+| **Task ID** | UX-3P.02 |
+| **Source Requirement** | PIPE-020 |
+| **Affected Screen/Module** | `features/income/presentation/widgets` |
+| **Likely Files Affected** | `lib/features/income/presentation/widgets/pipeline_entry_card.dart` |
+| **Expected Outcome** | Non-received entries wrapped in `Dismissible(direction: startToEnd, dismissThresholds: {startToEnd: 0.6}, confirmDismiss: open sheet + return false)`. Background shows green "Confirm" hint with check icon. Swipe alone never commits state. Snap back on sheet dismiss. |
+| **Non-Goals** | No haptic at threshold (Dismissible has no update callback). No auto-commit. |
+| **Acceptance Criteria** | Swipe right >60% opens ConfirmReceivedSheet. Snap-back after. No state change from swipe alone. `dart analyze` clean. |
+| **Verification Method** | `dart analyze` |
+| **Docs Update** | CURRENT_SPRINT.md, LESSONS.md |
+| **Learning/Reflection** | `Dismissible(confirmDismiss: return false)` is the correct primitive for "swipe opens sheet, never dismisses" |
+| **Suggested Commit** | `feat(pipeline): add swipe-to-advance gesture via Dismissible (PIPE-020)` |
+
+---
+
+### UX-3P.03: Add 5-second undo snackbar after Confirm Received — ✅ DONE [2026-06-05]
+
+| Field | Value |
+|-------|-------|
+| **Task ID** | UX-3P.03 |
+| **Source Requirement** | PIPE-019 |
+| **Affected Screen/Module** | `features/income/presentation/widgets` |
+| **Likely Files Affected** | `lib/features/income/presentation/widgets/confirm_received_sheet.dart` |
+| **Expected Outcome** | After updateIncome, snackbar shows "Received [currency] [amount] from [client]" with "Undo" action. Duration 5 seconds. Undo calls `notifier.updateIncome(originalEntry)` to revert to prior state. ScaffoldMessenger and color captured before Navigator.pop(). |
+| **Non-Goals** | No audit log event write (backend non-goal). No post-5s recovery path beyond delete-and-recreate. |
+| **Acceptance Criteria** | Snackbar appears after confirm. Shows amount and client. Undo button reverts to previous status. 5-second auto-dismiss. `dart analyze` clean. |
+| **Verification Method** | `dart analyze`, manual test |
+| **Docs Update** | CURRENT_SPRINT.md, LESSONS.md |
+| **Learning/Reflection** | Capture messenger/color before pop — context invalid after Navigator.pop. Capture notifier before async boundary. |
+| **Suggested Commit** | `feat(pipeline): add 5-second undo snackbar after Confirm Received (PIPE-019)` |
+
+---
+
 ## Sprint 5: UX-4 Microcopy Replacement
 
 ### UX-4.01: Audit all hardcoded strings

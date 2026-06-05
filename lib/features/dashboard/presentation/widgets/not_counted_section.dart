@@ -55,7 +55,7 @@ class NotCountedSection extends StatelessWidget {
 
         // Sub-label
         Text(
-          'Pipeline money, not yet received',
+          'Not counted yet — expected payments',
           style: typography.bodySm.copyWith(color: colors.inkTertiary),
         ),
 
@@ -63,7 +63,7 @@ class NotCountedSection extends StatelessWidget {
 
         if (_isEmpty) ...[
           Text(
-            'No pipeline entries yet',
+            'Add an expected payment when you invoice or expect money.',
             style: typography.bodySm.copyWith(color: colors.inkTertiary),
           ),
           if (onAddPipelineEntry != null) ...[
@@ -71,7 +71,7 @@ class NotCountedSection extends StatelessWidget {
             GestureDetector(
               onTap: onAddPipelineEntry,
               child: Text(
-                'Add your first expected payment \u2192',
+                'Add expected payment \u2192',
                 style: typography.bodySm.copyWith(color: colors.interactive),
               ),
             ),
@@ -80,7 +80,7 @@ class NotCountedSection extends StatelessWidget {
           // Pending income row
           if (result.pendingIncome > 0) ...[
             Text(
-              'Waiting to arrive',
+              'Pending',
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: PocketaSpacing.s1),
@@ -95,7 +95,7 @@ class NotCountedSection extends StatelessWidget {
           // Expected income row
           if (result.expectedIncome > 0) ...[
             Text(
-              'Might come in',
+              'Expected',
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: PocketaSpacing.s1),
@@ -116,7 +116,7 @@ class NotCountedSection extends StatelessWidget {
             ),
             const SizedBox(height: PocketaSpacing.s3),
             Text(
-              'If all arrives:',
+              'If all counted:',
               style: typography.bodySm.copyWith(color: colors.inkTertiary),
             ),
             const SizedBox(height: PocketaSpacing.s1),

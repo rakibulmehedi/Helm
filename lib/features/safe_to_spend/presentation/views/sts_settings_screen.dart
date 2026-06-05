@@ -163,7 +163,7 @@ class _StsSettingsScreenState extends ConsumerState<StsSettingsScreen> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Recurring monthly expenses deducted from your Safe-to-Spend balance.',
+              'Fixed costs deducted from Safe-to-Spend each month.',
               style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),

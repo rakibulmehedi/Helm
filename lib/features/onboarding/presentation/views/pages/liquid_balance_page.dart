@@ -48,7 +48,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
     if (amount <= 0) {
       setState(
         () => _error =
-            'Pocketa needs a balance to compute your safe amount.',
+            'Enter your current liquid BDT to calculate Safe-to-Spend.',
       );
       return;
     }
@@ -98,7 +98,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
               ),
               const SizedBox(height: PocketaSpacing.s2),
               Text(
-                'bKash, bank, and cash — combined. Rough is fine.',
+                'bKash, bank, and cash — combined. A rough number is fine. You can refine it later.',
                 style: typo.bodyLg.copyWith(color: colors.inkSecondary),
               ),
               const SizedBox(height: PocketaSpacing.s8),
@@ -152,7 +152,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
               ],
               const Spacer(),
               AppButton(
-                label: 'Continue',
+                label: 'Save — updates Safe-to-Spend',
                 onPressed: _onContinue,
                 isEnabled: true,
               ),

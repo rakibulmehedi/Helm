@@ -107,12 +107,12 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
         sign: _LineSign.positive,
       ),
       _TraceLine(
-        label: '− Expenses paid',
+        label: '− Cash out',
         amount: r.totalExpenses,
         sign: _LineSign.negative,
       ),
       _TraceLine(
-        label: '= Liquid cash',
+        label: '= Liquid BDT',
         amount: r.liquidCash,
         sign: _LineSign.result,
       ),
@@ -130,12 +130,12 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
         ),
       if (r.anxietyBuffer > 0)
         _TraceLine(
-          label: '− Comfort buffer',
+          label: '− Safety buffer',
           amount: r.anxietyBuffer,
           sign: _LineSign.negative,
         ),
       _TraceLine(
-        label: '= Safe to spend',
+        label: '= Safe-to-Spend',
         amount: r.safeToSpend,
         sign: _LineSign.result,
         isFinal: true,

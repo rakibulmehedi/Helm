@@ -40,14 +40,14 @@ class CommittedSection extends StatelessWidget {
       children: [
         // Section header
         Text(
-          'Already committed',
+          'Fixed costs',
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
         const SizedBox(height: PocketaSpacing.s1),
 
         // Sub-label
         Text(
-          'Fixed costs due this month',
+          'Monthly costs due in the next 30 days',
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
@@ -55,7 +55,7 @@ class CommittedSection extends StatelessWidget {
 
         if (result.fixedCostsDue == 0) ...[
           Text(
-            'No fixed costs set',
+            'No fixed costs added yet. Add them to improve Safe-to-Spend accuracy.',
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           ),
           if (onSetupFixedCosts != null) ...[
@@ -63,7 +63,7 @@ class CommittedSection extends StatelessWidget {
             GestureDetector(
               onTap: onSetupFixedCosts,
               child: Text(
-                'Set up fixed costs \u2192',
+                'Add fixed costs \u2192',
                 style: typography.bodySm.copyWith(color: colors.interactive),
               ),
             ),

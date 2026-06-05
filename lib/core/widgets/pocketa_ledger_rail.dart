@@ -100,7 +100,7 @@ class PocketaLedgerRail extends StatelessWidget {
       case LedgerState.tight:
         return 'Tight';
       case LedgerState.atRisk:
-        return 'Reserve Mode';
+        return 'At Risk';
     }
   }
 }

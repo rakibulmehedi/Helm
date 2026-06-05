@@ -87,13 +87,13 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                 children: [
                   const SizedBox(height: PocketaSpacing.s10),
                   Text(
-                    'How much to hold aside as a buffer?',
+                    'Set your safety buffer',
                     style:
                         typo.headingLg.copyWith(color: colors.inkPrimary),
                   ),
                   const SizedBox(height: PocketaSpacing.s2),
                   Text(
-                    'This amount stays untouched — your safety margin.',
+                    'This is not locked money. It is a safety margin inside the calculation.',
                     style:
                         typo.bodyLg.copyWith(color: colors.inkSecondary),
                   ),
@@ -157,7 +157,7 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                               MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Holding aside',
+                              'Safety buffer',
                               style: typo.bodyMd.copyWith(
                                   color: colors.inkSecondary),
                             ),
@@ -176,7 +176,7 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                               MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Safe to spend',
+                              'Safe-to-Spend',
                               style: typo.bodySm.copyWith(
                                   color: colors.inkSecondary),
                             ),
@@ -193,7 +193,7 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
 
                   const Spacer(),
                   AppButton(
-                    label: 'Continue',
+                    label: 'Save — finish Safe-to-Spend setup',
                     onPressed: () => widget.onContinue(_bufferPercent),
                     isEnabled: true,
                   ),

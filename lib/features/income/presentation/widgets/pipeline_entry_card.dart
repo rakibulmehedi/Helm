@@ -185,7 +185,7 @@ class PipelineEntryCard extends ConsumerWidget {
     final typo = context.textStyles;
     final rail = _railColor(entry, colors);
 
-    return GestureDetector(
+    final card = GestureDetector(
       onTap: () {
         if (entry.status != IncomeStatus.received) {
           ConfirmReceivedSheet.show(context, entry);
@@ -274,7 +274,7 @@ class PipelineEntryCard extends ConsumerWidget {
                       if (entry.excludeFromCalculation) ...[
                         const SizedBox(height: PocketaSpacing.s1),
                         Text(
-                          'Not counted',
+                          'Not counted yet',
                           style: typo.labelSm.copyWith(
                             color: colors.inkTertiary,
                           ),
@@ -287,6 +287,56 @@ class PipelineEntryCard extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+
+    // PIPE-020: swipe right >60% → opens ConfirmReceivedSheet, never auto-commits
+    if (entry.status == IncomeStatus.received) return card;
+    return Dismissible(
+      key: ValueKey(entry.id),
+      direction: DismissDirection.startToEnd,
+      dismissThresholds: const {DismissDirection.startToEnd: 0.6},
+      background: _SwipeBackground(colors: colors),
+      confirmDismiss: (_) async {
+        await ConfirmReceivedSheet.show(context, entry);
+        return false;
+      },
+      child: card,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Private: Swipe-to-advance background hint (PIPE-020)
+// ---------------------------------------------------------------------------
+
+class _SwipeBackground extends StatelessWidget {
+  final PocketaColors colors;
+  const _SwipeBackground({required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colors.stateSafe.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+      ),
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(left: PocketaSpacing.s4),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.check_circle_outline,
+            color: colors.stateSafe,
+            size: PocketaSpacing.iconMd,
+          ),
+          const SizedBox(width: PocketaSpacing.s2),
+          Text(
+            'Confirm received',
+            style: context.textStyles.labelMd.copyWith(color: colors.stateSafe),
+          ),
+        ],
       ),
     );
   }

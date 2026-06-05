@@ -142,7 +142,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       setState(() => _isSaving = false);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Failed to save transaction. Please try again.'),
+          content: const Text('Could not save payment. Try again.'),
           backgroundColor: AppColors.error,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -199,7 +199,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'This transaction may have been deleted.',
+                    'This payment may have been deleted.',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: AppColors.textSecondary,
                     ),
@@ -223,7 +223,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
       appBar: AppBar(
         title: Text(
-          widget.transactionId != null ? 'Edit Transaction' : 'Add Transaction',
+          widget.transactionId != null ? 'Edit expense' : 'Add expense',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             fontSize: ResponsiveUtilities.font(context, 18),

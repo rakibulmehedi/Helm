@@ -128,7 +128,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
         const SizedBox(height: PocketaSpacing.s1),
 
         Text(
-          'after fixed costs & buffer',
+          'after fixed costs + safety buffer',
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 

@@ -52,14 +52,14 @@ class SafeToSpendHero extends ConsumerWidget {
     final bool isZero = result.rawSafeToSpend == 0;
 
     Color amountColor = isDark ? AppColors.textLight : AppColors.textDark;
-    String statusCopy = 'Safe to spend';
+    String statusCopy = 'Safe-to-Spend';
 
     if (isNegative) {
       amountColor = AppColors.warning;
-      statusCopy = 'In reserve mode';
+      statusCopy = 'At Risk';
     } else if (isZero) {
       amountColor = AppColors.textSecondary;
-      statusCopy = 'Fully allocated';
+      statusCopy = 'Safe-to-Spend';
     }
 
     return Column(
@@ -129,7 +129,7 @@ class SafeToSpendHero extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Safe to spend',
+              'Safe-to-Spend',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: AppColors.textSecondary,
                 fontSize: ResponsiveUtilities.font(context, 14),
@@ -194,7 +194,7 @@ class SafeToSpendHero extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'A transparent breakdown of your liquid cash.',
+                'How Safe-to-Spend is calculated from your liquid BDT.',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: AppColors.textSecondary,
                 ),
@@ -209,7 +209,7 @@ class SafeToSpendHero extends ConsumerWidget {
                 isPositive: true,
               ),
               _BreakdownRow(
-                label: 'Expenses Deducted',
+                label: 'Cash out',
                 amount: result.totalExpenses,
                 currency: currency,
                 formatter: formatter,
@@ -273,7 +273,7 @@ class SafeToSpendHero extends ConsumerWidget {
                 child: Divider(),
               ),
               _BreakdownRow(
-                label: 'Safe to Spend',
+                label: 'Safe-to-Spend',
                 amount: result.safeToSpend,
                 currency: currency,
                 formatter: formatter,
@@ -294,7 +294,7 @@ class SafeToSpendHero extends ConsumerWidget {
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
-                          'Your reserves exceed received income. Safe to Spend is shown as ৳0 to keep your view calm.',
+                          'Fixed costs exceed liquid BDT. Safe-to-Spend is shown as ৳0.00. Add more liquid BDT to restore it.',
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: AppColors.textSecondary,
                             height: 1.4,

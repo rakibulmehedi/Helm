@@ -35,12 +35,20 @@ class PipelineScreen extends ConsumerWidget {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
 
-    // Partition entries into 4 buckets
-    final overdue = entries
-        .where((e) =>
-            e.status != IncomeStatus.received &&
-            !e.excludeFromCalculation &&
-            e.expectedDate.isBefore(today))
+    // Partition entries into buckets
+    final overdueBase = entries.where((e) =>
+        e.status != IncomeStatus.received &&
+        !e.excludeFromCalculation &&
+        e.expectedDate.isBefore(today));
+
+    // PIPE-013: 30+ days overdue → own "Needs decision" header (requires action)
+    final needsDecision = overdueBase
+        .where((e) => today.difference(e.expectedDate).inDays >= 30)
+        .toList()
+      ..sort((a, b) => a.expectedDate.compareTo(b.expectedDate));
+
+    final overdue = overdueBase
+        .where((e) => today.difference(e.expectedDate).inDays < 30)
         .toList()
       ..sort((a, b) => a.expectedDate.compareTo(b.expectedDate));
 
@@ -87,6 +95,23 @@ class PipelineScreen extends ConsumerWidget {
                 PocketaSpacing.s6,
               ),
               children: [
+                if (needsDecision.isNotEmpty) ...[
+                  _SectionHeader(
+                    label: 'Needs decision',
+                    count: needsDecision.length,
+                    total: _sum(needsDecision),
+                    color: colors.stateAtRisk,
+                    typo: typo,
+                    colors: colors,
+                  ),
+                  const SizedBox(height: PocketaSpacing.s2),
+                  ...needsDecision.map((e) => Padding(
+                        padding:
+                            const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                        child: PipelineEntryCard(entry: e),
+                      )),
+                  const SizedBox(height: PocketaSpacing.s3),
+                ],
                 if (overdue.isNotEmpty) ...[
                   _SectionHeader(
                     label: 'Overdue — needs attention',
@@ -311,14 +336,8 @@ class _EmptyPipelineView extends StatelessWidget {
             Icon(Icons.inbox_outlined, size: 48, color: colors.inkTertiary),
             const SizedBox(height: PocketaSpacing.s3),
             Text(
-              'No income in pipeline yet.',
+              'Add an expected payment when you invoice or expect money.',
               style: typo.bodyMd.copyWith(color: colors.inkSecondary),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: PocketaSpacing.s2),
-            Text(
-              'Tap "+ Expected" to add your first expected payment.',
-              style: typo.bodySm.copyWith(color: colors.inkTertiary),
               textAlign: TextAlign.center,
             ),
           ],

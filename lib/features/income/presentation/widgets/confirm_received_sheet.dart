@@ -113,6 +113,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
     setState(() => _isSubmitting = true);
 
+    final originalEntry = widget.entry;
     final updatedEntry = widget.entry.copyWith(
       status: IncomeStatus.received,
       receivedDate: _dateReceived,
@@ -121,17 +122,35 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
       updatedAt: DateTime.now(),
     );
 
-    await ref.read(incomeNotifierProvider.notifier).updateIncome(updatedEntry);
+    final notifier = ref.read(incomeNotifierProvider.notifier);
+    await notifier.updateIncome(updatedEntry);
 
     if (!mounted) return;
 
+    // Capture before pop — context invalid after Navigator.pop
+    final messenger = ScaffoldMessenger.of(context);
+    final safeColor = context.colors.stateSafe;
+
     Navigator.of(context).pop();
 
-    ScaffoldMessenger.of(context).showSnackBar(
+    // PIPE-019: 5-second undo window after Confirm Received
+    messenger.showSnackBar(
       SnackBar(
-        content: const Text('Added to liquid BDT'),
-        backgroundColor: context.colors.stateSafe,
+        content: Text(
+          'Received ${originalEntry.currency} '
+          '${originalEntry.amount.toStringAsFixed(2)} '
+          'from ${originalEntry.clientName}',
+        ),
+        duration: const Duration(seconds: 5),
+        backgroundColor: safeColor,
         behavior: SnackBarBehavior.floating,
+        action: SnackBarAction(
+          label: 'Undo',
+          textColor: Colors.white,
+          onPressed: () async {
+            await notifier.updateIncome(originalEntry);
+          },
+        ),
       ),
     );
   }
