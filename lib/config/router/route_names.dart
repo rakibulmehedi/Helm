@@ -9,23 +9,23 @@ abstract final class RouteNames {
   static const String welcome     = '/welcome';
   static const String onboarding  = '/onboarding';
 
-  // ── main app ───────────────────────────────────────────────────────────────
-  static const String dashboard   = '/dashboard';
+  // ── shell tabs (main app) ──────────────────────────────────────────────────
+  // `dashboard` kept as alias for backward-compat; value matches `home`.
+  static const String dashboard   = '/home';
+  static const String home        = '/home';
+  static const String pipeline    = '/pipeline';
+  static const String history     = '/history';
+  static const String settings    = '/settings';
 
   // ── transactions ────────────────────────────────────────────────────────────
-  static const String addTransaction = '/add-transaction';
+  static const String addTransaction  = '/add-transaction';
   static const String editTransaction = '/edit-transaction/:id';
 
   // ── income ───────────────────────────────────────────────────────────────────
-  static const String income         = '/income';
-  static const String addIncome      = '/add-income';
-  static const String editIncome     = '/edit-income/:id';
+  static const String income      = '/income';
+  static const String addIncome   = '/add-income';
+  static const String editIncome  = '/edit-income/:id';
 
   // ── safe to spend ─────────────────────────────────────────────────────────────
-  static const String stsSettings    = '/sts-settings';
-
-  // ── future (reserved, not yet wired) ──────────────────────────────────────
-  // static const String transactions    = '/transactions';
-  // static const String budget          = '/budget';
-  // static const String profile         = '/profile';
+  static const String stsSettings = '/sts-settings';
 }

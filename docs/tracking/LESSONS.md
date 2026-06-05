@@ -100,6 +100,16 @@ Users need to verify they deleted the right entry. Showing only client+project n
 
 ---
 
+## UX-1 Sprint Lessons (2026-06-05)
+
+1. **Design system API names differ from spec** — PocketaTypography uses `headingMd/headingSm/bodyMd/bodySm/labelSm`, not `sectionHeader/bodyText/caption/microLabel`. PocketaSpacing uses `screenEdge` not `screenMargin`. PocketaMotion uses `base` not `short`, `drawerRowStagger` not `staggerDelay`. Always read actual token files before writing new widgets.
+2. **Parallel agent usage-limit failure** — Phase 2 agent (dashboard integration) hit usage limit mid-task. Mitigation: dispatch Phase 1 (pure widget creation) first, then do Phase 2 integration in main thread. Never depend on a single high-cost agent for critical integration work.
+3. **ShellRoute + nested Scaffold works cleanly** — `DashboardScreen` retains its own Scaffold (AppBar + FAB). Shell Scaffold provides only `bottomNavigationBar`. FAB positions relative to inner Scaffold's bottom, which sits above the bottom nav — no extra padding needed.
+4. **Pass location via ShellRoute builder, not GoRouterState.of** — `_AppShell(location: state.matchedLocation)` from the `ShellRoute.builder` is cleaner than calling `GoRouterState.of(context)` inside build. Avoids context dependency and works with const widgets.
+5. **Calculation failure = "—" not "0.00"** — When `safeToSpend == 0 AND totalReceivedIncomeBdt == 0`, show em-dash. Zero looks like the user has zero money; dash clearly signals "not calculated yet". This is a trust rule, not a display preference.
+
+---
+
 ## Phase 8e Lessons (2026-05-23)
 
 ### 1. Clamped values mask state detection bugs — always check the raw value

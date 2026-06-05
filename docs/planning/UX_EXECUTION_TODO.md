@@ -227,7 +227,7 @@
 
 ## Sprint 2: UX-1 Dashboard Cockpit Redesign
 
-### UX-1.01: Create PocketaRealityStack widget
+### UX-1.01: Create PocketaRealityStack widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -245,7 +245,7 @@
 
 ---
 
-### UX-1.02: Create PocketaCalculationTrace widget
+### UX-1.02: Create PocketaCalculationTrace widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -263,7 +263,7 @@
 
 ---
 
-### UX-1.03: Create PocketaHeroZone
+### UX-1.03: Create PocketaHeroZone — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -281,7 +281,7 @@
 
 ---
 
-### UX-1.04: Create "Already committed" section
+### UX-1.04: Create "Already committed" section — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -299,7 +299,7 @@
 
 ---
 
-### UX-1.05: Create "Reserve protected" section
+### UX-1.05: Create "Reserve protected" section — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -317,7 +317,7 @@
 
 ---
 
-### UX-1.06: Create "Not counted yet" section
+### UX-1.06: Create "Not counted yet" section — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -335,7 +335,7 @@
 
 ---
 
-### UX-1.07: Create bottom navigation
+### UX-1.07: Create bottom navigation — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -353,7 +353,7 @@
 
 ---
 
-### UX-1.08: Redesign dashboard_screen.dart
+### UX-1.08: Redesign dashboard_screen.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -371,7 +371,7 @@
 
 ---
 
-### UX-1.09: Replace breakdown bottom sheet
+### UX-1.09: Replace breakdown bottom sheet — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -389,7 +389,7 @@
 
 ---
 
-### UX-1.10: Add FAB "Add Pipeline Entry"
+### UX-1.10: Add FAB "Add Pipeline Entry" — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -407,7 +407,7 @@
 
 ---
 
-### UX-1.11: Remove dev reset button from production
+### UX-1.11: Remove dev reset button from production — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -425,7 +425,7 @@
 
 ---
 
-### UX-1.12: Implement empty state
+### UX-1.12: Implement empty state — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -443,7 +443,7 @@
 
 ---
 
-### UX-1.13: Implement Reserve Mode layout
+### UX-1.13: Implement Reserve Mode layout — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -461,7 +461,7 @@
 
 ---
 
-### UX-1.14: Sprint 2 dart analyze clean
+### UX-1.14: Sprint 2 dart analyze clean — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|

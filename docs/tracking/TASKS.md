@@ -2,7 +2,7 @@
 
 ## Current Sprint
 
-Sprint: UX Canon Implementation — Sprint 2 (UX-1 Dashboard Cockpit Redesign)
+Sprint: UX Canon Implementation — Sprint 3 (UX-2 Onboarding Redesign)
 
 ## In Progress
 
@@ -11,8 +11,8 @@ Sprint: UX Canon Implementation — Sprint 2 (UX-1 Dashboard Cockpit Redesign)
 ## Next (Sprint Order)
 
 1. [x] Sprint 1: UX-5 Visual Identity / Design System (12 tasks) — **COMPLETE [2026-06-05]**
-2. [ ] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks) — **START HERE**
-3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks)
+2. [x] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks) — **COMPLETE [2026-06-05]**
+3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks) — **START HERE**
 4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
 5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
 6. [ ] Sprint 6: D1 Trust Layer Foundation (12 tasks)

@@ -4,8 +4,8 @@
 
 ## 1. Active Sprint
 
-**UX Canon Implementation — Sprint 2: UX-1 Dashboard Cockpit Redesign**
-Status: **READY TO START** — Sprint 1 (UX-5) complete, token foundation stable
+**UX Canon Implementation — Sprint 3: UX-2 Onboarding Redesign**
+Status: **READY TO START** — Sprint 2 (UX-1) complete, dashboard cockpit live
 
 **Prior Phases (All Complete):**
 - Phase 8 — Safe-to-Spend Engine ✅
@@ -15,10 +15,10 @@ Status: **READY TO START** — Sprint 1 (UX-5) complete, token foundation stable
 
 ## 2. Current Priority
 
-- **Sprint 1 (UX-5) COMPLETE** — 12/12 tasks done, dart analyze 0/0/0, 26 tests pass
-- **Sprint 2 (UX-1) is next** — 14 tasks: Dashboard Cockpit Redesign
-- **Token foundation is stable** — new widgets can consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
-- **Feature files not yet migrated** — still use AppColors.* via re-export shim; migration is per-sprint
+- **Sprint 2 (UX-1) COMPLETE** — 14/14 tasks done, dart analyze 0/0/0
+- **Sprint 3 (UX-2) is next** — 11 tasks: Onboarding Redesign
+- **Dashboard is now doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
+- **Token foundation is stable** — new widgets consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
 - **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `UX_SPRINT_SEQUENCE.md`, `UX_TO_CODE_FILE_MAP.md`
 - **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
 - MVP success criteria locked per Doctrine §4:
@@ -33,8 +33,8 @@ Status: **READY TO START** — Sprint 1 (UX-5) complete, token foundation stable
 | Sprint | ID | Status | Tasks |
 |--------|-----|--------|-------|
 | 1 | UX-5 Visual Identity / Design System | **COMPLETE** ✅ | 12/12 |
-| 2 | UX-1 Dashboard Cockpit Redesign | **Next** | 14 |
-| 3 | UX-2 Onboarding Redesign | Pending | 11 |
+| 2 | UX-1 Dashboard Cockpit Redesign | **COMPLETE** ✅ | 14/14 |
+| 3 | UX-2 Onboarding Redesign | **Next** | 11 |
 | 4 | UX-3 Pipeline Quick-Update | Pending | 10 |
 | 5 | UX-4 Microcopy Replacement | Pending | 8 |
 | 6 | D1 Trust Layer Foundation | Pending | 12 |
