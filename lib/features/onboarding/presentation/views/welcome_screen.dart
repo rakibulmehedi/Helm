@@ -1,89 +1,51 @@
+// UX-2.10 — Welcome screen copy rewrite.
+// Removed: "Welcome to Pocketa!" (ONB-037 banned), generic tagline.
+// Tone: chronometer, not salesman (ONB-021).
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
-import 'package:pocketa_v2/l10n/app_localization.dart';
-import 'package:pocketa_v2/utils/responsive_utils.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 
-import '../../../../core/local_storage/shared_pref_service.dart';
-import '../../../../core/widgets/buttons/button_multiple_types.dart';
-
-class WelcomeScreen extends StatefulWidget {
+class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    final bool isDark = SharedPrefServices.getIsDarkMode();
-    final theme = Theme.of(context);
+    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
+
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      backgroundColor: colors.canvas,
       body: SafeArea(
         child: Padding(
-          padding: ResponsiveUtilities.symmetricPadding(context),
+          padding: const EdgeInsets.symmetric(horizontal: PocketaSpacing.screenEdge),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              Expanded(
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: AppColors.primary,
-                  child: Text(
-                    'P',
-                    style: TextStyle(
-                      fontSize: ResponsiveUtilities.font(context, 48),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-
-              ResponsiveUtilities.spacing(context),
               Text(
                 'Pocketa',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: isDark ? AppColors.textLight : AppColors.textDark,
-                  fontSize: ResponsiveUtilities.font(context, 32),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Spacer(),
-              Text(
-                context.l10n.welcomeMessage,
+                style: typo.headingLg.copyWith(color: colors.inkPrimary),
                 textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontSize: ResponsiveUtilities.font(context, 24),
-                  color:
-                      isDark
-                          ? AppColors.textSecondary
-                          : AppColors.textSecondary,
-                ),
               ),
-              ResponsiveUtilities.spacing(context),
+              const SizedBox(height: PocketaSpacing.s3),
               Text(
-                context.l10n.tagLine,
+                'How much BDT can you actually spend right now?',
+                style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                 textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color:
-                      isDark
-                          ? AppColors.textSecondary
-                          : AppColors.textSecondary,
-                ),
               ),
               const Spacer(),
               AppButton(
-                label: context.l10n.getStarted,
+                label: 'Continue',
                 onPressed: () => context.go(RouteNames.onboarding),
                 isEnabled: true,
               ),
-              ResponsiveUtilities.spacing(context),
+              const SizedBox(height: PocketaSpacing.s4),
             ],
           ),
         ),

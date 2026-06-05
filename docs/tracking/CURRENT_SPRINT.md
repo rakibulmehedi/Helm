@@ -4,8 +4,8 @@
 
 ## 1. Active Sprint
 
-**UX Canon Implementation — Sprint 3: UX-2 Onboarding Redesign**
-Status: **READY TO START** — Sprint 2 (UX-1) complete, dashboard cockpit live
+**UX Canon Implementation — Sprint 4: UX-3 Pipeline Quick-Update**
+Status: **READY TO START** — Sprint 3 (UX-2) complete, onboarding flow live
 
 **Prior Phases (All Complete):**
 - Phase 8 — Safe-to-Spend Engine ✅
@@ -16,8 +16,10 @@ Status: **READY TO START** — Sprint 2 (UX-1) complete, dashboard cockpit live
 ## 2. Current Priority
 
 - **Sprint 2 (UX-1) COMPLETE** — 14/14 tasks done, dart analyze 0/0/0
-- **Sprint 3 (UX-2) is next** — 11 tasks: Onboarding Redesign
+- **Sprint 3 (UX-2) COMPLETE** — 5-step onboarding flow live, dart analyze 0/0/0, all 26 tests pass
+- **Sprint 4 (UX-3) is next** — 10 tasks: Pipeline Quick-Update
 - **Dashboard is now doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
+- **Onboarding is now doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
 - **Token foundation is stable** — new widgets consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
 - **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `UX_SPRINT_SEQUENCE.md`, `UX_TO_CODE_FILE_MAP.md`
 - **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
@@ -34,7 +36,7 @@ Status: **READY TO START** — Sprint 2 (UX-1) complete, dashboard cockpit live
 |--------|-----|--------|-------|
 | 1 | UX-5 Visual Identity / Design System | **COMPLETE** ✅ | 12/12 |
 | 2 | UX-1 Dashboard Cockpit Redesign | **COMPLETE** ✅ | 14/14 |
-| 3 | UX-2 Onboarding Redesign | **Next** | 11 |
+| 3 | UX-2 Onboarding Redesign | **COMPLETE** ✅ | 8/11 (auth+PIN skipped: trust-layer non-goal) |
 | 4 | UX-3 Pipeline Quick-Update | Pending | 10 |
 | 5 | UX-4 Microcopy Replacement | Pending | 8 |
 | 6 | D1 Trust Layer Foundation | Pending | 12 |

@@ -1,161 +1,170 @@
+// lib/features/onboarding/presentation/views/onboarding_screen.dart
+// UX-2.09 — 5-step doctrine-aligned onboarding flow.
+//
+// Scope: qualifier → balance → fixed costs → income pattern → buffer → home
+// Skipped: email/auth (Screen 2), PIN/biometric (Screen 7) — trust layer, non-goal for UX-2.
+//
+// Rules enforced:
+//   ONB-002: no back button, no AppBar
+//   ONB-003: 2pt progress line only, no step numbers
+//   ONB-010: no skip buttons
+//   ONB-012: after buffer screen, go straight to home (no celebration screen)
+//   ONB-014: no confetti, no "Welcome!", no tour
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/utils/id_generator.dart';
+import 'package:pocketa_v2/features/onboarding/domain/onboarding_draft.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/buffer_comfort_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/fixed_costs_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/income_pattern_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/liquid_balance_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/widgets/onboarding_progress_line.dart';
+import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
-import '../../../../core/local_storage/shared_pref_service.dart';
-import '../../../../core/widgets/progress_bar/linear_progress_bar.dart';
+// ONB-003 progress values per step
+const List<double> _kStepProgress = [0.0, 0.25, 0.50, 0.63, 0.88];
 
-class OnboardingScreen extends StatefulWidget {
+class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  late PageController _pageController;
-  int _currentPage = 0;
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
+  final _pageController = PageController();
+  int _currentStep = 0;
+  OnboardingDraft _draft = const OnboardingDraft();
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
+  void _goToStep(int step) {
+    setState(() => _currentStep = step);
+    _pageController.animateToPage(
+      step,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOutCubic,
+    );
   }
 
-  /// Marks onboarding as complete in SharedPreferences,
-  /// then navigates to the dashboard via GoRouter.
+  /// Persists all draft data then navigates to home (ONB-012).
+  /// 320ms transition per ONB-048 is handled by GoRouter's default.
   Future<void> _completeOnboarding() async {
+    await SharedPrefServices.setLiquidBalanceBdt(_draft.liquidBalanceBdt);
+    await SharedPrefServices.setIncomePattern(_draft.incomePattern.name);
+
+    final fixedCostNotifier = ref.read(fixedCostNotifierProvider.notifier);
+    for (final item in _draft.fixedCosts) {
+      await fixedCostNotifier.addFixedCost(FixedCostEntry(
+        id: IdGenerator.uniqueId(),
+        label: item.label,
+        amount: item.amount,
+        dueDayOfMonth: item.dayOfMonth.clamp(1, 28),
+        createdAt: DateTime.now(),
+      ));
+    }
+
+    // Buffer: convert % → flat BDT (anxietyBuffer field in StsSettings)
+    final stsNotifier = ref.read(stsSettingsProvider.notifier);
+    await stsNotifier.updateAnxietyBuffer(_draft.bufferAmountBdt);
+
     await SharedPrefServices.setOnboardingCompleted(true);
-    if (mounted) context.go(RouteNames.dashboard);
+    if (mounted) context.go(RouteNames.home);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isDark = SharedPrefServices.getIsDarkMode();
-    final List<String> onboardingTexts = [
-      "Track your expenses",
-      "Set your budget",
-      "Achieve financial freedom",
-    ];
+    final colors = Theme.of(context).extension<PocketaColors>()!;
+
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      bottomNavigationBar: _buildBottomAppBar(isDark, onboardingTexts, context),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            OnboardingHeader(title: '', isDark: isDark, totalSteps: 4),
-            Expanded(child: _buildPageView(onboardingTexts, isDark)),
-
-            buildDotIndicator(onboardingTexts),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Row buildDotIndicator(List<String> onboardingTexts) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(
-        onboardingTexts.length,
-        (index) => AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          height: 8,
-          width: _currentPage == index ? 20 : 8,
-          decoration: BoxDecoration(
-            color: _currentPage == index ? AppColors.primary : Colors.grey,
-            borderRadius: BorderRadius.circular(4),
-          ),
-        ),
-      ),
-    );
-  }
-
-  PageView _buildPageView(List<String> onboardingTexts, bool isDark) {
-    return PageView.builder(
-      itemBuilder: (context, index) {
-        return Center(
-          child: Text(
-            onboardingTexts[index],
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: isDark ? AppColors.textLight : AppColors.textDark,
+      backgroundColor: colors.canvas,
+      // ONB-002: no AppBar
+      body: Column(
+        children: [
+          // ONB-003: 2pt progress line at top, no labels
+          SafeArea(
+            bottom: false,
+            child: OnboardingProgressLine(
+              progress: _kStepProgress[_currentStep],
             ),
           ),
-        );
-      },
-      controller: _pageController,
-      itemCount: onboardingTexts.length,
-      onPageChanged: (index) {
-        setState(() {
-          _currentPage = index;
-        });
-      },
-    );
-  }
 
-  BottomAppBar _buildBottomAppBar(
-    bool isDark,
-    List<String> onboardingTexts,
-    BuildContext context,
-  ) {
-    return BottomAppBar(
-      color: isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
-      elevation: 4,
-      shadowColor: isDark ? AppColors.textLight : AppColors.textDark,
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: AppButton(
-                label: 'Back',
-                onPressed: () {
-                  if (_currentPage > 0) {
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              // ONB-002: user cannot swipe between steps
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                // Step 0 — Qualifying question
+                QualifyingQuestionPage(
+                  onQualified: () => _goToStep(1),
+                  // Disqualified → back to welcome (no forced app exit on Flutter)
+                  onDisqualified: () {
+                    if (mounted) context.go(RouteNames.welcome);
+                  },
+                ),
+
+                // Step 1 — Liquid balance
+                LiquidBalancePage(
+                  initialBalance: _draft.liquidBalanceBdt,
+                  onContinue: (balance) {
                     setState(() {
-                      _currentPage--;
+                      _draft = _draft.copyWith(liquidBalanceBdt: balance);
                     });
-                    _pageController.previousPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
-                type: AppButtonType.secondary,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              flex: 1,
-              child: AppButton(
-                label:
-                    _currentPage == onboardingTexts.length - 1
-                        ? "Get Started"
-                        : "Next",
-                onPressed: () {
-                  if (_currentPage < onboardingTexts.length - 1) {
+                    _goToStep(2);
+                  },
+                ),
+
+                // Step 2 — Fixed costs
+                FixedCostsPage(
+                  initialCosts: _draft.fixedCosts,
+                  onContinue: (costs) {
                     setState(() {
-                      _currentPage++;
+                      _draft = _draft.copyWith(fixedCosts: costs);
                     });
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    );
-                  } else {
+                    _goToStep(3);
+                  },
+                ),
+
+                // Step 3 — Income pattern
+                IncomePatternPage(
+                  initialPattern: _draft.incomePattern,
+                  onContinue: (pattern) {
+                    setState(() {
+                      _draft = _draft.copyWith(incomePattern: pattern);
+                    });
+                    _goToStep(4);
+                  },
+                ),
+
+                // Step 4 — Buffer comfort (last step)
+                BufferComfortPage(
+                  initialBufferPercent: _draft.bufferPercent,
+                  liquidBalanceBdt: _draft.liquidBalanceBdt,
+                  totalFixedCostsBdt: _draft.totalFixedCostsBdt,
+                  onContinue: (bufferPct) {
+                    setState(() {
+                      _draft = _draft.copyWith(bufferPercent: bufferPct);
+                    });
                     _completeOnboarding();
-                  }
-                },
-              ),
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

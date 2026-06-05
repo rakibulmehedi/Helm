@@ -47,4 +47,23 @@ class SharedPrefServices {
   static Future<void> remove(String key) async {
     await _prefs?.remove(key);
   }
+
+  static const String _liquidBalanceBdtKey = 'liquid_balance_bdt';
+  static const String _incomePatternKey = 'income_pattern';
+
+  static Future<void> setLiquidBalanceBdt(double amount) async {
+    await _prefs?.setDouble(_liquidBalanceBdtKey, amount);
+  }
+
+  static double getLiquidBalanceBdt() {
+    return _prefs?.getDouble(_liquidBalanceBdtKey) ?? 0.0;
+  }
+
+  static Future<void> setIncomePattern(String pattern) async {
+    await _prefs?.setString(_incomePatternKey, pattern);
+  }
+
+  static String getIncomePattern() {
+    return _prefs?.getString(_incomePatternKey) ?? 'marketplace';
+  }
 }

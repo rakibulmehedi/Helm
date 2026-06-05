@@ -110,6 +110,17 @@ Users need to verify they deleted the right entry. Showing only client+project n
 
 ---
 
+## UX-2 Sprint Lessons (2026-06-05)
+
+1. **Auth + PIN are trust-layer scope, not UX-2 scope** — Screen 2 (Magic Link email) and Screen 7 (PIN/biometric) require infrastructure that doesn't exist in MVP. Scope them to D1 Trust Layer sprint. The onboarding still works without them — qualify → balance → costs → pattern → buffer → home is a complete 5-step flow.
+2. **Buffer stored as flat BDT, not percentage** — `StsSettings.anxietyBuffer` is a flat BDT amount. Onboarding collects a percentage (5/15/25/30%). Convert at save time: `anxietyBuffer = liquidBalance × bufferPct / 100`. Don't change the domain model — just adapt at the boundary.
+3. **Liquid balance has no storage before UX-2** — The S2S calculator derives `liquidCash` from `incomeEntries - transactions`. For onboarding, `liquidBalance` is a new direct user input. Store in SharedPreferences as `liquid_balance_bdt`. This is a separate concept from the pipeline-derived liquid cash.
+4. **Qualifier 12s inactivity rephrase = `Timer` in `initState`** — Cancel on first interaction, show Bangla rephrase at 12s. Cancel the timer in `dispose()`. Track whether rephrase already shown (one re-ask only, per ONB-023).
+5. **`NeverScrollableScrollPhysics` enforces ONB-002** — User must not be able to swipe between onboarding steps. `PageView(physics: NeverScrollableScrollPhysics())` enforces the linear commitment funnel without extra navigation guards.
+6. **lakh/crore formatter needs `TextInputFormatter` + display helper** — `FilteringTextInputFormatter.digitsOnly` clears commas; `_LakhFormatter` re-applies South Asian grouping on every keystroke. South Asian format: last 3 digits + groups of 2 from right (e.g., 12,34,567).
+
+---
+
 ## Phase 8e Lessons (2026-05-23)
 
 ### 1. Clamped values mask state detection bugs — always check the raw value

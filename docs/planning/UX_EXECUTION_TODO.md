@@ -481,7 +481,7 @@
 
 ## Sprint 3: UX-2 Onboarding Redesign
 
-### UX-2.01: Create onboarding data model
+### UX-2.01: Create onboarding data model — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -499,7 +499,7 @@
 
 ---
 
-### UX-2.02: Create pain qualifier page
+### UX-2.02: Create pain qualifier page — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -517,7 +517,7 @@
 
 ---
 
-### UX-2.03: Create liquid balance page
+### UX-2.03: Create liquid balance page — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -535,7 +535,7 @@
 
 ---
 
-### UX-2.04: Create fixed costs page
+### UX-2.04: Create fixed costs page — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -553,7 +553,7 @@
 
 ---
 
-### UX-2.05: Create income pattern page
+### UX-2.05: Create income pattern page — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -571,7 +571,7 @@
 
 ---
 
-### UX-2.06: Create buffer comfort page
+### UX-2.06: Create buffer comfort page — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -589,7 +589,7 @@
 
 ---
 
-### UX-2.07: Create first pipeline entry page
+### UX-2.07: Create first pipeline entry page — ⏭ SKIPPED [pipeline non-goal for UX-2]
 
 | Field | Value |
 |-------|-------|
@@ -607,7 +607,7 @@
 
 ---
 
-### UX-2.08: Create PIN setup page
+### UX-2.08: Create PIN setup page — ⏭ SKIPPED [trust layer non-goal for UX-2; deferred to D1]
 
 | Field | Value |
 |-------|-------|
@@ -625,7 +625,7 @@
 
 ---
 
-### UX-2.09: Wire 7-step flow
+### UX-2.09: Wire 7-step flow — ✅ DONE [2026-06-05] (5-step: auth+PIN skipped)
 
 | Field | Value |
 |-------|-------|
@@ -643,7 +643,7 @@
 
 ---
 
-### UX-2.10: Fix welcome screen copy
+### UX-2.10: Fix welcome screen copy — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
@@ -661,7 +661,7 @@
 
 ---
 
-### UX-2.11: Delete dead stubs + analyze clean
+### UX-2.11: Delete dead stubs + analyze clean — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
