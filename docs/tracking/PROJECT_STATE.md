@@ -98,9 +98,22 @@
 - NumberFormatter: STABLE
 - Feature files: NOT YET migrated to new tokens (still using AppColors.* via re-export)
 
+## 5b. D1 Trust Layer — COMPLETE (2026-06-06) + D1P Security Patch (2026-06-06)
+
+- **D1.01-03 Auth module**: PIN setup + PIN entry screens, Riverpod auth state, Hive `auth_box`, GoRouter redirect guard on cold start + resume
+- **D1P PIN security**: SHA-256 + per-setup salt via `crypto:^3.0.3`. `PinHasher` domain class (`lib/features/auth/domain/pin_hasher.dart`) — 8 unit tests pass. Old base64 hashes migrated → force re-setup. `authenticate()` logic bug fixed (was checking `isLocked` instead of `failedAttempts >= max`).
+- **D1.05-07 Audit log**: `AuditEvent` entity, `AuditEventModel` (typeId:5), append-only `AuditLocalDataSourceImpl`, wired to all financial write paths (income/transaction/fixed cost/STS settings), `AuditLogScreen` accessible from Settings
+- **D1.08-09 CSV export**: `ExportService` generates 5 CSVs (income/transactions/fixed_costs/settings/audit), saves to documents dir, `ExportScreen` accessible from Settings. share_plus deferred — tracked as explicit beta blocker (Decision 026).
+- **D1.10 Account deletion**: 2-step destructive flow — warning screen + PIN confirmation dialog (or type-DELETE fallback), clears all 6 Hive boxes + SharedPreferences, routes to welcome
+- **D1.11 Buffer % conversion**: `anxietyBuffer` (absolute BDT) → `bufferPercent` (5–30%, default 15%), SharedPrefs migration, STS settings slider 5–30%, all 30 calculator tests pass
+- **D1.04 Biometric**: Deferred — needs `local_auth` package approval. Tracked as explicit beta blocker (Decision 026).
+
+Hive typeId registry updated: AuditEventModelAdapter=5 registered.
+New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/export-data`
+
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
-- Auth system (Magic Link + PIN/biometric — scheduled for Sprint 6 / D1)
+- Biometric auth (D1.04 deferred — needs `local_auth` package approval)
 
 ## 7. Current Product Direction (per Final Doctrine)
 - Focus: Freelancer Cashflow Clarity

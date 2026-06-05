@@ -4,7 +4,19 @@
 
 ## 1. Active Sprint
 
-**UX Canon Implementation — Sprint 5: UX-4 Microcopy Replacement**
+**UX Canon Implementation — Sprint 6: D1 Trust Layer Foundation**
+Status: **COMPLETE** ✅ — 2026-06-06. 11/12 tasks done. dart analyze 0/0/0. 30/30 tests pass.
+D1.04 (biometric) deferred — needs `local_auth` package approval.
+
+**D1P Trust Layer Security Patch:**
+Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. 38/38 tests pass.
+- PIN upgraded from base64 → SHA-256 + salt (`crypto:^3.0.3`)
+- `PinHasher` domain class created + 8 unit tests added
+- `authenticate()` logic bug fixed (isLocked guard → failedAttempts guard)
+- HIVE_TYPEID_REGISTRY.md updated (typeId 3+5 added)
+- Beta blockers registered: Decision 026 (share_plus + local_auth)
+
+**Sprint 5 (UX-4 Microcopy Replacement):**
 Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 30/30 tests pass.
 
 **UX-3P Pipeline Interaction Polish (2026-06-05, bonus sprint):** dart analyze 0/0/0, 30/30 tests
@@ -43,7 +55,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 3 | UX-2 Onboarding Redesign | **COMPLETE** ✅ | 8/11 (auth+PIN skipped: trust-layer non-goal) |
 | 4 | UX-3 Pipeline Quick-Update | **COMPLETE** ✅ | 10/10 |
 | 5 | UX-4 Microcopy Replacement | **COMPLETE** ✅ | 8/8 |
-| 6 | D1 Trust Layer Foundation | Pending | 12 |
+| 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |
 | 7 | D2 Beta Instrumentation | Pending | 6 |
 | 8 | D3 Closed Beta Readiness | Pending | 8 |
 

@@ -9,8 +9,9 @@
 | `0` | `TransactionModel` | Active | |
 | `1` | `Reserved` | Reserved | |
 | `2` | `IncomeModel` | Active | |
-| `3` | `FixedCostModel` | Planned | Planned for Phase 8b |
+| `3` | `FixedCostModel` | Active | Added Phase 8b |
 | `4` | `TransactionTypeAdapter` | Active | |
+| `5` | `AuditEventModel` | Active | Added D1 Trust Layer (Sprint 6) |
 
 ## Rules
 

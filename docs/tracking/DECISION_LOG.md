@@ -4,6 +4,96 @@ This file records important product and architecture decisions.
 
 ---
 
+## Decision 022 — D1 PIN Hash: SHA-256 + per-setup salt (D1P patch)
+
+Date: 2026-06-06 (updated D1P 2026-06-06)
+
+Decision:
+PIN is stored as `SHA-256(salt + pin)` hex digest in Hive `auth_box`.
+- `pin_hash` key: 64-char hex SHA-256 digest
+- `pin_salt` key: 32-char hex random salt (16 bytes, generated once per setup)
+- `crypto: ^3.0.3` added to pubspec.yaml (approved)
+
+`PinHasher` domain class (`lib/features/auth/domain/pin_hasher.dart`) encapsulates `generateSalt()`, `hashPin()`, `verify()` — tested via `test/features/auth/domain/pin_hasher_test.dart`.
+
+Migration: if `pin_is_setup=true` but `pin_salt` absent → old base64 format detected → PIN cleared → user must re-setup. Cannot upgrade without original PIN.
+
+Reason:
+base64 is reversible encoding, not hashing. SHA-256 with unique salt prevents rainbow-table attacks even on local storage. `crypto` package approved for D1P.
+
+Impact:
+Existing beta testers with base64 PIN will be forced to re-setup PIN once. Acceptable at pre-beta stage.
+
+---
+
+## Decision 023 — D1 Buffer: Percentage (5–30%) replaces Absolute BDT
+
+Date: 2026-06-06
+
+Decision:
+`StsSettings.anxietyBuffer` (absolute BDT floor) replaced by `bufferPercent` (5–30%, default 15%). Calculator computes `buffer = bufferPercent / 100 * totalReceivedIncomeBdt`.
+
+Reason:
+Absolute BDT floor becomes meaningless as income changes. Percentage scales with freelancer income variability. GAP-009 resolution.
+
+Impact:
+Migration: old `stsSettings_anxietyBuffer` SharedPrefs key converted to `stsSettings_bufferPercent = 15.0` on first load. `SafeToSpendResult.anxietyBuffer` field unchanged (still holds computed BDT amount for display).
+
+---
+
+## Decision 024 — D1 Export: Documents directory, share_plus deferred
+
+Date: 2026-06-06
+
+Decision:
+CSV export saves to `getApplicationDocumentsDirectory()`. No share sheet (requires `share_plus` package, not yet approved). Dialog shows directory path to user.
+
+Reason:
+`path_provider` already in pubspec. `share_plus` not approved. Export correctness > export UX for MVP milestone.
+
+Impact:
+Approve `share_plus` before beta. Replace `_showSuccessDialog` in `export_screen.dart` with `Share.shareXFiles([...])`. TODO comment placed.
+
+---
+
+## Decision 025 — D1 Biometric: Deferred to V1
+
+Date: 2026-06-06
+
+Decision:
+D1.04 (biometric auth via `local_auth`) deferred. PIN-only auth for MVP.
+
+Reason:
+Requires `local_auth` package approval. Many budget Android phones lack biometric hardware. PIN must be primary fallback regardless.
+
+Impact:
+PIN auth guard is live. Biometric offer during PIN setup is placeholder for V1.
+
+---
+
+## Decision 026 — Beta Blocker Package Registry
+
+Date: 2026-06-06
+
+Decision:
+Two packages are deferred pending explicit approval. They are NOT forgotten TODOs —
+they are named, tracked beta blockers that must be resolved before closed beta ships.
+
+| Package | Purpose | Blocked task | TODO location |
+|---|---|---|---|
+| `share_plus` | Native share sheet for CSV export | D1.08-09 UX | `export_screen.dart` → `_showSuccessDialog` |
+| `local_auth` | Biometric auth (fingerprint/Face ID) | D1.04 | `pin_setup_screen.dart` + `pin_entry_screen.dart` |
+
+Reason:
+Both packages require Flutter plugin approval (platform code, Play Store permissions).
+Merging without review risks unnecessary permissions in production binary.
+
+Impact:
+Before beta: approve or explicitly kill each package. If approved, replace TODO stubs
+in named files. If killed, update TASKS.md backlog accordingly.
+
+---
+
 ## Decision 001 — Positioning Pivot
 
 Date: 2026-05-22

@@ -26,6 +26,24 @@ Finance users need clarity, not dashboard noise.
 ### 8. UX-4 — "Fixed costs" as a label is ambiguous — verify what value it describes
 The S2S calculator has two distinct deduction paths: `totalExpenses` (sum of `TransactionType.expense` outflows) and `fixedCostsDue` (sum of `FixedCostEntry` monthly costs due in 30 days). Labeling both rows "Fixed costs" in the calc trace caused a mismatch: the formula has two separate `−` rows with colliding labels. Rule: always verify what `result.fieldName` comes from before assigning a copy label. `totalExpenses` → "Cash out". `fixedCostsDue` → "Fixed costs due". These are not interchangeable.
 
+### 10. D1 — Audit at data source level (not UI level) ensures nothing slips through
+Wiring audit logging in repositories/data sources (not screens) means every write path is covered automatically, including programmatic updates. UI-level audit calls would miss repository-direct updates.
+
+### 11. D1P — PIN hash upgraded to SHA-256 + per-setup salt (crypto:^3.0.3 approved)
+Dart core has no SHA-256. `dart:convert` base64 encoding is obfuscation, not a cryptographic hash. D1P patch: `crypto: ^3.0.3` added, `PinHasher` domain class extracts `generateSalt()` + `hashPin()` + `verify()` as testable pure functions. Old base64 hashes detected via missing `pin_salt` key → cleared → force re-setup. Migration is a one-time user disruption acceptable at pre-beta stage.
+
+### 15. D1P — authenticate() had a silent logic bug: checked isLocked (always true when awaiting auth)
+Original: `if (state.isLocked) return false` — but `AuthStatus.locked` IS the normal state for a user who has set up PIN but not yet authenticated this session. This meant nobody could ever authenticate. Bug was masked because no live users existed. Fix: check `state.failedAttempts >= _maxAttempts` instead. Always test auth flows with real state machines, not just happy paths.
+
+### 12. D1 — Buffer as absolute BDT is meaningless as income changes; percentage scales
+Old `anxietyBuffer: 0.0` BDT default meant no breathing room for new users and required manual re-configuration when income changed. `bufferPercent: 15.0` (of total expected income) scales automatically with freelancer income variability.
+
+### 13. D1 — share_plus needed for proper export UX; documents-dir fallback is technically correct but friction-heavy
+CSV export saves to `getApplicationDocumentsDirectory()` which is not directly accessible from Android Files app on all devices. Approve `share_plus` before beta to enable native share sheet. TODO comment placed in `export_screen.dart`.
+
+### 14. D1 — Parallel agents sharing the same files require explicit interface contracts up front
+Auth agent and deletion agent both touch `auth_box` — worked because both were given the same Hive key contract (`pin_hash`, `pin_is_setup`). Audit agent and export agent both reference `AuditEventModel` — worked because field names were provided in the export agent prompt. Contracts must be documented before dispatch, not discovered mid-flight.
+
 ### 9. UX-4 — "Add expected payment" belongs to the income pipeline, not the expense screen
 `add_transaction_screen.dart` has `TransactionType _selectedType = TransactionType.expense` hardcoded. It is a general expense outflow screen, not the income pipeline entry screen. "Add expected payment" is income pipeline language (add_income_screen). Applying income copy to an expense screen inverts the product model. Copy replacement requires reading the screen's domain, not just its title.
 
