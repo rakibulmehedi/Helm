@@ -41,18 +41,18 @@ Migration: old `stsSettings_anxietyBuffer` SharedPrefs key converted to `stsSett
 
 ---
 
-## Decision 024 — D1 Export: Documents directory, share_plus deferred
+## Decision 024 — D1 Export: Documents directory + share sheet (D1E patch)
 
-Date: 2026-06-06
+Date: 2026-06-06 (updated D1E patch 2026-06-06)
 
 Decision:
-CSV export saves to `getApplicationDocumentsDirectory()`. No share sheet (requires `share_plus` package, not yet approved). Dialog shows directory path to user.
+CSV export writes 5 files to `getApplicationDocumentsDirectory()`, then triggers native share sheet via `Share.shareXFiles`. `share_plus: ^10.1.2` approved and added.
 
 Reason:
-`path_provider` already in pubspec. `share_plus` not approved. Export correctness > export UX for MVP milestone.
+Documents-dir save alone is friction-heavy — not directly accessible on all Android devices. Share sheet gives users instant access to email, Drive, WhatsApp, etc. Export remains explicit and user-initiated.
 
 Impact:
-Approve `share_plus` before beta. Replace `_showSuccessDialog` in `export_screen.dart` with `Share.shareXFiles([...])`. TODO comment placed.
+`_showSuccessDialog` replaced by `_shareFiles` in `export_screen.dart`. Beta blocker resolved. `local_auth` (D1.04 biometric) remains open.
 
 ---
 
@@ -81,7 +81,7 @@ they are named, tracked beta blockers that must be resolved before closed beta s
 
 | Package | Purpose | Blocked task | TODO location |
 |---|---|---|---|
-| `share_plus` | Native share sheet for CSV export | D1.08-09 UX | `export_screen.dart` → `_showSuccessDialog` |
+| `share_plus` | Native share sheet for CSV export | D1.08-09 UX | **RESOLVED** — D1E patch 2026-06-06 |
 | `local_auth` | Biometric auth (fingerprint/Face ID) | D1.04 | `pin_setup_screen.dart` + `pin_entry_screen.dart` |
 
 Reason:

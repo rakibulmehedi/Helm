@@ -103,7 +103,7 @@
 - **D1.01-03 Auth module**: PIN setup + PIN entry screens, Riverpod auth state, Hive `auth_box`, GoRouter redirect guard on cold start + resume
 - **D1P PIN security**: SHA-256 + per-setup salt via `crypto:^3.0.3`. `PinHasher` domain class (`lib/features/auth/domain/pin_hasher.dart`) — 8 unit tests pass. Old base64 hashes migrated → force re-setup. `authenticate()` logic bug fixed (was checking `isLocked` instead of `failedAttempts >= max`).
 - **D1.05-07 Audit log**: `AuditEvent` entity, `AuditEventModel` (typeId:5), append-only `AuditLocalDataSourceImpl`, wired to all financial write paths (income/transaction/fixed cost/STS settings), `AuditLogScreen` accessible from Settings
-- **D1.08-09 CSV export**: `ExportService` generates 5 CSVs (income/transactions/fixed_costs/settings/audit), saves to documents dir, `ExportScreen` accessible from Settings. share_plus deferred — tracked as explicit beta blocker (Decision 026).
+- **D1.08-09 CSV export**: `ExportService` generates 5 CSVs (income/transactions/fixed_costs/settings/audit), saves to documents dir, then triggers native share sheet via `Share.shareXFiles` (`share_plus: ^10.1.2`). `ExportScreen` accessible from Settings. Beta blocker resolved (Decision 026 updated).
 - **D1.10 Account deletion**: 2-step destructive flow — warning screen + PIN confirmation dialog (or type-DELETE fallback), clears all 6 Hive boxes + SharedPreferences, routes to welcome
 - **D1.11 Buffer % conversion**: `anxietyBuffer` (absolute BDT) → `bufferPercent` (5–30%, default 15%), SharedPrefs migration, STS settings slider 5–30%, all 30 calculator tests pass
 - **D1.04 Biometric**: Deferred — needs `local_auth` package approval. Tracked as explicit beta blocker (Decision 026).

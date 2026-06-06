@@ -4,6 +4,13 @@
 
 ## 1. Active Sprint
 
+**D1E Export Share Sheet Patch:**
+Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. All tests pass.
+- `share_plus: ^10.1.2` added to pubspec
+- `_showSuccessDialog` replaced with `Share.shareXFiles` in `export_screen.dart`
+- Documents-dir save preserved; share sheet opens after successful export
+- Beta blocker Decision 026 `share_plus` resolved
+
 **UX Canon Implementation — Sprint 6: D1 Trust Layer Foundation**
 Status: **COMPLETE** ✅ — 2026-06-06. 11/12 tasks done. dart analyze 0/0/0. 30/30 tests pass.
 D1.04 (biometric) deferred — needs `local_auth` package approval.

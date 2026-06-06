@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
@@ -25,7 +26,8 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
       if (!mounted) return;
       if (next == ExportStatus.success) {
         final notifier = ref.read(exportProvider.notifier);
-        _showSuccessDialog(notifier.lastResult?.directoryPath ?? '');
+        _shareFiles(notifier.lastResult?.filePaths ?? []);
+        notifier.reset();
       } else if (next == ExportStatus.error) {
         final notifier = ref.read(exportProvider.notifier);
         ScaffoldMessenger.of(context).showSnackBar(
@@ -132,27 +134,11 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         .toList();
   }
 
-  void _showSuccessDialog(String dirPath) {
-    // TODO: Replace with share_plus share sheet when package approved.
-    // Currently saves to documents directory only.
-    showDialog<void>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Export complete'),
-        content: Text(
-          'Your data has been saved to:\n\n$dirPath\n\n'
-          "Find the CSV files in your phone's Files app.",
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              ref.read(exportProvider.notifier).reset();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      ),
+  void _shareFiles(List<String> filePaths) {
+    if (filePaths.isEmpty) return;
+    Share.shareXFiles(
+      filePaths.map((p) => XFile(p)).toList(),
+      subject: 'Pocketa data export',
     );
   }
 }
