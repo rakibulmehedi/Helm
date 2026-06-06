@@ -20,6 +20,8 @@
 //   - PocketaCalculationTrace on hero tap (UX-1.09)
 //   - FAB "Add Pipeline Entry" → addIncome route (UX-1.10)
 //   - kDebugMode gate on dev reset button (UX-1.11)
+// D2.03 — analytics: stsViewed + dailyActiveSession on initState,
+//          calculationBreakdownOpened on onTapTrace.
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
@@ -39,11 +43,36 @@ import 'package:pocketa_v2/features/dashboard/presentation/widgets/reserve_secti
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/s2s_hero_block.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
-class DashboardScreen extends ConsumerWidget {
+class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // D2.03 — Fire session-open analytics events on every dashboard mount.
+    // Using addPostFrameCallback so that ref.read is safe after the first
+    // frame; initState fires before the widget tree is fully built.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final analytics = ref.read(analyticsProvider);
+      analytics.trackEvent(TransactionalEvents.stsViewed);
+      analytics.trackEvent(
+        BoundaryEvents.dailyActiveSession,
+        properties: {
+          EventProperties.sessionDate:
+              DateTime.now().toIso8601String().substring(0, 10),
+        },
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
     final typography = Theme.of(context).extension<PocketaTypography>()!;
     final stsResult = ref.watch(safeToSpendProvider);
@@ -89,8 +118,13 @@ class DashboardScreen extends ConsumerWidget {
               result: stsResult,
               updatedAt: DateTime.now(),
               // UX-1.09 — tap hero opens calculation breakdown.
-              onTapTrace: () =>
-                  PocketaCalculationTrace.show(context, stsResult),
+              // D2.03 — fire calculationBreakdownOpened before showing trace.
+              onTapTrace: () {
+                ref
+                    .read(analyticsProvider)
+                    .trackEvent(TransactionalEvents.calculationBreakdownOpened);
+                PocketaCalculationTrace.show(context, stsResult);
+              },
             ),
             // Tier 2 — Pressure: committed + reserve stacked.
             pressureTier: Column(

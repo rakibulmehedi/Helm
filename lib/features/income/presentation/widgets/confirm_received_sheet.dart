@@ -15,6 +15,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
@@ -124,6 +126,14 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
     final notifier = ref.read(incomeNotifierProvider.notifier);
     await notifier.updateIncome(updatedEntry);
+    // D2.04 — Beta instrumentation: pipeline confirmed (Pending → Received)
+    ref.read(analyticsProvider).trackEvent(
+      TransactionalEvents.pipelineConfirmed,
+      properties: {
+        EventProperties.fromState: 'pending',
+        EventProperties.toState: 'received',
+      },
+    );
 
     if (!mounted) return;
 
@@ -148,6 +158,10 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
           label: 'Undo',
           textColor: Colors.white,
           onPressed: () async {
+            // D2.04 — Beta instrumentation: undo after confirm
+            ref.read(analyticsProvider).trackEvent(
+              TransactionalEvents.undoConfirmUsed,
+            );
             await notifier.updateIncome(originalEntry);
           },
         ),

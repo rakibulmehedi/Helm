@@ -1286,7 +1286,7 @@
 
 ## Sprint 7: D2 Beta Instrumentation
 
-### D2.01: Create analytics service abstraction
+### D2.01: Create analytics service abstraction ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1304,7 +1304,7 @@
 
 ---
 
-### D2.02: Create event registry
+### D2.02: Create event registry ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1322,7 +1322,7 @@
 
 ---
 
-### D2.03: Wire S2S view events
+### D2.03: Wire S2S view events ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1340,7 +1340,7 @@
 
 ---
 
-### D2.04: Wire pipeline compliance events
+### D2.04: Wire pipeline compliance events ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1358,7 +1358,7 @@
 
 ---
 
-### D2.05: Wire notification events
+### D2.05: Wire notification events ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|
@@ -1376,7 +1376,7 @@
 
 ---
 
-### D2.06: Sprint 7 dart analyze clean
+### D2.06: Sprint 7 dart analyze clean ✅ DONE [2026-06-06]
 
 | Field | Value |
 |-------|-------|

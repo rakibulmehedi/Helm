@@ -15,6 +15,16 @@ Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. All tests pass.
 Status: **COMPLETE** ✅ — 2026-06-06. 11/12 tasks done. dart analyze 0/0/0. 30/30 tests pass.
 D1.04 (biometric) deferred — needs `local_auth` package approval.
 
+**Sprint 7 (D2 Beta Instrumentation):**
+Status: **COMPLETE** ✅ — 2026-06-06. 6/6 tasks done. dart analyze 0/0/0. 38/38 tests pass.
+- `AnalyticsService` abstract class + `LocalAnalyticsService` (debugPrint, kDebugMode-gated) created in `core/analytics/`
+- `event_registry.dart` — `TransactionalEvents` (10 constants) + `BoundaryEvents` (5 constants) + `EventProperties` (4 constants)
+- `notification_event_stub.dart` reserved stub — awaiting notification system + package approval
+- Dashboard wired: `sts_viewed` + `daily_active_session` (initState), `calculation_breakdown_opened` (hero tap)
+- `add_income_screen.dart` wired: `pipeline_entry_created` on successful save
+- `confirm_received_sheet.dart` wired: `pipeline_confirmed` (with from/to state props), `undo_confirm_used` (undo snackbar)
+- Zero PII logged, zero persistence, zero third-party SDK, zero new packages
+
 **D1P Trust Layer Security Patch:**
 Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. 38/38 tests pass.
 - PIN upgraded from base64 → SHA-256 + salt (`crypto:^3.0.3`)
@@ -63,7 +73,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 4 | UX-3 Pipeline Quick-Update | **COMPLETE** ✅ | 10/10 |
 | 5 | UX-4 Microcopy Replacement | **COMPLETE** ✅ | 8/8 |
 | 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |
-| 7 | D2 Beta Instrumentation | Pending | 6 |
+| 7 | D2 Beta Instrumentation | **COMPLETE** ✅ | 6/6 |
 | 8 | D3 Closed Beta Readiness | Pending | 8 |
 
 ### Prior Sprints (Complete)

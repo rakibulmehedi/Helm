@@ -12,6 +12,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/colors.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
@@ -169,6 +171,11 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         await ref.read(incomeNotifierProvider.notifier).updateIncome(entity);
       } else {
         await ref.read(incomeNotifierProvider.notifier).addIncome(entity);
+        // D2.04 — Beta instrumentation: pipeline entry created
+        ref.read(analyticsProvider).trackEvent(
+          TransactionalEvents.pipelineEntryCreated,
+          properties: {EventProperties.entryCount: 1},
+        );
       }
 
       if (!mounted) return;
