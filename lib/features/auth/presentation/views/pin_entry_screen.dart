@@ -9,6 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
 
@@ -25,6 +27,19 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
 
   String _currentInput = '';
   String? _message;
+
+  @override
+  void initState() {
+    super.initState();
+    // D2P — Beta instrumentation: PIN gate presented
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        ref.read(analyticsProvider).trackEvent(
+          TransactionalEvents.pinGateOpened,
+        );
+      }
+    });
+  }
 
   bool get _isLockedOut {
     final authState = ref.read(authProvider);
@@ -58,16 +73,23 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
     if (!mounted) return;
 
     if (success) {
+      // D2P — Beta instrumentation: PIN unlock success
+      ref.read(analyticsProvider).trackEvent(TransactionalEvents.pinAuthSuccess);
       context.go(RouteNames.dashboard);
       return;
     }
 
     final authState = ref.read(authProvider);
+    final remaining = _maxAttempts - authState.failedAttempts;
+    // D2P — Beta instrumentation: PIN unlock failure
+    ref.read(analyticsProvider).trackEvent(
+      TransactionalEvents.pinAuthFailed,
+      properties: {EventProperties.remainingAttempts: remaining.clamp(0, _maxAttempts)},
+    );
     setState(() {
       if (authState.failedAttempts >= _maxAttempts) {
         _message = 'Too many attempts. Restart the app.';
       } else {
-        final remaining = _maxAttempts - authState.failedAttempts;
         _message = 'Incorrect PIN — $remaining attempts remaining';
       }
     });

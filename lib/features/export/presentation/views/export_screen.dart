@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
 
@@ -84,7 +86,13 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
               child: ElevatedButton(
                 onPressed: isExporting
                     ? null
-                    : () => ref.read(exportProvider.notifier).export(),
+                    : () {
+                        // D2P — Beta instrumentation: export initiated
+                        ref.read(analyticsProvider).trackEvent(
+                          TransactionalEvents.exportTriggered,
+                        );
+                        ref.read(exportProvider.notifier).export();
+                      },
                 child: isExporting
                     ? const SizedBox(
                         width: 16,

@@ -9,6 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
 
@@ -68,6 +70,10 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
   Future<void> _finishSetup(String pin) async {
     await ref.read(authProvider.notifier).setupPin(pin);
+    // D2P — Beta instrumentation: PIN setup completed
+    ref.read(analyticsProvider).trackEvent(
+      TransactionalEvents.pinSetupCompleted,
+    );
     if (!mounted) return;
     context.go(RouteNames.dashboard);
   }

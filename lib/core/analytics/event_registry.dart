@@ -37,11 +37,20 @@ abstract class TransactionalEvents {
   /// The PIN authentication gate was presented to the user.
   static const String pinGateOpened = 'pin_gate_opened';
 
+  /// A PIN authentication attempt succeeded.
+  static const String pinAuthSuccess = 'pin_auth_success';
+
   /// A PIN authentication attempt failed.
   static const String pinAuthFailed = 'pin_auth_failed';
 
+  /// PIN setup was completed for the first time.
+  static const String pinSetupCompleted = 'pin_setup_completed';
+
   /// The user confirmed an undo action on a transaction.
   static const String undoConfirmUsed = 'undo_confirm_used';
+
+  /// The account deletion confirmation dialog was opened.
+  static const String accountDeletionRequested = 'account_deletion_requested';
 }
 
 /// Events that fire when the product crosses a meaningful behavioral threshold.
@@ -86,4 +95,7 @@ abstract class EventProperties {
 
   /// ISO-8601 date string representing the current session date.
   static const String sessionDate = 'session_date';
+
+  /// Remaining PIN attempts before lockout.
+  static const String remainingAttempts = 'remaining_attempts';
 }

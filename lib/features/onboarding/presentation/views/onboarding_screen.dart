@@ -27,6 +27,8 @@ import 'package:pocketa_v2/features/onboarding/presentation/views/pages/liquid_b
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/widgets/onboarding_progress_line.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
 // ONB-003 progress values per step
@@ -75,6 +77,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     await stsNotifier.updateBufferPercent(_draft.bufferPercent.toDouble());
 
     await SharedPrefServices.setOnboardingCompleted(true);
+    // D2P — Beta instrumentation: onboarding completion milestone
+    ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
     if (mounted) context.go(RouteNames.home);
   }
 

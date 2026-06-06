@@ -20,6 +20,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:pocketa_v2/config/router/route_names.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
@@ -63,6 +65,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       await prefs.clear();
     } catch (_) {}
 
+    // D2P — Beta instrumentation: account deleted (irreversible data wipe)
+    ref.read(analyticsProvider).trackEvent(TransactionalEvents.accountDeleted);
     if (mounted) context.go(RouteNames.welcome);
   }
 
@@ -83,6 +87,10 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   // ── Step 2: show confirmation dialog ───────────────────────────────────────
 
   Future<void> _showConfirmDialog() async {
+    // D2P — Beta instrumentation: deletion dialog opened (user intent signal)
+    ref.read(analyticsProvider).trackEvent(
+      TransactionalEvents.accountDeletionRequested,
+    );
     final storedHash = _getStoredPinHash();
     final confirmed = await showDialog<bool>(
       context: context,
