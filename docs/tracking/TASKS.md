@@ -16,8 +16,8 @@ Sprint: UX Canon Implementation — Sprint 3 (UX-2 Onboarding Redesign)
 4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
 5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
 6. [x] Sprint 6: D1 Trust Layer Foundation (11/12 tasks) — **COMPLETE [2026-06-06]** (D1.04 biometric deferred)
-7. [ ] Sprint 7: D2 Beta Instrumentation (6 tasks)
-8. [ ] Sprint 8: D3 Closed Beta Readiness (8 tasks)
+7. [x] Sprint 7: D2 Beta Instrumentation (6 tasks) — **COMPLETE [2026-06-06]**
+8. [x] Sprint 8: D3 Closed Beta Readiness (8 tasks) — **COMPLETE [2026-06-06]**
 
 ## Backlog (Post-Beta / Deferred)
 
@@ -42,6 +42,32 @@ Sprint: UX Canon Implementation — Sprint 3 (UX-2 Onboarding Redesign)
 - None
 
 ## Done
+
+## D3: Closed Beta Readiness — COMPLETED [2026-06-06]
+
+### Completed
+- [x] D3.01: Fix PIN deletion confirmation hash mismatch (base64 → SHA-256 PinHasher.verify)
+- [x] D3.02: Create CLOSED_BETA_READINESS_CHECKLIST.md (46 checks, 37 PASS)
+- [x] D3.03: Create MANUAL_QA_SCRIPT.md (13 QA sections)
+- [x] D3.04: Create BETA_VALIDATION_PROTOCOL.md (4-week protocol, 5 metrics)
+- [x] D3.05: Create TESTER_ONBOARDING_SCRIPT.md (WhatsApp templates)
+- [x] D3.06: Create FOUNDER_OBSERVATION_SHEET.md (signal categories)
+- [x] D3.07: Create GO_NO_GO_CRITERIA.md (decision framework)
+- [x] D3.08: Create KNOWN_LIMITATIONS.md (17 limitations, 0 blockers)
+
+---
+
+## D2: Beta Instrumentation — COMPLETED [2026-06-06]
+
+### Completed
+- [x] D2.01: AnalyticsService abstract + LocalAnalyticsService
+- [x] D2.02: event_registry.dart (15 event constants)
+- [x] D2.03: Dashboard instrumentation (stsViewed, dailyActiveSession, breakdownOpened)
+- [x] D2.04: Income pipeline instrumentation (pipelineEntryCreated)
+- [x] D2.05: Confirm-received instrumentation (pipelineConfirmed, undoConfirmUsed)
+- [x] D2.06: PIN/export/deletion instrumentation
+
+---
 
 ## UX-5: Visual Identity / Design System Foundation — COMPLETED [2026-06-05]
 

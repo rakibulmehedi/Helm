@@ -4,6 +4,22 @@
 
 ## 1. Active Sprint
 
+**Sprint 8 (D3 Closed Beta Readiness):**
+Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. 38/38 tests pass.
+- Critical bug fixed: PIN deletion confirmation used base64 instead of SHA-256 (hash mismatch)
+  - `delete_account_screen.dart`: imported `PinHasher`, added `_getStoredPinSalt()`, passed salt to dialog, replaced `base64Encode` with `PinHasher.verify()`
+  - Removed unused `dart:convert` import
+- Beta docs package created (7 files in `docs/beta/`):
+  - `CLOSED_BETA_READINESS_CHECKLIST.md` — 46 checks, 37 PASS
+  - `MANUAL_QA_SCRIPT.md` — 13 QA sections, step-by-step procedures
+  - `BETA_VALIDATION_PROTOCOL.md` — 4-week protocol, 5 metrics, decision matrix
+  - `TESTER_ONBOARDING_SCRIPT.md` — WhatsApp message templates for all check-ins
+  - `FOUNDER_OBSERVATION_SHEET.md` — signal categories, kill signals, observation log
+  - `GO_NO_GO_CRITERIA.md` — pre-beta + post-beta decision framework
+  - `KNOWN_LIMITATIONS.md` — 17 documented limitations, 0 blockers
+- Quality gate: dart analyze 0/0/0, flutter test 38/38, Hive TypeIds clean, routes clean
+- Verdict: **CONDITIONAL GO** — pending release build verification + tester recruitment
+
 **D1E Export Share Sheet Patch:**
 Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. All tests pass.
 - `share_plus: ^10.1.2` added to pubspec
@@ -74,7 +90,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 5 | UX-4 Microcopy Replacement | **COMPLETE** ✅ | 8/8 |
 | 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |
 | 7 | D2 Beta Instrumentation | **COMPLETE** ✅ | 6/6 |
-| 8 | D3 Closed Beta Readiness | Pending | 8 |
+| 8 | D3 Closed Beta Readiness | **COMPLETE** ✅ | 8/8 (bug fix + 7 beta docs) |
 
 ### Prior Sprints (Complete)
 

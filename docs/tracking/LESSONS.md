@@ -351,3 +351,13 @@ Old behavior: all USD received entries → excluded. New behavior: USD with `fxR
 
 ### 12. Boolean excludeFromCalculation is simpler than an Excluded enum state
 The pipeline spec mentions an `Excluded` state, but the task spec uses a boolean flag. The boolean approach is simpler: reversible with a toggle, works alongside any pipeline status, doesn't require state machine changes. The enum approach would require handling Excluded→Previous transitions. When in doubt, prefer a boolean flag over a new enum variant for reversible user preferences.
+
+---
+
+## D3 — Closed Beta Readiness Lessons
+
+### 16. D3 — PIN hash mismatch across screens is a silent trust-layer failure
+`delete_account_screen.dart` used `base64Encode` for PIN verification while `auth_provider.dart` stores SHA-256 hashes. The result: PIN always fails silently during deletion. Users would think they entered the wrong PIN. This pattern is dangerous because: (a) no test catches cross-screen hash algorithm consistency, (b) both algorithms produce valid-looking strings, (c) the bug only manifests in a destructive path users rarely test. Rule: any screen verifying a PIN must use `PinHasher.verify()` — never reimplement hash logic locally.
+
+### 17. D3 — Beta readiness is a docs sprint, not a feature sprint
+D3 produced 7 docs and 1 bug fix. No new features, no UI changes, no architecture modifications. This is correct. The temptation is to add "one more thing" before beta — resist it. Beta validates the hypothesis with what exists. Missing features are documented as known limitations, not rushed implementations.

@@ -94,6 +94,31 @@ in named files. If killed, update TASKS.md backlog accordingly.
 
 ---
 
+## Decision 027 — D3 Closed Beta Readiness: Conditional GO
+
+Date: 2026-06-06
+
+Decision:
+Pocketa is **CONDITIONAL GO** for closed beta distribution. All technical prerequisites pass. All product prerequisites pass. Critical PIN deletion bug (base64 vs SHA-256 hash mismatch in `_PinConfirmDialog`) fixed during sprint. 17 known limitations documented — none are beta blockers.
+
+Conditions for full GO:
+1. Release build verified on physical device (Samsung A14 or equivalent)
+2. Manual QA script (docs/beta/MANUAL_QA_SCRIPT.md) completed on device
+3. Tester cohort recruited (15-25 Bangladeshi freelancers)
+4. Feedback channel created (WhatsApp/Telegram group)
+
+Post-beta decision per Doctrine S16:
+- 5 mandatory thresholds: pipeline >=85%, override <5%, retention >=60%, onboarding >=70%, S2S comprehension >=80%
+- If 2+ miss: KILL. Do not ship V1.
+- Full protocol: docs/beta/BETA_VALIDATION_PROTOCOL.md
+
+Impact:
+- No more feature sprints before beta. Ship what exists.
+- All 8 UX Canon sprints complete (UX-5, UX-1, UX-2, UX-3, UX-4, D1, D2, D3)
+- Next action: build APK, run manual QA, recruit testers, distribute
+
+---
+
 ## Decision 001 — Positioning Pivot
 
 Date: 2026-05-22

@@ -11,8 +11,6 @@
 //   - Cancel is always available
 //   - After deletion: navigates to /welcome (full reset)
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +23,7 @@ import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:pocketa_v2/features/auth/domain/pin_hasher.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -84,6 +83,18 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     return null;
   }
 
+  /// Returns the stored PIN salt, or null if unavailable.
+  String? _getStoredPinSalt() {
+    try {
+      if (Hive.isBoxOpen('auth_box')) {
+        final box = Hive.box<dynamic>('auth_box');
+        final salt = box.get('pin_salt');
+        if (salt is String && salt.isNotEmpty) return salt;
+      }
+    } catch (_) {}
+    return null;
+  }
+
   // ── Step 2: show confirmation dialog ───────────────────────────────────────
 
   Future<void> _showConfirmDialog() async {
@@ -92,11 +103,15 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       TransactionalEvents.accountDeletionRequested,
     );
     final storedHash = _getStoredPinHash();
+    final storedSalt = _getStoredPinSalt();
     final confirmed = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => storedHash != null
-          ? _PinConfirmDialog(storedPinHash: storedHash)
+      builder: (context) => storedHash != null && storedSalt != null
+          ? _PinConfirmDialog(
+              storedPinHash: storedHash,
+              storedPinSalt: storedSalt,
+            )
           : const _TypeDeleteDialog(),
     );
 
@@ -263,8 +278,12 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
 class _PinConfirmDialog extends StatefulWidget {
   final String storedPinHash;
+  final String storedPinSalt;
 
-  const _PinConfirmDialog({required this.storedPinHash});
+  const _PinConfirmDialog({
+    required this.storedPinHash,
+    required this.storedPinSalt,
+  });
 
   @override
   State<_PinConfirmDialog> createState() => _PinConfirmDialogState();
@@ -294,8 +313,7 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
 
   void _verify() {
     final entered = _digits.join();
-    final hash = base64Encode(utf8.encode(entered));
-    if (hash == widget.storedPinHash) {
+    if (PinHasher.verify(entered, widget.storedPinSalt, widget.storedPinHash)) {
       Navigator.of(context).pop(true);
     } else {
       setState(() {

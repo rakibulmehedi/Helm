@@ -111,6 +111,21 @@
 Hive typeId registry updated: AuditEventModelAdapter=5 registered.
 New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/export-data`
 
+## 5c. D2 Beta Instrumentation — COMPLETE (2026-06-06)
+
+- `AnalyticsService` abstract + `LocalAnalyticsService` (debugPrint, kDebugMode-gated)
+- `event_registry.dart` — 15 event constants (10 transactional, 5 boundary)
+- Dashboard, income, pipeline, PIN, export, deletion screens wired
+- Zero PII, zero persistence, zero third-party SDK
+
+## 5d. D3 Closed Beta Readiness — COMPLETE (2026-06-06)
+
+- **Critical bug fixed**: PIN deletion confirmation used `base64Encode` instead of `PinHasher.verify()` — account deletion was broken for PIN-protected users
+- 7 beta docs created in `docs/beta/`: readiness checklist, manual QA script, validation protocol, tester onboarding script, founder observation sheet, go/no-go criteria, known limitations
+- Quality gate: dart analyze 0/0/0, flutter test 38/38 pass, Hive TypeIds clean, all routes healthy
+- 17 known limitations documented, 0 beta blockers remaining
+- Verdict: **CONDITIONAL GO** — pending release build verification on device + tester recruitment
+
 ## 6. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
 - Biometric auth (D1.04 deferred — needs `local_auth` package approval)
@@ -121,7 +136,7 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Core Wedge: Pipeline-aware Safe-to-Spend
 - Target: $800–$3,000/month USD earners using Payoneer/nsave/ElevatePay
 - MVP Goal: Validate manual pipeline maintenance + S2S trust
-- Next: Doctrine gap resolution → Closed Beta (15–25 freelancers, 4 weeks)
+- Next: Release build verification → APK distribution → Closed Beta (15-25 freelancers, 4 weeks)
 - Strategic Authority: `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`
 
 ## 8. Doctrine-Killed Features
