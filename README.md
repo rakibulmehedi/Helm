@@ -1,195 +1,189 @@
-# Pocketa — Flutter Finance App for Freelancers
+<p align="center">
+  <img src="assets/banner.png" alt="Pocketa safe-to-spend cash flow tracker banner" width="100%">
+</p>
 
-**Know what money is actually safe to spend.**
+# Pocketa - Safe-to-spend cash flow clarity for freelancers
 
 [![CI](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/github/v/release/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/releases)
-[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](LICENSE)
-[![Last Commit](https://img.shields.io/github/last-commit/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/commits/main)
-[![Flutter](https://img.shields.io/badge/Built%20with-Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/blob/main/LICENSE)
+[![Flutter](https://img.shields.io/badge/Flutter-3.7%2B-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
 
-Pocketa is a Flutter finance app for freelancers with unstable income. Unlike traditional expense trackers that assume a fixed monthly salary, Pocketa calculates a single Safe-to-Spend number from received income minus tax reserve, upcoming fixed costs, and anxiety buffer — so you always know what is actually safe to spend, without anxiety.
+Freelancers overspend when pipeline income feels real before cash lands in hand. Pocketa is a Flutter finance app and safe-to-spend cash flow tracker for Bangladeshi USD-earning freelancers. It models expected, pending, and received income, subtracts fixed costs, safety buffer, and estimated tax, then shows one trusted BDT number you can act on now.
 
-> Built for Bangladeshi freelancers and anyone whose income does not arrive on a fixed schedule.
-
----
+> Built for freelancers who earn in USD, spend in BDT, and need clarity faster than a spreadsheet can give it.
 
 ## Table of Contents
 
-- [The Problem](#the-problem)
-- [Key Features](#key-features)
-- [Architecture](#architecture)
-- [Current Status](#current-status)
-- [Setup](#setup)
+- [What Pocketa does](#what-pocketa-does)
+- [Why Pocketa is different](#why-pocketa-is-different)
+- [Safe-to-spend calculator](#safe-to-spend-calculator)
+- [Income pipeline workflow](#income-pipeline-workflow)
+- [Getting started](#getting-started)
+- [Flutter app architecture](#flutter-app-architecture)
+- [Current status](#current-status)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
+- [Disclaimer](#disclaimer)
 - [License](#license)
 
----
+## What Pocketa does
 
-## The Problem
+Pocketa answers one operational question: how much money is actually safe to spend right now?
 
-Traditional finance apps assume you have a stable monthly salary. Freelancers do not. Money arrives in bursts — some received, some pending, some expected. Without clarity, you either overspend money that has not arrived yet, or under-spend money that is already in your pocket.
-
-Pocketa solves this with a single, honest number: **your Safe-to-Spend balance**.
-
----
-
-## Key Features
-
-### Income Pipeline
-Track every income entry across three status layers:
-- **Expected** — invoiced or promised, not yet confirmed
-- **Pending** — client confirmed, payment in transit
-- **Received** — money in hand, safe to count
-
-### Safe-to-Spend Hero
-A single number on the dashboard — not your total balance — showing what you can actually spend after deducting:
-- Tax reserve (your estimated rate, not spent yet)
-- Upcoming fixed costs (due within 30 days)
-- Anxiety buffer (your personal safety margin)
-
-### Transparent Breakdown
-Tap the Safe-to-Spend number to see the full math: every deduction, every reason, no black box.
-
-### Transaction Tracking
-Log daily expenses. Transactions reduce your liquid cash in real time.
-
-### Fixed Cost Management
-Define recurring costs (rent, subscriptions, tools). The engine deducts only what is due within 30 days.
-
-### Tax Reserve Estimate
-Set your tax rate (0–40%). Tax is reserved from gross received income, not from net cash. This is an estimate — not legal or tax advice.
-
-### Anxiety Buffer
-A personal safety margin you set. Keeps a cushion so you never feel financially exposed.
-
-### Offline-First
-No account required. All data is stored locally on device. Nothing leaves your phone.
-
----
-
-## Architecture
-
-| Layer | Technology |
+| Need | How Pocketa handles it |
 |---|---|
-| Framework | Flutter (Dart 3.7+) |
-| State Management | Riverpod (StateNotifier) |
-| Local Storage | Hive (MVP; migration to Drift planned post-validation) |
-| Navigation | GoRouter |
-| Architecture | Feature-first clean architecture |
-| Domain separation | Entity / Model split; zero Hive imports in domain layer |
-| Engineering OS | Agentic engineering with full governance documentation |
+| Future income without false confidence | Tracks expected, pending, and received income separately |
+| Spendable cash you can trust | Computes a Safe-to-Spend number from current financial reality |
+| Recurring obligations | Deducts fixed costs that are due soon |
+| Financial stress margin | Applies an editable safety buffer |
+| Trust and auditability | Keeps audit logs, CSV export, PIN protection, and account deletion in product |
 
-### Folder Structure
+## Why Pocketa is different
 
-```
-lib/
-├── config/           # Routes, constants
-├── core/             # Shared themes, utils, widgets, local storage
-├── features/
-│   ├── dashboard/    # Dashboard screen
-│   ├── income/       # Income pipeline (data, domain, presentation)
-│   ├── safe_to_spend/ # Safe-to-Spend engine (calculator, settings, hero)
-│   ├── splash/       # Splash screen
-│   └── transactions/ # Transaction CRUD (data, domain, presentation)
-└── l10n/             # Localization (English + Bengali)
-```
+Most personal finance apps tell freelancers what happened. Pocketa is built to tell them what is safe to do next.
 
----
-
-## Current Status
-
-**Phase 8 Complete — MVP core is production-grade.**
-
-| Phase | Description | Status |
+| Problem | Spreadsheet or generic tracker | Pocketa |
 |---|---|---|
-| Phase 7 | Freelancer Income Pipeline | Complete |
-| Phase 7f | Domain / Storage Abstraction | Complete |
-| Phase 8a | Safe-to-Spend Formula & Data Contract | Complete |
-| Phase 8b | Calculation Engine (26 unit tests) | Complete |
-| Phase 8c | Settings Screen | Complete |
-| Phase 8d | Dashboard Hero | Complete |
-| Phase 8e | UX Hardening | Complete |
-| Phase 8f | Real Device QA + Validation Prep | Complete |
-| Next | User Validation Sprint (5–10 real users, 30 days) | Planned |
+| USD income, BDT spending | Manual formulas, easy to drift | Designed around dual-currency freelancer cash flow |
+| Pending money vs real cash | Often mixed into one mental balance | Three-state income pipeline keeps them separate |
+| Safe spending decision | Requires manual subtraction | One computed Safe-to-Spend number |
+| Trust in numbers | Hidden logic or fragile formulas | Transparent breakdown, audit trail, exportable data |
 
-See [docs/STATUS.md](docs/STATUS.md) for full current state.
+## Safe-to-spend calculator
 
----
+Pocketa centers product experience around one trusted figure instead of raw balance.
 
-## Setup
+- Safe-to-Spend hero metric, computed in real time and never stored
+- Breakdown drawer that shows every deduction behind spendable cash
+- Fixed cost registry for recurring obligations
+- Adjustable safety buffer from 5% to 30%
+- Pending and expected income excluded from primary spendable cash
+- Fallback display of `—` when calculation cannot be trusted
+- Trust layer support through PIN entry, audit log, CSV export, and account deletion
+
+## Income pipeline workflow
+
+Income stays visible without being mistaken for cash in hand.
+
+| Status | Meaning | Included in Safe-to-Spend |
+|---|---|---|
+| Expected | Promised or invoiced, not yet confirmed | No |
+| Pending | Confirmed and in transit | No |
+| Received | Money in hand | Yes |
+
+Current workflow covers:
+- create and edit income entries with timing and FX context
+- move entries through expected, pending, and received states
+- update the most common transition quickly from pending to received
+- keep financial edits traceable through the audit log
+
+## Getting started
+
+### Prerequisites
+
+- Flutter SDK with Dart 3.7+
+- Android Studio, Xcode, or connected device
+- Optional: FVM for version pinning
+
+### Run locally
 
 ```bash
-# 1. Clone
 git clone https://github.com/rakibulmehedi/Pocketa-V2.git
 cd Pocketa-V2
-
-# 2. Install dependencies
 flutter pub get
-
-# 3. Generate Hive adapters
-flutter pub run build_runner build --delete-conflicting-outputs
-
-# 4. Run the app
+dart run build_runner build --delete-conflicting-outputs
 flutter run
 ```
 
-### Analyzer
+First run flow:
+1. Open welcome and onboarding flow
+2. Complete setup inputs
+3. Create PIN
+4. Land on home cockpit with Safe-to-Spend hero
+
+### Quality checks
 
 ```bash
 dart analyze
-# Expected: No issues found!
-```
-
-### Tests
-
-```bash
 flutter test
-# Expected: 26 tests passing
 ```
 
-> If using FVM: replace `flutter` with `/path/to/fvm/versions/stable/bin/flutter`
-> and `dart` with `/path/to/fvm/versions/stable/bin/dart`
+### Common setup notes
 
----
+- If you use FVM, replace `flutter` with `fvm flutter` and `dart` with `fvm dart`.
+- If generated Hive adapters are stale, rerun `dart run build_runner build --delete-conflicting-outputs`.
+
+## Flutter app architecture
+
+| Layer | Stack |
+|---|---|
+| Framework | Flutter |
+| Language | Dart 3.7+ |
+| State management | Riverpod |
+| Local storage | Hive |
+| Navigation | GoRouter |
+| Architecture style | Feature-first, offline-first clean architecture |
+
+```text
+lib/
+├── application/
+├── config/router/
+├── core/
+├── features/
+│   ├── account/
+│   ├── audit_log/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── export/
+│   ├── income/
+│   ├── onboarding/
+│   ├── safe_to_spend/
+│   ├── splash/
+│   └── transactions/
+└── l10n/
+```
+
+## Current status
+
+Pocketa is in doctrine-aligned MVP refinement. Trust layer foundation is complete, beta instrumentation is next.
+
+| Area | Status |
+|---|---|
+| UX canon implementation through Sprint 6 | Complete |
+| D1 trust layer | Complete |
+| PIN security patch | Complete |
+| Audit log | Complete |
+| CSV export | Complete |
+| Account deletion | Complete |
+| D2 beta instrumentation | Pending |
+| D3 closed beta readiness | Pending |
 
 ## Documentation
 
-Full documentation is organized under [`docs/`](docs/README.md).
+Key project docs:
 
-| Category | Path |
+| Topic | Path |
 |---|---|
-| Product Brain | [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) |
-| Architecture Rules | [docs/core/ARCHITECTURE_RULES.md](docs/core/ARCHITECTURE_RULES.md) |
+| Product brain | [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) |
+| Final doctrine | [docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md](docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md) |
+| Architecture rules | [docs/core/ARCHITECTURE_RULES.md](docs/core/ARCHITECTURE_RULES.md) |
 | Roadmap | [docs/core/ROADMAP.md](docs/core/ROADMAP.md) |
-| Safe-to-Spend Formula | [docs/specs/SAFE_TO_SPEND_MODEL.md](docs/specs/SAFE_TO_SPEND_MODEL.md) |
-| Current Sprint | [docs/tracking/CURRENT_SPRINT.md](docs/tracking/CURRENT_SPRINT.md) |
-| Project State | [docs/tracking/PROJECT_STATE.md](docs/tracking/PROJECT_STATE.md) |
-| Decision Log | [docs/tracking/DECISION_LOG.md](docs/tracking/DECISION_LOG.md) |
-| All Docs Index | [docs/README.md](docs/README.md) |
-
----
-
-## Disclaimer
-
-Tax reserve figures are estimates based on the rate you configure. Pocketa is not a tax advisor and does not provide legal or financial advice. Always consult a qualified professional for tax obligations.
-
----
-
-## Author
-
-**Rakibul Islam Mehedi** — Flutter Developer
-[GitHub](https://github.com/rakibulmehedi) · [LinkedIn](https://www.linkedin.com/in/flutter-developer-rakibul-islam-mehedi/) · rakibulmehedi.dev@gmail.com
-
----
+| Current sprint | [docs/tracking/CURRENT_SPRINT.md](docs/tracking/CURRENT_SPRINT.md) |
+| Project state | [docs/tracking/PROJECT_STATE.md](docs/tracking/PROJECT_STATE.md) |
+| Contributing guide | [CONTRIBUTING.md](CONTRIBUTING.md) |
+| Docs index | [docs/README.md](docs/README.md) |
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing code or docs. Pocketa uses spec-first development, strict architecture boundaries, and documentation-driven workflow.
+
+## Disclaimer
+
+Pocketa provides automated financial tracking assistance, not legal, tax, or professional financial advice.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
