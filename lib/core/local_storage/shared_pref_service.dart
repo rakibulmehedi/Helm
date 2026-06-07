@@ -48,6 +48,17 @@ class SharedPrefServices {
     await _prefs?.remove(key);
   }
 
+  // ── S2S hint ─────────────────────────────────────────────────────────────
+  static const String _stsHintShownKey = 'sts_hint_shown';
+
+  static bool getStsHintShown() {
+    return _prefs?.getBool(_stsHintShownKey) ?? false;
+  }
+
+  static Future<void> setStsHintShown(bool shown) async {
+    await _prefs?.setBool(_stsHintShownKey, shown);
+  }
+
   static const String _liquidBalanceBdtKey = 'liquid_balance_bdt';
   static const String _incomePatternKey = 'income_pattern';
 

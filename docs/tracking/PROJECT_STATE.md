@@ -29,9 +29,10 @@
 - All 3 beta blockers resolved (B1+B2+B3)
 - 3 major issues resolved (M1+M2+M3)
 - 1 polish item resolved (P5 financial disclaimer)
-- Remaining gaps: no Bangla (M4), missing onboarding Step 6 (M5)
+- Remaining gaps: no Bangla (M4)
 - Core S2S engine + dashboard + pipeline: production-grade
-- Distance to beta: ~14 hours across 3 sprints (A3-A5)
+- Onboarding now 6 steps with optional first pipeline entry
+- Distance to beta: ~10 hours across 2 sprints (A4-A5)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
 - See `docs/planning/ALPHA_TO_BETA_ROADMAP.md` for sprint plan
 
@@ -168,6 +169,14 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - P5 FIXED: "Not financial advice" disclaimer added to S2S breakdown sheet
 - Quality gate: dart analyze 0/0/0, 38/38 tests pass
 - **0 beta blockers remaining**
+
+## 6c. A3 First Impression Polish — COMPLETE (2026-06-07)
+
+- M5 FIXED: Onboarding Step 6 — optional first pipeline entry page
+- P2 FIXED: One-time S2S hint banner on first dashboard view
+- New file: `first_pipeline_page.dart` (onboarding page)
+- SharedPreferences: `sts_hint_shown` flag for one-time hint
+- Quality gate: dart analyze 0/0/0, 38/38 tests pass
 
 ## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)

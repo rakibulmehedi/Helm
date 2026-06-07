@@ -4,6 +4,15 @@
 
 ## 1. Active Sprint
 
+**Sprint A3 (First Impression Polish):**
+Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 38/38 tests pass.
+- M5 FIXED: Onboarding Step 6 added — optional first pipeline entry ("Any money coming in soon?")
+- P2 FIXED: One-time "Tap the number to see the math" hint banner on first dashboard view
+- Onboarding now 6 steps: qualifier → balance → fixed costs → income pattern → buffer → pipeline
+- Pipeline entry created as "Expected" status with 14-day expected date
+- S2S hint uses SharedPreferences flag, dismissible on tap
+- Next sprint: A4 (Test Coverage + Design Consistency)
+
 **Sprint A2 (Beta Blocker Resolution):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 38/38 tests pass.
 - B1 FIXED: Audit log now reachable from Settings via "Change history" ListTile

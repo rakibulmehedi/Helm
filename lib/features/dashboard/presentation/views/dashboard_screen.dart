@@ -51,12 +51,16 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
+  bool _showStsHint = false;
+
   @override
   void initState() {
     super.initState();
+    // A3.2 — Show one-time S2S hint on first dashboard view.
+    if (!SharedPrefServices.getStsHintShown()) {
+      _showStsHint = true;
+    }
     // D2.03 — Fire session-open analytics events on every dashboard mount.
-    // Using addPostFrameCallback so that ref.read is safe after the first
-    // frame; initState fires before the widget tree is fully built.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       final analytics = ref.read(analyticsProvider);
@@ -69,6 +73,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         },
       );
     });
+  }
+
+  void _dismissStsHint() {
+    setState(() => _showStsHint = false);
+    SharedPrefServices.setStsHintShown(true);
   }
 
   @override
@@ -112,7 +121,47 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             top: PocketaSpacing.s4,
             bottom: 100, // FAB + bottom nav clearance
           ),
-          child: PocketaRealityStack(
+          child: Column(
+            children: [
+              // A3.2 — One-time S2S hint
+              if (_showStsHint)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: PocketaSpacing.screenEdge,
+                    right: PocketaSpacing.screenEdge,
+                    bottom: PocketaSpacing.s3,
+                  ),
+                  child: GestureDetector(
+                    onTap: _dismissStsHint,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: colors.interactive.withValues(alpha: 0.08),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: colors.interactive.withValues(alpha: 0.2)),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.touch_app_rounded,
+                              size: 18, color: colors.interactive),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Text(
+                              'Tap the number to see the math',
+                              style: typography.bodySm
+                                  .copyWith(color: colors.interactive),
+                            ),
+                          ),
+                          Icon(Icons.close_rounded,
+                              size: 16, color: colors.inkTertiary),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              PocketaRealityStack(
             // Tier 1 — Hero: dominant S2S answer.
             heroTier: S2sHeroBlock(
               result: stsResult,
@@ -147,6 +196,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               result: stsResult,
               onAddPipelineEntry: () => context.push(RouteNames.addIncome),
             ),
+          ),
+            ],
           ),
         ),
       ),

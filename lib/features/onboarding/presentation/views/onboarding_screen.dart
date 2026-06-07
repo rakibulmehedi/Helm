@@ -1,14 +1,13 @@
 // lib/features/onboarding/presentation/views/onboarding_screen.dart
-// UX-2.09 — 5-step doctrine-aligned onboarding flow.
+// UX-2.09 — 6-step doctrine-aligned onboarding flow.
 //
-// Scope: qualifier → balance → fixed costs → income pattern → buffer → home
+// Scope: qualifier → balance → fixed costs → income pattern → buffer → pipeline → home
 // Skipped: email/auth (Screen 2), PIN/biometric (Screen 7) — trust layer, non-goal for UX-2.
 //
 // Rules enforced:
 //   ONB-002: no back button, no AppBar
 //   ONB-003: 2pt progress line only, no step numbers
-//   ONB-010: no skip buttons
-//   ONB-012: after buffer screen, go straight to home (no celebration screen)
+//   ONB-012: after last step, go straight to home (no celebration screen)
 //   ONB-014: no confetti, no "Welcome!", no tour
 
 import 'package:flutter/material.dart';
@@ -24,15 +23,18 @@ import 'package:pocketa_v2/features/onboarding/presentation/views/pages/buffer_c
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/fixed_costs_page.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/income_pattern_page.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/liquid_balance_page.dart';
+import 'package:pocketa_v2/features/onboarding/presentation/views/pages/first_pipeline_page.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/widgets/onboarding_progress_line.dart';
+import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
+import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
-// ONB-003 progress values per step
-const List<double> _kStepProgress = [0.0, 0.25, 0.50, 0.63, 0.88];
+// ONB-003 progress values per step (6 steps)
+const List<double> _kStepProgress = [0.0, 0.20, 0.40, 0.55, 0.70, 0.90];
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,6 +55,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
     );
+  }
+
+  /// Creates a pipeline entry from onboarding step 6, then completes.
+  Future<void> _addPipelineEntryAndComplete(PipelineDraftEntry entry) async {
+    final now = DateTime.now();
+    final incomeEntity = IncomeEntryEntity(
+      id: IdGenerator.uniqueId(),
+      clientName: entry.clientName,
+      projectName: '',
+      amount: entry.amount,
+      currency: entry.currency,
+      status: IncomeStatus.expected,
+      expectedDate: now.add(const Duration(days: 14)),
+      createdAt: now,
+      updatedAt: now,
+    );
+    await ref.read(incomeNotifierProvider.notifier).addIncome(incomeEntity);
+    await _completeOnboarding();
   }
 
   /// Persists all draft data then navigates to home (ONB-012).
@@ -153,7 +173,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   },
                 ),
 
-                // Step 4 — Buffer comfort (last step)
+                // Step 4 — Buffer comfort
                 BufferComfortPage(
                   initialBufferPercent: _draft.bufferPercent,
                   liquidBalanceBdt: _draft.liquidBalanceBdt,
@@ -162,8 +182,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     setState(() {
                       _draft = _draft.copyWith(bufferPercent: bufferPct);
                     });
-                    _completeOnboarding();
+                    _goToStep(5);
                   },
+                ),
+
+                // Step 5 — First pipeline entry (optional, M5)
+                FirstPipelinePage(
+                  onAddEntry: (entry) => _addPipelineEntryAndComplete(entry),
+                  onSkip: () => _completeOnboarding(),
                 ),
               ],
             ),
