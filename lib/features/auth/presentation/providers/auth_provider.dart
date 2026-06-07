@@ -23,6 +23,10 @@ class AuthNotifier extends Notifier<AuthState> {
   static const String _pinSaltKey = 'pin_salt';
   static const String _pinIsSetupKey = 'pin_is_setup';
 
+  /// In-memory session flag. Resets on cold start (app process kill).
+  /// Checked by GoRouter redirect to enforce PIN entry every app-open.
+  static bool sessionAuthenticated = false;
+
   Box<dynamic> get _box => Hive.box<dynamic>(AppBoxNames.authBox);
 
   @override
@@ -48,6 +52,7 @@ class AuthNotifier extends Notifier<AuthState> {
     await _box.put(_pinSaltKey, salt);
     await _box.put(_pinHashKey, PinHasher.hashPin(pin, salt));
     await _box.put(_pinIsSetupKey, true);
+    sessionAuthenticated = true;
     state = const AuthState(status: AuthStatus.authenticated);
   }
 
@@ -62,6 +67,7 @@ class AuthNotifier extends Notifier<AuthState> {
     if (stored == null || salt == null) return false;
 
     if (PinHasher.verify(pin, salt, stored)) {
+      sessionAuthenticated = true;
       state = const AuthState(status: AuthStatus.authenticated);
       return true;
     }
@@ -76,6 +82,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
   /// Locks the session. PIN is preserved — user must re-enter to unlock.
   void logout() {
+    sessionAuthenticated = false;
     state = AuthState(
       status: AuthStatus.locked,
       failedAttempts: state.failedAttempts,
@@ -84,6 +91,7 @@ class AuthNotifier extends Notifier<AuthState> {
 
   /// Removes the stored PIN entirely. Resets to setup-required state.
   Future<void> clearPin() async {
+    sessionAuthenticated = false;
     await _box.delete(_pinHashKey);
     await _box.delete(_pinSaltKey);
     await _box.delete(_pinIsSetupKey);

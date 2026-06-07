@@ -19,7 +19,13 @@ class SafeToSpendHero extends ConsumerWidget {
     final currency = SharedPrefServices.getUserCurrency();
     final formatter = NumberFormat('#,##0.00', 'en_US');
 
-    final stsResult = ref.watch(safeToSpendProvider);
+    // B3 fallback: catch provider errors — show "---" instead of fake 0.
+    SafeToSpendResult? stsResult;
+    try {
+      stsResult = ref.watch(safeToSpendProvider);
+    } catch (_) {
+      stsResult = null;
+    }
 
     return Container(
       width: double.infinity,
@@ -39,7 +45,34 @@ class SafeToSpendHero extends ConsumerWidget {
           ),
         ],
       ),
-      child: _buildContent(context, stsResult, theme, isDark, currency, formatter),
+      child: stsResult == null
+          ? _buildErrorFallback(context, theme, isDark)
+          : _buildContent(context, stsResult, theme, isDark, currency, formatter),
+    );
+  }
+
+  Widget _buildErrorFallback(BuildContext context, ThemeData theme, bool isDark) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Safe-to-Spend',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: AppColors.textSecondary,
+            fontSize: ResponsiveUtilities.font(context, 14),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          '---',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontSize: ResponsiveUtilities.font(context, 36),
+            fontWeight: FontWeight.bold,
+            color: AppColors.textSecondary,
+            letterSpacing: -0.5,
+          ),
+        ),
+      ],
     );
   }
 
@@ -333,6 +366,16 @@ class SafeToSpendHero extends ConsumerWidget {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'This is a personal planning tool, not financial advice.',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondary,
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),

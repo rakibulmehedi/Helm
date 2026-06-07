@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
 import 'package:pocketa_v2/features/audit_log/presentation/providers/audit_providers.dart';
 
@@ -97,17 +98,18 @@ class _AuditEventTile extends StatelessWidget {
   }
 
   Color _colorFor(BuildContext context, AuditEventType type) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
     switch (type) {
       case AuditEventType.created:
-        return Colors.green.shade600;
+        return colors.stateSafe;
       case AuditEventType.updated:
-        return Colors.blue.shade600;
+        return colors.interactive;
       case AuditEventType.deleted:
-        return Colors.red.shade600;
+        return colors.stateAtRisk;
       case AuditEventType.confirmed:
-        return Colors.teal.shade600;
+        return colors.stateSafe;
       case AuditEventType.exported:
-        return Colors.orange.shade600;
+        return colors.stateTight;
     }
   }
 

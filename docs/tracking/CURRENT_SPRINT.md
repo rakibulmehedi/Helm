@@ -4,15 +4,23 @@
 
 ## 1. Active Sprint
 
+**Sprint A2 (Beta Blocker Resolution):**
+Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 38/38 tests pass.
+- B1 FIXED: Audit log now reachable from Settings via "Change history" ListTile
+- B2 FIXED: Auth guard enforces PIN entry on cold start via `AuthNotifier.sessionAuthenticated` static flag
+- B3 FIXED: S2S hero shows "---" on provider exception instead of fake 0
+- M3 FIXED: History tab removed from bottom nav (3-tab layout: Home, Pipeline, Settings)
+- M1 FIXED: STS Settings migrated from AppColors to PocketaColors ThemeExtension
+- M2 FIXED: Audit Log migrated from raw Material colors to PocketaColors tokens
+- P5 FIXED: "Not financial advice" disclaimer added to S2S breakdown sheet
+- 0 beta blockers remaining
+- Next sprint: A3 (First Impression Polish)
+
 **Sprint A1 (Internal Alpha Maturity Audit):**
 Status: **COMPLETE** ✅ — 2026-06-07. Code-only audit (no implementation changes).
-- Full code inspection: 103 Dart files, 15 user flows, all screens
-- Found 3 beta blockers: audit log unreachable (B1), auth guard gap (B2), missing "---" fallback (B3)
-- Found 5 major issues: legacy design tokens (M1-M2), History placeholder (M3), no Bangla (M4), missing onboarding step (M5)
-- Found 9 polish items (P1-P9)
+- Found 3 beta blockers, 5 major issues, 9 polish items
 - Verdict: **INTERNAL ALPHA READY** — downgrades D3 "CONDITIONAL GO"
-- 4 deliverables: INTERNAL_ALPHA_MATURITY_AUDIT.md, UX_MATURITY_GAP_REPORT.md, FEATURE_COMPLETENESS_MATRIX.md, ALPHA_TO_BETA_ROADMAP.md
-- Next sprint: A2 (Beta Blocker Resolution, ~3 hours)
+- Next sprint: A2 (Beta Blocker Resolution)
 
 **Sprint 8 (D3 Closed Beta Readiness):**
 Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. 38/38 tests pass.

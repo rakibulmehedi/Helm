@@ -25,12 +25,13 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: INTERNAL ALPHA READY** (2026-06-07, A1 audit)
-- NOT external closed beta ready
-- 3 beta blockers: audit log unreachable, auth guard cold-start gap, missing "---" S2S fallback
-- 5 major issues: legacy design tokens (Settings, Audit Log), History placeholder, no Bangla, missing onboarding step
+**Current Verdict: BETA BLOCKER FREE** (2026-06-07, A2 sprint)
+- All 3 beta blockers resolved (B1+B2+B3)
+- 3 major issues resolved (M1+M2+M3)
+- 1 polish item resolved (P5 financial disclaimer)
+- Remaining gaps: no Bangla (M4), missing onboarding Step 6 (M5)
 - Core S2S engine + dashboard + pipeline: production-grade
-- Distance to beta: ~17 hours across 4 sprints (A2-A5)
+- Distance to beta: ~14 hours across 3 sprints (A3-A5)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
 - See `docs/planning/ALPHA_TO_BETA_ROADMAP.md` for sprint plan
 
@@ -38,9 +39,9 @@
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
-- STS Settings + Audit Log use legacy AppColors (not PocketaColors)
+- STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
 - 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
-- Design system migration: ~65%
+- Design system migration: ~70%
 - Widget adoption: 9/13 (69%)
 - Trust Layer score: 23/35 (66%)
 - Test coverage: 38 tests in 2 files only (PinHasher, S2S Calculator)
@@ -155,6 +156,18 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Widget Adoption: 9/13 (69%)
 - Flow scores: Dashboard 5/5, Pipeline 5/5, S2S Breakdown 5/5, Export 4/5, Deletion 5/5, Settings 3/5, Audit Log 2/5, History 1/5
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md`, `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
+
+## 6b. A2 Beta Blocker Resolution — COMPLETE (2026-06-07)
+
+- B1 FIXED: "Change history" ListTile added to Settings (navigates to `/audit-log`)
+- B2 FIXED: `AuthNotifier.sessionAuthenticated` static flag + router redirect enforces PIN on cold start
+- B3 FIXED: S2S hero catches provider exceptions, shows "---" fallback
+- M1 FIXED: STS Settings migrated from `AppColors` to `PocketaColors` ThemeExtension
+- M2 FIXED: Audit Log migrated from raw `Colors.*` to `PocketaColors` tokens
+- M3 FIXED: History tab removed from bottom nav (3-tab: Home, Pipeline, Settings)
+- P5 FIXED: "Not financial advice" disclaimer added to S2S breakdown sheet
+- Quality gate: dart analyze 0/0/0, 38/38 tests pass
+- **0 beta blockers remaining**
 
 ## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)

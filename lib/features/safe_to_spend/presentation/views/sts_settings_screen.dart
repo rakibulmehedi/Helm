@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
@@ -36,9 +36,9 @@ class StsSettingsScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Estimated percentage of income to reserve for taxes.',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),
             Row(
@@ -49,7 +49,7 @@ class StsSettingsScreen extends ConsumerWidget {
                     min: 0.0,
                     max: 0.4,
                     divisions: 50,
-                    activeColor: AppColors.primary,
+                    activeColor: colors.interactive,
                     label: '${(settings.taxRate * 100).round()}%',
                     onChanged: (val) {
                       ref.read(stsSettingsProvider.notifier).updateTaxRate(val);
@@ -74,15 +74,15 @@ class StsSettingsScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Reserve this % of expected income as a buffer',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
             ),
             const SizedBox(height: 4),
             Text(
               '${settings.bufferPercent.round()}% of expected income',
-              style: const TextStyle(
-                color: AppColors.textSecondary,
+              style: TextStyle(
+                color: colors.inkSecondary,
                 fontSize: 13,
                 fontStyle: FontStyle.italic,
               ),
@@ -96,7 +96,7 @@ class StsSettingsScreen extends ConsumerWidget {
                     min: 5.0,
                     max: 30.0,
                     divisions: 25,
-                    activeColor: AppColors.primary,
+                    activeColor: colors.interactive,
                     label: '${settings.bufferPercent.round()}%',
                     onChanged: (val) {
                       ref
@@ -123,9 +123,9 @@ class StsSettingsScreen extends ConsumerWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            const Text(
+            Text(
               'Fixed costs deducted from Safe-to-Spend each month.',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
+              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
             ),
             const SizedBox(height: 16),
             if (fixedCosts.isEmpty)
@@ -135,10 +135,10 @@ class StsSettingsScreen extends ConsumerWidget {
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
                     'No fixed costs added yet.',
-                    style: TextStyle(color: AppColors.textSecondary),
+                    style: TextStyle(color: colors.inkSecondary),
                   ),
                 ),
               )
@@ -157,7 +157,7 @@ class StsSettingsScreen extends ConsumerWidget {
                     background: Container(
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.only(right: 20),
-                      color: AppColors.error,
+                      color: colors.stateAtRisk,
                       child: const Icon(Icons.delete, color: Colors.white),
                     ),
                     onDismissed: (_) {
@@ -222,6 +222,14 @@ class StsSettingsScreen extends ConsumerWidget {
               title: const Text('Export my data'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => context.push(RouteNames.exportData),
+            ),
+
+            // ── Change history ──────────────────────────────────────────────────
+            ListTile(
+              leading: const Icon(Icons.history_outlined),
+              title: const Text('Change history'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push(RouteNames.auditLog),
             ),
 
             // ── Danger zone ────────────────────────────────────────────────────

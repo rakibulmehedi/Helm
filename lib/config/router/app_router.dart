@@ -20,6 +20,7 @@ import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/auth/presentation/views/pin_entry_screen.dart';
 import 'package:pocketa_v2/features/auth/presentation/views/pin_setup_screen.dart';
@@ -75,11 +76,6 @@ final GoRouter appRouter = GoRouter(
           path: RouteNames.pipeline,
           name: 'pipeline',
           builder: (context, state) => const PipelineScreen(),
-        ),
-        GoRoute(
-          path: RouteNames.history,
-          name: 'history',
-          builder: (context, state) => const _HistoryPlaceholder(),
         ),
         GoRoute(
           path: RouteNames.settings,
@@ -181,10 +177,9 @@ class _TabItem {
 }
 
 const List<_TabItem> _tabs = [
-  _TabItem(path: RouteNames.home,     icon: Icons.home_rounded,         label: 'Home'),
-  _TabItem(path: RouteNames.pipeline, icon: Icons.inbox_rounded,         label: 'Pipeline'),
-  _TabItem(path: RouteNames.history,  icon: Icons.receipt_long_rounded,  label: 'History'),
-  _TabItem(path: RouteNames.settings, icon: Icons.settings_rounded,      label: 'Settings'),
+  _TabItem(path: RouteNames.home,     icon: Icons.home_rounded,     label: 'Home'),
+  _TabItem(path: RouteNames.pipeline, icon: Icons.inbox_rounded,    label: 'Pipeline'),
+  _TabItem(path: RouteNames.settings, icon: Icons.settings_rounded, label: 'Settings'),
 ];
 
 class _AppShell extends StatelessWidget {
@@ -221,31 +216,6 @@ class _AppShell extends StatelessWidget {
                   label: t.label,
                 ))
             .toList(),
-      ),
-    );
-  }
-}
-
-// ---------------------------------------------------------------------------
-// History placeholder — UX-3 will replace this with the real history screen.
-// ---------------------------------------------------------------------------
-
-class _HistoryPlaceholder extends StatelessWidget {
-  const _HistoryPlaceholder();
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
-
-    return Scaffold(
-      backgroundColor: colors.canvas,
-      body: Center(
-        child: Text(
-          'Transaction history coming in a future sprint.',
-          style: typography.bodyMd.copyWith(color: colors.inkTertiary),
-          textAlign: TextAlign.center,
-        ),
       ),
     );
   }
@@ -293,10 +263,12 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
     if (!pinIsSetUp) {
       return RouteNames.pinSetup;
     }
-    // PIN is set up — in-memory session auth is handled at the screen level
-    // via authProvider. The redirect does not lock on every navigation to
-    // avoid infinite redirect loops; PinEntryScreen is the entry point when
-    // the app cold-starts with a set PIN.
+
+    // PIN is set up but session not authenticated — force PIN entry.
+    // sessionAuthenticated resets on cold start (process kill).
+    if (!AuthNotifier.sessionAuthenticated) {
+      return RouteNames.pinEntry;
+    }
   }
 
   return null;

@@ -2,11 +2,11 @@
 
 ## Current Sprint
 
-Sprint: A2 — Beta Blocker Resolution (next)
+Sprint: A3 — First Impression Polish (next)
 
 ## In Progress
 
-- [ ] Sprint A2: Beta Blocker Resolution (8 tasks — see `docs/planning/ALPHA_TO_BETA_ROADMAP.md`)
+*None*
 
 ## Completed UX Canon Sprints
 
@@ -19,10 +19,11 @@ Sprint: A2 — Beta Blocker Resolution (next)
 7. [x] Sprint 7: D2 Beta Instrumentation (6 tasks) — **COMPLETE [2026-06-06]**
 8. [x] Sprint 8: D3 Closed Beta Readiness (8 tasks) — **COMPLETE [2026-06-06]**
 9. [x] Sprint A1: Internal Alpha Maturity Audit — **COMPLETE [2026-06-07]** (3 blockers, 5 majors found)
+10. [x] Sprint A2: Beta Blocker Resolution (8 tasks) — **COMPLETE [2026-06-07]** (B1+B2+B3+M1+M2+M3+P5)
 
 ## Next (Alpha-to-Beta Roadmap)
 
-1. [ ] Sprint A2: Beta Blocker Resolution (~3h) — B1+B2+B3+M1+M2+M3+P5
+1. [x] ~~Sprint A2: Beta Blocker Resolution~~ — **DONE**
 2. [ ] Sprint A3: First Impression Polish (~4h) — onboarding Step 6, S2S hint, splash, dark mode
 3. [ ] Sprint A4: Test Coverage + Design Consistency (~6h) — widget tests, PocketaToast, PocketaAuditCard
 4. [ ] Sprint A5: Bangla + Release Build (~4h) — app_bn.arb, APK, device test
