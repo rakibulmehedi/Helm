@@ -2,22 +2,30 @@
 
 ## Current Sprint
 
-Sprint: UX Canon Implementation — Sprint 3 (UX-2 Onboarding Redesign)
+Sprint: A2 — Beta Blocker Resolution (next)
 
 ## In Progress
 
-- [ ] UX Canon Implementation (8 sprints, 81 tasks — see `docs/planning/UX_EXECUTION_TODO.md`)
+- [ ] Sprint A2: Beta Blocker Resolution (8 tasks — see `docs/planning/ALPHA_TO_BETA_ROADMAP.md`)
 
-## Next (Sprint Order)
+## Completed UX Canon Sprints
 
 1. [x] Sprint 1: UX-5 Visual Identity / Design System (12 tasks) — **COMPLETE [2026-06-05]**
 2. [x] Sprint 2: UX-1 Dashboard Cockpit Redesign (14 tasks) — **COMPLETE [2026-06-05]**
-3. [ ] Sprint 3: UX-2 Onboarding Redesign (11 tasks) — **START HERE**
-4. [ ] Sprint 4: UX-3 Pipeline Quick-Update (10 tasks)
-5. [ ] Sprint 5: UX-4 Microcopy Replacement (8 tasks)
+3. [x] Sprint 3: UX-2 Onboarding Redesign (8/11 tasks) — **COMPLETE [2026-06-05]** (3 deferred)
+4. [x] Sprint 4: UX-3 Pipeline Quick-Update (13 tasks) — **COMPLETE [2026-06-05]**
+5. [x] Sprint 5: UX-4 Microcopy Replacement (8 tasks) — **COMPLETE [2026-06-06]**
 6. [x] Sprint 6: D1 Trust Layer Foundation (11/12 tasks) — **COMPLETE [2026-06-06]** (D1.04 biometric deferred)
 7. [x] Sprint 7: D2 Beta Instrumentation (6 tasks) — **COMPLETE [2026-06-06]**
 8. [x] Sprint 8: D3 Closed Beta Readiness (8 tasks) — **COMPLETE [2026-06-06]**
+9. [x] Sprint A1: Internal Alpha Maturity Audit — **COMPLETE [2026-06-07]** (3 blockers, 5 majors found)
+
+## Next (Alpha-to-Beta Roadmap)
+
+1. [ ] Sprint A2: Beta Blocker Resolution (~3h) — B1+B2+B3+M1+M2+M3+P5
+2. [ ] Sprint A3: First Impression Polish (~4h) — onboarding Step 6, S2S hint, splash, dark mode
+3. [ ] Sprint A4: Test Coverage + Design Consistency (~6h) — widget tests, PocketaToast, PocketaAuditCard
+4. [ ] Sprint A5: Bangla + Release Build (~4h) — app_bn.arb, APK, device test
 
 ## Backlog (Post-Beta / Deferred)
 

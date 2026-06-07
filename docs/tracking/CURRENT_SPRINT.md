@@ -4,6 +4,16 @@
 
 ## 1. Active Sprint
 
+**Sprint A1 (Internal Alpha Maturity Audit):**
+Status: **COMPLETE** ✅ — 2026-06-07. Code-only audit (no implementation changes).
+- Full code inspection: 103 Dart files, 15 user flows, all screens
+- Found 3 beta blockers: audit log unreachable (B1), auth guard gap (B2), missing "---" fallback (B3)
+- Found 5 major issues: legacy design tokens (M1-M2), History placeholder (M3), no Bangla (M4), missing onboarding step (M5)
+- Found 9 polish items (P1-P9)
+- Verdict: **INTERNAL ALPHA READY** — downgrades D3 "CONDITIONAL GO"
+- 4 deliverables: INTERNAL_ALPHA_MATURITY_AUDIT.md, UX_MATURITY_GAP_REPORT.md, FEATURE_COMPLETENESS_MATRIX.md, ALPHA_TO_BETA_ROADMAP.md
+- Next sprint: A2 (Beta Blocker Resolution, ~3 hours)
+
 **Sprint 8 (D3 Closed Beta Readiness):**
 Status: **COMPLETE** ✅ — 2026-06-06. dart analyze 0/0/0. 38/38 tests pass.
 - Critical bug fixed: PIN deletion confirmation used base64 instead of SHA-256 (hash mismatch)

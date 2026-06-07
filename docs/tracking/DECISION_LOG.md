@@ -610,3 +610,29 @@ Impact:
 - Future implementation agents must use `UX_EXECUTION_TODO.md` as their task contract
 - Each task completion must update `CURRENT_SPRINT.md`
 - No task may be marked complete without passing its verification method
+
+---
+
+## Decision 025 — A1 Internal Alpha Maturity Audit Downgrades Beta Readiness
+
+Date: 2026-06-07
+Trigger: A1 Internal Alpha UX & Feature Maturity Audit (full code inspection of 103 Dart files, 15 flows, all screens)
+
+Decision:
+D3 "CONDITIONAL GO" verdict is downgraded to **INTERNAL ALPHA READY**. The product is NOT external closed beta ready. 3 beta blockers, 5 major issues, and 9 polish items identified. Core S2S engine + dashboard + pipeline remain production-grade.
+
+Reason:
+Full code inspection revealed:
+- **B1**: Audit log screen exists but is unreachable from UI (no navigation link in Settings)
+- **B2**: Auth guard in `app_router.dart:288-299` checks PIN setup but NOT session authentication — cold-start may bypass PIN entry
+- **B3**: S2S hero shows 0 instead of "---" on calculation failure (Doctrine §4 item 14 violation)
+- **M1-M2**: STS Settings and Audit Log screens use legacy AppColors instead of PocketaColors
+- **M3**: History tab is placeholder (25% of bottom nav non-functional)
+- **M4**: No Bangla localization
+- **M5**: Onboarding missing first pipeline entry step
+
+Impact:
+- Sprint A2 (Beta Blocker Resolution) commissioned — estimated ~3 hours
+- Sprints A3-A5 defined in `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
+- Total estimated effort to beta: ~17 hours across 4 sprints
+- 4 deliverables created: INTERNAL_ALPHA_MATURITY_AUDIT.md, UX_MATURITY_GAP_REPORT.md, FEATURE_COMPLETENESS_MATRIX.md, ALPHA_TO_BETA_ROADMAP.md

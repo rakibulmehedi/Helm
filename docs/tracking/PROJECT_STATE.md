@@ -23,19 +23,36 @@
 - routing structure
 - localization system
 
-## 3. Known Technical Debt
+## 3. Readiness Status
+
+**Current Verdict: INTERNAL ALPHA READY** (2026-06-07, A1 audit)
+- NOT external closed beta ready
+- 3 beta blockers: audit log unreachable, auth guard cold-start gap, missing "---" S2S fallback
+- 5 major issues: legacy design tokens (Settings, Audit Log), History placeholder, no Bangla, missing onboarding step
+- Core S2S engine + dashboard + pipeline: production-grade
+- Distance to beta: ~17 hours across 4 sprints (A2-A5)
+- See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
+- See `docs/planning/ALPHA_TO_BETA_ROADMAP.md` for sprint plan
+
+## 4. Known Technical Debt
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
+- STS Settings + Audit Log use legacy AppColors (not PocketaColors)
+- 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
+- Design system migration: ~65%
+- Widget adoption: 9/13 (69%)
+- Trust Layer score: 23/35 (66%)
+- Test coverage: 38 tests in 2 files only (PinHasher, S2S Calculator)
 
-## 4. Current Architecture
+## 5. Current Architecture
 - Framework: Flutter
 - State Management: Riverpod
 - Storage: Hive
 - Navigation: GoRouter
 - Paradigm: Offline-first
 
-## 5. Active Modules
+## 6. Active Modules
 - **Phase 7 COMPLETE**: Freelancer Income Pipeline (all sub-phases 7a–7e done)
   - income domain entity, Hive model (typeId:2), local data source, repository, providers — stable
   - income add/edit form screen with full validation — stable
@@ -125,12 +142,25 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Quality gate: dart analyze 0/0/0, flutter test 38/38 pass, Hive TypeIds clean, all routes healthy
 - 17 known limitations documented, 0 beta blockers remaining
 - Verdict: **CONDITIONAL GO** — pending release build verification on device + tester recruitment
+- **NOTE**: D3 verdict downgraded to INTERNAL ALPHA READY by A1 audit (see §3 above)
 
-## 6. Blocked Modules
+## 6a. A1 Internal Alpha Maturity Audit — COMPLETE (2026-06-07)
+
+- Full code inspection: 103 Dart files, 15 flows, all screens
+- **3 Beta Blockers**: B1 (audit log unreachable), B2 (auth guard cold-start gap), B3 (missing "---" S2S fallback)
+- **5 Major Issues**: M1 (STS Settings legacy tokens), M2 (Audit Log raw colors), M3 (History placeholder), M4 (no Bangla), M5 (missing onboarding Step 6)
+- MVP Feature Completion: 12/15 DONE, 2/15 PARTIAL, 1/15 NOT DONE = ~87%
+- Trust Layer Score: 23/35 (66%)
+- Design System Migration: ~65%
+- Widget Adoption: 9/13 (69%)
+- Flow scores: Dashboard 5/5, Pipeline 5/5, S2S Breakdown 5/5, Export 4/5, Deletion 5/5, Settings 3/5, Audit Log 2/5, History 1/5
+- See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md`, `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
+
+## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
 - Biometric auth (D1.04 deferred — needs `local_auth` package approval)
 
-## 7. Current Product Direction (per Final Doctrine)
+## 8. Current Product Direction (per Final Doctrine)
 - Focus: Freelancer Cashflow Clarity
 - Identity: Single-purpose calm cockpit for Bangladeshi USD-earning freelancers
 - Core Wedge: Pipeline-aware Safe-to-Spend
@@ -139,7 +169,7 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Next: Release build verification → APK distribution → Closed Beta (15-25 freelancers, 4 weeks)
 - Strategic Authority: `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`
 
-## 8. Doctrine-Killed Features
+## 9. Doctrine-Killed Features
 - F-commerce / COD / inventory / POS — wrong product entirely
 - Generic expense categorization — TallyKhata territory
 - Subscription Leakage Radar — not in doctrine scope
@@ -148,7 +178,7 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Charts/reports without S2S context — noise
 - Client/Project ROI tracking — different product
 
-## 9. Doctrine-Deferred Features
+## 10. Doctrine-Deferred Features
 - Multi-wallet → V1 (after MVP beta clears)
 - Tax reserve → V2 (user-declared %, not algorithmic)
 - Invoice-Lite → V2 (3-sprint allocation)

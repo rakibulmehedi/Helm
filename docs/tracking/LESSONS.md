@@ -361,3 +361,19 @@ The pipeline spec mentions an `Excluded` state, but the task spec uses a boolean
 
 ### 17. D3 — Beta readiness is a docs sprint, not a feature sprint
 D3 produced 7 docs and 1 bug fix. No new features, no UI changes, no architecture modifications. This is correct. The temptation is to add "one more thing" before beta — resist it. Beta validates the hypothesis with what exists. Missing features are documented as known limitations, not rushed implementations.
+
+---
+
+## A1 — Internal Alpha Maturity Audit Lessons
+
+### 18. A1 — "Screen exists" is not "screen reachable"
+The audit log screen works perfectly — events are written from all financial paths, the UI renders correctly. But no UI element in the app navigates to it. A screen without a navigation path is equivalent to a screen that doesn't exist from the user's perspective. Rule: every screen must have at least one in-app navigation path. Verify reachability, not just existence.
+
+### 19. A1 — Auth guard comments are not auth guard code
+`app_router.dart` comment says "in-memory session auth is handled at screen level via authProvider" but no screen-level redirect exists in `dashboard_screen.dart`. Comments describing intended behavior that was never implemented are worse than no comments — they create false confidence. Rule: if a security-critical behavior is described in a comment, verify the implementation exists.
+
+### 20. A1 — Design system tokens created but not migrated is worse than no design system
+PocketaColors, PocketaTypography, PocketaSpacing, and PocketaMotion all exist. 13 doctrine widgets created. But STS Settings still uses legacy `AppColors`, Audit Log uses raw `Colors.green.shade600`, and 4 widgets (PocketaToast, PocketaAuditCard, PocketaCautionCard) are never used anywhere. Two visual languages in one app damages trust more than one consistent legacy design. Rule: creating a design system without migrating all screens creates visual inconsistency debt.
+
+### 21. A1 — "CONDITIONAL GO" without a maturity audit is premature
+D3 declared "CONDITIONAL GO" based on checklist compliance. A1 found 3 beta blockers that the checklist missed (audit log unreachable, auth guard gap, S2S fallback). Checklists verify what you think to check — audits find what you didn't think to check. Rule: always run a maturity audit before declaring readiness for any external milestone.
