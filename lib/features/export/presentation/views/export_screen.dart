@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
 
 class ExportScreen extends ConsumerStatefulWidget {
@@ -32,12 +33,10 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         notifier.reset();
       } else if (next == ExportStatus.error) {
         final notifier = ref.read(exportProvider.notifier);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Export failed: ${notifier.lastResult?.errorMessage ?? 'Unknown error'}',
-            ),
-          ),
+        PocketaToast.show(
+          context,
+          message: 'Export failed: ${notifier.lastResult?.errorMessage ?? 'Unknown error'}',
+          type: ToastType.error,
         );
         notifier.reset();
       }

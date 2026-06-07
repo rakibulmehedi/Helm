@@ -11,9 +11,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
 
 import '../../domain/entities/transaction_entity.dart';
@@ -124,29 +125,21 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.transactionId != null
-                ? 'Transaction updated successfully'
-                : 'Transaction saved successfully',
-          ),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+      PocketaToast.show(
+        context,
+        message: widget.transactionId != null
+            ? 'Transaction updated successfully'
+            : 'Transaction saved successfully',
+        type: ToastType.success,
       );
       context.pop();
     } catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Could not save payment. Try again.'),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+      PocketaToast.show(
+        context,
+        message: 'Could not save payment. Try again.',
+        type: ToastType.error,
       );
     }
   }
@@ -156,13 +149,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final colors = theme.extension<PocketaColors>()!;
 
     // ── Missing transaction error state ──────────────────────────────────────
     if (_transactionNotFound) {
       return Scaffold(
-        backgroundColor:
-            isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+        backgroundColor: colors.canvas,
         appBar: AppBar(
           title: Text(
             'Edit Transaction',
@@ -187,21 +179,21 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   Icon(
                     Icons.error_outline_rounded,
                     size: ResponsiveUtilities.icon(context, 64),
-                    color: AppColors.error.withValues(alpha: 0.7),
+                    color: colors.stateAtRisk.withValues(alpha: 0.7),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'Transaction not found',
                     style: theme.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: isDark ? AppColors.textLight : AppColors.textDark,
+                      color: colors.inkPrimary,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'This payment may have been deleted.',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppColors.textSecondary,
+                      color: colors.inkSecondary,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -219,8 +211,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     }
 
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           widget.transactionId != null ? 'Edit expense' : 'Add expense',
@@ -244,14 +235,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Title ────────────────────────────────────────────────────
-                _FieldLabel('Title', isDark: isDark),
+                _FieldLabel('Title'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _titleController,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'e.g. Lunch, Uber, Salary',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
@@ -264,7 +255,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Amount ───────────────────────────────────────────────────
-                _FieldLabel('Amount', isDark: isDark),
+                _FieldLabel('Amount'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _amountController,
@@ -276,7 +267,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   ],
                   decoration: _inputDecoration(
                     hint: '0.00',
-                    isDark: isDark,
+                    colors: colors,
                     prefixText: '৳ ',
                   ),
                   validator: (v) {
@@ -294,7 +285,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Category chips ───────────────────────────────────────────
-                _FieldLabel('Category', isDark: isDark),
+                _FieldLabel('Category'),
                 const SizedBox(height: 10),
                 Wrap(
                   spacing: 8,
@@ -306,16 +297,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                       selected: isSelected,
                       onSelected: (_) =>
                           setState(() => _selectedCategory = cat),
-                      selectedColor: AppColors.primary,
-                      backgroundColor: isDark
-                          ? AppColors.cardDark
-                          : AppColors.greyLight,
+                      selectedColor: colors.interactive,
+                      backgroundColor: colors.hairline,
                       labelStyle: TextStyle(
                         color: isSelected
-                            ? AppColors.white
-                            : (isDark
-                                ? AppColors.textLight
-                                : AppColors.textDark),
+                            ? Colors.white
+                            : colors.inkPrimary,
                         fontWeight:
                             isSelected ? FontWeight.w600 : FontWeight.w400,
                         fontSize: ResponsiveUtilities.font(context, 13),
@@ -324,10 +311,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         borderRadius: BorderRadius.circular(10),
                         side: BorderSide(
                           color: isSelected
-                              ? AppColors.primary
-                              : (isDark
-                                  ? AppColors.grey.withValues(alpha: 0.2)
-                                  : AppColors.border),
+                              ? colors.interactive
+                              : colors.divider,
                         ),
                       ),
                       showCheckmark: false,
@@ -338,7 +323,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Date picker ──────────────────────────────────────────────
-                _FieldLabel('Date', isDark: isDark),
+                _FieldLabel('Date'),
                 const SizedBox(height: 8),
                 InkWell(
                   borderRadius: BorderRadius.circular(12),
@@ -348,29 +333,23 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
-                      color: isDark ? AppColors.cardDark : AppColors.white,
+                      color: colors.surface,
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: isDark
-                            ? AppColors.grey.withValues(alpha: 0.2)
-                            : AppColors.border,
-                      ),
+                      border: Border.all(color: colors.divider),
                     ),
                     child: Row(
                       children: [
                         Icon(
                           Icons.calendar_today_rounded,
                           size: 18,
-                          color: AppColors.primary,
+                          color: colors.interactive,
                         ),
                         const SizedBox(width: 12),
                         Text(
                           DateFormat('dd MMM yyyy').format(_selectedDate),
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontSize: ResponsiveUtilities.font(context, 14),
-                            color: isDark
-                                ? AppColors.textLight
-                                : AppColors.textDark,
+                            color: colors.inkPrimary,
                           ),
                         ),
                       ],
@@ -381,7 +360,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Note (optional) ──────────────────────────────────────────
-                _FieldLabel('Note (optional)', isDark: isDark),
+                _FieldLabel('Note (optional)'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
@@ -389,7 +368,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'Add a note…',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                 ),
 
@@ -418,47 +397,39 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   InputDecoration _inputDecoration({
     required String hint,
-    required bool isDark,
+    required PocketaColors colors,
     String? prefixText,
   }) {
     return InputDecoration(
       hintText: hint,
       prefixText: prefixText,
       hintStyle: TextStyle(
-        color: AppColors.grey.withValues(alpha: 0.6),
+        color: colors.inkTertiary,
         fontSize: ResponsiveUtilities.font(context, 14),
       ),
       filled: true,
-      fillColor: isDark ? AppColors.cardDark : AppColors.white,
+      fillColor: colors.surface,
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: isDark
-              ? AppColors.grey.withValues(alpha: 0.2)
-              : AppColors.border,
-        ),
+        borderSide: BorderSide(color: colors.divider),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: isDark
-              ? AppColors.grey.withValues(alpha: 0.2)
-              : AppColors.border,
-        ),
+        borderSide: BorderSide(color: colors.divider),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderSide: BorderSide(color: colors.interactive, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error),
+        borderSide: BorderSide(color: colors.stateAtRisk),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 1.5),
+        borderSide: BorderSide(color: colors.stateAtRisk, width: 1.5),
       ),
     );
   }
@@ -467,19 +438,19 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 // ── Private sub-widgets ──────────────────────────────────────────────────────
 
 class _FieldLabel extends StatelessWidget {
-  const _FieldLabel(this.text, {required this.isDark});
+  const _FieldLabel(this.text);
 
   final String text;
-  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: ResponsiveUtilities.font(context, 13),
-            color: isDark ? AppColors.textLight : AppColors.textDark,
+            color: colors.inkPrimary,
           ),
     );
   }

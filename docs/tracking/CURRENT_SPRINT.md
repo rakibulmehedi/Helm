@@ -4,6 +4,17 @@
 
 ## 1. Active Sprint
 
+**Sprint A4 (Test Coverage + Design Stabilization):**
+Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
+- 40 new tests: NumberFormatter (27 tests), OnboardingDraft (13 tests)
+- 6 files migrated from AppColors to PocketaColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
+- Raw SnackBars replaced with PocketaToast in: add_transaction, add_income, income_list, sts_settings, export
+- Only 2 core widgets remain on AppColors: button_multiple_types, linear_progress_bar (high blast radius — intentionally deferred)
+- Only 1 raw SnackBar remains: confirm_received_sheet (post-pop context — PocketaToast incompatible)
+- Test coverage: 78 tests across 4 test files
+- Design system migration: ~90% (up from ~70%)
+- Next sprint: A5 (Bangla + Release Build)
+
 **Sprint A3 (First Impression Polish):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 38/38 tests pass.
 - M5 FIXED: Onboarding Step 6 added — optional first pipeline entry ("Any money coming in soon?")
@@ -89,11 +100,12 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 
 ## 2. Current Priority
 
+- **Sprint A4 COMPLETE** — 40 new tests, 6 files migrated PocketaColors, PocketaToast adopted, 78/78 tests
 - **Sprint 2 (UX-1) COMPLETE** — 14/14 tasks done, dart analyze 0/0/0
 - **Sprint 3 (UX-2) COMPLETE** — 5-step onboarding flow live, dart analyze 0/0/0, all 26 tests pass
 - **Sprint 4 (UX-3) COMPLETE** — 10/10 tasks done, dart analyze 0/0/0, 30/30 tests pass
 - **UX-3P Polish COMPLETE** — swipe-to-advance (PIPE-020), 5s undo (PIPE-019), Needs decision header (PIPE-013)
-- **Sprint 5 (UX-4) is next** — 8 tasks: Microcopy Replacement
+- **Sprint 5 (UX-4) COMPLETE** — 8 tasks: Microcopy Replacement
 - **Dashboard is now doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
 - **Onboarding is now doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
 - **Token foundation is stable** — new widgets consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
@@ -118,6 +130,10 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |
 | 7 | D2 Beta Instrumentation | **COMPLETE** ✅ | 6/6 |
 | 8 | D3 Closed Beta Readiness | **COMPLETE** ✅ | 8/8 (bug fix + 7 beta docs) |
+| A1 | Internal Alpha Maturity Audit | **COMPLETE** ✅ | Code-only audit |
+| A2 | Beta Blocker Resolution | **COMPLETE** ✅ | 8/8 (B1+B2+B3+M1+M2+M3+P5) |
+| A3 | First Impression Polish | **COMPLETE** ✅ | 3/3 (M5+P2+S2S hint) |
+| A4 | Test Coverage + Design Stabilization | **COMPLETE** ✅ | 9/9 (40 tests, 6 migrations, PocketaToast) |
 
 ### Prior Sprints (Complete)
 

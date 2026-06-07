@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -60,20 +60,22 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
+
     return Scaffold(
-      backgroundColor: AppColors.primary,
+      backgroundColor: colors.interactive,
       body: FadeTransition(
         opacity: _fadeAnimation,
-        child: _buildCenter(),
+        child: _buildCenter(colors),
       ),
     );
   }
 
-  Widget _buildCenter() {
+  Widget _buildCenter(PocketaColors colors) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           CircleAvatar(
             radius: 40,
             backgroundColor: Colors.white,
@@ -82,12 +84,12 @@ class _SplashScreenState extends State<SplashScreen>
               style: TextStyle(
                 fontSize: 52,
                 fontWeight: FontWeight.bold,
-                color: AppColors.primary,
+                color: colors.interactive,
               ),
             ),
           ),
-          SizedBox(height: 24),
-          Text(
+          const SizedBox(height: 24),
+          const Text(
             'Pocketa',
             style: TextStyle(
               fontSize: 32,

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
@@ -164,19 +165,16 @@ class StsSettingsScreen extends ConsumerWidget {
                       ref
                           .read(fixedCostNotifierProvider.notifier)
                           .deleteFixedCost(cost.id);
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('${cost.label} deleted'),
-                          action: SnackBarAction(
-                            label: 'UNDO',
-                            onPressed: () {
-                              ref
-                                  .read(fixedCostNotifierProvider.notifier)
-                                  .addFixedCost(cost);
-                            },
-                          ),
-                        ),
+                      PocketaToast.show(
+                        context,
+                        message: '${cost.label} deleted',
+                        type: ToastType.warning,
+                        actionLabel: 'UNDO',
+                        onAction: () {
+                          ref
+                              .read(fixedCostNotifierProvider.notifier)
+                              .addFixedCost(cost);
+                        },
                       );
                     },
                     child: ListTile(

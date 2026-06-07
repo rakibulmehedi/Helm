@@ -32,7 +32,7 @@
 - Remaining gaps: no Bangla (M4)
 - Core S2S engine + dashboard + pipeline: production-grade
 - Onboarding now 6 steps with optional first pipeline entry
-- Distance to beta: ~10 hours across 2 sprints (A4-A5)
+- Distance to beta: ~4 hours in 1 sprint (A5 Bangla + Release Build)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
 - See `docs/planning/ALPHA_TO_BETA_ROADMAP.md` for sprint plan
 
@@ -42,10 +42,10 @@
 - no sync abstraction yet
 - STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
 - 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
-- Design system migration: ~70%
-- Widget adoption: 9/13 (69%)
+- Design system migration: ~90% (only 2 core widgets remain on AppColors)
+- Widget adoption: 11/13 (85%) — PocketaToast adopted across all feature screens
 - Trust Layer score: 23/35 (66%)
-- Test coverage: 38 tests in 2 files only (PinHasher, S2S Calculator)
+- Test coverage: 78 tests in 4 files (S2S Calculator, PinHasher, NumberFormatter, OnboardingDraft)
 
 ## 5. Current Architecture
 - Framework: Flutter
@@ -177,6 +177,17 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - New file: `first_pipeline_page.dart` (onboarding page)
 - SharedPreferences: `sts_hint_shown` flag for one-time hint
 - Quality gate: dart analyze 0/0/0, 38/38 tests pass
+
+## 6d. A4 Test Coverage + Design Stabilization — COMPLETE (2026-06-07)
+
+- **40 new tests**: NumberFormatter (27 tests: BDT lakh/crore, USD, compact, FX rate, parse round-trip), OnboardingDraft (13 tests: copyWith, computed properties)
+- **6 files migrated** from AppColors to PocketaColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
+- **PocketaToast adopted** across 5 screens: add_transaction, add_income, income_list, sts_settings, export
+- **Remaining AppColors**: 2 core widgets (button_multiple_types, linear_progress_bar) — high blast radius, deferred
+- **Remaining raw SnackBar**: 1 (confirm_received_sheet — post-pop context, PocketaToast incompatible)
+- Test count: 38 → 78 (105% increase)
+- Design system migration: ~70% → ~90%
+- Quality gate: dart analyze 0/0/0, 78/78 tests pass
 
 ## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)

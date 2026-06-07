@@ -8,7 +8,7 @@
 //   - Income card showing: clientName, projectName, amount+currency,
 //     status badge, expectedDate, receivedDate (if received), notes
 //   - Tap card → edit income route
-//   - Swipe-to-delete with undo SnackBar (same pattern as transactions)
+//   - Swipe-to-delete with undo PocketaToast (same pattern as transactions)
 //   - Empty state for no entries (first-time)
 //   - Empty state for active filter with no results
 //
@@ -22,8 +22,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
 import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
@@ -79,10 +80,6 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
 
   // ── Delete with Undo ───────────────────────────────────────────────────────
 
-  /// Deletes the entry immediately, then shows an Undo SnackBar.
-  /// If Undo is tapped within the timeout, the entry is re-added.
-  ///
-  /// Consistent with Phase 6 transaction delete pattern.
   Future<void> _deleteWithUndo(IncomeEntryEntity entry) async {
     await ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
     if (!mounted) return;
@@ -90,32 +87,20 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
     final formatter = NumberFormat('#,##0.00', 'en_US');
     final amountText = '${entry.currency} ${formatter.format(entry.amount)}';
 
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '${entry.clientName} — $amountText deleted',
-        ),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        duration: const Duration(seconds: 4),
-        action: SnackBarAction(
-          label: 'Undo',
-          textColor: AppColors.primary,
-          onPressed: () {
-            ref.read(incomeNotifierProvider.notifier).addIncome(entry);
-          },
-        ),
-      ),
+    PocketaToast.show(
+      context,
+      message: '${entry.clientName} — $amountText deleted',
+      type: ToastType.warning,
+      duration: const Duration(seconds: 4),
+      actionLabel: 'Undo',
+      onAction: () {
+        ref.read(incomeNotifierProvider.notifier).addIncome(entry);
+      },
     );
   }
 
   // ── Filtering + sorting (widget layer) ────────────────────────────────────
 
-  /// Applies the active [_filter] and sorts newest expectedDate first.
-  ///
-  /// Per income_providers.dart §4: sorting and filtering are the widget's
-  /// responsibility — not the notifier's.
   List<IncomeEntryEntity> _applyFilter(List<IncomeEntryEntity> all) {
     final Iterable<IncomeEntryEntity> filtered;
     switch (_filter) {
@@ -129,7 +114,6 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
         filtered = all.where((e) => e.status == IncomeStatus.received);
     }
 
-    // Sort: newest expectedDate first; break ties by updatedAt desc
     final list = filtered.toList()
       ..sort((a, b) {
         final cmp = b.expectedDate.compareTo(a.expectedDate);
@@ -143,13 +127,12 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final colors = context.colors;
     final allEntries = ref.watch(incomeNotifierProvider);
     final displayed = _applyFilter(allEntries);
 
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           'Income Pipeline',
@@ -166,10 +149,10 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         heroTag: 'addIncomeFab',
-        backgroundColor: AppColors.primary,
+        backgroundColor: colors.interactive,
         tooltip: 'Add income entry',
         onPressed: () => context.push(RouteNames.addIncome),
-        child: const Icon(Icons.add_rounded, color: AppColors.white, size: 28),
+        child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
       ),
       body: SafeArea(
         child: Column(
@@ -192,7 +175,6 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
                       child: _IncomeFilterChip(
                         label: f.label,
                         isSelected: _filter == f,
-                        isDark: isDark,
                         onTap: () => setState(() => _filter = f),
                       ),
                     );
@@ -212,7 +194,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
                 child: Text(
                   '${displayed.length} ${displayed.length == 1 ? 'entry' : 'entries'}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: colors.inkSecondary,
                     fontSize: ResponsiveUtilities.font(context, 12),
                   ),
                 ),
@@ -225,7 +207,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
               child: _buildBody(
                 context: context,
                 theme: theme,
-                isDark: isDark,
+                colors: colors,
                 allEntries: allEntries,
                 displayed: displayed,
               ),
@@ -241,27 +223,24 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   Widget _buildBody({
     required BuildContext context,
     required ThemeData theme,
-    required bool isDark,
+    required PocketaColors colors,
     required List<IncomeEntryEntity> allEntries,
     required List<IncomeEntryEntity> displayed,
   }) {
-    // First-time empty state: no income entries exist at all
     if (allEntries.isEmpty) {
-      return _FirstTimeEmptyState(isDark: isDark);
+      return const _FirstTimeEmptyState();
     }
 
-    // Filter-specific empty state: entries exist but none match the filter
     if (displayed.isEmpty) {
-      return _FilterEmptyState(filter: _filter, isDark: isDark);
+      return _FilterEmptyState(filter: _filter);
     }
 
-    // Entry list
     return ListView.separated(
       padding: EdgeInsets.fromLTRB(
         ResponsiveUtilities.width(context, 0.06),
         4,
         ResponsiveUtilities.width(context, 0.06),
-        100, // bottom padding above FAB
+        100,
       ),
       itemCount: displayed.length,
       separatorBuilder: (_, _) => const SizedBox(height: 12),
@@ -269,7 +248,6 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
         final entry = displayed[index];
         return _IncomeListItem(
           entry: entry,
-          isDark: isDark,
           onDeleteWithUndo: () => _deleteWithUndo(entry),
         );
       },
@@ -283,18 +261,17 @@ class _IncomeFilterChip extends StatelessWidget {
   const _IncomeFilterChip({
     required this.label,
     required this.isSelected,
-    required this.isDark,
     required this.onTap,
   });
 
   final String label;
   final bool isSelected;
-  final bool isDark;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = context.colors;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -302,16 +279,10 @@ class _IncomeFilterChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.primary
-              : (isDark ? AppColors.cardDark : AppColors.white),
+          color: isSelected ? colors.interactive : colors.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected
-                ? AppColors.primary
-                : (isDark
-                    ? AppColors.grey.withValues(alpha: 0.2)
-                    : AppColors.border),
+            color: isSelected ? colors.interactive : colors.divider,
           ),
         ),
         child: Text(
@@ -319,9 +290,7 @@ class _IncomeFilterChip extends StatelessWidget {
           style: theme.textTheme.bodyMedium?.copyWith(
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
             fontSize: ResponsiveUtilities.font(context, 13),
-            color: isSelected
-                ? AppColors.white
-                : (isDark ? AppColors.textLight : AppColors.textDark),
+            color: isSelected ? Colors.white : colors.inkPrimary,
           ),
         ),
       ),
@@ -334,33 +303,32 @@ class _IncomeFilterChip extends StatelessWidget {
 class _IncomeListItem extends StatelessWidget {
   const _IncomeListItem({
     required this.entry,
-    required this.isDark,
     required this.onDeleteWithUndo,
   });
 
   final IncomeEntryEntity entry;
-  final bool isDark;
   final VoidCallback onDeleteWithUndo;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return Dismissible(
       key: Key(entry.id),
       direction: DismissDirection.endToStart,
       confirmDismiss: (_) async {
         onDeleteWithUndo();
-        return false; // Provider rebuild removes the item from the list
+        return false;
       },
       background: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
-          color: AppColors.error,
+          color: colors.stateAtRisk,
           borderRadius: BorderRadius.circular(16),
         ),
         alignment: Alignment.centerRight,
-        child: const Icon(
+        child: Icon(
           Icons.delete_outline_rounded,
-          color: AppColors.white,
+          color: colors.surface,
         ),
       ),
       child: InkWell(
@@ -369,7 +337,7 @@ class _IncomeListItem extends StatelessWidget {
           pathParameters: {'id': entry.id},
         ),
         borderRadius: BorderRadius.circular(16),
-        child: _IncomeCard(entry: entry, isDark: isDark),
+        child: _IncomeCard(entry: entry),
       ),
     );
   }
@@ -378,10 +346,9 @@ class _IncomeListItem extends StatelessWidget {
 // ── Income Card ───────────────────────────────────────────────────────────────
 
 class _IncomeCard extends StatelessWidget {
-  const _IncomeCard({required this.entry, required this.isDark});
+  const _IncomeCard({required this.entry});
 
   final IncomeEntryEntity entry;
-  final bool isDark;
 
   static final _formatter = NumberFormat('#,##0.00', 'en_US');
   static final _dateFormatter = DateFormat('dd MMM yyyy');
@@ -389,23 +356,20 @@ class _IncomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = context.colors;
 
-    final statusColor = _statusColor(entry.status);
+    final statusColor = _statusColor(entry.status, colors);
     final statusLabel = _statusLabel(entry.status);
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: isDark ? AppColors.cardDark : AppColors.cardLight,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: isDark
-              ? AppColors.grey.withValues(alpha: 0.15)
-              : AppColors.border,
-        ),
+        border: Border.all(color: colors.divider),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadow,
+            color: colors.inkPrimary.withValues(alpha: 0.06),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),
@@ -418,7 +382,6 @@ class _IncomeCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Status icon container
               Container(
                 width: 44,
                 height: 44,
@@ -434,7 +397,6 @@ class _IncomeCard extends StatelessWidget {
               ),
               const SizedBox(width: 12),
 
-              // Client + project
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -444,7 +406,7 @@ class _IncomeCard extends StatelessWidget {
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w700,
                         fontSize: ResponsiveUtilities.font(context, 15),
-                        color: isDark ? AppColors.textLight : AppColors.textDark,
+                        color: colors.inkPrimary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -454,7 +416,7 @@ class _IncomeCard extends StatelessWidget {
                       entry.projectName,
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontSize: ResponsiveUtilities.font(context, 12),
-                        color: AppColors.textSecondary,
+                        color: colors.inkSecondary,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -465,7 +427,6 @@ class _IncomeCard extends StatelessWidget {
 
               const SizedBox(width: 8),
 
-              // Status badge
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -492,7 +453,6 @@ class _IncomeCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              // Amount
               Text(
                 '${entry.currency} ${_formatter.format(entry.amount)}',
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -502,31 +462,28 @@ class _IncomeCard extends StatelessWidget {
                 ),
               ),
 
-              // Dates column
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  // Expected date always shown
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.calendar_today_outlined,
                         size: 11,
-                        color: AppColors.textSecondary,
+                        color: colors.inkSecondary,
                       ),
                       const SizedBox(width: 4),
                       Text(
                         'By ${_dateFormatter.format(entry.expectedDate)}',
                         style: theme.textTheme.bodySmall?.copyWith(
                           fontSize: ResponsiveUtilities.font(context, 11),
-                          color: AppColors.textSecondary,
+                          color: colors.inkSecondary,
                         ),
                       ),
                     ],
                   ),
 
-                  // Received date only when status == received
                   if (entry.status == IncomeStatus.received &&
                       entry.receivedDate != null) ...[
                     const SizedBox(height: 3),
@@ -536,14 +493,14 @@ class _IncomeCard extends StatelessWidget {
                         Icon(
                           Icons.check_circle_outline_rounded,
                           size: 11,
-                          color: AppColors.success,
+                          color: colors.stateSafe,
                         ),
                         const SizedBox(width: 4),
                         Text(
                           'Received ${_dateFormatter.format(entry.receivedDate!)}',
                           style: theme.textTheme.bodySmall?.copyWith(
                             fontSize: ResponsiveUtilities.font(context, 11),
-                            color: AppColors.success,
+                            color: colors.stateSafe,
                           ),
                         ),
                       ],
@@ -562,9 +519,7 @@ class _IncomeCard extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
               decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.backgroundDark.withValues(alpha: 0.5)
-                    : AppColors.greyLight.withValues(alpha: 0.6),
+                color: colors.canvas.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
@@ -573,7 +528,7 @@ class _IncomeCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodySmall?.copyWith(
                   fontSize: ResponsiveUtilities.font(context, 11),
-                  color: AppColors.textSecondary,
+                  color: colors.inkSecondary,
                   fontStyle: FontStyle.italic,
                 ),
               ),
@@ -586,16 +541,14 @@ class _IncomeCard extends StatelessWidget {
 
   // ── Status helpers ────────────────────────────────────────────────────────
 
-  /// Color per INCOME_PIPELINE_MVP spec: Expected=grey, Pending=blue, Received=green.
-  /// No red for pending/expected — per UX rules §6.1.
-  Color _statusColor(IncomeStatus status) {
+  Color _statusColor(IncomeStatus status, PocketaColors colors) {
     switch (status) {
       case IncomeStatus.expected:
-        return AppColors.grey;
+        return colors.inkTertiary;
       case IncomeStatus.pending:
-        return AppColors.info;
+        return colors.stateHope;
       case IncomeStatus.received:
-        return AppColors.success;
+        return colors.stateSafe;
     }
   }
 
@@ -624,15 +577,13 @@ class _IncomeCard extends StatelessWidget {
 
 // ── Empty States ──────────────────────────────────────────────────────────────
 
-/// Shown when there are NO income entries at all (first-time state).
 class _FirstTimeEmptyState extends StatelessWidget {
-  const _FirstTimeEmptyState({required this.isDark});
-
-  final bool isDark;
+  const _FirstTimeEmptyState();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = context.colors;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -643,13 +594,13 @@ class _FirstTimeEmptyState extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.08),
+                color: colors.interactive.withValues(alpha: 0.08),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.account_balance_wallet_outlined,
                 size: 40,
-                color: AppColors.primary,
+                color: colors.interactive,
               ),
             ),
             const SizedBox(height: 20),
@@ -658,7 +609,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: ResponsiveUtilities.font(context, 18),
-                color: isDark ? AppColors.textLight : AppColors.textDark,
+                color: colors.inkPrimary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -667,7 +618,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
               'Add your first expected payment to see\nwhen money is coming in.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontSize: ResponsiveUtilities.font(context, 14),
-                color: AppColors.textSecondary,
+                color: colors.inkSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -688,19 +639,15 @@ class _FirstTimeEmptyState extends StatelessWidget {
   }
 }
 
-/// Shown when entries exist but the active filter returns zero results.
 class _FilterEmptyState extends StatelessWidget {
-  const _FilterEmptyState({
-    required this.filter,
-    required this.isDark,
-  });
+  const _FilterEmptyState({required this.filter});
 
   final IncomeFilter filter;
-  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = context.colors;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -710,7 +657,7 @@ class _FilterEmptyState extends StatelessWidget {
             Icon(
               _filterIcon(filter),
               size: ResponsiveUtilities.icon(context, 56),
-              color: AppColors.grey.withValues(alpha: 0.4),
+              color: colors.inkTertiary.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 16),
             Text(
@@ -718,7 +665,7 @@ class _FilterEmptyState extends StatelessWidget {
               style: theme.textTheme.bodyLarge?.copyWith(
                 fontWeight: FontWeight.w600,
                 fontSize: ResponsiveUtilities.font(context, 15),
-                color: isDark ? AppColors.textLight : AppColors.textDark,
+                color: colors.inkPrimary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -727,7 +674,7 @@ class _FilterEmptyState extends StatelessWidget {
               _emptySubtitle(filter),
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontSize: ResponsiveUtilities.font(context, 13),
-                color: AppColors.textSecondary,
+                color: colors.inkSecondary,
               ),
               textAlign: TextAlign.center,
             ),
@@ -750,7 +697,6 @@ class _FilterEmptyState extends StatelessWidget {
     }
   }
 
-  /// Reassuring copy per UX spec §6.4 — no alarmist language.
   String _emptyTitle(IncomeFilter f) {
     switch (f) {
       case IncomeFilter.expected:

@@ -14,9 +14,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
 import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
 import 'package:pocketa_v2/utils/responsive_utils.dart';
@@ -125,14 +126,10 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
     // Additional: receivedDate required when status is received
     if (_selectedStatus == IncomeStatus.received && _receivedDate == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please select a received date.'),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+      PocketaToast.show(
+        context,
+        message: 'Please select a received date.',
+        type: ToastType.error,
       );
       return;
     }
@@ -180,31 +177,21 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.incomeId != null
-                ? 'Income updated successfully'
-                : 'Income saved successfully',
-          ),
-          backgroundColor: AppColors.success,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+      PocketaToast.show(
+        context,
+        message: widget.incomeId != null
+            ? 'Income updated successfully'
+            : 'Income saved successfully',
+        type: ToastType.success,
       );
       context.pop();
     } catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Failed to save income. Please try again.'),
-          backgroundColor: AppColors.error,
-          behavior: SnackBarBehavior.floating,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        ),
+      PocketaToast.show(
+        context,
+        message: 'Failed to save income. Please try again.',
+        type: ToastType.error,
       );
     }
   }
@@ -214,17 +201,16 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
+    final colors = theme.extension<PocketaColors>()!;
     final isEditing = widget.incomeId != null;
 
     // ── Missing income error state ──────────────────────────────────────────
     if (_incomeNotFound) {
-      return _IncomeNotFoundView(isDark: isDark);
+      return const _IncomeNotFoundView();
     }
 
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           isEditing ? 'Edit Income' : 'Add Income',
@@ -250,14 +236,14 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Client Name ──────────────────────────────────────────
-                _FieldLabel('Client Name', isDark: isDark),
+                _FieldLabel('Client Name'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _clientNameController,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
                     hint: 'e.g. Upwork, Client X',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
@@ -270,14 +256,14 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Project Name ─────────────────────────────────────────
-                _FieldLabel('Project Name', isDark: isDark),
+                _FieldLabel('Project Name'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _projectNameController,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'e.g. Website Redesign',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
@@ -290,7 +276,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Amount + Currency row ─────────────────────────────────
-                _FieldLabel('Amount', isDark: isDark),
+                _FieldLabel('Amount'),
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,7 +293,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                         ],
                         decoration: _inputDecoration(
                           hint: '0.00',
-                          isDark: isDark,
+                          colors: colors,
                         ),
                         validator: (v) {
                           if (v == null || v.trim().isEmpty) {
@@ -325,7 +311,6 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                     // Currency selector
                     _CurrencySelector(
                       selected: _selectedCurrency,
-                      isDark: isDark,
                       onChanged: (c) =>
                           setState(() => _selectedCurrency = c),
                     ),
@@ -335,7 +320,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 // ── FX Rate (USD only) ───────────────────────────────────
                 if (_selectedCurrency == 'USD') ...[
                   const SizedBox(height: 20),
-                  _FieldLabel('FX Rate (BDT per USD)', isDark: isDark),
+                  _FieldLabel('FX Rate (BDT per USD)'),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: _fxRateController,
@@ -343,7 +328,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                         decimal: true),
                     decoration: _inputDecoration(
                       hint: 'e.g. 110.5',
-                      isDark: isDark,
+                      colors: colors,
                     ),
                   ),
                 ],
@@ -351,11 +336,10 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Status selector ──────────────────────────────────────
-                _FieldLabel('Status', isDark: isDark),
+                _FieldLabel('Status'),
                 const SizedBox(height: 10),
                 _StatusToggle(
                   selected: _selectedStatus,
-                  isDark: isDark,
                   onChanged: (s) => setState(() {
                     _selectedStatus = s;
                     // Clear receivedDate if moving away from received
@@ -368,22 +352,20 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Expected Date ────────────────────────────────────────
-                _FieldLabel('Expected Date', isDark: isDark),
+                _FieldLabel('Expected Date'),
                 const SizedBox(height: 8),
                 _DatePickerTile(
                   date: _expectedDate,
-                  isDark: isDark,
                   onTap: _pickExpectedDate,
                 ),
 
                 // ── Received Date (only when received) ───────────────────
                 if (_selectedStatus == IncomeStatus.received) ...[
                   const SizedBox(height: 20),
-                  _FieldLabel('Received Date', isDark: isDark),
+                  _FieldLabel('Received Date'),
                   const SizedBox(height: 8),
                   _DatePickerTile(
                     date: _receivedDate,
-                    isDark: isDark,
                     onTap: _pickReceivedDate,
                     placeholder: 'Select received date',
                   ),
@@ -392,7 +374,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Notes (optional) ─────────────────────────────────────
-                _FieldLabel('Notes (optional)', isDark: isDark),
+                _FieldLabel('Notes (optional)'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
@@ -400,21 +382,21 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'Add a note…',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                 ),
 
                 const SizedBox(height: 20),
 
                 // ── Payment Source (optional) ────────────────────────────
-                _FieldLabel('Payment Source (optional)', isDark: isDark),
+                _FieldLabel('Payment Source (optional)'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _sourceLabelController,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
                     hint: 'e.g. Upwork, Fiverr, Direct client',
-                    isDark: isDark,
+                    colors: colors,
                   ),
                 ),
 
@@ -423,13 +405,9 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 // ── Exclude from Safe-to-Spend ───────────────────────────
                 Container(
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.cardDark : AppColors.white,
+                    color: colors.surface,
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: isDark
-                          ? AppColors.grey.withValues(alpha: 0.2)
-                          : AppColors.border,
-                    ),
+                    border: Border.all(color: colors.divider),
                   ),
                   child: SwitchListTile(
                     contentPadding: const EdgeInsets.symmetric(
@@ -439,22 +417,18 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                             fontSize: ResponsiveUtilities.font(context, 13),
-                            color: isDark
-                                ? AppColors.textLight
-                                : AppColors.textDark,
+                            color: colors.inkPrimary,
                           ),
                     ),
                     subtitle: Text(
                       "Use when this payment shouldn't affect your numbers",
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             fontSize: ResponsiveUtilities.font(context, 12),
-                            color: isDark
-                                ? AppColors.textLight.withValues(alpha: 0.6)
-                                : AppColors.textSecondary,
+                            color: colors.inkSecondary,
                           ),
                     ),
                     value: _excludeFromCalculation,
-                    activeThumbColor: AppColors.primary,
+                    activeThumbColor: colors.interactive,
                     onChanged: (v) =>
                         setState(() => _excludeFromCalculation = v),
                   ),
@@ -484,45 +458,37 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
   InputDecoration _inputDecoration({
     required String hint,
-    required bool isDark,
+    required PocketaColors colors,
   }) {
     return InputDecoration(
       hintText: hint,
       hintStyle: TextStyle(
-        color: AppColors.grey.withValues(alpha: 0.6),
+        color: colors.inkTertiary.withValues(alpha: 0.6),
         fontSize: ResponsiveUtilities.font(context, 14),
       ),
       filled: true,
-      fillColor: isDark ? AppColors.cardDark : AppColors.white,
+      fillColor: colors.surface,
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: isDark
-              ? AppColors.grey.withValues(alpha: 0.2)
-              : AppColors.border,
-        ),
+        borderSide: BorderSide(color: colors.divider),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(
-          color: isDark
-              ? AppColors.grey.withValues(alpha: 0.2)
-              : AppColors.border,
-        ),
+        borderSide: BorderSide(color: colors.divider),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
+        borderSide: BorderSide(color: colors.interactive, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error),
+        borderSide: BorderSide(color: colors.stateAtRisk),
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.error, width: 1.5),
+        borderSide: BorderSide(color: colors.stateAtRisk, width: 1.5),
       ),
     );
   }
@@ -532,19 +498,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
 /// Reusable field label — matches AddTransactionScreen pattern.
 class _FieldLabel extends StatelessWidget {
-  const _FieldLabel(this.text, {required this.isDark});
+  const _FieldLabel(this.text);
 
   final String text;
-  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
     return Text(
       text,
       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.w600,
             fontSize: ResponsiveUtilities.font(context, 13),
-            color: isDark ? AppColors.textLight : AppColors.textDark,
+            color: colors.inkPrimary,
           ),
     );
   }
@@ -554,26 +520,25 @@ class _FieldLabel extends StatelessWidget {
 class _StatusToggle extends StatelessWidget {
   const _StatusToggle({
     required this.selected,
-    required this.isDark,
     required this.onChanged,
   });
 
   final IncomeStatus selected;
-  final bool isDark;
   final ValueChanged<IncomeStatus> onChanged;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.cardDark : AppColors.greyLight,
+        color: colors.hairline,
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(4),
       child: Row(
         children: IncomeStatus.values.map((status) {
           final isActive = selected == status;
-          final color = _statusColor(status);
+          final color = _statusColor(status, colors);
           final label = _statusLabel(status);
           return Expanded(
             child: GestureDetector(
@@ -592,10 +557,8 @@ class _StatusToggle extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     fontSize: ResponsiveUtilities.font(context, 13),
                     color: isActive
-                        ? AppColors.white
-                        : (isDark
-                            ? AppColors.textLight
-                            : AppColors.textSecondary),
+                        ? Colors.white
+                        : colors.inkSecondary,
                   ),
                 ),
               ),
@@ -608,14 +571,14 @@ class _StatusToggle extends StatelessWidget {
 
   /// Per INCOME_PIPELINE_MVP spec:
   /// Expected → soft grey, Pending → soft blue, Received → gentle green
-  Color _statusColor(IncomeStatus status) {
+  Color _statusColor(IncomeStatus status, PocketaColors colors) {
     switch (status) {
       case IncomeStatus.expected:
-        return AppColors.grey;
+        return colors.inkTertiary;
       case IncomeStatus.pending:
-        return AppColors.info;
+        return colors.stateTight;
       case IncomeStatus.received:
-        return AppColors.success;
+        return colors.stateSafe;
     }
   }
 
@@ -635,19 +598,18 @@ class _StatusToggle extends StatelessWidget {
 class _CurrencySelector extends StatelessWidget {
   const _CurrencySelector({
     required this.selected,
-    required this.isDark,
     required this.onChanged,
   });
 
   final String selected;
-  final bool isDark;
   final ValueChanged<String> onChanged;
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).extension<PocketaColors>()!;
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppColors.cardDark : AppColors.greyLight,
+        color: colors.hairline,
         borderRadius: BorderRadius.circular(12),
       ),
       padding: const EdgeInsets.all(4),
@@ -662,7 +624,7 @@ class _CurrencySelector extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
-                color: isActive ? AppColors.primary : Colors.transparent,
+                color: isActive ? colors.interactive : Colors.transparent,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
@@ -671,10 +633,8 @@ class _CurrencySelector extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   fontSize: ResponsiveUtilities.font(context, 13),
                   color: isActive
-                      ? AppColors.white
-                      : (isDark
-                          ? AppColors.textLight
-                          : AppColors.textSecondary),
+                      ? Colors.white
+                      : colors.inkSecondary,
                 ),
               ),
             ),
@@ -689,19 +649,18 @@ class _CurrencySelector extends StatelessWidget {
 class _DatePickerTile extends StatelessWidget {
   const _DatePickerTile({
     required this.date,
-    required this.isDark,
     required this.onTap,
     this.placeholder,
   });
 
   final DateTime? date;
-  final bool isDark;
   final VoidCallback onTap;
   final String? placeholder;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.extension<PocketaColors>()!;
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
@@ -709,20 +668,16 @@ class _DatePickerTile extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
-          color: isDark ? AppColors.cardDark : AppColors.white,
+          color: colors.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isDark
-                ? AppColors.grey.withValues(alpha: 0.2)
-                : AppColors.border,
-          ),
+          border: Border.all(color: colors.divider),
         ),
         child: Row(
           children: [
             Icon(
               Icons.calendar_today_rounded,
               size: 18,
-              color: AppColors.primary,
+              color: colors.interactive,
             ),
             const SizedBox(width: 12),
             Text(
@@ -732,8 +687,8 @@ class _DatePickerTile extends StatelessWidget {
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontSize: ResponsiveUtilities.font(context, 14),
                 color: date != null
-                    ? (isDark ? AppColors.textLight : AppColors.textDark)
-                    : AppColors.grey.withValues(alpha: 0.6),
+                    ? colors.inkPrimary
+                    : colors.inkTertiary.withValues(alpha: 0.6),
               ),
             ),
           ],
@@ -745,16 +700,14 @@ class _DatePickerTile extends StatelessWidget {
 
 /// Error view shown when navigating to edit an income that doesn't exist.
 class _IncomeNotFoundView extends StatelessWidget {
-  const _IncomeNotFoundView({required this.isDark});
-
-  final bool isDark;
+  const _IncomeNotFoundView();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.extension<PocketaColors>()!;
     return Scaffold(
-      backgroundColor:
-          isDark ? AppColors.backgroundDark : AppColors.backgroundLight,
+      backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           'Edit Income',
@@ -779,22 +732,21 @@ class _IncomeNotFoundView extends StatelessWidget {
                 Icon(
                   Icons.error_outline_rounded,
                   size: ResponsiveUtilities.icon(context, 64),
-                  color: AppColors.error.withValues(alpha: 0.7),
+                  color: colors.stateAtRisk.withValues(alpha: 0.7),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Income entry not found',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color:
-                        isDark ? AppColors.textLight : AppColors.textDark,
+                    color: colors.inkPrimary,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'This income entry may have been deleted.',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: colors.inkSecondary,
                   ),
                   textAlign: TextAlign.center,
                 ),

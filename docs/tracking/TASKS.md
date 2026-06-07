@@ -2,7 +2,7 @@
 
 ## Current Sprint
 
-Sprint: A4 — Test Coverage + Design Consistency (next)
+Sprint: A5 — Bangla + Release Build (next)
 
 ## In Progress
 
@@ -21,12 +21,13 @@ Sprint: A4 — Test Coverage + Design Consistency (next)
 9. [x] Sprint A1: Internal Alpha Maturity Audit — **COMPLETE [2026-06-07]** (3 blockers, 5 majors found)
 10. [x] Sprint A2: Beta Blocker Resolution (8 tasks) — **COMPLETE [2026-06-07]** (B1+B2+B3+M1+M2+M3+P5)
 11. [x] Sprint A3: First Impression Polish (3 tasks) — **COMPLETE [2026-06-07]** (M5+P2+S2S hint)
+12. [x] Sprint A4: Test Coverage + Design Stabilization (9 tasks) — **COMPLETE [2026-06-07]** (40 new tests, 6 files migrated to PocketaColors, PocketaToast adoption)
 
 ## Next (Alpha-to-Beta Roadmap)
 
 1. [x] ~~Sprint A2: Beta Blocker Resolution~~ — **DONE**
 2. [x] ~~Sprint A3: First Impression Polish~~ — **DONE**
-3. [ ] Sprint A4: Test Coverage + Design Consistency (~6h) — widget tests, PocketaToast, PocketaAuditCard
+3. [x] ~~Sprint A4: Test Coverage + Design Consistency~~ — **DONE**
 4. [ ] Sprint A5: Bangla + Release Build (~4h) — app_bn.arb, APK, device test
 
 ## Backlog (Post-Beta / Deferred)
