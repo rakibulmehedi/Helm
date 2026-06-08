@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -61,40 +62,39 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.interactive,
       body: FadeTransition(
         opacity: _fadeAnimation,
-        child: _buildCenter(colors),
+        child: _buildCenter(colors, typo),
       ),
     );
   }
 
-  Widget _buildCenter(PocketaColors colors) {
+  Widget _buildCenter(PocketaColors colors, PocketaTypography typo) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
             radius: 40,
-            backgroundColor: Colors.white,
+            backgroundColor: colors.surface,
             child: Text(
               'P',
-              style: TextStyle(
-                fontSize: 52,
-                fontWeight: FontWeight.bold,
+              style: typo.displayHero.copyWith(
                 color: colors.interactive,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
           const SizedBox(height: 24),
-          const Text(
+          Text(
             'Pocketa',
-            style: TextStyle(
-              fontSize: 32,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+            style: typo.displayLarge.copyWith(
+              color: colors.surface,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

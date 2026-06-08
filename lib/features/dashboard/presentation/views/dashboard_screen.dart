@@ -113,7 +113,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         backgroundColor: colors.interactive,
         onPressed: () => context.push(RouteNames.addIncome),
         tooltip: 'Add pipeline entry',
-        child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+        child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

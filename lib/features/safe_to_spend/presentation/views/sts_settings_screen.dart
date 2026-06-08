@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
@@ -18,6 +19,7 @@ class StsSettingsScreen extends ConsumerWidget {
     final settings = ref.watch(stsSettingsProvider);
     final fixedCosts = ref.watch(fixedCostNotifierProvider);
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -32,14 +34,14 @@ class StsSettingsScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ── Tax Reserve ──────────────────────────────────────────────────
-            const Text(
+            Text(
               'Tax Reserve Rate',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
               'Estimated percentage of income to reserve for taxes.',
-              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
+              style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
             Row(
@@ -61,7 +63,7 @@ class StsSettingsScreen extends ConsumerWidget {
                   width: 50,
                   child: Text(
                     '${(settings.taxRate * 100).round()}%',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: typo.bodyMd.copyWith(fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -70,22 +72,19 @@ class StsSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 32),
 
             // ── Breathing Room (buffer %) ─────────────────────────────────────
-            const Text(
+            Text(
               'Breathing room',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
               'Reserve this % of expected income as a buffer',
-              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
+              style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 4),
             Text(
               '${settings.bufferPercent.round()}% of expected income',
-              style: TextStyle(
-                color: colors.inkSecondary,
-                fontSize: 13,
-              ),
+              style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
             Row(
@@ -109,7 +108,7 @@ class StsSettingsScreen extends ConsumerWidget {
                   width: 50,
                   child: Text(
                     '${settings.bufferPercent.round()}%',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: typo.bodyMd.copyWith(fontWeight: FontWeight.w600),
                   ),
                 ),
               ],
@@ -118,14 +117,14 @@ class StsSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 32),
 
             // ── Fixed Costs ───────────────────────────────────────────────────
-            const Text(
+            Text(
               'Fixed Costs',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
               'Fixed costs deducted from Safe-to-Spend each month.',
-              style: TextStyle(color: colors.inkSecondary, fontSize: 13),
+              style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
             if (fixedCosts.isEmpty)
@@ -158,7 +157,7 @@ class StsSettingsScreen extends ConsumerWidget {
                       alignment: Alignment.centerRight,
                       padding: const EdgeInsets.only(right: 20),
                       color: colors.stateAtRisk,
-                      child: const Icon(Icons.delete, color: Colors.white),
+                      child: Icon(Icons.delete, color: colors.surface),
                     ),
                     onDismissed: (_) {
                       ref
@@ -185,8 +184,7 @@ class StsSettingsScreen extends ConsumerWidget {
                       subtitle: Text('Due: Day ${cost.dueDayOfMonth}'),
                       trailing: Text(
                         '৳ ${cost.amount.toStringAsFixed(0)}',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                        style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
                       ),
                       onTap: () =>
                           _showAddEditFixedCostSheet(context, cost),
@@ -345,6 +343,8 @@ class _AddEditFixedCostSheetState
 
   @override
   Widget build(BuildContext context) {
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -360,8 +360,7 @@ class _AddEditFixedCostSheetState
           children: [
             Text(
               widget.entry == null ? 'Add Fixed Cost' : 'Edit Fixed Cost',
-              style: const TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold),
+              style: typo.headingMd,
             ),
             const SizedBox(height: 16),
             TextFormField(

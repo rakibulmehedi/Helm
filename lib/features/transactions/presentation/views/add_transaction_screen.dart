@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
@@ -135,6 +136,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.extension<PocketaColors>()!;
+    final typo = theme.extension<PocketaTypography>()!;
 
     // ── Missing transaction error state ──────────────────────────────────────
     if (_transactionNotFound) {
@@ -143,10 +145,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         appBar: AppBar(
           title: Text(
             'Edit Transaction',
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontSize: ResponsiveUtilities.font(context, 18),
-            ),
+            style: typo.headingMd,
           ),
           centerTitle: true,
           leading: IconButton(
@@ -169,15 +168,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   const SizedBox(height: 16),
                   Text(
                     'Transaction not found',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+                    style: typo.headingMd.copyWith(
                       color: colors.inkPrimary,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'This payment may have been deleted.',
-                    style: theme.textTheme.bodyMedium?.copyWith(
+                    style: typo.bodyMd.copyWith(
                       color: colors.inkSecondary,
                     ),
                     textAlign: TextAlign.center,
@@ -200,10 +198,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       appBar: AppBar(
         title: Text(
           widget.transactionId != null ? 'Edit cash out' : 'Record cash out',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveUtilities.font(context, 18),
-          ),
+          style: typo.headingMd,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -294,8 +289,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         const SizedBox(width: 12),
                         Text(
                           DateFormat('dd MMM yyyy').format(_selectedDate),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontSize: ResponsiveUtilities.font(context, 14),
+                          style: typo.bodyMd.copyWith(
                             color: colors.inkPrimary,
                           ),
                         ),
@@ -350,9 +344,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     return InputDecoration(
       hintText: hint,
       prefixText: prefixText,
-      hintStyle: TextStyle(
+      hintStyle: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
         color: colors.inkTertiary,
-        fontSize: ResponsiveUtilities.font(context, 14),
       ),
       filled: true,
       fillColor: colors.surface,
@@ -392,11 +385,11 @@ class _FieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     return Text(
       text,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+      style: typo.bodySm.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: ResponsiveUtilities.font(context, 13),
             color: colors.inkPrimary,
           ),
     );

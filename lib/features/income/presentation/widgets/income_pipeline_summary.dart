@@ -20,9 +20,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
 import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/utils/responsive_utils.dart';
 
 class IncomePipelineSummary extends ConsumerWidget {
   const IncomePipelineSummary({
@@ -38,6 +38,7 @@ class IncomePipelineSummary extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = theme.extension<PocketaTypography>()!;
     final allEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
 
@@ -104,9 +105,8 @@ class IncomePipelineSummary extends ConsumerWidget {
                     children: [
                       Text(
                         'Income Pipeline',
-                        style: theme.textTheme.bodyMedium?.copyWith(
+                        style: typo.bodyMd.copyWith(
                           fontWeight: FontWeight.w600,
-                          fontSize: ResponsiveUtilities.font(context, 14),
                           color: colors.inkPrimary,
                         ),
                       ),
@@ -115,8 +115,7 @@ class IncomePipelineSummary extends ConsumerWidget {
                         allEntries.isEmpty
                             ? 'Start tracking your incoming payments'
                             : 'No pipeline activity this month',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          fontSize: ResponsiveUtilities.font(context, 12),
+                        style: typo.labelMd.copyWith(
                           color: colors.inkSecondary,
                         ),
                       ),
@@ -146,9 +145,8 @@ class IncomePipelineSummary extends ConsumerWidget {
             children: [
               Text(
                 'Income Pipeline',
-                style: theme.textTheme.bodyMedium?.copyWith(
+                style: typo.bodyMd.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: ResponsiveUtilities.font(context, 14),
                   color: colors.inkPrimary,
                 ),
               ),
@@ -162,8 +160,7 @@ class IncomePipelineSummary extends ConsumerWidget {
                   ),
                   child: Text(
                     'View all',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      fontSize: ResponsiveUtilities.font(context, 12),
+                    style: typo.labelMd.copyWith(
                       color: colors.interactive,
                       fontWeight: FontWeight.w500,
                     ),
@@ -249,8 +246,8 @@ class _StatusRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
 
     return InkWell(
       onTap: onTap,
@@ -272,16 +269,14 @@ class _StatusRow extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  fontSize: ResponsiveUtilities.font(context, 13),
+                style: typo.bodySm.copyWith(
                   color: colors.inkSecondary,
                 ),
               ),
             ),
             Text(
               amount,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontSize: ResponsiveUtilities.font(context, 13),
+              style: typo.bodySm.copyWith(
                 fontWeight: FontWeight.w600,
                 color: color,
               ),

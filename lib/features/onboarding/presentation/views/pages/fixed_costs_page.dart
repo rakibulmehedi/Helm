@@ -280,8 +280,8 @@ class _CategoryRow extends StatelessWidget {
                     ),
                   ),
                   child: checked
-                      ? const Icon(Icons.check,
-                          size: 14, color: Colors.white)
+                      ? Icon(Icons.check,
+                          size: 14, color: colors.surface)
                       : null,
                 ),
                 const SizedBox(width: PocketaSpacing.s3),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/responsive_utils.dart';
-import '../../themes/colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final String title;
@@ -62,8 +62,8 @@ class OnboardingHeader extends StatelessWidget {
             title,
             style: theme.textTheme.displayLarge?.copyWith(
               fontSize: theme.textTheme.titleLarge!.fontSize,
-              fontWeight: FontWeight.bold,
-              color: isDark ? AppColors.textLight : AppColors.primary,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).extension<PocketaColors>()!.interactive,
             ),
           ),
         ],

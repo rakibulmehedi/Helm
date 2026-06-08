@@ -15,6 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
@@ -202,6 +203,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.extension<PocketaColors>()!;
+    final typo = theme.extension<PocketaTypography>()!;
     final isEditing = widget.incomeId != null;
 
     // ── Missing income error state ──────────────────────────────────────────
@@ -214,10 +216,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       appBar: AppBar(
         title: Text(
           isEditing ? 'Edit Income' : 'Add Income',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveUtilities.font(context, 18),
-          ),
+          style: typo.headingMd,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -414,16 +413,14 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                         horizontal: 16, vertical: 4),
                     title: Text(
                       'Exclude from Safe-to-Spend',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      style: typo.bodySm.copyWith(
                             fontWeight: FontWeight.w600,
-                            fontSize: ResponsiveUtilities.font(context, 13),
                             color: colors.inkPrimary,
                           ),
                     ),
                     subtitle: Text(
                       "Use when this payment shouldn't affect your numbers",
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            fontSize: ResponsiveUtilities.font(context, 12),
+                      style: typo.labelMd.copyWith(
                             color: colors.inkSecondary,
                           ),
                     ),
@@ -462,9 +459,8 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   }) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(
+      hintStyle: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
         color: colors.inkTertiary.withValues(alpha: 0.6),
-        fontSize: ResponsiveUtilities.font(context, 14),
       ),
       filled: true,
       fillColor: colors.surface,
@@ -505,11 +501,11 @@ class _FieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     return Text(
       text,
-      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+      style: typo.bodySm.copyWith(
             fontWeight: FontWeight.w600,
-            fontSize: ResponsiveUtilities.font(context, 13),
             color: colors.inkPrimary,
           ),
     );
@@ -555,9 +551,9 @@ class _StatusToggle extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    fontSize: ResponsiveUtilities.font(context, 13),
+                    fontSize: 13,
                     color: isActive
-                        ? Colors.white
+                        ? colors.surface
                         : colors.inkSecondary,
                   ),
                 ),
@@ -631,9 +627,9 @@ class _CurrencySelector extends StatelessWidget {
                 currency,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: ResponsiveUtilities.font(context, 13),
+                  fontSize: 13,
                   color: isActive
-                      ? Colors.white
+                      ? colors.surface
                       : colors.inkSecondary,
                 ),
               ),
@@ -684,8 +680,8 @@ class _DatePickerTile extends StatelessWidget {
               date != null
                   ? DateFormat('dd MMM yyyy').format(date!)
                   : (placeholder ?? 'Select date'),
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontSize: ResponsiveUtilities.font(context, 14),
+              style: TextStyle(
+                fontSize: 14,
                 color: date != null
                     ? colors.inkPrimary
                     : colors.inkTertiary.withValues(alpha: 0.6),
@@ -706,15 +702,13 @@ class _IncomeNotFoundView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.extension<PocketaColors>()!;
+    final typo = theme.extension<PocketaTypography>()!;
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           'Edit Income',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveUtilities.font(context, 18),
-          ),
+          style: typo.headingMd,
         ),
         centerTitle: true,
         leading: IconButton(
@@ -731,14 +725,13 @@ class _IncomeNotFoundView extends StatelessWidget {
               children: [
                 Icon(
                   Icons.error_outline_rounded,
-                  size: ResponsiveUtilities.icon(context, 64),
+                  size: 64,
                   color: colors.stateAtRisk.withValues(alpha: 0.7),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Income entry not found',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                  style: typo.headingMd.copyWith(
                     color: colors.inkPrimary,
                   ),
                 ),

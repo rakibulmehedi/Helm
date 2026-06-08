@@ -23,6 +23,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
@@ -128,6 +129,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     final allEntries = ref.watch(incomeNotifierProvider);
     final displayed = _applyFilter(allEntries);
 
@@ -136,10 +138,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
       appBar: AppBar(
         title: Text(
           'Income Pipeline',
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveUtilities.font(context, 18),
-          ),
+          style: typo.headingMd.copyWith(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -152,7 +151,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
         backgroundColor: colors.interactive,
         tooltip: 'Add income entry',
         onPressed: () => context.push(RouteNames.addIncome),
-        child: const Icon(Icons.add_rounded, color: Colors.white, size: 28),
+        child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
       body: SafeArea(
         child: Column(
@@ -193,10 +192,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
                 ),
                 child: Text(
                   '${displayed.length} ${displayed.length == 1 ? 'entry' : 'entries'}',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colors.inkSecondary,
-                    fontSize: ResponsiveUtilities.font(context, 12),
-                  ),
+                  style: typo.labelMd.copyWith(color: colors.inkSecondary),
                 ),
               ),
 
@@ -270,8 +266,8 @@ class _IncomeFilterChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -287,10 +283,9 @@ class _IncomeFilterChip extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: theme.textTheme.bodyMedium?.copyWith(
+          style: typo.bodySm.copyWith(
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-            fontSize: ResponsiveUtilities.font(context, 13),
-            color: isSelected ? Colors.white : colors.inkPrimary,
+            color: isSelected ? colors.surface : colors.inkPrimary,
           ),
         ),
       ),
@@ -355,8 +350,8 @@ class _IncomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
 
     final statusColor = _statusColor(entry.status, colors);
     final statusLabel = _statusLabel(entry.status);
@@ -403,9 +398,8 @@ class _IncomeCard extends StatelessWidget {
                   children: [
                     Text(
                       entry.clientName,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        fontSize: ResponsiveUtilities.font(context, 15),
+                      style: typo.headingSm.copyWith(
+                        fontWeight: FontWeight.w600,
                         color: colors.inkPrimary,
                       ),
                       maxLines: 1,
@@ -414,10 +408,7 @@ class _IncomeCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       entry.projectName,
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        fontSize: ResponsiveUtilities.font(context, 12),
-                        color: colors.inkSecondary,
-                      ),
+                      style: typo.labelMd.copyWith(color: colors.inkSecondary),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -436,8 +427,7 @@ class _IncomeCard extends StatelessWidget {
                 ),
                 child: Text(
                   statusLabel,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    fontSize: ResponsiveUtilities.font(context, 11),
+                  style: typo.labelSm.copyWith(
                     fontWeight: FontWeight.w600,
                     color: statusColor,
                   ),
@@ -455,9 +445,8 @@ class _IncomeCard extends StatelessWidget {
             children: [
               Text(
                 '${entry.currency} ${_formatter.format(entry.amount)}',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  fontSize: ResponsiveUtilities.font(context, 18),
+                style: typo.headingMd.copyWith(
+                  fontWeight: FontWeight.w600,
                   color: statusColor,
                 ),
               ),
@@ -476,8 +465,7 @@ class _IncomeCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         'By ${_dateFormatter.format(entry.expectedDate)}',
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          fontSize: ResponsiveUtilities.font(context, 11),
+                        style: typo.labelSm.copyWith(
                           color: colors.inkSecondary,
                         ),
                       ),
@@ -498,8 +486,7 @@ class _IncomeCard extends StatelessWidget {
                         const SizedBox(width: 4),
                         Text(
                           'Received ${_dateFormatter.format(entry.receivedDate!)}',
-                          style: theme.textTheme.bodySmall?.copyWith(
-                            fontSize: ResponsiveUtilities.font(context, 11),
+                          style: typo.labelSm.copyWith(
                             color: colors.stateSafe,
                           ),
                         ),
@@ -526,8 +513,7 @@ class _IncomeCard extends StatelessWidget {
                 entry.notes!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  fontSize: ResponsiveUtilities.font(context, 11),
+                style: typo.labelSm.copyWith(
                   color: colors.inkSecondary,
                 ),
               ),
@@ -581,8 +567,8 @@ class _FirstTimeEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -605,9 +591,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               'Track your income pipeline',
-              style: theme.textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.bold,
-                fontSize: ResponsiveUtilities.font(context, 18),
+              style: typo.headingMd.copyWith(
                 color: colors.inkPrimary,
               ),
               textAlign: TextAlign.center,
@@ -615,8 +599,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               'Add your first expected payment to see\nwhen money is coming in.',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontSize: ResponsiveUtilities.font(context, 14),
+              style: typo.bodyMd.copyWith(
                 color: colors.inkSecondary,
               ),
               textAlign: TextAlign.center,
@@ -645,8 +628,8 @@ class _FilterEmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final colors = context.colors;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -655,15 +638,13 @@ class _FilterEmptyState extends StatelessWidget {
           children: [
             Icon(
               _filterIcon(filter),
-              size: ResponsiveUtilities.icon(context, 56),
+              size: 56,
               color: colors.inkTertiary.withValues(alpha: 0.4),
             ),
             const SizedBox(height: 16),
             Text(
               _emptyTitle(filter),
-              style: theme.textTheme.bodyLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: ResponsiveUtilities.font(context, 15),
+              style: typo.headingSm.copyWith(
                 color: colors.inkPrimary,
               ),
               textAlign: TextAlign.center,
@@ -671,8 +652,7 @@ class _FilterEmptyState extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               _emptySubtitle(filter),
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontSize: ResponsiveUtilities.font(context, 13),
+              style: typo.bodySm.copyWith(
                 color: colors.inkSecondary,
               ),
               textAlign: TextAlign.center,

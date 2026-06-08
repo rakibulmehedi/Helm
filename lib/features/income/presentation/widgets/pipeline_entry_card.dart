@@ -198,7 +198,7 @@ class PipelineEntryCard extends ConsumerWidget {
           borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.06),
+              color: colors.inkPrimary.withValues(alpha: 0.06),
               blurRadius: 4,
             ),
           ],

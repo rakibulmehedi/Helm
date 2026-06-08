@@ -302,10 +302,10 @@ class _PipelineFab extends ConsumerWidget {
       return FloatingActionButton.extended(
         onPressed: () => context.push(RouteNames.addIncome),
         backgroundColor: colors.interactive,
-        icon: const Icon(Icons.add, color: Colors.white),
+        icon: Icon(Icons.add, color: colors.surface),
         label: Text(
           'Expected',
-          style: typo.labelMd.copyWith(color: Colors.white),
+          style: typo.labelMd.copyWith(color: colors.surface),
         ),
       );
     }
@@ -313,7 +313,7 @@ class _PipelineFab extends ConsumerWidget {
     return FloatingActionButton(
       onPressed: () => context.push(RouteNames.addIncome),
       backgroundColor: colors.interactive,
-      child: const Icon(Icons.add, color: Colors.white),
+      child: Icon(Icons.add, color: colors.surface),
     );
   }
 }

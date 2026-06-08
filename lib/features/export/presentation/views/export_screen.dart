@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
 import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
 
@@ -22,6 +23,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     final status = ref.watch(exportProvider);
     final isExporting = status == ExportStatus.exporting;
 
@@ -53,9 +55,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
           children: [
             Text(
               'Your data belongs to you',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+              style: typo.headingLg.copyWith(
                 color: colors.inkPrimary,
               ),
             ),
@@ -63,16 +63,14 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
             Text(
               'Export all your Pocketa data as CSV files. '
               'Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.',
-              style: TextStyle(
-                fontSize: 14,
+              style: typo.bodyMd.copyWith(
                 color: colors.inkSecondary,
               ),
             ),
             const SizedBox(height: 24),
             Text(
               'What will be exported',
-              style: TextStyle(
-                fontSize: 16,
+              style: typo.bodyLg.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colors.inkPrimary,
               ),
@@ -129,8 +127,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                 const SizedBox(width: 8),
                 Text(
                   name,
-                  style: TextStyle(
-                    fontSize: 14,
+                  style: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
                     color: colors.inkSecondary,
                   ),
                 ),

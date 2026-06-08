@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
 import 'package:pocketa_v2/features/audit_log/presentation/providers/audit_providers.dart';
 
@@ -74,9 +75,8 @@ class _AuditEventTile extends StatelessWidget {
       ),
       subtitle: Text(
         _formatTimestamp(event.timestamp),
-        style: TextStyle(
-          fontSize: 12,
-          color: Theme.of(context).textTheme.bodySmall?.color,
+        style: Theme.of(context).extension<PocketaTypography>()!.labelSm.copyWith(
+          color: Theme.of(context).extension<PocketaColors>()!.inkTertiary,
         ),
       ),
     );

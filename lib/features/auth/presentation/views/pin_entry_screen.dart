@@ -12,6 +12,7 @@ import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
 
 class PinEntryScreen extends ConsumerStatefulWidget {
@@ -157,9 +158,7 @@ class _PinEntryHeader extends StatelessWidget {
       children: [
         Text(
           'Enter your PIN',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w600,
+          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
             color: colors.inkPrimary,
           ),
         ),
@@ -167,8 +166,7 @@ class _PinEntryHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             message!,
-            style: TextStyle(
-              fontSize: 14,
+            style: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
               color: isLockedOut ? colors.stateAtRisk : colors.stateTight,
             ),
             textAlign: TextAlign.center,
@@ -298,8 +296,7 @@ class _NumKey extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: TextStyle(
-            fontSize: 24,
+          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
             fontWeight: FontWeight.w500,
             color: colors.inkPrimary,
           ),

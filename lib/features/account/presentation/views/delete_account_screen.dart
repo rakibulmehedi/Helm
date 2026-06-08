@@ -198,7 +198,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
               FilledButton(
                 style: FilledButton.styleFrom(
                   backgroundColor: atRisk,
-                  foregroundColor: Colors.white,
+                  foregroundColor: colors.surface,
                   minimumSize: const Size.fromHeight(52),
                   shape: RoundedRectangleBorder(
                     borderRadius:
@@ -207,12 +207,12 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 ),
                 onPressed: _deleting ? null : _showConfirmDialog,
                 child: _deleting
-                    ? const SizedBox(
+                    ? SizedBox(
                         width: 20,
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.white,
+                          color: colors.surface,
                         ),
                       )
                     : const Text('Continue to delete'),
@@ -473,7 +473,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
               child: FilledButton(
                 style: FilledButton.styleFrom(
                   backgroundColor: atRisk,
-                  foregroundColor: Colors.white,
+                  foregroundColor: colors.surface,
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(PocketaSpacing.cardRadius),

@@ -140,6 +140,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
     // Capture before pop — context invalid after Navigator.pop
     final messenger = ScaffoldMessenger.of(context);
     final safeColor = context.colors.stateSafe;
+    final surfaceColor = context.colors.surface;
 
     Navigator.of(context).pop();
 
@@ -156,7 +157,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
         behavior: SnackBarBehavior.floating,
         action: SnackBarAction(
           label: 'Undo',
-          textColor: Colors.white,
+          textColor: surfaceColor,
           onPressed: () async {
             // D2.04 — Beta instrumentation: undo after confirm
             ref.read(analyticsProvider).trackEvent(
