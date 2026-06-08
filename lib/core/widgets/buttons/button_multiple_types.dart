@@ -1,8 +1,7 @@
-// lib/core/components/app_button.dart
+// lib/core/widgets/buttons/button_multiple_types.dart
 import 'package:flutter/material.dart';
 
-import '../../../utils/responsive_utils.dart';
-import '../../themes/colors.dart';
+import '../../themes/pocketa_colors.dart';
 
 enum AppButtonType { primary, secondary, outline }
 
@@ -25,7 +24,7 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final bool isDark = theme.brightness == Brightness.dark;
+    final colors = theme.extension<PocketaColors>()!;
     final bool disabled = !isEnabled || isLoading;
 
     // Define colors based on button type
@@ -35,22 +34,23 @@ class AppButton extends StatelessWidget {
 
     switch (type) {
       case AppButtonType.primary:
-        backgroundColor =
-            disabled ? AppColors.primary.withValues(alpha: 0.4) : AppColors.primary;
-        foregroundColor = Colors.white;
+        backgroundColor = disabled
+            ? colors.interactive.withValues(alpha: 0.4)
+            : colors.interactive;
+        foregroundColor = colors.surface;
         borderColor = Colors.transparent;
         break;
 
       case AppButtonType.secondary:
-        backgroundColor = isDark ? Colors.grey[500]! : Colors.grey[300]!;
-        foregroundColor = isDark ? AppColors.textLight : AppColors.textDark;
+        backgroundColor = colors.hairline;
+        foregroundColor = colors.inkPrimary;
         borderColor = Colors.transparent;
         break;
 
       case AppButtonType.outline:
         backgroundColor = Colors.transparent;
-        foregroundColor = AppColors.primary;
-        borderColor = AppColors.primary;
+        foregroundColor = colors.interactive;
+        borderColor = colors.interactive;
         break;
     }
 
@@ -61,29 +61,28 @@ class AppButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
-          padding: ResponsiveUtilities.verticalPadding(context, percent: 0.02),
+          padding: const EdgeInsets.symmetric(vertical: 14),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(10),
             side: BorderSide(color: borderColor, width: 1.5),
           ),
         ),
-        child:
-            isLoading
-                ? const SizedBox(
-                  height: 22,
-                  width: 22,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    color: Colors.white,
-                  ),
-                )
-                : Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: ResponsiveUtilities.font(context, 16),
-                    fontWeight: FontWeight.w600,
-                  ),
+        child: isLoading
+            ? SizedBox(
+                height: 22,
+                width: 22,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.5,
+                  color: colors.surface,
                 ),
+              )
+            : Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }

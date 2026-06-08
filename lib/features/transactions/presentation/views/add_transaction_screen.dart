@@ -21,18 +21,6 @@ import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
 import '../providers/transaction_provider.dart';
 
-/// Placeholder category list — will be replaced by a proper
-/// category model / provider in a future phase.
-const List<String> _defaultCategories = [
-  'Food',
-  'Transport',
-  'Shopping',
-  'Bills',
-  'Entertainment',
-  'Health',
-  'Education',
-  'Other',
-];
 
 class AddTransactionScreen extends ConsumerStatefulWidget {
   final String? transactionId;
@@ -50,7 +38,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   final _noteController = TextEditingController();
 
   final TransactionType _selectedType = TransactionType.expense;
-  String _selectedCategory = _defaultCategories.first;
   DateTime _selectedDate = DateTime.now();
   bool _isSaving = false;
 
@@ -69,7 +56,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         _titleController.text = tx.title;
         _amountController.text = tx.amount.toString();
         if (tx.note != null) _noteController.text = tx.note!;
-        if (tx.categoryId != null) _selectedCategory = tx.categoryId!;
         _selectedDate = tx.date;
       } else {
         _transactionNotFound = true;
@@ -110,7 +96,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         title: _titleController.text.trim(),
         amount: double.parse(_amountController.text.trim()),
         date: _selectedDate,
-        categoryId: _selectedCategory,
         type: _selectedType,
         note: _noteController.text.trim().isEmpty
             ? null
@@ -214,7 +199,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
-          widget.transactionId != null ? 'Edit expense' : 'Add expense',
+          widget.transactionId != null ? 'Edit cash out' : 'Record cash out',
           style: theme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             fontSize: ResponsiveUtilities.font(context, 18),
@@ -280,44 +265,6 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     }
                     return null;
                   },
-                ),
-
-                const SizedBox(height: 20),
-
-                // ── Category chips ───────────────────────────────────────────
-                _FieldLabel('Category'),
-                const SizedBox(height: 10),
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: _defaultCategories.map((cat) {
-                    final isSelected = _selectedCategory == cat;
-                    return ChoiceChip(
-                      label: Text(cat),
-                      selected: isSelected,
-                      onSelected: (_) =>
-                          setState(() => _selectedCategory = cat),
-                      selectedColor: colors.interactive,
-                      backgroundColor: colors.hairline,
-                      labelStyle: TextStyle(
-                        color: isSelected
-                            ? Colors.white
-                            : colors.inkPrimary,
-                        fontWeight:
-                            isSelected ? FontWeight.w600 : FontWeight.w400,
-                        fontSize: ResponsiveUtilities.font(context, 13),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: isSelected
-                              ? colors.interactive
-                              : colors.divider,
-                        ),
-                      ),
-                      showCheckmark: false,
-                    );
-                  }).toList(),
                 ),
 
                 const SizedBox(height: 20),

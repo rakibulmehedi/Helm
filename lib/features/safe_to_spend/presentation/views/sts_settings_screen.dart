@@ -85,7 +85,6 @@ class StsSettingsScreen extends ConsumerWidget {
               style: TextStyle(
                 color: colors.inkSecondary,
                 fontSize: 13,
-                fontStyle: FontStyle.italic,
               ),
             ),
             const SizedBox(height: 16),

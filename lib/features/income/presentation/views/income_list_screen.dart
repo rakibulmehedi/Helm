@@ -529,7 +529,6 @@ class _IncomeCard extends StatelessWidget {
                 style: theme.textTheme.bodySmall?.copyWith(
                   fontSize: ResponsiveUtilities.font(context, 11),
                   color: colors.inkSecondary,
-                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
