@@ -35,12 +35,16 @@ class PocketaTrustStrip extends StatelessWidget {
   /// When provided, adds "Tap to audit" segment and makes strip tappable.
   final VoidCallback? onTapAudit;
 
+  /// Optional quiet affirmation signal (facts only, no celebration).
+  final String? affirmation;
+
   const PocketaTrustStrip({
     super.key,
     required this.updatedAt,
     this.sourceLabel,
     this.fxRate,
     this.onTapAudit,
+    this.affirmation,
   });
 
   @override
@@ -52,26 +56,42 @@ class PocketaTrustStrip extends StatelessWidget {
     final TextStyle textStyle =
         typography.labelSm.copyWith(color: colors.inkSecondary);
 
-    final Widget textWidget = Text(
-      fullLabel,
-      style: textStyle,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
+    final Widget content = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          fullLabel,
+          style: textStyle,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (affirmation != null && affirmation!.isNotEmpty) ...[
+          const SizedBox(height: 2),
+          Text(
+            affirmation!,
+            style: typography.labelSm.copyWith(
+              color: colors.stateSafe,
+              fontSize: 10,
+              height: 1.3,
+            ),
+          ),
+        ],
+      ],
     );
 
     final Widget semanticChild = Semantics(
-      label: fullLabel,
+      label: '$fullLabel${affirmation != null ? '. $affirmation' : ''}',
       button: onTapAudit != null,
-      child: textWidget,
+      child: content,
     );
 
     if (onTapAudit != null) {
-      // Ensure 44pt minimum touch target
       return GestureDetector(
         onTap: onTapAudit,
         behavior: HitTestBehavior.opaque,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: PocketaSpacing.s10 + 4), // 44pt
+          constraints: const BoxConstraints(minHeight: PocketaSpacing.s10 + 4),
           child: Align(
             alignment: Alignment.centerLeft,
             child: semanticChild,

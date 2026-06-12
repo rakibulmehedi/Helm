@@ -37,10 +37,13 @@ import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_calculation_trace.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_reality_stack.dart';
+import 'package:pocketa_v2/features/dashboard/domain/affirmation.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/committed_section.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/not_counted_section.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/reserve_section.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/s2s_hero_block.dart';
+import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
+import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -52,6 +55,7 @@ class DashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   bool _showStsHint = false;
+  String? _affirmation;
 
   @override
   void initState() {
@@ -63,7 +67,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     // D2.03 — Fire session-open analytics events on every dashboard mount.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      _computeAffirmation();
       final analytics = ref.read(analyticsProvider);
+      final stsResult = ref.read(safeToSpendProvider);
       analytics.trackEvent(TransactionalEvents.stsViewed);
       analytics.trackEvent(
         BoundaryEvents.dailyActiveSession,
@@ -72,6 +78,40 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               DateTime.now().toIso8601String().substring(0, 10),
         },
       );
+
+      // P1.1: sts_at_risk_entered — fire once per session
+      if (stsResult.rawSafeToSpend <= -stsResult.anxietyBuffer &&
+          !SharedPrefServices.getEventFired(BoundaryEvents.stsAtRiskEntered)) {
+        analytics.trackEvent(BoundaryEvents.stsAtRiskEntered);
+        SharedPrefServices.setEventFired(BoundaryEvents.stsAtRiskEntered);
+      }
+
+      // P1.2: reserve_depleted — fire once per session
+      if (stsResult.anxietyBuffer == 0 &&
+          !SharedPrefServices.getEventFired(BoundaryEvents.reserveDepleted)) {
+        analytics.trackEvent(BoundaryEvents.reserveDepleted);
+        SharedPrefServices.setEventFired(BoundaryEvents.reserveDepleted);
+      }
+    });
+  }
+
+  void _computeAffirmation() {
+    final incomeEntries = ref.read(incomeNotifierProvider);
+    final now = DateTime.now();
+    final overdueCount = incomeEntries
+        .where((e) =>
+            e.status == IncomeStatus.expected &&
+            e.expectedDate.isBefore(now))
+        .length;
+    final sessionCount = SharedPrefServices.getSessionCount();
+    SharedPrefServices.incrementSessionCount();
+
+    final result = Affirmation.compute(
+      overdueEntryCount: overdueCount,
+      sessionCount: sessionCount,
+    );
+    setState(() {
+      _affirmation = result.type != AffirmationType.none ? result.copy : null;
     });
   }
 
@@ -166,6 +206,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             heroTier: S2sHeroBlock(
               result: stsResult,
               updatedAt: DateTime.now(),
+              affirmation: _affirmation,
               // UX-1.09 — tap hero opens calculation breakdown.
               // D2.03 — fire calculationBreakdownOpened before showing trace.
               onTapTrace: () {

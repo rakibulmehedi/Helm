@@ -62,6 +62,8 @@ class SharedPrefServices {
   static const String _liquidBalanceBdtKey = 'liquid_balance_bdt';
   static const String _incomePatternKey = 'income_pattern';
 
+  static const String _sessionCountKey = 'session_count';
+
   static Future<void> setLiquidBalanceBdt(double amount) async {
     await _prefs?.setDouble(_liquidBalanceBdtKey, amount);
   }
@@ -76,5 +78,22 @@ class SharedPrefServices {
 
   static String getIncomePattern() {
     return _prefs?.getString(_incomePatternKey) ?? 'marketplace';
+  }
+
+  static int getSessionCount() {
+    return _prefs?.getInt(_sessionCountKey) ?? 0;
+  }
+
+  static Future<void> incrementSessionCount() async {
+    final current = getSessionCount();
+    await _prefs?.setInt(_sessionCountKey, current + 1);
+  }
+
+  static Future<void> setEventFired(String eventKey) async {
+    await _prefs?.setBool('event_fired_$eventKey', true);
+  }
+
+  static bool getEventFired(String eventKey) {
+    return _prefs?.getBool('event_fired_$eventKey') ?? false;
   }
 }
