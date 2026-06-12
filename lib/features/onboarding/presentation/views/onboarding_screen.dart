@@ -32,6 +32,7 @@ import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_ent
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
+import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
 
 // ONB-003 progress values per step (6 steps)
 const List<double> _kStepProgress = [0.0, 0.20, 0.40, 0.55, 0.70, 0.90];
@@ -110,6 +111,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     await SharedPrefServices.setOnboardingCompleted(true);
     // D2P — Beta instrumentation: onboarding completion milestone
     ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
+    if (mounted) {
+      await CadencePreferenceSheet.show(context);
+    }
     if (mounted) context.go(RouteNames.home);
   }
 

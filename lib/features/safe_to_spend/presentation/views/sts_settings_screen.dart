@@ -10,6 +10,7 @@ import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_ent
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
+import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
 
 class StsSettingsScreen extends ConsumerWidget {
   const StsSettingsScreen({super.key});
@@ -56,16 +57,19 @@ class StsSettingsScreen extends ConsumerWidget {
                   icon: const Icon(Icons.remove_circle_outline, size: 28),
                 ),
                 Expanded(
-                  child: Slider(
-                    value: settings.taxRate,
-                    min: 0.0,
-                    max: 0.4,
-                    divisions: 50,
-                    activeColor: colors.interactive,
-                    label: '${(settings.taxRate * 100).round()}%',
-                    onChanged: (val) {
-                      ref.read(stsSettingsProvider.notifier).updateTaxRate(val);
-                    },
+                  child: Semantics(
+                    label: 'Tax rate: ${(settings.taxRate * 100).round()}%',
+                    child: Slider(
+                      value: settings.taxRate,
+                      min: 0.0,
+                      max: 0.4,
+                      divisions: 50,
+                      activeColor: colors.interactive,
+                      label: '${(settings.taxRate * 100).round()}%',
+                      onChanged: (val) {
+                        ref.read(stsSettingsProvider.notifier).updateTaxRate(val);
+                      },
+                    ),
                   ),
                 ),
                 IconButton(
@@ -117,18 +121,21 @@ class StsSettingsScreen extends ConsumerWidget {
                   icon: const Icon(Icons.remove_circle_outline, size: 28),
                 ),
                 Expanded(
-                  child: Slider(
-                    value: settings.bufferPercent.clamp(5.0, 30.0),
-                    min: 5.0,
-                    max: 30.0,
-                    divisions: 25,
-                    activeColor: colors.interactive,
-                    label: '${settings.bufferPercent.round()}%',
-                    onChanged: (val) {
-                      ref
-                          .read(stsSettingsProvider.notifier)
-                          .updateBufferPercent(val);
-                    },
+                  child: Semantics(
+                    label: 'Safety buffer: ${settings.bufferPercent.round()}%',
+                    child: Slider(
+                      value: settings.bufferPercent.clamp(5.0, 30.0),
+                      min: 5.0,
+                      max: 30.0,
+                      divisions: 25,
+                      activeColor: colors.interactive,
+                      label: '${settings.bufferPercent.round()}%',
+                      onChanged: (val) {
+                        ref
+                            .read(stsSettingsProvider.notifier)
+                            .updateBufferPercent(val);
+                      },
+                    ),
                   ),
                 ),
                 IconButton(
@@ -246,8 +253,16 @@ class StsSettingsScreen extends ConsumerWidget {
 
             const SizedBox(height: 40),
 
-            // ── Data export ────────────────────────────────────────────────────
+            // ── Notification preferences ───────────────────────────────────────
             const Divider(),
+            ListTile(
+              leading: const Icon(Icons.notifications_outlined),
+              title: const Text('Notification preferences'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => CadencePreferenceSheet.show(context),
+            ),
+
+            // ── Data export ────────────────────────────────────────────────────
             ListTile(
               leading: const Icon(Icons.download_outlined),
               title: const Text('Export my data'),
