@@ -37,6 +37,7 @@ import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_calculation_trace.dart';
 import 'package:pocketa_v2/core/widgets/pocketa_reality_stack.dart';
+import 'package:pocketa_v2/core/widgets/next_best_action_card.dart';
 import 'package:pocketa_v2/features/dashboard/domain/affirmation.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/committed_section.dart';
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/not_counted_section.dart';
@@ -44,6 +45,7 @@ import 'package:pocketa_v2/features/dashboard/presentation/widgets/reserve_secti
 import 'package:pocketa_v2/features/dashboard/presentation/widgets/s2s_hero_block.dart';
 import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
 import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
+import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
@@ -125,6 +127,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final colors = Theme.of(context).extension<PocketaColors>()!;
     final typography = Theme.of(context).extension<PocketaTypography>()!;
     final stsResult = ref.watch(safeToSpendProvider);
+    final incomeEntries = ref.watch(incomeNotifierProvider);
+    final now = DateTime.now();
+    final overdueCount = incomeEntries
+        .where((e) =>
+            e.status == IncomeStatus.expected &&
+            e.expectedDate.isBefore(now))
+        .length;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -152,7 +161,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         heroTag: 'addPipelineEntryFab',
         backgroundColor: colors.interactive,
         onPressed: () => context.push(RouteNames.addIncome),
-        tooltip: 'Add pipeline entry',
+        tooltip: 'Add income entry',
         child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
       body: SafeArea(
@@ -230,8 +239,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ReserveSection(result: stsResult),
               ],
             ),
-            // Tier 3 — Maintenance: not implemented in UX-1.
-            maintenanceTier: null,
+            // Tier 3 — Maintenance: Next-Best-Action Card
+            maintenanceTier: _buildNextBestActionCard(context, stsResult, overdueCount, incomeEntries.isEmpty),
             // Tier 4 — Hope: pipeline money not yet counted.
             hopeTier: NotCountedSection(
               result: stsResult,
@@ -242,6 +251,29 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildNextBestActionCard(
+    BuildContext context,
+    SafeToSpendResult stsResult,
+    int overdueCount,
+    bool isPipelineEmpty,
+  ) {
+    final ActionVariant variant;
+    if (isPipelineEmpty) {
+      variant = ActionVariant.setup;
+    } else if (overdueCount > 0) {
+      variant = ActionVariant.overdue;
+    } else if (stsResult.rawSafeToSpend <= 0) {
+      variant = ActionVariant.atRisk;
+    } else {
+      variant = ActionVariant.relief;
+    }
+
+    return NextBestActionCard(
+      variant: variant,
+      count: overdueCount,
     );
   }
 }
