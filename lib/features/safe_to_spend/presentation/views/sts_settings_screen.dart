@@ -46,6 +46,15 @@ class StsSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             Row(
               children: [
+                IconButton(
+                  key: const Key('tax_rate_minus'),
+                  onPressed: settings.taxRate > 0.0
+                      ? () => ref.read(stsSettingsProvider.notifier).updateTaxRate(
+                            (settings.taxRate - 0.01).clamp(0.0, 0.4),
+                          )
+                      : null,
+                  icon: const Icon(Icons.remove_circle_outline, size: 28),
+                ),
                 Expanded(
                   child: Slider(
                     value: settings.taxRate,
@@ -58,6 +67,15 @@ class StsSettingsScreen extends ConsumerWidget {
                       ref.read(stsSettingsProvider.notifier).updateTaxRate(val);
                     },
                   ),
+                ),
+                IconButton(
+                  key: const Key('tax_rate_plus'),
+                  onPressed: settings.taxRate < 0.4
+                      ? () => ref.read(stsSettingsProvider.notifier).updateTaxRate(
+                            (settings.taxRate + 0.01).clamp(0.0, 0.4),
+                          )
+                      : null,
+                  icon: const Icon(Icons.add_circle_outline, size: 28),
                 ),
                 SizedBox(
                   width: 50,
@@ -89,6 +107,15 @@ class StsSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             Row(
               children: [
+                IconButton(
+                  key: const Key('buffer_minus'),
+                  onPressed: settings.bufferPercent > 5.0
+                      ? () => ref.read(stsSettingsProvider.notifier).updateBufferPercent(
+                            (settings.bufferPercent - 1.0).clamp(5.0, 30.0),
+                          )
+                      : null,
+                  icon: const Icon(Icons.remove_circle_outline, size: 28),
+                ),
                 Expanded(
                   child: Slider(
                     value: settings.bufferPercent.clamp(5.0, 30.0),
@@ -103,6 +130,15 @@ class StsSettingsScreen extends ConsumerWidget {
                           .updateBufferPercent(val);
                     },
                   ),
+                ),
+                IconButton(
+                  key: const Key('buffer_plus'),
+                  onPressed: settings.bufferPercent < 30.0
+                      ? () => ref.read(stsSettingsProvider.notifier).updateBufferPercent(
+                            (settings.bufferPercent + 1.0).clamp(5.0, 30.0),
+                          )
+                      : null,
+                  icon: const Icon(Icons.add_circle_outline, size: 28),
                 ),
                 SizedBox(
                   width: 50,
