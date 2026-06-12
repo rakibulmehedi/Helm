@@ -57,6 +57,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
+  /// Global skip — persists partial draft data, navigates to home.
+  Future<void> _skipToHome() async {
+    await SharedPrefServices.setLiquidBalanceBdt(_draft.liquidBalanceBdt);
+    if (_draft.incomePattern.name.isNotEmpty) {
+      await SharedPrefServices.setIncomePattern(_draft.incomePattern.name);
+    }
+    await SharedPrefServices.setOnboardingCompleted(true);
+    ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
+    if (mounted) context.go(RouteNames.home);
+  }
+
   /// Creates a pipeline entry from onboarding step 6, then completes.
   Future<void> _addPipelineEntryAndComplete(PipelineDraftEntry entry) async {
     final now = DateTime.now();
@@ -120,8 +131,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           // ONB-003: 2pt progress line at top, no labels
           SafeArea(
             bottom: false,
-            child: OnboardingProgressLine(
-              progress: _kStepProgress[_currentStep],
+            child: Stack(
+              children: [
+                OnboardingProgressLine(
+                  progress: _kStepProgress[_currentStep],
+                ),
+                Positioned(
+                  top: 8,
+                  right: 16,
+                  child: TextButton(
+                    key: const Key('onboarding_skip'),
+                    onPressed: _skipToHome,
+                    child: Text(
+                      'Set up later',
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
