@@ -2,7 +2,32 @@
 
 > Details for the active sprint and immediate priorities.
 
+## 0. Master Plan Context
+
+**Reference:** `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan, adopted 2026-06-12.
+
+Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/100) to 100% maturity (Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35). Current position: Phase 0 (Beta Launch Readiness). Next: Phase 1 (Behavioral Foundation).
+
+| Phase | Status | Score Target | Effort |
+|-------|--------|-------------|--------|
+| 0 — Beta Launch Readiness | 🔲 IN PROGRESS | — | ~4h |
+| 1 — Behavioral Foundation | 🔲 PENDING | 62→68 behavioral, 78→83 UI/UX | ~6h |
+| 2 — Analytics Infrastructure | 🔲 PENDING | 68→76 behavioral, 83→89 UI/UX | ~8h |
+| 3 — Notification System | 🔲 PENDING | 76→82 behavioral | ~12h |
+| 4 — Doctrine Gap Closure | 🔲 PENDING | 82→90 behavioral, 89→93 UI/UX | ~20h |
+| 5 — V1 Features (gated) | 🔲 BLOCKED | 90→93 behavioral, 93→95 UI/UX | ~15h |
+| 6 — V2 Features (gated) | 🔲 BLOCKED | 93→95 behavioral, 95→98 UI/UX | ~20h |
+
 ## 1. Active Sprint
+
+**Sprint A5 (Bangla + Release Build):**
+Status: **🔲 PENDING** — Next sprint. 2026-06-12. Depends on: A4 complete (✅).
+- Author native Bangla strings (app_bn.arb) — native copy, not Google Translate
+- Build release APK for Android
+- Test on Samsung Galaxy A14 (or equivalent reference device)
+- Verify Android minSdkVersion compatibility
+- Verify app icon and branded splash display
+- Exit: Release APK runs on reference device. Bangla strings authored. 78/78 tests pass.
 
 **Sprint A4 (Test Coverage + Design Stabilization):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
@@ -100,16 +125,15 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 
 ## 2. Current Priority
 
-- **Sprint A4 COMPLETE** — 40 new tests, 6 files migrated PocketaColors, PocketaToast adopted, 78/78 tests
-- **Sprint 2 (UX-1) COMPLETE** — 14/14 tasks done, dart analyze 0/0/0
-- **Sprint 3 (UX-2) COMPLETE** — 5-step onboarding flow live, dart analyze 0/0/0, all 26 tests pass
-- **Sprint 4 (UX-3) COMPLETE** — 10/10 tasks done, dart analyze 0/0/0, 30/30 tests pass
-- **UX-3P Polish COMPLETE** — swipe-to-advance (PIPE-020), 5s undo (PIPE-019), Needs decision header (PIPE-013)
-- **Sprint 5 (UX-4) COMPLETE** — 8 tasks: Microcopy Replacement
-- **Dashboard is now doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
-- **Onboarding is now doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
+- **Sprint A5 NEXT** — Bangla + Release Build → closed beta distribution
+- **Phase 1 NEXT** — Behavioral Foundation (wire events, haptics, contrast, affirmations) — can start parallel with A5
+- **Phase 4 PREP** — Legal outreach for L1-L7 opinions, backend stack decision (Supabase vs Next.js)
+- **All prior sprints COMPLETE** — 16 sprints done, 13 months of work, 103 Dart files, 78 tests, dart analyze 0/0/0
+- **Dashboard is doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
+- **Onboarding is doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
 - **Token foundation is stable** — new widgets consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
-- **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `UX_SPRINT_SEQUENCE.md`, `UX_TO_CODE_FILE_MAP.md`
+- **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` — 6 phases, ~85 hours, 100% maturity target
+- **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
 - **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
 - MVP success criteria locked per Doctrine §4:
   - Pipeline update compliance ≥85%
@@ -118,7 +142,9 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
   - Onboarding completion ≥70%
   - S2S comprehension ≥80%
 
-## 3. Sprint Status — UX Canon Implementation
+## 3. Sprint Status — UX Canon + Alpha-to-Beta + Master Plan
+
+### UX Canon Implementation
 
 | Sprint | ID | Status | Tasks |
 |--------|-----|--------|-------|
@@ -130,10 +156,28 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |
 | 7 | D2 Beta Instrumentation | **COMPLETE** ✅ | 6/6 |
 | 8 | D3 Closed Beta Readiness | **COMPLETE** ✅ | 8/8 (bug fix + 7 beta docs) |
+
+### Alpha-to-Beta Roadmap
+
+| Sprint | ID | Status | Tasks |
+|--------|-----|--------|-------|
 | A1 | Internal Alpha Maturity Audit | **COMPLETE** ✅ | Code-only audit |
 | A2 | Beta Blocker Resolution | **COMPLETE** ✅ | 8/8 (B1+B2+B3+M1+M2+M3+P5) |
 | A3 | First Impression Polish | **COMPLETE** ✅ | 3/3 (M5+P2+S2S hint) |
 | A4 | Test Coverage + Design Stabilization | **COMPLETE** ✅ | 9/9 (40 tests, 6 migrations, PocketaToast) |
+| A5 | Bangla + Release Build | **🔲 PENDING** | 5 tasks, ~4h |
+
+### 100% Master Plan (2026-06-12)
+
+| Phase | Scope | Status | Tasks | Effort | Score Target |
+|-------|-------|--------|-------|--------|-------------|
+| 0 | Beta Launch Readiness (A5) | **🔲 PENDING** | 5 | ~4h | — |
+| 1 | Behavioral Foundation | **🔲 PENDING** | 18 | ~6h | B:68, U:83 |
+| 2 | Analytics Infrastructure | **🔲 PENDING** | 21 | ~8h | B:76, U:89 |
+| 3 | Notification System | **🔲 PENDING** | 30 | ~12h | B:82 |
+| 4 | Doctrine Gap Closure | **🔲 PENDING** | 28 | ~20h | B:90, U:93 |
+| 5 | V1 Features | **🔲 BLOCKED** (beta gate) | 15 | ~15h | B:93, U:95 |
+| 6 | V2 Features | **🔲 BLOCKED** (V1+legal gate) | 28 | ~20h | B:95, U:98 |
 
 ### Prior Sprints (Complete)
 

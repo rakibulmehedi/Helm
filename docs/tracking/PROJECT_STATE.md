@@ -15,6 +15,12 @@
 - UX hardening
 - income pipeline (Phase 7 complete: data layer, entry UI, list/filter, dashboard, status transitions)
 - transaction domain abstraction (Phase 7f complete: TransactionEntity, clean repository interface, Hive boundary enforcement)
+- safe-to-spend engine (Phase 8 complete: calculator, settings, hero, breakdown, UX hardening)
+- trust layer (D1 complete: PIN auth, audit log, CSV export, account deletion)
+- beta instrumentation (D2 complete: 15 analytics events, LocalAnalyticsService)
+- behavioral audit system (June 2026: behavioral nudge audit + UI/UX audit + synthesized analysis + nudge engine deliverables)
+- master plan documentation (June 2026: 100% master plan, 6 phases, 145+ tasks)
+- agent infrastructure (10 agent definitions in .claude/agents/)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -25,27 +31,46 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: BETA BLOCKER FREE** (2026-06-07, A2 sprint)
+**Current Verdict: BETA BLOCKER FREE — INTERNAL ALPHA READY** (2026-06-12, post-A4)
 - All 3 beta blockers resolved (B1+B2+B3)
 - 3 major issues resolved (M1+M2+M3)
 - 1 polish item resolved (P5 financial disclaimer)
-- Remaining gaps: no Bangla (M4)
 - Core S2S engine + dashboard + pipeline: production-grade
-- Onboarding now 6 steps with optional first pipeline entry
-- Distance to beta: ~4 hours in 1 sprint (A5 Bangla + Release Build)
+- Onboarding: 6 steps with optional first pipeline entry
+- Distance to closed beta: ~4 hours (Sprint A5 — Bangla + Release Build)
+- Distance to 100% maturity: ~85 hours across 6 phases (see master plan)
+- **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` (adopted 2026-06-12)
+- **Audits complete**: Behavioral 62/100, UI/UX 78/100, Trust Layer 23/35
+- **Audit deliverables**: 3 new docs in `docs/audits/` (synthesized analysis, nudge engine deliverables)
+- **Agent assets**: 10 agent definitions in `.claude/agents/` (all general-purpose, no codebase hardcoding)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
-- See `docs/planning/ALPHA_TO_BETA_ROADMAP.md` for sprint plan
+- See `docs/planning/100_PERCENT_MASTER_PLAN.md` for complete 6-phase roadmap
 
 ## 4. Known Technical Debt
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
+- no notification center (in-app banner system is partial — one-time S2S hint only)
+- 4 boundary analytics events registered but unwired (sts_at_risk_entered, reserve_depleted, first_pipeline_entry, pipeline_state_changed)
+- Analytics: debugPrint-only, no Hive persistence, no nudge effectiveness tracking
+- Zero haptic feedback anywhere
+- 3 contrast ratios below WCAG AA (stateSafe, stateTight, dark interactive)
+- No active/pressed visual states on buttons
+- Slider UX: jumpy with 50 divisions, no ±1% stepper buttons
+- No "next best action" guidance on dashboard (passive state display only)
+- No cadence/personalization preferences (notification frequency, channel, check-in time)
+- No notification system exists (push notifications are V1, but no infrastructure prep done)
+- Pipeline shows all overdue entries — no micro-sprint decomposition or prioritization
+- Settings screen: one long scroll, no section collapsing
+- No onboarding global skip ("Set up later — take me to the app")
+- No quiet affirmation signals (deliberately absent per ONB-014, but audit identifies gap)
 - STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
 - 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
 - Design system migration: ~90% (only 2 core widgets remain on AppColors)
 - Widget adoption: 11/13 (85%) — PocketaToast adopted across all feature screens
 - Trust Layer score: 23/35 (66%)
 - Test coverage: 78 tests in 4 files (S2S Calculator, PinHasher, NumberFormatter, OnboardingDraft)
+- **Full debt inventory**: See `docs/planning/100_PERCENT_MASTER_PLAN.md` §1-8 for 145+ tasks
 
 ## 5. Current Architecture
 - Framework: Flutter
@@ -192,6 +217,37 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 ## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
 - Biometric auth (D1.04 deferred — needs `local_auth` package approval)
+- Push notifications (Phase 3 — needs `flutter_local_notifications` package approval)
+- Auth system (Phase 4 — needs backend stack decision + legal L1-L7)
+- Multi-wallet (Phase 5 — gated on beta thresholds cleared)
+- Invoice-Lite / Tax reserve / Paid tiers (Phase 6 — gated on V1 stable + legal L5 + pricing validation)
+
+## 7b. Planned Modules (Master Plan — `docs/planning/100_PERCENT_MASTER_PLAN.md`)
+
+| Module | Phase | Status | Gate |
+|--------|-------|--------|------|
+| Bangla localization | 0 (A5) | Pending | — |
+| Boundary event wiring | 1 | Pending | — |
+| Haptic feedback system | 1 | Pending | — |
+| Contrast ratio fixes | 1 | Pending | — |
+| Quiet affirmation signals | 1 | Pending | — |
+| Analytics persistence (Hive) | 2 | Pending | Depends Phase 1 |
+| Next-best-action card | 2 | Pending | Depends Phase 1 |
+| Full Semantics coverage | 2 | Pending | — |
+| Cadence preference UI | 2 | Pending | — |
+| Notification system (push + center) | 3 | Pending | Depends Phase 2 + pkg approval |
+| Nudge evaluator engine | 3 | Pending | Depends Phase 2 |
+| Nudge effectiveness tracking | 3 | Pending | Depends Phase 2 |
+| Magic Link auth system | 4 | Pending | Depends Phase 0 + legal + stack |
+| Conversational onboarding | 4 | Pending | — |
+| FX rate per-entry + exclude toggle | 4 | Pending | — |
+| Buffer as percentage (5-30%) | 4 | Pending | — |
+| Multi-wallet system | 5 | Blocked | Beta thresholds |
+| Dashboard state colors | 5 | Blocked | Beta thresholds |
+| Skeleton screens | 5 | Blocked | Beta thresholds |
+| Invoice-Lite (3 sprints) | 6 | Blocked | V1 stable + legal L5 |
+| Tax reserve (user-declared) | 6 | Blocked | V1 stable |
+| Paid tiers (Free/Pro/Power) | 6 | Blocked | V1 stable + pricing valid |
 
 ## 8. Current Product Direction (per Final Doctrine)
 - Focus: Freelancer Cashflow Clarity

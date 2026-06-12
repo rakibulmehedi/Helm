@@ -4,6 +4,34 @@ This file captures engineering, product, UX, and agentic workflow lessons.
 
 ---
 
+## Audit Synthesis Lessons (2026-06-12)
+
+### 11. Behavioral Audit + UI/UX Audit — Nudge delivery is the single biggest gap
+Pocketa has sophisticated in-app psychology (loss aversion, anchoring, safety framing = 85/100) but zero out-of-app engagement infrastructure. Cadence & personalization scored 15/100, nudge delivery 20/100. The user must remember to open the app — the app never reaches out. Rule: in-app psychology without out-of-app delivery = great engine with no transmission.
+
+### 12. Behavioral Audit + UI/UX Audit — Haptics are behavioral infrastructure, not polish
+The UI/UX audit flagged zero haptic feedback as CRITICAL. The behavioral audit maps this to Fogg's "Ability" signal — haptics confirm micro-actions without cognitive load. Every tap, confirm, delete, and error should have haptic. This is table-stakes for fintech apps, not a "nice to have."
+
+### 13. Behavioral Audit — Celebration tension has a middle ground
+ONB-014 deliberately bans confetti and congratulations. But the behavioral audit gives Celebration & Reinforcement 10/100. The resolution is "Quiet Affirmation" — acknowledgment without gamification. "7 days tracked" in the trust strip is factual, not celebratory. Relief signals (pipeline up to date = green rail) are rewards without fanfare.
+
+### 14. Behavioral Audit — Dashboard must be a coach, not a mirror
+The current dashboard is passive: it displays state but doesn't guide action. A user with 3 overdue entries sees the same dashboard as a user with 0. The nudge engine's core rule — "Show the 1 most critical item, not all 50" — directly applies to the pipeline list and dashboard. The "next best action" card is the single highest-impact behavioral change.
+
+### 15. Agent Design — Keep agent definitions general-purpose, not codebase-hardcoded
+Per taste preference: agent definition files should be reusable lenses, not project-specific scripts. The behavioral nudge engine was briefly overwritten with Pocketa-specific Flutter/Dart code and brand voice constraints — then restored. The correct pattern: apply the agent as a lens to produce project-specific deliverables (in docs/), but leave the agent definition general-purpose.
+
+### 16. Audit Workflow — Cross-referencing audits through agent lenses amplifies findings
+Running both audits (Behavioral 62/100, UI/UX 78/100) through 7 agent lenses (Nudge Engine, UX Researcher, UI Designer, UX Architect, Whimsy Injector, Persona Walkthrough, Brand Guardian) revealed connections neither audit caught alone. The UI/UX audit's "CRITICAL haptics" and the behavioral audit's "Fogg Ability signal" are the same gap seen from different angles. Synthesis produces a merged priority matrix that neither individual audit could produce.
+
+### 17. Planning — Comprehensive plans need explicit score projections and gates
+The master plan includes per-phase score projections with measurement criteria. Beta gates (5 thresholds, 2+ misses = KILL) are mandatory before V1. V2 gates (V1 stable + invoice pre-validation + legal L5 + pricing validation) are mandatory before Phase 6. Without explicit gates, scope drift is inevitable.
+
+### 18. Documentation — Audits must produce deliverables, not just findings
+Both audits ended with prioritized action lists. The nudge engine produced 10 concrete deliverables (event wiring plan, nudge sequence design, nudge copy library, preference discovery flow, quiet affirmation system, dashboard card spec, notification center UI, effectiveness tracking, haptic plan, implementation priority). Every audit should end with "what do we build next?" not just "what did we find?"
+
+---
+
 ## Product Lessons
 
 ### 1. Pocketa should not be a generic expense tracker

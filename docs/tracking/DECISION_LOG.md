@@ -94,6 +94,48 @@ in named files. If killed, update TASKS.md backlog accordingly.
 
 ---
 
+## Decision 028 — 100% Master Plan Adopted as Implementation Roadmap
+
+Date: 2026-06-12
+Trigger: Behavioral Nudge Audit (62/100) + UI/UX Audit (78/100) + Synthesized Agent Analysis + Nudge Engine Deliverables
+
+Decision:
+The 100% Master Plan (`docs/planning/100_PERCENT_MASTER_PLAN.md`) is adopted as the canonical implementation roadmap from current state through V2 completion. All future sprints must align with the master plan phases and dependency graph. Current state: Phase 0 (Beta Launch Readiness, Sprint A5).
+
+The plan defines:
+- 6 phases from current → 100% maturity (Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35)
+- ~85 hours total effort across ~15-17 sprints
+- Explicit score projections per phase with measurement criteria
+- Agent-to-phase assignment matrix (10 agents assigned to specific roles per phase)
+- Beta decision matrix (5 thresholds, 2+ misses = KILL)
+- Dependency graph with parallelism opportunities
+- Risk register (10 risks with mitigations)
+
+Reason:
+Both audits (Behavioral 62/100, UI/UX 78/100) plus the synthesized agent analysis and nudge engine deliverables identified 145+ total tasks across behavioral foundations, analytics infrastructure, notification systems, doctrine gap closure, and V1/V2 feature scopes. Ad-hoc sprint planning would create dependency conflicts and scope drift. The master plan consolidates all findings into a single execution roadmap with explicit dependencies, gates, and score projections. This aligns with the project's documentation-as-operating-memory principle and prevents scope creep across phases.
+
+Key constraints encoded in the plan:
+- Phase 5 (V1) is gated on beta clearing all 5 thresholds
+- Phase 6 (V2) is gated on V1 stable + invoice pre-validation + legal L5 + pricing validation
+- Phase 4 (auth, onboarding rebuild) requires backend stack decision + legal L1-L7 before implementation
+- Phase 3 (notifications) requires package approval (`flutter_local_notifications`)
+- Phase 1 + Phase 4 can run in parallel (touch different files)
+- Score ceiling is 95/98, not 100/100 — intentional tradeoffs (no gamification, splash delay, 3-font loading)
+
+Impact:
+- `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical implementation roadmap
+- `docs/tracking/CURRENT_SPRINT.md` — updated with master plan context + A5 active sprint
+- `docs/tracking/TASKS.md` — restructured with all 6 phases + 145+ tasks
+- `docs/tracking/PROJECT_STATE.md` — updated readiness + new planned modules
+- `docs/tracking/LESSONS.md` — updated with audit synthesis lessons
+- `docs/core/ROADMAP.md` — updated with master plan milestones
+- Supersedes: Alpha-to-Beta Roadmap as standalone tracking (absorbed into master plan)
+- All agent pre-flight checklists should include reading `docs/planning/100_PERCENT_MASTER_PLAN.md`
+
+Ref: `docs/planning/100_PERCENT_MASTER_PLAN.md`, `docs/audits/BEHAVIORAL_NUDGE_AUDIT_2026-06-12.md`, `docs/audits/UI_UX_AUDIT_2026-06-12.md`, `docs/audits/SYNTHESIZED_AGENT_ANALYSIS_2026-06-12.md`, `docs/audits/NUDGE_ENGINE_DELIVERABLES_2026-06-12.md`
+
+---
+
 ## Decision 027 — D3 Closed Beta Readiness: Conditional GO
 
 Date: 2026-06-06
