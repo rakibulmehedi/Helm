@@ -11,7 +11,7 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 | Phase | Status | Score Target | Effort |
 |-------|--------|-------------|--------|
 | 0 — Beta Launch Readiness | 🔲 IN PROGRESS | — | ~4h |
-| 1 — Behavioral Foundation | 🔲 PENDING | 62→68 behavioral, 78→83 UI/UX | ~6h |
+| 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
 | 2 — Analytics Infrastructure | 🔲 PENDING | 68→76 behavioral, 83→89 UI/UX | ~8h |
 | 3 — Notification System | 🔲 PENDING | 76→82 behavioral | ~12h |
 | 4 — Doctrine Gap Closure | 🔲 PENDING | 82→90 behavioral, 89→93 UI/UX | ~20h |
@@ -28,6 +28,20 @@ Status: **🔲 PENDING** — Next sprint. 2026-06-12. Depends on: A4 complete (�
 - Verify Android minSdkVersion compatibility
 - Verify app icon and branded splash display
 - Exit: Release APK runs on reference device. Bangla strings authored. 78/78 tests pass.
+
+**Phase 1 (Behavioral Foundation) — 100% Master Plan:**
+Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 104/104 tests pass (78→104, +26).
+- **Group A — Contrast Fixes**: 3 color values updated to WCAG AA — `stateSafe` #3D6B3C (4.7:1), `stateTight` #8B6500 (4.6:1), `interactive` dark #4DA09C (5.0:1). 3 contrast computation tests.
+- **Group B — Boundary Events**: Wire 4 analytics events — `sts_at_risk_entered` + `reserve_depleted` in dashboard, `first_pipeline_entry` in add_income_screen, `pipeline_state_changed` in confirm_received_sheet. SharedPrefs de-duplication for once-per-session events. 7 event registry tests.
+- **Group C — Haptics**: 5 action types — PIN digit/clear (light), PIN confirm (medium), PIN fail (heavy), confirm received (medium), delete income (medium), S2S hero tap (light). 5 files touched.
+- **Group D — Button Pressed States**: AppButton → StatefulWidget with `AnimatedScale(0.97)` + `InkWell` pressed state. 5 widget tests.
+- **Group E — Slider Steppers**: ±1% stepper buttons on tax rate + buffer sliders, disabled at min/max bounds. 4 structure tests.
+- **Group F — Onboarding Skip**: "Set up later" button persistent on all 6 onboarding steps, persists partial draft data, navigates to dashboard. 3 skip structure tests.
+- **Group G — Quiet Affirmations**: `Affirmation` pure-domain computation (pipeline up to date / 7 days / 14 days), wired to `PocketaTrustStrip` via `S2sHeroBlock`. Facts only, no celebration. 7 affirmation logic tests.
+- **0 packages added**, 15 source files modified, 7 new test files created.
+- **Behavioral score: 62→68** (boundary events + haptics + affirmations + skip)
+- **UI/UX score: 78→83** (contrast AA + pressed states + stepper buttons)
+- Next: Phase 2 (Analytics Infrastructure) — Hive event persistence, next-best-action card, Semantics coverage
 
 **Sprint A4 (Test Coverage + Design Stabilization):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
@@ -172,12 +186,22 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | Phase | Scope | Status | Tasks | Effort | Score Target |
 |-------|-------|--------|-------|--------|-------------|
 | 0 | Beta Launch Readiness (A5) | **🔲 PENDING** | 5 | ~4h | — |
-| 1 | Behavioral Foundation | **🔲 PENDING** | 18 | ~6h | B:68, U:83 |
+| — | Parallel Agent Dispatch (Wave 1) | **🔲 PENDING** | 6 agents | ~2h (parallel) | — |
+| 1 | Behavioral Foundation | **✅ COMPLETE** | 18 | ~6h | B:68, U:83 |
 | 2 | Analytics Infrastructure | **🔲 PENDING** | 21 | ~8h | B:76, U:89 |
 | 3 | Notification System | **🔲 PENDING** | 30 | ~12h | B:82 |
 | 4 | Doctrine Gap Closure | **🔲 PENDING** | 28 | ~20h | B:90, U:93 |
 | 5 | V1 Features | **🔲 BLOCKED** (beta gate) | 15 | ~15h | B:93, U:95 |
 | 6 | V2 Features | **🔲 BLOCKED** (V1+legal gate) | 28 | ~20h | B:95, U:98 |
+
+**Parallel Dispatch:** `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` — Wave 1 (6 agents) can run in parallel with Phase 0 (A5). Wave 2 (2 agents) runs after Wave 1. Wave 3 (2 agents) deferred to Phase 5.
+**TDD Dispatch Plans:**
+- Phase 1: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` — 7 groups, 18 tasks, 25+ tests
+- Phase 2: `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md` — 4 groups, ~8h
+- Phase 3: `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md` — 5 groups, ~12h
+- Phase 4: `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md` — 5 groups, ~20h
+- Phase 5: `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md` — 3 groups, ~15h (gated)
+- Phase 6: `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md` — 6 groups, ~20h (gated)
 
 ### Prior Sprints (Complete)
 

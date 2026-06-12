@@ -4,11 +4,98 @@
 
 ## Current Sprint
 
-**Phase 0 / Sprint A5 — Bangla + Release Build** (🔲 PENDING, ~4h)
+**Phase 2 — Analytics Infrastructure** (🔲 PENDING, ~8h, depends on Phase 1 ✅)
 
 ## In Progress
 
-*None — A5 pending start*
+*None — Phase 2 pending start*
+
+## Recently Completed
+
+**Phase 1 — Behavioral Foundation** ✅ [2026-06-13] — 104 tests, dart analyze 0/0/0, 7 groups done
+
+## TDD Dispatch Plans (All Phases)
+
+> Reference: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` (Phase 1)
+> Reference: `docs/planning/TDD_DISPATCH_PHASES_2_6.md` (Phases 2-6)
+> Reference: `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` (Insane Practice Hunt — Wave 1-3)
+
+### Phase 1 — Behavioral Foundation (7 groups, 18 tasks, ~6h)
+
+- [ ] GROUP A (P1.9-11): Contrast ratio fixes — 3 tests
+- [ ] GROUP B (P1.1-4): Boundary event wiring — 8 tests
+- [ ] GROUP C (P1.5-8): Haptic feedback — 4 widget tests
+- [ ] GROUP D (P1.12): Button active/pressed states — 3+ tests
+- [ ] GROUP E (P1.13-14): Slider stepper buttons — 6 tests
+- [ ] GROUP F (P1.15): Onboarding global skip — 4 tests
+- [ ] GROUP G (P1.16-18): Quiet affirmation signals — 6 tests
+
+### Phase 2 — Analytics Infrastructure (4 groups, 21 tasks, ~8h)
+
+- [ ] GROUP 2A (P2.1-7): Hive event persistence — 12+ tests
+- [ ] GROUP 2B (P2.8-11): Next-best-action card — 5 tests
+- [ ] GROUP 2C (P2.12-17): Semantics coverage — 8+ tests
+- [ ] GROUP 2D (P2.18-21): Cadence preference discovery — 4+ tests
+
+### Phase 3 — Notification System (5 groups, 30 tasks, ~12h)
+
+- [ ] GROUP 3A (P3.1-6): Notification infrastructure — requires pkg approval
+- [ ] GROUP 3B (P3.7-13): Nudge evaluator engine — 12+ tests
+- [ ] GROUP 3C (P3.14-18): In-app notification center — 6+ tests
+- [ ] GROUP 3D (P3.19-25): Nudge copy — Brand Guardian + Persona review
+- [ ] GROUP 3E (P3.26-30): Nudge effectiveness tracking — 4+ tests
+
+### Phase 4 — Doctrine Gap Closure (5 groups, 28 tasks, ~20h)
+
+- [ ] GROUP 4A (P4.1-9): Auth system — requires backend + legal + pkg
+- [ ] GROUP 4B (P4.10-15): Conversational onboarding rebuild — 8+ tests
+- [ ] GROUP 4C (P4.16-19): FX rate + exclude toggle — 6+ tests
+- [ ] GROUP 4D (P4.20-23): Buffer percentage conversion — 5 new + 30 updated tests
+- [ ] GROUP 4E (P4.24-28): Instrumentation hardening — 7 new events
+
+### Phase 5 — V1 Features (3 groups, 15 tasks, ~15h) ⚠️ GATED
+
+- [ ] GROUP 5A (P5.1-6): Multi-wallet system — 10+ tests
+- [ ] GROUP 5B (P5.7-9): Visual upgrades — 3+ tests
+- [ ] GROUP 5C (P5.10-13): Polish — empty/error/loading states, USD sanity
+
+### Phase 6 — V2 Features (5 groups, 28 tasks, ~20h) ⚠️ GATED
+
+- [ ] GROUP 6A (P6.1-3): Invoice-Lite Sprint 1 — 8+ tests
+- [ ] GROUP 6B (P6.4-10): Invoice-Lite Sprints 2+3 — 12+ tests
+- [ ] GROUP 6C (P6.11-15): Tax reserve — 4+ tests
+- [ ] GROUP 6D (P6.16-20): Paid tiers — 8+ tests
+- [ ] GROUP 6E (P6.21-28): Final 100% polish — a11y + dark + haptics + perf audit
+
+## Parallel Agent Dispatch — 3-Wave Insane Practice Hunt
+
+> Reference: `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` (Decision 029)
+
+### Wave 1 — 6 Agents (zero deps, can run NOW parallel with A5)
+
+- [ ] W1-DISPATCH-1 Behavioral Nudge Engine → `docs/audits/nudge-engine/DEAD_DASHBOARD_FINDINGS.md`
+- [ ] W1-DISPATCH-2 UX Researcher → `docs/audits/ux-researcher/ASSUMPTION_DRIVEN_DESIGN_FINDINGS.md`
+- [ ] W1-DISPATCH-3 UI Designer → `docs/audits/ui-designer/VISUALLY_HOSTILE_FINDINGS.md`
+- [ ] W1-DISPATCH-4 Whimsy Injector → `docs/audits/whimsy-injector/PERSONALITY_VOID_FINDINGS.md`
+- [ ] W1-DISPATCH-5 Brand Guardian → `docs/audits/brand-guardian/BRAND_SCHIZOPHRENIA_FINDINGS.md`
+- [ ] W1-DISPATCH-6 UX Architect → `docs/audits/ux-architect/ARCHITECTURAL_VIOLENCE_FINDINGS.md`
+
+### Wave 2 — 2 Agents (depends on Wave 1 + persona profile)
+
+- [ ] W2-DISPATCH-7 Persona Walkthrough (Rafiq) → `docs/audits/persona-walkthrough/RAFIQ_JOURNEY_FINDINGS.md`
+- [ ] W2-DISPATCH-8 Visual Storyteller → `docs/audits/visual-storyteller/NARRATIVE_VOID_FINDINGS.md`
+
+### Wave 3 — 2 Agents (deferred to Phase 5 exit)
+
+- [ ] W3-DISPATCH-9 Inclusive Visuals Specialist → App Store screenshot prompts
+- [ ] W3-DISPATCH-10 Image Prompt Engineer → App Store feature graphic prompts
+
+### Integration Tasks
+
+- [ ] INT-1 Merge all 8 Wave 1+2 findings into master plan priority reordering
+- [ ] INT-2 Inject new tasks discovered into relevant master plan phases
+- [ ] INT-3 Recalibrate behavioral + UI/UX scores based on actual findings
+- [ ] INT-4 Update `docs/governance/ANTI_PATTERNS.md` with new architectural violence patterns
 
 ## Completed UX Canon Sprints (16 sprints, 2026-05-22 to 2026-06-07)
 
@@ -24,6 +111,7 @@
 10. [x] Sprint A2: Beta Blocker Resolution (8 tasks) — **COMPLETE [2026-06-07]**
 11. [x] Sprint A3: First Impression Polish (3 tasks) — **COMPLETE [2026-06-07]**
 12. [x] Sprint A4: Test Coverage + Design Stabilization (9 tasks) — **COMPLETE [2026-06-07]**
+13. [x] Phase 1: Behavioral Foundation (7 groups, 26 tests added) — **COMPLETE [2026-06-13]**
 
 ## Phase 0 — Beta Launch Readiness (A5) — PENDING
 
@@ -33,15 +121,15 @@
 - [ ] A5.4 Verify Android minSdkVersion compatibility — Gemini CLI
 - [ ] A5.5 Verify app icon and branded splash — Gemini CLI
 
-## Phase 1 — Behavioral Foundation — PENDING (can start parallel with A5)
+## Phase 1 — Behavioral Foundation — COMPLETE ✅ [2026-06-13]
 
-- [ ] P1.1-P1.4 Wire 4 boundary events (sts_at_risk_entered, reserve_depleted, first_pipeline_entry, pipeline_state_changed)
-- [ ] P1.5-P1.8 Add haptic feedback (PIN taps, confirm/delete, errors, card tap)
-- [ ] P1.9-P1.11 Fix 3 contrast ratios (stateSafe→#3D6B3C, stateTight→#8B6500, dark interactive→#4DA09C)
-- [ ] P1.12 Add active/pressed visual states to buttons
-- [ ] P1.13-P1.14 Add ±1% stepper buttons to tax rate + buffer sliders
-- [ ] P1.15 Add global "Set up later" skip to onboarding
-- [ ] P1.16-P1.18 Add quiet affirmation signals (pipeline up to date, 7/14 days tracked)
+- [x] P1.1-P1.4 Wire 4 boundary events (sts_at_risk_entered, reserve_depleted, first_pipeline_entry, pipeline_state_changed)
+- [x] P1.5-P1.8 Add haptic feedback (PIN taps, confirm/delete, errors, card tap)
+- [x] P1.9-P1.11 Fix 3 contrast ratios (stateSafe→#3D6B3C, stateTight→#8B6500, dark interactive→#4DA09C)
+- [x] P1.12 Add active/pressed visual states to buttons
+- [x] P1.13-P1.14 Add ±1% stepper buttons to tax rate + buffer sliders
+- [x] P1.15 Add global "Set up later" skip to onboarding
+- [x] P1.16-P1.18 Add quiet affirmation signals (pipeline up to date, 7/14 days tracked)
 
 ## Phase 2 — Analytics Infrastructure — PENDING (depends on Phase 1)
 
@@ -185,3 +273,4 @@
 - [x] Pre-Flight Deep QA Validation Sprint: Adversarial audit, bug fixes for Dashboard Income mismatch, and AddTransaction strict expense enforcement (2026-05-23)
 - [x] Phase 9a — Cognitive Persona Simulation QA (2026-05-23)
 - [x] Phase 9b — Hypothesis-Based Validation Sprint (2026-05-23)
+- [x] Phase 1 — Behavioral Foundation (2026-06-13): 7 groups, 26 new tests, 15 files changed

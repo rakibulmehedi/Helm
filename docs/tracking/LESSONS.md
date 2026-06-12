@@ -405,3 +405,23 @@ PocketaColors, PocketaTypography, PocketaSpacing, and PocketaMotion all exist. 1
 
 ### 21. A1 — "CONDITIONAL GO" without a maturity audit is premature
 D3 declared "CONDITIONAL GO" based on checklist compliance. A1 found 3 beta blockers that the checklist missed (audit log unreachable, auth guard gap, S2S fallback). Checklists verify what you think to check — audits find what you didn't think to check. Rule: always run a maturity audit before declaring readiness for any external milestone.
+
+## Phase 1 Behavioral Foundation Lessons (2026-06-13)
+
+### 22. TDD on color constants is awkward but the right call
+WCAG AA contrast tests needed 3 pure-computation tests (relative luminance formula). The old values passed dart analyze but failed WCAG. Without the tests, the replacements would be subjective guesses. The luminance formula is deterministic — test it once, trust it forever. Color changes are the rare case where the test and implementation are equally trivial.
+
+### 23. Haptic testing in Flutter widget tests is a dead end
+`HapticFeedback` calls go through platform channels which aren't mockable in standard widget tests. The plan's suggestion to verify "no crash on tap" was correct — structural verification (dart analyze compilation + widget rendering) is the practical gate. Real haptic timing validation needs physical device QA. Future phases: consolidate haptics into a `HapticService` abstraction for testability.
+
+### 24. Button mash protection needed GestureDetector over ElevatedButton
+ElevatedButton.onPressed fires immediately on tap-down, preventing the scale-down animation from being visible. Switching to Material+InkWell+Container gives control over onTapDown/onTapUp timing. Trade-off: lost ThemeData-based styling inheritance. All button styling is now manual. Worth it for the 0.97 scale animation.
+
+### 25. SharedPrefs event flags are the simplest possible deduplication
+`setEventFired(key)` with `event_fired_` prefix requires zero new packages, zero migrations. Obvious, but only because the analytics service is already debugPrint-only (no persistence). When Phase 2 adds Hive-backed analytics, these flags should migrate to event log queries instead of blind SharedPrefs writes.
+
+### 26. Onboarding skip was 1 widget but 4 integration concerns
+The "Set up later" TextButton is trivial to add. What matters: (1) partial draft persistence must not crash when some fields are empty, (2) the skip must complete onboarding (set flag) so the router doesn't redirect back, (3) the skip must navigate to dashboard not welcome, (4) the progress line widget must accept a Stack parent without breaking. One widget, many contracts.
+
+### 27. Affirmation domain logic kept pure — worth the file overhead
+Creating `lib/features/dashboard/domain/affirmation.dart` (a 40-line file with no Flutter imports) felt excessive for 3 conditions. But it makes the logic testable without widget pumps, Hive, or Riverpod. 7 tests run in milliseconds. The alternative (inline in dashboard initState) would be untestable. Small domain files are never wasted.

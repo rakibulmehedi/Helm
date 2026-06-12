@@ -21,6 +21,7 @@
 - behavioral audit system (June 2026: behavioral nudge audit + UI/UX audit + synthesized analysis + nudge engine deliverables)
 - master plan documentation (June 2026: 100% master plan, 6 phases, 145+ tasks)
 - agent infrastructure (10 agent definitions in .claude/agents/)
+- behavioral foundation (June 2026: Phase 1 complete — 4 boundary events, 5 haptic types, 3 WCAG AA contrasts, button pressed states, slider stepper buttons, onboarding global skip, quiet affirmations in trust strip)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -31,7 +32,7 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: BETA BLOCKER FREE — INTERNAL ALPHA READY** (2026-06-12, post-A4)
+**Current Verdict: PHASE 1 COMPLETE — 104 tests, dart analyze 0/0/0** (2026-06-13, post-Phase 1 Behavioral Foundation)
 - All 3 beta blockers resolved (B1+B2+B3)
 - 3 major issues resolved (M1+M2+M3)
 - 1 polish item resolved (P5 financial disclaimer)
@@ -51,25 +52,18 @@
 - no formal wallet model yet
 - no sync abstraction yet
 - no notification center (in-app banner system is partial — one-time S2S hint only)
-- 4 boundary analytics events registered but unwired (sts_at_risk_entered, reserve_depleted, first_pipeline_entry, pipeline_state_changed)
 - Analytics: debugPrint-only, no Hive persistence, no nudge effectiveness tracking
-- Zero haptic feedback anywhere
-- 3 contrast ratios below WCAG AA (stateSafe, stateTight, dark interactive)
-- No active/pressed visual states on buttons
-- Slider UX: jumpy with 50 divisions, no ±1% stepper buttons
 - No "next best action" guidance on dashboard (passive state display only)
 - No cadence/personalization preferences (notification frequency, channel, check-in time)
 - No notification system exists (push notifications are V1, but no infrastructure prep done)
 - Pipeline shows all overdue entries — no micro-sprint decomposition or prioritization
 - Settings screen: one long scroll, no section collapsing
-- No onboarding global skip ("Set up later — take me to the app")
-- No quiet affirmation signals (deliberately absent per ONB-014, but audit identifies gap)
 - STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
 - 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
 - Design system migration: ~90% (only 2 core widgets remain on AppColors)
 - Widget adoption: 11/13 (85%) — PocketaToast adopted across all feature screens
 - Trust Layer score: 23/35 (66%)
-- Test coverage: 78 tests in 4 files (S2S Calculator, PinHasher, NumberFormatter, OnboardingDraft)
+- Test coverage: 104 tests in 11 files
 - **Full debt inventory**: See `docs/planning/100_PERCENT_MASTER_PLAN.md` §1-8 for 145+ tasks
 
 ## 5. Current Architecture
@@ -214,6 +208,21 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - Design system migration: ~70% → ~90%
 - Quality gate: dart analyze 0/0/0, 78/78 tests pass
 
+## 6e. Phase 1 Behavioral Foundation — COMPLETE (2026-06-13)
+
+> Reference: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
+> Agent: Antigravity (Claude Code), Review: Behavioral Nudge Engine, UI Designer, Brand Guardian
+
+- **Group A — Contrast Fixes (P1.9-P1.11)**: `stateSafe` light #3D6B3C (4.7:1 AA), `stateTight` light #8B6500 (4.6:1 AA), `interactive` dark #4DA09C (5.0:1 AA). Test: `pocketa_colors_contrast_test.dart` (3 tests, WCAG relative luminance computation).
+- **Group B — Boundary Event Wiring (P1.1-P1.4)**: 4 analytics events wired — `sts_at_risk_entered` + `reserve_depleted` (dashboard initState, SharedPrefs once-per-session deduplication), `first_pipeline_entry` (add_income_screen, once-ever), `pipeline_state_changed` (confirm_received_sheet, fires on every state transition). Test: `dashboard_boundary_events_test.dart` (7 tests). `BoundaryEvents.pipelineStateChanged` added to event_registry.
+- **Group C — Haptic Feedback (P1.5-P1.8)**: 5 action types — PIN digit/clear (light), PIN confirm (medium), PIN fail (heavy), confirm received (medium), delete income undo (medium), S2S hero card tap (light). 5 files modified: `pin_entry_screen.dart`, `pin_setup_screen.dart`, `s2s_hero_block.dart`, `confirm_received_sheet.dart`, `income_list_screen.dart`. All haptics in presentation layer (clean architecture — no domain calls).
+- **Group D — Button Active States (P1.12)**: `AppButton` converted from StatelessWidget to StatefulWidget with `AnimatedScale(0.97)`, `InkWell` press feedback, `Material` splash, 100ms duration. Test: `button_pressed_state_test.dart` (5 widget tests across all 3 variants + disabled + loading).
+- **Group E — Slider Stepper Buttons (P1.13-P1.14)**: ±1% `IconButton` steppers on tax rate slider (0-40%) and buffer percent slider (5-30%), disabled at min/max via null `onPressed`. Keys: `tax_rate_plus`, `tax_rate_minus`, `buffer_plus`, `buffer_minus`. Test: `sts_settings_slider_test.dart` (4 structure tests).
+- **Group F — Onboarding Global Skip (P1.15)**: Persistent "Set up later" `TextButton` (key: `onboarding_skip`) on all 6 onboarding steps via Stack overlay. Persists partial draft data (liquid balance, income pattern), sets onboarding complete, navigates to `/home`. Test: `onboarding_skip_test.dart` (3 structure tests).
+- **Group G — Quiet Affirmation Signals (P1.16-P1.18)**: `Affirmation` pure-domain value object (`lib/features/dashboard/domain/affirmation.dart`) with `compute(overdueEntryCount, sessionCount)`. 3 states: pipeline up to date / 7 days tracked / 14 days tracked. Wired to `PocketaTrustStrip.affirmation` → `S2sHeroBlock.affirmation` → dashboard `_computeAffirmation()`. Session counting via `SharedPrefServices.incrementSessionCount()`. Copy rules enforced: no exclamation marks, no emoji, no comparative language. Test: `dashboard_affirmations_test.dart` (7 logic tests including copy validation).
+- **New files**: `affirmation.dart` (domain), 7 test files.
+- **Quality gate**: dart analyze 0/0/0, 104/104 tests pass (78→104, +26). 0 packages added. 15 source files modified.
+
 ## 7. Blocked Modules
 - Cloud sync (requires authentication decision + backend stack lock per Doctrine §14)
 - Biometric auth (D1.04 deferred — needs `local_auth` package approval)
@@ -227,10 +236,13 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 | Module | Phase | Status | Gate |
 |--------|-------|--------|------|
 | Bangla localization | 0 (A5) | Pending | — |
-| Boundary event wiring | 1 | Pending | — |
-| Haptic feedback system | 1 | Pending | — |
-| Contrast ratio fixes | 1 | Pending | — |
-| Quiet affirmation signals | 1 | Pending | — |
+| Boundary event wiring | 1 | **DONE** | — |
+| Haptic feedback system | 1 | **DONE** | — |
+| Contrast ratio fixes | 1 | **DONE** | — |
+| Quiet affirmation signals | 1 | **DONE** | — |
+| Button active/pressed states | 1 | **DONE** | — |
+| Slider stepper buttons | 1 | **DONE** | — |
+| Onboarding global skip | 1 | **DONE** | — |
 | Analytics persistence (Hive) | 2 | Pending | Depends Phase 1 |
 | Next-best-action card | 2 | Pending | Depends Phase 1 |
 | Full Semantics coverage | 2 | Pending | — |

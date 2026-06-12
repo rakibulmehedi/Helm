@@ -94,6 +94,99 @@ in named files. If killed, update TASKS.md backlog accordingly.
 
 ---
 
+## Decision 031 — Phases 2-6 TDD + Clean Architecture Dispatch Plans (Per-Phase)
+
+Date: 2026-06-12
+Trigger: Phase 1 dispatch plan complete. Remaining 5 phases need equivalent TDD+clean architecture dispatch specs, each in a separate document per phase.
+
+Decision:
+Execute Phases 2-6 as TDD-gated, clean-architecture-enforced dispatches across 127 tasks in 19 task groups. Each phase has its own dispatch document:
+
+- `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md` — 4 groups, ~8h, 25+ tests
+- `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md` — 5 groups, ~12h, 25+ tests
+- `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md` — 5 groups, ~20h, 40+ tests
+- `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md` — 3 groups, ~15h, 15+ tests (gated on beta thresholds)
+- `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md` — 6 groups, ~20h, 40+ tests (gated on V1 stable + legal + pricing)
+
+Each document contains: global TDD mandate, per-group TDD approach with test file paths, implementation patterns, clean architecture enforcement, exit gates, and score projections. Test suite grows from 78 to 150+ tests across all phases.
+
+Reason:
+Per taste preference: "Dispatch/planning documents should be split per phase, not consolidated into one monolithic file — keep each phase's dispatch plan in its own separate document." This prevents agent context overload during implementation — an agent working on Phase 3 only needs to read the Phase 3 dispatch doc, not all 127 tasks across 5 phases.
+
+Impact:
+- 6 per-phase TDD dispatch documents in `docs/planning/TDD_DISPATCH_PHASE_*.md`
+- Replaces monolithic `TDD_DISPATCH_PHASES_2_6.md`
+- Each phase doc is self-contained with TDD specs, architecture gates, and exit criteria
+- Test suite target: 150+ tests (from 78 current)
+- Phase 4 legal/stack prep can start NOW (parallel with Phase 0)
+- Phase 5 hard-gated on beta thresholds
+- Phase 6 hard-gated on V1 stable + invoice validation + legal L5 + pricing
+
+Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` through `TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
+
+---
+
+## Decision 030 — Phase 1 TDD + Clean Architecture Dispatch Plan
+
+Date: 2026-06-12
+Trigger: Phase 1 Behavioral Foundation ready for implementation. Master plan adopted. 10 agent lenses available.
+
+Decision:
+Execute Phase 1 (18 tasks, ~6 hours) as a TDD-gated, clean-architecture-enforced dispatch across 7 task groups in 3 waves. Full plan documented in `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`.
+
+Key constraints:
+- **TDD Mandate**: Every task follows RED → GREEN → REFACTOR cycle. New tests in `test/features/<feature>/<layer>/` mirroring `lib/` structure.
+- **Clean Architecture Gates**: No domain-to-data imports, no Flutter widgets in domain, no raw Hive in UI, no setState for business logic, must check `mounted` after async.
+- **3 Waves**: Wave 1 (Groups A, C, D, E — parallel, independent files), Wave 2 (Group G — affirmations), Wave 3 (Groups B, F — events + skip).
+- **7 Review Agents**: UX Architect (clean arch), UI Designer (visual QA), Behavioral Nudge Engine (behavioral triggers), Persona Walkthrough (Rafiq simulation), Whimsy Injector (affirmation copy), Brand Guardian (copy + voice).
+- **Orchestrator**: Antigravity executes all implementation tasks.
+- **25+ new tests expected** (3 contrast, 8 events, 4 haptic, 3+ button, 6 slider, 4 skip, 6 affirmations).
+
+Exit criteria: dart analyze 0/0/0, all 78+25 tests pass, all 10 quality gates met.
+
+Reason:
+Phase 1 touches 7+ files across dashboard, onboarding, auth, income, safe-to-spend, and core themes. Without TDD + clean architecture enforcement, cross-feature changes risk regressions and architecture drift. The Wave structure prevents file-touch conflicts (B and G both touch dashboard — serialized).
+
+Impact:
+- `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` — complete dispatch with per-group TDD approach, test file paths, implementation patterns
+- Test suite grows from 78 to 100+ tests
+- Score projection after Phase 1: Behavioral 62→68, UI/UX 78→83
+- No new packages required
+- Phase 2 (Analytics Infrastructure) blocked until Phase 1 exit gates pass
+
+Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`, `docs/planning/100_PERCENT_MASTER_PLAN.md`
+
+---
+
+## Decision 029 — Parallel Agent Dispatch: 3-Wave Insane Practice Hunt
+
+Date: 2026-06-12
+Trigger: 10 agent lenses available, master plan adopted, codebase needs multi-dimensional audit
+
+Decision:
+Execute a 3-wave parallel agent dispatch against the Pocketa codebase to find insane/aggressive/missing practices across all 10 agent domains. The dispatch plan is documented in `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md`.
+
+Wave structure:
+- **Wave 1** (6 agents, zero deps): Nudge Engine, UX Researcher, UI Designer, Whimsy Injector, Brand Guardian, UX Architect — all hunt the same codebase for different categories of insanity
+- **Wave 2** (2 agents, needs persona profile + Wave 1 findings): Persona Walkthrough (Rafiq simulation), Visual Storyteller (visual narrative audit)
+- **Wave 3** (2 agents, deferred): Inclusive Visuals Specialist + Image Prompt Engineer — for App Store assets at Phase 5 exit
+
+Reason:
+A single-agent audit (even multi-phase) can only see through one lens at a time. Behavioral Nudge Engine won't catch Brand Guardian's copy schizophrenia. UX Researcher won't catch Whimsy Injector's personality void. 6 parallel lenses covering 6 different dimensions of the same codebase produces ~100-120 findings simultaneously instead of sequentially over weeks.
+
+Each agent produces a domain-specific findings document in `docs/audits/<agent>/` with quantified severity and priority recommendations. All findings feed back into the master plan for priority reordering, new task injection, and score recalibration.
+
+Impact:
+- `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` — complete dispatch strategy with invocation format per agent
+- 8 new findings documents expected in `docs/audits/` (6 from Wave 1 + 2 from Wave 2)
+- Master plan (`100_PERCENT_MASTER_PLAN.md`) priority may shift based on findings
+- Anti-pattern registry (`docs/governance/ANTI_PATTERNS.md`) will be updated with new patterns
+- Wave 3 deferred to Phase 5 exit (App Store listing prep)
+
+Ref: `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md`
+
+---
+
 ## Decision 028 — 100% Master Plan Adopted as Implementation Roadmap
 
 Date: 2026-06-12
@@ -678,3 +771,35 @@ Impact:
 - Sprints A3-A5 defined in `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
 - Total estimated effort to beta: ~17 hours across 4 sprints
 - 4 deliverables created: INTERNAL_ALPHA_MATURITY_AUDIT.md, UX_MATURITY_GAP_REPORT.md, FEATURE_COMPLETENESS_MATRIX.md, ALPHA_TO_BETA_ROADMAP.md
+
+---
+
+## Decision 026 — TDD Dispatch for Phase 1 Behavioral Foundation
+
+Date: 2026-06-13
+Authority: Antigravity (Claude Code implementation agent)
+Trigger: Phase 1 dispatch from `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
+
+Decision:
+Phase 1 Behavioral Foundation executed via TDD-first approach across 7 groups (A-G). All 18 tasks delivered in a single sprint. 15 source files modified, 7 new test files created. 104/104 tests pass, dart analyze 0/0/0. 0 new packages added.
+
+Key implementation decisions:
+1. **AppButton converted to StatefulWidget** with `AnimatedScale(0.97)` + `InkWell` + `Material` for pressed state. Sacrifices `ElevatedButton` for gesture control — scale-down feedback is the primary interaction indicator.
+2. **Haptics in presentation layer only** — `HapticFeedback` calls restricted to widget callbacks. No haptic calls in providers or domain.
+3. **Boundary events use SharedPrefs de-duplication** — `setEventFired`/`getEventFired` with key prefix `event_fired_` for once-per-session events (`sts_at_risk_entered`, `reserve_depleted`). `first_pipeline_entry` is once-ever. `pipeline_state_changed` fires always.
+4. **Affirmation computation is pure domain** — `Affirmation.compute()` in `lib/features/dashboard/domain/affirmation.dart` takes `overdueEntryCount` + `sessionCount`, returns `AffirmationType` + copy. No Flutter, no Riverpod, no Hive. Session counting via `SharedPrefServices.incrementSessionCount()`.
+5. **Quiet copy rules**: Facts only — "Pipeline up to date", "7 days tracked", "14 days tracked". No exclamation marks, emoji, or comparative language ("great", "amazing"). Brand Guardian review deferred to Phase 2.
+6. **Slider steppers clamp to bounds** via `onPressed: null` when at min/max. Tax rate ±1%, buffer ±1%. Icon buttons use `remove_circle_outline`/`add_circle_outline`.
+7. **Onboarding skip persists partial draft** — liquid balance and income pattern saved. Fixed costs skipped (too complex without full interactive UI). Navigates to `/home`, sets `onboarding_completed`.
+
+Impact:
+- Behavioral score: 62→68 (boundary events, haptics, affirmations, skip)
+- UI/UX score: 78→83 (WCAG AA contrast, button states, slider steppers)
+- Test count: 78→104 (+26 tests)
+- 7 dev-to-behavioral items cleared from PROJECT_STATE.md technical debt
+- Next: Phase 2 (Analytics Infrastructure) — unblocked (Phase 1 was dependency)
+- `pipeline_state_changed` added to `BoundaryEvents` in event_registry
+- `sessionCount`, `setEventFired`, `getEventFired` added to `SharedPrefServices`
+- `affirmation` parameter added to `PocketaTrustStrip` and `S2sHeroBlock` constructors (backward-compatible optional params)
+
+Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`, `docs/planning/100_PERCENT_MASTER_PLAN.md`

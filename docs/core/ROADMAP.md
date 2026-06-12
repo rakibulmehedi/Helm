@@ -8,7 +8,7 @@
 ## Milestone: 100% Maturity Path (2026-06-12 Plan)
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
-> Status: **Phase 0 in progress (Sprint A5 pending)**
+> Status: **Phase 1 complete ✅, Phase 0 (Sprint A5) pending**
 > Target: Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35
 
 ### Phase 0 — Beta Launch Readiness (🔲 PENDING)
@@ -16,7 +16,7 @@
 - Effort: ~4 hours
 - Gate: Release APK runs on reference device. Bangla authored.
 
-### Phase 1 — Behavioral Foundation (🔲 PENDING)
+### Phase 1 — Behavioral Foundation (✅ COMPLETE)
 - Wire 4 boundary events, add haptics, fix 3 contrast ratios, button active states, slider steppers, quiet affirmations, global onboarding skip
 - Effort: ~6 hours
 - Score: Behavioral 62→68, UI/UX 78→83
