@@ -69,6 +69,9 @@ abstract class BoundaryEvents {
   /// The user added their very first pipeline entry (activation milestone).
   static const String firstPipelineEntry = 'first_pipeline_entry';
 
+  /// A pipeline entry changed state (e.g. Expected→Pending, Pending→Received).
+  static const String pipelineStateChanged = 'pipeline_state_changed';
+
   /// The user completed the onboarding flow for the first time.
   static const String onboardingCompleted = 'onboarding_completed';
 

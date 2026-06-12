@@ -14,6 +14,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
@@ -174,6 +175,13 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
           TransactionalEvents.pipelineEntryCreated,
           properties: {EventProperties.entryCount: 1},
         );
+        // P1.3: first_pipeline_entry — fire once ever
+        if (!SharedPrefServices.getEventFired(BoundaryEvents.firstPipelineEntry)) {
+          ref.read(analyticsProvider).trackEvent(
+            BoundaryEvents.firstPipelineEntry,
+          );
+          SharedPrefServices.setEventFired(BoundaryEvents.firstPipelineEntry);
+        }
       }
 
       if (!mounted) return;
