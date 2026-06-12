@@ -36,6 +36,7 @@ import 'package:pocketa_v2/features/export/presentation/views/export_screen.dart
 import 'package:pocketa_v2/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
 import 'package:pocketa_v2/features/splash/views/splash_screen.dart';
 import 'package:pocketa_v2/features/transactions/presentation/views/add_transaction_screen.dart';
+import 'package:pocketa_v2/core/nudge/presentation/screens/notification_center_screen.dart';
 
 /// The single [GoRouter] instance used by [MaterialApp.router].
 final GoRouter appRouter = GoRouter(
@@ -157,6 +158,13 @@ final GoRouter appRouter = GoRouter(
       path: RouteNames.exportData,
       name: 'exportData',
       builder: (context, state) => const ExportScreen(),
+    ),
+
+    // ── Notifications (Phase 3) ───────────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.notifications,
+      name: 'notifications',
+      builder: (context, state) => const NotificationCenterScreen(),
     ),
   ],
 );

@@ -39,6 +39,9 @@ abstract final class RouteNames {
   // ── account management (D1.10) ────────────────────────────────────────────
   static const String deleteAccount = '/delete-account';
 
+  // ── notifications (Phase 3) ─────────────────────────────────────────────────
+  static const String notifications = '/notifications';
+
   // ── export (D1.09) ────────────────────────────────────────────────────────
   static const String exportData = '/export-data';
 }

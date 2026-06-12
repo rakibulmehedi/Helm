@@ -11,6 +11,7 @@ import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
+import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
 
 class StsSettingsScreen extends ConsumerWidget {
   const StsSettingsScreen({super.key});
@@ -260,6 +261,21 @@ class StsSettingsScreen extends ConsumerWidget {
               title: const Text('Notification preferences'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => CadencePreferenceSheet.show(context),
+            ),
+
+            // ── Notification center ─────────────────────────────────────────────
+            ListTile(
+              leading: Badge(
+                isLabelVisible: ref.watch(unreadNudgeCountProvider) > 0,
+                label: Text(
+                  '${ref.watch(unreadNudgeCountProvider)}',
+                  style: const TextStyle(fontSize: 10),
+                ),
+                child: const Icon(Icons.notifications_active_outlined),
+              ),
+              title: const Text('Notifications'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push(RouteNames.notifications),
             ),
 
             // ── Data export ────────────────────────────────────────────────────
