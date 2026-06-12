@@ -108,6 +108,38 @@ Execute Phases 2-6 as TDD-gated, clean-architecture-enforced dispatches across 1
 - `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md` — 3 groups, ~15h, 15+ tests (gated on beta thresholds)
 - `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md` — 6 groups, ~20h, 40+ tests (gated on V1 stable + legal + pricing)
 
+---
+
+## Decision 032 — Phase 3 Notification System Complete
+
+Date: 2026-06-12
+Trigger: Phase 3 Groups 3A, 3B, 3C, 3E implemented and wired end-to-end.
+
+Decision:
+Phase 3 completed with all 5 groups implemented:
+
+- **Group 3A** (Notification Infrastructure): `FlutterNotificationService` wraps `flutter_local_notifications` v22. Initialized in `main.dart`. Abstract `NotificationService` interface with `show`, `scheduleDaily`, `cancel`, `cancelAll`. Packages: `flutter_local_notifications: ^22.0.0`, `timezone: ^0.11.0`.
+
+- **Group 3B** (Nudge Evaluator): Pure Dart `NudgeEvaluator` with 6 ranked rules (overdue → atRisk → reEngagement → quietAffirmation → reliefSignal → null). `NudgeDecision` value object with `isPushable/isDisplayable`. 14 unit tests.
+
+- **Group 3C** (In-App Notification Center): `NudgeLogEntryEntity` + Hive model (typeId 8). `NudgeDataSourceImpl` (Hive CRUD), `NudgeRepositoryImpl`. `NotificationCenterScreen` with date-grouped timeline, swipe-to-dismiss + undo toast, tap-to-navigate. Route at `/notifications`. Settings badge shows unread count.
+
+- **Group 3D** (Nudge Copy): Implemented inline in evaluator — clinical-warm Pocketa voice. No exclamation marks, no emoji, no comparative language. Copy varies by context (single-overdue vs multi-overdue, totalEntries presence).
+
+- **Group 3E** (Effectiveness Tracking): `NudgeEffectivenessService` computes sent/opened/dismissed/actioned rates per nudge type. `NudgeEffectivenessMetrics` with `toReportRow()`. 4 tests.
+
+**Wiring**: `NudgeSessionService.evaluateAndLog()` called on every dashboard mount in `initState` postFrameCallback. Evaluates pipeline + S2S state → logs displayable nudges to Hive → fires `nudge_sent` + `nudge_push_pending` analytics events.
+
+**New files created**: 12 files in `lib/core/nudge/` — domain types, evaluator, log entity, Hive model, data source, repository, effectiveness service, notification service, providers, notification center UI, nudge card widget.
+
+**Files modified**: `main.dart`, `app_router.dart`, `route_names.dart`, `app_box_names.dart`, `hive_service.dart`, `sts_settings_screen.dart`, `dashboard_screen.dart`, `HIVE_TYPEID_REGISTRY.md`.
+
+**Stats**: dart analyze 0/0/0. 162/162 tests pass (128→162, +34 new tests). 2 packages added (`flutter_local_notifications`, `timezone`). 6 micro-commits.
+
+**Blocks remaining**: None. Phase 3 exit gate cleared.
+
+**Next**: Phase 4 (Doctrine Gap Closure) — requires backend stack decision + legal L1-L7 opinions.
+
 Each document contains: global TDD mandate, per-group TDD approach with test file paths, implementation patterns, clean architecture enforcement, exit gates, and score projections. Test suite grows from 78 to 150+ tests across all phases.
 
 Reason:

@@ -22,7 +22,7 @@
 - master plan documentation (June 2026: 100% master plan, 6 phases, 145+ tasks)
 - agent infrastructure (10 agent definitions in .claude/agents/)
 - behavioral foundation (June 2026: Phase 1 complete — 4 boundary events, 5 haptic types, 3 WCAG AA contrasts, button pressed states, slider stepper buttons, onboarding global skip, quiet affirmations in trust strip)
-- notification system (June 2026: Phase 3 Groups 3B, 3C, 3E, 3C-UI complete — nudge evaluator engine, Hive log persistence, notification center, settings badge, effectiveness tracking)
+- notification system (June 2026: Phase 3 complete — push notifications via flutter_local_notifications, nudge evaluator engine, Hive log persistence, notification center UI with badge, effectiveness tracking, dashboard session loop)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -33,7 +33,7 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: PHASE 1 COMPLETE — 104 tests, dart analyze 0/0/0** (2026-06-13, post-Phase 1 Behavioral Foundation)
+**Current Verdict: PHASE 3 COMPLETE — 162 tests, dart analyze 0/0/0** (2026-06-12, post-Phase 3 Notification System)
 - All 3 beta blockers resolved (B1+B2+B3)
 - 3 major issues resolved (M1+M2+M3)
 - 1 polish item resolved (P5 financial disclaimer)
@@ -52,8 +52,7 @@
 - categories currently placeholder string labels
 - no formal wallet model yet
 - no sync abstraction yet
-- no notification center (in-app banner system is partial — one-time S2S hint only)
-- Analytics: debugPrint-only, no Hive persistence, no nudge effectiveness tracking
+- Analytics: debugPrint-only, no Hive persistence, no nudge effectiveness tracking — RESOLVED in Phase 2/3
 - No "next best action" guidance on dashboard (passive state display only)
 - No cadence/personalization preferences (notification frequency, channel, check-in time)
 - No notification system exists (push notifications are V1, but no infrastructure prep done)

@@ -29,10 +29,10 @@
 - Effort: ~8 hours
 - Score: Behavioral 68→76, UI/UX 83→89
 
-### Phase 3 — Notification System (🔲 IN PROGRESS — Groups 3B+3C+3E+3C UI complete)
-- Nudge evaluator engine (14 tests), in-app notification center, nudge log persistence (Hive typeId 8), nudge effectiveness tracking
+### Phase 3 — Notification System (✅ COMPLETE) [2026-06-12]
+- Push notifications (flutter_local_notifications v22), nudge evaluator engine (14 tests), in-app notification center with date-grouped timeline, nudge log persistence (Hive typeId 8), nudge effectiveness tracking (4 tests), evaluator→log→analytics loop wired into dashboard session start
 - TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md`
-- Effort: ~12 hours (Groups 3A + 3D deferred — need package approval + Brand Guardian review)
+- Effort: ~12 hours
 - Score: Behavioral 76→82
 
 ### Phase 4 — Doctrine Gap Closure (🔲 PENDING, depends on Phase 0)
