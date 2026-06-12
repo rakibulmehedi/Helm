@@ -8,43 +8,50 @@
 ## Milestone: 100% Maturity Path (2026-06-12 Plan)
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
-> Status: **Phase 1 complete ✅, Phase 0 (Sprint A5) pending**
+> Status: **Phase 0 (Sprint A5) pending. Phase 1 complete. Phase 2 complete.**
 > Target: Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35
+> TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md`
 
 ### Phase 0 — Beta Launch Readiness (🔲 PENDING)
 - Sprint A5: Bangla strings + Release APK + Device testing
 - Effort: ~4 hours
 - Gate: Release APK runs on reference device. Bangla authored.
 
-### Phase 1 — Behavioral Foundation (✅ COMPLETE)
+### Phase 1 — Behavioral Foundation (✅ COMPLETE) [2026-06-13]
 - Wire 4 boundary events, add haptics, fix 3 contrast ratios, button active states, slider steppers, quiet affirmations, global onboarding skip
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
 - Effort: ~6 hours
 - Score: Behavioral 62→68, UI/UX 78→83
 
-### Phase 2 — Analytics Infrastructure (🔲 PENDING, depends on Phase 1)
-- Hive event persistence, "next best action" dashboard card, Semantics coverage, cadence preference discovery
+### Phase 2 — Analytics Infrastructure (✅ COMPLETE) [2026-06-12]
+- Hive event persistence, NudgeEventLogger, "next best action" dashboard card, Semantics coverage, cadence preference discovery
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md`
 - Effort: ~8 hours
 - Score: Behavioral 68→76, UI/UX 83→89
 
 ### Phase 3 — Notification System (🔲 PENDING, depends on Phase 2)
 - Push notifications + in-app notification center + nudge evaluator engine + nudge copy + effectiveness tracking
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md`
 - Effort: ~12 hours
 - Requires: `flutter_local_notifications` package approval
 - Score: Behavioral 76→82
 
 ### Phase 4 — Doctrine Gap Closure (🔲 PENDING, depends on Phase 0)
 - Magic Link auth + PIN/biometric, conversational onboarding rebuild, FX rate field, exclude-entry toggle, buffer as percentage, instrumentation hardening
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md`
 - Effort: ~20 hours
 - Requires: Backend stack decision, legal L1-L7, `local_auth` package approval
 - Score: Behavioral 82→90, UI/UX 89→93, MVP 100%
 
 ### Phase 5 — V1 Features (🔲 BLOCKED — requires beta thresholds cleared)
 - Multi-wallet, intra-wallet transfers, state colors, duplicate-last-entry, skeletons, ETA notifications
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md`
 - Effort: ~15 hours
 - Gate: Beta must clear all 5 thresholds (2+ misses = KILL)
 
 ### Phase 6 — V2 Features (🔲 BLOCKED — requires V1 stable + legal + pricing)
 - Invoice-Lite (3 sprints), tax reserve, paid tiers, final 100% polish
+- TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - Effort: ~20 hours
 - Gate: V1 stable 2+ weeks, invoice pre-validation, legal L5, pricing validation ≥50% at ৳299
 - Score: Behavioral 90→95, UI/UX 95→98

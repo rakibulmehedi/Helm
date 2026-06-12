@@ -12,7 +12,7 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 |-------|--------|-------------|--------|
 | 0 — Beta Launch Readiness | 🔲 IN PROGRESS | — | ~4h |
 | 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
-| 2 — Analytics Infrastructure | 🔲 PENDING | 68→76 behavioral, 83→89 UI/UX | ~8h |
+| 2 — Analytics Infrastructure | ✅ COMPLETE | 68→76 behavioral, 83→89 UI/UX | ~8h |
 | 3 — Notification System | 🔲 PENDING | 76→82 behavioral | ~12h |
 | 4 — Doctrine Gap Closure | 🔲 PENDING | 82→90 behavioral, 89→93 UI/UX | ~20h |
 | 5 — V1 Features (gated) | 🔲 BLOCKED | 90→93 behavioral, 93→95 UI/UX | ~15h |
@@ -42,6 +42,15 @@ Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 104/104 tests pass 
 - **Behavioral score: 62→68** (boundary events + haptics + affirmations + skip)
 - **UI/UX score: 78→83** (contrast AA + pressed states + stepper buttons)
 - Next: Phase 2 (Analytics Infrastructure) — Hive event persistence, next-best-action card, Semantics coverage
+
+**Phase 2 (Analytics Infrastructure) — 100% Master Plan:**
+Status: **COMPLETE** ✅ — 2026-06-12. dart analyze 0/0/0. 34 tests pass.
+- **Group 2A — Hive Event Persistence**: AnalyticsEventModel (typeId 6), Hive box, data source, repository, dual-write, session dedup, event registry, notification stubs. 5 test files with 15+ tests.
+- **Group 2B — Next-Best-Action Card**: 4-variant card (overdue, atRisk, relief, setup) with state rail, CTA, route navigation, Semantics — wired into dashboard Reality Stack Tier 3. 6 widget tests.
+- **Group 2C — Semantics Coverage**: 8+ tests covering FAB, bottom nav, AppButtons, TextFields, switches, sliders. Semantics labels added to LiquidBalancePage TextField and AddIncome exclude switch.
+- **Group 2D — Cadence Preference Discovery**: NudgeEventLogger (5 lifecycle events), NudgePreferencesEntity + Hive model (typeId 7), CadencePreferenceSheet with cadence/time/channel toggles, wired post-onboarding and from STS Settings. 5 tests.
+- **HIVE_TYPEID_REGISTRY.md** updated with typeId 6 and 7.
+- **Next: Phase 3 (Notification System)** — flutter_local_notifications, nudge evaluator, in-app notification center, effectiveness tracking.
 
 **Sprint A4 (Test Coverage + Design Stabilization):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
@@ -188,7 +197,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | 0 | Beta Launch Readiness (A5) | **🔲 PENDING** | 5 | ~4h | — |
 | — | Parallel Agent Dispatch (Wave 1) | **🔲 PENDING** | 6 agents | ~2h (parallel) | — |
 | 1 | Behavioral Foundation | **✅ COMPLETE** | 18 | ~6h | B:68, U:83 |
-| 2 | Analytics Infrastructure | **🔲 PENDING** | 21 | ~8h | B:76, U:89 |
+| 2 | Analytics Infrastructure | **✅ COMPLETE** | 21 | ~8h | B:76, U:89 |
 | 3 | Notification System | **🔲 PENDING** | 30 | ~12h | B:82 |
 | 4 | Doctrine Gap Closure | **🔲 PENDING** | 28 | ~20h | B:90, U:93 |
 | 5 | V1 Features | **🔲 BLOCKED** (beta gate) | 15 | ~15h | B:93, U:95 |

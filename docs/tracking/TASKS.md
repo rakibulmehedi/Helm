@@ -4,13 +4,25 @@
 
 ## Current Sprint
 
-**Phase 2 — Analytics Infrastructure** (🔲 PENDING, ~8h, depends on Phase 1 ✅)
+**Phase 3 — Notification System** (🔲 PENDING, ~12h, depends on Phase 2 ✅)
 
 ## In Progress
 
-*None — Phase 2 pending start*
+*None — Phase 3 pending start*
 
 ## Recently Completed
+
+**Phase 2 — Analytics Infrastructure** ✅ [2026-06-12] — 34 tests, dart analyze 0/0/0, 4 groups done
+- Group 2A — Hive event persistence + repository + dual-write + session dedup + event registry
+- Group 2B — NextBestActionCard (4 variants + Semantics)
+- Group 2C — Semantics coverage (8+ tests across FAB, nav, buttons, fields, switches, sliders)
+- Group 2D — NudgeEventLogger + CadencePreferenceSheet (Hive-persisted + Settings UI + post-onboarding)
+- Spike: NudgeEventLogger (P2.5) created + tested — 5 lifecycle events
+- Spike: Semantics labels added to LiquidBalancePage TextField + AddIncome exclude switch
+- Spike: CadencePreferenceSheet deprecated `activeColor` → `activeThumbColor`, unused imports cleaned
+- Files created: `nudge_event_logger.dart`, `nudge_event_logger_test.dart`
+- Files modified: `liquid_balance_page.dart`, `add_income_screen.dart`, `cadence_preference_sheet.dart`, `analytics_service.dart`, `HIVE_TYPEID_REGISTRY.md`
+- Operational docs updated: CURRENT_SPRINT.md, TASKS.md, ROADMAP.md
 
 **Phase 1 — Behavioral Foundation** ✅ [2026-06-13] — 104 tests, dart analyze 0/0/0, 7 groups done
 
@@ -29,7 +41,7 @@
 
 See `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
 
-### Phase 2 — Analytics Infrastructure (4 groups, 21 tasks, ~8h) — PENDING
+### Phase 2 — Analytics Infrastructure (4 groups, 21 tasks, ~8h) — COMPLETE ✅
 
 See `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md`
 
@@ -113,12 +125,12 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [x] P1.15 Add global "Set up later" skip to onboarding
 - [x] P1.16-P1.18 Add quiet affirmation signals (pipeline up to date, 7/14 days tracked)
 
-## Phase 2 — Analytics Infrastructure — PENDING (depends on Phase 1)
+## Phase 2 — Analytics Infrastructure — COMPLETE ✅ [2026-06-12]
 
-- [ ] P2.1-P2.7 Analytics infrastructure (Hive persistence, query methods, dedup, session tracking)
-- [ ] P2.8-P2.11 Dashboard "next best action" card (4 state variants, Semantics)
-- [ ] P2.12-P2.17 Semantics coverage (FAB, nav items, forms, switches, sliders)
-- [ ] P2.18-P2.21 Cadence preference discovery (Hive model, preference sheet, post-onboarding, Settings link)
+- [x] P2.1-P2.7 Analytics infrastructure (Hive persistence, query methods, dedup, session tracking)
+- [x] P2.8-P2.11 Dashboard "next best action" card (4 state variants, Semantics)
+- [x] P2.12-P2.17 Semantics coverage (FAB, nav items, forms, switches, sliders)
+- [x] P2.18-P2.21 Cadence preference discovery (Hive model, preference sheet, post-onboarding, Settings link)
 
 ## Phase 3 — Notification System — PENDING (depends on Phase 2, requires pkg approval)
 
