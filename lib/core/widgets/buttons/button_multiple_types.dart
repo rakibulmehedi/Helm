@@ -59,10 +59,14 @@ class _AppButtonState extends State<AppButton> {
         break;
     }
 
-    return AnimatedScale(
-      scale: _pressed && !disabled ? 0.97 : 1.0,
-      duration: const Duration(milliseconds: 100),
-      child: Material(
+    return Semantics(
+      button: true,
+      label: widget.label,
+      enabled: widget.isEnabled,
+      child: AnimatedScale(
+        scale: _pressed && !disabled ? 0.97 : 1.0,
+        duration: const Duration(milliseconds: 100),
+        child: Material(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
         child: InkWell(
@@ -103,6 +107,7 @@ class _AppButtonState extends State<AppButton> {
                   ),
           ),
         ),
+      ),
       ),
     );
   }

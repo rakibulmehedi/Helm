@@ -1,6 +1,4 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// Manually written to match build_runner output pattern.
-// D1.05 — typeId: 5
 
 part of 'audit_event_model.dart';
 

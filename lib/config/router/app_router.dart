@@ -170,16 +170,33 @@ class _TabItem {
     required this.path,
     required this.icon,
     required this.label,
+    required this.tooltip,
   });
   final String path;
   final IconData icon;
   final String label;
+  final String tooltip;
 }
 
 const List<_TabItem> _tabs = [
-  _TabItem(path: RouteNames.home,     icon: Icons.home_rounded,     label: 'Home'),
-  _TabItem(path: RouteNames.pipeline, icon: Icons.inbox_rounded,    label: 'Pipeline'),
-  _TabItem(path: RouteNames.settings, icon: Icons.settings_rounded, label: 'Settings'),
+  _TabItem(
+    path: RouteNames.home,
+    icon: Icons.home_rounded,
+    label: 'Home',
+    tooltip: 'Dashboard',
+  ),
+  _TabItem(
+    path: RouteNames.pipeline,
+    icon: Icons.inbox_rounded,
+    label: 'Pipeline',
+    tooltip: 'Income pipeline',
+  ),
+  _TabItem(
+    path: RouteNames.settings,
+    icon: Icons.settings_rounded,
+    label: 'Settings',
+    tooltip: 'Settings and preferences',
+  ),
 ];
 
 class _AppShell extends StatelessWidget {
@@ -214,6 +231,7 @@ class _AppShell extends StatelessWidget {
             .map((t) => BottomNavigationBarItem(
                   icon: Icon(t.icon),
                   label: t.label,
+                  tooltip: t.tooltip,
                 ))
             .toList(),
       ),
