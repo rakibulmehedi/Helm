@@ -35,5 +35,8 @@ abstract final class AppBoxNames {
   /// Stores [NudgePreferencesModel] objects. Opened in Phase 2.
   static const String nudgePreferencesBox = 'nudge_preferences_box';
 
+  /// Stores [NudgeLogEntryModel] objects. Opened in Phase 3.
+  static const String nudgeLogBox = 'nudge_log_box';
+
   // Add future box names here — never hard-code strings at the call site.
 }

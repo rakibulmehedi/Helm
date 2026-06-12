@@ -20,6 +20,7 @@ import 'package:pocketa_v2/features/safe_to_spend/data/models/fixed_cost_model.d
 import 'package:pocketa_v2/features/audit_log/data/models/audit_event_model.dart';
 import 'package:pocketa_v2/core/analytics/models/analytics_event_model.dart';
 import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
+import 'package:pocketa_v2/core/nudge/data/models/nudge_log_entry_model.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 
 class HiveService {
@@ -48,6 +49,7 @@ class HiveService {
     if (!Hive.isAdapterRegistered(5)) Hive.registerAdapter(AuditEventModelAdapter());
     if (!Hive.isAdapterRegistered(6)) Hive.registerAdapter(AnalyticsEventModelAdapter());
     if (!Hive.isAdapterRegistered(7)) Hive.registerAdapter(NudgePreferencesModelAdapter());
+    if (!Hive.isAdapterRegistered(8)) Hive.registerAdapter(NudgeLogEntryModelAdapter());
   }
 
   /// Open all Hive boxes here.

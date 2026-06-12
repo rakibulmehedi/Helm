@@ -14,6 +14,7 @@
 | `5` | `AuditEventModel` | Active | Added D1 Trust Layer (Sprint 6) |
 | `6` | `AnalyticsEventModel` | Active | Added Phase 2 Analytics Infrastructure |
 | `7` | `NudgePreferencesModel` | Active | Added Phase 2 Analytics Infrastructure |
+| `8` | `NudgeLogEntryModel` | Active | Added Phase 3 Notification System |
 
 ## Rules
 
