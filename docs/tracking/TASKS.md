@@ -14,58 +14,40 @@
 
 **Phase 1 — Behavioral Foundation** ✅ [2026-06-13] — 104 tests, dart analyze 0/0/0, 7 groups done
 
-## TDD Dispatch Plans (All Phases)
+## TDD Dispatch Plans (All Phases — per-phase separate documents)
 
-> Reference: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` (Phase 1)
-> Reference: `docs/planning/TDD_DISPATCH_PHASES_2_6.md` (Phases 2-6)
-> Reference: `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` (Insane Practice Hunt — Wave 1-3)
+> Phase 1: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md` — 7 groups, 18 tasks, 25+ tests
+> Phase 2: `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md` — 4 groups, ~8h
+> Phase 3: `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md` — 5 groups, ~12h
+> Phase 4: `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md` — 5 groups, ~20h
+> Phase 5: `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md` — 3 groups, ~15h (gated)
+> Phase 6: `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md` — 6 groups, ~20h (gated)
+>
+> Full implementation details (TDD approach, test files, patterns, exit gates) are in each per-phase document.
 
-### Phase 1 — Behavioral Foundation (7 groups, 18 tasks, ~6h)
+### Phase 1 — Behavioral Foundation — COMPLETE ✅
 
-- [ ] GROUP A (P1.9-11): Contrast ratio fixes — 3 tests
-- [ ] GROUP B (P1.1-4): Boundary event wiring — 8 tests
-- [ ] GROUP C (P1.5-8): Haptic feedback — 4 widget tests
-- [ ] GROUP D (P1.12): Button active/pressed states — 3+ tests
-- [ ] GROUP E (P1.13-14): Slider stepper buttons — 6 tests
-- [ ] GROUP F (P1.15): Onboarding global skip — 4 tests
-- [ ] GROUP G (P1.16-18): Quiet affirmation signals — 6 tests
+See `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
 
-### Phase 2 — Analytics Infrastructure (4 groups, 21 tasks, ~8h)
+### Phase 2 — Analytics Infrastructure (4 groups, 21 tasks, ~8h) — PENDING
 
-- [ ] GROUP 2A (P2.1-7): Hive event persistence — 12+ tests
-- [ ] GROUP 2B (P2.8-11): Next-best-action card — 5 tests
-- [ ] GROUP 2C (P2.12-17): Semantics coverage — 8+ tests
-- [ ] GROUP 2D (P2.18-21): Cadence preference discovery — 4+ tests
+See `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md`
 
-### Phase 3 — Notification System (5 groups, 30 tasks, ~12h)
+### Phase 3 — Notification System (5 groups, 30 tasks, ~12h) — PENDING
 
-- [ ] GROUP 3A (P3.1-6): Notification infrastructure — requires pkg approval
-- [ ] GROUP 3B (P3.7-13): Nudge evaluator engine — 12+ tests
-- [ ] GROUP 3C (P3.14-18): In-app notification center — 6+ tests
-- [ ] GROUP 3D (P3.19-25): Nudge copy — Brand Guardian + Persona review
-- [ ] GROUP 3E (P3.26-30): Nudge effectiveness tracking — 4+ tests
+See `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md`
 
-### Phase 4 — Doctrine Gap Closure (5 groups, 28 tasks, ~20h)
+### Phase 4 — Doctrine Gap Closure (5 groups, 28 tasks, ~20h) — PENDING
 
-- [ ] GROUP 4A (P4.1-9): Auth system — requires backend + legal + pkg
-- [ ] GROUP 4B (P4.10-15): Conversational onboarding rebuild — 8+ tests
-- [ ] GROUP 4C (P4.16-19): FX rate + exclude toggle — 6+ tests
-- [ ] GROUP 4D (P4.20-23): Buffer percentage conversion — 5 new + 30 updated tests
-- [ ] GROUP 4E (P4.24-28): Instrumentation hardening — 7 new events
+See `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md`
 
-### Phase 5 — V1 Features (3 groups, 15 tasks, ~15h) ⚠️ GATED
+### Phase 5 — V1 Features (3 groups, 15 tasks, ~15h) — BLOCKED
 
-- [ ] GROUP 5A (P5.1-6): Multi-wallet system — 10+ tests
-- [ ] GROUP 5B (P5.7-9): Visual upgrades — 3+ tests
-- [ ] GROUP 5C (P5.10-13): Polish — empty/error/loading states, USD sanity
+See `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md`
 
-### Phase 6 — V2 Features (5 groups, 28 tasks, ~20h) ⚠️ GATED
+### Phase 6 — V2 Features (6 groups, 28 tasks, ~20h) — BLOCKED
 
-- [ ] GROUP 6A (P6.1-3): Invoice-Lite Sprint 1 — 8+ tests
-- [ ] GROUP 6B (P6.4-10): Invoice-Lite Sprints 2+3 — 12+ tests
-- [ ] GROUP 6C (P6.11-15): Tax reserve — 4+ tests
-- [ ] GROUP 6D (P6.16-20): Paid tiers — 8+ tests
-- [ ] GROUP 6E (P6.21-28): Final 100% polish — a11y + dark + haptics + perf audit
+See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 
 ## Parallel Agent Dispatch — 3-Wave Insane Practice Hunt
 
