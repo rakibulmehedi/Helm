@@ -22,6 +22,7 @@
 - master plan documentation (June 2026: 100% master plan, 6 phases, 145+ tasks)
 - agent infrastructure (10 agent definitions in .claude/agents/)
 - behavioral foundation (June 2026: Phase 1 complete — 4 boundary events, 5 haptic types, 3 WCAG AA contrasts, button pressed states, slider stepper buttons, onboarding global skip, quiet affirmations in trust strip)
+- notification system (June 2026: Phase 3 Groups 3B, 3C, 3E, 3C-UI complete — nudge evaluator engine, Hive log persistence, notification center, settings badge, effectiveness tracking)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*

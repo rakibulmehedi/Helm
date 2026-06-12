@@ -13,7 +13,7 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 | 0 — Beta Launch Readiness | 🔲 IN PROGRESS | — | ~4h |
 | 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
 | 2 — Analytics Infrastructure | ✅ COMPLETE | 68→76 behavioral, 83→89 UI/UX | ~8h |
-| 3 — Notification System | 🔲 PENDING | 76→82 behavioral | ~12h |
+| 3 — Notification System | 🔲 IN PROGRESS (3A+3D deferred) | 76→82 behavioral | ~12h |
 | 4 — Doctrine Gap Closure | 🔲 PENDING | 82→90 behavioral, 89→93 UI/UX | ~20h |
 | 5 — V1 Features (gated) | 🔲 BLOCKED | 90→93 behavioral, 93→95 UI/UX | ~15h |
 | 6 — V2 Features (gated) | 🔲 BLOCKED | 93→95 behavioral, 95→98 UI/UX | ~20h |
@@ -50,7 +50,19 @@ Status: **COMPLETE** ✅ — 2026-06-12. dart analyze 0/0/0. 34 tests pass.
 - **Group 2C — Semantics Coverage**: 8+ tests covering FAB, bottom nav, AppButtons, TextFields, switches, sliders. Semantics labels added to LiquidBalancePage TextField and AddIncome exclude switch.
 - **Group 2D — Cadence Preference Discovery**: NudgeEventLogger (5 lifecycle events), NudgePreferencesEntity + Hive model (typeId 7), CadencePreferenceSheet with cadence/time/channel toggles, wired post-onboarding and from STS Settings. 5 tests.
 - **HIVE_TYPEID_REGISTRY.md** updated with typeId 6 and 7.
-- **Next: Phase 3 (Notification System)** — flutter_local_notifications, nudge evaluator, in-app notification center, effectiveness tracking.
+
+**Phase 3 (Notification System) — 100% Master Plan:**
+Status: **🔲 IN PROGRESS** — 2026-06-12. dart analyze 0/0/0. 162/162 tests pass (128→162, +34 from Phase 2).
+- **Groups 3B+3C+3E+3C-UI complete** — Nudge evaluator engine (14 rule tests), NudgeLogEntryEntity + Hive model (typeId 8), NudgeDataSource + NudgeRepository, NudgeEffectivenessService (4 tests), NotificationCenterScreen with date-grouped list, NudgeCard with swipe-to-dismiss + undo, unread badge on Settings tab, route wired at `/notifications`.
+- **Groups 3A + 3D deferred**: Group 3A (push notifications) blocked on `flutter_local_notifications` package approval (Decision 026 extension). Group 3D (nudge copy) requires Brand Guardian review.
+- **New files**: 12 files created in `lib/core/nudge/`, 3 test files.
+- **Files modified**: `app_box_names.dart`, `hive_service.dart`, `route_names.dart`, `app_router.dart`, `sts_settings_screen.dart`, `HIVE_TYPEID_REGISTRY.md`.
+- **0 packages added**.
+- **Next**: Group 3A (when package approved) + Group 3D (after Brand Guardian review).
+- **Score**: Behavioral: pending (3A push dependency)
+
+**Phase 4 (Doctrine Gap Closure) — 100% Master Plan:**
+Status: **🔲 PENDING** — depends on Phase 0 + backend/legal decisions.
 
 **Sprint A4 (Test Coverage + Design Stabilization):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
@@ -148,8 +160,8 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 
 ## 2. Current Priority
 
+- **Phase 3 (Notification System) IN PROGRESS** — Groups 3B, 3C, 3E, 3C-UI complete. Groups 3A (push) blocked on package approval. Group 3D (nudge copy) blocked on Brand Guardian review. 162/162 tests pass. dart analyze 0/0/0.
 - **Sprint A5 NEXT** — Bangla + Release Build → closed beta distribution
-- **Phase 1 NEXT** — Behavioral Foundation (wire events, haptics, contrast, affirmations) — can start parallel with A5
 - **Phase 4 PREP** — Legal outreach for L1-L7 opinions, backend stack decision (Supabase vs Next.js)
 - **All prior sprints COMPLETE** — 16 sprints done, 13 months of work, 103 Dart files, 78 tests, dart analyze 0/0/0
 - **Dashboard is doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
