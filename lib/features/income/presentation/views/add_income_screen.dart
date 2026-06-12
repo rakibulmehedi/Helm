@@ -410,32 +410,35 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 16),
 
                 // ── Exclude from Safe-to-Spend ───────────────────────────
-                Container(
-                  decoration: BoxDecoration(
-                    color: colors.surface,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: colors.divider),
-                  ),
-                  child: SwitchListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 4),
-                    title: Text(
-                      'Exclude from Safe-to-Spend',
-                      style: typo.bodySm.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: colors.inkPrimary,
-                          ),
+                Semantics(
+                  label: 'Exclude from Safe-to-Spend: ${_excludeFromCalculation ? "on" : "off"}',
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: colors.divider),
                     ),
-                    subtitle: Text(
-                      "Use when this payment shouldn't affect your numbers",
-                      style: typo.labelMd.copyWith(
-                            color: colors.inkSecondary,
-                          ),
+                    child: SwitchListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      title: Text(
+                        'Exclude from Safe-to-Spend',
+                        style: typo.bodySm.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colors.inkPrimary,
+                            ),
+                      ),
+                      subtitle: Text(
+                        "Use when this payment shouldn't affect your numbers",
+                        style: typo.labelMd.copyWith(
+                              color: colors.inkSecondary,
+                            ),
+                      ),
+                      value: _excludeFromCalculation,
+                      activeThumbColor: colors.interactive,
+                      onChanged: (v) =>
+                          setState(() => _excludeFromCalculation = v),
                     ),
-                    value: _excludeFromCalculation,
-                    activeThumbColor: colors.interactive,
-                    onChanged: (v) =>
-                        setState(() => _excludeFromCalculation = v),
                   ),
                 ),
 

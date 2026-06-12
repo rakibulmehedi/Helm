@@ -112,33 +112,37 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
                   ),
                   const SizedBox(width: PocketaSpacing.s2),
                   Expanded(
-                    child: TextField(
-                      controller: _controller,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        _LakhFormatter(),
-                      ],
-                      style: typo.monoFinancialLg
-                          .copyWith(color: colors.inkPrimary),
-                      decoration: InputDecoration(
-                        hintText: '0',
-                        hintStyle: typo.monoFinancialLg
-                            .copyWith(color: colors.inkTertiary),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: colors.divider),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: colors.interactive,
-                            width: 2,
+                    child: Semantics(
+                      textField: true,
+                      label: 'Current liquid balance in BDT',
+                      child: TextField(
+                        controller: _controller,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                          _LakhFormatter(),
+                        ],
+                        style: typo.monoFinancialLg
+                            .copyWith(color: colors.inkPrimary),
+                        decoration: InputDecoration(
+                          hintText: '0',
+                          hintStyle: typo.monoFinancialLg
+                              .copyWith(color: colors.inkTertiary),
+                          border: UnderlineInputBorder(
+                            borderSide: BorderSide(color: colors.divider),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: colors.interactive,
+                              width: 2,
+                            ),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: colors.divider),
                           ),
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: colors.divider),
-                        ),
+                        onChanged: (_) => setState(() => _error = null),
                       ),
-                      onChanged: (_) => setState(() => _error = null),
                     ),
                   ),
                 ],
