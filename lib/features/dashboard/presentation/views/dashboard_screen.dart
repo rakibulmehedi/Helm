@@ -32,6 +32,7 @@ import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
+import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
@@ -69,9 +70,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     // D2.03 — Fire session-open analytics events on every dashboard mount.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      _computeAffirmation();
       final analytics = ref.read(analyticsProvider);
       final stsResult = ref.read(safeToSpendProvider);
+      final incomeEntries = ref.read(incomeNotifierProvider);
       analytics.trackEvent(TransactionalEvents.stsViewed);
       analytics.trackEvent(
         BoundaryEvents.dailyActiveSession,
@@ -94,6 +95,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         analytics.trackEvent(BoundaryEvents.reserveDepleted);
         SharedPrefServices.setEventFired(BoundaryEvents.reserveDepleted);
       }
+
+      // P2: Compute affirmation for trust strip
+      _computeAffirmation();
+
+      // P3: Run nudge evaluator on every session start
+      _evaluateNudge(stsResult, incomeEntries);
     });
   }
 
@@ -115,6 +122,45 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     setState(() {
       _affirmation = result.type != AffirmationType.none ? result.copy : null;
     });
+  }
+
+  void _evaluateNudge(
+    SafeToSpendResult stsResult,
+    List<IncomeEntryEntity> incomeEntries,
+  ) {
+    final now = DateTime.now();
+    final overdueCount = incomeEntries
+        .where((e) =>
+            e.status == IncomeStatus.expected &&
+            e.expectedDate.isBefore(now))
+        .length;
+    final totalEntries = incomeEntries.length;
+
+    // Determine S2S state
+    final s2sState = switch (stsResult) {
+      SafeToSpendResult(:final rawSafeToSpend, :final anxietyBuffer)
+          when rawSafeToSpend <= -anxietyBuffer =>
+        'atRisk',
+      SafeToSpendResult(:final safeToSpend) when safeToSpend > 0 => 'safe',
+      _ => 'noData',
+    };
+
+    // Find oldest overdue entry
+    final overdueEntries = incomeEntries.where((e) =>
+        e.status == IncomeStatus.expected &&
+        e.expectedDate.isBefore(now));
+    final String? oldestOverdueId =
+        overdueEntries.isNotEmpty ? overdueEntries.reduce(
+          (a, b) => a.expectedDate.isBefore(b.expectedDate) ? a : b,
+        ).id : null;
+
+    final sessionService = ref.read(nudgeSessionServiceProvider);
+    sessionService.evaluateAndLog(
+      overdueCount: overdueCount,
+      totalEntries: totalEntries,
+      s2sState: s2sState,
+      oldestOverdueEntryId: oldestOverdueId,
+    );
   }
 
   void _dismissStsHint() {
