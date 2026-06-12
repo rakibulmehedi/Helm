@@ -10,11 +10,17 @@ import 'application/providers/language_provider.dart';
 import 'core/constants/app_language.dart';
 import 'core/local_storage/hive_service.dart';
 import 'core/local_storage/shared_pref_service.dart';
+import 'core/nudge/notifications/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveService.init();
   await SharedPrefServices.init();
+
+  // Initialize local notifications (Group 3A)
+  final notificationService = FlutterNotificationService();
+  await notificationService.init();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
