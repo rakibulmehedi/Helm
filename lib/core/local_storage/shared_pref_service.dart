@@ -96,4 +96,14 @@ class SharedPrefServices {
   static bool getEventFired(String eventKey) {
     return _prefs?.getBool('event_fired_$eventKey') ?? false;
   }
+
+  static const String _lastSessionDateKey = 'last_session_date';
+
+  static String getLastSessionDate() {
+    return _prefs?.getString(_lastSessionDateKey) ?? '';
+  }
+
+  static Future<void> setLastSessionDate(String dateStr) async {
+    await _prefs?.setString(_lastSessionDateKey, dateStr);
+  }
 }

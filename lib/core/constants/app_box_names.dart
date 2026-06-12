@@ -29,5 +29,11 @@ abstract final class AppBoxNames {
   /// Registration and adapter handled by the audit_log agent.
   static const String auditEventsBox = 'audit_events_box';
 
+  /// Stores [AnalyticsEventModel] objects. Opened in Phase 2.
+  static const String analyticsEventsBox = 'analytics_events_box';
+
+  /// Stores [NudgePreferencesModel] objects. Opened in Phase 2.
+  static const String nudgePreferencesBox = 'nudge_preferences_box';
+
   // Add future box names here — never hard-code strings at the call site.
 }

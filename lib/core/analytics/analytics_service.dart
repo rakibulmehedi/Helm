@@ -1,21 +1,22 @@
-// analytics_service.dart
+// lib/core/analytics/analytics_service.dart
 //
-// Local debug-only instrumentation for Pocketa MVP beta.
-// All output goes to the debug console via debugPrint — nothing is persisted,
-// no user data is transmitted, and no external SDK is involved.
-//
-// Post-beta: replace LocalAnalyticsService with a Firebase/Mixpanel adapter
-// while keeping the AnalyticsService interface unchanged. The provider swap
-// is the only required change at the call-site level.
+// Instrumentation for Pocketa with local memory/Hive event persistence.
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+
+import 'package:pocketa_v2/core/constants/app_box_names.dart';
+import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
+import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
+import 'package:pocketa_v2/core/analytics/domain/nudge_preferences_entity.dart';
+import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
+import 'package:pocketa_v2/core/analytics/data/datasources/analytics_local_data_source.dart';
+import 'package:pocketa_v2/core/analytics/data/repositories/analytics_repository_impl.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 
 /// Abstract contract for analytics instrumentation.
-///
-/// All feature code must depend on this abstraction, never on the concrete
-/// implementation, so the underlying sink can be swapped without touching
-/// business logic.
 abstract class AnalyticsService {
   /// Record a named event with optional structured properties.
   void trackEvent(String name, {Map<String, dynamic>? properties});
@@ -24,21 +25,40 @@ abstract class AnalyticsService {
   void trackScreen(String name);
 }
 
-/// Beta-phase implementation that writes events to the debug console only.
-///
-/// - Safe for production builds: output is guarded by [kDebugMode].
-/// - Zero persistence: no Hive, no SharedPreferences, no file I/O.
-/// - Zero transmission: no HTTP calls, no third-party SDK.
+/// Persistent implementation that writes events to console AND Hive persistence.
 class LocalAnalyticsService implements AnalyticsService {
-  const LocalAnalyticsService();
+  final AnalyticsRepository _repository;
+
+  const LocalAnalyticsService({
+    required AnalyticsRepository repository,
+  }) : _repository = repository;
 
   @override
   void trackEvent(String name, {Map<String, dynamic>? properties}) {
+    // Session deduplication: daily_active_session fires only once per calendar day.
+    if (name == BoundaryEvents.dailyActiveSession) {
+      final todayStr = DateTime.now().toIso8601String().substring(0, 10);
+      final lastDate = SharedPrefServices.getLastSessionDate();
+      if (lastDate == todayStr) {
+        return; // Deduplicate
+      }
+      SharedPrefServices.setLastSessionDate(todayStr);
+    }
+
+    final propsMap = properties?.map((k, v) => MapEntry(k, v.toString())) ??
+        <String, String>{};
+
     if (kDebugMode) {
       final propsStr =
-          properties != null && properties.isNotEmpty ? ' | $properties' : '';
+          propsMap.isNotEmpty ? ' | $propsMap' : '';
       debugPrint('[BETA_EVENT] $name$propsStr');
     }
+
+    _repository.save(AnalyticsEventEntity(
+      eventName: name,
+      timestamp: DateTime.now().toUtc(),
+      properties: propsMap,
+    ));
   }
 
   @override
@@ -46,13 +66,60 @@ class LocalAnalyticsService implements AnalyticsService {
     if (kDebugMode) {
       debugPrint('[BETA_EVENT] screen_view | {screen: $name}');
     }
+
+    _repository.save(AnalyticsEventEntity(
+      eventName: 'screen_view',
+      timestamp: DateTime.now().toUtc(),
+      properties: {'screen': name},
+    ));
   }
 }
 
+/// Riverpod provider exposing [AnalyticsLocalDataSource].
+final analyticsLocalDataSourceProvider = Provider<AnalyticsLocalDataSource>(
+  (ref) => AnalyticsLocalDataSourceImpl(),
+);
+
+/// Riverpod provider exposing [AnalyticsRepository].
+final analyticsRepositoryProvider = Provider<AnalyticsRepository>(
+  (ref) => AnalyticsRepositoryImpl(
+    localDataSource: ref.read(analyticsLocalDataSourceProvider),
+  ),
+);
+
 /// Riverpod provider exposing [AnalyticsService].
-///
-/// Swap [LocalAnalyticsService] for a remote adapter here after beta without
-/// modifying any feature code.
 final analyticsProvider = Provider<AnalyticsService>(
-  (ref) => const LocalAnalyticsService(),
+  (ref) => LocalAnalyticsService(
+    repository: ref.read(analyticsRepositoryProvider),
+  ),
+);
+
+/// Riverpod StateNotifier for managing nudge delivery preferences.
+class NudgePreferencesNotifier extends StateNotifier<NudgePreferencesEntity> {
+  NudgePreferencesNotifier() : super(NudgePreferencesEntity.defaults()) {
+    _loadPreferences();
+  }
+
+  Box<NudgePreferencesModel> get _box =>
+      Hive.box<NudgePreferencesModel>(AppBoxNames.nudgePreferencesBox);
+
+  void _loadPreferences() {
+    if (_box.isNotEmpty) {
+      final model = _box.values.first;
+      state = model.toEntity();
+    }
+  }
+
+  Future<void> updatePreferences(NudgePreferencesEntity newPrefs) async {
+    final model = NudgePreferencesModel.fromEntity(newPrefs);
+    await _box.clear();
+    await _box.add(model);
+    state = newPrefs;
+  }
+}
+
+/// Riverpod provider exposing [NudgePreferencesNotifier] and its state.
+final nudgePreferencesProvider =
+    StateNotifierProvider<NudgePreferencesNotifier, NudgePreferencesEntity>(
+  (ref) => NudgePreferencesNotifier(),
 );

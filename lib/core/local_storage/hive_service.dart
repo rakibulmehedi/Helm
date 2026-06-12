@@ -18,6 +18,8 @@ import 'package:pocketa_v2/features/transactions/data/adapters/transaction_type_
 import 'package:pocketa_v2/features/income/data/models/income_model.dart';
 import 'package:pocketa_v2/features/safe_to_spend/data/models/fixed_cost_model.dart';
 import 'package:pocketa_v2/features/audit_log/data/models/audit_event_model.dart';
+import 'package:pocketa_v2/core/analytics/models/analytics_event_model.dart';
+import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 
 class HiveService {
@@ -44,6 +46,8 @@ class HiveService {
     if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(IncomeModelAdapter());
     if (!Hive.isAdapterRegistered(3)) Hive.registerAdapter(FixedCostModelAdapter());
     if (!Hive.isAdapterRegistered(5)) Hive.registerAdapter(AuditEventModelAdapter());
+    if (!Hive.isAdapterRegistered(6)) Hive.registerAdapter(AnalyticsEventModelAdapter());
+    if (!Hive.isAdapterRegistered(7)) Hive.registerAdapter(NudgePreferencesModelAdapter());
   }
 
   /// Open all Hive boxes here.
@@ -57,6 +61,9 @@ class HiveService {
     await Hive.openBox<dynamic>(AppBoxNames.authBox);
     // D1.05 Audit Log: append-only financial change history.
     await Hive.openBox<AuditEventModel>(AppBoxNames.auditEventsBox);
+    // Phase 2 Analytics Infrastructure
+    await Hive.openBox<AnalyticsEventModel>(AppBoxNames.analyticsEventsBox);
+    await Hive.openBox<NudgePreferencesModel>(AppBoxNames.nudgePreferencesBox);
   }
 
   /// Generic helper — only use for boxes not managed by [_openBoxes].
