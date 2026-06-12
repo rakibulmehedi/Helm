@@ -93,6 +93,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
   }
 
   Future<void> _onConfirm() async {
+    HapticFeedback.mediumImpact();
     // Clear any previous inline FX error
     setState(() => _fxRateError = null);
 
@@ -129,6 +130,14 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
     // D2.04 — Beta instrumentation: pipeline confirmed (Pending → Received)
     ref.read(analyticsProvider).trackEvent(
       TransactionalEvents.pipelineConfirmed,
+      properties: {
+        EventProperties.fromState: 'pending',
+        EventProperties.toState: 'received',
+      },
+    );
+    // P1.4: pipeline_state_changed boundary event
+    ref.read(analyticsProvider).trackEvent(
+      BoundaryEvents.pipelineStateChanged,
       properties: {
         EventProperties.fromState: 'pending',
         EventProperties.toState: 'received',

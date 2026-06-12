@@ -18,6 +18,7 @@
 //   - Filter/sort computed in widget layer per income_providers.dart §4
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -82,6 +83,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   // ── Delete with Undo ───────────────────────────────────────────────────────
 
   Future<void> _deleteWithUndo(IncomeEntryEntity entry) async {
+    HapticFeedback.mediumImpact();
     await ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
     if (!mounted) return;
 

@@ -5,6 +5,7 @@
 // Uses custom numpad — no keyboard input.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -48,6 +49,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
   }
 
   void _onDigitTap(String digit) {
+    HapticFeedback.lightImpact();
     if (_isLockedOut) return;
     if (_currentInput.length >= _pinLength) return;
     setState(() {
@@ -60,6 +62,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
   }
 
   void _onClear() {
+    HapticFeedback.lightImpact();
     if (_currentInput.isEmpty) return;
     setState(() {
       _currentInput = _currentInput.substring(0, _currentInput.length - 1);
@@ -74,6 +77,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
     if (!mounted) return;
 
     if (success) {
+      HapticFeedback.mediumImpact();
       // D2P — Beta instrumentation: PIN unlock success
       ref.read(analyticsProvider).trackEvent(TransactionalEvents.pinAuthSuccess);
       context.go(RouteNames.dashboard);
@@ -81,6 +85,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
     }
 
     final authState = ref.read(authProvider);
+    HapticFeedback.heavyImpact();
     final remaining = _maxAttempts - authState.failedAttempts;
     // D2P — Beta instrumentation: PIN unlock failure
     ref.read(analyticsProvider).trackEvent(

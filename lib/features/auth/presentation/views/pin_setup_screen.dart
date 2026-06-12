@@ -5,6 +5,7 @@
 // Uses custom numpad — no keyboard input.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,6 +32,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
   String? _errorMessage;
 
   void _onDigitTap(String digit) {
+    HapticFeedback.lightImpact();
     if (_currentInput.length >= _pinLength) return;
     setState(() {
       _currentInput += digit;
@@ -42,6 +44,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
   }
 
   void _onClear() {
+    HapticFeedback.lightImpact();
     if (_currentInput.isEmpty) return;
     setState(() {
       _currentInput = _currentInput.substring(0, _currentInput.length - 1);
@@ -57,6 +60,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
       });
     } else {
       if (_currentInput == _firstPin) {
+        HapticFeedback.mediumImpact();
         _finishSetup(_currentInput);
       } else {
         setState(() {

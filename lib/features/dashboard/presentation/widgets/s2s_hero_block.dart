@@ -8,6 +8,7 @@
 // DASH-033: Never shows "Reserve Mode" — LedgerRail handles its own label text.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
@@ -37,11 +38,15 @@ class S2sHeroBlock extends StatefulWidget {
   /// Opens the calculation breakdown when tapped.
   final VoidCallback? onTapTrace;
 
+  /// Quiet affirmation signal (facts only, no celebration).
+  final String? affirmation;
+
   const S2sHeroBlock({
     super.key,
     required this.result,
     required this.updatedAt,
     this.onTapTrace,
+    this.affirmation,
   });
 
   @override
@@ -145,6 +150,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
           updatedAt: widget.updatedAt,
           sourceLabel: 'Received only',
           onTapAudit: widget.onTapTrace,
+          affirmation: widget.affirmation,
         ),
       ],
     );
@@ -152,7 +158,10 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
     return FadeTransition(
       opacity: _opacity,
       child: GestureDetector(
-        onTap: widget.onTapTrace,
+        onTap: () {
+          HapticFeedback.lightImpact();
+          widget.onTapTrace?.call();
+        },
         behavior: HitTestBehavior.opaque,
         child: PocketaHeroZone(
           child: heroContent,
