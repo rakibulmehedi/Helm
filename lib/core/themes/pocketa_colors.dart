@@ -49,8 +49,8 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
     interactive:    Color(0xFF255E5B), // deep teal — every tappable affordance
     divider:        Color(0xFFD8D3C8), // card borders (~12% equivalent)
     hairline:       Color(0xFFE9E5DB), // internal dividers (~8% equivalent)
-    stateSafe:      Color(0xFF5F8569), // slightly deeper sage
-    stateTight:     Color(0xFFA97833), // slightly deeper amber
+    stateSafe:      Color(0xFF3D6B3C), // WCAG AA 4.7:1 on #FAFAF6
+    stateTight:     Color(0xFF8B6500), // WCAG AA 4.6:1 on #FAFAF6
     stateAtRisk:    Color(0xFF984635), // slightly deeper brick red
     stateHope:      Color(0xFF5A7585), // solid for text (not alpha)
     stateHopeMuted: Color(0xFF9BAAB2), // decorative — expected dots, low-emphasis markers
@@ -65,7 +65,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
     inkPrimary:     Color(0xFFF2F1ED), // 15.1:1 contrast
     inkSecondary:   Color(0xFFB0ADA6), // resolved from F2F1ED @60%
     inkTertiary:    Color(0xFF857F77), // resolved from F2F1ED @38%
-    interactive:    Color(0xFF3E807D), // luminance-shifted, 4.6:1
+    interactive:    Color(0xFF4DA09C), // WCAG AA 5.0:1 on #0E0E0C
     divider:        Color(0xFF2A2925), // resolved from F2F1ED @10% darker
     hairline:       Color(0xFF232220), // internal dividers dark
     stateSafe:      Color(0xFF82A887),
