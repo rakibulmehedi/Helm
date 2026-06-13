@@ -30,6 +30,7 @@ abstract final class RouteNames {
   static const String stsSettings = '/sts-settings';
 
   // ── auth (D1 Trust Layer) ──────────────────────────────────────────────────
+  static const String magicLink = '/magic-link';
   static const String pinSetup = '/pin-setup';
   static const String pinEntry = '/pin-entry';
 

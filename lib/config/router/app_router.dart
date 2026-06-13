@@ -21,6 +21,7 @@ import 'package:pocketa_v2/core/constants/app_box_names.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
+import 'package:pocketa_v2/features/auth/presentation/views/magic_link_screen.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/features/auth/presentation/views/pin_entry_screen.dart';
 import 'package:pocketa_v2/features/auth/presentation/views/pin_setup_screen.dart';
@@ -128,6 +129,18 @@ final GoRouter appRouter = GoRouter(
     ),
 
     // ── Auth routes (D1 Trust Layer) ──────────────────────────────────────────
+    GoRoute(
+      path: RouteNames.magicLink,
+      name: 'magicLink',
+      builder: (context, state) {
+        return MagicLinkScreen(
+          onAuthenticated: () {
+            SharedPrefServices.setMagicLinkAuthCompleted(true);
+            context.go(RouteNames.home);
+          },
+        );
+      },
+    ),
     GoRoute(
       path: RouteNames.pinSetup,
       name: 'pinSetup',
@@ -275,13 +288,36 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   }
 
   // ── Auth guard (D1 Trust Layer) ────────────────────────────────────────────
-  // Read auth state directly from Hive to avoid Riverpod timing issues during
-  // cold-start redirects.
+  // Guard chain: Magic Link → PIN Setup → PIN Entry → Home
+  //
+  // Magic Link (P4.1-P4.4): authenticate identity via email
+  // PIN Setup (D1.05): create device-local PIN
+  // PIN Entry (D1.06): unlock on every cold start
+
+  final bool isMagicLinkRoute = currentPath == RouteNames.magicLink;
+
+  // ── Magic Link gate ─────────────────────────────────────────────────────
+  if (!isMagicLinkRoute) {
+    final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
+
+    if (!magicLinkDone) {
+      // Allow splash → welcome → onboarding to proceed without magic link
+      final bool isPreAuth =
+          currentPath == RouteNames.splash ||
+          currentPath == RouteNames.welcome ||
+          currentPath == RouteNames.onboarding;
+
+      if (!isPreAuth) return RouteNames.magicLink;
+      return null;
+    }
+  }
+
+  // ── PIN gate ────────────────────────────────────────────────────────────
   final bool isPinRoute =
       currentPath == RouteNames.pinEntry ||
       currentPath == RouteNames.pinSetup;
 
-  if (!isPinRoute && Hive.isBoxOpen(AppBoxNames.authBox)) {
+  if (!isPinRoute && !isMagicLinkRoute && Hive.isBoxOpen(AppBoxNames.authBox)) {
     final box = Hive.box<dynamic>(AppBoxNames.authBox);
     final bool pinIsSetUp =
         box.get('pin_is_setup', defaultValue: false) as bool;

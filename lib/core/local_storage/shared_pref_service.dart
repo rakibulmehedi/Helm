@@ -106,4 +106,27 @@ class SharedPrefServices {
   static Future<void> setLastSessionDate(String dateStr) async {
     await _prefs?.setString(_lastSessionDateKey, dateStr);
   }
+
+  static const String _lastNotificationOpenedAtKey = 'last_notification_opened_at';
+
+  static DateTime? getLastNotificationOpenedAt() {
+    final millis = _prefs?.getInt(_lastNotificationOpenedAtKey);
+    if (millis == null) return null;
+    return DateTime.fromMillisecondsSinceEpoch(millis);
+  }
+
+  static Future<void> setLastNotificationOpenedAt(DateTime time) async {
+    await _prefs?.setInt(_lastNotificationOpenedAtKey, time.millisecondsSinceEpoch);
+  }
+
+  // ── Magic Link auth ─────────────────────────────────────────────────────
+  static const String _magicLinkAuthCompletedKey = 'magic_link_auth_completed';
+
+  static bool getMagicLinkAuthCompleted() {
+    return _prefs?.getBool(_magicLinkAuthCompletedKey) ?? false;
+  }
+
+  static Future<void> setMagicLinkAuthCompleted(bool completed) async {
+    await _prefs?.setBool(_magicLinkAuthCompletedKey, completed);
+  }
 }

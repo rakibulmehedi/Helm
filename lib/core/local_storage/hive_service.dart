@@ -21,6 +21,7 @@ import 'package:pocketa_v2/features/audit_log/data/models/audit_event_model.dart
 import 'package:pocketa_v2/core/analytics/models/analytics_event_model.dart';
 import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
 import 'package:pocketa_v2/core/nudge/data/models/nudge_log_entry_model.dart';
+import 'package:pocketa_v2/features/auth/data/models/session_model.dart';
 import 'package:pocketa_v2/core/constants/app_box_names.dart';
 
 class HiveService {
@@ -50,6 +51,7 @@ class HiveService {
     if (!Hive.isAdapterRegistered(6)) Hive.registerAdapter(AnalyticsEventModelAdapter());
     if (!Hive.isAdapterRegistered(7)) Hive.registerAdapter(NudgePreferencesModelAdapter());
     if (!Hive.isAdapterRegistered(8)) Hive.registerAdapter(NudgeLogEntryModelAdapter());
+    if (!Hive.isAdapterRegistered(9)) Hive.registerAdapter(SessionModelAdapter());
   }
 
   /// Open all Hive boxes here.
@@ -66,6 +68,8 @@ class HiveService {
     // Phase 2 Analytics Infrastructure
     await Hive.openBox<AnalyticsEventModel>(AppBoxNames.analyticsEventsBox);
     await Hive.openBox<NudgePreferencesModel>(AppBoxNames.nudgePreferencesBox);
+    await Hive.openBox<NudgeLogEntryModel>(AppBoxNames.nudgeLogBox);
+    await Hive.openBox<SessionModel>(AppBoxNames.sessionBox);
   }
 
   /// Generic helper — only use for boxes not managed by [_openBoxes].
