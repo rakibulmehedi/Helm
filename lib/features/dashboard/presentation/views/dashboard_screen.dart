@@ -59,10 +59,12 @@ class DashboardScreen extends ConsumerStatefulWidget {
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   bool _showStsHint = false;
   String? _affirmation;
+  final _s2sStopwatch = Stopwatch();
 
   @override
   void initState() {
     super.initState();
+    _s2sStopwatch.start();
     // A3.2 — Show one-time S2S hint on first dashboard view.
     if (!SharedPrefServices.getStsHintShown()) {
       _showStsHint = true;
@@ -70,9 +72,19 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     // D2.03 — Fire session-open analytics events on every dashboard mount.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
+      _s2sStopwatch.stop();
       final analytics = ref.read(analyticsProvider);
       final stsResult = ref.read(safeToSpendProvider);
       final incomeEntries = ref.read(incomeNotifierProvider);
+
+      // P4.4: time to S2S visible
+      analytics.trackEvent(
+        TransactionalEvents.timeToS2sVisible,
+        properties: {
+          EventProperties.durationMs:
+              _s2sStopwatch.elapsedMilliseconds.toString(),
+        },
+      );
       analytics.trackEvent(TransactionalEvents.stsViewed);
       analytics.trackEvent(
         BoundaryEvents.dailyActiveSession,
@@ -187,6 +199,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         title: Text('Pocketa', style: typography.headingMd),
         centerTitle: false,
         backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
         actions: [

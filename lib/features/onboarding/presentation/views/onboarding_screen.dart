@@ -56,6 +56,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutCubic,
     );
+    if (step > 0) {
+      ref.read(analyticsProvider).trackEvent(
+        TransactionalEvents.onboardingStepCompleted,
+        properties: {EventProperties.stepNumber: step.toString()},
+      );
+    }
   }
 
   /// Global skip — persists partial draft data, navigates to home.

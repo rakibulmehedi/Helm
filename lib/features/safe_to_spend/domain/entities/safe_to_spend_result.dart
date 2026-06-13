@@ -57,6 +57,21 @@ class SafeToSpendResult {
     required this.excludedUsdEntryCount,
   });
 
+  const SafeToSpendResult.zero()
+      : liquidCash = 0,
+        totalReceivedIncomeBdt = 0,
+        totalExpenses = 0,
+        taxReserve = 0,
+        fixedCostsDue = 0,
+        anxietyBuffer = 0,
+        safeToSpend = 0,
+        rawSafeToSpend = 0,
+        pendingIncome = 0,
+        expectedIncome = 0,
+        horizonNumber = 0,
+        excludedUsdIncome = 0,
+        excludedUsdEntryCount = 0;
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

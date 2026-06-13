@@ -17,6 +17,7 @@ import 'package:intl/intl.dart';
 
 import 'package:pocketa_v2/core/analytics/analytics_service.dart';
 import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
@@ -143,6 +144,19 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
         EventProperties.toState: 'received',
       },
     );
+
+    // P4.2: notification_resulted_in_update — within 30min of notification open
+    final lastNotificationOpen =
+        SharedPrefServices.getLastNotificationOpenedAt();
+    if (lastNotificationOpen != null) {
+      final sinceOpen = DateTime.now().difference(lastNotificationOpen);
+      if (sinceOpen.inMinutes <= 30) {
+        ref.read(analyticsProvider).trackEvent(
+          TransactionalEvents.notificationResultedInUpdate,
+          properties: {'minutes_since_open': sinceOpen.inMinutes.toString()},
+        );
+      }
+    }
 
     if (!mounted) return;
 

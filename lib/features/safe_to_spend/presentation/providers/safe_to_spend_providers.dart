@@ -1,6 +1,8 @@
 // lib/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
 import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
 import 'package:pocketa_v2/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart';
 import 'package:pocketa_v2/features/safe_to_spend/data/datasources/sts_settings_data_source.dart';
@@ -117,11 +119,23 @@ final safeToSpendProvider = Provider<SafeToSpendResult>((ref) {
 
   final transactions = transactionsAsync.valueOrNull ?? [];
 
-  return SafeToSpendCalculator.calculate(
-    incomeEntries: incomeEntries,
-    transactions: transactions,
-    settings: settings,
-    fixedCosts: fixedCosts,
-    now: DateTime.now(),
-  );
+  try {
+    return SafeToSpendCalculator.calculate(
+      incomeEntries: incomeEntries,
+      transactions: transactions,
+      settings: settings,
+      fixedCosts: fixedCosts,
+      now: DateTime.now(),
+    );
+  } catch (e) {
+    try {
+      ref.read(analyticsProvider).trackEvent(
+        BoundaryEvents.s2sCalcFailure,
+        properties: {'error': e.toString()},
+      );
+    } catch (_) {
+      // analytics provider may not be available during tests
+    }
+    return const SafeToSpendResult.zero();
+  }
 });

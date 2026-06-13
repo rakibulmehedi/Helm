@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:pocketa_v2/core/analytics/analytics_service.dart';
+import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
 import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
 import 'package:pocketa_v2/core/nudge/presentation/widgets/nudge_card.dart';
@@ -137,6 +140,11 @@ class NotificationCenterScreen extends ConsumerWidget {
 
   void _onNudgeTap(BuildContext context, WidgetRef ref, NudgeLogEntryEntity entry) {
     ref.read(nudgeListProvider.notifier).markRead(entry.id);
+    SharedPrefServices.setLastNotificationOpenedAt(DateTime.now());
+    ref.read(analyticsProvider).trackEvent(
+      TransactionalEvents.notificationOpened,
+      properties: {'nudge_id': entry.id},
+    );
     if (entry.actionRoute != null && context.mounted) {
       context.go(entry.actionRoute!);
     }

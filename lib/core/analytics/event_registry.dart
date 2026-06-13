@@ -51,6 +51,19 @@ abstract class TransactionalEvents {
 
   /// The account deletion confirmation dialog was opened.
   static const String accountDeletionRequested = 'account_deletion_requested';
+
+  /// User opened a notification from the notification center.
+  static const String notificationOpened = 'notification_opened';
+
+  /// A pipeline entry was updated within 30 minutes of opening a notification.
+  static const String notificationResultedInUpdate =
+      'notification_resulted_in_update';
+
+  /// An onboarding step was completed (property: step_number).
+  static const String onboardingStepCompleted = 'onboarding_step_completed';
+
+  /// Time in ms from dashboard mount to S2S hero rendered.
+  static const String timeToS2sVisible = 'time_to_s2s_visible';
 }
 
 /// Events that fire when the product crosses a meaningful behavioral threshold.
@@ -77,6 +90,9 @@ abstract class BoundaryEvents {
 
   /// A session was started on a new calendar day (DAU signal).
   static const String dailyActiveSession = 'daily_active_session';
+
+  /// Safe-to-Spend calculator threw an exception.
+  static const String s2sCalcFailure = 's2s_calc_failure';
 }
 
 /// Standard property key constants for event payloads.
@@ -101,4 +117,10 @@ abstract class EventProperties {
 
   /// Remaining PIN attempts before lockout.
   static const String remainingAttempts = 'remaining_attempts';
+
+  /// The step number during onboarding step completion.
+  static const String stepNumber = 'step_number';
+
+  /// Duration in milliseconds (for timing events).
+  static const String durationMs = 'duration_ms';
 }

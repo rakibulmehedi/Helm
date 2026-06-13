@@ -168,6 +168,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
       if (widget.incomeId != null) {
         await ref.read(incomeNotifierProvider.notifier).updateIncome(entity);
+
+        // P4.2: notification_resulted_in_update — within 30min of notification open
+        final lastNotificationOpen =
+            SharedPrefServices.getLastNotificationOpenedAt();
+        if (lastNotificationOpen != null) {
+          final sinceOpen = DateTime.now().difference(lastNotificationOpen);
+          if (sinceOpen.inMinutes <= 30) {
+            ref.read(analyticsProvider).trackEvent(
+              TransactionalEvents.notificationResultedInUpdate,
+              properties: {'minutes_since_open': sinceOpen.inMinutes.toString()},
+            );
+          }
+        }
       } else {
         await ref.read(incomeNotifierProvider.notifier).addIncome(entity);
         // D2.04 — Beta instrumentation: pipeline entry created
