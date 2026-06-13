@@ -2,6 +2,7 @@
 // UX-2.01 — Onboarding: income pattern enum
 
 enum IncomePattern {
+  none,        // no selection yet
   marketplace, // Upwork, Fiverr, Payoneer escrow
   direct,      // direct client invoicing / net-30
   retainer,    // recurring monthly client

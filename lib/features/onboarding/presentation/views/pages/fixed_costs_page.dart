@@ -132,9 +132,23 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                   style: typo.headingLg.copyWith(color: colors.inkPrimary),
                 ),
                 const SizedBox(height: PocketaSpacing.s2),
-                Text(
-                  'Monthly costs due in the next 30 days. Tap any that apply.',
-                  style: typo.bodyLg.copyWith(color: colors.inkSecondary),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Monthly costs due in the next 30 days. Tap any that apply.',
+                        style: typo.bodyLg.copyWith(color: colors.inkSecondary),
+                      ),
+                    ),
+                    Tooltip(
+                      message: 'Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)',
+                      child: Icon(
+                        Icons.help_outline_rounded,
+                        size: PocketaSpacing.iconMd,
+                        color: colors.inkTertiary,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -154,68 +168,93 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                 checked: _checked[i],
                 amountController: _amountControllers[i],
                 day: _days[i],
-                onCheckedChanged: (val) => setState(() {
-                  _checked[i] = val;
-                  if (!val) _amountControllers[i].clear();
-                }),
+                onCheckedChanged: (val) {
+                  HapticFeedback.selectionClick();
+                  setState(() {
+                    _checked[i] = val;
+                    if (!val) _amountControllers[i].clear();
+                  });
+                },
                 onDayChanged: (val) => setState(() => _days[i] = val),
               ),
             ),
           ),
-          if (_showZeroStateReask)
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PocketaSpacing.screenEdge,
-                vertical: PocketaSpacing.s3,
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(PocketaSpacing.s4),
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius:
-                      BorderRadius.circular(PocketaSpacing.cardRadius),
-                  border: Border.all(color: colors.divider),
+
+          // Zero-state reask with AnimatedSwitcher
+          AnimatedSwitcher(
+            duration: PocketaMotion.base,
+            switchInCurve: PocketaMotion.defaultCurve,
+            switchOutCurve: PocketaMotion.defaultCurve,
+            transitionBuilder: (child, animation) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0, 0.3),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: FadeTransition(
+                  opacity: animation,
+                  child: child,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(
-                      'No fixed monthly costs selected.',
-                      style:
-                          typo.headingSm.copyWith(color: colors.inkPrimary),
+              );
+            },
+            child: _showZeroStateReask
+                ? Padding(
+                    key: const ValueKey('zero_state'),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: PocketaSpacing.screenEdge,
+                      vertical: PocketaSpacing.s3,
                     ),
-                    const SizedBox(height: PocketaSpacing.s1),
-                    Text(
-                      'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.',
-                      style:
-                          typo.bodyMd.copyWith(color: colors.inkSecondary),
-                    ),
-                    const SizedBox(height: PocketaSpacing.s4),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AppButton(
-                            label: 'Skip for now',
-                            onPressed: () => widget.onContinue([]),
-                            isEnabled: true,
-                            type: AppButtonType.secondary,
+                    child: Container(
+                      padding: const EdgeInsets.all(PocketaSpacing.s4),
+                      decoration: BoxDecoration(
+                        color: colors.surface,
+                        borderRadius:
+                            BorderRadius.circular(PocketaSpacing.cardRadius),
+                        border: Border.all(color: colors.divider),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Text(
+                            'No fixed monthly costs selected.',
+                            style:
+                                typo.headingSm.copyWith(color: colors.inkPrimary),
                           ),
-                        ),
-                        const SizedBox(width: PocketaSpacing.s2),
-                        Expanded(
-                          child: AppButton(
-                            label: 'Let me add some',
-                            onPressed: () =>
-                                setState(() => _showZeroStateReask = false),
-                            isEnabled: true,
+                          const SizedBox(height: PocketaSpacing.s1),
+                          Text(
+                            'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.',
+                            style:
+                                typo.bodyMd.copyWith(color: colors.inkSecondary),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: PocketaSpacing.s4),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: AppButton(
+                                  label: 'Skip for now',
+                                  onPressed: () => widget.onContinue([]),
+                                  isEnabled: true,
+                                  type: AppButtonType.secondary,
+                                ),
+                              ),
+                              const SizedBox(width: PocketaSpacing.s2),
+                              Expanded(
+                                child: AppButton(
+                                  label: 'Let me add some',
+                                  onPressed: () =>
+                                      setState(() => _showZeroStateReask = false),
+                                  isEnabled: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : const SizedBox.shrink(key: ValueKey('empty')),
+          ),
+
           Padding(
             padding: const EdgeInsets.fromLTRB(
               PocketaSpacing.screenEdge,
@@ -267,23 +306,27 @@ class _CategoryRow extends StatelessWidget {
                 const EdgeInsets.symmetric(vertical: PocketaSpacing.s3),
             child: Row(
               children: [
-                AnimatedContainer(
-                  duration: PocketaMotion.base,
-                  width: PocketaSpacing.s5,
-                  height: PocketaSpacing.s5,
-                  decoration: BoxDecoration(
-                    color: checked ? colors.interactive : colors.canvas,
-                    borderRadius: BorderRadius.circular(PocketaSpacing.s1),
-                    border: Border.all(
-                      color:
-                          checked ? colors.interactive : colors.divider,
-                      width: PocketaSpacing.cardBorder,
+                Semantics(
+                  label: '${category.label}, ${checked ? 'selected' : 'not selected'}',
+                  button: true,
+                  child: AnimatedContainer(
+                    duration: PocketaMotion.base,
+                    width: PocketaSpacing.s5,
+                    height: PocketaSpacing.s5,
+                    decoration: BoxDecoration(
+                      color: checked ? colors.interactive : colors.canvas,
+                      borderRadius: BorderRadius.circular(PocketaSpacing.s1),
+                      border: Border.all(
+                        color:
+                            checked ? colors.interactive : colors.divider,
+                        width: PocketaSpacing.cardBorder,
+                      ),
                     ),
+                    child: checked
+                        ? Icon(Icons.check,
+                            size: PocketaSpacing.s3, color: colors.surface)
+                        : null,
                   ),
-                  child: checked
-                      ? Icon(Icons.check,
-                          size: PocketaSpacing.s3, color: colors.surface)
-                      : null,
                 ),
                 const SizedBox(width: PocketaSpacing.s3),
                 Expanded(
@@ -306,65 +349,71 @@ class _CategoryRow extends StatelessWidget {
               left: PocketaSpacing.s8,
               bottom: PocketaSpacing.s3,
             ),
-            child: Row(
-              children: [
-                Text('৳',
-                    style: typo.bodyMd
-                        .copyWith(color: colors.inkSecondary)),
-                const SizedBox(width: PocketaSpacing.s1),
-                SizedBox(
-                  width: 120,
-                  child: TextField(
-                    controller: amountController,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    style: typo.bodyMd
-                        .copyWith(color: colors.inkPrimary),
-                    decoration: InputDecoration(
-                      hintText: 'tk _____',
-                      hintStyle: typo.bodyMd
-                          .copyWith(color: colors.inkTertiary),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: PocketaSpacing.s2),
-                      border: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: colors.interactive, width: 2),
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                // Responsive: use more width on wider screens
+                final inputWidth = constraints.maxWidth > 300 ? 140.0 : 100.0;
+                return Row(
+                  children: [
+                    Text('৳',
+                        style: typo.bodyMd
+                            .copyWith(color: colors.inkSecondary)),
+                    const SizedBox(width: PocketaSpacing.s1),
+                    SizedBox(
+                      width: inputWidth,
+                      child: TextField(
+                        controller: amountController,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        style: typo.bodyMd
+                            .copyWith(color: colors.inkPrimary),
+                        decoration: InputDecoration(
+                          hintText: 'amount',
+                          hintStyle: typo.bodyMd
+                              .copyWith(color: colors.inkTertiary),
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: PocketaSpacing.s2),
+                          border: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: colors.interactive, width: 2),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(width: PocketaSpacing.s4),
-                Text('due day',
-                    style: typo.labelMd
-                        .copyWith(color: colors.inkTertiary)),
-                const SizedBox(width: PocketaSpacing.s2),
-                DropdownButton<int>(
-                  value: day,
-                  isDense: true,
-                  underline:
-                      Container(height: PocketaSpacing.cardBorder, color: colors.divider),
-                  style: typo.bodyMd
-                      .copyWith(color: colors.inkPrimary),
-                  items: List.generate(28, (i) => i + 1)
-                      .map((d) => DropdownMenuItem(
-                          value: d, child: Text('$d')))
-                      .toList(),
-                  onChanged: (val) {
-                    if (val != null) onDayChanged(val);
-                  },
-                ),
-              ],
+                    const SizedBox(width: PocketaSpacing.s3),
+                    Text('due day',
+                        style: typo.labelMd
+                            .copyWith(color: colors.inkTertiary)),
+                    const SizedBox(width: PocketaSpacing.s2),
+                    DropdownButton<int>(
+                      value: day,
+                      isDense: true,
+                      underline:
+                          Container(height: PocketaSpacing.cardBorder, color: colors.divider),
+                      style: typo.bodyMd
+                          .copyWith(color: colors.inkPrimary),
+                      items: List.generate(28, (i) => i + 1)
+                          .map((d) => DropdownMenuItem(
+                              value: d, child: Text('$d')))
+                          .toList(),
+                      onChanged: (val) {
+                        if (val != null) onDayChanged(val);
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ),
       ],

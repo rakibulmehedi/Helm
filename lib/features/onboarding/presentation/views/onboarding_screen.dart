@@ -1,5 +1,5 @@
 // lib/features/onboarding/presentation/views/onboarding_screen.dart
-// UX-2.09 — 6-step doctrine-aligned onboarding flow.
+// UX-2.09 — 6-step doctrine-aligned onboarding flow with UX improvements.
 //
 // Scope: qualifier → balance → fixed costs → income pattern → buffer → pipeline → home
 // Skipped: email/auth (Screen 2), PIN/biometric (Screen 7) — trust layer, non-goal for UX-2.
@@ -9,6 +9,11 @@
 //   ONB-003: 2pt progress line only, no step numbers
 //   ONB-012: after last step, go straight to home (no celebration screen)
 //   ONB-014: no confetti, no "Welcome!", no tour
+//
+// UX Improvements:
+//   - Uses PocketaMotion tokens for page transitions
+//   - Semantics for screen reader support
+//   - Proper skip button label for accessibility
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +22,9 @@ import 'package:go_router/go_router.dart';
 import 'package:pocketa_v2/config/router/route_names.dart';
 import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
+import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/utils/id_generator.dart';
 import 'package:pocketa_v2/features/onboarding/domain/onboarding_draft.dart';
 import 'package:pocketa_v2/features/onboarding/presentation/views/pages/buffer_comfort_page.dart';
@@ -35,7 +43,14 @@ import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to
 import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
 
 // ONB-003 progress values per step (6 steps)
-const List<double> _kStepProgress = [0.0, 0.20, 0.40, 0.55, 0.70, 0.90];
+final List<double> _kStepProgress = [
+  0.0,
+  PocketaSpacing.onboardingSteps[0], // 0.20
+  PocketaSpacing.onboardingSteps[1], // 0.40
+  PocketaSpacing.onboardingSteps[2], // 0.55
+  PocketaSpacing.onboardingSteps[3], // 0.70
+  PocketaSpacing.onboardingSteps[4], // 0.90
+];
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -53,8 +68,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     setState(() => _currentStep = step);
     _pageController.animateToPage(
       step,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeOutCubic,
+      duration: PocketaMotion.slow,
+      curve: PocketaMotion.defaultCurve,
     );
     if (step > 0) {
       ref.read(analyticsProvider).trackEvent(
@@ -94,7 +109,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   /// Persists all draft data then navigates to home (ONB-012).
-  /// 320ms transition per ONB-048 is handled by GoRouter's default.
   Future<void> _completeOnboarding() async {
     await SharedPrefServices.setLiquidBalanceBdt(_draft.liquidBalanceBdt);
     await SharedPrefServices.setIncomePattern(_draft.incomePattern.name);
@@ -115,7 +129,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     await stsNotifier.updateBufferPercent(_draft.bufferPercent.toDouble());
 
     await SharedPrefServices.setOnboardingCompleted(true);
-    // D2P — Beta instrumentation: onboarding completion milestone
     ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
     if (mounted) {
       await CadencePreferenceSheet.show(context);
@@ -132,10 +145,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
-      // ONB-002: no AppBar
       body: Column(
         children: [
           // ONB-003: 2pt progress line at top, no labels
@@ -148,13 +161,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 Positioned(
                   top: 8,
-                  right: 16,
-                  child: TextButton(
-                    key: const Key('onboarding_skip'),
-                    onPressed: _skipToHome,
-                    child: Text(
-                      'Set up later',
-                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                  right: PocketaSpacing.screenEdge,
+                  child: Semantics(
+                    label: 'Skip onboarding setup, save progress and go to home',
+                    button: true,
+                    child: TextButton(
+                      key: const Key('onboarding_skip'),
+                      onPressed: _skipToHome,
+                      child: Text(
+                        'Set up later',
+                        style: typo.labelMd.copyWith(color: colors.interactive),
+                      ),
                     ),
                   ),
                 ),
@@ -163,72 +180,73 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
           ),
 
           Expanded(
-            child: PageView(
-              controller: _pageController,
-              // ONB-002: user cannot swipe between steps
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                // Step 0 — Qualifying question
-                QualifyingQuestionPage(
-                  onQualified: () => _goToStep(1),
-                  // Disqualified → back to welcome (no forced app exit on Flutter)
-                  onDisqualified: () {
-                    if (mounted) context.go(RouteNames.welcome);
-                  },
-                ),
+            child: Semantics(
+              label: 'Onboarding step ${_currentStep + 1} of 6',
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  // Step 0 — Qualifying question
+                  QualifyingQuestionPage(
+                    onQualified: () => _goToStep(1),
+                    onDisqualified: () {
+                      if (mounted) context.go(RouteNames.welcome);
+                    },
+                  ),
 
-                // Step 1 — Liquid balance
-                LiquidBalancePage(
-                  initialBalance: _draft.liquidBalanceBdt,
-                  onContinue: (balance) {
-                    setState(() {
-                      _draft = _draft.copyWith(liquidBalanceBdt: balance);
-                    });
-                    _goToStep(2);
-                  },
-                ),
+                  // Step 1 — Liquid balance
+                  LiquidBalancePage(
+                    initialBalance: _draft.liquidBalanceBdt,
+                    onContinue: (balance) {
+                      setState(() {
+                        _draft = _draft.copyWith(liquidBalanceBdt: balance);
+                      });
+                      _goToStep(2);
+                    },
+                  ),
 
-                // Step 2 — Fixed costs
-                FixedCostsPage(
-                  initialCosts: _draft.fixedCosts,
-                  onContinue: (costs) {
-                    setState(() {
-                      _draft = _draft.copyWith(fixedCosts: costs);
-                    });
-                    _goToStep(3);
-                  },
-                ),
+                  // Step 2 — Fixed costs
+                  FixedCostsPage(
+                    initialCosts: _draft.fixedCosts,
+                    onContinue: (costs) {
+                      setState(() {
+                        _draft = _draft.copyWith(fixedCosts: costs);
+                      });
+                      _goToStep(3);
+                    },
+                  ),
 
-                // Step 3 — Income pattern
-                IncomePatternPage(
-                  initialPattern: _draft.incomePattern,
-                  onContinue: (pattern) {
-                    setState(() {
-                      _draft = _draft.copyWith(incomePattern: pattern);
-                    });
-                    _goToStep(4);
-                  },
-                ),
+                  // Step 3 — Income pattern
+                  IncomePatternPage(
+                    initialPattern: _draft.incomePattern,
+                    onContinue: (pattern) {
+                      setState(() {
+                        _draft = _draft.copyWith(incomePattern: pattern);
+                      });
+                      _goToStep(4);
+                    },
+                  ),
 
-                // Step 4 — Buffer comfort
-                BufferComfortPage(
-                  initialBufferPercent: _draft.bufferPercent,
-                  liquidBalanceBdt: _draft.liquidBalanceBdt,
-                  totalFixedCostsBdt: _draft.totalFixedCostsBdt,
-                  onContinue: (bufferPct) {
-                    setState(() {
-                      _draft = _draft.copyWith(bufferPercent: bufferPct);
-                    });
-                    _goToStep(5);
-                  },
-                ),
+                  // Step 4 — Buffer comfort
+                  BufferComfortPage(
+                    initialBufferPercent: _draft.bufferPercent,
+                    liquidBalanceBdt: _draft.liquidBalanceBdt,
+                    totalFixedCostsBdt: _draft.totalFixedCostsBdt,
+                    onContinue: (bufferPct) {
+                      setState(() {
+                        _draft = _draft.copyWith(bufferPercent: bufferPct);
+                      });
+                      _goToStep(5);
+                    },
+                  ),
 
-                // Step 5 — First pipeline entry (optional, M5)
-                FirstPipelinePage(
-                  onAddEntry: (entry) => _addPipelineEntryAndComplete(entry),
-                  onSkip: () => _completeOnboarding(),
-                ),
-              ],
+                  // Step 5 — First pipeline entry (optional, M5)
+                  FirstPipelinePage(
+                    onAddEntry: (entry) => _addPipelineEntryAndComplete(entry),
+                    onSkip: () => _completeOnboarding(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

@@ -5,6 +5,10 @@
 // Labels left-aligned in bodyMd, values right-aligned in monoFinancialSm.
 // Final row uses stronger divider above + weight 600 on label and value.
 // Subtraction rows format value as "(tk X)" in inkSecondary.
+//
+// UX Improvements:
+//   - Empty state when rows list is empty
+//   - Semantics for screen reader support
 
 import 'package:flutter/material.dart';
 
@@ -31,11 +35,13 @@ class AuditRow {
 class PocketaAuditCard extends StatelessWidget {
   final List<AuditRow> rows;
   final String? title;
+  final bool isLoading;
 
   const PocketaAuditCard({
     super.key,
     required this.rows,
     this.title,
+    this.isLoading = false,
   });
 
   @override
@@ -54,66 +60,107 @@ class PocketaAuditCard extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(PocketaSpacing.s4),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (title != null) ...[
+        child: _buildContent(colors, typography),
+      ),
+    );
+  }
+
+  Widget _buildContent(PocketaColors colors, PocketaTypography typography) {
+    // Loading state
+    if (isLoading) {
+      return const SizedBox(
+        height: 120,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    // Empty state
+    if (rows.isEmpty) {
+      return Semantics(
+        label: 'No calculation data available',
+        child: SizedBox(
+          height: 80,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.calculate_outlined,
+                size: PocketaSpacing.iconLg,
+                color: colors.inkTertiary,
+              ),
+              const SizedBox(height: PocketaSpacing.s2),
               Text(
-                title!,
-                style: typography.headingSm.copyWith(
-                  color: colors.inkPrimary,
+                'No calculation data',
+                style: typography.bodySm.copyWith(
+                  color: colors.inkTertiary,
                 ),
               ),
-              const SizedBox(height: PocketaSpacing.s3),
-              Divider(
-                color: colors.divider,
-                height: 1,
-                thickness: 1,
-              ),
-              const SizedBox(height: PocketaSpacing.s3),
             ],
-            ...List.generate(rows.length, (index) {
-              final row = rows[index];
-              final isFirst = index == 0;
-              final isLast = index == rows.length - 1;
-
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Divider above — stronger for final row, hairline for regular
-                  if (!isFirst) ...[
-                    Divider(
-                      color: row.isFinal ? colors.divider : colors.hairline,
-                      height: 1,
-                      thickness: 1,
-                    ),
-                    SizedBox(
-                      height: row.isFinal
-                          ? PocketaSpacing.s3
-                          : PocketaSpacing.s2,
-                    ),
-                  ],
-
-                  _AuditRowWidget(
-                    row: row,
-                    colors: colors,
-                    typography: typography,
-                  ),
-
-                  // Bottom spacing (except after last row)
-                  if (!isLast)
-                    SizedBox(
-                      height: row.isFinal
-                          ? PocketaSpacing.s3
-                          : PocketaSpacing.s2,
-                    ),
-                ],
-              );
-            }),
-          ],
+          ),
         ),
-      ),
+      );
+    }
+
+    // Content with optional title
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (title != null) ...[
+          Text(
+            title!,
+            style: typography.headingSm.copyWith(
+              color: colors.inkPrimary,
+            ),
+          ),
+          const SizedBox(height: PocketaSpacing.s3),
+          Divider(
+            color: colors.divider,
+            height: 1,
+            thickness: 1,
+          ),
+          const SizedBox(height: PocketaSpacing.s3),
+        ],
+        ...List.generate(rows.length, (index) {
+          final row = rows[index];
+          final isFirst = index == 0;
+          final isLast = index == rows.length - 1;
+
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (!isFirst) ...[
+                Divider(
+                  color: row.isFinal ? colors.divider : colors.hairline,
+                  height: 1,
+                  thickness: 1,
+                ),
+                SizedBox(
+                  height: row.isFinal
+                      ? PocketaSpacing.s3
+                      : PocketaSpacing.s2,
+                ),
+              ],
+              Semantics(
+                label: '${row.label}: ${row.value}',
+                child: _AuditRowWidget(
+                  row: row,
+                  colors: colors,
+                  typography: typography,
+                ),
+              ),
+              if (!isLast)
+                SizedBox(
+                  height: row.isFinal
+                      ? PocketaSpacing.s3
+                      : PocketaSpacing.s2,
+                ),
+            ],
+          );
+        }),
+      ],
     );
   }
 }

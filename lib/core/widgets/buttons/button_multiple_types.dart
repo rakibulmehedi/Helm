@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../themes/pocketa_colors.dart';
 import '../../themes/pocketa_motion.dart';
@@ -29,6 +30,12 @@ class AppButton extends StatefulWidget {
 
 class _AppButtonState extends State<AppButton> {
   bool _pressed = false;
+
+  void _handleTap() {
+    if (!widget.isEnabled || widget.isLoading) return;
+    HapticFeedback.lightImpact();
+    widget.onPressed?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,12 +81,10 @@ class _AppButtonState extends State<AppButton> {
         borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
         child: InkWell(
           onTapDown: disabled ? null : (_) => setState(() => _pressed = true),
-          onTapUp: disabled
-              ? null
-              : (_) {
-                  setState(() => _pressed = false);
-                  widget.onPressed?.call();
-                },
+          onTapUp: disabled ? null : (_) {
+            setState(() => _pressed = false);
+            _handleTap();
+          },
           onTapCancel: () => setState(() => _pressed = false),
           borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
           child: Container(
@@ -92,12 +97,15 @@ class _AppButtonState extends State<AppButton> {
               border: Border.all(color: borderColor, width: PocketaSpacing.cardBorder),
             ),
             child: widget.isLoading
-                ? SizedBox(
-                    height: PocketaSpacing.iconLg,
-                    width: PocketaSpacing.iconLg,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2.5,
-                      color: colors.surface,
+                ? Semantics(
+                    label: 'Loading',
+                    child: SizedBox(
+                      height: PocketaSpacing.iconLg,
+                      width: PocketaSpacing.iconLg,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.5,
+                        color: colors.surface,
+                      ),
                     ),
                   )
                 : Text(

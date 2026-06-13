@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+
+// Slider anchor points
+const List<int> _anchors = [5, 15, 25, 30];
 
 class BufferComfortPage extends StatefulWidget {
   final int initialBufferPercent;
@@ -22,11 +27,15 @@ class BufferComfortPage extends StatefulWidget {
   State<BufferComfortPage> createState() => _BufferComfortPageState();
 }
 
-class _BufferComfortPageState extends State<BufferComfortPage> {
-  static const List<int> _anchors = [5, 15, 25, 30];
-
-  // 0.0–3.0 maps to _anchors indices
+class _BufferComfortPageState extends State<BufferComfortPage>
+    with TickerProviderStateMixin {
   late double _sliderValue;
+  bool _showTooltip = false;
+  late AnimationController _tooltipController;
+  late Animation<double> _tooltipAnimation;
+  late AnimationController _entryController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
 
   int get _bufferPercent => _anchors[_sliderValue.round().clamp(0, 3)];
   double get _bufferAmount =>
@@ -39,6 +48,61 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
     super.initState();
     final idx = _anchors.indexOf(widget.initialBufferPercent);
     _sliderValue = (idx >= 0 ? idx : 1).toDouble();
+
+    _tooltipController = AnimationController(
+      vsync: this,
+      duration: PocketaMotion.fast,
+    );
+    _tooltipAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _tooltipController, curve: Curves.easeOut),
+    );
+
+    // Page entry animation
+    _entryController = AnimationController(
+      vsync: this,
+      duration: PocketaMotion.slow,
+    );
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _entryController, curve: Curves.easeOut),
+    );
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.05),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(parent: _entryController, curve: PocketaMotion.defaultCurve),
+    );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _entryController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _tooltipController.dispose();
+    _entryController.dispose();
+    super.dispose();
+  }
+
+  void _onSliderChanged(double val) {
+    HapticFeedback.selectionClick();
+    setState(() {
+      _sliderValue = val;
+      _showTooltip = true;
+    });
+    _tooltipController.forward();
+  }
+
+  void _onSliderChangeEnd(double val) {
+    final rounded = val.roundToDouble();
+    if (rounded != _sliderValue) {
+      HapticFeedback.lightImpact();
+    }
+    setState(() {
+      _sliderValue = rounded;
+      _showTooltip = false;
+    });
+    _tooltipController.reverse();
   }
 
   /// Formats a BDT amount using the South Asian lakh/crore grouping system.
@@ -68,10 +132,14 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
         _s2sPreview >= 0 ? colors.stateSafe : colors.stateAtRisk;
 
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // Progress indicator — step 6
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SlideTransition(
+          position: _slideAnimation,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Progress indicator — step 6
           LinearProgressIndicator(
             value: PocketaSpacing.onboardingBuffer,
             backgroundColor: colors.hairline,
@@ -99,39 +167,79 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                   ),
                   const SizedBox(height: PocketaSpacing.s8),
 
-                  // Slider
-                  SliderTheme(
-                    data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: colors.interactive,
-                      inactiveTrackColor: colors.hairline,
-                      thumbColor: colors.interactive,
-                      overlayColor: colors.interactive
-                          .withValues(alpha: 0.12),
-                      trackHeight: PocketaSpacing.progressBarHeightOnboarding,
-                    ),
-                    child: Slider(
-                      value: _sliderValue,
-                      min: 0,
-                      max: 3,
-                      divisions: 3,
-                      onChanged: (val) =>
-                          setState(() => _sliderValue = val),
-                      onChangeEnd: (val) => setState(
-                          () => _sliderValue = val.roundToDouble()),
-                    ),
+                  // Slider with floating tooltip
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    clipBehavior: Clip.none,
+                    children: [
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: colors.interactive,
+                          inactiveTrackColor: colors.hairline,
+                          thumbColor: colors.interactive,
+                          overlayColor: colors.interactive
+                              .withValues(alpha: 0.12),
+                          trackHeight: PocketaSpacing.progressBarHeightOnboarding,
+                        ),
+                        child: Semantics(
+                          label: 'Safety buffer slider: $_bufferPercent%',
+                          value: '$_bufferPercent percent',
+                          child: Slider(
+                            value: _sliderValue,
+                            min: 0,
+                            max: 3,
+                            divisions: 3,
+                            onChanged: _onSliderChanged,
+                            onChangeEnd: _onSliderChangeEnd,
+                          ),
+                        ),
+                      ),
+
+                      // Floating percentage tooltip
+                      if (_showTooltip)
+                        Positioned(
+                          top: -40,
+                          child: FadeTransition(
+                            opacity: _tooltipAnimation,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: PocketaSpacing.s2,
+                                vertical: PocketaSpacing.s1,
+                              ),
+                              decoration: BoxDecoration(
+                                color: colors.inkPrimary,
+                                borderRadius: BorderRadius.circular(
+                                    PocketaSpacing.s1),
+                              ),
+                              child: Text(
+                                '$_bufferPercent%',
+                                style: typo.labelMd.copyWith(
+                                  color: colors.surface,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
 
                   // Anchor percentage labels
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _anchors
+                        .asMap()
+                        .entries
                         .map(
-                          (pct) => Text(
-                            '$pct%',
-                            style: typo.labelSm.copyWith(
-                              color: pct == _bufferPercent
-                                  ? colors.interactive
-                                  : colors.inkTertiary,
+                          (entry) => Semantics(
+                            label: '${entry.value}%',
+                            selected: _sliderValue.round() == entry.key,
+                            child: Text(
+                              '${entry.value}%',
+                              style: typo.labelSm.copyWith(
+                                color: _sliderValue.round() == entry.key
+                                    ? colors.interactive
+                                    : colors.inkTertiary,
+                              ),
                             ),
                           ),
                         )
@@ -141,60 +249,89 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                   const SizedBox(height: PocketaSpacing.s8),
 
                   // Live BDT preview card
-                  Container(
-                    padding: const EdgeInsets.all(PocketaSpacing.s4),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius),
-                      border: Border.all(color: colors.hairline),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Safety buffer',
-                              style: typo.bodyMd.copyWith(
-                                  color: colors.inkSecondary),
-                            ),
-                            Text(
-                              '৳ ${_formatLakh(_bufferAmount)}',
-                              style: typo.monoFinancialMd.copyWith(
-                                  color: colors.inkPrimary),
+                  Semantics(
+                    label: _s2sPreview >= 0
+                        ? 'Safe to spend preview: $_bufferPercent% buffer of total'
+                        : 'Safe to spend preview shows negative balance',
+                    child: Container(
+                      padding: const EdgeInsets.all(PocketaSpacing.s4),
+                      decoration: BoxDecoration(
+                        color: colors.surface,
+                        borderRadius: BorderRadius.circular(
+                            PocketaSpacing.cardRadius),
+                        border: Border.all(color: colors.hairline),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Safety buffer',
+                                style: typo.bodyMd.copyWith(
+                                    color: colors.inkSecondary),
+                              ),
+                              Text(
+                                '৳ ${_formatLakh(_bufferAmount)}',
+                                style: typo.monoFinancialMd.copyWith(
+                                    color: colors.inkPrimary),
+                              ),
+                            ],
+                          ),
+                          Divider(
+                              color: colors.hairline,
+                              height: PocketaSpacing.s6),
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Safe-to-Spend',
+                                style: typo.bodySm.copyWith(
+                                    color: colors.inkSecondary),
+                              ),
+                              Text(
+                                '৳ ${_formatLakh(_s2sPreview)}',
+                                style: typo.monoFinancialMd
+                                    .copyWith(color: s2sColor),
+                              ),
+                            ],
+                          ),
+                          if (_s2sPreview < 0) ...[
+                            const SizedBox(height: PocketaSpacing.s2),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.info_outline_rounded,
+                                  size: PocketaSpacing.iconSm,
+                                  color: colors.stateAtRisk,
+                                ),
+                                const SizedBox(width: PocketaSpacing.s1),
+                                Expanded(
+                                  child: Text(
+                                    'Your costs exceed liquid balance. Adjust buffer or add expected income.',
+                                    style: typo.labelSm.copyWith(
+                                      color: colors.stateAtRisk,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                        Divider(
-                            color: colors.hairline,
-                            height: PocketaSpacing.s6),
-                        Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Safe-to-Spend',
-                              style: typo.bodySm.copyWith(
-                                  color: colors.inkSecondary),
-                            ),
-                            Text(
-                              '৳ ${_formatLakh(_s2sPreview)}',
-                              style: typo.monoFinancialMd
-                                  .copyWith(color: s2sColor),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
 
                   const Spacer(),
                   AppButton(
                     label: 'Save — finish Safe-to-Spend setup',
-                    onPressed: () => widget.onContinue(_bufferPercent),
+                    onPressed: () {
+                      HapticFeedback.mediumImpact();
+                      widget.onContinue(_bufferPercent);
+                    },
                     isEnabled: true,
                   ),
                   const SizedBox(height: PocketaSpacing.s4),
@@ -203,6 +340,8 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
             ),
           ),
         ],
+      ),
+    ),
       ),
     );
   }
