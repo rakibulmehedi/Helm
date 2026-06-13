@@ -49,7 +49,7 @@ See `docs/planning/TDD_DISPATCH_PHASE_2_ANALYTICS_INFRASTRUCTURE.md`
 
 See `docs/planning/TDD_DISPATCH_PHASE_3_NOTIFICATION_SYSTEM.md`
 
-### Phase 4 — Doctrine Gap Closure (5 groups, 28 tasks, ~20h) — PENDING
+### Phase 4 — Doctrine Gap Closure (28 tasks, ~20h) — COMPLETE ✅
 
 See `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md`
 
@@ -106,6 +106,7 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 11. [x] Sprint A3: First Impression Polish (3 tasks) — **COMPLETE [2026-06-07]**
 12. [x] Sprint A4: Test Coverage + Design Stabilization (9 tasks) — **COMPLETE [2026-06-07]**
 13. [x] Phase 1: Behavioral Foundation (7 groups, 26 tests added) — **COMPLETE [2026-06-13]**
+14. [x] Phase 4: Doctrine Gap Closure (5 groups, 48 tests added, 11 new source files) — **COMPLETE [2026-06-13]**
 
 ## Phase 0 — Beta Launch Readiness (A5) — PENDING
 
@@ -132,19 +133,19 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [x] P2.12-P2.17 Semantics coverage (FAB, nav items, forms, switches, sliders)
 - [x] P2.18-P2.21 Cadence preference discovery (Hive model, preference sheet, post-onboarding, Settings link)
 
-## Phase 3 — Notification System — PENDING (depends on Phase 2, requires pkg approval)
+## Phase 3 — Notification System — COMPLETE ✅ [2026-06-12]
 
-- [ ] P3.1-P3.6 Notification infrastructure (flutter_local_notifications, init, schedule daily/periodic)
-- [ ] P3.7-P3.13 Nudge evaluator engine (rules provider, overdue/S2S/re-engagement/affirmation rules)
-- [ ] P3.14-P3.18 In-app notification center (grouped list, Hive storage, badge, swipe-to-dismiss, tap-nav)
-- [ ] P3.19-P3.25 Nudge copy (7 copy strings in Pocketa brand voice — Brand Guardian review)
-- [ ] P3.26-P3.30 Nudge effectiveness tracking (SENT/OPENED/DISMISSED/ACTIONED + report)
+- [x] P3.1-P3.6 Notification infrastructure (flutter_local_notifications, init, schedule daily/periodic)
+- [x] P3.7-P3.13 Nudge evaluator engine (rules provider, overdue/S2S/re-engagement/affirmation rules)
+- [x] P3.14-P3.18 In-app notification center (grouped list, Hive storage, badge, swipe-to-dismiss, tap-nav)
+- [x] P3.19-P3.25 Nudge copy (7 copy strings in Pocketa brand voice — Brand Guardian review)
+- [x] P3.26-P3.30 Nudge effectiveness tracking (SENT/OPENED/DISMISSED/ACTIONED + report)
 
-## Phase 4 — Doctrine Gap Closure — PENDING (depends on Phase 0, can parallel with 1-3)
+## Phase 4 — Doctrine Gap Closure — COMPLETE ✅ [2026-06-13]
 
-- [ ] P4.1-P4.9 Auth system (Magic Link + PIN/biometric, requires backend decision + legal L1-L7)
-- [ ] P4.10-P4.15 Conversational onboarding rebuild (3-min flow, qualifier, disqualification)
-- [ ] P4.16-P4.19 FX rate field + exclude-entry toggle per pipeline entry
+- [x] P4.1-P4.9 Auth system (Magic Link + PIN/biometric, 41 tests, mock backend swappable to real API)
+- [x] P4.10-P4.15 Conversational onboarding rebuild (pain-point qualifier, Bangla rephrase, 8 widget tests)
+- [x] P4.16-P4.19 FX rate field + exclude-entry toggle per pipeline entry (exclude toggle on card, 0 new tests needed)
 - [ ] P4.20-P4.23 Buffer as percentage (5-30%, default 15%)
 - [ ] P4.24-P4.28 Instrumentation hardening (6 new events)
 

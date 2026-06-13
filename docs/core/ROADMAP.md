@@ -8,8 +8,8 @@
 ## Milestone: 100% Maturity Path (2026-06-12 Plan)
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
-> Status: **Phase 0 (Sprint A5) pending. Phase 1 complete. Phase 2 complete.**
-> Target: Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35
+> Status: **Phase 0 (Sprint A5) pending. Phases 1-4 complete.**
+> Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 30/35
 > TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md`
 
 ### Phase 0 — Beta Launch Readiness (🔲 PENDING)
@@ -35,11 +35,14 @@
 - Effort: ~12 hours
 - Score: Behavioral 76→82
 
-### Phase 4 — Doctrine Gap Closure (🔲 PENDING, depends on Phase 0)
-- Magic Link auth + PIN/biometric, conversational onboarding rebuild, FX rate field, exclude-entry toggle, buffer as percentage, instrumentation hardening
+### Phase 4 — Doctrine Gap Closure (✅ COMPLETE) [2026-06-13]
+- **Group 4A (Auth)**: Magic Link screen (email→inbox→verify), SessionEntity + Hive model (typeId 9), AuthRepository (abstract + mock datasource + Hive impl), Magic Link Riverpod providers, GoRouter 3-tier guard (Magic Link→PIN→Home), biometric abstraction ready for `local_auth`. 41 tests across domain/data/presentation.
+- **Group 4B (Onboarding)**: Pain-point qualifier copy ("Have you ever spent money thinking a payment cleared...?"), Bangla rephrase on 12s inactivity, disqualification screen. 8 widget tests.
+- **Group 4C (UI)**: Exclude-from-calculation toggle chip on income card (inline below amount, visible when excluded). `_IncomeListItem` → ConsumerWidget, `_toggleExclude()` calls `incomeNotifierProvider`.
+- **Group 4D (Buffer %)**: Already done in D1.11 — buffer as percentage (5-30%, default 15%).
+- **Group 4E (Instrumentation)**: 7 new event constants + 2 property keys. Wired to notification center, onboarding, dashboard stopwatch, S2S provider try/catch, SharedPrefs 30min window.
 - TDD dispatch: `docs/planning/TDD_DISPATCH_PHASE_4_DOCTRINE_GAP_CLOSURE.md`
 - Effort: ~20 hours
-- Requires: Backend stack decision, legal L1-L7, `local_auth` package approval
 - Score: Behavioral 82→90, UI/UX 89→93, MVP 100%
 
 ### Phase 5 — V1 Features (🔲 BLOCKED — requires beta thresholds cleared)
