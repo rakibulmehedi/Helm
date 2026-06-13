@@ -297,7 +297,7 @@ class _IncomeFilterChip extends StatelessWidget {
 
 // ── Income List Item ──────────────────────────────────────────────────────────
 
-class _IncomeListItem extends StatelessWidget {
+class _IncomeListItem extends ConsumerWidget {
   const _IncomeListItem({
     required this.entry,
     required this.onDeleteWithUndo,
@@ -306,8 +306,16 @@ class _IncomeListItem extends StatelessWidget {
   final IncomeEntryEntity entry;
   final VoidCallback onDeleteWithUndo;
 
+  void _toggleExclude(WidgetRef ref) {
+    final updated = entry.copyWith(
+      excludeFromCalculation: !entry.excludeFromCalculation,
+      updatedAt: DateTime.now(),
+    );
+    ref.read(incomeNotifierProvider.notifier).updateIncome(updated);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     return Dismissible(
       key: Key(entry.id),
@@ -334,7 +342,7 @@ class _IncomeListItem extends StatelessWidget {
           pathParameters: {'id': entry.id},
         ),
         borderRadius: BorderRadius.circular(16),
-        child: _IncomeCard(entry: entry),
+        child: _IncomeCard(entry: entry, onToggleExclude: () => _toggleExclude(ref)),
       ),
     );
   }
@@ -343,9 +351,10 @@ class _IncomeListItem extends StatelessWidget {
 // ── Income Card ───────────────────────────────────────────────────────────────
 
 class _IncomeCard extends StatelessWidget {
-  const _IncomeCard({required this.entry});
+  const _IncomeCard({required this.entry, required this.onToggleExclude});
 
   final IncomeEntryEntity entry;
+  final VoidCallback onToggleExclude;
 
   static final _formatter = NumberFormat('#,##0.00', 'en_US');
   static final _dateFormatter = DateFormat('dd MMM yyyy');
@@ -445,11 +454,46 @@ class _IncomeCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                '${entry.currency} ${_formatter.format(entry.amount)}',
-                style: typo.headingMd.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: statusColor,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '${entry.currency} ${_formatter.format(entry.amount)}',
+                      style: typo.headingMd.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: statusColor,
+                      ),
+                    ),
+                    // Exclude chip — inline below amount
+                    if (entry.excludeFromCalculation)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: GestureDetector(
+                          onTap: onToggleExclude,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: colors.stateAtRisk.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.visibility_off_rounded,
+                                    size: 12, color: colors.stateAtRisk),
+                                const SizedBox(width: 4),
+                                Text('Excluded',
+                                    style: typo.labelSm.copyWith(
+                                        color: colors.stateAtRisk,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
 

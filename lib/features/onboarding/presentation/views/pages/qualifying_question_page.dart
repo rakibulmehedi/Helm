@@ -73,33 +73,33 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                 const Spacer(),
                 if (!_showDisqualify) ...[
                   Text(
-                    'You earn in USD.\nYou spend in BDT.',
+                    "Have you ever spent money thinking a\npayment cleared, then realized it hadn't?",
                     style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: PocketaSpacing.s4),
                   Text(
-                    'Upwork, Fiverr, or Payoneer sends you money.\nYour rent and daily life cost BDT.',
+                    'If you earn in USD and spend in BDT — through\nUpwork, Fiverr, or Payoneer — this happens a lot.',
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: PocketaSpacing.s6),
                   if (_showRephrase) ...[
                     Text(
-                      'আপনি কি USD-এ আয় করেন এবং BDT-তে খরচ করেন?',
+                      'আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?',
                       style: typo.bodyMd.copyWith(color: colors.inkTertiary),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: PocketaSpacing.s4),
                   ],
                   Text(
-                    'Is that you?',
+                    'Does that sound familiar?',
                     style: typo.headingMd.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: PocketaSpacing.s6),
                   AppButton(
-                    label: "Yes, that's me",
+                    label: 'Yes, that happens to me',
                     onPressed: () {
                       _onInteraction();
                       widget.onQualified();
@@ -108,7 +108,7 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                   ),
                   const SizedBox(height: PocketaSpacing.s2),
                   AppButton(
-                    label: 'Not really',
+                    label: 'No, I always know exactly what cleared',
                     onPressed: () {
                       _onInteraction();
                       setState(() => _showDisqualify = true);
