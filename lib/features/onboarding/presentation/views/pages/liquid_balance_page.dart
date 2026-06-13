@@ -89,8 +89,8 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: PocketaSpacing.s10),
-              // Progress indicator — 25%
-              _ProgressLine(fraction: 0.25, colors: colors),
+              // Progress indicator — step 1
+              _ProgressLine(fraction: PocketaSpacing.onboardingLiquidBalance, colors: colors),
               const SizedBox(height: PocketaSpacing.s8),
               Text(
                 'Roughly how much do you have right now?',
@@ -129,7 +129,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
                           hintStyle: typo.monoFinancialLg
                               .copyWith(color: colors.inkTertiary),
                           border: UnderlineInputBorder(
-                            borderSide: BorderSide(color: colors.divider),
+                            borderSide: BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -138,7 +138,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage> {
                             ),
                           ),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: colors.divider),
+                            borderSide: BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
                           ),
                         ),
                         onChanged: (_) => setState(() => _error = null),
@@ -186,19 +186,19 @@ class _ProgressLine extends StatelessWidget {
         return Stack(
           children: [
             Container(
-              height: 2,
+              height: PocketaSpacing.progressBarHeight,
               width: constraints.maxWidth,
               decoration: BoxDecoration(
                 color: colors.hairline,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
               ),
             ),
             Container(
-              height: 2,
+              height: PocketaSpacing.progressBarHeight,
               width: constraints.maxWidth * fraction,
               decoration: BoxDecoration(
                 color: colors.interactive,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
               ),
             ),
           ],

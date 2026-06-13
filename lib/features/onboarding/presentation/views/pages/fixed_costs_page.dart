@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
@@ -109,12 +110,12 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Progress indicator — 50%
+          // Progress indicator — step 5
           LinearProgressIndicator(
-            value: 0.50,
+            value: PocketaSpacing.onboardingFixedCost,
             backgroundColor: colors.hairline,
             color: colors.interactive,
-            minHeight: 2,
+            minHeight: PocketaSpacing.progressBarHeight,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(
@@ -267,21 +268,21 @@ class _CategoryRow extends StatelessWidget {
             child: Row(
               children: [
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  width: 20,
-                  height: 20,
+                  duration: PocketaMotion.base,
+                  width: PocketaSpacing.s5,
+                  height: PocketaSpacing.s5,
                   decoration: BoxDecoration(
                     color: checked ? colors.interactive : colors.canvas,
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(PocketaSpacing.s1),
                     border: Border.all(
                       color:
                           checked ? colors.interactive : colors.divider,
-                      width: 1.5,
+                      width: PocketaSpacing.cardBorder,
                     ),
                   ),
                   child: checked
                       ? Icon(Icons.check,
-                          size: 14, color: colors.surface)
+                          size: PocketaSpacing.s3, color: colors.surface)
                       : null,
                 ),
                 const SizedBox(width: PocketaSpacing.s3),
@@ -330,7 +331,7 @@ class _CategoryRow extends StatelessWidget {
                           vertical: PocketaSpacing.s2),
                       border: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: colors.divider),
+                            BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
                       ),
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
@@ -338,7 +339,7 @@ class _CategoryRow extends StatelessWidget {
                       ),
                       enabledBorder: UnderlineInputBorder(
                         borderSide:
-                            BorderSide(color: colors.divider),
+                            BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
                       ),
                     ),
                   ),
@@ -352,7 +353,7 @@ class _CategoryRow extends StatelessWidget {
                   value: day,
                   isDense: true,
                   underline:
-                      Container(height: 1, color: colors.divider),
+                      Container(height: PocketaSpacing.cardBorder, color: colors.divider),
                   style: typo.bodyMd
                       .copyWith(color: colors.inkPrimary),
                   items: List.generate(28, (i) => i + 1)

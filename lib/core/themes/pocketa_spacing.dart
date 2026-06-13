@@ -42,4 +42,21 @@ class PocketaSpacing {
   static const double iconMd = 20;
   static const double iconLg = 24;
   static const double iconXl = 28;
+
+  // Progress bar
+  static const double progressBarRadius   = 1;   // hairline progress indicator
+  static const double progressBarHeight   = 2;   // thin accent bar
+  static const double progressBarHeightOnboarding = 3; // onboarding progress
+
+  // Onboarding step progress fractions
+  static const List<double> onboardingSteps = [
+    0.20, // step 2
+    0.40, // step 3
+    0.55, // step 4 (income pattern)
+    0.70, // step 5
+    0.90, // step 6
+  ];
+  static const double onboardingBuffer     = 0.88;
+  static const double onboardingFixedCost  = 0.50;
+  static const double onboardingLiquidBalance = 0.25;
 }

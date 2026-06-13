@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/responsive_utils.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
+import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
+import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final String title;
@@ -23,7 +26,8 @@ class OnboardingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     final progress =
         (step != null && totalSteps > 0)
             ? (step!.clamp(1, totalSteps) / totalSteps)
@@ -42,17 +46,17 @@ class OnboardingHeader extends StatelessWidget {
         children: [
           if (progress != null) ...[
             TweenAnimationBuilder<double>(
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.easeInOut,
+              duration: PocketaMotion.slow,
+              curve: PocketaMotion.defaultCurve,
               tween: Tween<double>(begin: 0, end: progress),
               builder:
                   (context, value, _) => ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
                     child: LinearProgressIndicator(
                       value: value,
-                      backgroundColor: Colors.grey.shade300,
-                      color: theme.primaryColor,
-                      minHeight: ResponsiveUtilities.height(context, 0.008),
+                      backgroundColor: colors.hairline,
+                      color: colors.interactive,
+                      minHeight: PocketaSpacing.progressBarHeightOnboarding,
                     ),
                   ),
             ),
@@ -60,10 +64,8 @@ class OnboardingHeader extends StatelessWidget {
           ],
           Text(
             title,
-            style: theme.textTheme.displayLarge?.copyWith(
-              fontSize: theme.textTheme.titleLarge!.fontSize,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).extension<PocketaColors>()!.interactive,
+            style: typo.headingMd.copyWith(
+              color: colors.inkPrimary,
             ),
           ),
         ],

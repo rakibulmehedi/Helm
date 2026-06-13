@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
 import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
 import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
 import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
@@ -29,6 +30,9 @@ class _IncomePatternPageState extends State<IncomePatternPage> {
   void initState() {
     super.initState();
     _selected = widget.initialPattern;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).unfocus();
+    });
   }
 
   @override
@@ -39,61 +43,65 @@ class _IncomePatternPageState extends State<IncomePatternPage> {
     return Scaffold(
       backgroundColor: colors.canvas,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: PocketaSpacing.screenEdge,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: PocketaSpacing.s10),
-              // Progress indicator — 63%
-              _ProgressLine(fraction: 0.63, colors: colors),
-              const SizedBox(height: PocketaSpacing.s8),
-              Text(
-                'How does your income usually arrive?',
-                style: typo.headingLg.copyWith(color: colors.inkPrimary),
-              ),
-              const SizedBox(height: PocketaSpacing.s2),
-              Text(
-                'Pick the pattern that fits most of your earnings.',
-                style: typo.bodyLg.copyWith(color: colors.inkSecondary),
-              ),
-              const SizedBox(height: PocketaSpacing.s6),
-              _PatternCard(
-                title: 'Marketplace escrow',
-                platform: 'Upwork, Fiverr, Payoneer',
-                subtitle: 'Payment held until milestone or job completion',
-                selected: _selected == IncomePattern.marketplace,
-                onTap: () =>
-                    setState(() => _selected = IncomePattern.marketplace),
-              ),
-              const SizedBox(height: PocketaSpacing.s3),
-              _PatternCard(
-                title: 'Direct client',
-                platform: 'You invoice clients directly',
-                subtitle: 'Payment terms agreed with each client',
-                selected: _selected == IncomePattern.direct,
-                onTap: () =>
-                    setState(() => _selected = IncomePattern.direct),
-              ),
-              const SizedBox(height: PocketaSpacing.s3),
-              _PatternCard(
-                title: 'Retainer / Recurring',
-                platform: 'Same client, same amount each month',
-                subtitle: 'Predictable monthly income',
-                selected: _selected == IncomePattern.retainer,
-                onTap: () =>
-                    setState(() => _selected = IncomePattern.retainer),
-              ),
-              const Spacer(),
-              AppButton(
-                label: 'Save — sets income pattern',
-                onPressed: () => widget.onContinue(_selected),
-                isEnabled: true,
-              ),
-              const SizedBox(height: PocketaSpacing.s4),
-            ],
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: PocketaSpacing.screenEdge,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: PocketaSpacing.s10),
+                // Progress indicator — step 4 (index 2)
+                _ProgressLine(fraction: PocketaSpacing.onboardingSteps[2], colors: colors),
+                const SizedBox(height: PocketaSpacing.s8),
+                Text(
+                  'How does your income usually arrive?',
+                  style: typo.headingLg.copyWith(color: colors.inkPrimary),
+                ),
+                const SizedBox(height: PocketaSpacing.s2),
+                Text(
+                  'Pick the pattern that fits most of your earnings.',
+                  style: typo.bodyLg.copyWith(color: colors.inkSecondary),
+                ),
+                const SizedBox(height: PocketaSpacing.s6),
+                _PatternCard(
+                  title: 'Marketplace escrow',
+                  platform: 'Upwork, Fiverr, Payoneer',
+                  subtitle: 'Payment held until milestone or job completion',
+                  selected: _selected == IncomePattern.marketplace,
+                  onTap:
+                      () =>
+                          setState(() => _selected = IncomePattern.marketplace),
+                ),
+                const SizedBox(height: PocketaSpacing.s3),
+                _PatternCard(
+                  title: 'Direct client',
+                  platform: 'You invoice clients directly',
+                  subtitle: 'Payment terms agreed with each client',
+                  selected: _selected == IncomePattern.direct,
+                  onTap: () => setState(() => _selected = IncomePattern.direct),
+                ),
+                const SizedBox(height: PocketaSpacing.s3),
+                _PatternCard(
+                  title: 'Retainer / Recurring',
+                  platform: 'Same client, same amount each month',
+                  subtitle: 'Predictable monthly income',
+                  selected: _selected == IncomePattern.retainer,
+                  onTap:
+                      () =>
+                          setState(() => _selected = IncomePattern.retainer),
+                ),
+                const Spacer(),
+                AppButton(
+                  label: 'Save — sets income pattern',
+                  onPressed: () => widget.onContinue(_selected),
+                  isEnabled: true,
+                ),
+                const SizedBox(height: PocketaSpacing.s4),
+              ],
+            ),
           ),
         ),
       ),
@@ -118,19 +126,19 @@ class _ProgressLine extends StatelessWidget {
         return Stack(
           children: [
             Container(
-              height: 2,
+              height: PocketaSpacing.progressBarHeight,
               width: constraints.maxWidth,
               decoration: BoxDecoration(
                 color: colors.hairline,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
               ),
             ),
             Container(
-              height: 2,
+              height: PocketaSpacing.progressBarHeight,
               width: constraints.maxWidth * fraction,
               decoration: BoxDecoration(
                 color: colors.interactive,
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
               ),
             ),
           ],
@@ -163,15 +171,15 @@ class _PatternCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOutCubic,
+        duration: PocketaMotion.base,
+        curve: PocketaMotion.defaultCurve,
         padding: const EdgeInsets.all(PocketaSpacing.s4),
         decoration: BoxDecoration(
           color: selected ? colors.surface : colors.canvas,
           borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
           border: Border.all(
             color: selected ? colors.interactive : colors.divider,
-            width: selected ? 2 : 1,
+            width: selected ? PocketaSpacing.cardBorder * 2 : PocketaSpacing.cardBorder,
           ),
         ),
         child: Column(

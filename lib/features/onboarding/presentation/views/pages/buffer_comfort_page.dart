@@ -71,12 +71,12 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Progress indicator — 88%
+          // Progress indicator — step 6
           LinearProgressIndicator(
-            value: 0.88,
+            value: PocketaSpacing.onboardingBuffer,
             backgroundColor: colors.hairline,
             color: colors.interactive,
-            minHeight: 2,
+            minHeight: PocketaSpacing.progressBarHeight,
           ),
           Expanded(
             child: Padding(
@@ -107,7 +107,7 @@ class _BufferComfortPageState extends State<BufferComfortPage> {
                       thumbColor: colors.interactive,
                       overlayColor: colors.interactive
                           .withValues(alpha: 0.12),
-                      trackHeight: 3,
+                      trackHeight: PocketaSpacing.progressBarHeightOnboarding,
                     ),
                     child: Slider(
                       value: _sliderValue,

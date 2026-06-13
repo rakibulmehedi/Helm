@@ -1,7 +1,9 @@
-// lib/core/widgets/buttons/button_multiple_types.dart
 import 'package:flutter/material.dart';
 
 import '../../themes/pocketa_colors.dart';
+import '../../themes/pocketa_motion.dart';
+import '../../themes/pocketa_spacing.dart';
+import '../../themes/pocketa_typography.dart';
 
 enum AppButtonType { primary, secondary, outline }
 
@@ -31,6 +33,7 @@ class _AppButtonState extends State<AppButton> {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).extension<PocketaColors>()!;
+    final typo = Theme.of(context).extension<PocketaTypography>()!;
     final bool disabled = !widget.isEnabled || widget.isLoading;
 
     Color backgroundColor;
@@ -65,10 +68,10 @@ class _AppButtonState extends State<AppButton> {
       enabled: widget.isEnabled,
       child: AnimatedScale(
         scale: _pressed && !disabled ? 0.97 : 1.0,
-        duration: const Duration(milliseconds: 100),
+        duration: PocketaMotion.fast,
         child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
         child: InkWell(
           onTapDown: disabled ? null : (_) => setState(() => _pressed = true),
           onTapUp: disabled
@@ -78,20 +81,20 @@ class _AppButtonState extends State<AppButton> {
                   widget.onPressed?.call();
                 },
           onTapCancel: () => setState(() => _pressed = false),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 14),
+            padding: const EdgeInsets.symmetric(vertical: PocketaSpacing.s4),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: backgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: borderColor, width: 1.5),
+              borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
+              border: Border.all(color: borderColor, width: PocketaSpacing.cardBorder),
             ),
             child: widget.isLoading
                 ? SizedBox(
-                    height: 22,
-                    width: 22,
+                    height: PocketaSpacing.iconLg,
+                    width: PocketaSpacing.iconLg,
                     child: CircularProgressIndicator(
                       strokeWidth: 2.5,
                       color: colors.surface,
@@ -99,15 +102,13 @@ class _AppButtonState extends State<AppButton> {
                   )
                 : Text(
                     widget.label,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                    style: typo.headingSm.copyWith(
                       color: foregroundColor,
                     ),
                   ),
           ),
         ),
-      ),
+        ),
       ),
     );
   }
