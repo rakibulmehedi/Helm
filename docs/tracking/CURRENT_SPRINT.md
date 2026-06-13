@@ -71,6 +71,21 @@ Status: **✅ COMPLETE** — 2026-06-12. dart analyze 0/0/0. 162/162 tests pass.
 - **12 new files**, 6 modified files, 34 new tests (128→162).
 - **Score**: Behavioral 76→82.
 
+**UX Gap Improvements — Phase 2:**
+Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 11 files changed (1441 insertions, 686 deletions).
+
+- **Haptics & tactile feedback**: Slider `selectionClick`/`lightImpact` on drag/snap (buffer_comfort_page), `AppButton` tap `lightImpact`, pattern card `selectionClick`, CTA buttons `mediumImpact`.
+- **Floating tooltip**: buffer_comfort_page animated `FadeTransition` tooltip showing selected % while dragging, reverses on release.
+- **Page entry animations**: liquid_balance, income_pattern, buffer_comfort, first_pipeline pages — `FadeTransition` + `SlideTransition` with `PocketaMotion.slow`.
+- **Semantics (screen reader)**: Progress bars labeled "Onboarding step N of 6", slider labeled with percentage value, pattern cards with `button` + `selected` roles, all form inputs with `textField` role.
+- **Zero-state reask animation**: fixed_costs_page `AnimatedSwitcher` with `SlideTransition` + `FadeTransition` — no jarring below-fold jump.
+- **Responsive layout fix**: fixed_costs_page amount input uses `LayoutBuilder` — 140px on >300dp, 100px on narrow screens.
+- **Error states with iconography**: liquid_balance_page (`error_outline` icon + guidance copy), income_pattern_page (validation error when no pattern selected + `heavyImpact`), first_pipeline_page (`OutlineInputBorder` error style + `isLoading` state).
+- **Empty state**: `PocketaAuditCard` shows icon + "No calculation data" when rows is empty.
+- **Bug fixes**: Added `IncomePattern.none` sentinel, removed `const` from `_kStepProgress` in onboarding_screen, removed unused `PocketaMotion` import from shimmer.
+- New file: `lib/core/widgets/shimmer/pocketa_shimmer.dart` (shimmer skeleton system ready for loading states).
+- Next: Sprint A5 continues (build APK + device test).
+
 **Phase 4 (Doctrine Gap Closure) — 100% Master Plan:**
 Status: **✅ COMPLETE** — 2026-06-13. dart analyze 0/0/0. 210/210 tests pass (162→210, ~1 skipped). 11 new source files, 4 new test files.
 
@@ -210,7 +225,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 |--------|-----|--------|-------|
 | 1 | UX-5 Visual Identity / Design System | **COMPLETE** ✅ | 12/12 |
 | 2 | UX-1 Dashboard Cockpit Redesign | **COMPLETE** ✅ | 14/14 |
-| 3 | UX-2 Onboarding Redesign | **COMPLETE** ✅ | 8/11 (auth+PIN skipped: trust-layer non-goal) |
+| 3 | UX-2 Onboarding Redesign | **COMPLETE** ✅ | 8/11 (auth+PIN skipped: trust-layer non-goal) — phase 2 gap improvements complete (haptics, tooltip, page animations, semantics, responsive, error states) |
 | 4 | UX-3 Pipeline Quick-Update | **COMPLETE** ✅ | 10/10 |
 | 5 | UX-4 Microcopy Replacement | **COMPLETE** ✅ | 8/8 |
 | 6 | D1 Trust Layer Foundation | **COMPLETE** ✅ | 11/12 (D1.04 biometric deferred — needs `local_auth` pkg) |

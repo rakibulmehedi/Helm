@@ -25,6 +25,7 @@
 - notification system (June 2026: Phase 3 complete — push notifications via flutter_local_notifications, nudge evaluator engine, Hive log persistence, notification center UI with badge, effectiveness tracking, dashboard session loop)
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
 - beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Pocketa", splash #FAFAF6, iOS display name "Pocketa", 96 Bangla ARB keys authored)
+- UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -35,7 +36,7 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: SPRINT A5 IN PROGRESS — 210 tests, dart analyze 0/0/0** (2026-06-14)
+**Current Verdict: SPRINT A5 IN PROGRESS — UX gap improvements phase 2 complete, 210 tests, dart analyze 0/0/0** (2026-06-13)
 - Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
 - A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
@@ -64,7 +65,7 @@
 - Settings screen: one long scroll, no section collapsing
 - STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
 - 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
-- Design system migration: ~90% (only 2 core widgets remain on AppColors)
+- Design system migration: ~95% (all onboarding pages migrated to design tokens; only remaining raw values in non-onboarding screens)
 - Widget adoption: 11/13 (85%) — PocketaToast adopted across all feature screens
 - Trust Layer score: 23/35 (66%)
 - Test coverage: 104 tests in 11 files
