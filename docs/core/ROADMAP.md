@@ -5,9 +5,10 @@
 
 ---
 
-## Milestone: 100% Maturity Path (2026-06-12 Plan)
+## Milestone: 100% Maturity Path (2026-06-13 Plan)
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
+> Reference: `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` — execution plan with VCI infra, risk register, dependency graph
 > Status: **Phase 0 (Sprint A5) pending. Phases 1-4 complete.**
 > Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 30/35
 > TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md`

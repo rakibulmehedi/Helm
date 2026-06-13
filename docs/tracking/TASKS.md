@@ -116,6 +116,15 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [ ] A5.4 Verify Android minSdkVersion compatibility — Gemini CLI
 - [ ] A5.5 Verify app icon and branded splash — Gemini CLI
 
+## VCI — Version Control Infrastructure — PENDING (runs before beta APK)
+
+- [ ] VCI-1 Create `develop` branch from `main`
+- [ ] VCI-2 Create `release/v0.3-beta` branch from `main`
+- [ ] VCI-3 Tag v0.3-beta.1, update pubspec.yaml to `0.3.0-beta.1+1`
+- [ ] VCI-4 Write HOTFIX_PROTOCOL.md
+- [ ] VCI-5 Write VERSIONING_POLICY.md
+- [ ] VCI-6 Configure GitHub branch protection (main + release/*)
+
 ## Phase 1 — Behavioral Foundation — COMPLETE ✅ [2026-06-13]
 
 - [x] P1.1-P1.4 Wire 4 boundary events (sts_at_risk_entered, reserve_depleted, first_pipeline_entry, pipeline_state_changed)
@@ -146,27 +155,65 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [x] P4.1-P4.9 Auth system (Magic Link + PIN/biometric, 41 tests, mock backend swappable to real API)
 - [x] P4.10-P4.15 Conversational onboarding rebuild (pain-point qualifier, Bangla rephrase, 8 widget tests)
 - [x] P4.16-P4.19 FX rate field + exclude-entry toggle per pipeline entry (exclude toggle on card, 0 new tests needed)
-- [ ] P4.20-P4.23 Buffer as percentage (5-30%, default 15%)
-- [ ] P4.24-P4.28 Instrumentation hardening (6 new events)
+- [x] P4.20-P4.23 Buffer as percentage (5-30%, default 15%) — COMPLETED in D1.11
+- [x] P4.24-P4.28 Instrumentation hardening (7 new events, 2 property keys) — COMPLETED in Phase 4 Group 4E
 
 ## Phase 5 — V1 Features — BLOCKED (requires beta thresholds cleared)
 
-- [ ] P5.1-P5.6 Multi-wallet (Payoneer, bKash, Bank, Cash + intra-wallet transfers)
-- [ ] P5.7-P5.8 Dashboard state colors (Safe/Tight/At Risk)
+### Group 5A — Multi-Wallet (~8h, 15+ tests)
+- [ ] P5.1 WalletEntity + Hive model (typeId 10) — name, currency, balance, icon, order
+- [ ] P5.2 WalletDataSource + WalletRepository + Hive box + CRUD
+- [ ] P5.3 WalletProvider (Riverpod) — active wallet selector, balance aggregation
+- [ ] P5.4 Wallet picker UI in dashboard header
+- [ ] P5.5 Intra-wallet transfer screen (record-only, audit-logged)
+- [ ] P5.6 Migrate S2S calc to active wallet balance
+
+### Group 5B — Dashboard State Colors (~3h, 4+ tests)
+- [ ] P5.7 Compute S2S state: Safe / Tight / At Risk
+- [ ] P5.8 Display state pill/chip in dashboard header
+
+### Group 5C — UX Polish (~4h, 8+ tests)
 - [ ] P5.9 Duplicate-last-entry pipeline template
-- [ ] P5.10-P5.12 Empty/error/loading state polish + skeleton screens
-- [ ] P5.13 Manual USD→BDT conversion with sanity validation
-- [ ] P5.14-P5.15 Transactional ETA notifications
+- [ ] P5.10 Skeleton screens (dashboard + income list on cold start)
+- [ ] P5.11 Illustrated empty states + retry on calc failure
+- [ ] P5.12 Transactional ETA notifications
+- [ ] P5.13 Manual USD→BDT conversion with sanity bounds
 
 ## Phase 6 — V2 Features — BLOCKED (requires V1 stable + legal L5 + pricing validation)
 
-- [ ] P6.1-P6.3 Invoice-Lite Sprint 1 (form + list + sequential numbering)
-- [ ] P6.4-P6.6 Invoice-Lite Sprint 2 (PDF + email + audit log)
-- [ ] P6.7-P6.10 Invoice-Lite Sprint 3 (pipeline cascade + client profiles + overdue flagging)
-- [ ] P6.11-P6.15 Tax reserve (user-declared %, disclaimed, audit-logged)
-- [ ] P6.16-P6.20 Paid tier activation (Free/Pro/Power with feature gates)
-- [ ] P6.21-P6.28 Final 100% polish (a11y audit, dark mode pass, haptic audit, Semantics audit, perf, tests, docs)
-4. [ ] Sprint A5: Bangla + Release Build (~4h) — app_bn.arb, APK, device test
+### Group 6A — Invoice-Lite Sprint 1: Form + List (~5h)
+- [ ] P6.1 InvoiceEntity — sequential numbering, client, TIN, BDT-equivalent, status
+- [ ] P6.2 Invoice form screen
+- [ ] P6.3 Invoice list screen (grouped by status)
+
+### Group 6B — Invoice-Lite Sprint 2: PDF + Email (~5h)
+- [ ] P6.4 PDF generation (pdf package)
+- [ ] P6.5 Email/send via share sheet
+- [ ] P6.6 Audit log invoice events
+
+### Group 6C — Invoice-Lite Sprint 3: Pipeline Cascade (~5h)
+- [ ] P6.7 Sent invoice → auto-creates Expected pipeline entry
+- [ ] P6.8 Marked paid → auto-creates Received entry
+- [ ] P6.9 Client profile (name, email, currency, payment terms)
+- [ ] P6.10 Overdue flagging + follow-up template
+
+### Group 6D — Tax Reserve (~3h)
+- [ ] P6.11 TaxReserveEntity (user-declared %, disclaimed)
+- [ ] P6.12 Tax reserve UI in STS Settings (audit-logged)
+- [ ] P6.13 Tax reserve row in S2S breakdown
+
+### Group 6E — Paid Tiers (~2h)
+- [ ] P6.14 Feature gate system (Free/Pro/Power)
+- [ ] P6.15 Subscription screen + payment mock
+
+### Group 6F — Final 100% Polish (~5h)
+- [ ] P6.16 Full a11y audit (15+ screens)
+- [ ] P6.17 Dark mode OLED pass
+- [ ] P6.18 Haptic audit (no double-fire)
+- [ ] P6.19 Semantics audit (every interactive element)
+- [ ] P6.20 Performance (rebuild count, provider disposal)
+- [ ] P6.21 Test coverage to 300+
+- [ ] P6.22 Update all docs to V2 state
 
 ## Backlog (Post-Beta / Deferred)
 

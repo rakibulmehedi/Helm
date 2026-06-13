@@ -262,6 +262,16 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 | Tax reserve (user-declared) | 6 | Blocked | V1 stable |
 | Paid tiers (Free/Pro/Power) | 6 | Blocked | V1 stable + pricing valid |
 
+## 7b. Version Control Gap
+
+> **Discovered: 2026-06-13 (Comprehensive Implementation Plan audit)**
+
+The project runs entirely on `main` with zero branching strategy. 60 commits in 13 days all direct to `main`. No `feature/`, `release/`, `develop`, or `hotfix/` branches. pubspec.yaml still shows `1.0.0+1` — unchanged from initial scaffold.
+
+**Impact**: Beta testers reporting bugs on a main-only workflow means either (a) fix on main and ship a broken beta, (b) can't patch without shipping everything in progress, (c) hold fixes until next full commit.
+
+**Resolution**: See `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` §2 (Sprint A5.5 — VCI Infrastructure). Must be resolved before beta APK distribution.
+
 ## 8. Current Product Direction (per Final Doctrine)
 - Focus: Freelancer Cashflow Clarity
 - Identity: Single-purpose calm cockpit for Bangladeshi USD-earning freelancers

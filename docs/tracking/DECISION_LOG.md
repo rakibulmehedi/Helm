@@ -838,6 +838,43 @@ Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`, `docs/planni
 
 ---
 
+## Decision 034 — Comprehensive Implementation Plan Adopted
+
+Date: 2026-06-13
+Trigger: Pre-beta audit revealed critical version control gap (main-only workflow for 60 commits over 13 days). Stale tracking docs (Phase 3 marked PENDING, Phase 4 tasks unchecked). Need for structured Phase 5/6 decomposition with explicit gates.
+
+Decision:
+Adopt `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` as the canonical execution reference alongside the 100% Master Plan. Key additions beyond the master plan:
+
+1. **Version Control Infrastructure (VCI)**: Before beta APK distribution, establish `develop`, `release/v0.3-beta`, tags, hotfix protocol, versioning policy, and branch protection. This is non-negotiable — shipping a beta APK from `main` without branching support means every bug fix invalidates the distributed APK.
+
+2. **Phase 5 decomposed into 3 groups**: Multi-wallet (8h, 6 tasks), State Colors (3h, 2 tasks), UX Polish (4h, 5 tasks). Each group has estimated effort, test count target, and file impact. This prevents Phase 5 from becoming a monolithic ~15h block with no intermediate checkpoints.
+
+3. **Phase 6 decomposed into 6 groups**: 3 Invoice-Lite sprints, Tax Reserve, Paid Tiers, Final Polish. Each group is independently verifiable. Final Polish (P6.16-P6.22) is explicitly scoped to prevent infinite polish loops.
+
+4. **Risk register with kill signals**: Pipeline compliance <50% at beta week 2 → KILL. Override rate >10% at week 3 → KILL. 3+ hotfixes in first week → pause, fix infra, resume.
+
+5. **Documentation hygiene mandate**: Every stale doc entry must be fixed immediately. Phase 3 status in CURRENT_SPRINT.md was incorrect. Phase 4 tasks in TASKS.md were unchecked. Both fixed in this decision.
+
+6. **Ongoing infrastructure rules**: Conventional commits enforced. 3-5 commits per phase group. Quality gates (analyze, tests, typeId registry, route naming, docs) before merge to `main`.
+
+Reason:
+The 100% Master Plan is strong on scope and effort but lacks three critical execution details: (a) how version control works across beta distribution, (b) how large phases decompose into verifiable sub-groups, (c) what happens when risks materialize. The Comprehensive Plan fills all three gaps without superseding the Master Plan — it layers execution infrastructure on top of scope planning.
+
+Impact:
+- `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` — new document
+- `docs/core/ROADMAP.md` — updated with cross-reference
+- `docs/tracking/CURRENT_SPRINT.md` — A5 + VCI added, Phase 3 status fixed
+- `docs/tracking/TASKS.md` — VCI tasks added, Phase 4 checkboxes fixed, Phase 5/6 decomposed
+- `docs/tracking/PROJECT_STATE.md` — VCI gap documented
+- Version control becomes a first-class concern, not an afterthought
+- Branch model + hotfix protocol must ship before beta APK
+- Phase 5/6 tasks now have effort estimates, test targets, and explicit scoping
+
+Ref: `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md`, `docs/planning/100_PERCENT_MASTER_PLAN.md`
+
+---
+
 ## Decision 033 — Phase 4 Doctrine Gap Closure Complete
 
 Date: 2026-06-13

@@ -10,24 +10,35 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 
 | Phase | Status | Score Target | Effort |
 |-------|--------|-------------|--------|
-| 0 — Beta Launch Readiness | 🔲 IN PROGRESS | — | ~4h |
+| 0 — Beta Launch Readiness (A5) | 🔲 PENDING | — | ~4h |
+| VCI — Version Control Infrastructure | 🔲 PENDING | Branch model + hotfix protocol | ~1.5h |
 | 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
 | 2 — Analytics Infrastructure | ✅ COMPLETE | 68→76 behavioral, 83→89 UI/UX | ~8h |
-| 3 — Notification System | ✅ COMPLETE | 76→82 behavioral | ~12h |
+| 3 — Notification System | ✅ COMPLETE (was incorrectly marked PENDING) | 76→82 behavioral | ~12h |
 | 4 — Doctrine Gap Closure | ✅ COMPLETE | 82→90 behavioral, 89→93 UI/UX | ~20h |
-| 5 — V1 Features (gated) | 🔲 BLOCKED | 90→93 behavioral, 93→95 UI/UX | ~15h |
-| 6 — V2 Features (gated) | 🔲 BLOCKED | 93→95 behavioral, 95→98 UI/UX | ~20h |
+| 5 — V1 Features (gated) | 🔲 BLOCKED — beta thresholds | 90→93 behavioral, 93→95 UI/UX | ~15h |
+| 6 — V2 Features (gated) | 🔲 BLOCKED — V1 stable + legal + pricing | 93→95 behavioral, 95→98 UI/UX | ~20h |
 
 ## 1. Active Sprint
 
 **Sprint A5 (Bangla + Release Build):**
-Status: **🔲 PENDING** — Next sprint. 2026-06-12. Depends on: A4 complete (✅).
-- Author native Bangla strings (app_bn.arb) — native copy, not Google Translate
-- Build release APK for Android
-- Test on Samsung Galaxy A14 (or equivalent reference device)
-- Verify Android minSdkVersion compatibility
-- Verify app icon and branded splash display
-- Exit: Release APK runs on reference device. Bangla strings authored. 78/78 tests pass.
+Status: **🔲 PENDING** — Current sprint. Depends on: A4 complete (✅).
+- A5.1 Author native Bangla strings (app_bn.arb) — native copy, not Google Translate
+- A5.2 Build release APK for Android
+- A5.3 Test on Samsung Galaxy A14 (or equivalent reference device)
+- A5.4 Verify Android minSdkVersion compatibility
+- A5.5 Verify app icon and branded splash display
+- Exit: Release APK runs on reference device. Bangla strings authored. All tests pass (210/210).
+
+**VCI (Version Control Infrastructure):**
+Status: **🔲 PENDING** — Runs BEFORE beta APK distribution. Depends on: A5 done.
+- VCI-1 Create `develop` branch from `main`
+- VCI-2 Create `release/v0.3-beta` branch from `main`
+- VCI-3 Tag release (v0.3-beta.1), update pubspec.yaml version
+- VCI-4 Write HOTFIX_PROTOCOL.md
+- VCI-5 Write VERSIONING_POLICY.md
+- VCI-6 Configure GitHub branch protection (main + release/* protected)
+- Exit: Branch model live. Hotfix protocol documented. Beta APK tagged from release branch.
 
 **Phase 1 (Behavioral Foundation) — 100% Master Plan:**
 Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 104/104 tests pass (78→104, +26).
