@@ -10,7 +10,7 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 
 | Phase | Status | Score Target | Effort |
 |-------|--------|-------------|--------|
-| 0 — Beta Launch Readiness (A5) | 🔲 PENDING | — | ~4h |
+| 0 — Beta Launch Readiness (A5) | 🔄 IN PROGRESS | — | ~4h |
 | VCI — Version Control Infrastructure | 🔲 PENDING | Branch model + hotfix protocol | ~1.5h |
 | 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
 | 2 — Analytics Infrastructure | ✅ COMPLETE | 68→76 behavioral, 83→89 UI/UX | ~8h |
@@ -22,12 +22,12 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 ## 1. Active Sprint
 
 **Sprint A5 (Bangla + Release Build):**
-Status: **🔲 PENDING** — Current sprint. Depends on: A4 complete (✅).
-- A5.1 Author native Bangla strings (app_bn.arb) — native copy, not Google Translate
-- A5.2 Build release APK for Android
-- A5.3 Test on Samsung Galaxy A14 (or equivalent reference device)
-- A5.4 Verify Android minSdkVersion compatibility
-- A5.5 Verify app icon and branded splash display
+Status: **🔄 IN PROGRESS** — 2026-06-14. 3/5 tasks complete. Depends on: A4 complete (✅).
+- [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 Pocketa V2 keys, native Bangla, full parity ✅
+- [~] A5.2 Build release APK — build config fixed (version, label, description); actual build needs keystore + `flutter build apk --release` (human action)
+- [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent reference device) — blocked on A5.2
+- [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21 = Android 5+; Galaxy A14 API 33 = fully compatible ✅
+- [x] A5.5 Verify app icon and branded splash — splash #FAFAF6, iOS display name "Pocketa"; icons still default Flutter (needs designer + flutter_launcher_icons approval)
 - Exit: Release APK runs on reference device. Bangla strings authored. All tests pass (210/210).
 
 **VCI (Version Control Infrastructure):**

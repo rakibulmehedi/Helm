@@ -1,63 +1,279 @@
 {
   "@@locale": "bn",
+
   "appName": "পকেটা",
-  "welcomeMessage": "পকেটাতে স্বাগতম!",
-  "tagLine": "স্মার্ট বাজেটিংয়ের জন্য আপনার পকেট অ্যাকাউন্ট্যান্ট",
-  "getStarted": "শুরু করুন",
-  "skip": "এড়িয়ে যান",
-  "next": "পরবর্তী",
-  "back": "পেছনে",
-  "darkMode": "ডার্ক মোড",
-  "language": "ভাষা",
-  "onboardingStep1": "প্রথম ধাপ",
-  "onboardingStep2": "দ্বিতীয় ধাপ",
-  "onboardingStep3": "তৃতীয় ধাপ",
-  "onboardingStep4": "চতুর্থ ধাপ",
-  "selectCurrency": "আপনার মুদ্রা নির্বাচন করুন",
-  "whatIsYourMainIncomeSource": "আপনার আয়ের প্রধান উৎস কী?",
-  "selectMonthlyIncome": "আপনার মাসিক আয়ের পরিসীমা নির্বাচন করুন",
-  "setupYourBudgetCategories": "আপনার বাজেট ক্যাটাগরি সেটআপ করুন",
-  "freelance": "ফ্রিল্যান্স",
-  "job": "চাকরি",
-  "familySupport": "পারিবারিক সহায়তা",
-  "other": "অন্যান্য",
-  "zeroToFiveThousand": "০ - ৫,০০০",
-  "fiveThousandToTenThousand": "৫,০০১ - ১০,০০০",
-  "tenThousandToTwentyThousand": "১০,০০১ - ২০,০০০",
-  "twentyThousandToFiftyThousand": "২০,০০১ - ৫০,০০০",
-  "fiftyThousandPlus": "৫০,০০০+",
-  "home": "হোম",
-  "transactions": "লেনদেন",
-  "add": "যোগ করুন",
-  "budget": "বাজেট",
-  "profile": "প্রোফাইল",
-  "income": "আয়",
-  "expense": "ব্যয়",
-  "totalBalance": "মোট ব্যালেন্স",
-  "recentTransactions": "সাম্প্রতিক লেনদেন",
-  "categoryDistribution": "ক্যাটাগরি বিতরণ",
-  "spendingTrend": "ব্যয় প্রবণতা",
+
+  "appTagline": "এখন আপনি আসলে কত টাকা খরচ করতে পারবেন?",
+
+  "continueSetupSafeToSpend": "এগিয়ে যান — নিরাপদ ব্যয়সীমা সেট করুন",
+
+  "setUpLater": "পরে সেট করব",
+
+  "signInToPocketa": "পকেটায় সাইন ইন করুন",
+
+  "magicLinkSubtitle": "আপনার ইমেইল দিন — আমরা সাথে সাথে সাইন ইনের একটি ম্যাজিক লিংক পাঠাব।",
+
+  "emailHint": "you@example.com",
+
+  "sendMagicLink": "ম্যাজিক লিংক পাঠান",
+
+  "sending": "পাঠানো হচ্ছে...",
+
+  "checkYourInbox": "আপনার ইনবক্স দেখুন",
+
+  "magicLinkSentSubtitle": "{email}-এ একটি লিংক পাঠানো হয়েছে।\nনিচে কোড দিন, অথবা ইমেইলের লিংকে ট্যাপ করুন।",
+
+  "pasteVerificationCode": "ভেরিফিকেশন কোড পেস্ট করুন",
+
+  "verifyAndSignIn": "যাচাই করুন এবং সাইন ইন করুন",
+
+  "verifying": "যাচাই হচ্ছে...",
+
+  "useDifferentEmail": "← অন্য ইমেইল ব্যবহার করুন",
+
+  "errorEnterEmail": "আপনার ইমেইল ঠিকানা দিন",
+
+  "errorTooManyRequests": "অনেকবার চেষ্টা করা হয়েছে। একটু পরে আবার লিংক চান।",
+
+  "errorEnterCode": "ভেরিফিকেশন কোড দিন বা লিংক পেস্ট করুন",
+
+  "errorInvalidCode": "কোডটি ভুল বা মেয়াদ শেষ হয়ে গেছে। নতুন কোড চান।",
+
+  "qualifyingQuestion": "আপনি কি কখনো মনে করে টাকা খরচ করেছেন যে পেমেন্ট ক্লিয়ার হয়েছে,\nপরে দেখেছেন হয়নি?",
+
+  "qualifyingSubtext": "যদি আপনি USD-এ আয় করেন এবং BDT-তে খরচ করেন — Upwork, Fiverr বা Payoneer-এর মাধ্যমে — এটা প্রায়ই হয়।",
+
+  "qualifyingRephraseBn": "আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?",
+
+  "doesThatSoundFamiliar": "এটা কি আপনার সাথে মেলে?",
+
+  "yesHappenedToMe": "হ্যাঁ, আমার সাথে এটা হয়",
+
+  "noAlwaysKnow": "না, আমি সবসময় জানি কতটুকু ক্লিয়ার হয়েছে",
+
+  "disqualifyHeading": "পকেটা বাংলাদেশের USD-আয়কারী ফ্রিল্যান্সারদের জন্য তৈরি।",
+
+  "disqualifySubtext": "যখন আন্তর্জাতিক কাজ শুরু করবেন, তখন ফিরে আসুন।",
+
+  "close": "বন্ধ করুন",
+
+  "liquidBalanceQuestion": "এখন আপনার কাছে মোটামুটি কত টাকা আছে?",
+
+  "liquidBalanceSubtext": "বিকাশ, ব্যাংক, এবং নগদ — সব মিলিয়ে। একটা আনুমানিক সংখ্যাই যথেষ্ট, পরে ঠিক করা যাবে।",
+
+  "liquidBalanceFieldLabel": "বর্তমান লিকুইড ব্যালেন্স (BDT)",
+
+  "liquidBalanceError": "নিরাপদ ব্যয়সীমা হিসাব করতে বর্তমান BDT ব্যালেন্স দিন।",
+
+  "fixedCostsQuestion": "আপনার মাসিক নির্দিষ্ট খরচ কী কী?",
+
+  "fixedCostsSubtext": "আগামী ৩০ দিনে যে খরচগুলো আসবে। যেগুলো প্রযোজ্য সেগুলো ট্যাপ করুন।",
+
+  "fixedCostsNoneSelected": "কোনো মাসিক নির্দিষ্ট খরচ নির্বাচন করা হয়নি।",
+
+  "fixedCostsNoneExplainer": "নির্দিষ্ট খরচ নিরাপদ ব্যয়সীমা কমায়। পরে সেটিংস থেকে যোগ করতে পারবেন।",
+
+  "skipForNow": "এখন বাদ দিন",
+
+  "letMeAddSome": "যোগ করতে চাই",
+
+  "firstPipelineQuestion": "শীঘ্রই কোনো টাকা আসছে?",
+
+  "firstPipelineSubtext": "প্রত্যাশিত আয় যোগ করলে নিরাপদ ব্যয়সীমা প্রথম দিন থেকেই পুরো চিত্র দেখাবে।",
+
+  "clientOrSource": "ক্লায়েন্ট বা সোর্স",
+
+  "clientOrSourceHint": "যেমন: Upwork, Client X",
+
+  "whoIsThisFrom": "এটা কার কাছ থেকে?",
+
+  "pipelineEntryNote": "এটা \"প্রত্যাশিত\" হিসেবে রাখা হবে। পরে স্ট্যাটাস পরিবর্তন করতে পারবেন।",
+
+  "addToMyPipeline": "পাইপলাইনে যোগ করুন",
+
+  "skipAddLater": "এখন বাদ দিন — পরে যোগ করব",
+
+  "safeToSpendLabel": "নিরাপদ ব্যয়সীমা",
+
+  "safeToSpendSubLabel": "নির্দিষ্ট খরচ ও বাফার বাদে",
+
+  "receivedOnly": "শুধু প্রাপ্ত",
+
+  "tapToSeeMath": "হিসাব দেখতে নম্বরে ট্যাপ করুন",
+
+  "addPipelineEntry": "আয় যোগ করুন",
+
+  "fixedCostsSectionTitle": "নির্দিষ্ট খরচ",
+
+  "fixedCostsSectionSubtitle": "আগামী ৩০ দিনে দেয় মাসিক খরচ",
+
+  "fixedCostsEmpty": "এখনো কোনো নির্দিষ্ট খরচ যোগ করা হয়নি। যোগ করলে নিরাপদ ব্যয়সীমা আরও নির্ভুল হবে।",
+
+  "addFixedCostsLink": "নির্দিষ্ট খরচ যোগ করুন →",
+
+  "safetyBufferTitle": "সেফটি বাফার",
+
+  "safetyBufferSubtitle": "লক করা নয় — হিসাবের ভেতরে একটি নিরাপত্তা মার্জিন",
+
+  "safetyBufferEmpty": "কোনো সেফটি বাফার সেট করা নেই। পুরো লিকুইড BDT দিয়ে নিরাপদ ব্যয়সীমা হিসাব হবে।",
+
+  "notCountedTitle": "এখনো গণনায় নেই",
+
+  "notCountedSubtitle": "এখনো গণনায় নেই — প্রত্যাশিত পেমেন্ট",
+
+  "notCountedEmpty": "যখন ইনভয়েস করবেন বা টাকা আশা করবেন তখন প্রত্যাশিত পেমেন্ট যোগ করুন।",
+
+  "addExpectedPaymentLink": "প্রত্যাশিত পেমেন্ট যোগ করুন →",
+
+  "pending": "পেন্ডিং",
+
+  "expected": "প্রত্যাশিত",
+
+  "received": "প্রাপ্ত",
+
+  "ifAllCounted": "সব গণনায় ধরলে:",
+
+  "incomePipeline": "আয়ের পাইপলাইন",
+
+  "addIncome": "আয় যোগ করুন",
+
+  "editIncome": "আয় সম্পাদনা করুন",
+
+  "updateIncome": "আয় আপডেট করুন",
+
+  "saveIncome": "আয় সংরক্ষণ করুন",
+
+  "clientName": "ক্লায়েন্টের নাম",
+
+  "clientNameHint": "যেমন: Upwork, Client X",
+
+  "clientNameRequired": "ক্লায়েন্টের নাম দেওয়া আবশ্যক",
+
+  "projectName": "প্রজেক্টের নাম",
+
+  "projectNameHint": "যেমন: Website Redesign",
+
+  "projectNameRequired": "প্রজেক্টের নাম দেওয়া আবশ্যক",
+
   "amount": "পরিমাণ",
-  "category": "ক্যাটাগরি",
-  "wallet": "ওয়ালেট",
-  "notes": "নোট",
-  "date": "তারিখ",
-  "addExpense": "ব্যয় যুক্ত করুন",
-  "addIncome": "আয় যুক্ত করুন",
-  "setBudget": "মাসিক বাজেট নির্ধারণ করুন",
-  "setCategoryLimit": "ক্যাটাগরি ভিত্তিক সীমা নির্ধারণ করুন",
-  "goal": "লক্ষ্য",
-  "save": "সংরক্ষণ করুন",
-  "addCategory": "ক্যাটাগরি যুক্ত করুন",
-  "editCategory": "ক্যাটাগরি সম্পাদনা করুন",
-  "deleteCategory": "ক্যাটাগরি মুছুন",
-  "addWallet": "ওয়ালেট যুক্ত করুন",
-  "editWallet": "ওয়ালেট সম্পাদনা করুন",
-  "walletOverview": "ওয়ালেটের সারসংক্ষেপ",
-  "settings": "সেটিংস",
+
+  "amountRequired": "পরিমাণ দেওয়া আবশ্যক",
+
+  "amountInvalid": "০-এর বেশি একটি সঠিক পরিমাণ দিন",
+
+  "fxRateLabel": "FX রেট (প্রতি USD-এ BDT)",
+
+  "fxRateHint": "যেমন: ১১০.৫",
+
+  "fxRateRequired": "FX রেট দেওয়া আবশ্যক",
+
+  "statusLabel": "স্ট্যাটাস",
+
+  "expectedDate": "প্রত্যাশিত তারিখ",
+
+  "receivedDate": "প্রাপ্তির তারিখ",
+
+  "selectDate": "তারিখ বেছে নিন",
+
+  "selectReceivedDate": "প্রাপ্তির তারিখ বেছে নিন",
+
+  "pleaseSelectReceivedDate": "প্রাপ্তির তারিখ নির্বাচন করুন।",
+
+  "notesOptional": "নোট (ঐচ্ছিক)",
+
+  "addANote": "একটি নোট লিখুন…",
+
+  "paymentSourceOptional": "পেমেন্ট সোর্স (ঐচ্ছিক)",
+
+  "paymentSourceHint": "যেমন: Upwork, Fiverr, সরাসরি ক্লায়েন্ট",
+
+  "excludeFromSafeToSpend": "নিরাপদ ব্যয়সীমা থেকে বাদ দিন",
+
+  "excludeFromSafeToSpendSubtitle": "যখন এই পেমেন্ট আপনার হিসাবে প্রভাব ফেলবে না",
+
+  "incomeUpdatedSuccess": "আয় সফলভাবে আপডেট হয়েছে",
+
+  "incomeSavedSuccess": "আয় সফলভাবে সংরক্ষিত হয়েছে",
+
+  "incomeFailedToSave": "আয় সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+
+  "incomeEntryNotFound": "আয়ের এন্ট্রি পাওয়া যায়নি",
+
+  "incomeEntryDeleted": "এই আয়ের এন্ট্রিটি মুছে ফেলা হয়ে থাকতে পারে।",
+
+  "goBack": "ফিরে যান",
+
+  "filterAll": "সব",
+
+  "excluded": "বাদ দেওয়া হয়েছে",
+
+  "trackIncomePipeline": "আপনার আয়ের পাইপলাইন ট্র্যাক করুন",
+
+  "addFirstExpectedPayment": "প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন — কখন টাকা আসবে দেখতে পাবেন।",
+
+  "noExpectedPayments": "কোনো প্রত্যাশিত পেমেন্ট নেই",
+
+  "noPaymentsInTransit": "ট্রানজিটে কোনো পেমেন্ট নেই",
+
+  "noReceivedPaymentsYet": "এখনো কোনো পেমেন্ট প্রাপ্ত হয়নি",
+
+  "nothingHere": "এখানে কিছু নেই",
+
+  "addOneForNewProject": "নতুন প্রজেক্ট শুরু করলে একটি যোগ করুন।",
+
+  "noPaymentsInTransitNow": "এখন ট্রানজিটে কোনো পেমেন্ট নেই।",
+
+  "noPaymentsReceivedThisMonth": "এই মাসে এখনো কোনো পেমেন্ট পাননি।",
+
+  "useButtonToAdd": "+ বোতাম ব্যবহার করে আয় যোগ করুন।",
+
+  "undo": "পূর্বাবস্থায় ফেরান",
+
+  "confirmReceived": "নিশ্চিত করুন — লিকুইডে যোগ হবে",
+
+  "notYet": "এখনো না",
+
+  "amountReceived": "প্রাপ্ত পরিমাণ",
+
+  "fxRateBdtPerUsd": "FX রেট (প্রতি USD-এ BDT)",
+
+  "dateReceived": "প্রাপ্তির তারিখ",
+
+  "enterValidAmount": "সঠিক পরিমাণ দিন",
+
   "notifications": "নোটিফিকেশন",
-  "backup": "ব্যাকআপ",
-  "export": "রপ্তানি",
-  "theme": "থিম",
-  "logout": "লগআউট"
+
+  "clearAll": "সব মুছুন",
+
+  "allNotificationsCleared": "সব নোটিফিকেশন মুছে ফেলা হয়েছে",
+
+  "noNotificationsYet": "এখনো কোনো নোটিফিকেশন নেই",
+
+  "notificationsWillShowHere": "নাজ ও আপডেটগুলো পাওয়া গেলে এখানে দেখা যাবে।",
+
+  "notificationRemoved": "নোটিফিকেশন সরানো হয়েছে",
+
+  "dateGroupToday": "আজ",
+
+  "dateGroupYesterday": "গতকাল",
+
+  "dateGroupThisWeek": "এই সপ্তাহ",
+
+  "dateGroupOlder": "আগের",
+
+  "notificationPreferences": "নোটিফিকেশন পছন্দ",
+
+  "checkInFrequency": "চেক-ইন ফ্রিকোয়েন্সি",
+
+  "notificationPrefsSaved": "নোটিফিকেশন পছন্দ সংরক্ষিত হয়েছে",
+
+  "save": "সংরক্ষণ",
+
+  "cancel": "বাতিল",
+
+  "settings": "সেটিংস",
+
+  "dashboard": "ড্যাশবোর্ড",
+
+  "devResetOnboarding": "অনবোর্ডিং রিসেট করুন (শুধু ডেভ)"
 }

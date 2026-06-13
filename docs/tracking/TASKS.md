@@ -108,13 +108,13 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 13. [x] Phase 1: Behavioral Foundation (7 groups, 26 tests added) — **COMPLETE [2026-06-13]**
 14. [x] Phase 4: Doctrine Gap Closure (5 groups, 48 tests added, 11 new source files) — **COMPLETE [2026-06-13]**
 
-## Phase 0 — Beta Launch Readiness (A5) — PENDING
+## Phase 0 — Beta Launch Readiness (A5) — IN PROGRESS 🔄 [2026-06-14]
 
-- [ ] A5.1 Author native Bangla strings (app_bn.arb) — Brand Guardian + Gemini CLI
-- [ ] A5.2 Build release APK — Gemini CLI
-- [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent) — Antigravity
-- [ ] A5.4 Verify Android minSdkVersion compatibility — Gemini CLI
-- [ ] A5.5 Verify app icon and branded splash — Gemini CLI
+- [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 keys, native Bangla, 0/0/0 ✅
+- [~] A5.2 Build release APK — build config fixed (version 0.3.0-beta.1+1, label "Pocketa"); needs keystore + `flutter build apk --release` (human action) ⏳
+- [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent) — blocked on A5.2 APK build
+- [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21, Galaxy A14 API 33, fully compatible ✅
+- [x] A5.5 Verify app icon and branded splash — audited; splash color set to #FAFAF6, iOS name "Pocketa"; icons still default Flutter (needs designer + package approval) ✅
 
 ## VCI — Version Control Infrastructure — PENDING (runs before beta APK)
 

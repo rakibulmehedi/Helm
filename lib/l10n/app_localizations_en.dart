@@ -12,180 +12,440 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'Pocketa';
 
   @override
-  String get welcomeMessage => 'Welcome to Pocketa!';
+  String get appTagline => 'How much BDT can you actually spend right now?';
 
   @override
-  String get tagLine => 'Your pocket accountant for\nSmart budgeting';
+  String get continueSetupSafeToSpend =>
+      'Continue — sets up your Safe-to-Spend';
 
   @override
-  String get getStarted => 'Get Started';
+  String get setUpLater => 'Set up later';
 
   @override
-  String get skip => 'Skip';
+  String get signInToPocketa => 'Sign in to Pocketa';
 
   @override
-  String get next => 'Next';
+  String get magicLinkSubtitle =>
+      'Enter your email — we\'ll send you a magic link to sign in instantly.';
 
   @override
-  String get back => 'Back';
+  String get emailHint => 'you@example.com';
 
   @override
-  String get darkMode => 'Dark Mode';
+  String get sendMagicLink => 'Send Magic Link';
 
   @override
-  String get language => 'Language';
+  String get sending => 'Sending...';
 
   @override
-  String get onboardingStep1 => 'Step 1 of 4';
+  String get checkYourInbox => 'Check your inbox';
 
   @override
-  String get onboardingStep2 => 'Step 2 of 4';
+  String magicLinkSentSubtitle(String email) {
+    return 'We sent a link to $email.\nEnter the code below, or tap the link in your email.';
+  }
 
   @override
-  String get onboardingStep3 => 'Step 3 of 4';
+  String get pasteVerificationCode => 'Paste verification code';
 
   @override
-  String get onboardingStep4 => 'Step 4 of 4';
+  String get verifyAndSignIn => 'Verify & Sign In';
 
   @override
-  String get selectCurrency => 'Select your currency';
+  String get verifying => 'Verifying...';
 
   @override
-  String get whatIsYourMainIncomeSource =>
-      'What\'s your primary source of income?';
+  String get useDifferentEmail => '← Use a different email';
 
   @override
-  String get selectMonthlyIncome => 'Select your monthly income range';
+  String get errorEnterEmail => 'Please enter your email address';
 
   @override
-  String get setupYourBudgetCategories => 'Set up your budget categories';
+  String get errorTooManyRequests =>
+      'Too many requests. Please wait before requesting another link.';
 
   @override
-  String get freelance => 'Freelance';
+  String get errorEnterCode =>
+      'Please enter the verification code or paste the link';
 
   @override
-  String get job => 'Job';
+  String get errorInvalidCode =>
+      'Invalid or expired verification code. Request a new one.';
 
   @override
-  String get familySupport => 'Family Support';
+  String get qualifyingQuestion =>
+      'Have you ever spent money thinking a\npayment cleared, then realized it hadn\'t?';
 
   @override
-  String get other => 'Other';
+  String get qualifyingSubtext =>
+      'If you earn in USD and spend in BDT — through\nUpwork, Fiverr, or Payoneer — this happens a lot.';
 
   @override
-  String get zeroToFiveThousand => '0 - 5,000';
+  String get qualifyingRephraseBn =>
+      'আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?';
 
   @override
-  String get fiveThousandToTenThousand => '5,001 - 10,000';
+  String get doesThatSoundFamiliar => 'Does that sound familiar?';
 
   @override
-  String get tenThousandToTwentyThousand => '10,001 - 20,000';
+  String get yesHappenedToMe => 'Yes, that happens to me';
 
   @override
-  String get twentyThousandToFiftyThousand => '20,001 - 50,000';
+  String get noAlwaysKnow => 'No, I always know exactly what cleared';
 
   @override
-  String get fiftyThousandPlus => '50,000+';
+  String get disqualifyHeading =>
+      'Pocketa is built for USD-earning freelancers in Bangladesh.';
 
   @override
-  String get home => 'Home';
+  String get disqualifySubtext =>
+      'Come back when you start billing internationally.';
 
   @override
-  String get transactions => 'Transactions';
+  String get close => 'Close';
 
   @override
-  String get add => 'Add';
+  String get liquidBalanceQuestion => 'Roughly how much do you have right now?';
 
   @override
-  String get budget => 'Budget';
+  String get liquidBalanceSubtext =>
+      'bKash, bank, and cash — combined. A rough number is fine. You can refine it later.';
 
   @override
-  String get profile => 'Profile';
+  String get liquidBalanceFieldLabel => 'Current liquid balance in BDT';
 
   @override
-  String get income => 'Income';
+  String get liquidBalanceError =>
+      'Enter your current liquid BDT to calculate Safe-to-Spend.';
 
   @override
-  String get expense => 'Expense';
+  String get fixedCostsQuestion => 'What are your fixed monthly costs?';
 
   @override
-  String get totalBalance => 'Total Balance';
+  String get fixedCostsSubtext =>
+      'Monthly costs due in the next 30 days. Tap any that apply.';
 
   @override
-  String get recentTransactions => 'Recent Transactions';
+  String get fixedCostsNoneSelected => 'No fixed monthly costs selected.';
 
   @override
-  String get categoryDistribution => 'Category Distribution';
+  String get fixedCostsNoneExplainer =>
+      'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.';
 
   @override
-  String get spendingTrend => 'Spending Trend';
+  String get skipForNow => 'Skip for now';
 
   @override
-  String get amount => 'Amount';
+  String get letMeAddSome => 'Let me add some';
 
   @override
-  String get category => 'Category';
+  String get firstPipelineQuestion => 'Any money coming in soon?';
 
   @override
-  String get wallet => 'Wallet';
+  String get firstPipelineSubtext =>
+      'Adding expected income helps Safe-to-Spend show you the full picture from day one.';
 
   @override
-  String get notes => 'Notes';
+  String get clientOrSource => 'Client or source';
 
   @override
-  String get date => 'Date';
+  String get clientOrSourceHint => 'e.g. Upwork, Client X';
 
   @override
-  String get addExpense => 'Add Expense';
+  String get whoIsThisFrom => 'Who is this from?';
+
+  @override
+  String get pipelineEntryNote =>
+      'This will be marked as \"Expected\". You can update the status later.';
+
+  @override
+  String get addToMyPipeline => 'Add to my pipeline';
+
+  @override
+  String get skipAddLater => 'Skip — I\'ll add it later';
+
+  @override
+  String get safeToSpendLabel => 'SAFE-TO-SPEND';
+
+  @override
+  String get safeToSpendSubLabel => 'after fixed costs + safety buffer';
+
+  @override
+  String get receivedOnly => 'Received only';
+
+  @override
+  String get tapToSeeMath => 'Tap the number to see the math';
+
+  @override
+  String get addPipelineEntry => 'Add income entry';
+
+  @override
+  String get fixedCostsSectionTitle => 'Fixed costs';
+
+  @override
+  String get fixedCostsSectionSubtitle =>
+      'Monthly costs due in the next 30 days';
+
+  @override
+  String get fixedCostsEmpty =>
+      'No fixed costs added yet. Add them to improve Safe-to-Spend accuracy.';
+
+  @override
+  String get addFixedCostsLink => 'Add fixed costs →';
+
+  @override
+  String get safetyBufferTitle => 'Safety buffer';
+
+  @override
+  String get safetyBufferSubtitle =>
+      'Not locked — a safety margin inside the calculation';
+
+  @override
+  String get safetyBufferEmpty =>
+      'No safety buffer set. Safe-to-Spend uses your full liquid BDT.';
+
+  @override
+  String get notCountedTitle => 'Not counted yet';
+
+  @override
+  String get notCountedSubtitle => 'Not counted yet — expected payments';
+
+  @override
+  String get notCountedEmpty =>
+      'Add an expected payment when you invoice or expect money.';
+
+  @override
+  String get addExpectedPaymentLink => 'Add expected payment →';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get expected => 'Expected';
+
+  @override
+  String get received => 'Received';
+
+  @override
+  String get ifAllCounted => 'If all counted:';
+
+  @override
+  String get incomePipeline => 'Income Pipeline';
 
   @override
   String get addIncome => 'Add Income';
 
   @override
-  String get setBudget => 'Set Monthly Budget';
+  String get editIncome => 'Edit Income';
 
   @override
-  String get setCategoryLimit => 'Set category-wise limit';
+  String get updateIncome => 'Update Income';
 
   @override
-  String get goal => 'Goal';
+  String get saveIncome => 'Save Income';
 
   @override
-  String get save => 'Save';
+  String get clientName => 'Client Name';
 
   @override
-  String get addCategory => 'Add Category';
+  String get clientNameHint => 'e.g. Upwork, Client X';
 
   @override
-  String get editCategory => 'Edit Category';
+  String get clientNameRequired => 'Client name is required';
 
   @override
-  String get deleteCategory => 'Delete Category';
+  String get projectName => 'Project Name';
 
   @override
-  String get addWallet => 'Add Wallet';
+  String get projectNameHint => 'e.g. Website Redesign';
 
   @override
-  String get editWallet => 'Edit Wallet';
+  String get projectNameRequired => 'Project name is required';
 
   @override
-  String get walletOverview => 'Wallet Overview';
+  String get amount => 'Amount';
 
   @override
-  String get settings => 'Settings';
+  String get amountRequired => 'Amount is required';
+
+  @override
+  String get amountInvalid => 'Enter a valid amount greater than 0';
+
+  @override
+  String get fxRateLabel => 'FX Rate (BDT per USD)';
+
+  @override
+  String get fxRateHint => 'e.g. 110.5';
+
+  @override
+  String get fxRateRequired => 'FX rate required';
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get expectedDate => 'Expected Date';
+
+  @override
+  String get receivedDate => 'Received Date';
+
+  @override
+  String get selectDate => 'Select date';
+
+  @override
+  String get selectReceivedDate => 'Select received date';
+
+  @override
+  String get pleaseSelectReceivedDate => 'Please select a received date.';
+
+  @override
+  String get notesOptional => 'Notes (optional)';
+
+  @override
+  String get addANote => 'Add a note…';
+
+  @override
+  String get paymentSourceOptional => 'Payment Source (optional)';
+
+  @override
+  String get paymentSourceHint => 'e.g. Upwork, Fiverr, Direct client';
+
+  @override
+  String get excludeFromSafeToSpend => 'Exclude from Safe-to-Spend';
+
+  @override
+  String get excludeFromSafeToSpendSubtitle =>
+      'Use when this payment shouldn\'t affect your numbers';
+
+  @override
+  String get incomeUpdatedSuccess => 'Income updated successfully';
+
+  @override
+  String get incomeSavedSuccess => 'Income saved successfully';
+
+  @override
+  String get incomeFailedToSave => 'Failed to save income. Please try again.';
+
+  @override
+  String get incomeEntryNotFound => 'Income entry not found';
+
+  @override
+  String get incomeEntryDeleted => 'This income entry may have been deleted.';
+
+  @override
+  String get goBack => 'Go Back';
+
+  @override
+  String get filterAll => 'All';
+
+  @override
+  String get excluded => 'Excluded';
+
+  @override
+  String get trackIncomePipeline => 'Track your income pipeline';
+
+  @override
+  String get addFirstExpectedPayment =>
+      'Add your first expected payment to see\nwhen money is coming in.';
+
+  @override
+  String get noExpectedPayments => 'No expected payments';
+
+  @override
+  String get noPaymentsInTransit => 'No payments in transit';
+
+  @override
+  String get noReceivedPaymentsYet => 'No received payments yet';
+
+  @override
+  String get nothingHere => 'Nothing here';
+
+  @override
+  String get addOneForNewProject => 'Add one when you start a new project.';
+
+  @override
+  String get noPaymentsInTransitNow => 'No payments in transit right now.';
+
+  @override
+  String get noPaymentsReceivedThisMonth =>
+      'No payments received this month yet.';
+
+  @override
+  String get useButtonToAdd => 'Use the + button to add an income entry.';
+
+  @override
+  String get undo => 'Undo';
+
+  @override
+  String get confirmReceived => 'Confirm — adds to liquid';
+
+  @override
+  String get notYet => 'Not yet';
+
+  @override
+  String get amountReceived => 'Amount received';
+
+  @override
+  String get fxRateBdtPerUsd => 'FX rate (BDT per USD)';
+
+  @override
+  String get dateReceived => 'Date received';
+
+  @override
+  String get enterValidAmount => 'Enter a valid amount';
 
   @override
   String get notifications => 'Notifications';
 
   @override
-  String get backup => 'Backup';
+  String get clearAll => 'Clear all';
 
   @override
-  String get export => 'Export';
+  String get allNotificationsCleared => 'All notifications cleared';
 
   @override
-  String get theme => 'Theme';
+  String get noNotificationsYet => 'No notifications yet';
 
   @override
-  String get logout => 'Logout';
+  String get notificationsWillShowHere =>
+      'Nudges and updates will show here when available.';
+
+  @override
+  String get notificationRemoved => 'Notification removed';
+
+  @override
+  String get dateGroupToday => 'Today';
+
+  @override
+  String get dateGroupYesterday => 'Yesterday';
+
+  @override
+  String get dateGroupThisWeek => 'This Week';
+
+  @override
+  String get dateGroupOlder => 'Older';
+
+  @override
+  String get notificationPreferences => 'Notification Preferences';
+
+  @override
+  String get checkInFrequency => 'Check-in Frequency';
+
+  @override
+  String get notificationPrefsSaved => 'Notification preferences saved';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get devResetOnboarding => 'Reset onboarding (dev only)';
 }

@@ -24,6 +24,7 @@
 - behavioral foundation (June 2026: Phase 1 complete — 4 boundary events, 5 haptic types, 3 WCAG AA contrasts, button pressed states, slider stepper buttons, onboarding global skip, quiet affirmations in trust strip)
 - notification system (June 2026: Phase 3 complete — push notifications via flutter_local_notifications, nudge evaluator engine, Hive log persistence, notification center UI with badge, effectiveness tracking, dashboard session loop)
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
+- beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Pocketa", splash #FAFAF6, iOS display name "Pocketa", 96 Bangla ARB keys authored)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -34,13 +35,15 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: PHASE 4 COMPLETE — 210 tests, dart analyze 0/0/0** (2026-06-13, post-Phase 4 Doctrine Gap Closure)
-- All 3 beta blockers resolved (B1+B2+B3)
-- 3 major issues resolved (M1+M2+M3)
-- 1 polish item resolved (P5 financial disclaimer)
+**Current Verdict: SPRINT A5 IN PROGRESS — 210 tests, dart analyze 0/0/0** (2026-06-14)
+- Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
+- A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
+- A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
+- A5.3 ⏳ — blocked on A5.2
+- A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33)
+- A5.5 ✅ — splash #FAFAF6, iOS name "Pocketa"; icons still default (needs designer)
 - Core S2S engine + dashboard + pipeline: production-grade
-- Onboarding: 6 steps with optional first pipeline entry
-- Distance to closed beta: ~4 hours (Sprint A5 — Bangla + Release Build)
+- Distance to closed beta: APK build + device test (human action)
 - Distance to 100% maturity: ~85 hours across 6 phases (see master plan)
 - **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` (adopted 2026-06-12)
 - **Audits complete**: Behavioral 62/100, UI/UX 78/100, Trust Layer 23/35

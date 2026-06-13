@@ -1,8 +1,8 @@
 name: pocketa_v2
-description: "A new Flutter project."
+description: "Freelancer cashflow clarity for USD earners in Bangladesh."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 0.3.0-beta.1+1
 
 environment:
   sdk: ^3.7.2

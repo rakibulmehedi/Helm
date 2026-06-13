@@ -98,365 +98,833 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
-  /// No description provided for @appName.
+  /// Application name
   ///
   /// In en, this message translates to:
   /// **'Pocketa'**
   String get appName;
 
-  /// No description provided for @welcomeMessage.
+  /// Welcome screen tagline
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Pocketa!'**
-  String get welcomeMessage;
+  /// **'How much BDT can you actually spend right now?'**
+  String get appTagline;
 
-  /// No description provided for @tagLine.
+  /// Welcome screen primary CTA
   ///
   /// In en, this message translates to:
-  /// **'Your pocket accountant for\nSmart budgeting'**
-  String get tagLine;
+  /// **'Continue — sets up your Safe-to-Spend'**
+  String get continueSetupSafeToSpend;
 
-  /// No description provided for @getStarted.
+  /// Onboarding skip button
   ///
   /// In en, this message translates to:
-  /// **'Get Started'**
-  String get getStarted;
+  /// **'Set up later'**
+  String get setUpLater;
 
-  /// No description provided for @skip.
+  /// Magic link screen heading
   ///
   /// In en, this message translates to:
-  /// **'Skip'**
-  String get skip;
+  /// **'Sign in to Pocketa'**
+  String get signInToPocketa;
 
-  /// No description provided for @next.
+  /// Magic link email step subtitle
   ///
   /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
+  /// **'Enter your email — we\'ll send you a magic link to sign in instantly.'**
+  String get magicLinkSubtitle;
 
-  /// No description provided for @back.
+  /// Email field hint text
   ///
   /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
+  /// **'you@example.com'**
+  String get emailHint;
 
-  /// No description provided for @darkMode.
+  /// Button to send magic link
   ///
   /// In en, this message translates to:
-  /// **'Dark Mode'**
-  String get darkMode;
+  /// **'Send Magic Link'**
+  String get sendMagicLink;
 
-  /// No description provided for @language.
+  /// Loading state for send magic link button
   ///
   /// In en, this message translates to:
-  /// **'Language'**
-  String get language;
+  /// **'Sending...'**
+  String get sending;
 
-  /// No description provided for @onboardingStep1.
+  /// Magic link verify step heading
   ///
   /// In en, this message translates to:
-  /// **'Step 1 of 4'**
-  String get onboardingStep1;
+  /// **'Check your inbox'**
+  String get checkYourInbox;
 
-  /// No description provided for @onboardingStep2.
+  /// Magic link sent confirmation text
   ///
   /// In en, this message translates to:
-  /// **'Step 2 of 4'**
-  String get onboardingStep2;
+  /// **'We sent a link to {email}.\nEnter the code below, or tap the link in your email.'**
+  String magicLinkSentSubtitle(String email);
 
-  /// No description provided for @onboardingStep3.
+  /// Token field hint text
   ///
   /// In en, this message translates to:
-  /// **'Step 3 of 4'**
-  String get onboardingStep3;
+  /// **'Paste verification code'**
+  String get pasteVerificationCode;
 
-  /// No description provided for @onboardingStep4.
+  /// Verify token button label
   ///
   /// In en, this message translates to:
-  /// **'Step 4 of 4'**
-  String get onboardingStep4;
+  /// **'Verify & Sign In'**
+  String get verifyAndSignIn;
 
-  /// No description provided for @selectCurrency.
+  /// Loading state for verify button
   ///
   /// In en, this message translates to:
-  /// **'Select your currency'**
-  String get selectCurrency;
+  /// **'Verifying...'**
+  String get verifying;
 
-  /// No description provided for @whatIsYourMainIncomeSource.
+  /// Back to email step link
   ///
   /// In en, this message translates to:
-  /// **'What\'s your primary source of income?'**
-  String get whatIsYourMainIncomeSource;
+  /// **'← Use a different email'**
+  String get useDifferentEmail;
 
-  /// No description provided for @selectMonthlyIncome.
+  /// Validation: email empty
   ///
   /// In en, this message translates to:
-  /// **'Select your monthly income range'**
-  String get selectMonthlyIncome;
+  /// **'Please enter your email address'**
+  String get errorEnterEmail;
 
-  /// No description provided for @setupYourBudgetCategories.
+  /// Rate-limited error message
   ///
   /// In en, this message translates to:
-  /// **'Set up your budget categories'**
-  String get setupYourBudgetCategories;
+  /// **'Too many requests. Please wait before requesting another link.'**
+  String get errorTooManyRequests;
 
-  /// No description provided for @freelance.
+  /// Validation: token empty
   ///
   /// In en, this message translates to:
-  /// **'Freelance'**
-  String get freelance;
+  /// **'Please enter the verification code or paste the link'**
+  String get errorEnterCode;
 
-  /// No description provided for @job.
+  /// Invalid token error message
   ///
   /// In en, this message translates to:
-  /// **'Job'**
-  String get job;
+  /// **'Invalid or expired verification code. Request a new one.'**
+  String get errorInvalidCode;
 
-  /// No description provided for @familySupport.
+  /// Onboarding qualifying question heading
   ///
   /// In en, this message translates to:
-  /// **'Family Support'**
-  String get familySupport;
+  /// **'Have you ever spent money thinking a\npayment cleared, then realized it hadn\'t?'**
+  String get qualifyingQuestion;
 
-  /// No description provided for @other.
+  /// Qualifying question supporting text
   ///
   /// In en, this message translates to:
-  /// **'Other'**
-  String get other;
+  /// **'If you earn in USD and spend in BDT — through\nUpwork, Fiverr, or Payoneer — this happens a lot.'**
+  String get qualifyingSubtext;
 
-  /// No description provided for @zeroToFiveThousand.
+  /// Bangla rephrase shown after 12s inactivity
   ///
   /// In en, this message translates to:
-  /// **'0 - 5,000'**
-  String get zeroToFiveThousand;
+  /// **'আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?'**
+  String get qualifyingRephraseBn;
 
-  /// No description provided for @fiveThousandToTenThousand.
+  /// Qualifying question follow-up
   ///
   /// In en, this message translates to:
-  /// **'5,001 - 10,000'**
-  String get fiveThousandToTenThousand;
+  /// **'Does that sound familiar?'**
+  String get doesThatSoundFamiliar;
 
-  /// No description provided for @tenThousandToTwentyThousand.
+  /// Qualifying: affirm button
   ///
   /// In en, this message translates to:
-  /// **'10,001 - 20,000'**
-  String get tenThousandToTwentyThousand;
+  /// **'Yes, that happens to me'**
+  String get yesHappenedToMe;
 
-  /// No description provided for @twentyThousandToFiftyThousand.
+  /// Qualifying: disqualify button
   ///
   /// In en, this message translates to:
-  /// **'20,001 - 50,000'**
-  String get twentyThousandToFiftyThousand;
+  /// **'No, I always know exactly what cleared'**
+  String get noAlwaysKnow;
 
-  /// No description provided for @fiftyThousandPlus.
+  /// Disqualify state heading
   ///
   /// In en, this message translates to:
-  /// **'50,000+'**
-  String get fiftyThousandPlus;
+  /// **'Pocketa is built for USD-earning freelancers in Bangladesh.'**
+  String get disqualifyHeading;
 
-  /// No description provided for @home.
+  /// Disqualify state supporting text
   ///
   /// In en, this message translates to:
-  /// **'Home'**
-  String get home;
+  /// **'Come back when you start billing internationally.'**
+  String get disqualifySubtext;
 
-  /// No description provided for @transactions.
+  /// Close / disqualify button
   ///
   /// In en, this message translates to:
-  /// **'Transactions'**
-  String get transactions;
+  /// **'Close'**
+  String get close;
 
-  /// No description provided for @add.
+  /// Onboarding liquid balance heading
   ///
   /// In en, this message translates to:
-  /// **'Add'**
-  String get add;
+  /// **'Roughly how much do you have right now?'**
+  String get liquidBalanceQuestion;
 
-  /// No description provided for @budget.
+  /// Liquid balance supporting text
   ///
   /// In en, this message translates to:
-  /// **'Budget'**
-  String get budget;
+  /// **'bKash, bank, and cash — combined. A rough number is fine. You can refine it later.'**
+  String get liquidBalanceSubtext;
 
-  /// No description provided for @profile.
+  /// Semantics label for balance field
   ///
   /// In en, this message translates to:
-  /// **'Profile'**
-  String get profile;
+  /// **'Current liquid balance in BDT'**
+  String get liquidBalanceFieldLabel;
 
-  /// No description provided for @income.
+  /// Validation error for empty balance
   ///
   /// In en, this message translates to:
-  /// **'Income'**
-  String get income;
+  /// **'Enter your current liquid BDT to calculate Safe-to-Spend.'**
+  String get liquidBalanceError;
 
-  /// No description provided for @expense.
+  /// Fixed costs onboarding heading
   ///
   /// In en, this message translates to:
-  /// **'Expense'**
-  String get expense;
+  /// **'What are your fixed monthly costs?'**
+  String get fixedCostsQuestion;
 
-  /// No description provided for @totalBalance.
+  /// Fixed costs supporting text
   ///
   /// In en, this message translates to:
-  /// **'Total Balance'**
-  String get totalBalance;
+  /// **'Monthly costs due in the next 30 days. Tap any that apply.'**
+  String get fixedCostsSubtext;
 
-  /// No description provided for @recentTransactions.
+  /// Zero state reask heading
   ///
   /// In en, this message translates to:
-  /// **'Recent Transactions'**
-  String get recentTransactions;
+  /// **'No fixed monthly costs selected.'**
+  String get fixedCostsNoneSelected;
 
-  /// No description provided for @categoryDistribution.
+  /// Zero state reask body
   ///
   /// In en, this message translates to:
-  /// **'Category Distribution'**
-  String get categoryDistribution;
+  /// **'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.'**
+  String get fixedCostsNoneExplainer;
 
-  /// No description provided for @spendingTrend.
+  /// Skip fixed costs button
   ///
   /// In en, this message translates to:
-  /// **'Spending Trend'**
-  String get spendingTrend;
+  /// **'Skip for now'**
+  String get skipForNow;
 
-  /// No description provided for @amount.
+  /// Return to fixed costs list button
   ///
   /// In en, this message translates to:
-  /// **'Amount'**
-  String get amount;
+  /// **'Let me add some'**
+  String get letMeAddSome;
 
-  /// No description provided for @category.
+  /// First pipeline page heading
   ///
   /// In en, this message translates to:
-  /// **'Category'**
-  String get category;
+  /// **'Any money coming in soon?'**
+  String get firstPipelineQuestion;
 
-  /// No description provided for @wallet.
+  /// First pipeline supporting text
   ///
   /// In en, this message translates to:
-  /// **'Wallet'**
-  String get wallet;
+  /// **'Adding expected income helps Safe-to-Spend show you the full picture from day one.'**
+  String get firstPipelineSubtext;
 
-  /// No description provided for @notes.
+  /// Pipeline client name field label
   ///
   /// In en, this message translates to:
-  /// **'Notes'**
-  String get notes;
+  /// **'Client or source'**
+  String get clientOrSource;
 
-  /// No description provided for @date.
+  /// Pipeline client name field hint
   ///
   /// In en, this message translates to:
-  /// **'Date'**
-  String get date;
+  /// **'e.g. Upwork, Client X'**
+  String get clientOrSourceHint;
 
-  /// No description provided for @addExpense.
+  /// Validation: client name empty
   ///
   /// In en, this message translates to:
-  /// **'Add Expense'**
-  String get addExpense;
+  /// **'Who is this from?'**
+  String get whoIsThisFrom;
 
-  /// No description provided for @addIncome.
+  /// Info note on first pipeline entry
+  ///
+  /// In en, this message translates to:
+  /// **'This will be marked as \"Expected\". You can update the status later.'**
+  String get pipelineEntryNote;
+
+  /// Submit first pipeline entry button
+  ///
+  /// In en, this message translates to:
+  /// **'Add to my pipeline'**
+  String get addToMyPipeline;
+
+  /// Skip first pipeline entry
+  ///
+  /// In en, this message translates to:
+  /// **'Skip — I\'ll add it later'**
+  String get skipAddLater;
+
+  /// Hero block label above the S2S number
+  ///
+  /// In en, this message translates to:
+  /// **'SAFE-TO-SPEND'**
+  String get safeToSpendLabel;
+
+  /// Hero block subtitle under the S2S number
+  ///
+  /// In en, this message translates to:
+  /// **'after fixed costs + safety buffer'**
+  String get safeToSpendSubLabel;
+
+  /// Trust strip source label
+  ///
+  /// In en, this message translates to:
+  /// **'Received only'**
+  String get receivedOnly;
+
+  /// One-time S2S hint shown on first dashboard view
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the number to see the math'**
+  String get tapToSeeMath;
+
+  /// FAB tooltip on dashboard and income list
+  ///
+  /// In en, this message translates to:
+  /// **'Add income entry'**
+  String get addPipelineEntry;
+
+  /// Committed section heading
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed costs'**
+  String get fixedCostsSectionTitle;
+
+  /// Committed section sub-label
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly costs due in the next 30 days'**
+  String get fixedCostsSectionSubtitle;
+
+  /// Committed section empty state
+  ///
+  /// In en, this message translates to:
+  /// **'No fixed costs added yet. Add them to improve Safe-to-Spend accuracy.'**
+  String get fixedCostsEmpty;
+
+  /// Committed section CTA link
+  ///
+  /// In en, this message translates to:
+  /// **'Add fixed costs →'**
+  String get addFixedCostsLink;
+
+  /// Reserve section heading
+  ///
+  /// In en, this message translates to:
+  /// **'Safety buffer'**
+  String get safetyBufferTitle;
+
+  /// Reserve section sub-label
+  ///
+  /// In en, this message translates to:
+  /// **'Not locked — a safety margin inside the calculation'**
+  String get safetyBufferSubtitle;
+
+  /// Reserve section empty state
+  ///
+  /// In en, this message translates to:
+  /// **'No safety buffer set. Safe-to-Spend uses your full liquid BDT.'**
+  String get safetyBufferEmpty;
+
+  /// Not counted section heading
+  ///
+  /// In en, this message translates to:
+  /// **'Not counted yet'**
+  String get notCountedTitle;
+
+  /// Not counted section sub-label
+  ///
+  /// In en, this message translates to:
+  /// **'Not counted yet — expected payments'**
+  String get notCountedSubtitle;
+
+  /// Not counted section empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Add an expected payment when you invoice or expect money.'**
+  String get notCountedEmpty;
+
+  /// Not counted section CTA link
+  ///
+  /// In en, this message translates to:
+  /// **'Add expected payment →'**
+  String get addExpectedPaymentLink;
+
+  /// Pipeline status: pending
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// Pipeline status: expected
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get expected;
+
+  /// Pipeline status: received
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get received;
+
+  /// Horizon number label in not-counted section
+  ///
+  /// In en, this message translates to:
+  /// **'If all counted:'**
+  String get ifAllCounted;
+
+  /// Income list screen app bar title
+  ///
+  /// In en, this message translates to:
+  /// **'Income Pipeline'**
+  String get incomePipeline;
+
+  /// Add income screen title and empty state button
   ///
   /// In en, this message translates to:
   /// **'Add Income'**
   String get addIncome;
 
-  /// No description provided for @setBudget.
+  /// Edit income screen title
   ///
   /// In en, this message translates to:
-  /// **'Set Monthly Budget'**
-  String get setBudget;
+  /// **'Edit Income'**
+  String get editIncome;
 
-  /// No description provided for @setCategoryLimit.
+  /// Update button in edit income screen
   ///
   /// In en, this message translates to:
-  /// **'Set category-wise limit'**
-  String get setCategoryLimit;
+  /// **'Update Income'**
+  String get updateIncome;
 
-  /// No description provided for @goal.
+  /// Save button in add income screen
   ///
   /// In en, this message translates to:
-  /// **'Goal'**
-  String get goal;
+  /// **'Save Income'**
+  String get saveIncome;
 
-  /// No description provided for @save.
+  /// Income form: client name label
   ///
   /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
+  /// **'Client Name'**
+  String get clientName;
 
-  /// No description provided for @addCategory.
+  /// Income form: client name hint
   ///
   /// In en, this message translates to:
-  /// **'Add Category'**
-  String get addCategory;
+  /// **'e.g. Upwork, Client X'**
+  String get clientNameHint;
 
-  /// No description provided for @editCategory.
+  /// Validation: client name empty
   ///
   /// In en, this message translates to:
-  /// **'Edit Category'**
-  String get editCategory;
+  /// **'Client name is required'**
+  String get clientNameRequired;
 
-  /// No description provided for @deleteCategory.
+  /// Income form: project name label
   ///
   /// In en, this message translates to:
-  /// **'Delete Category'**
-  String get deleteCategory;
+  /// **'Project Name'**
+  String get projectName;
 
-  /// No description provided for @addWallet.
+  /// Income form: project name hint
   ///
   /// In en, this message translates to:
-  /// **'Add Wallet'**
-  String get addWallet;
+  /// **'e.g. Website Redesign'**
+  String get projectNameHint;
 
-  /// No description provided for @editWallet.
+  /// Validation: project name empty
   ///
   /// In en, this message translates to:
-  /// **'Edit Wallet'**
-  String get editWallet;
+  /// **'Project name is required'**
+  String get projectNameRequired;
 
-  /// No description provided for @walletOverview.
+  /// Income form: amount label
   ///
   /// In en, this message translates to:
-  /// **'Wallet Overview'**
-  String get walletOverview;
+  /// **'Amount'**
+  String get amount;
 
-  /// No description provided for @settings.
+  /// Validation: amount empty
   ///
   /// In en, this message translates to:
-  /// **'Settings'**
-  String get settings;
+  /// **'Amount is required'**
+  String get amountRequired;
 
-  /// No description provided for @notifications.
+  /// Validation: amount invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount greater than 0'**
+  String get amountInvalid;
+
+  /// Income form: FX rate label
+  ///
+  /// In en, this message translates to:
+  /// **'FX Rate (BDT per USD)'**
+  String get fxRateLabel;
+
+  /// Income form: FX rate hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 110.5'**
+  String get fxRateHint;
+
+  /// Validation: FX rate empty for USD
+  ///
+  /// In en, this message translates to:
+  /// **'FX rate required'**
+  String get fxRateRequired;
+
+  /// Income form: status section label
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// Income form: expected date label
+  ///
+  /// In en, this message translates to:
+  /// **'Expected Date'**
+  String get expectedDate;
+
+  /// Income form: received date label
+  ///
+  /// In en, this message translates to:
+  /// **'Received Date'**
+  String get receivedDate;
+
+  /// Date picker placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDate;
+
+  /// Received date picker placeholder
+  ///
+  /// In en, this message translates to:
+  /// **'Select received date'**
+  String get selectReceivedDate;
+
+  /// Validation: received date missing
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a received date.'**
+  String get pleaseSelectReceivedDate;
+
+  /// Income form: notes label
+  ///
+  /// In en, this message translates to:
+  /// **'Notes (optional)'**
+  String get notesOptional;
+
+  /// Income form: notes hint
+  ///
+  /// In en, this message translates to:
+  /// **'Add a note…'**
+  String get addANote;
+
+  /// Income form: payment source label
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Source (optional)'**
+  String get paymentSourceOptional;
+
+  /// Income form: payment source hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Upwork, Fiverr, Direct client'**
+  String get paymentSourceHint;
+
+  /// Income form: exclude toggle title
+  ///
+  /// In en, this message translates to:
+  /// **'Exclude from Safe-to-Spend'**
+  String get excludeFromSafeToSpend;
+
+  /// Income form: exclude toggle subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Use when this payment shouldn\'t affect your numbers'**
+  String get excludeFromSafeToSpendSubtitle;
+
+  /// Toast on successful income update
+  ///
+  /// In en, this message translates to:
+  /// **'Income updated successfully'**
+  String get incomeUpdatedSuccess;
+
+  /// Toast on successful income save
+  ///
+  /// In en, this message translates to:
+  /// **'Income saved successfully'**
+  String get incomeSavedSuccess;
+
+  /// Toast on income save failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save income. Please try again.'**
+  String get incomeFailedToSave;
+
+  /// Error heading when income entity is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Income entry not found'**
+  String get incomeEntryNotFound;
+
+  /// Error body when income entity is missing
+  ///
+  /// In en, this message translates to:
+  /// **'This income entry may have been deleted.'**
+  String get incomeEntryDeleted;
+
+  /// Go back button in error state
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
+
+  /// Income list filter chip: all
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// Badge on excluded income card
+  ///
+  /// In en, this message translates to:
+  /// **'Excluded'**
+  String get excluded;
+
+  /// Income list first-time empty state title
+  ///
+  /// In en, this message translates to:
+  /// **'Track your income pipeline'**
+  String get trackIncomePipeline;
+
+  /// Income list first-time empty state body
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first expected payment to see\nwhen money is coming in.'**
+  String get addFirstExpectedPayment;
+
+  /// Income list filter empty: expected
+  ///
+  /// In en, this message translates to:
+  /// **'No expected payments'**
+  String get noExpectedPayments;
+
+  /// Income list filter empty: pending
+  ///
+  /// In en, this message translates to:
+  /// **'No payments in transit'**
+  String get noPaymentsInTransit;
+
+  /// Income list filter empty: received
+  ///
+  /// In en, this message translates to:
+  /// **'No received payments yet'**
+  String get noReceivedPaymentsYet;
+
+  /// Income list filter empty: all
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here'**
+  String get nothingHere;
+
+  /// Empty state subtitle: expected
+  ///
+  /// In en, this message translates to:
+  /// **'Add one when you start a new project.'**
+  String get addOneForNewProject;
+
+  /// Empty state subtitle: pending
+  ///
+  /// In en, this message translates to:
+  /// **'No payments in transit right now.'**
+  String get noPaymentsInTransitNow;
+
+  /// Empty state subtitle: received
+  ///
+  /// In en, this message translates to:
+  /// **'No payments received this month yet.'**
+  String get noPaymentsReceivedThisMonth;
+
+  /// Empty state subtitle: all
+  ///
+  /// In en, this message translates to:
+  /// **'Use the + button to add an income entry.'**
+  String get useButtonToAdd;
+
+  /// Undo action label in toasts and snackbars
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// Confirm received sheet primary button
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm — adds to liquid'**
+  String get confirmReceived;
+
+  /// Dismiss confirm received sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet'**
+  String get notYet;
+
+  /// Confirm received sheet: amount field label
+  ///
+  /// In en, this message translates to:
+  /// **'Amount received'**
+  String get amountReceived;
+
+  /// Confirm received sheet: FX rate label
+  ///
+  /// In en, this message translates to:
+  /// **'FX rate (BDT per USD)'**
+  String get fxRateBdtPerUsd;
+
+  /// Confirm received sheet: date label
+  ///
+  /// In en, this message translates to:
+  /// **'Date received'**
+  String get dateReceived;
+
+  /// Validation: amount in confirm sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount'**
+  String get enterValidAmount;
+
+  /// Notification center screen title
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
 
-  /// No description provided for @backup.
+  /// Notification center: clear all button
   ///
   /// In en, this message translates to:
-  /// **'Backup'**
-  String get backup;
+  /// **'Clear all'**
+  String get clearAll;
 
-  /// No description provided for @export.
+  /// Toast after clearing all notifications
   ///
   /// In en, this message translates to:
-  /// **'Export'**
-  String get export;
+  /// **'All notifications cleared'**
+  String get allNotificationsCleared;
 
-  /// No description provided for @theme.
+  /// Notification center empty state title
   ///
   /// In en, this message translates to:
-  /// **'Theme'**
-  String get theme;
+  /// **'No notifications yet'**
+  String get noNotificationsYet;
 
-  /// No description provided for @logout.
+  /// Notification center empty state body
   ///
   /// In en, this message translates to:
-  /// **'Logout'**
-  String get logout;
+  /// **'Nudges and updates will show here when available.'**
+  String get notificationsWillShowHere;
+
+  /// Toast after dismissing a notification
+  ///
+  /// In en, this message translates to:
+  /// **'Notification removed'**
+  String get notificationRemoved;
+
+  /// Notification center date group: today
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get dateGroupToday;
+
+  /// Notification center date group: yesterday
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get dateGroupYesterday;
+
+  /// Notification center date group: this week
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get dateGroupThisWeek;
+
+  /// Notification center date group: older
+  ///
+  /// In en, this message translates to:
+  /// **'Older'**
+  String get dateGroupOlder;
+
+  /// Cadence sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Preferences'**
+  String get notificationPreferences;
+
+  /// Cadence sheet: frequency section label
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in Frequency'**
+  String get checkInFrequency;
+
+  /// Toast after saving notification preferences
+  ///
+  /// In en, this message translates to:
+  /// **'Notification preferences saved'**
+  String get notificationPrefsSaved;
+
+  /// Generic save button
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Generic cancel button
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Settings screen title / nav label
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Dashboard nav label
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// Dev-only reset tooltip on dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Reset onboarding (dev only)'**
+  String get devResetOnboarding;
 }
 
 class _AppLocalizationsDelegate
