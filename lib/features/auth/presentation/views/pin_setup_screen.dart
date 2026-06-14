@@ -24,7 +24,7 @@ class PinSetupScreen extends ConsumerStatefulWidget {
 }
 
 class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
-  static const int _pinLength = 4;
+  static const int _pinLength = AuthNotifier.pinLength;
 
   String _firstPin = '';
   String _currentInput = '';

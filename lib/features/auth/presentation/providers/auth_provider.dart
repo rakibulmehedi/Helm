@@ -6,33 +6,48 @@
 // Security: PIN stored as SHA-256(salt + pin). Salt generated per-setup.
 // Migration: old base64 hashes (no salt key) detected → clear → force re-setup.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
+import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/security/constants/security_keys.dart';
 import 'package:helm/features/auth/domain/entities/auth_state.dart';
 import 'package:helm/features/auth/domain/pin_hasher.dart';
+
+// ---------------------------------------------------------------------------
+// Global refresh listenable for GoRouter.
+// ---------------------------------------------------------------------------
+
+/// Notifies GoRouter whenever the authenticated session state changes.
+/// This replaces the previous static mutable bool that could be bypassed.
+final ValueNotifier<bool> authRefreshListenable = ValueNotifier<bool>(false);
 
 // ---------------------------------------------------------------------------
 // AuthNotifier
 // ---------------------------------------------------------------------------
 
 class AuthNotifier extends Notifier<AuthState> {
-  static const int _maxAttempts = 5;
+  static const int maxAttempts = 5;
+  static const int lockoutMinutes = 15;
+  static const int pinLength = 6;
+
   static const String _pinHashKey = 'pin_hash';
   static const String _pinSaltKey = 'pin_salt';
   static const String _pinIsSetupKey = 'pin_is_setup';
 
-  /// In-memory session flag. Resets on cold start (app process kill).
-  /// Checked by GoRouter redirect to enforce PIN entry every app-open.
-  static bool sessionAuthenticated = false;
+  bool _mounted = true;
 
   Box<dynamic> get _box => Hive.box<dynamic>(AppBoxNames.authBox);
 
   @override
   AuthState build() {
+    ref.onDispose(() => _mounted = false);
     final isSetUp = _box.get(_pinIsSetupKey, defaultValue: false) as bool;
     if (!isSetUp) {
+      _updateSessionAuthenticated(false);
       return const AuthState(status: AuthStatus.setupRequired);
     }
     // Migration guard: setup flag present but no salt key means old base64 hash.
@@ -41,61 +56,142 @@ class AuthNotifier extends Notifier<AuthState> {
     if (!hasSalt) {
       _box.delete(_pinHashKey);
       _box.delete(_pinIsSetupKey);
+      _updateSessionAuthenticated(false);
       return const AuthState(status: AuthStatus.setupRequired);
     }
-    return const AuthState(status: AuthStatus.locked);
+
+    final failedAttempts =
+        _box.get(SecurityKeys.authFailedAttempts, defaultValue: 0) as int;
+    final lockoutUntilMillis =
+        _box.get(SecurityKeys.authLockoutUntil) as int?;
+    final lockoutUntil = lockoutUntilMillis == null
+        ? null
+        : DateTime.fromMillisecondsSinceEpoch(lockoutUntilMillis);
+
+    _updateSessionAuthenticated(false);
+    return AuthState(
+      status: AuthStatus.locked,
+      failedAttempts: failedAttempts,
+      lockoutUntil: lockoutUntil,
+    );
   }
 
   /// Sets up a new PIN. Generates a fresh salt and stores SHA-256(salt+pin).
+  /// All writes are performed atomically via putAll.
   Future<void> setupPin(String pin) async {
+    if (pin.length < pinLength) {
+      throw ArgumentError('PIN must be at least $pinLength digits');
+    }
+
     final salt = PinHasher.generateSalt();
-    await _box.put(_pinSaltKey, salt);
-    await _box.put(_pinHashKey, PinHasher.hashPin(pin, salt));
-    await _box.put(_pinIsSetupKey, true);
-    sessionAuthenticated = true;
+    final hash = PinHasher.hashPin(pin, salt);
+
+    await _box.putAll({
+      _pinSaltKey: salt,
+      _pinHashKey: hash,
+      _pinIsSetupKey: true,
+      SecurityKeys.authFailedAttempts: 0,
+      SecurityKeys.authLockoutUntil: null,
+    });
+
+    if (!_mounted) return;
+    _updateSessionAuthenticated(true);
     state = const AuthState(status: AuthStatus.authenticated);
   }
 
   /// Attempts to authenticate with the provided PIN.
   /// Returns true on success, false on failure.
-  /// Blocked only after [_maxAttempts] consecutive failures.
+  /// Blocked after [maxAttempts] consecutive failures for [lockoutMinutes].
   Future<bool> authenticate(String pin) async {
-    if (state.failedAttempts >= _maxAttempts) return false;
+    if (state.isLockedOut) return false;
+    if (state.failedAttempts >= maxAttempts) return false;
 
     final stored = _box.get(_pinHashKey) as String?;
     final salt = _box.get(_pinSaltKey) as String?;
     if (stored == null || salt == null) return false;
 
     if (PinHasher.verify(pin, salt, stored)) {
-      sessionAuthenticated = true;
+      await _box.putAll({
+        SecurityKeys.authFailedAttempts: 0,
+        SecurityKeys.authLockoutUntil: null,
+      });
+
+      if (!_mounted) return true;
+      _updateSessionAuthenticated(true);
       state = const AuthState(status: AuthStatus.authenticated);
       return true;
     }
 
     final newAttempts = state.failedAttempts + 1;
+    DateTime? lockoutUntil;
+    if (newAttempts >= maxAttempts) {
+      lockoutUntil = DateTime.now().add(const Duration(minutes: lockoutMinutes));
+    }
+
+    await _box.putAll({
+      SecurityKeys.authFailedAttempts: newAttempts,
+      SecurityKeys.authLockoutUntil:
+          lockoutUntil?.millisecondsSinceEpoch,
+    });
+
+    if (!_mounted) return false;
     state = AuthState(
       status: AuthStatus.locked,
       failedAttempts: newAttempts,
+      lockoutUntil: lockoutUntil,
     );
     return false;
   }
 
   /// Locks the session. PIN is preserved — user must re-enter to unlock.
-  void logout() {
-    sessionAuthenticated = false;
+  void lock() {
+    _updateSessionAuthenticated(false);
     state = AuthState(
       status: AuthStatus.locked,
       failedAttempts: state.failedAttempts,
+      lockoutUntil: state.lockoutUntil,
+    );
+  }
+
+  /// Ends the authenticated session and clears Magic Link session state.
+  /// The PIN remains set; user must re-authenticate to continue.
+  Future<void> logout() async {
+    _updateSessionAuthenticated(false);
+
+    // Clear Magic Link session token and flag so the next cold start requires
+    // identity re-verification.
+    await _box.delete(SecurityKeys.authMagicLinkSessionToken);
+    await SharedPrefServices.setMagicLinkAuthCompleted(false);
+
+    if (!_mounted) return;
+    state = AuthState(
+      status: AuthStatus.locked,
+      failedAttempts: state.failedAttempts,
+      lockoutUntil: state.lockoutUntil,
     );
   }
 
   /// Removes the stored PIN entirely. Resets to setup-required state.
+  /// All deletions are performed atomically via deleteFromDisk? No — use deleteAll.
   Future<void> clearPin() async {
-    sessionAuthenticated = false;
-    await _box.delete(_pinHashKey);
-    await _box.delete(_pinSaltKey);
-    await _box.delete(_pinIsSetupKey);
+    _updateSessionAuthenticated(false);
+    await _box.deleteAll([
+      _pinHashKey,
+      _pinSaltKey,
+      _pinIsSetupKey,
+      SecurityKeys.authFailedAttempts,
+      SecurityKeys.authLockoutUntil,
+      SecurityKeys.authMagicLinkSessionToken,
+    ]);
+
+    if (!_mounted) return;
     state = const AuthState(status: AuthStatus.setupRequired);
+  }
+
+  void _updateSessionAuthenticated(bool value) {
+    if (authRefreshListenable.value != value) {
+      authRefreshListenable.value = value;
+    }
   }
 }
 
@@ -106,3 +202,19 @@ class AuthNotifier extends Notifier<AuthState> {
 final authProvider = NotifierProvider<AuthNotifier, AuthState>(
   AuthNotifier.new,
 );
+
+/// Returns true if the user currently has an authenticated session.
+/// Prefer watching [authProvider] for full auth state; this is a convenience
+/// for router guards that only need the boolean.
+bool get isSessionAuthenticated => authRefreshListenable.value;
+
+/// Public routes that do not require an authenticated session.
+/// Keep in sync with the routes declared in [appRouter].
+const Set<String> publicRoutes = {
+  RouteNames.splash,
+  RouteNames.welcome,
+  RouteNames.onboarding,
+  RouteNames.magicLink,
+  RouteNames.pinSetup,
+  RouteNames.pinEntry,
+};

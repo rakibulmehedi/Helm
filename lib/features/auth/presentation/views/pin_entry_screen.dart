@@ -4,6 +4,8 @@
 // Shows attempt counter, locks after 5 failed attempts.
 // Uses custom numpad — no keyboard input.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,11 +26,12 @@ class PinEntryScreen extends ConsumerStatefulWidget {
 }
 
 class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
-  static const int _pinLength = 4;
-  static const int _maxAttempts = 5;
+  static const int _pinLength = AuthNotifier.pinLength;
+  static const int _maxAttempts = AuthNotifier.maxAttempts;
 
   String _currentInput = '';
   String? _message;
+  Timer? _lockoutTimer;
 
   @override
   void initState() {
@@ -41,11 +44,34 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
         );
       }
     });
+    _startLockoutTimerIfNeeded();
+  }
+
+  @override
+  void dispose() {
+    _lockoutTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startLockoutTimerIfNeeded() {
+    final authState = ref.read(authProvider);
+    if (authState.isLockedOut && _lockoutTimer == null) {
+      _lockoutTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+        if (!mounted) return;
+        setState(() {});
+        final current = ref.read(authProvider);
+        if (!current.isLockedOut) {
+          _lockoutTimer?.cancel();
+          _lockoutTimer = null;
+          setState(() => _message = null);
+        }
+      });
+    }
   }
 
   bool get _isLockedOut {
     final authState = ref.read(authProvider);
-    return authState.isLocked && authState.failedAttempts >= _maxAttempts;
+    return authState.isLockedOut;
   }
 
   void _onDigitTap(String digit) {
@@ -77,7 +103,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
     if (!mounted) return;
 
     if (success) {
-      HapticFeedback.mediumImpact();
+      unawaited(HapticFeedback.mediumImpact());
       // D2P — Beta instrumentation: PIN unlock success
       ref.read(analyticsProvider).trackEvent(TransactionalEvents.pinAuthSuccess);
       context.go(RouteNames.dashboard);
@@ -85,7 +111,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
     }
 
     final authState = ref.read(authProvider);
-    HapticFeedback.heavyImpact();
+    unawaited(HapticFeedback.heavyImpact());
     final remaining = _maxAttempts - authState.failedAttempts;
     // D2P — Beta instrumentation: PIN unlock failure
     ref.read(analyticsProvider).trackEvent(
@@ -93,12 +119,23 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
       properties: {EventProperties.remainingAttempts: remaining.clamp(0, _maxAttempts)},
     );
     setState(() {
-      if (authState.failedAttempts >= _maxAttempts) {
-        _message = 'Too many attempts. Restart the app.';
+      if (authState.isLockedOut && authState.lockoutUntil != null) {
+        _startLockoutTimerIfNeeded();
+        _message = _lockoutCountdownText(authState.lockoutUntil!);
+      } else if (authState.failedAttempts >= _maxAttempts) {
+        _message = 'Too many attempts. Try again later.';
       } else {
         _message = 'Incorrect PIN — $remaining attempts remaining';
       }
     });
+  }
+
+  String _lockoutCountdownText(DateTime lockoutUntil) {
+    final remaining = lockoutUntil.difference(DateTime.now());
+    if (remaining.isNegative) return 'Try again.';
+    final minutes = remaining.inMinutes;
+    final seconds = remaining.inSeconds % 60;
+    return 'Locked. Try again in ${minutes}m ${seconds.toString().padLeft(2, '0')}s';
   }
 
   @override

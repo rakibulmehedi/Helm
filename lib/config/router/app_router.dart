@@ -20,7 +20,8 @@ import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
-import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart'
+    show authRefreshListenable, isSessionAuthenticated;
 import 'package:helm/features/auth/presentation/views/magic_link_screen.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/auth/presentation/views/pin_entry_screen.dart';
@@ -44,6 +45,7 @@ final GoRouter appRouter = GoRouter(
   initialLocation: RouteNames.splash,
   debugLogDiagnostics: false,
   redirect: _globalRedirect,
+  refreshListenable: authRefreshListenable,
   routes: [
     // ── Pre-shell routes (no bottom navigation) ───────────────────────────────
     GoRoute(
@@ -264,12 +266,29 @@ class _AppShell extends StatelessWidget {
 // Global redirect
 // ---------------------------------------------------------------------------
 
+/// Public routes that do not require an authenticated session.
+/// Must match the set in [auth_provider.dart].
+const Set<String> _publicRoutes = {
+  RouteNames.splash,
+  RouteNames.welcome,
+  RouteNames.onboarding,
+  RouteNames.magicLink,
+  RouteNames.pinSetup,
+  RouteNames.pinEntry,
+};
+
 /// Called before every navigation. Returns null to allow, or a path to redirect.
+///
+/// This redirect is intentionally **fail-closed**:
+///   - Public routes are whitelisted explicitly.
+///   - All other routes require onboarding complete + Magic Link complete +
+///     PIN set up + an active authenticated session.
+///   - If auth state cannot be determined, the user is redirected to PIN entry.
 String? _globalRedirect(BuildContext context, GoRouterState state) {
-  final bool onboardingDone = SharedPrefServices.getOnboardingCompleted();
   final String currentPath = state.matchedLocation;
 
-  // ── if user has NOT completed onboarding ──────────────────────────────────
+  // ── Onboarding gate ───────────────────────────────────────────────────────
+  final bool onboardingDone = SharedPrefServices.getOnboardingCompleted();
   if (!onboardingDone) {
     final bool isPreOnboardingPath =
         currentPath == RouteNames.splash ||
@@ -280,57 +299,43 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
     return null;
   }
 
-  // ── if user HAS completed onboarding ──────────────────────────────────────
-  // Redirect splash and welcome — they have nothing to show a returning user.
-  if (currentPath == RouteNames.splash ||
-      currentPath == RouteNames.welcome) {
+  // Onboarding done: splash/welcome have nothing useful to show.
+  if (currentPath == RouteNames.splash || currentPath == RouteNames.welcome) {
     return RouteNames.home;
   }
 
-  // ── Auth guard (D1 Trust Layer) ────────────────────────────────────────────
-  // Guard chain: Magic Link → PIN Setup → PIN Entry → Home
-  //
-  // Magic Link (P4.1-P4.4): authenticate identity via email
-  // PIN Setup (D1.05): create device-local PIN
-  // PIN Entry (D1.06): unlock on every cold start
-
-  final bool isMagicLinkRoute = currentPath == RouteNames.magicLink;
-
-  // ── Magic Link gate ─────────────────────────────────────────────────────
-  if (!isMagicLinkRoute) {
-    final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
-
-    if (!magicLinkDone) {
-      // Allow splash → welcome → onboarding to proceed without magic link
-      final bool isPreAuth =
-          currentPath == RouteNames.splash ||
-          currentPath == RouteNames.welcome ||
-          currentPath == RouteNames.onboarding;
-
-      if (!isPreAuth) return RouteNames.magicLink;
-      return null;
-    }
+  // ── Magic Link gate ───────────────────────────────────────────────────────
+  final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
+  if (!magicLinkDone && currentPath != RouteNames.magicLink) {
+    return RouteNames.magicLink;
+  }
+  if (magicLinkDone && currentPath == RouteNames.magicLink) {
+    // Identity already verified; don't let the user re-enter the magic-link
+    // flow and potentially confuse the auth state.
+    return RouteNames.home;
   }
 
-  // ── PIN gate ────────────────────────────────────────────────────────────
-  final bool isPinRoute =
-      currentPath == RouteNames.pinEntry ||
-      currentPath == RouteNames.pinSetup;
+  // ── PIN gate (fail-closed) ────────────────────────────────────────────────
+  // Public routes are allowed through. Everything else needs PIN + session.
+  if (_publicRoutes.contains(currentPath)) {
+    return null;
+  }
 
-  if (!isPinRoute && !isMagicLinkRoute && Hive.isBoxOpen(AppBoxNames.authBox)) {
-    final box = Hive.box<dynamic>(AppBoxNames.authBox);
-    final bool pinIsSetUp =
-        box.get('pin_is_setup', defaultValue: false) as bool;
+  final bool authBoxOpen = Hive.isBoxOpen(AppBoxNames.authBox);
+  if (!authBoxOpen) {
+    // Cannot determine auth state — treat as locked and force PIN entry.
+    return RouteNames.pinEntry;
+  }
 
-    if (!pinIsSetUp) {
-      return RouteNames.pinSetup;
-    }
+  final box = Hive.box<dynamic>(AppBoxNames.authBox);
+  final bool pinIsSetUp = box.get('pin_is_setup', defaultValue: false) as bool;
+  if (!pinIsSetUp) {
+    return RouteNames.pinSetup;
+  }
 
-    // PIN is set up but session not authenticated — force PIN entry.
-    // sessionAuthenticated resets on cold start (process kill).
-    if (!AuthNotifier.sessionAuthenticated) {
-      return RouteNames.pinEntry;
-    }
+  // PIN is set up but session not authenticated — force PIN entry.
+  if (!isSessionAuthenticated) {
+    return RouteNames.pinEntry;
   }
 
   return null;
