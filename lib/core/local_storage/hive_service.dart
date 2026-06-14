@@ -11,8 +11,11 @@
 // NEVER open a box or register an adapter outside of this file.
 
 import 'dart:developer' as developer;
+import 'dart:io';
 
+import 'package:flutter/services.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
@@ -42,16 +45,87 @@ class HiveService {
 
   static HiveCipher? _cipher;
 
+  static const _backupExclusionChannel = MethodChannel(
+    'co.helm.finance/backup',
+  );
+
   /// Initialises Hive and registers all adapters + opens all boxes.
   /// Must be called in main() before runApp().
   static Future<void> init() async {
     final dir = await getApplicationDocumentsDirectory();
-    await Hive.initFlutter(dir.path);
+    final hiveDir = Directory(path.join(dir.path, 'hive'));
+
+    await _migrateHiveBoxesIfNeeded(dir, hiveDir);
+    await hiveDir.create(recursive: true);
+    await _excludeFromBackup(hiveDir.path);
+
+    await Hive.initFlutter(hiveDir.path);
 
     _cipher = await _createCipher();
 
     _registerAdapters();
     await _openBoxes();
+  }
+
+  /// Moves Hive box files from the legacy Documents root into a dedicated
+  /// `hive/` subdirectory so the entire directory can be excluded from cloud
+  /// backup without affecting other files.
+  static Future<void> _migrateHiveBoxesIfNeeded(
+    Directory oldDir,
+    Directory newDir,
+  ) async {
+    if (!oldDir.existsSync()) return;
+    await newDir.create(recursive: true);
+
+    final boxNames = [
+      AppBoxNames.transactions,
+      AppBoxNames.categories,
+      AppBoxNames.incomeBox,
+      AppBoxNames.fixedCostsBox,
+      AppBoxNames.authBox,
+      AppBoxNames.auditEventsBox,
+      AppBoxNames.analyticsEventsBox,
+      AppBoxNames.nudgePreferencesBox,
+      AppBoxNames.nudgeLogBox,
+      AppBoxNames.sessionBox,
+    ];
+
+    for (final name in boxNames) {
+      for (final ext in ['.hive', '.hive.lock']) {
+        final oldFile = File(path.join(oldDir.path, '$name$ext'));
+        final newFile = File(path.join(newDir.path, '$name$ext'));
+        if (oldFile.existsSync() && !newFile.existsSync()) {
+          try {
+            await oldFile.rename(newFile.path);
+          } on Exception catch (e, st) {
+            developer.log(
+              'Failed to migrate Hive box file ${oldFile.path}: $e',
+              name: 'HiveService',
+              error: e,
+              stackTrace: st,
+            );
+          }
+        }
+      }
+    }
+  }
+
+  /// Asks the native side to exclude [path] from iCloud / Google backups.
+  static Future<void> _excludeFromBackup(String filePath) async {
+    if (Platform.isIOS || Platform.isAndroid) {
+      try {
+        await _backupExclusionChannel.invokeMethod('excludeFromBackup', {
+          'path': filePath,
+        });
+      } on Exception catch (e, st) {
+        developer.log(
+          'Failed to exclude $filePath from backups: $e',
+          name: 'HiveService',
+          error: e,
+          stackTrace: st,
+        );
+      }
+    }
   }
 
   // ── Private helpers ────────────────────────────────────────────────────────

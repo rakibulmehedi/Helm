@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- Helm stores encrypted financial data locally; cloud backup is disabled. -->
+    </cloud-backup>
+    <device-transfer>
+        <!-- Helm stores encrypted financial data locally; device-to-device transfer is disabled. -->
+    </device-transfer>
+</data-extraction-rules>

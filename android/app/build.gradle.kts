@@ -48,13 +48,11 @@ android {
 
     buildTypes {
         release {
-            // Fall back to debug signing when key.properties is absent (CI / local dev).
-            // Production release builds must provide a real key.properties file.
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
+            // Release builds must be signed with a production keystore.
+            require(keystorePropertiesFile.exists()) {
+                "Release builds require android/app/key.properties"
             }
+            signingConfig = signingConfigs.getByName("release")
 
             isMinifyEnabled = true
             isShrinkResources = true

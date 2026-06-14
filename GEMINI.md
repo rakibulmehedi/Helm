@@ -72,7 +72,7 @@ Before every task, read these files:
 | Dart SDK | ^3.7.2 |
 | Package Name | `helm_v2` |
 | Analyzer | Must be 0/0/0 (errors/warnings/infos) |
-| FVM Path | `/Users/rakibulislammehedi/fvm/versions/stable/bin/dart` |
+| FVM Path | Use `fvm dart` / `fvm flutter` (or `$FVM_ROOT/versions/stable/bin/dart`) |
 
 ---
 

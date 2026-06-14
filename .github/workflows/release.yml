@@ -24,8 +24,10 @@ jobs:
         run: npm install
 
       - name: 🚀 Run Release (standard-version)
+        env:
+          RELEASE_BOT_EMAIL: ${{ secrets.RELEASE_BOT_EMAIL }}
         run: |
-          git config --global user.email "rakibulmehedi.dev@gmail.com"
+          git config --global user.email "${RELEASE_BOT_EMAIL:-rakibulmehedi.dev@gmail.com}"
           git config --global user.name "Rakibul Islam Mehedi (Release Bot)"
           npm run release
           git push --follow-tags origin main

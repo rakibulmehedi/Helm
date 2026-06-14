@@ -48,6 +48,21 @@ app.*.map.json
 /android/app/*.keystore
 /android/app/*.jks
 
+# Environment / secrets
+*.env
+.env.*
+**/env.g.dart
+
+# FVM
+.fvm/
+
+# Generated local environment files
+/android/local.properties
+/ios/Flutter/ephemeral/
+/macos/Flutter/ephemeral/
+/windows/Flutter/ephemeral/
+/linux/Flutter/ephemeral/
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile
