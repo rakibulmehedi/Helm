@@ -1,5 +1,5 @@
-// lib/core/widgets/cards/pocketa_ledger_card.dart
-// UX-5.10 — Five Card Widgets: PocketaLedgerCard
+// lib/core/widgets/cards/helm_ledger_card.dart
+// UX-5.10 — Five Card Widgets: HelmLedgerCard
 //
 // Standard money fact card. The most common card type.
 // Background: colors.surface, 1pt colors.divider border, 12pt radius.
@@ -7,18 +7,18 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
-class PocketaLedgerCard extends StatelessWidget {
+class HelmLedgerCard extends StatelessWidget {
   final Widget child;
   final String? title;
   final Widget? trailing;
   final VoidCallback? onTap;
   final EdgeInsetsGeometry? padding;
 
-  const PocketaLedgerCard({
+  const HelmLedgerCard({
     super.key,
     required this.child,
     this.title,
@@ -29,11 +29,11 @@ class PocketaLedgerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
-    final resolvedPadding = padding ?? const EdgeInsets.all(PocketaSpacing.s4);
-    final borderRadius = BorderRadius.circular(PocketaSpacing.cardRadius);
+    final resolvedPadding = padding ?? const EdgeInsets.all(HelmSpacing.s4);
+    final borderRadius = BorderRadius.circular(HelmSpacing.cardRadius);
 
     Widget cardContent = Padding(
       padding: resolvedPadding,
@@ -53,12 +53,12 @@ class PocketaLedgerCard extends StatelessWidget {
                   ),
                 ),
                 if (trailing != null) ...[
-                  const SizedBox(width: PocketaSpacing.s2),
+                  const SizedBox(width: HelmSpacing.s2),
                   trailing!,
                 ],
               ],
             ),
-            const SizedBox(height: PocketaSpacing.s3),
+            const SizedBox(height: HelmSpacing.s3),
           ],
           child,
         ],
@@ -71,7 +71,7 @@ class PocketaLedgerCard extends StatelessWidget {
         borderRadius: borderRadius,
         border: Border.all(
           color: colors.divider,
-          width: PocketaSpacing.cardBorder,
+          width: HelmSpacing.cardBorder,
         ),
       ),
       child: cardContent,

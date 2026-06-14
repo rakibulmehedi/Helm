@@ -1,7 +1,7 @@
-// DEPRECATED: Use PocketaColors ThemeExtension instead.
+// DEPRECATED: Use HelmColors ThemeExtension instead.
 // This file remains only for backward compatibility during migration.
-// TODO: Remove after all references migrated to pocketa_colors.dart
-export 'pocketa_colors.dart';
+// TODO: Remove after all references migrated to helm_colors.dart
+export 'helm_colors.dart';
 
 import 'package:flutter/material.dart';
 

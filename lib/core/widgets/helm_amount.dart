@@ -1,19 +1,19 @@
-// lib/core/widgets/pocketa_amount.dart
+// lib/core/widgets/helm_amount.dart
 // UX-5.06 — Financial Amount Display Widget
 //
-// Renders monetary amounts using JetBrains Mono via PocketaTypography tokens.
+// Renders monetary amounts using JetBrains Mono via HelmTypography tokens.
 // Always use NumberFormatter for locale-correct BDT/USD formatting.
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/utils/number_formatter.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 
 /// Which currency to display.
 enum AmountCurrency { bdt, usd }
 
-/// Display size for the amount, mapping to PocketaTypography monospace tokens.
+/// Display size for the amount, mapping to HelmTypography monospace tokens.
 enum AmountSize {
   /// monoFinancialSm — small supplementary amounts
   sm,
@@ -28,13 +28,13 @@ enum AmountSize {
   hero,
 }
 
-/// Displays a financial amount using Pocketa's monospace type system.
+/// Displays a financial amount using Helm's monospace type system.
 ///
 /// - BDT amounts use lakh/crore grouping via [NumberFormatter.formatBDT].
 /// - USD amounts use Western grouping via [NumberFormatter.formatUSD].
-/// - [dimmed] reduces emphasis to [PocketaColors.inkTertiary] (used for hope tier).
+/// - [dimmed] reduces emphasis to [HelmColors.inkTertiary] (used for hope tier).
 /// - [semanticLabel] overrides the accessibility label when provided.
-class PocketaAmount extends StatelessWidget {
+class HelmAmount extends StatelessWidget {
   final double amount;
   final AmountCurrency currency;
   final AmountSize size;
@@ -45,7 +45,7 @@ class PocketaAmount extends StatelessWidget {
   /// Optional override for the Semantics label. When null, the formatted string is used.
   final String? semanticLabel;
 
-  const PocketaAmount({
+  const HelmAmount({
     super.key,
     required this.amount,
     this.currency = AmountCurrency.bdt,
@@ -56,8 +56,8 @@ class PocketaAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final String displayText = _formattedAmount();
     final Color textColor = dimmed ? colors.inkTertiary : colors.inkPrimary;
@@ -82,7 +82,7 @@ class PocketaAmount extends StatelessWidget {
     }
   }
 
-  TextStyle _resolveStyle(PocketaTypography typography) {
+  TextStyle _resolveStyle(HelmTypography typography) {
     switch (size) {
       case AmountSize.sm:
         return typography.monoFinancialSm;

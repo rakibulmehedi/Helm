@@ -1,4 +1,4 @@
-// lib/core/widgets/pocketa_trust_strip.dart
+// lib/core/widgets/helm_trust_strip.dart
 // UX-5.08 — Trust Strip: Timestamp + Source + Audit Access
 //
 // Proof-of-calculation strip displayed beneath financial figures.
@@ -8,10 +8,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/utils/number_formatter.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 
 /// Renders a single-line trust strip showing when data was last updated,
 /// optional source context, FX rate, and an audit tap affordance.
@@ -22,7 +22,7 @@ import 'package:pocketa_v2/core/utils/number_formatter.dart';
 ///   - Max 1 line; overflow → ellipsis
 ///   - Min touch target 44pt when tappable
 ///   - Segments separated by " · " (middle dot)
-class PocketaTrustStrip extends StatelessWidget {
+class HelmTrustStrip extends StatelessWidget {
   /// When data was last updated.
   final DateTime updatedAt;
 
@@ -38,7 +38,7 @@ class PocketaTrustStrip extends StatelessWidget {
   /// Optional quiet affirmation signal (facts only, no celebration).
   final String? affirmation;
 
-  const PocketaTrustStrip({
+  const HelmTrustStrip({
     super.key,
     required this.updatedAt,
     this.sourceLabel,
@@ -49,8 +49,8 @@ class PocketaTrustStrip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final String fullLabel = _buildLabel();
     final TextStyle textStyle =
@@ -91,7 +91,7 @@ class PocketaTrustStrip extends StatelessWidget {
         onTap: onTapAudit,
         behavior: HitTestBehavior.opaque,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(minHeight: PocketaSpacing.s10 + 4),
+          constraints: const BoxConstraints(minHeight: HelmSpacing.s10 + 4),
           child: Align(
             alignment: Alignment.centerLeft,
             child: semanticChild,

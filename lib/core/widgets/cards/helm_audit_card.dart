@@ -1,5 +1,5 @@
-// lib/core/widgets/cards/pocketa_audit_card.dart
-// UX-5.10 — Five Card Widgets: PocketaAuditCard
+// lib/core/widgets/cards/helm_audit_card.dart
+// UX-5.10 — Five Card Widgets: HelmAuditCard
 //
 // Calculation trace card. Values right-aligned, ledger style.
 // Labels left-aligned in bodyMd, values right-aligned in monoFinancialSm.
@@ -12,9 +12,9 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 class AuditRow {
   final String label;
@@ -32,12 +32,12 @@ class AuditRow {
   });
 }
 
-class PocketaAuditCard extends StatelessWidget {
+class HelmAuditCard extends StatelessWidget {
   final List<AuditRow> rows;
   final String? title;
   final bool isLoading;
 
-  const PocketaAuditCard({
+  const HelmAuditCard({
     super.key,
     required this.rows,
     this.title,
@@ -46,26 +46,26 @@ class PocketaAuditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return DecoratedBox(
       decoration: BoxDecoration(
         color: colors.surface,
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         border: Border.all(
           color: colors.divider,
-          width: PocketaSpacing.cardBorder,
+          width: HelmSpacing.cardBorder,
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(PocketaSpacing.s4),
+        padding: const EdgeInsets.all(HelmSpacing.s4),
         child: _buildContent(colors, typography),
       ),
     );
   }
 
-  Widget _buildContent(PocketaColors colors, PocketaTypography typography) {
+  Widget _buildContent(HelmColors colors, HelmTypography typography) {
     // Loading state
     if (isLoading) {
       return const SizedBox(
@@ -87,10 +87,10 @@ class PocketaAuditCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.calculate_outlined,
-                size: PocketaSpacing.iconLg,
+                size: HelmSpacing.iconLg,
                 color: colors.inkTertiary,
               ),
-              const SizedBox(height: PocketaSpacing.s2),
+              const SizedBox(height: HelmSpacing.s2),
               Text(
                 'No calculation data',
                 style: typography.bodySm.copyWith(
@@ -115,13 +115,13 @@ class PocketaAuditCard extends StatelessWidget {
               color: colors.inkPrimary,
             ),
           ),
-          const SizedBox(height: PocketaSpacing.s3),
+          const SizedBox(height: HelmSpacing.s3),
           Divider(
             color: colors.divider,
             height: 1,
             thickness: 1,
           ),
-          const SizedBox(height: PocketaSpacing.s3),
+          const SizedBox(height: HelmSpacing.s3),
         ],
         ...List.generate(rows.length, (index) {
           final row = rows[index];
@@ -139,8 +139,8 @@ class PocketaAuditCard extends StatelessWidget {
                 ),
                 SizedBox(
                   height: row.isFinal
-                      ? PocketaSpacing.s3
-                      : PocketaSpacing.s2,
+                      ? HelmSpacing.s3
+                      : HelmSpacing.s2,
                 ),
               ],
               Semantics(
@@ -154,8 +154,8 @@ class PocketaAuditCard extends StatelessWidget {
               if (!isLast)
                 SizedBox(
                   height: row.isFinal
-                      ? PocketaSpacing.s3
-                      : PocketaSpacing.s2,
+                      ? HelmSpacing.s3
+                      : HelmSpacing.s2,
                 ),
             ],
           );
@@ -167,8 +167,8 @@ class PocketaAuditCard extends StatelessWidget {
 
 class _AuditRowWidget extends StatelessWidget {
   final AuditRow row;
-  final PocketaColors colors;
-  final PocketaTypography typography;
+  final HelmColors colors;
+  final HelmTypography typography;
 
   const _AuditRowWidget({
     required this.row,
@@ -213,7 +213,7 @@ class _AuditRowWidget extends StatelessWidget {
             style: labelStyle,
           ),
         ),
-        const SizedBox(width: PocketaSpacing.s3),
+        const SizedBox(width: HelmSpacing.s3),
         Text(
           displayValue,
           style: valueStyle,

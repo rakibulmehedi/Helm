@@ -1,4 +1,4 @@
-// lib/core/themes/pocketa_motion.dart
+// lib/core/themes/helm_motion.dart
 // UX-5.04 — Visual Identity: Motion Token Foundation
 // Plain Dart class with static constants — NOT a ThemeExtension.
 // Rule: ease-out curves ONLY. No springs, no bounces, no duration > 320ms.
@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 
-class PocketaMotion {
+class HelmMotion {
   // ---------------------------------------------------------------------------
   // Timing tokens
   // ---------------------------------------------------------------------------

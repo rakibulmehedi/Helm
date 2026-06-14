@@ -1,14 +1,14 @@
-// lib/core/widgets/pocketa_fx_estimate.dart
+// lib/core/widgets/helm_fx_estimate.dart
 // UX-3 — Core Display Widget: Dual-currency FX estimate row.
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../themes/pocketa_colors.dart';
-import '../themes/pocketa_typography.dart';
+import '../themes/helm_colors.dart';
+import '../themes/helm_typography.dart';
 
-class PocketaFxEstimate extends StatelessWidget {
-  const PocketaFxEstimate({
+class HelmFxEstimate extends StatelessWidget {
+  const HelmFxEstimate({
     super.key,
     required this.usdAmount,
     this.fxRate,
@@ -19,8 +19,8 @@ class PocketaFxEstimate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final usdFormatted = '\$${usdAmount.toStringAsFixed(2)}';
 

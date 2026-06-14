@@ -1,15 +1,15 @@
-// lib/core/widgets/pocketa_toast.dart
+// lib/core/widgets/helm_toast.dart
 // UX-5.09 — Financial-Safe Toast (SnackBar replacement)
 //
-// Never use raw SnackBar in Pocketa. Always use PocketaToast.show().
+// Never use raw SnackBar in Helm. Always use HelmToast.show().
 // State is signaled via border color only — no background tinting, no icons.
 // Elevation 0, no shadows.
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 /// Semantic type of the toast notification.
 enum ToastType {
@@ -31,14 +31,14 @@ enum ToastType {
 /// Design constraints:
 ///   - Background: colors.surface (never tinted)
 ///   - Border: 1pt, color varies by [ToastType]
-///   - Radius: PocketaSpacing.cardRadius (12pt)
+///   - Radius: HelmSpacing.cardRadius (12pt)
 ///   - Text: bodyMd, inkPrimary
 ///   - No icons, no colored backgrounds, elevation: 0
 ///   - Action button uses interactive color (tertiary-style teal)
-final class PocketaToast {
-  PocketaToast._();
+final class HelmToast {
+  HelmToast._();
 
-  /// Shows a [PocketaToast] in the nearest [ScaffoldMessenger].
+  /// Shows a [HelmToast] in the nearest [ScaffoldMessenger].
   ///
   /// [message] must not contain emoji.
   /// [actionLabel] and [onAction] must both be provided together or both null.
@@ -55,8 +55,8 @@ final class PocketaToast {
       'actionLabel and onAction must both be provided or both null.',
     );
 
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final Color borderColor = _borderColor(type, colors);
 
@@ -80,7 +80,7 @@ final class PocketaToast {
       elevation: 0,
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         side: BorderSide(color: borderColor, width: 1),
       ),
       duration: duration,
@@ -92,7 +92,7 @@ final class PocketaToast {
       ..showSnackBar(snackBar);
   }
 
-  static Color _borderColor(ToastType type, PocketaColors colors) {
+  static Color _borderColor(ToastType type, HelmColors colors) {
     switch (type) {
       case ToastType.neutral:
         return colors.divider;

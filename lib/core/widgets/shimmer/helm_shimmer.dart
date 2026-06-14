@@ -1,27 +1,27 @@
-// lib/core/widgets/shimmer/pocketa_shimmer.dart
-// UX — Loading skeleton system using Pocketa design tokens
+// lib/core/widgets/shimmer/helm_shimmer.dart
+// UX — Loading skeleton system using Helm design tokens
 
 import 'package:flutter/material.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 
-class PocketaShimmer extends StatefulWidget {
+class HelmShimmer extends StatefulWidget {
   final double width;
   final double height;
   final double borderRadius;
 
-  const PocketaShimmer({
+  const HelmShimmer({
     super.key,
     this.width = double.infinity,
     required this.height,
-    this.borderRadius = PocketaSpacing.cardRadius,
+    this.borderRadius = HelmSpacing.cardRadius,
   });
 
   @override
-  State<PocketaShimmer> createState() => _PocketaShimmerState();
+  State<HelmShimmer> createState() => _HelmShimmerState();
 }
 
-class _PocketaShimmerState extends State<PocketaShimmer>
+class _HelmShimmerState extends State<HelmShimmer>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -46,7 +46,7 @@ class _PocketaShimmerState extends State<PocketaShimmer>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
 
     return AnimatedBuilder(
       animation: _animation,
@@ -84,23 +84,23 @@ class ShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
 
     return Container(
-      padding: padding ?? const EdgeInsets.all(PocketaSpacing.s4),
+      padding: padding ?? const EdgeInsets.all(HelmSpacing.s4),
       decoration: BoxDecoration(
         color: colors.surface,
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         border: Border.all(color: colors.divider),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const PocketaShimmer(height: 14, width: 120),
-          const SizedBox(height: PocketaSpacing.s2),
-          const PocketaShimmer(height: 24, width: 80),
-          const SizedBox(height: PocketaSpacing.s3),
-          const PocketaShimmer(height: 12),
+          const HelmShimmer(height: 14, width: 120),
+          const SizedBox(height: HelmSpacing.s2),
+          const HelmShimmer(height: 24, width: 80),
+          const SizedBox(height: HelmSpacing.s3),
+          const HelmShimmer(height: 12),
         ],
       ),
     );
@@ -114,22 +114,22 @@ class ShimmerLedgerRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: PocketaSpacing.s3,
-        horizontal: PocketaSpacing.s4,
+        vertical: HelmSpacing.s3,
+        horizontal: HelmSpacing.s4,
       ),
       child: Row(
         children: [
-          PocketaShimmer(
-            width: PocketaSpacing.iconLg,
-            height: PocketaSpacing.iconLg,
-            borderRadius: PocketaSpacing.s1,
+          HelmShimmer(
+            width: HelmSpacing.iconLg,
+            height: HelmSpacing.iconLg,
+            borderRadius: HelmSpacing.s1,
           ),
-          const SizedBox(width: PocketaSpacing.s3),
+          const SizedBox(width: HelmSpacing.s3),
           const Expanded(
-            child: PocketaShimmer(height: 14),
+            child: HelmShimmer(height: 14),
           ),
-          const SizedBox(width: PocketaSpacing.s4),
-          const PocketaShimmer(height: 14, width: 60),
+          const SizedBox(width: HelmSpacing.s4),
+          const HelmShimmer(height: 14, width: 60),
         ],
       ),
     );

@@ -1,18 +1,18 @@
-// lib/core/widgets/pocketa_calculation_trace.dart
+// lib/core/widgets/helm_calculation_trace.dart
 // UX-1.02 — Calculation Trace: DraggableScrollableSheet breakdown of S2S math.
 //
-// Presented via PocketaCalculationTrace.show(context, result).
+// Presented via HelmCalculationTrace.show(context, result).
 // Each line item staggers in with a fade animation.
 // Respects MediaQuery.disableAnimations for reduced-motion accessibility.
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_amount.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 // ---------------------------------------------------------------------------
 // Data model for a single trace line
@@ -42,11 +42,11 @@ class _TraceLine {
 
 /// Bottom sheet showing the full Safe-to-Spend calculation trace.
 ///
-/// Present via [PocketaCalculationTrace.show].
-class PocketaCalculationTrace extends StatefulWidget {
+/// Present via [HelmCalculationTrace.show].
+class HelmCalculationTrace extends StatefulWidget {
   final SafeToSpendResult result;
 
-  const PocketaCalculationTrace({super.key, required this.result});
+  const HelmCalculationTrace({super.key, required this.result});
 
   /// Shows the calculation trace as a modal bottom sheet.
   static Future<void> show(BuildContext context, SafeToSpendResult result) {
@@ -54,16 +54,16 @@ class PocketaCalculationTrace extends StatefulWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => PocketaCalculationTrace(result: result),
+      builder: (_) => HelmCalculationTrace(result: result),
     );
   }
 
   @override
-  State<PocketaCalculationTrace> createState() =>
-      _PocketaCalculationTraceState();
+  State<HelmCalculationTrace> createState() =>
+      _HelmCalculationTraceState();
 }
 
-class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
+class _HelmCalculationTraceState extends State<HelmCalculationTrace>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final List<_TraceLine> _lines;
@@ -76,8 +76,8 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
     _controller = AnimationController(
       vsync: this,
       // Total duration covers all staggered items.
-      duration: PocketaMotion.medium +
-          PocketaMotion.drawerRowStagger * _lines.length,
+      duration: HelmMotion.medium +
+          HelmMotion.drawerRowStagger * _lines.length,
     );
   }
 
@@ -147,12 +147,12 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
   // Returns a fade animation for item at [index], staggered by index.
   Animation<double> _fadeFor(int index) {
     final totalMs =
-        PocketaMotion.medium.inMilliseconds +
-        PocketaMotion.drawerRowStagger.inMilliseconds * _lines.length;
+        HelmMotion.medium.inMilliseconds +
+        HelmMotion.drawerRowStagger.inMilliseconds * _lines.length;
 
     final startMs =
-        PocketaMotion.drawerRowStagger.inMilliseconds * index;
-    final endMs = startMs + PocketaMotion.base.inMilliseconds;
+        HelmMotion.drawerRowStagger.inMilliseconds * index;
+    final endMs = startMs + HelmMotion.base.inMilliseconds;
 
     final startT = totalMs > 0 ? startMs / totalMs : 0.0;
     final endT = totalMs > 0 ? endMs / totalMs : 1.0;
@@ -162,15 +162,15 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
       curve: Interval(
         startT.clamp(0.0, 1.0),
         endT.clamp(0.0, 1.0),
-        curve: PocketaMotion.defaultCurve,
+        curve: HelmMotion.defaultCurve,
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
@@ -181,7 +181,7 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
           decoration: BoxDecoration(
             color: colors.surface,
             borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(PocketaSpacing.sheetTopRadius),
+              top: Radius.circular(HelmSpacing.sheetTopRadius),
             ),
           ),
           child: Column(
@@ -189,7 +189,7 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
             children: [
               // Drag handle
               Padding(
-                padding: const EdgeInsets.only(top: PocketaSpacing.s2),
+                padding: const EdgeInsets.only(top: HelmSpacing.s2),
                 child: Center(
                   child: Container(
                     width: 40,
@@ -205,10 +205,10 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
               // Header
               Padding(
                 padding: const EdgeInsets.fromLTRB(
-                  PocketaSpacing.s4,
-                  PocketaSpacing.s4,
-                  PocketaSpacing.s4,
-                  PocketaSpacing.s1,
+                  HelmSpacing.s4,
+                  HelmSpacing.s4,
+                  HelmSpacing.s4,
+                  HelmSpacing.s1,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +217,7 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
                       'How we calculated this',
                       style: typography.headingMd,
                     ),
-                    const SizedBox(height: PocketaSpacing.s1),
+                    const SizedBox(height: HelmSpacing.s1),
                     Text(
                       'Tap any line to learn more',
                       style: typography.labelSm.copyWith(
@@ -231,9 +231,9 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
               // Divider below header
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: PocketaSpacing.s4,
+                  horizontal: HelmSpacing.s4,
                 ),
-                child: Divider(color: colors.hairline, height: PocketaSpacing.s4),
+                child: Divider(color: colors.hairline, height: HelmSpacing.s4),
               ),
 
               // Scrollable line items
@@ -241,8 +241,8 @@ class _PocketaCalculationTraceState extends State<PocketaCalculationTrace>
                 child: ListView.builder(
                   controller: scrollController,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: PocketaSpacing.s4,
-                    vertical: PocketaSpacing.s2,
+                    horizontal: HelmSpacing.s4,
+                    vertical: HelmSpacing.s2,
                   ),
                   itemCount: _lines.length,
                   itemBuilder: (context, index) {
@@ -287,8 +287,8 @@ class _TraceLineRow extends StatelessWidget {
   });
 
   final _TraceLine line;
-  final PocketaColors colors;
-  final PocketaTypography typography;
+  final HelmColors colors;
+  final HelmTypography typography;
 
   @override
   Widget build(BuildContext context) {
@@ -299,11 +299,11 @@ class _TraceLineRow extends StatelessWidget {
       children: [
         // Divider above final row
         if (isFinal)
-          Divider(color: colors.divider, height: PocketaSpacing.s4),
+          Divider(color: colors.divider, height: HelmSpacing.s4),
 
         Padding(
           padding: EdgeInsets.symmetric(
-            vertical: isFinal ? PocketaSpacing.s3 : PocketaSpacing.s2,
+            vertical: isFinal ? HelmSpacing.s3 : HelmSpacing.s2,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -319,7 +319,7 @@ class _TraceLineRow extends StatelessWidget {
               ),
 
               // Amount
-              PocketaAmount(
+              HelmAmount(
                 amount: line.amount,
                 size: isFinal ? AmountSize.lg : AmountSize.md,
                 semanticLabel: '${line.label}: ${line.amount}',

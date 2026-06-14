@@ -1,4 +1,4 @@
-// lib/core/themes/pocketa_typography.dart
+// lib/core/themes/helm_typography.dart
 // UX-5.02 — Visual Identity: Typography Token Foundation
 // Rules:
 //   - NO italic anywhere
@@ -11,10 +11,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'pocketa_colors.dart';
+import 'helm_colors.dart';
 
-class PocketaTypography extends ThemeExtension<PocketaTypography> {
-  const PocketaTypography({
+class HelmTypography extends ThemeExtension<HelmTypography> {
+  const HelmTypography({
     required this.displayHero,
     required this.displayLarge,
     required this.headingLg,
@@ -60,13 +60,13 @@ class PocketaTypography extends ThemeExtension<PocketaTypography> {
   final TextStyle labelMdBn;        // size 12, w500, h1.38
 
   // ---------------------------------------------------------------------------
-  // Factory — builds all styles against the active PocketaColors
+  // Factory — builds all styles against the active HelmColors
   // Called once per ThemeData build, not per widget.
   // ---------------------------------------------------------------------------
-  static PocketaTypography build(PocketaColors colors) {
+  static HelmTypography build(HelmColors colors) {
     final ink = colors.inkPrimary;
 
-    return PocketaTypography(
+    return HelmTypography(
       // --- Latin UI (Inter) ---
       displayHero: GoogleFonts.inter(
         fontSize: 64,
@@ -187,7 +187,7 @@ class PocketaTypography extends ThemeExtension<PocketaTypography> {
   // ThemeExtension contract
   // ---------------------------------------------------------------------------
   @override
-  PocketaTypography copyWith({
+  HelmTypography copyWith({
     TextStyle? displayHero,
     TextStyle? displayLarge,
     TextStyle? headingLg,
@@ -207,7 +207,7 @@ class PocketaTypography extends ThemeExtension<PocketaTypography> {
     TextStyle? bodySmBn,
     TextStyle? labelMdBn,
   }) {
-    return PocketaTypography(
+    return HelmTypography(
       displayHero:     displayHero     ?? this.displayHero,
       displayLarge:    displayLarge    ?? this.displayLarge,
       headingLg:       headingLg       ?? this.headingLg,
@@ -230,9 +230,9 @@ class PocketaTypography extends ThemeExtension<PocketaTypography> {
   }
 
   @override
-  PocketaTypography lerp(ThemeExtension<PocketaTypography>? other, double t) {
-    if (other is! PocketaTypography) return this;
-    return PocketaTypography(
+  HelmTypography lerp(ThemeExtension<HelmTypography>? other, double t) {
+    if (other is! HelmTypography) return this;
+    return HelmTypography(
       displayHero:     TextStyle.lerp(displayHero,     other.displayHero,     t)!,
       displayLarge:    TextStyle.lerp(displayLarge,    other.displayLarge,    t)!,
       headingLg:       TextStyle.lerp(headingLg,       other.headingLg,       t)!,
@@ -258,6 +258,6 @@ class PocketaTypography extends ThemeExtension<PocketaTypography> {
 // ---------------------------------------------------------------------------
 // BuildContext extension — access typography without boilerplate
 // ---------------------------------------------------------------------------
-extension BuildContextPocketaTypography on BuildContext {
-  PocketaTypography get textStyles => Theme.of(this).extension<PocketaTypography>()!;
+extension BuildContextHelmTypography on BuildContext {
+  HelmTypography get textStyles => Theme.of(this).extension<HelmTypography>()!;
 }

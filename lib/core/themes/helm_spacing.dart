@@ -1,11 +1,11 @@
-// lib/core/themes/pocketa_spacing.dart
+// lib/core/themes/helm_spacing.dart
 // UX-5.03 — Visual Identity: Spacing Token Foundation
 // Plain Dart class with static constants — NOT a ThemeExtension.
 // All values follow an 8pt grid.
 
 // ignore_for_file: avoid_classes_with_only_static_members
 
-class PocketaSpacing {
+class HelmSpacing {
   // ---------------------------------------------------------------------------
   // 8pt grid spacing tokens
   // ---------------------------------------------------------------------------

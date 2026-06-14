@@ -1,4 +1,4 @@
-// lib/core/widgets/pocketa_ledger_rail.dart
+// lib/core/widgets/helm_ledger_rail.dart
 // UX-5.07 — Ledger Rail: S2S State Visual Signature
 //
 // The ownable state marker for Safe-to-Spend. Replaces thin accent lines.
@@ -6,31 +6,31 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 /// The cashflow state to visualize.
 enum LedgerState { safe, tight, atRisk }
 
-/// Renders the Pocketa ledger rail — a short colored bar with a text label
+/// Renders the Helm ledger rail — a short colored bar with a text label
 /// beneath it that encodes the current cashflow state.
 ///
 /// - [isHero] true → 3pt height (primary S2S display)
 /// - [isHero] false → 1.5pt height (secondary / compact contexts)
 ///
 /// Width adapts to available space:
-///   - > 375pt: [PocketaSpacing.ledgerRailWidthRegular] (96pt)
-///   - <= 375pt: [PocketaSpacing.ledgerRailWidth] (72pt)
+///   - > 375pt: [HelmSpacing.ledgerRailWidthRegular] (96pt)
+///   - <= 375pt: [HelmSpacing.ledgerRailWidth] (72pt)
 ///
 /// Semantics: always includes "Cashflow state: [label]".
-class PocketaLedgerRail extends StatelessWidget {
+class HelmLedgerRail extends StatelessWidget {
   final LedgerState state;
 
   /// When true the rail is 3pt tall (hero); otherwise 1.5pt (secondary).
   final bool isHero;
 
-  const PocketaLedgerRail({
+  const HelmLedgerRail({
     super.key,
     required this.state,
     this.isHero = false,
@@ -38,21 +38,21 @@ class PocketaLedgerRail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final Color railColor = _railColor(colors);
     final String label = _stateLabel();
     final double railHeight =
-        isHero ? PocketaSpacing.ledgerRailHeight : PocketaSpacing.ledgerRailHeightSecondary;
+        isHero ? HelmSpacing.ledgerRailHeight : HelmSpacing.ledgerRailHeightSecondary;
 
     return Semantics(
       label: 'Cashflow state: $label',
       child: LayoutBuilder(
         builder: (context, constraints) {
           final double railWidth = constraints.maxWidth > 375
-              ? PocketaSpacing.ledgerRailWidthRegular
-              : PocketaSpacing.ledgerRailWidth;
+              ? HelmSpacing.ledgerRailWidthRegular
+              : HelmSpacing.ledgerRailWidth;
 
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -68,7 +68,7 @@ class PocketaLedgerRail extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: PocketaSpacing.s1), // 4pt gap
+              const SizedBox(height: HelmSpacing.s1), // 4pt gap
 
               // State label — must always be present (accessibility + no color-only signal)
               Text(
@@ -82,7 +82,7 @@ class PocketaLedgerRail extends StatelessWidget {
     );
   }
 
-  Color _railColor(PocketaColors colors) {
+  Color _railColor(HelmColors colors) {
     switch (state) {
       case LedgerState.safe:
         return colors.stateSafe;

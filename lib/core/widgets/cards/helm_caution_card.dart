@@ -1,5 +1,5 @@
-// lib/core/widgets/cards/pocketa_caution_card.dart
-// UX-5.10 — Five Card Widgets: PocketaCautionCard
+// lib/core/widgets/cards/helm_caution_card.dart
+// UX-5.10 — Five Card Widgets: HelmCautionCard
 //
 // Reserve Mode / urgent due card.
 // LEFT border rail: 3pt stateAtRisk (isCritical) or stateTight (!isCritical).
@@ -9,16 +9,16 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
-class PocketaCautionCard extends StatelessWidget {
+class HelmCautionCard extends StatelessWidget {
   final Widget child;
   final String? title;
   final bool isCritical;
 
-  const PocketaCautionCard({
+  const HelmCautionCard({
     super.key,
     required this.child,
     this.title,
@@ -27,8 +27,8 @@ class PocketaCautionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final Color railColor =
         isCritical ? colors.stateAtRisk : colors.stateTight;
@@ -36,7 +36,7 @@ class PocketaCautionCard extends StatelessWidget {
     // Left side has 0pt radius to keep the rail flush and visible.
     // Right side retains the 12pt radius.
     const leftRadius = Radius.zero;
-    final rightRadius = Radius.circular(PocketaSpacing.cardRadius);
+    final rightRadius = Radius.circular(HelmSpacing.cardRadius);
 
     final borderRadius = BorderRadius.only(
       topLeft: leftRadius,
@@ -50,9 +50,9 @@ class PocketaCautionCard extends StatelessWidget {
     //   top / right / bottom = 1pt divider
     final border = Border(
       left: BorderSide(color: railColor, width: 3.0),
-      top: BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
-      right: BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
-      bottom: BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+      top: BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
+      right: BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
+      bottom: BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
     );
 
     return ClipRRect(
@@ -66,10 +66,10 @@ class PocketaCautionCard extends StatelessWidget {
         child: Padding(
           // Extra s2 (8pt) on the left to visually clear the rail.
           padding: const EdgeInsets.only(
-            left: PocketaSpacing.s4 + PocketaSpacing.s2,
-            right: PocketaSpacing.s4,
-            top: PocketaSpacing.s4,
-            bottom: PocketaSpacing.s4,
+            left: HelmSpacing.s4 + HelmSpacing.s2,
+            right: HelmSpacing.s4,
+            top: HelmSpacing.s4,
+            bottom: HelmSpacing.s4,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +82,7 @@ class PocketaCautionCard extends StatelessWidget {
                     color: colors.inkPrimary,
                   ),
                 ),
-                const SizedBox(height: PocketaSpacing.s3),
+                const SizedBox(height: HelmSpacing.s3),
               ],
               child,
             ],

@@ -1,12 +1,12 @@
-// lib/core/themes/pocketa_colors.dart
+// lib/core/themes/helm_colors.dart
 // UX-5.01 — Visual Identity: Color Token Foundation
 // DO NOT use withOpacity() for text colors — all text colors are solid pre-resolved hex.
 // withValues(alpha:) is reserved for DECORATIVE elements only (rails, dots).
 
 import 'package:flutter/material.dart';
 
-class PocketaColors extends ThemeExtension<PocketaColors> {
-  const PocketaColors({
+class HelmColors extends ThemeExtension<HelmColors> {
+  const HelmColors({
     required this.canvas,
     required this.surface,
     required this.inkPrimary,
@@ -40,7 +40,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
   // Light mode — REFINED system values (doc 08 overrides 07)
   // All text colors are solid pre-resolved hex (no alpha for text).
   // ---------------------------------------------------------------------------
-  static const PocketaColors light = PocketaColors(
+  static const HelmColors light = HelmColors(
     canvas:         Color(0xFFFAFAF6), // warm white background
     surface:        Color(0xFFFFFFFC), // card surfaces (warmer than pure white)
     inkPrimary:     Color(0xFF141413), // all numbers, critical text — 14.8:1 AAA
@@ -59,7 +59,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
   // ---------------------------------------------------------------------------
   // Dark mode — hand-tuned for contrast on dark canvases
   // ---------------------------------------------------------------------------
-  static const PocketaColors dark = PocketaColors(
+  static const HelmColors dark = HelmColors(
     canvas:         Color(0xFF0E0E0C),
     surface:        Color(0xFF161614),
     inkPrimary:     Color(0xFFF2F1ED), // 15.1:1 contrast
@@ -79,7 +79,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
   // ThemeExtension contract
   // ---------------------------------------------------------------------------
   @override
-  PocketaColors copyWith({
+  HelmColors copyWith({
     Color? canvas,
     Color? surface,
     Color? inkPrimary,
@@ -94,7 +94,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
     Color? stateHope,
     Color? stateHopeMuted,
   }) {
-    return PocketaColors(
+    return HelmColors(
       canvas:         canvas         ?? this.canvas,
       surface:        surface        ?? this.surface,
       inkPrimary:     inkPrimary     ?? this.inkPrimary,
@@ -112,9 +112,9 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
   }
 
   @override
-  PocketaColors lerp(ThemeExtension<PocketaColors>? other, double t) {
-    if (other is! PocketaColors) return this;
-    return PocketaColors(
+  HelmColors lerp(ThemeExtension<HelmColors>? other, double t) {
+    if (other is! HelmColors) return this;
+    return HelmColors(
       canvas:         Color.lerp(canvas,         other.canvas,         t)!,
       surface:        Color.lerp(surface,        other.surface,        t)!,
       inkPrimary:     Color.lerp(inkPrimary,     other.inkPrimary,     t)!,
@@ -135,6 +135,6 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
 // ---------------------------------------------------------------------------
 // BuildContext extension — access colors without boilerplate
 // ---------------------------------------------------------------------------
-extension BuildContextPocketaColors on BuildContext {
-  PocketaColors get colors => Theme.of(this).extension<PocketaColors>()!;
+extension BuildContextHelmColors on BuildContext {
+  HelmColors get colors => Theme.of(this).extension<HelmColors>()!;
 }

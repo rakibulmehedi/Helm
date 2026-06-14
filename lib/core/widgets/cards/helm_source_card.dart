@@ -1,5 +1,5 @@
-// lib/core/widgets/cards/pocketa_source_card.dart
-// UX-5.10 — Five Card Widgets: PocketaSourceCard
+// lib/core/widgets/cards/helm_source_card.dart
+// UX-5.10 — Five Card Widgets: HelmSourceCard
 //
 // Compact card showing payment source + status. Used in pipeline list.
 // NO brand logos, NO colored icons, NO colored backgrounds for any status.
@@ -7,15 +7,15 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 enum SourceType { payoneer, wise, bank, bkash, nagad, upay, cash, manual }
 
 enum SourceStatus { received, pending, processing, expected }
 
-class PocketaSourceCard extends StatelessWidget {
+class HelmSourceCard extends StatelessWidget {
   final SourceType source;
   final SourceStatus status;
   final String label;
@@ -24,7 +24,7 @@ class PocketaSourceCard extends StatelessWidget {
   final double? fxRate;
   final VoidCallback? onTap;
 
-  const PocketaSourceCard({
+  const HelmSourceCard({
     super.key,
     required this.source,
     required this.status,
@@ -59,13 +59,13 @@ class PocketaSourceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
-    final borderRadius = BorderRadius.circular(PocketaSpacing.cardRadius);
+    final borderRadius = BorderRadius.circular(HelmSpacing.cardRadius);
 
     Widget cardContent = Padding(
-      padding: const EdgeInsets.all(PocketaSpacing.s3),
+      padding: const EdgeInsets.all(HelmSpacing.s3),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -81,7 +81,7 @@ class PocketaSourceCard extends StatelessWidget {
                     color: colors.inkPrimary,
                   ),
                 ),
-                const SizedBox(height: PocketaSpacing.s1),
+                const SizedBox(height: HelmSpacing.s1),
                 Text(
                   _statusLabel(status),
                   style: typography.labelSm.copyWith(
@@ -89,7 +89,7 @@ class PocketaSourceCard extends StatelessWidget {
                   ),
                 ),
                 if (label.isNotEmpty) ...[
-                  const SizedBox(height: PocketaSpacing.s1),
+                  const SizedBox(height: HelmSpacing.s1),
                   Text(
                     label,
                     style: typography.bodySm.copyWith(
@@ -103,7 +103,7 @@ class PocketaSourceCard extends StatelessWidget {
 
           // Right: amounts (if present)
           if (amountBDT != null || amountUSD != null) ...[
-            const SizedBox(width: PocketaSpacing.s3),
+            const SizedBox(width: HelmSpacing.s3),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisSize: MainAxisSize.min,
@@ -118,7 +118,7 @@ class PocketaSourceCard extends StatelessWidget {
                   ),
                 if (amountUSD != null) ...[
                   if (amountBDT != null)
-                    const SizedBox(height: PocketaSpacing.s1),
+                    const SizedBox(height: HelmSpacing.s1),
                   Text(
                     '\$${_formatAmount(amountUSD!)}',
                     style: typography.monoFinancialSm.copyWith(
@@ -128,7 +128,7 @@ class PocketaSourceCard extends StatelessWidget {
                   ),
                 ],
                 if (fxRate != null) ...[
-                  const SizedBox(height: PocketaSpacing.s1),
+                  const SizedBox(height: HelmSpacing.s1),
                   Text(
                     '@ ${_formatAmount(fxRate!)}',
                     style: typography.labelSm.copyWith(
@@ -150,7 +150,7 @@ class PocketaSourceCard extends StatelessWidget {
         borderRadius: borderRadius,
         border: Border.all(
           color: colors.divider,
-          width: PocketaSpacing.cardBorder,
+          width: HelmSpacing.cardBorder,
         ),
       ),
       child: cardContent,

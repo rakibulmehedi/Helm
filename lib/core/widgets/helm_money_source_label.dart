@@ -1,13 +1,13 @@
-// lib/core/widgets/pocketa_money_source_label.dart
+// lib/core/widgets/helm_money_source_label.dart
 // UX-3 — Core Display Widget: Payment source pill/chip label.
 
 import 'package:flutter/material.dart';
 
-import '../themes/pocketa_colors.dart';
-import '../themes/pocketa_typography.dart';
+import '../themes/helm_colors.dart';
+import '../themes/helm_typography.dart';
 
-class PocketaMoneySourceLabel extends StatelessWidget {
-  const PocketaMoneySourceLabel({
+class HelmMoneySourceLabel extends StatelessWidget {
+  const HelmMoneySourceLabel({
     super.key,
     required this.source,
   });
@@ -16,8 +16,8 @@ class PocketaMoneySourceLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),

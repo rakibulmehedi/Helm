@@ -1,5 +1,5 @@
 // lib/core/themes/app_theme.dart
-// UX-5.05 — Rebuilt using Pocketa design token foundation.
+// UX-5.05 — Rebuilt using Helm design token foundation.
 //
 // Preserves AppThemeData.lightTheme / AppThemeData.darkTheme signatures
 // so main.dart continues to compile without modification.
@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_language.dart';
-import 'colors.dart'; // exports AppColors (legacy) + PocketaColors (via re-export)
-import 'pocketa_motion.dart';
-import 'pocketa_spacing.dart';
-import 'pocketa_typography.dart';
+import 'colors.dart'; // exports AppColors (legacy) + HelmColors (via re-export)
+import 'helm_motion.dart';
+import 'helm_spacing.dart';
+import 'helm_typography.dart';
 
 // ---------------------------------------------------------------------------
 // AppTheme — new token-based API (ThemeMode.system only)
@@ -24,8 +24,8 @@ class AppTheme {
   static ThemeData get dark  => _buildTheme(isLight: false);
 
   static ThemeData _buildTheme({required bool isLight}) {
-    final colors     = isLight ? PocketaColors.light : PocketaColors.dark;
-    final typography = PocketaTypography.build(colors);
+    final colors     = isLight ? HelmColors.light : HelmColors.dark;
+    final typography = HelmTypography.build(colors);
 
     return ThemeData(
       useMaterial3: true,
@@ -33,7 +33,7 @@ class AppTheme {
       scaffoldBackgroundColor: colors.canvas,
 
       // ── ColorScheme ────────────────────────────────────────────────────────
-      // NOT ColorScheme.fromSeed — hand-mapped from PocketaColors tokens.
+      // NOT ColorScheme.fromSeed — hand-mapped from HelmColors tokens.
       colorScheme: ColorScheme(
         brightness:   isLight ? Brightness.light : Brightness.dark,
         primary:      colors.interactive,
@@ -65,10 +65,10 @@ class AppTheme {
         shadowColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           side: BorderSide(
             color: colors.divider,
-            width: PocketaSpacing.cardBorder,
+            width: HelmSpacing.cardBorder,
           ),
         ),
       ),
@@ -82,10 +82,10 @@ class AppTheme {
           foregroundColor: colors.surface,
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(PocketaSpacing.buttonRadius),
+            borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
           ),
           textStyle: typography.headingSm,
-          animationDuration: PocketaMotion.base,
+          animationDuration: HelmMotion.base,
         ),
       ),
 
@@ -102,15 +102,15 @@ class AppTheme {
         filled: true,
         fillColor: colors.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           borderSide: BorderSide(color: colors.divider),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           borderSide: BorderSide(color: colors.divider),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           borderSide: BorderSide(color: colors.interactive, width: 2),
         ),
         labelStyle: typography.labelMd.copyWith(color: colors.inkSecondary),
@@ -120,7 +120,7 @@ class AppTheme {
       // ── Divider ────────────────────────────────────────────────────────────
       dividerTheme: DividerThemeData(
         color: colors.hairline,
-        thickness: PocketaSpacing.cardBorder,
+        thickness: HelmSpacing.cardBorder,
         space: 0,
       ),
 
@@ -133,7 +133,7 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
       ),
 
-      // ── TextTheme — mapped from PocketaTypography ──────────────────────────
+      // ── TextTheme — mapped from HelmTypography ──────────────────────────
       textTheme: TextTheme(
         displayLarge:  typography.displayLarge,
         displayMedium: typography.displayHero,
@@ -153,7 +153,7 @@ class AppTheme {
 // ---------------------------------------------------------------------------
 // AppThemeData — legacy API preserved for main.dart backward compatibility.
 // Delegates to AppTheme._buildTheme internally; lang param kept for signature
-// compatibility but typography is now handled via PocketaTypography extension.
+// compatibility but typography is now handled via HelmTypography extension.
 // TODO: Remove lang parameter after all callers migrate to context.textStyles.
 // ---------------------------------------------------------------------------
 class AppThemeData {
@@ -166,7 +166,7 @@ class AppThemeData {
 
 // ---------------------------------------------------------------------------
 // getFontStyle — retained for backward compatibility with feature files
-// that have not yet migrated to PocketaTypography.
+// that have not yet migrated to HelmTypography.
 // TODO: Remove after all feature files migrate to context.textStyles.*
 // ---------------------------------------------------------------------------
 TextStyle getFontStyle(
