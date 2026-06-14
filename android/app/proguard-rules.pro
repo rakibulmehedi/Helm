@@ -22,3 +22,6 @@
     @com.isaribi.hive_ce.HiveField <fields>;
 }
 -keep class * extends com.isaribi.hive_ce.TypeAdapter { *; }
+
+# Google Play Core is referenced by Flutter deferred components but not used by Helm.
+-dontwarn com.google.android.play.core.**
