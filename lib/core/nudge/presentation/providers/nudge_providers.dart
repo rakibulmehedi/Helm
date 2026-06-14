@@ -14,6 +14,7 @@ import 'package:helm/core/nudge/domain/nudge_evaluator.dart';
 import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
 import 'package:helm/core/nudge/notifications/notification_service.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/utils/input_validator.dart';
 
 // ── Infrastructure providers ──────────────────────────────────────────────────
 
@@ -164,9 +165,11 @@ class NudgeSessionService {
     required String? oldestOverdueEntryId,
   }) {
     // Compute days since last session from SharedPrefs
-    final lastDate = SharedPrefServices.getLastSessionDate();
-    final daysSinceLastSession = lastDate.isNotEmpty
-        ? DateTime.now().difference(DateTime.parse(lastDate)).inDays
+    final lastDate = InputValidator.parseDateTime(
+      SharedPrefServices.getLastSessionDate(),
+    );
+    final daysSinceLastSession = lastDate != null
+        ? DateTime.now().difference(lastDate).inDays
         : 0;
 
     // Tracking streak: session count as proxy

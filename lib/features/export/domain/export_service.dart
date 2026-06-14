@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/models/audit_event_model.dart';
 import 'package:helm/features/income/data/models/income_model.dart';
 import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
@@ -37,22 +38,22 @@ class ExportService {
             'excludeFromCalculation,sourceLabel',
         ...incomeModels.map(
           (m) => _row([
-            m.id,
-            m.clientName,
-            m.projectName,
+            InputValidator.sanitizeText(m.id),
+            InputValidator.sanitizeText(m.clientName),
+            InputValidator.sanitizeText(m.projectName),
             m.amount.toString(),
-            m.currency,
+            InputValidator.normalizeCurrency(m.currency),
             m.statusIndex < statusNames.length
                 ? statusNames[m.statusIndex]
                 : m.statusIndex.toString(),
             m.expectedDate.toIso8601String(),
             m.receivedDate?.toIso8601String() ?? '',
-            m.notes ?? '',
+            InputValidator.sanitizeText(m.notes),
             m.createdAt.toIso8601String(),
             m.updatedAt.toIso8601String(),
             m.fxRate?.toString() ?? '',
             (m.excludeFromCalculation ?? false).toString(),
-            m.sourceLabel ?? '',
+            InputValidator.sanitizeText(m.sourceLabel),
           ]),
         ),
       ];
@@ -63,13 +64,13 @@ class ExportService {
         'id,title,amount,date,categoryId,type,note',
         ...txModels.map(
           (m) => _row([
-            m.id,
-            m.title,
+            InputValidator.sanitizeText(m.id),
+            InputValidator.sanitizeText(m.title),
             m.amount.toString(),
             m.date.toIso8601String(),
-            m.categoryId ?? '',
+            InputValidator.sanitizeText(m.categoryId),
             m.type.name,
-            m.note ?? '',
+            InputValidator.sanitizeText(m.note),
           ]),
         ),
       ];
@@ -80,8 +81,8 @@ class ExportService {
         'id,label,amount,dueDayOfMonth,createdAt',
         ...fcModels.map(
           (m) => _row([
-            m.id,
-            m.label,
+            InputValidator.sanitizeText(m.id),
+            InputValidator.sanitizeText(m.label),
             m.amount.toString(),
             m.dueDayOfMonth.toString(),
             m.createdAt.toIso8601String(),
@@ -91,9 +92,12 @@ class ExportService {
 
       // ── STS Settings ─────────────────────────────────────────────────────────
       final prefs = await SharedPreferences.getInstance();
-      final taxRate = prefs.getDouble('stsSettings_taxRate') ?? 0.10;
-      final bufferPercent =
+      final rawTaxRate = prefs.getDouble('stsSettings_taxRate') ?? 0.10;
+      final rawBufferPercent =
           prefs.getDouble('stsSettings_bufferPercent') ?? 15.0;
+      // Clamp to the UI-defined ranges to prevent corrupt exports.
+      final taxRate = rawTaxRate.clamp(0.0, 1.0);
+      final bufferPercent = rawBufferPercent.clamp(0.0, 100.0);
       final settingsRows = [
         'taxRate,bufferPercent',
         _row([taxRate.toString(), bufferPercent.toString()]),
@@ -120,7 +124,7 @@ class ExportService {
             'newValue,description',
         ...auditModels.map(
           (m) => _row([
-            m.id,
+            InputValidator.sanitizeText(m.id),
             m.timestamp.toIso8601String(),
             m.eventTypeIndex < eventTypeNames.length
                 ? eventTypeNames[m.eventTypeIndex]
@@ -128,10 +132,10 @@ class ExportService {
             m.entityTypeIndex < entityTypeNames.length
                 ? entityTypeNames[m.entityTypeIndex]
                 : m.entityTypeIndex.toString(),
-            m.entityId,
-            m.previousValue ?? '',
-            m.newValue ?? '',
-            m.description,
+            InputValidator.sanitizeText(m.entityId),
+            InputValidator.sanitizeText(m.previousValue),
+            InputValidator.sanitizeText(m.newValue),
+            InputValidator.sanitizeText(m.description),
           ]),
         ),
       ];
@@ -150,7 +154,7 @@ class ExportService {
         directoryPath: dir.path,
         filePaths: paths,
       );
-    } catch (e) {
+    } on Exception catch (e) {
       return ExportResult(success: false, errorMessage: e.toString());
     }
   }
@@ -161,20 +165,24 @@ class ExportService {
 
   String _pad(int n) => n.toString().padLeft(2, '0');
 
-  /// Neutralizes CSV formula-injection payloads. Values beginning with
-  /// spreadsheet formula characters (=, @, +, -, tab, carriage return) are
-  /// prefixed with a single quote so Excel/Sheets treat them as text.
-  /// This is applied before the RFC 4180 escaping so quoted fields remain safe.
+  /// Neutralizes CSV formula-injection payloads and strips control characters.
+  /// Values beginning with spreadsheet formula characters (=, @, +, -, tab,
+  /// carriage return) are prefixed with a single quote so Excel/Sheets treat
+  /// them as text. This is applied before the RFC 4180 escaping so quoted
+  /// fields remain safe.
   static String _sanitizeCellStatic(String v) {
     if (v.isEmpty) return v;
-    final first = v.codeUnitAt(0);
+    // Strip control characters except newline (handled by quoting below).
+    var cleaned = v.replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]'), '');
+    if (cleaned.isEmpty) return cleaned;
+    final first = cleaned.codeUnitAt(0);
     const formulaChars = {'=', '@', '+', '-', 0x09, 0x0D}; // tab, CR
     if (formulaChars.contains(String.fromCharCode(first)) ||
         first == 0x09 ||
         first == 0x0D) {
-      return "'$v";
+      return "'$cleaned";
     }
-    return v;
+    return cleaned;
   }
 
   String _escapeCsv(String v) => escapeCsv(v);
@@ -183,6 +191,7 @@ class ExportService {
   @visibleForTesting
   static String escapeCsv(String v) {
     final sanitized = _sanitizeCellStatic(v);
+    // Always quote text fields that contain structural characters.
     if (sanitized.contains(',') ||
         sanitized.contains('"') ||
         sanitized.contains('\n')) {
@@ -204,7 +213,18 @@ class ExportService {
     List<String> rows,
   ) async {
     final file = File('${dir.path}/$name');
-    await file.writeAsString(rows.join('\n'));
+    // UTF-8 BOM helps Excel open non-ASCII text correctly.
+    const bom = '\uFEFF';
+    await file.writeAsString('$bom${rows.join('\n')}', flush: true);
+    // Restrict file permissions on Unix-like systems (best-effort).
+    try {
+      if (!Platform.isWindows) {
+        await file.setLastAccessed(DateTime.now());
+        await Process.run('chmod', ['600', file.path]);
+      }
+    } on Exception catch (_) {
+      // Permission hardening is best-effort; export must still succeed.
+    }
     return file.path;
   }
 
@@ -220,7 +240,7 @@ class ExportService {
       for (final f in files) {
         await f.delete();
       }
-    } catch (_) {
+    } on Exception catch (_) {
       // Best-effort cleanup; do not fail export if temp files cannot be removed.
     }
   }

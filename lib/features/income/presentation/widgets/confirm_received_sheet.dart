@@ -21,6 +21,7 @@ import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
@@ -64,14 +65,14 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
   bool get _isUsd => widget.entry.currency == 'USD';
 
-  double? get _parsedAmount => double.tryParse(_amountController.text.trim());
+  double? get _parsedAmount => InputValidator.parseAmount(_amountController.text);
 
-  double? get _parsedFxRate => double.tryParse(_fxRateController.text.trim());
+  double? get _parsedFxRate => InputValidator.parseAmount(_fxRateController.text);
 
   double? get _bdtEstimate {
     final amount = _parsedAmount;
     final fx = _parsedFxRate;
-    if (amount == null || fx == null || fx <= 0) return null;
+    if (amount == null || fx == null) return null;
     return amount * fx;
   }
 
@@ -94,25 +95,22 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
   }
 
   Future<void> _onConfirm() async {
-    HapticFeedback.mediumImpact();
+    await HapticFeedback.mediumImpact();
     // Clear any previous inline FX error
     setState(() => _fxRateError = null);
 
     final amount = _parsedAmount;
 
     // Validate amount > 0
-    if (amount == null || amount <= 0) {
+    if (amount == null) {
       _formKey.currentState?.validate();
       return;
     }
 
     // For USD entries: fxRate is required
-    if (_isUsd) {
-      final fx = _parsedFxRate;
-      if (fx == null || _fxRateController.text.trim().isEmpty) {
-        setState(() => _fxRateError = 'FX rate required');
-        return;
-      }
+    if (_isUsd && _parsedFxRate == null) {
+      setState(() => _fxRateError = 'FX rate required');
+      return;
     }
 
     setState(() => _isSubmitting = true);
@@ -321,8 +319,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                     ),
                   ),
                   validator: (value) {
-                    final parsed = double.tryParse(value?.trim() ?? '');
-                    if (parsed == null || parsed <= 0) {
+                    if (InputValidator.parseAmount(value) == null) {
                       return 'Enter a valid amount';
                     }
                     return null;

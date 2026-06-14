@@ -13,6 +13,7 @@
 // Phase 7a — Income Data Layer
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 
 part 'income_model.g.dart';
@@ -122,23 +123,35 @@ class IncomeModel extends HiveObject {
   /// The `statusIndex` field is stored as an integer.
   /// All [DateTime] fields are stored as ISO-8601 strings.
   factory IncomeModel.fromJson(Map<String, dynamic> json) {
+    final amount = (json['amount'] as num?)?.toDouble();
+    final expectedDate = InputValidator.parseDateTime(json['expectedDate'] as String?);
+    final createdAt = InputValidator.parseDateTime(json['createdAt'] as String?);
+    final updatedAt = InputValidator.parseDateTime(json['updatedAt'] as String?);
+    if (amount == null ||
+        !amount.isFinite ||
+        amount <= 0 ||
+        amount > kMaxAmount ||
+        expectedDate == null ||
+        createdAt == null ||
+        updatedAt == null) {
+      throw FormatException('Invalid income JSON: $json');
+    }
+    final fxRate = (json['fxRate'] as num?)?.toDouble();
     return IncomeModel(
-      id: json['id'] as String,
-      clientName: json['clientName'] as String,
-      projectName: json['projectName'] as String,
-      amount: (json['amount'] as num).toDouble(),
-      currency: json['currency'] as String,
-      statusIndex: json['statusIndex'] as int,
-      expectedDate: DateTime.parse(json['expectedDate'] as String),
-      receivedDate: json['receivedDate'] != null
-          ? DateTime.parse(json['receivedDate'] as String)
-          : null,
-      notes: json['notes'] as String?,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
-      fxRate: (json['fxRate'] as num?)?.toDouble(),
+      id: InputValidator.sanitizeText(json['id'] as String?),
+      clientName: InputValidator.sanitizeText(json['clientName'] as String?),
+      projectName: InputValidator.sanitizeText(json['projectName'] as String?),
+      amount: amount,
+      currency: InputValidator.normalizeCurrency(json['currency'] as String?),
+      statusIndex: (json['statusIndex'] as int?) ?? 0,
+      expectedDate: expectedDate,
+      receivedDate: InputValidator.parseDateTime(json['receivedDate'] as String?),
+      notes: InputValidator.sanitizeText(json['notes'] as String?),
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      fxRate: (fxRate != null && fxRate.isFinite && fxRate > 0) ? fxRate : null,
       excludeFromCalculation: json['excludeFromCalculation'] as bool?,
-      sourceLabel: json['sourceLabel'] as String?,
+      sourceLabel: InputValidator.sanitizeText(json['sourceLabel'] as String?),
     );
   }
 

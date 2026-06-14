@@ -18,6 +18,7 @@ import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
@@ -149,29 +150,43 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
     try {
       final now = DateTime.now();
-      final parsedAmount =
-          double.tryParse(_amountController.text.trim()) ?? 0;
+      final parsedAmount = InputValidator.parseAmount(_amountController.text);
+      if (parsedAmount == null) {
+        setState(() => _isSaving = false);
+        HelmToast.show(
+          context,
+          message: 'Enter a valid amount greater than 0',
+          type: ToastType.error,
+        );
+        return;
+      }
+      final fxRate = _selectedCurrency == 'USD'
+          ? InputValidator.parseAmount(_fxRateController.text)
+          : null;
+      if (_selectedCurrency == 'USD' && fxRate == null) {
+        setState(() => _isSaving = false);
+        HelmToast.show(
+          context,
+          message: 'Enter a valid FX rate greater than 0',
+          type: ToastType.error,
+        );
+        return;
+      }
       final entity = IncomeEntryEntity(
         id: widget.incomeId ?? IdGenerator.uniqueId(),
-        clientName: _clientNameController.text.trim(),
-        projectName: _projectNameController.text.trim(),
+        clientName: InputValidator.sanitizeText(_clientNameController.text),
+        projectName: InputValidator.sanitizeText(_projectNameController.text),
         amount: parsedAmount,
-        currency: _selectedCurrency,
+        currency: InputValidator.normalizeCurrency(_selectedCurrency),
         status: _selectedStatus,
         expectedDate: _expectedDate,
         receivedDate:
             _selectedStatus == IncomeStatus.received ? _receivedDate : null,
-        notes: _noteController.text.trim().isEmpty
-            ? null
-            : _noteController.text.trim(),
+        notes: InputValidator.sanitizeText(_noteController.text),
         createdAt: _originalCreatedAt ?? now,
         updatedAt: now,
-        fxRate: _selectedCurrency == 'USD'
-            ? double.tryParse(_fxRateController.text.trim())
-            : null,
-        sourceLabel: _sourceLabelController.text.trim().isEmpty
-            ? null
-            : _sourceLabelController.text.trim(),
+        fxRate: fxRate,
+        sourceLabel: InputValidator.sanitizeText(_sourceLabelController.text),
         excludeFromCalculation: _excludeFromCalculation,
       );
 
@@ -202,7 +217,9 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
           ref.read(analyticsProvider).trackEvent(
             BoundaryEvents.firstPipelineEntry,
           );
-          SharedPrefServices.setEventFired(BoundaryEvents.firstPipelineEntry);
+          await SharedPrefServices.setEventFired(
+            BoundaryEvents.firstPipelineEntry,
+          );
         }
       }
 
@@ -216,7 +233,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         type: ToastType.success,
       );
       context.pop();
-    } catch (_) {
+    } on Exception catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
       HelmToast.show(
@@ -328,11 +345,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                           colors: colors,
                         ),
                         validator: (v) {
-                          if (v == null || v.trim().isEmpty) {
-                            return 'Amount is required';
-                          }
-                          final parsed = double.tryParse(v.trim());
-                          if (parsed == null || parsed <= 0) {
+                          if (InputValidator.parseAmount(v) == null) {
                             return 'Enter a valid amount greater than 0';
                           }
                           return null;
@@ -369,11 +382,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                       colors: colors,
                     ),
                     validator: (v) {
-                      if (v == null || v.trim().isEmpty) {
-                        return 'FX rate is required for USD entries';
-                      }
-                      final rate = double.tryParse(v.trim());
-                      if (rate == null || rate <= 0) {
+                      if (InputValidator.parseAmount(v) == null) {
                         return 'Enter a valid positive rate';
                       }
                       return null;

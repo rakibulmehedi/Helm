@@ -13,6 +13,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 class LiquidBalancePage extends StatefulWidget {
@@ -75,8 +76,8 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
 
   void _onContinue() {
     final raw = _controller.text.replaceAll(',', '');
-    final amount = double.tryParse(raw) ?? 0;
-    if (amount <= 0) {
+    final amount = InputValidator.parseAmount(raw);
+    if (amount == null) {
       setState(
         () => _error =
             'Enter your current liquid BDT to calculate Safe-to-Spend.',

@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/utils/responsive_utils.dart';
@@ -92,8 +93,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     setState(() => _isSaving = true);
 
     try {
-      final amount = double.tryParse(_amountController.text.trim());
-      if (amount == null || amount <= 0) {
+      final amount = InputValidator.parseAmount(_amountController.text);
+      if (amount == null) {
         if (!mounted) return;
         setState(() => _isSaving = false);
         HelmToast.show(
@@ -264,11 +265,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     prefixText: '৳ ',
                   ),
                   validator: (v) {
-                    if (v == null || v.trim().isEmpty) {
-                      return 'Amount is required';
-                    }
-                    final parsed = double.tryParse(v.trim());
-                    if (parsed == null || parsed <= 0) {
+                    if (InputValidator.parseAmount(v) == null) {
                       return 'Enter a valid amount greater than 0';
                     }
                     return null;

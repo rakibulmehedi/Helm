@@ -12,6 +12,8 @@
 // Phase 7f — Added fromEntity(), toEntity(), fromJson(), toJson().
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:helm/core/utils/input_validator.dart';
+
 import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
 
@@ -74,16 +76,27 @@ class TransactionModel extends HiveObject {
   /// The `type` field is stored as a string (\"income\" or \"expense\").
   /// The `date` field is stored as an ISO-8601 string.
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
+    final amount = (json['amount'] as num?)?.toDouble();
+    final date = InputValidator.parseDateTime(json['date'] as String?);
+    if (amount == null ||
+        !amount.isFinite ||
+        amount <= 0 ||
+        amount > kMaxAmount ||
+        date == null) {
+      throw FormatException('Invalid transaction JSON: $json');
+    }
+    final typeRaw = (json['type'] as String?)?.trim().toLowerCase();
+    final type = typeRaw == 'income'
+        ? TransactionType.income
+        : TransactionType.expense;
     return TransactionModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      amount: (json['amount'] as num).toDouble(),
-      date: DateTime.parse(json['date'] as String),
-      categoryId: json['categoryId'] as String?,
-      type: (json['type'] as String) == 'income'
-          ? TransactionType.income
-          : TransactionType.expense,
-      note: json['note'] as String?,
+      id: InputValidator.sanitizeText(json['id'] as String?),
+      title: InputValidator.sanitizeText(json['title'] as String?),
+      amount: amount,
+      date: date,
+      categoryId: InputValidator.sanitizeText(json['categoryId'] as String?),
+      type: type,
+      note: InputValidator.sanitizeText(json['note'] as String?),
     );
   }
 

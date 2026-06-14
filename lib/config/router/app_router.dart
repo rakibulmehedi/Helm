@@ -19,6 +19,7 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/features/auth/presentation/providers/auth_provider.dart'
     show authRefreshListenable, isSessionAuthenticated;
@@ -100,15 +101,21 @@ final GoRouter appRouter = GoRouter(
       name: 'editTransaction',
       builder: (context, state) {
         final id = state.pathParameters['id'];
-        return AddTransactionScreen(transactionId: id);
+        final safeId = InputValidator.isValidId(id) ? id : null;
+        return AddTransactionScreen(transactionId: safeId);
       },
     ),
     GoRoute(
       path: RouteNames.income,
       name: 'income',
-      builder: (context, state) => IncomeListScreen(
-        initialFilter: state.extra is String ? state.extra as String : null,
-      ),
+      builder: (context, state) {
+        final extra = state.extra;
+        final filter = extra is String ? extra.trim().toLowerCase() : null;
+        const validFilters = {'all', 'expected', 'pending', 'received'};
+        final safeFilter =
+            filter != null && validFilters.contains(filter) ? filter : null;
+        return IncomeListScreen(initialFilter: safeFilter);
+      },
     ),
     GoRoute(
       path: RouteNames.addIncome,
@@ -120,7 +127,7 @@ final GoRouter appRouter = GoRouter(
       name: 'editIncome',
       builder: (context, state) {
         final id = state.pathParameters['id'];
-        if (id == null || id.isEmpty) return const AddIncomeScreen();
+        if (!InputValidator.isValidId(id)) return const AddIncomeScreen();
         return AddIncomeScreen(incomeId: id);
       },
     ),

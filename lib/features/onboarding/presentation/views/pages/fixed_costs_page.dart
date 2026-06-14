@@ -4,6 +4,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
 
@@ -78,12 +79,12 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
     final items = <FixedCostDraftItem>[];
     for (int i = 0; i < _categories.length; i++) {
       if (!_checked[i]) continue;
-      final amount = double.tryParse(_amountControllers[i].text) ?? 0;
-      if (amount <= 0) continue;
+      final amount = InputValidator.parseAmount(_amountControllers[i].text);
+      if (amount == null) continue;
       items.add(FixedCostDraftItem(
-        label: _categories[i].label,
+        label: InputValidator.sanitizeText(_categories[i].label, maxLength: 100),
         amount: amount,
-        dayOfMonth: _days[i],
+        dayOfMonth: _days[i].clamp(1, 28),
       ));
     }
     return items;

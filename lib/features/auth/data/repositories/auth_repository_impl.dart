@@ -6,6 +6,7 @@
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
 import 'package:helm/features/auth/data/models/session_model.dart';
 import 'package:helm/features/auth/domain/entities/session_entity.dart';
@@ -26,15 +27,17 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<bool> sendMagicLink(String email) async {
-    if (!_isValidEmail(email)) return false;
-    return remoteDataSource.sendMagicLink(email);
+    final normalized = InputValidator.normalizeEmail(email);
+    if (normalized == null) return false;
+    return remoteDataSource.sendMagicLink(normalized);
   }
 
   @override
   Future<SessionEntity?> verifyMagicLink(String token) async {
-    if (token.isEmpty) return null;
+    // Expect a base64url-encoded token of at least 32 bytes (44 chars).
+    if (!_isValidToken(token.trim())) return null;
 
-    final session = await remoteDataSource.verifyMagicLink(token);
+    final session = await remoteDataSource.verifyMagicLink(token.trim());
     if (session != null) {
       await storeSession(session);
     }
@@ -85,7 +88,10 @@ class AuthRepositoryImpl implements AuthRepository {
 
   // ── Helpers ─────────────────────────────────────────────────────────────
 
-  bool _isValidEmail(String email) {
-    return RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email.trim());
+  bool _isValidToken(String token) {
+    // Match the mock datasource's 32-character cryptographically random token.
+    // Production backends may use longer base64url tokens.
+    if (token.length < 32) return false;
+    return RegExp(r'^[A-Za-z0-9]+$').hasMatch(token);
   }
 }

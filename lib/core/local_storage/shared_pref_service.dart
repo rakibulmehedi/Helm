@@ -1,6 +1,7 @@
 // lib/core/local_storage/shared_pref_service.dart
 
 import 'package:helm/core/constants/app_language.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefServices {
@@ -128,8 +129,7 @@ class SharedPrefServices {
 
   static DateTime? getLastNotificationOpenedAt() {
     final millis = _instance.getInt(_lastNotificationOpenedAtKey);
-    if (millis == null) return null;
-    return DateTime.fromMillisecondsSinceEpoch(millis);
+    return InputValidator.dateTimeFromMillis(millis);
   }
 
   static Future<void> setLastNotificationOpenedAt(DateTime time) async {

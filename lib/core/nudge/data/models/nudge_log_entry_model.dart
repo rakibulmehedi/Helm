@@ -6,6 +6,7 @@
 import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
 import 'package:helm/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/utils/input_validator.dart';
 
 part 'nudge_log_entry_model.g.dart';
 
@@ -68,13 +69,10 @@ class NudgeLogEntryModel extends HiveObject {
         body: body,
         actionRoute: actionRoute,
         targetEntryId: targetEntryId,
-        createdAt: DateTime.fromMillisecondsSinceEpoch(createdAtMs),
-        readAt: readAtMs != null
-            ? DateTime.fromMillisecondsSinceEpoch(readAtMs!)
-            : null,
-        actionedAt: actionedAtMs != null
-            ? DateTime.fromMillisecondsSinceEpoch(actionedAtMs!)
-            : null,
+        createdAt:
+            InputValidator.dateTimeFromMillis(createdAtMs) ?? DateTime.now(),
+        readAt: InputValidator.dateTimeFromMillis(readAtMs),
+        actionedAt: InputValidator.dateTimeFromMillis(actionedAtMs),
       );
 
   factory NudgeLogEntryModel.fromEntity(NudgeLogEntryEntity entity) =>

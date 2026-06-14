@@ -18,6 +18,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 /// Data captured from the optional first pipeline entry.
@@ -34,7 +35,7 @@ class PipelineDraftEntry {
 }
 
 class FirstPipelinePage extends StatefulWidget {
-  final void Function(PipelineDraftEntry entry) onAddEntry;
+  final Future<void> Function(PipelineDraftEntry entry) onAddEntry;
   final VoidCallback onSkip;
 
   const FirstPipelinePage({
@@ -93,15 +94,15 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final amount = double.tryParse(_amountController.text.trim());
-    if (amount == null || amount <= 0) return;
+    final amount = InputValidator.parseAmount(_amountController.text);
+    if (amount == null) return;
 
     setState(() => _isLoading = true);
-    HapticFeedback.mediumImpact();
-    widget.onAddEntry(PipelineDraftEntry(
-      clientName: _clientController.text.trim(),
+    await HapticFeedback.mediumImpact();
+    await widget.onAddEntry(PipelineDraftEntry(
+      clientName: InputValidator.sanitizeText(_clientController.text),
       amount: amount,
-      currency: _currency,
+      currency: InputValidator.normalizeCurrency(_currency),
     ));
   }
 
@@ -258,11 +259,9 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                     ),
                                   ),
                                   validator: (val) {
-                                    if (val == null || val.isEmpty) {
-                                      return 'Required';
+                                    if (InputValidator.parseAmount(val) == null) {
+                                      return 'Must be > 0';
                                     }
-                                    final n = double.tryParse(val);
-                                    if (n == null || n <= 0) return 'Must be > 0';
                                     return null;
                                   },
                                 ),

@@ -17,6 +17,7 @@ import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/security/constants/security_keys.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/auth/domain/entities/auth_state.dart';
 import 'package:helm/features/auth/domain/pin_hasher.dart';
 
@@ -85,9 +86,7 @@ class AuthNotifier extends Notifier<AuthState> {
         _box.get(SecurityKeys.authFailedAttempts, defaultValue: 0) as int;
     final lockoutUntilMillis =
         _box.get(SecurityKeys.authLockoutUntil) as int?;
-    final lockoutUntil = lockoutUntilMillis == null
-        ? null
-        : DateTime.fromMillisecondsSinceEpoch(lockoutUntilMillis);
+    final lockoutUntil = InputValidator.dateTimeFromMillis(lockoutUntilMillis);
 
     // If the lockout window has expired, reset the counter so the user is not
     // permanently locked out after maxAttempts.

@@ -10,6 +10,7 @@ import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dar
 import 'package:helm/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
 import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
 
@@ -380,13 +381,17 @@ class _AddEditFixedCostSheetState
   void _save() {
     if (!_formKey.currentState!.validate()) return;
 
-    final amount = double.tryParse(_amountController.text.trim());
-    final dueDay = int.tryParse(_dueDayController.text.trim());
-    if (amount == null || amount <= 0 || dueDay == null) {
+    final amount = InputValidator.parseAmount(_amountController.text);
+    final dueDay = InputValidator.parseIntInRange(
+      _dueDayController.text,
+      min: 1,
+      max: 28,
+    );
+    if (amount == null || dueDay == null) {
       return;
     }
 
-    final label = _labelController.text.trim();
+    final label = InputValidator.sanitizeText(_labelController.text, maxLength: 100);
     final newEntry = FixedCostEntry(
       id: widget.entry?.id ?? IdGenerator.uniqueId(),
       label: label,
@@ -460,9 +465,9 @@ class _AddEditFixedCostSheetState
                           borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
-                      if (val == null || val.isEmpty) return 'Required';
-                      final num = double.tryParse(val);
-                      if (num == null || num <= 0) return 'Must be > 0';
+                      if (InputValidator.parseAmount(val) == null) {
+                        return 'Must be > 0';
+                      }
                       return null;
                     },
                   ),
@@ -482,9 +487,7 @@ class _AddEditFixedCostSheetState
                           borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
-                      if (val == null || val.isEmpty) return 'Required';
-                      final num = int.tryParse(val);
-                      if (num == null || num < 1 || num > 28) {
+                      if (InputValidator.parseIntInRange(val, min: 1, max: 28) == null) {
                         return '1-28 only';
                       }
                       return null;

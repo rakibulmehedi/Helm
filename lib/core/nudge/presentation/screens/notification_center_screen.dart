@@ -17,6 +17,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/config/router/route_names.dart';
 
 /// Full-screen notification center showing nudge history grouped by date.
 class NotificationCenterScreen extends ConsumerWidget {
@@ -145,8 +146,15 @@ class NotificationCenterScreen extends ConsumerWidget {
       TransactionalEvents.notificationOpened,
       properties: {'nudge_id': entry.id},
     );
-    if (entry.actionRoute != null && context.mounted) {
-      context.go(entry.actionRoute!);
+    final route = entry.actionRoute?.trim();
+    const allowedRoutes = <String>{
+      RouteNames.home,
+      RouteNames.pipeline,
+      RouteNames.settings,
+      RouteNames.stsSettings,
+    };
+    if (route != null && allowedRoutes.contains(route) && context.mounted) {
+      context.go(route);
     }
   }
 

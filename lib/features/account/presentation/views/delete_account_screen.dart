@@ -417,7 +417,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
   void initState() {
     super.initState();
     _controller.addListener(() {
-      final v = _controller.text == 'DELETE';
+      final v = _controller.text.trim() == 'DELETE';
       if (v != _valid) setState(() => _valid = v);
     });
   }

@@ -83,7 +83,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   // ── Delete with Undo ───────────────────────────────────────────────────────
 
   Future<void> _deleteWithUndo(IncomeEntryEntity entry) async {
-    HapticFeedback.mediumImpact();
+    await HapticFeedback.mediumImpact();
     await ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
     if (!mounted) return;
 
