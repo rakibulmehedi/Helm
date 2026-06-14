@@ -1,6 +1,6 @@
 // lib/core/constants/app_box_names.dart
 //
-// Central registry of Hive box names.
+// Central registry of Hive box names and schema versions.
 // All boxes must be declared here and opened in HiveService.init().
 //   0  → TransactionModel       (Phase 1 — registered)
 //   1  → TransactionCategory    (Phase 1 — not yet registered)
@@ -9,6 +9,13 @@
 //   4  → TransactionType enum   (Phase 1 — registered)
 
 abstract final class AppBoxNames {
+  /// Schema version for the entire Hive database. Bump on any breaking model
+  /// change and add a migration in HiveService.
+  static const int schemaVersion = 1;
+
+  /// Key used to persist the current schema version.
+  static const String schemaVersionKey = 'hive_schema_version';
+
   /// Stores [TransactionModel] objects. Opened in Phase 1.
   static const String transactions = 'transactions';
 

@@ -1,4 +1,4 @@
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../../../core/constants/app_box_names.dart';
 import '../models/transaction_model.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';

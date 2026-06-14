@@ -2,7 +2,7 @@
 
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/analytics/data/datasources/analytics_local_data_source.dart';
 import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
 import 'package:helm/core/analytics/models/analytics_event_model.dart';

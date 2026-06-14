@@ -10,7 +10,7 @@
 //
 // Phase 7a — Income Data Layer
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/features/income/data/models/income_model.dart';
 

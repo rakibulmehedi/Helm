@@ -8,7 +8,7 @@ part of 'nudge_preferences_model.dart';
 
 class NudgePreferencesModelAdapter extends TypeAdapter<NudgePreferencesModel> {
   @override
-  final int typeId = 7;
+  final typeId = 7;
 
   @override
   NudgePreferencesModel read(BinaryReader reader) {
@@ -18,8 +18,8 @@ class NudgePreferencesModelAdapter extends TypeAdapter<NudgePreferencesModel> {
     };
     return NudgePreferencesModel(
       cadenceName: fields[0] as String,
-      checkInHour: fields[1] as int,
-      checkInMinute: fields[2] as int,
+      checkInHour: (fields[1] as num).toInt(),
+      checkInMinute: (fields[2] as num).toInt(),
       pushEnabled: fields[3] as bool,
       inAppEnabled: fields[4] as bool,
       quietAffirmationsEnabled: fields[5] as bool,

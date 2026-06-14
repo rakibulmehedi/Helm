@@ -23,7 +23,6 @@ linter:
   rules:
     avoid_print: true
     prefer_single_quotes: true
-    avoid_empty_catch: true
     avoid_catches_without_on_clauses: true
     avoid_slow_async_io: true
     prefer_final_fields: true

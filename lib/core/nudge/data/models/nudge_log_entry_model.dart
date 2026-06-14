@@ -3,7 +3,7 @@
 // Hive model for NudgeLogEntry (typeId: 8).
 // Serializes NudgeType and NudgeChannel as strings.
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
 import 'package:helm/core/nudge/domain/nudge_types.dart';
 

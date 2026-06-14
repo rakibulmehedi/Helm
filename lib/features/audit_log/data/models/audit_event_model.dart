@@ -16,7 +16,7 @@
 // Enum values stored as int index — safe for future enum additions.
 // D1.05 — Trust Layer: Audit Log
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 part 'audit_event_model.g.dart';

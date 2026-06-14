@@ -8,7 +8,7 @@ part of 'analytics_event_model.dart';
 
 class AnalyticsEventModelAdapter extends TypeAdapter<AnalyticsEventModel> {
   @override
-  final int typeId = 6;
+  final typeId = 6;
 
   @override
   AnalyticsEventModel read(BinaryReader reader) {

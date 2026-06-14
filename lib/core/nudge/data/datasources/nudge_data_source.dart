@@ -3,7 +3,7 @@
 // Hive-backed data source for nudge log persistence and retrieval.
 // Interface + impl pattern following existing codebase conventions.
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/nudge/data/models/nudge_log_entry_model.dart';
 import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';

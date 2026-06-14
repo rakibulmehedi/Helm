@@ -8,7 +8,7 @@ part of 'fixed_cost_model.dart';
 
 class FixedCostModelAdapter extends TypeAdapter<FixedCostModel> {
   @override
-  final int typeId = 3;
+  final typeId = 3;
 
   @override
   FixedCostModel read(BinaryReader reader) {
@@ -19,8 +19,8 @@ class FixedCostModelAdapter extends TypeAdapter<FixedCostModel> {
     return FixedCostModel(
       id: fields[0] as String,
       label: fields[1] as String,
-      amount: fields[2] as double,
-      dueDayOfMonth: fields[3] as int,
+      amount: (fields[2] as num).toDouble(),
+      dueDayOfMonth: (fields[3] as num).toInt(),
       createdAt: fields[4] as DateTime,
     );
   }

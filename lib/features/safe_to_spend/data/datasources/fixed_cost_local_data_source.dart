@@ -1,6 +1,6 @@
 // lib/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
 

@@ -14,7 +14,7 @@
 //
 // Phase 7f — Storage Abstraction & Domain Cleanup
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 
 /// Hive adapter for the [TransactionType] enum.

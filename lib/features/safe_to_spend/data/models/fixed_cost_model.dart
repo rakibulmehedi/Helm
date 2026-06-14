@@ -1,6 +1,6 @@
 // lib/features/safe_to_spend/data/models/fixed_cost_model.dart
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 
 part 'fixed_cost_model.g.dart';

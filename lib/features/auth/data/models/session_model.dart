@@ -4,7 +4,7 @@
 // Previous: 0-Transaction, 1-reserved, 2-Income, 3-FixedCost, 4-TransactionType,
 //           5-Audit, 6-Analytics, 7-NudgePrefs, 8-NudgeLog
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 part 'session_model.g.dart';

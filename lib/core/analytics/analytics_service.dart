@@ -4,7 +4,7 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/analytics/domain/analytics_event_entity.dart';

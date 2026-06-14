@@ -8,7 +8,7 @@ part of 'audit_event_model.dart';
 
 class AuditEventModelAdapter extends TypeAdapter<AuditEventModel> {
   @override
-  final int typeId = 5;
+  final typeId = 5;
 
   @override
   AuditEventModel read(BinaryReader reader) {
@@ -19,8 +19,8 @@ class AuditEventModelAdapter extends TypeAdapter<AuditEventModel> {
     return AuditEventModel()
       ..id = fields[0] as String
       ..timestamp = fields[1] as DateTime
-      ..eventTypeIndex = fields[2] as int
-      ..entityTypeIndex = fields[3] as int
+      ..eventTypeIndex = (fields[2] as num).toInt()
+      ..entityTypeIndex = (fields[3] as num).toInt()
       ..entityId = fields[4] as String
       ..previousValue = fields[5] as String?
       ..newValue = fields[6] as String?

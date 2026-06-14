@@ -2,7 +2,7 @@
 //
 // Hive model representing serialized analytics events.
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
 
 part 'analytics_event_model.g.dart';

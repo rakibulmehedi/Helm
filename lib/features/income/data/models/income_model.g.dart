@@ -8,7 +8,7 @@ part of 'income_model.dart';
 
 class IncomeModelAdapter extends TypeAdapter<IncomeModel> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   IncomeModel read(BinaryReader reader) {
@@ -20,15 +20,15 @@ class IncomeModelAdapter extends TypeAdapter<IncomeModel> {
       id: fields[0] as String,
       clientName: fields[1] as String,
       projectName: fields[2] as String,
-      amount: fields[3] as double,
+      amount: (fields[3] as num).toDouble(),
       currency: fields[4] as String,
-      statusIndex: fields[5] as int,
+      statusIndex: (fields[5] as num).toInt(),
       expectedDate: fields[6] as DateTime,
       receivedDate: fields[7] as DateTime?,
       notes: fields[8] as String?,
       createdAt: fields[9] as DateTime,
       updatedAt: fields[10] as DateTime,
-      fxRate: fields[11] as double?,
+      fxRate: (fields[11] as num?)?.toDouble(),
       excludeFromCalculation: fields[12] as bool?,
       sourceLabel: fields[13] as String?,
     );

@@ -7,7 +7,7 @@
 // Migration: old base64 hashes (no salt key) detected → clear → force re-setup.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/features/auth/domain/entities/auth_state.dart';

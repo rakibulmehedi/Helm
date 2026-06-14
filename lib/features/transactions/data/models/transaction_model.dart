@@ -11,7 +11,7 @@
 //
 // Phase 7f — Added fromEntity(), toEntity(), fromJson(), toJson().
 
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
 

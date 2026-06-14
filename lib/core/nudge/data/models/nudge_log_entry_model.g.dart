@@ -8,7 +8,7 @@ part of 'nudge_log_entry_model.dart';
 
 class NudgeLogEntryModelAdapter extends TypeAdapter<NudgeLogEntryModel> {
   @override
-  final int typeId = 8;
+  final typeId = 8;
 
   @override
   NudgeLogEntryModel read(BinaryReader reader) {
@@ -24,9 +24,9 @@ class NudgeLogEntryModelAdapter extends TypeAdapter<NudgeLogEntryModel> {
       body: fields[4] as String,
       actionRoute: fields[5] as String?,
       targetEntryId: fields[6] as String?,
-      createdAtMs: fields[7] as int,
-      readAtMs: fields[8] as int?,
-      actionedAtMs: fields[9] as int?,
+      createdAtMs: (fields[7] as num).toInt(),
+      readAtMs: (fields[8] as num?)?.toInt(),
+      actionedAtMs: (fields[9] as num?)?.toInt(),
     );
   }
 

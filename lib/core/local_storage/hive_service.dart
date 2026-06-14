@@ -1,6 +1,6 @@
 // lib/core/local_storage/hive_service.dart
 //
-// Centralised Hive bootstrap for Helm.
+// Centralised Hive bootstrap for Helm with at-rest encryption.
 //
 // How to add a new model in Phase 1+:
 //   1. Annotate the model with @HiveType(typeId: N)
@@ -10,9 +10,13 @@
 //
 // NEVER open a box or register an adapter outside of this file.
 
-import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:developer' as developer;
+
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/security/secure_key_manager.dart';
 import 'package:helm/features/transactions/data/models/transaction_model.dart';
 import 'package:helm/features/transactions/data/adapters/transaction_type_adapter.dart';
 import 'package:helm/features/income/data/models/income_model.dart';
@@ -22,10 +26,21 @@ import 'package:helm/core/analytics/models/analytics_event_model.dart';
 import 'package:helm/core/analytics/data/models/nudge_preferences_model.dart';
 import 'package:helm/core/nudge/data/models/nudge_log_entry_model.dart';
 import 'package:helm/features/auth/data/models/session_model.dart';
-import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/hive_registrar.g.dart';
+
+/// Exception thrown when Hive initialization encounters an unrecoverable error.
+class HiveServiceException implements Exception {
+  const HiveServiceException(this.message);
+  final String message;
+
+  @override
+  String toString() => 'HiveServiceException: $message';
+}
 
 class HiveService {
   HiveService._(); // prevent instantiation
+
+  static HiveCipher? _cipher;
 
   /// Initialises Hive and registers all adapters + opens all boxes.
   /// Must be called in main() before runApp().
@@ -33,50 +48,80 @@ class HiveService {
     final dir = await getApplicationDocumentsDirectory();
     await Hive.initFlutter(dir.path);
 
+    _cipher = await _createCipher();
+
     _registerAdapters();
     await _openBoxes();
   }
 
   // ── Private helpers ────────────────────────────────────────────────────────
 
-  /// Register all Hive TypeAdapters here.
-  /// Phase 0: none yet — transaction model comes in Phase 1.
-  static void _registerAdapters() {
-    if (!Hive.isAdapterRegistered(0)) Hive.registerAdapter(TransactionModelAdapter());
-    if (!Hive.isAdapterRegistered(4)) Hive.registerAdapter(TransactionTypeAdapter());
-    // if (!Hive.isAdapterRegistered(1)) Hive.registerAdapter(TransactionCategoryAdapter());
-    if (!Hive.isAdapterRegistered(2)) Hive.registerAdapter(IncomeModelAdapter());
-    if (!Hive.isAdapterRegistered(3)) Hive.registerAdapter(FixedCostModelAdapter());
-    if (!Hive.isAdapterRegistered(5)) Hive.registerAdapter(AuditEventModelAdapter());
-    if (!Hive.isAdapterRegistered(6)) Hive.registerAdapter(AnalyticsEventModelAdapter());
-    if (!Hive.isAdapterRegistered(7)) Hive.registerAdapter(NudgePreferencesModelAdapter());
-    if (!Hive.isAdapterRegistered(8)) Hive.registerAdapter(NudgeLogEntryModelAdapter());
-    if (!Hive.isAdapterRegistered(9)) Hive.registerAdapter(SessionModelAdapter());
+  static Future<HiveCipher> _createCipher() async {
+    final key = await SecureKeyManager().getOrCreateHiveKey();
+    return HiveAesCipher(key);
   }
 
-  /// Open all Hive boxes here.
-  /// Phase 0: no typed boxes yet — opened in Phase 1.
+  /// Register all Hive TypeAdapters here.
+  static void _registerAdapters() {
+    // Generated adapters (hive_ce_generator).
+    Hive.registerAdapters();
+
+    // Custom enum adapter (manually written).
+    if (!Hive.isAdapterRegistered(4)) {
+      Hive.registerAdapter(TransactionTypeAdapter());
+    }
+  }
+
+  /// Open all Hive boxes here with encryption enabled.
+  /// Per-box failures are caught and logged so a single corrupt box does not
+  /// prevent the app from starting.
   static Future<void> _openBoxes() async {
-    await Hive.openBox<TransactionModel>(AppBoxNames.transactions);
-    // await Hive.openBox<TransactionCategory>(AppBoxNames.categories);
-    await Hive.openBox<IncomeModel>(AppBoxNames.incomeBox);
-    await Hive.openBox<FixedCostModel>(AppBoxNames.fixedCostsBox);
-    // D1 Trust Layer: untyped dynamic box for PIN hash + auth setup status.
-    await Hive.openBox<dynamic>(AppBoxNames.authBox);
-    // D1.05 Audit Log: append-only financial change history.
-    await Hive.openBox<AuditEventModel>(AppBoxNames.auditEventsBox);
-    // Phase 2 Analytics Infrastructure
-    await Hive.openBox<AnalyticsEventModel>(AppBoxNames.analyticsEventsBox);
-    await Hive.openBox<NudgePreferencesModel>(AppBoxNames.nudgePreferencesBox);
-    await Hive.openBox<NudgeLogEntryModel>(AppBoxNames.nudgeLogBox);
-    await Hive.openBox<SessionModel>(AppBoxNames.sessionBox);
+    final cipher = _cipher;
+    if (cipher == null) {
+      throw const HiveServiceException('Encryption cipher not initialised');
+    }
+
+    final boxes = <Future<void>>[
+      _openBoxSafe<TransactionModel>(AppBoxNames.transactions, cipher),
+      _openBoxSafe<IncomeModel>(AppBoxNames.incomeBox, cipher),
+      _openBoxSafe<FixedCostModel>(AppBoxNames.fixedCostsBox, cipher),
+      _openBoxSafe<dynamic>(AppBoxNames.authBox, cipher),
+      _openBoxSafe<AuditEventModel>(AppBoxNames.auditEventsBox, cipher),
+      _openBoxSafe<AnalyticsEventModel>(AppBoxNames.analyticsEventsBox, cipher),
+      _openBoxSafe<NudgePreferencesModel>(
+        AppBoxNames.nudgePreferencesBox,
+        cipher,
+      ),
+      _openBoxSafe<NudgeLogEntryModel>(AppBoxNames.nudgeLogBox, cipher),
+      _openBoxSafe<SessionModel>(AppBoxNames.sessionBox, cipher),
+    ];
+
+    await Future.wait(boxes);
+  }
+
+  static Future<void> _openBoxSafe<T>(String name, HiveCipher cipher) async {
+    try {
+      await Hive.openBox<T>(name, encryptionCipher: cipher);
+    } on Exception catch (e, stackTrace) {
+      developer.log(
+        'Failed to open Hive box $name: $e',
+        name: 'HiveService',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      // TODO(rakibul): log audit event once audit log is available at init time.
+    }
   }
 
   /// Generic helper — only use for boxes not managed by [_openBoxes].
   /// Prefer [_openBoxes] for all known boxes.
   static Future<void> openBox<T>(String boxName) async {
     if (!Hive.isBoxOpen(boxName)) {
-      await Hive.openBox<T>(boxName);
+      final cipher = _cipher;
+      await Hive.openBox<T>(
+        boxName,
+        encryptionCipher: cipher,
+      );
     }
   }
 }
