@@ -276,6 +276,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _clientNameController,
+                  maxLength: 100,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
                     hint: 'e.g. Upwork, Client X',
@@ -296,6 +297,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _projectNameController,
+                  maxLength: 100,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'e.g. Website Redesign',
@@ -424,6 +426,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
+                  maxLength: 500,
                   maxLines: 3,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
@@ -439,6 +442,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _sourceLabelController,
+                  maxLength: 100,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
                     hint: 'e.g. Upwork, Fiverr, Direct client',

@@ -91,15 +91,18 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
   }
 
   Future<void> _submit() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() => _isLoading = true);
-      HapticFeedback.mediumImpact();
-      widget.onAddEntry(PipelineDraftEntry(
-        clientName: _clientController.text.trim(),
-        amount: double.parse(_amountController.text),
-        currency: _currency,
-      ));
-    }
+    if (!_formKey.currentState!.validate()) return;
+
+    final amount = double.tryParse(_amountController.text.trim());
+    if (amount == null || amount <= 0) return;
+
+    setState(() => _isLoading = true);
+    HapticFeedback.mediumImpact();
+    widget.onAddEntry(PipelineDraftEntry(
+      clientName: _clientController.text.trim(),
+      amount: amount,
+      currency: _currency,
+    ));
   }
 
   @override
@@ -148,6 +151,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                           textField: true,
                           child: TextFormField(
                             controller: _clientController,
+                            maxLength: 100,
                             decoration: InputDecoration(
                               labelText: 'Client or source',
                               hintText: 'e.g. Upwork, Client X',

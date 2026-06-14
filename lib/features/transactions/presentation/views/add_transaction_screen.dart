@@ -92,10 +92,22 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     setState(() => _isSaving = true);
 
     try {
+      final amount = double.tryParse(_amountController.text.trim());
+      if (amount == null || amount <= 0) {
+        if (!mounted) return;
+        setState(() => _isSaving = false);
+        HelmToast.show(
+          context,
+          message: 'Enter a valid amount greater than 0',
+          type: ToastType.error,
+        );
+        return;
+      }
+
       final transaction = TransactionEntity(
         id: widget.transactionId ?? IdGenerator.uniqueId(),
         title: _titleController.text.trim(),
-        amount: double.parse(_amountController.text.trim()),
+        amount: amount,
         date: _selectedDate,
         type: _selectedType,
         note: _noteController.text.trim().isEmpty
@@ -219,6 +231,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _titleController,
+                  maxLength: 100,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
                     hint: 'e.g. Lunch, Uber, Salary',
@@ -305,6 +318,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
+                  maxLength: 500,
                   maxLines: 3,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(

@@ -52,16 +52,20 @@ class FixedCostNotifier extends StateNotifier<List<FixedCostEntry>> {
   }
 
   Future<void> _loadFixedCosts() async {
-    state = await _repository.getFixedCosts();
+    final costs = await _repository.getFixedCosts();
+    if (!mounted) return;
+    state = costs;
   }
 
   Future<void> addFixedCost(FixedCostEntry entry) async {
     await _repository.addFixedCost(entry);
+    if (!mounted) return;
     state = [...state, entry];
   }
 
   Future<void> updateFixedCost(FixedCostEntry entry) async {
     await _repository.updateFixedCost(entry);
+    if (!mounted) return;
     state = [
       for (final cost in state)
         if (cost.id == entry.id) entry else cost,
@@ -70,6 +74,7 @@ class FixedCostNotifier extends StateNotifier<List<FixedCostEntry>> {
 
   Future<void> deleteFixedCost(String id) async {
     await _repository.deleteFixedCost(id);
+    if (!mounted) return;
     state = state.where((cost) => cost.id != id).toList();
   }
 }
@@ -88,7 +93,9 @@ class StsSettingsNotifier extends StateNotifier<StsSettings> {
   }
 
   Future<void> _loadSettings() async {
-    state = await _repository.getSettings();
+    final settings = await _repository.getSettings();
+    if (!mounted) return;
+    state = settings;
   }
 
   Future<void> updateTaxRate(double rate) async {
@@ -135,7 +142,7 @@ final safeToSpendProvider = Provider<SafeToSpendResult>((ref) {
     try {
       ref.read(analyticsProvider).trackEvent(
         BoundaryEvents.s2sCalcFailure,
-        properties: {'error': e.toString()},
+        properties: {'error_type': e.runtimeType.toString()},
       );
     } catch (_) {
       // analytics provider may not be available during tests

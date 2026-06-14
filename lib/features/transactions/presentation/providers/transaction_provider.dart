@@ -41,10 +41,12 @@ class TransactionsNotifier
     state = const AsyncValue.loading();
     try {
       final transactions = await _repository.getTransactions();
+      if (!mounted) return;
       // Sort transactions by date descending (newest first)
       transactions.sort((a, b) => b.date.compareTo(a.date));
       state = AsyncValue.data(transactions);
     } catch (e, st) {
+      if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
   }
@@ -52,8 +54,10 @@ class TransactionsNotifier
   Future<void> addTransaction(TransactionEntity transaction) async {
     try {
       await _repository.addTransaction(transaction);
+      if (!mounted) return;
       await loadTransactions();
     } catch (e, st) {
+      if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
   }
@@ -61,8 +65,10 @@ class TransactionsNotifier
   Future<void> updateTransaction(TransactionEntity transaction) async {
     try {
       await _repository.updateTransaction(transaction);
+      if (!mounted) return;
       await loadTransactions();
     } catch (e, st) {
+      if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
   }
@@ -70,8 +76,10 @@ class TransactionsNotifier
   Future<void> deleteTransaction(String id) async {
     try {
       await _repository.deleteTransaction(id);
+      if (!mounted) return;
       await loadTransactions();
     } catch (e, st) {
+      if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
   }
@@ -79,8 +87,10 @@ class TransactionsNotifier
   Future<void> clearTransactions() async {
     try {
       await _repository.clearTransactions();
+      if (!mounted) return;
       await loadTransactions();
     } catch (e, st) {
+      if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
   }

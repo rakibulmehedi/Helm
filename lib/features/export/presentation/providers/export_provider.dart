@@ -8,15 +8,15 @@ import 'package:helm/features/export/domain/export_service.dart';
 
 enum ExportStatus { idle, exporting, success, error }
 
-class ExportNotifier extends Notifier<ExportStatus> {
-  ExportResult? lastResult;
+class ExportNotifier extends StateNotifier<ExportStatus> {
+  ExportNotifier() : super(ExportStatus.idle);
 
-  @override
-  ExportStatus build() => ExportStatus.idle;
+  ExportResult? lastResult;
 
   Future<void> export() async {
     state = ExportStatus.exporting;
     final result = await ExportService().exportAll();
+    if (!mounted) return;
     lastResult = result;
     state = result.success ? ExportStatus.success : ExportStatus.error;
   }
@@ -25,4 +25,6 @@ class ExportNotifier extends Notifier<ExportStatus> {
 }
 
 final exportProvider =
-    NotifierProvider<ExportNotifier, ExportStatus>(ExportNotifier.new);
+    StateNotifierProvider<ExportNotifier, ExportStatus>((ref) {
+  return ExportNotifier();
+});

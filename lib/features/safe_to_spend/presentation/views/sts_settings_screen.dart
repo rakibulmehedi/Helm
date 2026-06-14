@@ -378,34 +378,29 @@ class _AddEditFixedCostSheetState
   }
 
   void _save() {
-    if (_formKey.currentState!.validate()) {
-      final label = _labelController.text.trim();
-      final amount = double.parse(_amountController.text);
-      final dueDay = int.parse(_dueDayController.text);
+    if (!_formKey.currentState!.validate()) return;
 
-      if (widget.entry == null) {
-        final newEntry = FixedCostEntry(
-          id: IdGenerator.uniqueId(),
-          label: label,
-          amount: amount,
-          dueDayOfMonth: dueDay,
-          createdAt: DateTime.now(),
-        );
-        ref
-            .read(fixedCostNotifierProvider.notifier)
-            .addFixedCost(newEntry);
-      } else {
-        final updatedEntry = widget.entry!.copyWith(
-          label: label,
-          amount: amount,
-          dueDayOfMonth: dueDay,
-        );
-        ref
-            .read(fixedCostNotifierProvider.notifier)
-            .updateFixedCost(updatedEntry);
-      }
-      Navigator.pop(context);
+    final amount = double.tryParse(_amountController.text.trim());
+    final dueDay = int.tryParse(_dueDayController.text.trim());
+    if (amount == null || amount <= 0 || dueDay == null) {
+      return;
     }
+
+    final label = _labelController.text.trim();
+    final newEntry = FixedCostEntry(
+      id: widget.entry?.id ?? IdGenerator.uniqueId(),
+      label: label,
+      amount: amount,
+      dueDayOfMonth: dueDay,
+      createdAt: widget.entry?.createdAt ?? DateTime.now(),
+    );
+
+    if (widget.entry == null) {
+      ref.read(fixedCostNotifierProvider.notifier).addFixedCost(newEntry);
+    } else {
+      ref.read(fixedCostNotifierProvider.notifier).updateFixedCost(newEntry);
+    }
+    Navigator.pop(context);
   }
 
   @override
@@ -432,6 +427,7 @@ class _AddEditFixedCostSheetState
             const SizedBox(height: 16),
             TextFormField(
               controller: _labelController,
+              maxLength: 100,
               decoration: InputDecoration(
                 labelText: 'Label (e.g. Internet, Rent)',
                 border: OutlineInputBorder(

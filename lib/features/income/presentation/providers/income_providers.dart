@@ -87,6 +87,7 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
   Future<void> addIncome(IncomeEntryEntity entity) async {
     if (state.any((e) => e.id == entity.id)) return;
     await _repository.addIncome(entity);
+    if (!mounted) return;
     state = [...state, entity];
   }
 
@@ -96,6 +97,7 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
   /// to keep Hive and in-memory state consistent.
   Future<void> updateIncome(IncomeEntryEntity entity) async {
     await _repository.updateIncome(entity);
+    if (!mounted) return;
     final found = state.any((e) => e.id == entity.id);
     if (found) {
       state = [
@@ -110,6 +112,7 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
   /// Removes the entry with [id] from Hive and from state.
   Future<void> deleteIncome(String id) async {
     await _repository.deleteIncome(id);
+    if (!mounted) return;
     state = state.where((e) => e.id != id).toList();
   }
 
@@ -118,6 +121,7 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
   /// Use only for testing or explicit data-reset scenarios.
   Future<void> clearIncomes() async {
     await _repository.clearIncomes();
+    if (!mounted) return;
     state = [];
   }
 }

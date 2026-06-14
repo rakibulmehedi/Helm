@@ -4,6 +4,7 @@ import 'package:helm/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/config/router/app_router.dart';
+import 'package:helm/core/security/widgets/app_lifecycle_lock.dart';
 import 'package:helm/core/themes/app_theme.dart';
 
 import 'application/providers/language_provider.dart';
@@ -31,24 +32,26 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final lang = ref.watch(languageProvider);
 
-    return MaterialApp.router(
-      title: 'Helm',
-      // ── Localisation ───────────────────────────────────────────────────────
-      locale: lang.local,
-      supportedLocales: const [Locale('en'), Locale('bn')],
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      // ── Theme ──────────────────────────────────────────────────────────────
-      theme:      AppThemeData.lightTheme(context, lang),
-      darkTheme:  AppThemeData.darkTheme(context, lang),
-      themeMode:  ThemeMode.system,
-      // ── Router ─────────────────────────────────────────────────────────────
-      routerConfig: appRouter,
-      debugShowCheckedModeBanner: false,
+    return AppLifecycleLock(
+      child: MaterialApp.router(
+        title: 'Helm',
+        // ── Localisation ─────────────────────────────────────────────────────
+        locale: lang.local,
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        // ── Theme ────────────────────────────────────────────────────────────
+        theme: AppThemeData.lightTheme(context, lang),
+        darkTheme: AppThemeData.darkTheme(context, lang),
+        themeMode: ThemeMode.system,
+        // ── Router ───────────────────────────────────────────────────────────
+        routerConfig: appRouter,
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

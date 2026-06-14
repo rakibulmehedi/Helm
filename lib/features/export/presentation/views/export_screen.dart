@@ -67,6 +67,34 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                 color: colors.inkSecondary,
               ),
             ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colors.stateAtRisk.withOpacity(0.08),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: colors.stateAtRisk.withOpacity(0.24)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.warning_amber_rounded,
+                      color: colors.stateAtRisk, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Exported files are not encrypted and may contain '
+                      'sensitive information such as client names and amounts. '
+                      'Only share them through trusted channels and delete the '
+                      'files from your device when you are done.',
+                      style: typo.bodySm.copyWith(
+                        color: colors.inkSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 24),
             Text(
               'What will be exported',

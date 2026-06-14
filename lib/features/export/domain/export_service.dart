@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:hive_ce/hive_ce.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,10 @@ class ExportService {
       final ts =
           '${now.year}${_pad(now.month)}${_pad(now.day)}_${_pad(now.hour)}${_pad(now.minute)}${_pad(now.second)}';
 
-      final dir = await getApplicationDocumentsDirectory();
+      // Write exports to a temp directory and clean up stale exports so
+      // plaintext financial data does not accumulate on the device (M-24).
+      final dir = await getTemporaryDirectory();
+      await _cleanStaleExports(dir);
 
       // ── Income ──────────────────────────────────────────────────────────────
       final incomeModels = _readBox<IncomeModel>(AppBoxNames.incomeBox);
@@ -157,11 +161,34 @@ class ExportService {
 
   String _pad(int n) => n.toString().padLeft(2, '0');
 
-  String _escapeCsv(String v) {
-    if (v.contains(',') || v.contains('"') || v.contains('\n')) {
-      return '"${v.replaceAll('"', '""')}"';
+  /// Neutralizes CSV formula-injection payloads. Values beginning with
+  /// spreadsheet formula characters (=, @, +, -, tab, carriage return) are
+  /// prefixed with a single quote so Excel/Sheets treat them as text.
+  /// This is applied before the RFC 4180 escaping so quoted fields remain safe.
+  static String _sanitizeCellStatic(String v) {
+    if (v.isEmpty) return v;
+    final first = v.codeUnitAt(0);
+    const formulaChars = {'=', '@', '+', '-', 0x09, 0x0D}; // tab, CR
+    if (formulaChars.contains(String.fromCharCode(first)) ||
+        first == 0x09 ||
+        first == 0x0D) {
+      return "'$v";
     }
     return v;
+  }
+
+  String _escapeCsv(String v) => escapeCsv(v);
+
+  /// Test-only entry point for the CSV escape pipeline.
+  @visibleForTesting
+  static String escapeCsv(String v) {
+    final sanitized = _sanitizeCellStatic(v);
+    if (sanitized.contains(',') ||
+        sanitized.contains('"') ||
+        sanitized.contains('\n')) {
+      return '"${sanitized.replaceAll('"', '""')}"';
+    }
+    return sanitized;
   }
 
   String _row(List<String> fields) => fields.map(_escapeCsv).join(',');
@@ -179,5 +206,22 @@ class ExportService {
     final file = File('${dir.path}/$name');
     await file.writeAsString(rows.join('\n'));
     return file.path;
+  }
+
+  /// Removes any previous `helm_*.csv` files in the export directory so
+  /// plaintext exports do not accumulate on the device.
+  Future<void> _cleanStaleExports(Directory dir) async {
+    try {
+      final files = dir.listSync().whereType<File>().where(
+            (f) =>
+                f.path.split(Platform.pathSeparator).last.startsWith('helm_') &&
+                f.path.toLowerCase().endsWith('.csv'),
+          );
+      for (final f in files) {
+        await f.delete();
+      }
+    } catch (_) {
+      // Best-effort cleanup; do not fail export if temp files cannot be removed.
+    }
   }
 }

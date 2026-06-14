@@ -299,8 +299,10 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
     return null;
   }
 
-  // Onboarding done: splash/welcome have nothing useful to show.
-  if (currentPath == RouteNames.splash || currentPath == RouteNames.welcome) {
+  // Onboarding done: splash/welcome/onboarding have nothing useful to show.
+  if (currentPath == RouteNames.splash ||
+      currentPath == RouteNames.welcome ||
+      currentPath == RouteNames.onboarding) {
     return RouteNames.home;
   }
 
