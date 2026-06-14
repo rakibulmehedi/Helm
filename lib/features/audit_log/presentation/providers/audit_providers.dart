@@ -5,8 +5,8 @@
 // D1.05 — Trust Layer: Audit Log
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/features/audit_log/data/datasources/audit_local_data_source.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 /// Provides the [AuditLocalDataSourceImpl] singleton.
 final auditLocalDataSourceProvider = Provider<AuditLocalDataSourceImpl>((ref) {

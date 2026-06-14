@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:helm/core/analytics/event_registry.dart';
 
 void main() {
   group('Boundary events — event name constants', () {

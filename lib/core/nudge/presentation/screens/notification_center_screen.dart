@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
-import 'package:pocketa_v2/core/nudge/presentation/widgets/nudge_card.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
+import 'package:helm/core/nudge/presentation/widgets/nudge_card.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
 
 /// Full-screen notification center showing nudge history grouped by date.
 class NotificationCenterScreen extends ConsumerWidget {
@@ -25,8 +25,8 @@ class NotificationCenterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final entries = ref.watch(nudgeListProvider);
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final grouped = _groupByDate(entries);
 
@@ -46,7 +46,7 @@ class NotificationCenterScreen extends ConsumerWidget {
             TextButton(
               onPressed: () {
                 ref.read(nudgeListProvider.notifier).clearAll();
-                PocketaToast.show(
+                HelmToast.show(
                   context,
                   message: 'All notifications cleared',
                   type: ToastType.neutral,
@@ -64,7 +64,7 @@ class NotificationCenterScreen extends ConsumerWidget {
       body: entries.isEmpty
           ? Center(
               child: Padding(
-                padding: const EdgeInsets.all(PocketaSpacing.s6),
+                padding: const EdgeInsets.all(HelmSpacing.s6),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -73,14 +73,14 @@ class NotificationCenterScreen extends ConsumerWidget {
                       size: 48,
                       color: colors.inkTertiary,
                     ),
-                    const SizedBox(height: PocketaSpacing.s4),
+                    const SizedBox(height: HelmSpacing.s4),
                     Text(
                       'No notifications yet',
                       style: typography.bodyLg.copyWith(
                         color: colors.inkSecondary,
                       ),
                     ),
-                    const SizedBox(height: PocketaSpacing.s2),
+                    const SizedBox(height: HelmSpacing.s2),
                     Text(
                       'Nudges and updates will show here when available.',
                       style: typography.bodySm.copyWith(
@@ -93,10 +93,10 @@ class NotificationCenterScreen extends ConsumerWidget {
               ),
             )
           : ListView.separated(
-              padding: const EdgeInsets.all(PocketaSpacing.s4),
+              padding: const EdgeInsets.all(HelmSpacing.s4),
               itemCount: grouped.length,
               separatorBuilder: (_, _) =>
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
               itemBuilder: (context, index) {
                 final group = grouped[index];
                 return Column(
@@ -105,8 +105,8 @@ class NotificationCenterScreen extends ConsumerWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        left: PocketaSpacing.s1,
-                        bottom: PocketaSpacing.s3,
+                        left: HelmSpacing.s1,
+                        bottom: HelmSpacing.s3,
                       ),
                       child: Text(
                         group.label,
@@ -153,7 +153,7 @@ class NotificationCenterScreen extends ConsumerWidget {
   void _onNudgeDismiss(
       BuildContext context, WidgetRef ref, NudgeLogEntryEntity entry) {
     ref.read(nudgeListProvider.notifier).delete(entry.id);
-    PocketaToast.show(
+    HelmToast.show(
       context,
       message: 'Notification removed',
       type: ToastType.neutral,

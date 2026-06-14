@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appName => 'Pocketa';
+  String get appName => 'Helm';
 
   @override
   String get appTagline => 'How much BDT can you actually spend right now?';
@@ -22,7 +22,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setUpLater => 'Set up later';
 
   @override
-  String get signInToPocketa => 'Sign in to Pocketa';
+  String get signInToHelm => 'Sign in to Helm';
 
   @override
   String get magicLinkSubtitle =>
@@ -95,7 +95,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get disqualifyHeading =>
-      'Pocketa is built for USD-earning freelancers in Bangladesh.';
+      'Helm is built for USD-earning freelancers in Bangladesh.';
 
   @override
   String get disqualifySubtext =>

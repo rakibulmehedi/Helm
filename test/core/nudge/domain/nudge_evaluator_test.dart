@@ -4,8 +4,8 @@
 // Pure Dart — no Flutter dependencies. 13+ tests covering all rule conditions.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_evaluator.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/nudge/domain/nudge_evaluator.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 void main() {
   group('NudgeEvaluator — Rule priority', () {

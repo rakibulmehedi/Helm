@@ -10,14 +10,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/utils/id_generator.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_money_source_label.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/features/income/presentation/widgets/confirm_received_sheet.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/widgets/helm_money_source_label.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/features/income/presentation/widgets/confirm_received_sheet.dart';
 
 class PipelineEntryCard extends ConsumerWidget {
   final IncomeEntryEntity entry;
@@ -39,7 +39,7 @@ class PipelineEntryCard extends ConsumerWidget {
     );
   }
 
-  Color _railColor(IncomeEntryEntity e, PocketaColors colors) {
+  Color _railColor(IncomeEntryEntity e, HelmColors colors) {
     if (_isOverdue(e)) return colors.stateAtRisk;
     switch (e.status) {
       case IncomeStatus.expected:
@@ -79,7 +79,7 @@ class PipelineEntryCard extends ConsumerWidget {
   // Date label
   // ---------------------------------------------------------------------------
 
-  Widget _dateLabel(IncomeEntryEntity e, PocketaColors colors, TextStyle base) {
+  Widget _dateLabel(IncomeEntryEntity e, HelmColors colors, TextStyle base) {
     if (_isOverdue(e)) {
       final days = DateTime.now()
           .difference(e.expectedDate)
@@ -121,21 +121,21 @@ class PipelineEntryCard extends ConsumerWidget {
       backgroundColor: context.colors.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(PocketaSpacing.sheetTopRadius),
+          top: Radius.circular(HelmSpacing.sheetTopRadius),
         ),
       ),
       builder: (sheetCtx) {
         return SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: PocketaSpacing.s4,
-              vertical: PocketaSpacing.s3,
+              horizontal: HelmSpacing.s4,
+              vertical: HelmSpacing.s3,
             ),
             child: ListTile(
               leading: Icon(
                 Icons.copy_outlined,
                 color: sheetCtx.colors.interactive,
-                size: PocketaSpacing.iconMd,
+                size: HelmSpacing.iconMd,
               ),
               title: Text(
                 'Duplicate as next month',
@@ -195,7 +195,7 @@ class PipelineEntryCard extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
           color: colors.surface,
-          borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           boxShadow: [
             BoxShadow(
               color: colors.inkPrimary.withValues(alpha: 0.06),
@@ -217,7 +217,7 @@ class PipelineEntryCard extends ConsumerWidget {
               // Card content
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(PocketaSpacing.s4),
+                  padding: const EdgeInsets.all(HelmSpacing.s4),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
@@ -240,7 +240,7 @@ class PipelineEntryCard extends ConsumerWidget {
                         ],
                       ),
 
-                      const SizedBox(height: PocketaSpacing.s2),
+                      const SizedBox(height: HelmSpacing.s2),
 
                       // Row 2: client name + expected date label
                       Row(
@@ -255,7 +255,7 @@ class PipelineEntryCard extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const SizedBox(width: PocketaSpacing.s2),
+                          const SizedBox(width: HelmSpacing.s2),
                           _dateLabel(
                             entry,
                             colors,
@@ -266,13 +266,13 @@ class PipelineEntryCard extends ConsumerWidget {
 
                       // Row 3: source label (optional)
                       if (entry.sourceLabel != null) ...[
-                        const SizedBox(height: PocketaSpacing.s2),
-                        PocketaMoneySourceLabel(source: entry.sourceLabel!),
+                        const SizedBox(height: HelmSpacing.s2),
+                        HelmMoneySourceLabel(source: entry.sourceLabel!),
                       ],
 
                       // Row 4: excluded from calculation notice
                       if (entry.excludeFromCalculation) ...[
-                        const SizedBox(height: PocketaSpacing.s1),
+                        const SizedBox(height: HelmSpacing.s1),
                         Text(
                           'Not counted yet',
                           style: typo.labelSm.copyWith(
@@ -311,7 +311,7 @@ class PipelineEntryCard extends ConsumerWidget {
 // ---------------------------------------------------------------------------
 
 class _SwipeBackground extends StatelessWidget {
-  final PocketaColors colors;
+  final HelmColors colors;
   const _SwipeBackground({required this.colors});
 
   @override
@@ -319,19 +319,19 @@ class _SwipeBackground extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.stateSafe.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.only(left: PocketaSpacing.s4),
+      padding: const EdgeInsets.only(left: HelmSpacing.s4),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
             Icons.check_circle_outline,
             color: colors.stateSafe,
-            size: PocketaSpacing.iconMd,
+            size: HelmSpacing.iconMd,
           ),
-          const SizedBox(width: PocketaSpacing.s2),
+          const SizedBox(width: HelmSpacing.s2),
           Text(
             'Confirm received',
             style: context.textStyles.labelMd.copyWith(color: colors.stateSafe),
@@ -356,12 +356,12 @@ class _StateBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: PocketaSpacing.s2,
-        vertical: PocketaSpacing.s1,
+        horizontal: HelmSpacing.s2,
+        vertical: HelmSpacing.s1,
       ),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(PocketaSpacing.s2),
+        borderRadius: BorderRadius.circular(HelmSpacing.s2),
       ),
       child: Text(
         label,

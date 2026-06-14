@@ -3,10 +3,10 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 class QualifyingQuestionPage extends StatefulWidget {
   final VoidCallback onQualified;
@@ -54,8 +54,8 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return GestureDetector(
       onTap: _onInteraction,
@@ -64,7 +64,7 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: PocketaSpacing.screenEdge,
+              horizontal: HelmSpacing.screenEdge,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -77,27 +77,27 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                     style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
                   Text(
                     'If you earn in USD and spend in BDT — through\nUpwork, Fiverr, or Payoneer — this happens a lot.',
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: PocketaSpacing.s6),
+                  const SizedBox(height: HelmSpacing.s6),
                   if (_showRephrase) ...[
                     Text(
                       'আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?',
                       style: typo.bodyMd.copyWith(color: colors.inkTertiary),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: PocketaSpacing.s4),
+                    const SizedBox(height: HelmSpacing.s4),
                   ],
                   Text(
                     'Does that sound familiar?',
                     style: typo.headingMd.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: PocketaSpacing.s6),
+                  const SizedBox(height: HelmSpacing.s6),
                   AppButton(
                     label: 'Yes, that happens to me',
                     onPressed: () {
@@ -106,7 +106,7 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                     },
                     isEnabled: true,
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   AppButton(
                     label: 'No, I always know exactly what cleared',
                     onPressed: () {
@@ -118,17 +118,17 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                   ),
                 ] else ...[
                   Text(
-                    'Pocketa is built for USD-earning freelancers in Bangladesh.',
+                    'Helm is built for USD-earning freelancers in Bangladesh.',
                     style: typo.headingMd.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
                   Text(
                     'Come back when you start billing internationally.',
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: PocketaSpacing.s8),
+                  const SizedBox(height: HelmSpacing.s8),
                   AppButton(
                     label: 'Close',
                     onPressed: widget.onDisqualified,

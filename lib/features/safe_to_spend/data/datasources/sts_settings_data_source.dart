@@ -1,8 +1,8 @@
 // lib/features/safe_to_spend/data/datasources/sts_settings_data_source.dart
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:pocketa_v2/features/audit_log/data/datasources/audit_local_data_source.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 abstract class StsSettingsDataSource {
   Future<double?> getTaxRate();

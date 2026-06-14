@@ -1,6 +1,6 @@
 // lib/features/auth/domain/entities/auth_state.dart
 //
-// Core auth domain entity for Pocketa Trust Layer (D1).
+// Core auth domain entity for Helm Trust Layer (D1).
 // No Hive dependency — pure domain model.
 
 enum AuthStatus { setupRequired, authenticated, locked }

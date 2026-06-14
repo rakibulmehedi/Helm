@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 // Slider anchor points
 const List<int> _anchors = [5, 15, 25, 30];
@@ -51,7 +51,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
 
     _tooltipController = AnimationController(
       vsync: this,
-      duration: PocketaMotion.fast,
+      duration: HelmMotion.fast,
     );
     _tooltipAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _tooltipController, curve: Curves.easeOut),
@@ -60,7 +60,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
     // Page entry animation
     _entryController = AnimationController(
       vsync: this,
-      duration: PocketaMotion.slow,
+      duration: HelmMotion.slow,
     );
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _entryController, curve: Curves.easeOut),
@@ -69,7 +69,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
       begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _entryController, curve: PocketaMotion.defaultCurve),
+      CurvedAnimation(parent: _entryController, curve: HelmMotion.defaultCurve),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -125,8 +125,8 @@ class _BufferComfortPageState extends State<BufferComfortPage>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     final s2sColor =
         _s2sPreview >= 0 ? colors.stateSafe : colors.stateAtRisk;
@@ -141,31 +141,31 @@ class _BufferComfortPageState extends State<BufferComfortPage>
             children: [
               // Progress indicator — step 6
           LinearProgressIndicator(
-            value: PocketaSpacing.onboardingBuffer,
+            value: HelmSpacing.onboardingBuffer,
             backgroundColor: colors.hairline,
             color: colors.interactive,
-            minHeight: PocketaSpacing.progressBarHeight,
+            minHeight: HelmSpacing.progressBarHeight,
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  horizontal: PocketaSpacing.screenEdge),
+                  horizontal: HelmSpacing.screenEdge),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: PocketaSpacing.s10),
+                  const SizedBox(height: HelmSpacing.s10),
                   Text(
                     'Set your safety buffer',
                     style:
                         typo.headingLg.copyWith(color: colors.inkPrimary),
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   Text(
                     'This is not locked money. It is a safety margin inside the calculation.',
                     style:
                         typo.bodyLg.copyWith(color: colors.inkSecondary),
                   ),
-                  const SizedBox(height: PocketaSpacing.s8),
+                  const SizedBox(height: HelmSpacing.s8),
 
                   // Slider with floating tooltip
                   Stack(
@@ -179,7 +179,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                           thumbColor: colors.interactive,
                           overlayColor: colors.interactive
                               .withValues(alpha: 0.12),
-                          trackHeight: PocketaSpacing.progressBarHeightOnboarding,
+                          trackHeight: HelmSpacing.progressBarHeightOnboarding,
                         ),
                         child: Semantics(
                           label: 'Safety buffer slider: $_bufferPercent%',
@@ -203,13 +203,13 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                             opacity: _tooltipAnimation,
                             child: Container(
                               padding: const EdgeInsets.symmetric(
-                                horizontal: PocketaSpacing.s2,
-                                vertical: PocketaSpacing.s1,
+                                horizontal: HelmSpacing.s2,
+                                vertical: HelmSpacing.s1,
                               ),
                               decoration: BoxDecoration(
                                 color: colors.inkPrimary,
                                 borderRadius: BorderRadius.circular(
-                                    PocketaSpacing.s1),
+                                    HelmSpacing.s1),
                               ),
                               child: Text(
                                 '$_bufferPercent%',
@@ -246,7 +246,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                         .toList(),
                   ),
 
-                  const SizedBox(height: PocketaSpacing.s8),
+                  const SizedBox(height: HelmSpacing.s8),
 
                   // Live BDT preview card
                   Semantics(
@@ -254,11 +254,11 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                         ? 'Safe to spend preview: $_bufferPercent% buffer of total'
                         : 'Safe to spend preview shows negative balance',
                     child: Container(
-                      padding: const EdgeInsets.all(PocketaSpacing.s4),
+                      padding: const EdgeInsets.all(HelmSpacing.s4),
                       decoration: BoxDecoration(
                         color: colors.surface,
                         borderRadius: BorderRadius.circular(
-                            PocketaSpacing.cardRadius),
+                            HelmSpacing.cardRadius),
                         border: Border.all(color: colors.hairline),
                       ),
                       child: Column(
@@ -282,7 +282,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                           ),
                           Divider(
                               color: colors.hairline,
-                              height: PocketaSpacing.s6),
+                              height: HelmSpacing.s6),
                           Row(
                             mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
@@ -300,15 +300,15 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                             ],
                           ),
                           if (_s2sPreview < 0) ...[
-                            const SizedBox(height: PocketaSpacing.s2),
+                            const SizedBox(height: HelmSpacing.s2),
                             Row(
                               children: [
                                 Icon(
                                   Icons.info_outline_rounded,
-                                  size: PocketaSpacing.iconSm,
+                                  size: HelmSpacing.iconSm,
                                   color: colors.stateAtRisk,
                                 ),
-                                const SizedBox(width: PocketaSpacing.s1),
+                                const SizedBox(width: HelmSpacing.s1),
                                 Expanded(
                                   child: Text(
                                     'Your costs exceed liquid balance. Adjust buffer or add expected income.',
@@ -334,7 +334,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                     },
                     isEnabled: true,
                   ),
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
                 ],
               ),
             ),

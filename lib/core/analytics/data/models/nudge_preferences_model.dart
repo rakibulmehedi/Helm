@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/analytics/domain/nudge_preferences_entity.dart';
+import 'package:helm/core/analytics/domain/nudge_preferences_entity.dart';
 
 part 'nudge_preferences_model.g.dart';
 

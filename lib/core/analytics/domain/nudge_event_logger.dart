@@ -3,8 +3,8 @@
 // P2.5 — NudgeEventLogger: structured analytics for nudge lifecycle events.
 // Tracks sent, opened, dismissed, and actioned events with consistent properties.
 
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_repository.dart';
 
 /// Reasons a nudge can be dismissed by the user.
 enum DismissReason {

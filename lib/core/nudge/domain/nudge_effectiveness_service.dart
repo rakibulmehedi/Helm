@@ -4,9 +4,9 @@
 // Reads from NudgeLogEntry + AnalyticsRepository to compute rates.
 
 import 'package:flutter/foundation.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/analytics/domain/analytics_repository.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 /// Per-nudge-type effectiveness metrics.
 @immutable

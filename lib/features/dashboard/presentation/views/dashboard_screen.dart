@@ -12,12 +12,12 @@
 //   - Dev reset button in production (UX-1.11)
 //
 // Added:
-//   - PocketaRealityStack with 4 named tiers (UX-1.01)
+//   - HelmRealityStack with 4 named tiers (UX-1.01)
 //   - S2sHeroBlock: SAFE-TO-SPEND cockpit (UX-1.03)
 //   - CommittedSection: fixed-cost pressure (UX-1.04)
 //   - ReserveSection: anxiety buffer (UX-1.05)
 //   - NotCountedSection: pipeline hope tier (UX-1.06)
-//   - PocketaCalculationTrace on hero tap (UX-1.09)
+//   - HelmCalculationTrace on hero tap (UX-1.09)
 //   - FAB "Add Pipeline Entry" → addIncome route (UX-1.10)
 //   - kDebugMode gate on dev reset button (UX-1.11)
 // D2.03 — analytics: stsViewed + dailyActiveSession on initState,
@@ -28,26 +28,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_calculation_trace.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_reality_stack.dart';
-import 'package:pocketa_v2/core/widgets/next_best_action_card.dart';
-import 'package:pocketa_v2/features/dashboard/domain/affirmation.dart';
-import 'package:pocketa_v2/features/dashboard/presentation/widgets/committed_section.dart';
-import 'package:pocketa_v2/features/dashboard/presentation/widgets/not_counted_section.dart';
-import 'package:pocketa_v2/features/dashboard/presentation/widgets/reserve_section.dart';
-import 'package:pocketa_v2/features/dashboard/presentation/widgets/s2s_hero_block.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
-import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_calculation_trace.dart';
+import 'package:helm/core/widgets/helm_reality_stack.dart';
+import 'package:helm/core/widgets/next_best_action_card.dart';
+import 'package:helm/features/dashboard/domain/affirmation.dart';
+import 'package:helm/features/dashboard/presentation/widgets/committed_section.dart';
+import 'package:helm/features/dashboard/presentation/widgets/not_counted_section.dart';
+import 'package:helm/features/dashboard/presentation/widgets/reserve_section.dart';
+import 'package:helm/features/dashboard/presentation/widgets/s2s_hero_block.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 
 class DashboardScreen extends ConsumerStatefulWidget {
   const DashboardScreen({super.key});
@@ -182,8 +182,8 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
     final stsResult = ref.watch(safeToSpendProvider);
     final incomeEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
@@ -196,7 +196,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(
-        title: Text('Pocketa', style: typography.headingMd),
+        title: Text('Helm', style: typography.headingMd),
         centerTitle: false,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -226,7 +226,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(
-            top: PocketaSpacing.s4,
+            top: HelmSpacing.s4,
             bottom: 100, // FAB + bottom nav clearance
           ),
           child: Column(
@@ -235,9 +235,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               if (_showStsHint)
                 Padding(
                   padding: const EdgeInsets.only(
-                    left: PocketaSpacing.screenEdge,
-                    right: PocketaSpacing.screenEdge,
-                    bottom: PocketaSpacing.s3,
+                    left: HelmSpacing.screenEdge,
+                    right: HelmSpacing.screenEdge,
+                    bottom: HelmSpacing.s3,
                   ),
                   child: GestureDetector(
                     onTap: _dismissStsHint,
@@ -269,7 +269,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     ),
                   ),
                 ),
-              PocketaRealityStack(
+              HelmRealityStack(
             // Tier 1 — Hero: dominant S2S answer.
             heroTier: S2sHeroBlock(
               result: stsResult,
@@ -281,7 +281,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ref
                     .read(analyticsProvider)
                     .trackEvent(TransactionalEvents.calculationBreakdownOpened);
-                PocketaCalculationTrace.show(context, stsResult);
+                HelmCalculationTrace.show(context, stsResult);
               },
             ),
             // Tier 2 — Pressure: committed + reserve stacked.
@@ -294,7 +294,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                   onSetupFixedCosts: () =>
                       context.push(RouteNames.stsSettings),
                 ),
-                const SizedBox(height: PocketaSpacing.s4),
+                const SizedBox(height: HelmSpacing.s4),
                 ReserveSection(result: stsResult),
               ],
             ),

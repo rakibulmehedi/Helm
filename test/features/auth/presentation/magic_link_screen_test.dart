@@ -6,10 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
 
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/core/themes/app_theme.dart';
-import 'package:pocketa_v2/features/auth/data/models/session_model.dart';
-import 'package:pocketa_v2/features/auth/presentation/views/magic_link_screen.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/themes/app_theme.dart';
+import 'package:helm/features/auth/data/models/session_model.dart';
+import 'package:helm/features/auth/presentation/views/magic_link_screen.dart';
 
 void main() {
   late Directory tempDir;
@@ -40,9 +40,9 @@ void main() {
       );
     }
 
-    testWidgets('shows "Sign in to Pocketa" header', (tester) async {
+    testWidgets('shows "Sign in to Helm" header', (tester) async {
       await tester.pumpWidget(buildTestWidget());
-      expect(find.text('Sign in to Pocketa'), findsOneWidget);
+      expect(find.text('Sign in to Helm'), findsOneWidget);
     });
 
     testWidgets('shows email input field', (tester) async {
@@ -95,7 +95,7 @@ void main() {
       await tester.tap(find.text('← Use a different email'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Sign in to Pocketa'), findsOneWidget);
+      expect(find.text('Sign in to Helm'), findsOneWidget);
     });
 
     testWidgets('shows error for invalid verification token', (tester) async {

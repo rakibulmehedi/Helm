@@ -6,11 +6,11 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_amount.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Reserve protected" section: anxiety buffer kept for peace of mind.
 ///
@@ -25,8 +25,8 @@ class ReserveSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +37,7 @@ class ReserveSection extends StatelessWidget {
           'Safety buffer',
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
-        const SizedBox(height: PocketaSpacing.s1),
+        const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
@@ -45,7 +45,7 @@ class ReserveSection extends StatelessWidget {
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
-        const SizedBox(height: PocketaSpacing.s3),
+        const SizedBox(height: HelmSpacing.s3),
 
         if (result.anxietyBuffer == 0)
           Text(
@@ -53,7 +53,7 @@ class ReserveSection extends StatelessWidget {
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           )
         else
-          PocketaAmount(
+          HelmAmount(
             amount: result.anxietyBuffer,
             size: AmountSize.lg,
           ),

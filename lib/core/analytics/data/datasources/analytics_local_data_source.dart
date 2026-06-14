@@ -3,9 +3,9 @@
 // Interface and Hive implementation for analytics event local persistence.
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/models/analytics_event_model.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/models/analytics_event_model.dart';
 
 abstract class AnalyticsLocalDataSource {
   /// Save a new analytics event locally.

@@ -4,17 +4,17 @@
 // Pipeline summary: "Not counted yet".
 // CRITICAL UX rules:
 //   - MUST be labeled "Not counted yet" — never "Pending income" or "Expected income".
-//   - ALL PocketaAmount widgets use dimmed: true (hope tier = lower confidence).
+//   - ALL HelmAmount widgets use dimmed: true (hope tier = lower confidence).
 //   - Section header uses inkSecondary (NOT inkPrimary) to signal lower prominence.
 //   - Must never visually equal usable BDT (stays visually subordinate to S2S).
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_amount.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Not counted yet" pipeline section.
 ///
@@ -39,8 +39,8 @@ class NotCountedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +51,7 @@ class NotCountedSection extends StatelessWidget {
           'Not counted yet',
           style: typography.headingSm.copyWith(color: colors.inkSecondary),
         ),
-        const SizedBox(height: PocketaSpacing.s1),
+        const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
@@ -59,7 +59,7 @@ class NotCountedSection extends StatelessWidget {
           style: typography.bodySm.copyWith(color: colors.inkTertiary),
         ),
 
-        const SizedBox(height: PocketaSpacing.s3),
+        const SizedBox(height: HelmSpacing.s3),
 
         if (_isEmpty) ...[
           Text(
@@ -67,7 +67,7 @@ class NotCountedSection extends StatelessWidget {
             style: typography.bodySm.copyWith(color: colors.inkTertiary),
           ),
           if (onAddPipelineEntry != null) ...[
-            const SizedBox(height: PocketaSpacing.s2),
+            const SizedBox(height: HelmSpacing.s2),
             GestureDetector(
               onTap: onAddPipelineEntry,
               child: Text(
@@ -83,13 +83,13 @@ class NotCountedSection extends StatelessWidget {
               'Pending',
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
-            const SizedBox(height: PocketaSpacing.s1),
-            PocketaAmount(
+            const SizedBox(height: HelmSpacing.s1),
+            HelmAmount(
               amount: result.pendingIncome,
               size: AmountSize.md,
               dimmed: true,
             ),
-            const SizedBox(height: PocketaSpacing.s3),
+            const SizedBox(height: HelmSpacing.s3),
           ],
 
           // Expected income row
@@ -98,8 +98,8 @@ class NotCountedSection extends StatelessWidget {
               'Expected',
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
-            const SizedBox(height: PocketaSpacing.s1),
-            PocketaAmount(
+            const SizedBox(height: HelmSpacing.s1),
+            HelmAmount(
               amount: result.expectedIncome,
               size: AmountSize.md,
               dimmed: true,
@@ -108,19 +108,19 @@ class NotCountedSection extends StatelessWidget {
 
           // Horizon number row — below a hairline divider.
           if (result.horizonNumber > 0) ...[
-            const SizedBox(height: PocketaSpacing.s3),
+            const SizedBox(height: HelmSpacing.s3),
             Divider(
               color: colors.hairline,
               thickness: 1,
               height: 1,
             ),
-            const SizedBox(height: PocketaSpacing.s3),
+            const SizedBox(height: HelmSpacing.s3),
             Text(
               'If all counted:',
               style: typography.bodySm.copyWith(color: colors.inkTertiary),
             ),
-            const SizedBox(height: PocketaSpacing.s1),
-            PocketaAmount(
+            const SizedBox(height: HelmSpacing.s1),
+            HelmAmount(
               amount: result.horizonNumber,
               size: AmountSize.md,
               dimmed: true,

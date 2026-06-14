@@ -2,7 +2,7 @@
 //
 // Abstract repository contract specifying analytics persistence operations.
 
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
 
 abstract interface class AnalyticsRepository {
   /// Save a new analytics event to local storage.

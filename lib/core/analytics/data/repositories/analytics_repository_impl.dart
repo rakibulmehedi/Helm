@@ -2,9 +2,9 @@
 //
 // Concrete implementation of AnalyticsRepository.
 
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
-import 'package:pocketa_v2/core/analytics/data/datasources/analytics_local_data_source.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_repository.dart';
+import 'package:helm/core/analytics/data/datasources/analytics_local_data_source.dart';
 
 class AnalyticsRepositoryImpl implements AnalyticsRepository {
   final AnalyticsLocalDataSource _localDataSource;

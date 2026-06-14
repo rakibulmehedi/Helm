@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/core/themes/app_theme.dart';
-import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
-import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/themes/app_theme.dart';
+import 'package:helm/core/analytics/data/models/nudge_preferences_model.dart';
+import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
 
 void main() {
   late Directory tempDir;

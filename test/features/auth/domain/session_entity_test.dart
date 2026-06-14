@@ -1,7 +1,7 @@
 // test/features/auth/domain/session_entity_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 void main() {
   group('SessionEntity', () {

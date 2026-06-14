@@ -4,7 +4,7 @@
 // Pure domain — no framework dependencies.
 
 import 'package:flutter/foundation.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 /// Immutable result of a single nudge evaluation.
 ///

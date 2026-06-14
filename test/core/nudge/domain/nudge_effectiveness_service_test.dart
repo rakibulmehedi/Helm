@@ -3,11 +3,11 @@
 // Tests for NudgeEffectivenessService (Phase 3, Group 3E).
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_effectiveness_service.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_repository.dart';
+import 'package:helm/core/nudge/domain/nudge_effectiveness_service.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 class FakeEffectivenessRepo implements AnalyticsRepository {
   final List<AnalyticsEventEntity> events = [];

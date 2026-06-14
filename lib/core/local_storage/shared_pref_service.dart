@@ -1,4 +1,4 @@
-import 'package:pocketa_v2/core/constants/app_language.dart';
+import 'package:helm/core/constants/app_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefServices {

@@ -7,10 +7,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
-import 'package:pocketa_v2/features/audit_log/presentation/providers/audit_providers.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/presentation/providers/audit_providers.dart';
 
 class AuditLogScreen extends ConsumerWidget {
   const AuditLogScreen({super.key});
@@ -75,8 +75,8 @@ class _AuditEventTile extends StatelessWidget {
       ),
       subtitle: Text(
         _formatTimestamp(event.timestamp),
-        style: Theme.of(context).extension<PocketaTypography>()!.labelSm.copyWith(
-          color: Theme.of(context).extension<PocketaColors>()!.inkTertiary,
+        style: Theme.of(context).extension<HelmTypography>()!.labelSm.copyWith(
+          color: Theme.of(context).extension<HelmColors>()!.inkTertiary,
         ),
       ),
     );
@@ -98,7 +98,7 @@ class _AuditEventTile extends StatelessWidget {
   }
 
   Color _colorFor(BuildContext context, AuditEventType type) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
     switch (type) {
       case AuditEventType.created:
         return colors.stateSafe;

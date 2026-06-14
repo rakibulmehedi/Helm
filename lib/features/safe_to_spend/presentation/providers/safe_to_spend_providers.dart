@@ -1,20 +1,20 @@
 // lib/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/datasources/sts_settings_data_source.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/repositories/fixed_cost_repository_impl.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/repositories/sts_settings_repository_impl.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/sts_settings.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/repositories/fixed_cost_repository.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/repositories/sts_settings_repository.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/safe_to_spend_calculator.dart';
-import 'package:pocketa_v2/features/transactions/presentation/providers/transaction_provider.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart';
+import 'package:helm/features/safe_to_spend/data/datasources/sts_settings_data_source.dart';
+import 'package:helm/features/safe_to_spend/data/repositories/fixed_cost_repository_impl.dart';
+import 'package:helm/features/safe_to_spend/data/repositories/sts_settings_repository_impl.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/sts_settings.dart';
+import 'package:helm/features/safe_to_spend/domain/repositories/fixed_cost_repository.dart';
+import 'package:helm/features/safe_to_spend/domain/repositories/sts_settings_repository.dart';
+import 'package:helm/features/safe_to_spend/domain/safe_to_spend_calculator.dart';
+import 'package:helm/features/transactions/presentation/providers/transaction_provider.dart';
 
 // --- Data Sources ---
 final fixedCostDataSourceProvider = Provider<FixedCostLocalDataSource>((ref) {

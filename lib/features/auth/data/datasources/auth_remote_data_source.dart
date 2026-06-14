@@ -6,7 +6,7 @@
 
 import 'dart:math';
 
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 class AuthRemoteDataSource {
   static const _magicLinkRateLimitSeconds = 20;

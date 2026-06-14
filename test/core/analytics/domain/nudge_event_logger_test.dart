@@ -1,9 +1,9 @@
 // test/core/analytics/domain/nudge_event_logger_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_repository.dart';
-import 'package:pocketa_v2/core/analytics/domain/nudge_event_logger.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_repository.dart';
+import 'package:helm/core/analytics/domain/nudge_event_logger.dart';
 
 class FakeAnalyticsRepository implements AnalyticsRepository {
   final List<AnalyticsEventEntity> events = [];

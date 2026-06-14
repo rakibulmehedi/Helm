@@ -6,12 +6,12 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/cards/pocketa_ledger_card.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_amount.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/cards/helm_ledger_card.dart';
+import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Already committed" section: fixed costs due this month.
 ///
@@ -31,8 +31,8 @@ class CommittedSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final Widget sectionContent = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +43,7 @@ class CommittedSection extends StatelessWidget {
           'Fixed costs',
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
-        const SizedBox(height: PocketaSpacing.s1),
+        const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
@@ -51,7 +51,7 @@ class CommittedSection extends StatelessWidget {
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
-        const SizedBox(height: PocketaSpacing.s3),
+        const SizedBox(height: HelmSpacing.s3),
 
         if (result.fixedCostsDue == 0) ...[
           Text(
@@ -59,7 +59,7 @@ class CommittedSection extends StatelessWidget {
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           ),
           if (onSetupFixedCosts != null) ...[
-            const SizedBox(height: PocketaSpacing.s2),
+            const SizedBox(height: HelmSpacing.s2),
             GestureDetector(
               onTap: onSetupFixedCosts,
               child: Text(
@@ -69,14 +69,14 @@ class CommittedSection extends StatelessWidget {
             ),
           ],
         ] else
-          PocketaAmount(
+          HelmAmount(
             amount: result.fixedCostsDue,
             size: AmountSize.lg,
           ),
       ],
     );
 
-    return PocketaLedgerCard(
+    return HelmLedgerCard(
       child: sectionContent,
     );
   }

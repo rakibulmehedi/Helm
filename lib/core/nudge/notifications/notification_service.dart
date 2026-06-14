@@ -45,8 +45,8 @@ class FlutterNotificationService implements NotificationService {
   FlutterNotificationService({FlutterLocalNotificationsPlugin? plugin})
       : _plugin = plugin ?? FlutterLocalNotificationsPlugin();
 
-  static const _androidChannelId = 'pocketa_nudges';
-  static const _androidChannelName = 'Pocketa Nudges';
+  static const _androidChannelId = 'helm_nudges';
+  static const _androidChannelName = 'Helm Nudges';
   static const _androidChannelDesc = 'Pipeline updates and nudges';
 
   @override

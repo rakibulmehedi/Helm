@@ -13,7 +13,7 @@
 // Phase 7a — Income Data Layer
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 
 part 'income_model.g.dart';
 

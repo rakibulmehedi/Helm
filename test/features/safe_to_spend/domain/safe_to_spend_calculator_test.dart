@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/sts_settings.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/safe_to_spend_calculator.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_entity.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/sts_settings.dart';
+import 'package:helm/features/safe_to_spend/domain/safe_to_spend_calculator.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 
 void main() {
   group('SafeToSpendCalculator', () {

@@ -11,7 +11,7 @@
 //   ONB-014: no confetti, no "Welcome!", no tour
 //
 // UX Improvements:
-//   - Uses PocketaMotion tokens for page transitions
+//   - Uses HelmMotion tokens for page transitions
 //   - Semantics for screen reader support
 //   - Proper skip button label for accessibility
 
@@ -19,37 +19,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/utils/id_generator.dart';
-import 'package:pocketa_v2/features/onboarding/domain/onboarding_draft.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/buffer_comfort_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/fixed_costs_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/income_pattern_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/liquid_balance_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/first_pipeline_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/widgets/onboarding_progress_line.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
-import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/buffer_comfort_page.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/fixed_costs_page.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/income_pattern_page.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/liquid_balance_page.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/first_pipeline_page.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
+import 'package:helm/features/onboarding/presentation/widgets/onboarding_progress_line.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
+import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
 
 // ONB-003 progress values per step (6 steps)
 final List<double> _kStepProgress = [
   0.0,
-  PocketaSpacing.onboardingSteps[0], // 0.20
-  PocketaSpacing.onboardingSteps[1], // 0.40
-  PocketaSpacing.onboardingSteps[2], // 0.55
-  PocketaSpacing.onboardingSteps[3], // 0.70
-  PocketaSpacing.onboardingSteps[4], // 0.90
+  HelmSpacing.onboardingSteps[0], // 0.20
+  HelmSpacing.onboardingSteps[1], // 0.40
+  HelmSpacing.onboardingSteps[2], // 0.55
+  HelmSpacing.onboardingSteps[3], // 0.70
+  HelmSpacing.onboardingSteps[4], // 0.90
 ];
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -68,8 +68,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     setState(() => _currentStep = step);
     _pageController.animateToPage(
       step,
-      duration: PocketaMotion.slow,
-      curve: PocketaMotion.defaultCurve,
+      duration: HelmMotion.slow,
+      curve: HelmMotion.defaultCurve,
     );
     if (step > 0) {
       ref.read(analyticsProvider).trackEvent(
@@ -164,8 +164,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -181,7 +181,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 ),
                 Positioned(
                   top: 8,
-                  right: PocketaSpacing.screenEdge,
+                  right: HelmSpacing.screenEdge,
                   child: Semantics(
                     label: 'Skip onboarding setup, save progress and go to home',
                     button: true,

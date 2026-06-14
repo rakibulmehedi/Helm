@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
+import 'package:helm/core/analytics/event_registry.dart';
 
 void main() {
   group('P4 instrumentation events — TransactionalEvents', () {

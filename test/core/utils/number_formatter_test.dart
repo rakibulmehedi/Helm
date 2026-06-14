@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/utils/number_formatter.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 
 void main() {
   group('NumberFormatter.formatBDT', () {

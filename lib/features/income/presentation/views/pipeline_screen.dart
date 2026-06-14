@@ -15,21 +15,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/features/income/presentation/widgets/pipeline_entry_card.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/features/income/presentation/widgets/pipeline_entry_card.dart';
 
 class PipelineScreen extends ConsumerWidget {
   const PipelineScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     final entries = ref.watch(incomeNotifierProvider);
 
     final now = DateTime.now();
@@ -89,10 +89,10 @@ class PipelineScreen extends ConsumerWidget {
       body: hasAny
           ? ListView(
               padding: const EdgeInsets.fromLTRB(
-                PocketaSpacing.screenEdge,
+                HelmSpacing.screenEdge,
                 0,
-                PocketaSpacing.screenEdge,
-                PocketaSpacing.s6,
+                HelmSpacing.screenEdge,
+                HelmSpacing.s6,
               ),
               children: [
                 if (needsDecision.isNotEmpty) ...[
@@ -104,13 +104,13 @@ class PipelineScreen extends ConsumerWidget {
                     typo: typo,
                     colors: colors,
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   ...needsDecision.map((e) => Padding(
                         padding:
-                            const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                            const EdgeInsets.only(bottom: HelmSpacing.s2),
                         child: PipelineEntryCard(entry: e),
                       )),
-                  const SizedBox(height: PocketaSpacing.s3),
+                  const SizedBox(height: HelmSpacing.s3),
                 ],
                 if (overdue.isNotEmpty) ...[
                   _SectionHeader(
@@ -121,13 +121,13 @@ class PipelineScreen extends ConsumerWidget {
                     typo: typo,
                     colors: colors,
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   ...overdue.map((e) => Padding(
                         padding:
-                            const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                            const EdgeInsets.only(bottom: HelmSpacing.s2),
                         child: PipelineEntryCard(entry: e),
                       )),
-                  const SizedBox(height: PocketaSpacing.s3),
+                  const SizedBox(height: HelmSpacing.s3),
                 ],
                 if (pending.isNotEmpty) ...[
                   _SectionHeader(
@@ -138,13 +138,13 @@ class PipelineScreen extends ConsumerWidget {
                     typo: typo,
                     colors: colors,
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   ...pending.map((e) => Padding(
                         padding:
-                            const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                            const EdgeInsets.only(bottom: HelmSpacing.s2),
                         child: PipelineEntryCard(entry: e),
                       )),
-                  const SizedBox(height: PocketaSpacing.s3),
+                  const SizedBox(height: HelmSpacing.s3),
                 ],
                 if (expected.isNotEmpty) ...[
                   _SectionHeader(
@@ -155,13 +155,13 @@ class PipelineScreen extends ConsumerWidget {
                     typo: typo,
                     colors: colors,
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   ...expected.map((e) => Padding(
                         padding:
-                            const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                            const EdgeInsets.only(bottom: HelmSpacing.s2),
                         child: PipelineEntryCard(entry: e),
                       )),
-                  const SizedBox(height: PocketaSpacing.s3),
+                  const SizedBox(height: HelmSpacing.s3),
                 ],
                 if (received.isNotEmpty)
                   _ReceivedSection(
@@ -192,8 +192,8 @@ class _SectionHeader extends StatelessWidget {
   final int count;
   final double total;
   final Color color;
-  final PocketaTypography typo;
-  final PocketaColors colors;
+  final HelmTypography typo;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +201,7 @@ class _SectionHeader extends StatelessWidget {
     return Row(
       children: [
         Container(width: 3, height: 14, color: color),
-        const SizedBox(width: PocketaSpacing.s2),
+        const SizedBox(width: HelmSpacing.s2),
         Text(label, style: typo.labelMd.copyWith(color: color)),
         const Spacer(),
         Text(
@@ -223,8 +223,8 @@ class _ReceivedSection extends StatefulWidget {
   });
 
   final List<IncomeEntryEntity> entries;
-  final PocketaColors colors;
-  final PocketaTypography typo;
+  final HelmColors colors;
+  final HelmTypography typo;
 
   @override
   State<_ReceivedSection> createState() => _ReceivedSectionState();
@@ -245,12 +245,12 @@ class _ReceivedSectionState extends State<_ReceivedSection> {
           onTap: () => setState(() => _expanded = !_expanded),
           borderRadius: BorderRadius.circular(4),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: PocketaSpacing.s1),
+            padding: const EdgeInsets.symmetric(vertical: HelmSpacing.s1),
             child: Row(
               children: [
                 Container(
                     width: 3, height: 14, color: widget.colors.stateSafe),
-                const SizedBox(width: PocketaSpacing.s2),
+                const SizedBox(width: HelmSpacing.s2),
                 Text(
                   'Received',
                   style: widget.typo.labelMd
@@ -262,7 +262,7 @@ class _ReceivedSectionState extends State<_ReceivedSection> {
                   style: widget.typo.labelSm
                       .copyWith(color: widget.colors.inkTertiary),
                 ),
-                const SizedBox(width: PocketaSpacing.s2),
+                const SizedBox(width: HelmSpacing.s2),
                 Icon(
                   _expanded
                       ? Icons.keyboard_arrow_up_rounded
@@ -275,9 +275,9 @@ class _ReceivedSectionState extends State<_ReceivedSection> {
           ),
         ),
         if (_expanded) ...[
-          const SizedBox(height: PocketaSpacing.s2),
+          const SizedBox(height: HelmSpacing.s2),
           ...widget.entries.map((e) => Padding(
-                padding: const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                padding: const EdgeInsets.only(bottom: HelmSpacing.s2),
                 child: PipelineEntryCard(entry: e),
               )),
         ],
@@ -294,8 +294,8 @@ class _PipelineFab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     // PIPE-014: show label while user is learning (< 5 entries)
     if (entryCount < 5) {
@@ -322,19 +322,19 @@ class _PipelineFab extends ConsumerWidget {
 
 class _EmptyPipelineView extends StatelessWidget {
   const _EmptyPipelineView({required this.colors, required this.typo});
-  final PocketaColors colors;
-  final PocketaTypography typo;
+  final HelmColors colors;
+  final HelmTypography typo;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(PocketaSpacing.s5),
+        padding: const EdgeInsets.all(HelmSpacing.s5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(Icons.inbox_outlined, size: 48, color: colors.inkTertiary),
-            const SizedBox(height: PocketaSpacing.s3),
+            const SizedBox(height: HelmSpacing.s3),
             Text(
               'Add an expected payment when you invoice or expect money.',
               style: typo.bodyMd.copyWith(color: colors.inkSecondary),

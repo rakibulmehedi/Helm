@@ -15,8 +15,8 @@
 // Zero Flutter imports — fully unit-testable.
 
 import 'package:flutter/foundation.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_decision.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/nudge/domain/nudge_decision.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 /// Input context for a single nudge evaluation pass.
 @immutable

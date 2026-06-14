@@ -12,17 +12,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/utils/id_generator.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/utils/responsive_utils.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/utils/responsive_utils.dart';
 
 /// Currencies available for income entries.
 /// No conversion logic — display-only (per spec).
@@ -137,7 +137,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
     // Additional: receivedDate required when status is received
     if (_selectedStatus == IncomeStatus.received && _receivedDate == null) {
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: 'Please select a received date.',
         type: ToastType.error,
@@ -208,7 +208,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
       if (!mounted) return;
 
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: widget.incomeId != null
             ? 'Income updated successfully'
@@ -219,7 +219,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: 'Failed to save income. Please try again.',
         type: ToastType.error,
@@ -232,8 +232,8 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<PocketaColors>()!;
-    final typo = theme.extension<PocketaTypography>()!;
+    final colors = theme.extension<HelmColors>()!;
+    final typo = theme.extension<HelmTypography>()!;
     final isEditing = widget.incomeId != null;
 
     // ── Missing income error state ──────────────────────────────────────────
@@ -506,11 +506,11 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
   InputDecoration _inputDecoration({
     required String hint,
-    required PocketaColors colors,
+    required HelmColors colors,
   }) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
+      hintStyle: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
         color: colors.inkTertiary.withValues(alpha: 0.6),
       ),
       filled: true,
@@ -551,8 +551,8 @@ class _FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     return Text(
       text,
       style: typo.bodySm.copyWith(
@@ -575,7 +575,7 @@ class _StatusToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
@@ -618,7 +618,7 @@ class _StatusToggle extends StatelessWidget {
 
   /// Per INCOME_PIPELINE_MVP spec:
   /// Expected → soft grey, Pending → soft blue, Received → gentle green
-  Color _statusColor(IncomeStatus status, PocketaColors colors) {
+  Color _statusColor(IncomeStatus status, HelmColors colors) {
     switch (status) {
       case IncomeStatus.expected:
         return colors.inkTertiary;
@@ -653,7 +653,7 @@ class _CurrencySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
@@ -707,7 +707,7 @@ class _DatePickerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<PocketaColors>()!;
+    final colors = theme.extension<HelmColors>()!;
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
@@ -752,8 +752,8 @@ class _IncomeNotFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<PocketaColors>()!;
-    final typo = theme.extension<PocketaTypography>()!;
+    final colors = theme.extension<HelmColors>()!;
+    final typo = theme.extension<HelmTypography>()!;
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(

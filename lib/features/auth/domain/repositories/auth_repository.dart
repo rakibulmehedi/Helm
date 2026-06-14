@@ -3,7 +3,7 @@
 // Abstract contract for authentication operations.
 // Domain layer — no Flutter, no Hive, no package imports.
 
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 abstract class AuthRepository {
   /// Send a Magic Link email to [email]. Returns true if accepted (202).

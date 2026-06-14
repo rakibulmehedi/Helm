@@ -8,7 +8,7 @@
 //   - Income card showing: clientName, projectName, amount+currency,
 //     status badge, expectedDate, receivedDate (if received), notes
 //   - Tap card → edit income route
-//   - Swipe-to-delete with undo PocketaToast (same pattern as transactions)
+//   - Swipe-to-delete with undo HelmToast (same pattern as transactions)
 //   - Empty state for no entries (first-time)
 //   - Empty state for active filter with no results
 //
@@ -22,14 +22,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
-import 'package:pocketa_v2/utils/responsive_utils.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/utils/responsive_utils.dart';
 
 // ── Filter enum ───────────────────────────────────────────────────────────────
 
@@ -90,7 +90,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
     final formatter = NumberFormat('#,##0.00', 'en_US');
     final amountText = '${entry.currency} ${formatter.format(entry.amount)}';
 
-    PocketaToast.show(
+    HelmToast.show(
       context,
       message: '${entry.clientName} — $amountText deleted',
       type: ToastType.warning,
@@ -131,7 +131,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     final allEntries = ref.watch(incomeNotifierProvider);
     final displayed = _applyFilter(allEntries);
 
@@ -221,7 +221,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   Widget _buildBody({
     required BuildContext context,
     required ThemeData theme,
-    required PocketaColors colors,
+    required HelmColors colors,
     required List<IncomeEntryEntity> allEntries,
     required List<IncomeEntryEntity> displayed,
   }) {
@@ -269,7 +269,7 @@ class _IncomeFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -362,7 +362,7 @@ class _IncomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     final statusColor = _statusColor(entry.status, colors);
     final statusLabel = _statusLabel(entry.status);
@@ -572,7 +572,7 @@ class _IncomeCard extends StatelessWidget {
 
   // ── Status helpers ────────────────────────────────────────────────────────
 
-  Color _statusColor(IncomeStatus status, PocketaColors colors) {
+  Color _statusColor(IncomeStatus status, HelmColors colors) {
     switch (status) {
       case IncomeStatus.expected:
         return colors.inkTertiary;
@@ -614,7 +614,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -675,7 +675,7 @@ class _FilterEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),

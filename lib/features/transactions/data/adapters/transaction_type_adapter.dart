@@ -15,7 +15,7 @@
 // Phase 7f — Storage Abstraction & Domain Cleanup
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 
 /// Hive adapter for the [TransactionType] enum.
 ///

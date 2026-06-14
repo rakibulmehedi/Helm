@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pocketa_v2/core/themes/app_theme.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
+import 'package:helm/core/themes/app_theme.dart';
+import 'package:helm/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
 
 void _noop() {}
 
@@ -51,7 +51,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(
-        find.textContaining('Pocketa is built for USD-earning freelancers in Bangladesh.'),
+        find.textContaining('Helm is built for USD-earning freelancers in Bangladesh.'),
         findsOneWidget,
       );
       expect(find.text('Close'), findsOneWidget);

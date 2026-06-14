@@ -18,11 +18,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
 
 class IncomePipelineSummary extends ConsumerWidget {
   const IncomePipelineSummary({
@@ -38,7 +38,7 @@ class IncomePipelineSummary extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colors = context.colors;
-    final typo = theme.extension<PocketaTypography>()!;
+    final typo = theme.extension<HelmTypography>()!;
     final allEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
 
@@ -200,7 +200,7 @@ class IncomePipelineSummary extends ConsumerWidget {
 
   Widget _buildCard({
     required BuildContext context,
-    required PocketaColors colors,
+    required HelmColors colors,
     required Widget child,
   }) {
     return Container(
@@ -247,7 +247,7 @@ class _StatusRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return InkWell(
       onTap: onTap,

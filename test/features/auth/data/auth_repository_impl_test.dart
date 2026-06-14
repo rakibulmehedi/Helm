@@ -3,10 +3,10 @@
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:pocketa_v2/features/auth/data/models/session_model.dart';
-import 'package:pocketa_v2/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/models/session_model.dart';
+import 'package:helm/features/auth/data/repositories/auth_repository_impl.dart';
 
 void main() {
   group('AuthRepositoryImpl — sendMagicLink', () {

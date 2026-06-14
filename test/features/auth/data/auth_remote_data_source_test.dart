@@ -1,7 +1,7 @@
 // test/features/auth/data/auth_remote_data_source_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
 
 void main() {
   group('AuthRemoteDataSource — sendMagicLink', () {

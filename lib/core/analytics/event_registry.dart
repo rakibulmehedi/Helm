@@ -1,7 +1,7 @@
 // event_registry.dart
 //
 // Central registry of all analytics event names and property key constants
-// used across Pocketa features.
+// used across Helm features.
 //
 // Design rules:
 //   - All values are compile-time constants (static const String).

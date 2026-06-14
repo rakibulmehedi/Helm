@@ -4,12 +4,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/domain/nudge_preferences_entity.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/domain/nudge_preferences_entity.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
 
 class CadencePreferenceSheet extends ConsumerStatefulWidget {
   const CadencePreferenceSheet({super.key});
@@ -67,7 +67,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
     await ref.read(nudgePreferencesProvider.notifier).updatePreferences(newPrefs);
 
     if (mounted) {
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: 'Notification preferences saved',
         type: ToastType.success,
@@ -78,8 +78,8 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Container(
       decoration: BoxDecoration(

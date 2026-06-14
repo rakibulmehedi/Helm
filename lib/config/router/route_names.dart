@@ -1,6 +1,6 @@
 // lib/config/router/route_names.dart
 //
-// Single source of truth for all route paths in Pocketa.
+// Single source of truth for all route paths in Helm.
 // Import this wherever a route path is needed — never hard-code strings.
 
 abstract final class RouteNames {

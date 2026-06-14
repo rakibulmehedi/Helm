@@ -10,15 +10,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/cards/pocketa_hero_zone.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_amount.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_ledger_rail.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_trust_strip.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/cards/helm_hero_zone.dart';
+import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/core/widgets/helm_ledger_rail.dart';
+import 'package:helm/core/widgets/helm_trust_strip.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Derives the cashflow state from a [SafeToSpendResult].
 LedgerState _ledgerState(SafeToSpendResult r) {
@@ -29,7 +29,7 @@ LedgerState _ledgerState(SafeToSpendResult r) {
 
 /// The S2S hero block: label → amount → meaning line → ledger rail → trust strip.
 ///
-/// Wraps everything in [PocketaHeroZone] and applies a [FadeTransition] on load.
+/// Wraps everything in [HelmHeroZone] and applies a [FadeTransition] on load.
 /// [onTapTrace] opens the calculation breakdown (DASH-019).
 class S2sHeroBlock extends StatefulWidget {
   final SafeToSpendResult result;
@@ -63,11 +63,11 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: PocketaMotion.s2sAppear,
+      duration: HelmMotion.s2sAppear,
     );
     _opacity = CurvedAnimation(
       parent: _controller,
-      curve: PocketaMotion.defaultCurve,
+      curve: HelmMotion.defaultCurve,
     );
 
     // Respect system-level reduced-motion preference (DASH-018).
@@ -96,8 +96,8 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final Widget heroContent = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,9 +111,9 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
             color: colors.inkSecondary,
           ),
         ),
-        const SizedBox(height: PocketaSpacing.s1),
+        const SizedBox(height: HelmSpacing.s1),
 
-        // DASH-013: hero number color is always inkPrimary — PocketaAmount handles
+        // DASH-013: hero number color is always inkPrimary — HelmAmount handles
         // this via its default (non-dimmed) rendering.
         // No-data state: show em-dash instead of 0.
         if (_hasNoData)
@@ -125,28 +125,28 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
           const SizedBox.shrink(),
 
         if (!_hasNoData)
-          PocketaAmount(
+          HelmAmount(
             amount: widget.result.safeToSpend,
             size: AmountSize.hero,
           ),
 
-        const SizedBox(height: PocketaSpacing.s1),
+        const SizedBox(height: HelmSpacing.s1),
 
         Text(
           'after fixed costs + safety buffer',
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
-        const SizedBox(height: PocketaSpacing.s3),
+        const SizedBox(height: HelmSpacing.s3),
 
-        PocketaLedgerRail(
+        HelmLedgerRail(
           state: _ledgerState(widget.result),
           isHero: true,
         ),
 
-        const SizedBox(height: PocketaSpacing.s3),
+        const SizedBox(height: HelmSpacing.s3),
 
-        PocketaTrustStrip(
+        HelmTrustStrip(
           updatedAt: widget.updatedAt,
           sourceLabel: 'Received only',
           onTapAudit: widget.onTapTrace,
@@ -163,7 +163,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
           widget.onTapTrace?.call();
         },
         behavior: HitTestBehavior.opaque,
-        child: PocketaHeroZone(
+        child: HelmHeroZone(
           child: heroContent,
         ),
       ),

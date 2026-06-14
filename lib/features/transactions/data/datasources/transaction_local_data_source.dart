@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import '../../../../core/constants/app_box_names.dart';
 import '../models/transaction_model.dart';
-import 'package:pocketa_v2/features/audit_log/data/datasources/audit_local_data_source.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 abstract class TransactionLocalDataSource {
   Future<void> addTransaction(TransactionModel transaction);

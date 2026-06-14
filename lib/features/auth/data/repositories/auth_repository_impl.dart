@@ -5,11 +5,11 @@
 
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:pocketa_v2/features/auth/data/models/session_model.dart';
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
-import 'package:pocketa_v2/features/auth/domain/repositories/auth_repository.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/models/session_model.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource remoteDataSource;

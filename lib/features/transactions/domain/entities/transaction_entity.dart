@@ -5,9 +5,9 @@
 //
 // Phase 7f — Storage Abstraction & Domain Cleanup
 
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 
-/// A single financial transaction (expense or income) in Pocketa.
+/// A single financial transaction (expense or income) in Helm.
 ///
 /// Domain rules:
 /// - `id` is always generated via `IdGenerator.uniqueId()` — never manual.

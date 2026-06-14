@@ -13,8 +13,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/themes/app_theme.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/themes/app_theme.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 void main() {
   Widget buildTestableWidget(Widget child) {

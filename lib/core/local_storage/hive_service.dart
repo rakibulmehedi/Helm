@@ -1,6 +1,6 @@
 // lib/core/local_storage/hive_service.dart
 //
-// Centralised Hive bootstrap for Pocketa.
+// Centralised Hive bootstrap for Helm.
 //
 // How to add a new model in Phase 1+:
 //   1. Annotate the model with @HiveType(typeId: N)
@@ -13,16 +13,16 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:pocketa_v2/features/transactions/data/models/transaction_model.dart';
-import 'package:pocketa_v2/features/transactions/data/adapters/transaction_type_adapter.dart';
-import 'package:pocketa_v2/features/income/data/models/income_model.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/models/fixed_cost_model.dart';
-import 'package:pocketa_v2/features/audit_log/data/models/audit_event_model.dart';
-import 'package:pocketa_v2/core/analytics/models/analytics_event_model.dart';
-import 'package:pocketa_v2/core/analytics/data/models/nudge_preferences_model.dart';
-import 'package:pocketa_v2/core/nudge/data/models/nudge_log_entry_model.dart';
-import 'package:pocketa_v2/features/auth/data/models/session_model.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
+import 'package:helm/features/transactions/data/models/transaction_model.dart';
+import 'package:helm/features/transactions/data/adapters/transaction_type_adapter.dart';
+import 'package:helm/features/income/data/models/income_model.dart';
+import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
+import 'package:helm/features/audit_log/data/models/audit_event_model.dart';
+import 'package:helm/core/analytics/models/analytics_event_model.dart';
+import 'package:helm/core/analytics/data/models/nudge_preferences_model.dart';
+import 'package:helm/core/nudge/data/models/nudge_log_entry_model.dart';
+import 'package:helm/features/auth/data/models/session_model.dart';
+import 'package:helm/core/constants/app_box_names.dart';
 
 class HiveService {
   HiveService._(); // prevent instantiation

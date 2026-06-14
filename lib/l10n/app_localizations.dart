@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// Application name
   ///
   /// In en, this message translates to:
-  /// **'Pocketa'**
+  /// **'Helm'**
   String get appName;
 
   /// Welcome screen tagline
@@ -125,8 +125,8 @@ abstract class AppLocalizations {
   /// Magic link screen heading
   ///
   /// In en, this message translates to:
-  /// **'Sign in to Pocketa'**
-  String get signInToPocketa;
+  /// **'Sign in to Helm'**
+  String get signInToHelm;
 
   /// Magic link email step subtitle
   ///
@@ -251,7 +251,7 @@ abstract class AppLocalizations {
   /// Disqualify state heading
   ///
   /// In en, this message translates to:
-  /// **'Pocketa is built for USD-earning freelancers in Bangladesh.'**
+  /// **'Helm is built for USD-earning freelancers in Bangladesh.'**
   String get disqualifyHeading;
 
   /// Disqualify state supporting text

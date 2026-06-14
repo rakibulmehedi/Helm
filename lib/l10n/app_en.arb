@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
 
-  "appName": "Pocketa",
+  "appName": "Helm",
   "@appName": { "description": "Application name" },
 
   "appTagline": "How much BDT can you actually spend right now?",
@@ -13,8 +13,8 @@
   "setUpLater": "Set up later",
   "@setUpLater": { "description": "Onboarding skip button" },
 
-  "signInToPocketa": "Sign in to Pocketa",
-  "@signInToPocketa": { "description": "Magic link screen heading" },
+  "signInToHelm": "Sign in to Helm",
+  "@signInToHelm": { "description": "Magic link screen heading" },
 
   "magicLinkSubtitle": "Enter your email — we'll send you a magic link to sign in instantly.",
   "@magicLinkSubtitle": { "description": "Magic link email step subtitle" },
@@ -81,7 +81,7 @@
   "noAlwaysKnow": "No, I always know exactly what cleared",
   "@noAlwaysKnow": { "description": "Qualifying: disqualify button" },
 
-  "disqualifyHeading": "Pocketa is built for USD-earning freelancers in Bangladesh.",
+  "disqualifyHeading": "Helm is built for USD-earning freelancers in Bangladesh.",
   "@disqualifyHeading": { "description": "Disqualify state heading" },
 
   "disqualifySubtext": "Come back when you start billing internationally.",

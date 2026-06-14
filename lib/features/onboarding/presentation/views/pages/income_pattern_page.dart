@@ -1,7 +1,7 @@
 // lib/features/onboarding/presentation/views/pages/income_pattern_page.dart
 // UX-2 — Onboarding redesign: Screen 4 (Step 5 in full spec) — Income pattern selection
 // UX Improvements:
-//   - Uses PocketaMotion tokens
+//   - Uses HelmMotion tokens
 //   - Page entry animation
 //   - Error state when no pattern selected
 //   - Semantics for screen reader support
@@ -9,12 +9,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/features/onboarding/domain/income_pattern.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/features/onboarding/domain/income_pattern.dart';
 
 class IncomePatternPage extends StatefulWidget {
   final IncomePattern initialPattern;
@@ -47,7 +47,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
     // Page entry animation
     _entryController = AnimationController(
       vsync: this,
-      duration: PocketaMotion.slow,
+      duration: HelmMotion.slow,
     );
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _entryController, curve: Curves.easeOut),
@@ -56,7 +56,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
       begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _entryController, curve: PocketaMotion.defaultCurve),
+      CurvedAnimation(parent: _entryController, curve: HelmMotion.defaultCurve),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -90,8 +90,8 @@ class _IncomePatternPageState extends State<IncomePatternPage>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -104,31 +104,31 @@ class _IncomePatternPageState extends State<IncomePatternPage>
               position: _slideAnimation,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: PocketaSpacing.screenEdge,
+                  horizontal: HelmSpacing.screenEdge,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: PocketaSpacing.s10),
+                    const SizedBox(height: HelmSpacing.s10),
                     // Progress indicator — step 4
                     Semantics(
                       label: 'Onboarding step 4 of 6',
                       child: _ProgressLine(
-                        fraction: PocketaSpacing.onboardingSteps[2],
+                        fraction: HelmSpacing.onboardingSteps[2],
                         colors: colors,
                       ),
                     ),
-                    const SizedBox(height: PocketaSpacing.s8),
+                    const SizedBox(height: HelmSpacing.s8),
                     Text(
                       'How does your income usually arrive?',
                       style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     ),
-                    const SizedBox(height: PocketaSpacing.s2),
+                    const SizedBox(height: HelmSpacing.s2),
                     Text(
                       'Pick the pattern that fits most of your earnings.',
                       style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     ),
-                    const SizedBox(height: PocketaSpacing.s6),
+                    const SizedBox(height: HelmSpacing.s6),
                     _PatternCard(
                       title: 'Marketplace escrow',
                       platform: 'Upwork, Fiverr, Payoneer',
@@ -136,7 +136,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                       selected: _selected == IncomePattern.marketplace,
                       onTap: () => _onPatternSelected(IncomePattern.marketplace),
                     ),
-                    const SizedBox(height: PocketaSpacing.s3),
+                    const SizedBox(height: HelmSpacing.s3),
                     _PatternCard(
                       title: 'Direct client',
                       platform: 'You invoice clients directly',
@@ -144,7 +144,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                       selected: _selected == IncomePattern.direct,
                       onTap: () => _onPatternSelected(IncomePattern.direct),
                     ),
-                    const SizedBox(height: PocketaSpacing.s3),
+                    const SizedBox(height: HelmSpacing.s3),
                     _PatternCard(
                       title: 'Retainer / Recurring',
                       platform: 'Same client, same amount each month',
@@ -155,13 +155,13 @@ class _IncomePatternPageState extends State<IncomePatternPage>
 
                     // Error state
                     if (_error != null) ...[
-                      const SizedBox(height: PocketaSpacing.s3),
+                      const SizedBox(height: HelmSpacing.s3),
                       Container(
-                        padding: const EdgeInsets.all(PocketaSpacing.s3),
+                        padding: const EdgeInsets.all(HelmSpacing.s3),
                         decoration: BoxDecoration(
                           color: colors.stateAtRisk.withValues(alpha: 0.1),
                           borderRadius:
-                              BorderRadius.circular(PocketaSpacing.s1),
+                              BorderRadius.circular(HelmSpacing.s1),
                           border: Border.all(
                             color: colors.stateAtRisk.withValues(alpha: 0.3),
                           ),
@@ -170,10 +170,10 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                           children: [
                             Icon(
                               Icons.error_outline_rounded,
-                              size: PocketaSpacing.iconMd,
+                              size: HelmSpacing.iconMd,
                               color: colors.stateAtRisk,
                             ),
-                            const SizedBox(width: PocketaSpacing.s2),
+                            const SizedBox(width: HelmSpacing.s2),
                             Expanded(
                               child: Text(
                                 _error!,
@@ -193,7 +193,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                       onPressed: _onContinue,
                       isEnabled: true,
                     ),
-                    const SizedBox(height: PocketaSpacing.s4),
+                    const SizedBox(height: HelmSpacing.s4),
                   ],
                 ),
               ),
@@ -211,7 +211,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
 
 class _ProgressLine extends StatelessWidget {
   final double fraction;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   const _ProgressLine({required this.fraction, required this.colors});
 
@@ -222,19 +222,19 @@ class _ProgressLine extends StatelessWidget {
         return Stack(
           children: [
             Container(
-              height: PocketaSpacing.progressBarHeight,
+              height: HelmSpacing.progressBarHeight,
               width: constraints.maxWidth,
               decoration: BoxDecoration(
                 color: colors.hairline,
-                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
+                borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
               ),
             ),
             Container(
-              height: PocketaSpacing.progressBarHeight,
+              height: HelmSpacing.progressBarHeight,
               width: constraints.maxWidth * fraction,
               decoration: BoxDecoration(
                 color: colors.interactive,
-                borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
+                borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
               ),
             ),
           ],
@@ -261,8 +261,8 @@ class _PatternCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Semantics(
       label: '$title income pattern from $platform. $subtitle',
@@ -271,15 +271,15 @@ class _PatternCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
-          duration: PocketaMotion.base,
-          curve: PocketaMotion.defaultCurve,
-          padding: const EdgeInsets.all(PocketaSpacing.s4),
+          duration: HelmMotion.base,
+          curve: HelmMotion.defaultCurve,
+          padding: const EdgeInsets.all(HelmSpacing.s4),
           decoration: BoxDecoration(
             color: selected ? colors.surface : colors.canvas,
-            borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+            borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
             border: Border.all(
               color: selected ? colors.interactive : colors.divider,
-              width: selected ? PocketaSpacing.cardBorder * 2 : PocketaSpacing.cardBorder,
+              width: selected ? HelmSpacing.cardBorder * 2 : HelmSpacing.cardBorder,
             ),
           ),
           child: Column(
@@ -289,12 +289,12 @@ class _PatternCard extends StatelessWidget {
                 title,
                 style: typo.headingSm.copyWith(color: colors.inkPrimary),
               ),
-              const SizedBox(height: PocketaSpacing.s1),
+              const SizedBox(height: HelmSpacing.s1),
               Text(
                 platform,
                 style: typo.bodySm.copyWith(color: colors.interactive),
               ),
-              const SizedBox(height: PocketaSpacing.s1),
+              const SizedBox(height: HelmSpacing.s1),
               Text(
                 subtitle,
                 style: typo.bodySm.copyWith(color: colors.inkTertiary),

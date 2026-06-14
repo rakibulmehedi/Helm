@@ -3,8 +3,8 @@
 // Repository for nudge log operations.
 // Wraps NudgeDataSource and provides domain-level operations.
 
-import 'package:pocketa_v2/core/nudge/data/datasources/nudge_data_source.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/data/datasources/nudge_data_source.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
 
 /// Abstract repository for nudge log persistence.
 abstract interface class NudgeRepository {

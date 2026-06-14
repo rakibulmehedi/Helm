@@ -3,10 +3,10 @@
 // Single nudge notification card for the notification center.
 
 import 'package:flutter/material.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 class NudgeCard extends StatelessWidget {
   final NudgeLogEntryEntity entry;
@@ -22,8 +22,8 @@ class NudgeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Dismissible(
       key: Key(entry.id),
@@ -38,13 +38,13 @@ class NudgeCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(PocketaSpacing.s4),
+          padding: const EdgeInsets.all(HelmSpacing.s4),
           decoration: BoxDecoration(
             color: colors.surface,
-            borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+            borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
             border: Border.all(
               color: entry.isRead ? colors.hairline : colors.interactive.withValues(alpha: 0.3),
-              width: PocketaSpacing.cardBorder,
+              width: HelmSpacing.cardBorder,
             ),
           ),
           child: Row(

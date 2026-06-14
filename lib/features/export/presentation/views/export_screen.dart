@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
-import 'package:pocketa_v2/features/export/presentation/providers/export_provider.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/features/export/presentation/providers/export_provider.dart';
 
 class ExportScreen extends ConsumerStatefulWidget {
   const ExportScreen({super.key});
@@ -22,8 +22,8 @@ class ExportScreen extends ConsumerStatefulWidget {
 class _ExportScreenState extends ConsumerState<ExportScreen> {
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     final status = ref.watch(exportProvider);
     final isExporting = status == ExportStatus.exporting;
 
@@ -35,7 +35,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         notifier.reset();
       } else if (next == ExportStatus.error) {
         final notifier = ref.read(exportProvider.notifier);
-        PocketaToast.show(
+        HelmToast.show(
           context,
           message: 'Export failed: ${notifier.lastResult?.errorMessage ?? 'Unknown error'}',
           type: ToastType.error,
@@ -61,7 +61,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
             ),
             const SizedBox(height: 8),
             Text(
-              'Export all your Pocketa data as CSV files. '
+              'Export all your Helm data as CSV files. '
               'Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.',
               style: typo.bodyMd.copyWith(
                 color: colors.inkSecondary,
@@ -105,7 +105,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
     );
   }
 
-  List<Widget> _exportItems(PocketaColors colors) {
+  List<Widget> _exportItems(HelmColors colors) {
     const items = [
       'Income entries',
       'Transactions',
@@ -127,7 +127,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                 const SizedBox(width: 8),
                 Text(
                   name,
-                  style: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
+                  style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
                     color: colors.inkSecondary,
                   ),
                 ),
@@ -142,7 +142,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
     if (filePaths.isEmpty) return;
     Share.shareXFiles(
       filePaths.map((p) => XFile(p)).toList(),
-      subject: 'Pocketa data export',
+      subject: 'Helm data export',
     );
   }
 }

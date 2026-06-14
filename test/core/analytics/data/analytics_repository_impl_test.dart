@@ -1,9 +1,9 @@
 // test/core/analytics/data/analytics_repository_impl_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
-import 'package:pocketa_v2/core/analytics/data/repositories/analytics_repository_impl.dart';
-import 'package:pocketa_v2/core/analytics/data/datasources/analytics_local_data_source.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/data/repositories/analytics_repository_impl.dart';
+import 'package:helm/core/analytics/data/datasources/analytics_local_data_source.dart';
 
 class FakeAnalyticsLocalDataSource implements AnalyticsLocalDataSource {
   final List<AnalyticsEventEntity> events = [];

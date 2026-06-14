@@ -11,12 +11,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/utils/id_generator.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
-import 'package:pocketa_v2/utils/responsive_utils.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/utils/responsive_utils.dart';
 
 import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
@@ -111,7 +111,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
       if (!mounted) return;
 
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: widget.transactionId != null
             ? 'Transaction updated successfully'
@@ -122,7 +122,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     } catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
-      PocketaToast.show(
+      HelmToast.show(
         context,
         message: 'Could not save payment. Try again.',
         type: ToastType.error,
@@ -135,8 +135,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<PocketaColors>()!;
-    final typo = theme.extension<PocketaTypography>()!;
+    final colors = theme.extension<HelmColors>()!;
+    final typo = theme.extension<HelmTypography>()!;
 
     // ── Missing transaction error state ──────────────────────────────────────
     if (_transactionNotFound) {
@@ -338,13 +338,13 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
 
   InputDecoration _inputDecoration({
     required String hint,
-    required PocketaColors colors,
+    required HelmColors colors,
     String? prefixText,
   }) {
     return InputDecoration(
       hintText: hint,
       prefixText: prefixText,
-      hintStyle: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
+      hintStyle: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
         color: colors.inkTertiary,
       ),
       filled: true,
@@ -384,8 +384,8 @@ class _FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     return Text(
       text,
       style: typo.bodySm.copyWith(

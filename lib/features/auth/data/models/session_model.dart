@@ -5,7 +5,7 @@
 //           5-Audit, 6-Analytics, 7-NudgePrefs, 8-NudgeLog
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 part 'session_model.g.dart';
 

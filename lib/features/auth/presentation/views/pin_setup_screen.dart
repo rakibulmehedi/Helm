@@ -1,6 +1,6 @@
 // lib/features/auth/presentation/views/pin_setup_screen.dart
 //
-// PIN setup screen for Pocketa Trust Layer (D1).
+// PIN setup screen for Helm Trust Layer (D1).
 // Two-step flow: enter new PIN → confirm PIN.
 // Uses custom numpad — no keyboard input.
 
@@ -9,12 +9,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
 
 class PinSetupScreen extends ConsumerStatefulWidget {
   const PinSetupScreen({super.key});
@@ -85,7 +85,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -131,7 +131,7 @@ class _PinHeader extends StatelessWidget {
 
   final String title;
   final String? errorMessage;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +139,7 @@ class _PinHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
+          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
             color: colors.inkPrimary,
           ),
         ),
@@ -147,7 +147,7 @@ class _PinHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             errorMessage!,
-            style: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
+            style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
               color: colors.stateAtRisk,
             ),
           ),
@@ -170,7 +170,7 @@ class _PinDots extends StatelessWidget {
 
   final int filledCount;
   final int totalCount;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +211,7 @@ class _NumPad extends StatelessWidget {
 
   final ValueChanged<String> onDigit;
   final VoidCallback onClear;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   static const List<List<String?>> _rows = [
     ['1', '2', '3'],
@@ -259,7 +259,7 @@ class _NumKey extends StatelessWidget {
 
   final String label;
   final VoidCallback onTap;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +276,7 @@ class _NumKey extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
+          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
             fontWeight: FontWeight.w500,
             color: colors.inkPrimary,
           ),

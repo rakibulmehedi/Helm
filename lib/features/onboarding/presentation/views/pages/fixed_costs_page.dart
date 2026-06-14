@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/features/onboarding/domain/onboarding_draft.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
 
 class FixedCostsPage extends StatefulWidget {
   final List<FixedCostDraftItem> initialCosts;
@@ -103,8 +103,8 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return SafeArea(
       child: Column(
@@ -112,16 +112,16 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
         children: [
           // Progress indicator — step 5
           LinearProgressIndicator(
-            value: PocketaSpacing.onboardingFixedCost,
+            value: HelmSpacing.onboardingFixedCost,
             backgroundColor: colors.hairline,
             color: colors.interactive,
-            minHeight: PocketaSpacing.progressBarHeight,
+            minHeight: HelmSpacing.progressBarHeight,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              PocketaSpacing.screenEdge,
-              PocketaSpacing.s10,
-              PocketaSpacing.screenEdge,
+              HelmSpacing.screenEdge,
+              HelmSpacing.s10,
+              HelmSpacing.screenEdge,
               0,
             ),
             child: Column(
@@ -131,7 +131,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                   'What are your fixed monthly costs?',
                   style: typo.headingLg.copyWith(color: colors.inkPrimary),
                 ),
-                const SizedBox(height: PocketaSpacing.s2),
+                const SizedBox(height: HelmSpacing.s2),
                 Row(
                   children: [
                     Expanded(
@@ -144,7 +144,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                       message: 'Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)',
                       child: Icon(
                         Icons.help_outline_rounded,
-                        size: PocketaSpacing.iconMd,
+                        size: HelmSpacing.iconMd,
                         color: colors.inkTertiary,
                       ),
                     ),
@@ -153,12 +153,12 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
               ],
             ),
           ),
-          const SizedBox(height: PocketaSpacing.s4),
+          const SizedBox(height: HelmSpacing.s4),
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(
-                horizontal: PocketaSpacing.screenEdge,
-                vertical: PocketaSpacing.s2,
+                horizontal: HelmSpacing.screenEdge,
+                vertical: HelmSpacing.s2,
               ),
               itemCount: _categories.length,
               separatorBuilder: (_, index) =>
@@ -182,9 +182,9 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
 
           // Zero-state reask with AnimatedSwitcher
           AnimatedSwitcher(
-            duration: PocketaMotion.base,
-            switchInCurve: PocketaMotion.defaultCurve,
-            switchOutCurve: PocketaMotion.defaultCurve,
+            duration: HelmMotion.base,
+            switchInCurve: HelmMotion.defaultCurve,
+            switchOutCurve: HelmMotion.defaultCurve,
             transitionBuilder: (child, animation) {
               return SlideTransition(
                 position: Tween<Offset>(
@@ -201,15 +201,15 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                 ? Padding(
                     key: const ValueKey('zero_state'),
                     padding: const EdgeInsets.symmetric(
-                      horizontal: PocketaSpacing.screenEdge,
-                      vertical: PocketaSpacing.s3,
+                      horizontal: HelmSpacing.screenEdge,
+                      vertical: HelmSpacing.s3,
                     ),
                     child: Container(
-                      padding: const EdgeInsets.all(PocketaSpacing.s4),
+                      padding: const EdgeInsets.all(HelmSpacing.s4),
                       decoration: BoxDecoration(
                         color: colors.surface,
                         borderRadius:
-                            BorderRadius.circular(PocketaSpacing.cardRadius),
+                            BorderRadius.circular(HelmSpacing.cardRadius),
                         border: Border.all(color: colors.divider),
                       ),
                       child: Column(
@@ -220,13 +220,13 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                             style:
                                 typo.headingSm.copyWith(color: colors.inkPrimary),
                           ),
-                          const SizedBox(height: PocketaSpacing.s1),
+                          const SizedBox(height: HelmSpacing.s1),
                           Text(
                             'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.',
                             style:
                                 typo.bodyMd.copyWith(color: colors.inkSecondary),
                           ),
-                          const SizedBox(height: PocketaSpacing.s4),
+                          const SizedBox(height: HelmSpacing.s4),
                           Row(
                             children: [
                               Expanded(
@@ -237,7 +237,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                                   type: AppButtonType.secondary,
                                 ),
                               ),
-                              const SizedBox(width: PocketaSpacing.s2),
+                              const SizedBox(width: HelmSpacing.s2),
                               Expanded(
                                 child: AppButton(
                                   label: 'Let me add some',
@@ -257,10 +257,10 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
 
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              PocketaSpacing.screenEdge,
-              PocketaSpacing.s3,
-              PocketaSpacing.screenEdge,
-              PocketaSpacing.s4,
+              HelmSpacing.screenEdge,
+              HelmSpacing.s3,
+              HelmSpacing.screenEdge,
+              HelmSpacing.s4,
             ),
             child: AppButton(
               label: 'Continue',
@@ -293,8 +293,8 @@ class _CategoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,32 +303,32 @@ class _CategoryRow extends StatelessWidget {
           onTap: () => onCheckedChanged(!checked),
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: PocketaSpacing.s3),
+                const EdgeInsets.symmetric(vertical: HelmSpacing.s3),
             child: Row(
               children: [
                 Semantics(
                   label: '${category.label}, ${checked ? 'selected' : 'not selected'}',
                   button: true,
                   child: AnimatedContainer(
-                    duration: PocketaMotion.base,
-                    width: PocketaSpacing.s5,
-                    height: PocketaSpacing.s5,
+                    duration: HelmMotion.base,
+                    width: HelmSpacing.s5,
+                    height: HelmSpacing.s5,
                     decoration: BoxDecoration(
                       color: checked ? colors.interactive : colors.canvas,
-                      borderRadius: BorderRadius.circular(PocketaSpacing.s1),
+                      borderRadius: BorderRadius.circular(HelmSpacing.s1),
                       border: Border.all(
                         color:
                             checked ? colors.interactive : colors.divider,
-                        width: PocketaSpacing.cardBorder,
+                        width: HelmSpacing.cardBorder,
                       ),
                     ),
                     child: checked
                         ? Icon(Icons.check,
-                            size: PocketaSpacing.s3, color: colors.surface)
+                            size: HelmSpacing.s3, color: colors.surface)
                         : null,
                   ),
                 ),
-                const SizedBox(width: PocketaSpacing.s3),
+                const SizedBox(width: HelmSpacing.s3),
                 Expanded(
                   child: Text(
                     category.label,
@@ -346,8 +346,8 @@ class _CategoryRow extends StatelessWidget {
         if (checked)
           Padding(
             padding: const EdgeInsets.only(
-              left: PocketaSpacing.s8,
-              bottom: PocketaSpacing.s3,
+              left: HelmSpacing.s8,
+              bottom: HelmSpacing.s3,
             ),
             child: LayoutBuilder(
               builder: (context, constraints) {
@@ -358,7 +358,7 @@ class _CategoryRow extends StatelessWidget {
                     Text('৳',
                         style: typo.bodyMd
                             .copyWith(color: colors.inkSecondary)),
-                    const SizedBox(width: PocketaSpacing.s1),
+                    const SizedBox(width: HelmSpacing.s1),
                     SizedBox(
                       width: inputWidth,
                       child: TextField(
@@ -375,10 +375,10 @@ class _CategoryRow extends StatelessWidget {
                               .copyWith(color: colors.inkTertiary),
                           isDense: true,
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: PocketaSpacing.s2),
+                              vertical: HelmSpacing.s2),
                           border: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+                                BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -386,21 +386,21 @@ class _CategoryRow extends StatelessWidget {
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide:
-                                BorderSide(color: colors.divider, width: PocketaSpacing.cardBorder),
+                                BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(width: PocketaSpacing.s3),
+                    const SizedBox(width: HelmSpacing.s3),
                     Text('due day',
                         style: typo.labelMd
                             .copyWith(color: colors.inkTertiary)),
-                    const SizedBox(width: PocketaSpacing.s2),
+                    const SizedBox(width: HelmSpacing.s2),
                     DropdownButton<int>(
                       value: day,
                       isDense: true,
                       underline:
-                          Container(height: PocketaSpacing.cardBorder, color: colors.divider),
+                          Container(height: HelmSpacing.cardBorder, color: colors.divider),
                       style: typo.bodyMd
                           .copyWith(color: colors.inkPrimary),
                       items: List.generate(28, (i) => i + 1)

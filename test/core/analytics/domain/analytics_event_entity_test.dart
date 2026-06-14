@@ -1,7 +1,7 @@
 // test/core/analytics/domain/analytics_event_entity_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/domain/analytics_event_entity.dart';
+import 'package:helm/core/analytics/domain/analytics_event_entity.dart';
 
 void main() {
   test('AnalyticsEventEntity stores eventName, timestamp, properties', () {

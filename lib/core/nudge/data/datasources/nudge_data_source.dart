@@ -4,9 +4,9 @@
 // Interface + impl pattern following existing codebase conventions.
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/core/nudge/data/models/nudge_log_entry_model.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/nudge/data/models/nudge_log_entry_model.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
 
 /// Abstract contract for nudge log persistence.
 abstract interface class NudgeDataSource {

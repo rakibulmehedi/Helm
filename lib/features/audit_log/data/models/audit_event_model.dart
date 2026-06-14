@@ -17,7 +17,7 @@
 // D1.05 — Trust Layer: Audit Log
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 part 'audit_event_model.g.dart';
 

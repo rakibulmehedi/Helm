@@ -4,8 +4,8 @@
 // Serializes NudgeType and NudgeChannel as strings.
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 part 'nudge_log_entry_model.g.dart';
 

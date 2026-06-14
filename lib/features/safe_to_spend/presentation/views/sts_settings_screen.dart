@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/pocketa_toast.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
-import 'package:pocketa_v2/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/core/utils/id_generator.dart';
-import 'package:pocketa_v2/features/settings/presentation/views/cadence_preference_sheet.dart';
-import 'package:pocketa_v2/core/nudge/presentation/providers/nudge_providers.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
+import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
 
 class StsSettingsScreen extends ConsumerWidget {
   const StsSettingsScreen({super.key});
@@ -20,8 +20,8 @@ class StsSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(stsSettingsProvider);
     final fixedCosts = ref.watch(fixedCostNotifierProvider);
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -207,7 +207,7 @@ class StsSettingsScreen extends ConsumerWidget {
                       ref
                           .read(fixedCostNotifierProvider.notifier)
                           .deleteFixedCost(cost.id);
-                      PocketaToast.show(
+                      HelmToast.show(
                         context,
                         message: '${cost.label} deleted',
                         type: ToastType.warning,
@@ -410,7 +410,7 @@ class _AddEditFixedCostSheetState
 
   @override
   Widget build(BuildContext context) {
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Padding(
       padding: EdgeInsets.only(

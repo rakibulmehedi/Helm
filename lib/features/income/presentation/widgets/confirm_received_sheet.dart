@@ -15,15 +15,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/presentation/providers/income_providers.dart';
 
 class ConfirmReceivedSheet extends ConsumerStatefulWidget {
   final IncomeEntryEntity entry;
@@ -36,10 +36,10 @@ class ConfirmReceivedSheet extends ConsumerStatefulWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
-      backgroundColor: Theme.of(context).extension<PocketaColors>()!.surface,
+      backgroundColor: Theme.of(context).extension<HelmColors>()!.surface,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(PocketaSpacing.sheetTopRadius),
+          top: Radius.circular(HelmSpacing.sheetTopRadius),
         ),
       ),
       builder: (_) => ConfirmReceivedSheet(entry: entry),
@@ -217,7 +217,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
       padding: EdgeInsets.only(bottom: bottomInset),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: PocketaSpacing.s4),
+          padding: const EdgeInsets.symmetric(horizontal: HelmSpacing.s4),
           child: Form(
             key: _formKey,
             child: Column(
@@ -228,8 +228,8 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                      top: PocketaSpacing.s3,
-                      bottom: PocketaSpacing.s4,
+                      top: HelmSpacing.s3,
+                      bottom: HelmSpacing.s4,
                     ),
                     child: Container(
                       width: 40,
@@ -250,19 +250,19 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   style: type.bodyLg.copyWith(color: colors.inkPrimary),
                 ),
 
-                const SizedBox(height: PocketaSpacing.s4),
+                const SizedBox(height: HelmSpacing.s4),
 
                 // ── 3. Divider ────────────────────────────────────────────────
                 Divider(color: colors.hairline, height: 1, thickness: 1),
 
-                const SizedBox(height: PocketaSpacing.s4),
+                const SizedBox(height: HelmSpacing.s4),
 
                 // ── 4. Amount received field ──────────────────────────────────
                 Text(
                   'Amount received',
                   style: type.labelMd.copyWith(color: colors.inkSecondary),
                 ),
-                const SizedBox(height: PocketaSpacing.s2),
+                const SizedBox(height: HelmSpacing.s2),
                 TextFormField(
                   controller: _amountController,
                   keyboardType: const TextInputType.numberWithOptions(
@@ -280,24 +280,24 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                       color: colors.inkTertiary,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
-                      horizontal: PocketaSpacing.s3,
-                      vertical: PocketaSpacing.s3,
+                      horizontal: HelmSpacing.s3,
+                      vertical: HelmSpacing.s3,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                       borderSide: BorderSide(color: colors.divider),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                       borderSide: BorderSide(color: colors.divider),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                       borderSide: BorderSide(
                         color: colors.interactive,
@@ -306,13 +306,13 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                       borderSide: BorderSide(color: colors.stateAtRisk),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                       borderSide: BorderSide(
                         color: colors.stateAtRisk,
@@ -332,12 +332,12 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
                 // ── 5. FX Rate row (USD only) ─────────────────────────────────
                 if (_isUsd) ...[
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
                   Text(
                     'FX rate (BDT per USD)',
                     style: type.labelMd.copyWith(color: colors.inkSecondary),
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   TextFormField(
                     controller: _fxRateController,
                     keyboardType: const TextInputType.numberWithOptions(
@@ -356,18 +356,18 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                       ),
                       errorText: _fxRateError,
                       contentPadding: const EdgeInsets.symmetric(
-                        horizontal: PocketaSpacing.s3,
-                        vertical: PocketaSpacing.s3,
+                        horizontal: HelmSpacing.s3,
+                        vertical: HelmSpacing.s3,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius,
+                          HelmSpacing.cardRadius,
                         ),
                         borderSide: BorderSide(color: colors.divider),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius,
+                          HelmSpacing.cardRadius,
                         ),
                         borderSide: BorderSide(
                           color: _fxRateError != null
@@ -377,7 +377,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius,
+                          HelmSpacing.cardRadius,
                         ),
                         borderSide: BorderSide(
                           color: _fxRateError != null
@@ -388,13 +388,13 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius,
+                          HelmSpacing.cardRadius,
                         ),
                         borderSide: BorderSide(color: colors.stateAtRisk),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
-                          PocketaSpacing.cardRadius,
+                          HelmSpacing.cardRadius,
                         ),
                         borderSide: BorderSide(
                           color: colors.stateAtRisk,
@@ -408,7 +408,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   ),
                   // BDT estimate hint
                   if (_bdtEstimate != null) ...[
-                    const SizedBox(height: PocketaSpacing.s1),
+                    const SizedBox(height: HelmSpacing.s1),
                     Text(
                       '~\u09F3${NumberFormat('#,##0.00').format(_bdtEstimate)}',
                       style: type.bodySm.copyWith(color: colors.inkTertiary),
@@ -417,24 +417,24 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                 ],
 
                 // ── 6. Date received row ──────────────────────────────────────
-                const SizedBox(height: PocketaSpacing.s4),
+                const SizedBox(height: HelmSpacing.s4),
                 Text(
                   'Date received',
                   style: type.labelMd.copyWith(color: colors.inkSecondary),
                 ),
-                const SizedBox(height: PocketaSpacing.s2),
+                const SizedBox(height: HelmSpacing.s2),
                 InkWell(
                   onTap: _pickDate,
-                  borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+                  borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: PocketaSpacing.s3,
-                      vertical: PocketaSpacing.s3,
+                      horizontal: HelmSpacing.s3,
+                      vertical: HelmSpacing.s3,
                     ),
                     decoration: BoxDecoration(
                       border: Border.all(color: colors.divider),
                       borderRadius: BorderRadius.circular(
-                        PocketaSpacing.cardRadius,
+                        HelmSpacing.cardRadius,
                       ),
                     ),
                     child: Row(
@@ -449,7 +449,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                         ),
                         Icon(
                           Icons.edit_calendar_outlined,
-                          size: PocketaSpacing.iconMd,
+                          size: HelmSpacing.iconMd,
                           color: colors.inkTertiary,
                         ),
                       ],
@@ -458,7 +458,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                 ),
 
                 // ── 7. Spacer ─────────────────────────────────────────────────
-                const SizedBox(height: PocketaSpacing.s6),
+                const SizedBox(height: HelmSpacing.s6),
 
                 // ── 8. Confirm button ─────────────────────────────────────────
                 AppButton(
@@ -468,7 +468,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   isEnabled: !_isSubmitting,
                 ),
 
-                const SizedBox(height: PocketaSpacing.s2),
+                const SizedBox(height: HelmSpacing.s2),
 
                 // ── 9. Not yet button ─────────────────────────────────────────
                 Center(
@@ -481,7 +481,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   ),
                 ),
 
-                const SizedBox(height: PocketaSpacing.s4),
+                const SizedBox(height: HelmSpacing.s4),
               ],
             ),
           ),

@@ -1,6 +1,6 @@
 // lib/features/auth/presentation/providers/auth_provider.dart
 //
-// PIN-based auth state management for Pocketa Trust Layer (D1).
+// PIN-based auth state management for Helm Trust Layer (D1).
 // Uses Hive untyped dynamic box — no new packages required beyond crypto.
 //
 // Security: PIN stored as SHA-256(salt + pin). Salt generated per-setup.
@@ -9,9 +9,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/features/auth/domain/entities/auth_state.dart';
-import 'package:pocketa_v2/features/auth/domain/pin_hasher.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/features/auth/domain/entities/auth_state.dart';
+import 'package:helm/features/auth/domain/pin_hasher.dart';
 
 // ---------------------------------------------------------------------------
 // AuthNotifier

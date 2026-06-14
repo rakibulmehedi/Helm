@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pocketa_v2/features/dashboard/domain/affirmation.dart';
+import 'package:helm/features/dashboard/domain/affirmation.dart';
 
 void main() {
   group('Affirmation computation', () {

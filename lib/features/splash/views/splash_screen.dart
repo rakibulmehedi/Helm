@@ -13,9 +13,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -61,8 +61,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.interactive,
@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
-  Widget _buildCenter(PocketaColors colors, PocketaTypography typo) {
+  Widget _buildCenter(HelmColors colors, HelmTypography typo) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           const SizedBox(height: 24),
           Text(
-            'Pocketa',
+            'Helm',
             style: typo.displayLarge.copyWith(
               color: colors.surface,
               fontWeight: FontWeight.w600,

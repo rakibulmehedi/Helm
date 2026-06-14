@@ -2,12 +2,12 @@
 
 import 'dart:math';
 
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/sts_settings.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_entity.dart';
-import 'package:pocketa_v2/features/transactions/domain/entities/transaction_type.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/sts_settings.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_entity.dart';
+import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 
 class SafeToSpendCalculator {
   /// Computes the Safe-to-Spend breakdown.

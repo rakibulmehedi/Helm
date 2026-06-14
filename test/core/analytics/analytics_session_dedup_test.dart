@@ -1,9 +1,9 @@
 // test/core/analytics/analytics_session_dedup_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'analytics_service_dual_write_test.dart';
 

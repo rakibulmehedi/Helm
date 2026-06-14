@@ -3,8 +3,8 @@
 // Tests for NudgeLogEntryEntity (Phase 3, Group 3C domain).
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_types.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/domain/nudge_types.dart';
 
 void main() {
   group('NudgeLogEntryEntity', () {

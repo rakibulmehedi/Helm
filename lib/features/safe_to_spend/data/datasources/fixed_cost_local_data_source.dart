@@ -1,8 +1,8 @@
 // lib/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart
 
 import 'package:hive/hive.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/features/safe_to_spend/data/models/fixed_cost_model.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
 
 abstract class FixedCostLocalDataSource {
   Future<List<FixedCostModel>> getFixedCosts();

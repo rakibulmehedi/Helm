@@ -1,7 +1,7 @@
 // lib/features/onboarding/presentation/views/pages/liquid_balance_page.dart
 // UX-2 — Onboarding redesign: Screen 2 (Step 3 in full spec) — Liquid balance entry
 // UX Improvements:
-//   - Uses PocketaMotion tokens
+//   - Uses HelmMotion tokens
 //   - Error iconography
 //   - Autofocus on input
 //   - Page entry animation
@@ -9,11 +9,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 class LiquidBalancePage extends StatefulWidget {
   final double initialBalance;
@@ -49,7 +49,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
     // Page entry animation
     _entryController = AnimationController(
       vsync: this,
-      duration: PocketaMotion.slow,
+      duration: HelmMotion.slow,
     );
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _entryController, curve: Curves.easeOut),
@@ -58,7 +58,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
       begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _entryController, curve: PocketaMotion.defaultCurve),
+      CurvedAnimation(parent: _entryController, curve: HelmMotion.defaultCurve),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -108,8 +108,8 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -120,18 +120,18 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
             position: _slideAnimation,
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: PocketaSpacing.screenEdge,
+                horizontal: HelmSpacing.screenEdge,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const SizedBox(height: PocketaSpacing.s10),
+                  const SizedBox(height: HelmSpacing.s10),
                   // Progress indicator — step 1
                   _ProgressLine(
-                    fraction: PocketaSpacing.onboardingLiquidBalance,
+                    fraction: HelmSpacing.onboardingLiquidBalance,
                     colors: colors,
                   ),
-                  const SizedBox(height: PocketaSpacing.s8),
+                  const SizedBox(height: HelmSpacing.s8),
                   Semantics(
                     header: true,
                     child: Text(
@@ -139,12 +139,12 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                       style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     ),
                   ),
-                  const SizedBox(height: PocketaSpacing.s2),
+                  const SizedBox(height: HelmSpacing.s2),
                   Text(
                     'bKash, bank, and cash — combined. A rough number is fine. You can refine it later.',
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                   ),
-                  const SizedBox(height: PocketaSpacing.s8),
+                  const SizedBox(height: HelmSpacing.s8),
                   Semantics(
                     label: 'Current liquid balance input',
                     textField: true,
@@ -156,7 +156,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                           style: typo.monoFinancialLg
                               .copyWith(color: colors.inkSecondary),
                         ),
-                        const SizedBox(width: PocketaSpacing.s2),
+                        const SizedBox(width: HelmSpacing.s2),
                         Expanded(
                           child: TextField(
                             controller: _controller,
@@ -175,7 +175,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                               border: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: colors.divider,
-                                  width: PocketaSpacing.cardBorder,
+                                  width: HelmSpacing.cardBorder,
                                 ),
                               ),
                               focusedBorder: UnderlineInputBorder(
@@ -187,7 +187,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: colors.divider,
-                                  width: PocketaSpacing.cardBorder,
+                                  width: HelmSpacing.cardBorder,
                                 ),
                               ),
                             ),
@@ -200,13 +200,13 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
 
                   // Error state with icon
                   if (_error != null) ...[
-                    const SizedBox(height: PocketaSpacing.s3),
+                    const SizedBox(height: HelmSpacing.s3),
                     Container(
-                      padding: const EdgeInsets.all(PocketaSpacing.s3),
+                      padding: const EdgeInsets.all(HelmSpacing.s3),
                       decoration: BoxDecoration(
                         color: colors.stateAtRisk.withValues(alpha: 0.1),
                         borderRadius:
-                            BorderRadius.circular(PocketaSpacing.s1),
+                            BorderRadius.circular(HelmSpacing.s1),
                         border: Border.all(
                           color: colors.stateAtRisk.withValues(alpha: 0.3),
                         ),
@@ -215,10 +215,10 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                         children: [
                           Icon(
                             Icons.error_outline_rounded,
-                            size: PocketaSpacing.iconMd,
+                            size: HelmSpacing.iconMd,
                             color: colors.stateAtRisk,
                           ),
-                          const SizedBox(width: PocketaSpacing.s2),
+                          const SizedBox(width: HelmSpacing.s2),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,7 +229,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                                     color: colors.stateAtRisk,
                                   ),
                                 ),
-                                const SizedBox(height: PocketaSpacing.s1),
+                                const SizedBox(height: HelmSpacing.s1),
                                 Text(
                                   'A rough estimate is fine — you can update it later.',
                                   style: typo.labelSm.copyWith(
@@ -250,7 +250,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                     onPressed: _onContinue,
                     isEnabled: true,
                   ),
-                  const SizedBox(height: PocketaSpacing.s4),
+                  const SizedBox(height: HelmSpacing.s4),
                 ],
               ),
             ),
@@ -267,7 +267,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
 
 class _ProgressLine extends StatelessWidget {
   final double fraction;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   const _ProgressLine({required this.fraction, required this.colors});
 
@@ -280,19 +280,19 @@ class _ProgressLine extends StatelessWidget {
           return Stack(
             children: [
               Container(
-                height: PocketaSpacing.progressBarHeight,
+                height: HelmSpacing.progressBarHeight,
                 width: constraints.maxWidth,
                 decoration: BoxDecoration(
                   color: colors.hairline,
-                  borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
+                  borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
                 ),
               ),
               Container(
-                height: PocketaSpacing.progressBarHeight,
+                height: HelmSpacing.progressBarHeight,
                 width: constraints.maxWidth * fraction,
                 decoration: BoxDecoration(
                   color: colors.interactive,
-                  borderRadius: BorderRadius.circular(PocketaSpacing.progressBarRadius),
+                  borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
                 ),
               ),
             ],

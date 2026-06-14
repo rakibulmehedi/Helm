@@ -8,11 +8,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
-import 'package:pocketa_v2/features/auth/presentation/providers/magic_link_provider.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/features/auth/presentation/providers/magic_link_provider.dart';
 
 enum _MagicLinkStep { emailInput, verifying }
 
@@ -97,14 +97,14 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       backgroundColor: colors.canvas,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: PocketaSpacing.screenEdge),
+          padding: const EdgeInsets.symmetric(horizontal: HelmSpacing.screenEdge),
           child: Center(
             child: SingleChildScrollView(
               child: _step == _MagicLinkStep.emailInput
@@ -117,23 +117,23 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
     );
   }
 
-  Widget _buildEmailStep(PocketaColors colors, PocketaTypography typo) {
+  Widget _buildEmailStep(HelmColors colors, HelmTypography typo) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Sign in to Pocketa',
+          'Sign in to Helm',
           style: typo.headingLg.copyWith(color: colors.inkPrimary),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: PocketaSpacing.s2),
+        const SizedBox(height: HelmSpacing.s2),
         Text(
           "Enter your email — we'll send you a\nmagic link to sign in instantly.",
           style: typo.bodyLg.copyWith(color: colors.inkSecondary),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: PocketaSpacing.s6),
+        const SizedBox(height: HelmSpacing.s6),
         TextField(
           controller: _emailCtrl,
           keyboardType: TextInputType.emailAddress,
@@ -158,39 +158,39 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
             ),
           ),
         ),
-        const SizedBox(height: PocketaSpacing.s4),
+        const SizedBox(height: HelmSpacing.s4),
         AppButton(
           label: _isLoading ? 'Sending...' : 'Send Magic Link',
           onPressed: _isLoading ? null : _sendMagicLink,
           isEnabled: !_isLoading,
         ),
         if (_error.isNotEmpty) ...[
-          const SizedBox(height: PocketaSpacing.s3),
+          const SizedBox(height: HelmSpacing.s3),
           Text(_error, style: typo.labelSm.copyWith(color: colors.stateAtRisk), textAlign: TextAlign.center),
         ],
       ],
     );
   }
 
-  Widget _buildVerifyStep(PocketaColors colors, PocketaTypography typo) {
+  Widget _buildVerifyStep(HelmColors colors, HelmTypography typo) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Icon(Icons.mark_email_unread_rounded, size: 48, color: colors.interactive),
-        const SizedBox(height: PocketaSpacing.s4),
+        const SizedBox(height: HelmSpacing.s4),
         Text(
           'Check your inbox',
           style: typo.headingLg.copyWith(color: colors.inkPrimary),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: PocketaSpacing.s2),
+        const SizedBox(height: HelmSpacing.s2),
         Text(
           'We sent a link to ${_emailCtrl.text.trim()}.\nEnter the code below, or tap the link in your email.',
           style: typo.bodyLg.copyWith(color: colors.inkSecondary),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: PocketaSpacing.s6),
+        const SizedBox(height: HelmSpacing.s6),
         TextField(
           key: const Key('magic_link_token_field'),
           controller: _tokenCtrl,
@@ -215,17 +215,17 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
             ),
           ),
         ),
-        const SizedBox(height: PocketaSpacing.s4),
+        const SizedBox(height: HelmSpacing.s4),
         AppButton(
           label: _isLoading ? 'Verifying...' : 'Verify & Sign In',
           onPressed: _isLoading ? null : _verifyToken,
           isEnabled: !_isLoading,
         ),
         if (_error.isNotEmpty) ...[
-          const SizedBox(height: PocketaSpacing.s3),
+          const SizedBox(height: HelmSpacing.s3),
           Text(_error, style: typo.labelSm.copyWith(color: colors.stateAtRisk), textAlign: TextAlign.center),
         ],
-        const SizedBox(height: PocketaSpacing.s4),
+        const SizedBox(height: HelmSpacing.s4),
         TextButton(
           onPressed: () {
             setState(() {

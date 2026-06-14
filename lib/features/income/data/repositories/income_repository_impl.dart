@@ -10,12 +10,12 @@
 //
 // Phase 7a — Income Data Layer
 
-import 'package:pocketa_v2/features/audit_log/data/datasources/audit_local_data_source.dart';
-import 'package:pocketa_v2/features/audit_log/domain/entities/audit_event.dart';
-import 'package:pocketa_v2/features/income/data/datasources/income_local_data_source.dart';
-import 'package:pocketa_v2/features/income/data/models/income_model.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/domain/repositories/income_repository.dart';
+import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/income/data/datasources/income_local_data_source.dart';
+import 'package:helm/features/income/data/models/income_model.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/domain/repositories/income_repository.dart';
 
 /// Concrete repository bridging the income domain and Hive data layer.
 ///

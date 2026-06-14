@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/core/analytics/domain/nudge_preferences_entity.dart';
+import 'package:helm/core/analytics/domain/nudge_preferences_entity.dart';
 
 void main() {
   test('default preferences: daily, 9am, push+in-app enabled, quiet affirmations on', () {

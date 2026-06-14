@@ -1,7 +1,7 @@
 // test/features/auth/domain/pin_hasher_test.dart
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/features/auth/domain/pin_hasher.dart';
+import 'package:helm/features/auth/domain/pin_hasher.dart';
 
 void main() {
   group('PinHasher.hashPin', () {

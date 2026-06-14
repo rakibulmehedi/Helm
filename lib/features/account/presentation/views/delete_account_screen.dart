@@ -17,13 +17,13 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/auth/domain/pin_hasher.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/auth/domain/pin_hasher.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -124,8 +124,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
     final atRisk = colors.stateAtRisk;
 
     return Scaffold(
@@ -138,16 +138,16 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(PocketaSpacing.screenEdge),
+          padding: const EdgeInsets.all(HelmSpacing.screenEdge),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               // Warning card
               Container(
-                padding: const EdgeInsets.all(PocketaSpacing.s4),
+                padding: const EdgeInsets.all(HelmSpacing.s4),
                 decoration: BoxDecoration(
                   color: atRisk.withValues(alpha: 0.08),
-                  borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+                  borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                   border: Border.all(color: atRisk.withValues(alpha: 0.35)),
                 ),
                 child: Row(
@@ -155,7 +155,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                   children: [
                     Icon(Icons.warning_amber_rounded,
                         color: atRisk, size: 24),
-                    const SizedBox(width: PocketaSpacing.s3),
+                    const SizedBox(width: HelmSpacing.s3),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,7 +165,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                             style: typography.headingSm
                                 .copyWith(color: atRisk),
                           ),
-                          const SizedBox(height: PocketaSpacing.s1),
+                          const SizedBox(height: HelmSpacing.s1),
                           Text(
                             'Deleting your data will permanently remove all your'
                             ' income entries, transactions, settings, and change'
@@ -181,7 +181,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 ),
               ),
 
-              const SizedBox(height: PocketaSpacing.s6),
+              const SizedBox(height: HelmSpacing.s6),
 
               // What will be deleted
               Text(
@@ -189,7 +189,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 style: typography.headingSm
                     .copyWith(color: colors.inkPrimary),
               ),
-              const SizedBox(height: PocketaSpacing.s3),
+              const SizedBox(height: HelmSpacing.s3),
               ..._deletionItems(colors, typography),
 
               const Spacer(),
@@ -202,7 +202,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                   minimumSize: const Size.fromHeight(52),
                   shape: RoundedRectangleBorder(
                     borderRadius:
-                        BorderRadius.circular(PocketaSpacing.cardRadius),
+                        BorderRadius.circular(HelmSpacing.cardRadius),
                   ),
                 ),
                 onPressed: _deleting ? null : _showConfirmDialog,
@@ -218,7 +218,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                     : const Text('Continue to delete'),
               ),
 
-              const SizedBox(height: PocketaSpacing.s2),
+              const SizedBox(height: HelmSpacing.s2),
 
               // Cancel link
               TextButton(
@@ -230,7 +230,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                 ),
               ),
 
-              const SizedBox(height: PocketaSpacing.s2),
+              const SizedBox(height: HelmSpacing.s2),
             ],
           ),
         ),
@@ -239,8 +239,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   }
 
   List<Widget> _deletionItems(
-    PocketaColors colors,
-    PocketaTypography typography,
+    HelmColors colors,
+    HelmTypography typography,
   ) {
     const items = [
       'All income entries',
@@ -253,12 +253,12 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         .map(
           (item) => Padding(
             padding:
-                const EdgeInsets.only(bottom: PocketaSpacing.s2),
+                const EdgeInsets.only(bottom: HelmSpacing.s2),
             child: Row(
               children: [
                 Icon(Icons.remove_circle_outline,
                     size: 16, color: colors.stateAtRisk),
-                const SizedBox(width: PocketaSpacing.s2),
+                const SizedBox(width: HelmSpacing.s2),
                 Text(
                   item,
                   style: typography.bodyMd
@@ -325,17 +325,17 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
     final atRisk = colors.stateAtRisk;
 
     return Dialog(
       backgroundColor: colors.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(PocketaSpacing.s5),
+        padding: const EdgeInsets.all(HelmSpacing.s5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -344,7 +344,7 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
               style: typography.headingSm.copyWith(color: colors.inkPrimary),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: PocketaSpacing.s4),
+            const SizedBox(height: HelmSpacing.s4),
 
             // 4 dot indicators
             Row(
@@ -353,7 +353,7 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
                 final filled = i < _digits.length;
                 return Container(
                   margin: const EdgeInsets.symmetric(
-                      horizontal: PocketaSpacing.s2),
+                      horizontal: HelmSpacing.s2),
                   width: 16,
                   height: 16,
                   decoration: BoxDecoration(
@@ -369,19 +369,19 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
             ),
 
             if (_wrongPin) ...[
-              const SizedBox(height: PocketaSpacing.s2),
+              const SizedBox(height: HelmSpacing.s2),
               Text(
                 'Incorrect PIN',
                 style: typography.bodySm.copyWith(color: atRisk),
               ),
             ],
 
-            const SizedBox(height: PocketaSpacing.s4),
+            const SizedBox(height: HelmSpacing.s4),
 
             // Keypad
             _Keypad(onDigit: _onDigit, onDelete: _onDelete),
 
-            const SizedBox(height: PocketaSpacing.s4),
+            const SizedBox(height: HelmSpacing.s4),
 
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -430,17 +430,17 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
     final atRisk = colors.stateAtRisk;
 
     return Dialog(
       backgroundColor: colors.surface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(PocketaSpacing.s5),
+        padding: const EdgeInsets.all(HelmSpacing.s5),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -449,7 +449,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
               style: typography.headingSm.copyWith(color: colors.inkPrimary),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: PocketaSpacing.s4),
+            const SizedBox(height: HelmSpacing.s4),
             TextField(
               controller: _controller,
               autofocus: true,
@@ -458,16 +458,16 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
                 hintText: 'DELETE',
                 border: OutlineInputBorder(
                   borderRadius:
-                      BorderRadius.circular(PocketaSpacing.cardRadius),
+                      BorderRadius.circular(HelmSpacing.cardRadius),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius:
-                      BorderRadius.circular(PocketaSpacing.cardRadius),
+                      BorderRadius.circular(HelmSpacing.cardRadius),
                   borderSide: BorderSide(color: atRisk),
                 ),
               ),
             ),
-            const SizedBox(height: PocketaSpacing.s4),
+            const SizedBox(height: HelmSpacing.s4),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
@@ -476,7 +476,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
                   foregroundColor: colors.surface,
                   shape: RoundedRectangleBorder(
                     borderRadius:
-                        BorderRadius.circular(PocketaSpacing.cardRadius),
+                        BorderRadius.circular(HelmSpacing.cardRadius),
                   ),
                 ),
                 onPressed:
@@ -484,7 +484,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
                 child: const Text('Delete all data'),
               ),
             ),
-            const SizedBox(height: PocketaSpacing.s2),
+            const SizedBox(height: HelmSpacing.s2),
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
@@ -512,8 +512,8 @@ class _Keypad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     final rows = [
       ['1', '2', '3'],

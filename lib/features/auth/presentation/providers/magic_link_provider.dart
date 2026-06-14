@@ -5,10 +5,10 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:pocketa_v2/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:pocketa_v2/features/auth/data/repositories/auth_repository_impl.dart';
-import 'package:pocketa_v2/features/auth/domain/entities/session_entity.dart';
-import 'package:pocketa_v2/features/auth/domain/repositories/auth_repository.dart';
+import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:helm/features/auth/domain/entities/session_entity.dart';
+import 'package:helm/features/auth/domain/repositories/auth_repository.dart';
 
 // ── Repository provider (singleton) ────────────────────────────────────────
 

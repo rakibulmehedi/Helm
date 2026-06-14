@@ -4,16 +4,16 @@
 // Includes NudgeSessionService provider and notification providers.
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/domain/nudge_event_logger.dart';
-import 'package:pocketa_v2/core/nudge/data/datasources/nudge_data_source.dart';
-import 'package:pocketa_v2/core/nudge/data/repositories/nudge_repository.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_decision.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_effectiveness_service.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_evaluator.dart';
-import 'package:pocketa_v2/core/nudge/domain/nudge_log_entry_entity.dart';
-import 'package:pocketa_v2/core/nudge/notifications/notification_service.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/domain/nudge_event_logger.dart';
+import 'package:helm/core/nudge/data/datasources/nudge_data_source.dart';
+import 'package:helm/core/nudge/data/repositories/nudge_repository.dart';
+import 'package:helm/core/nudge/domain/nudge_decision.dart';
+import 'package:helm/core/nudge/domain/nudge_effectiveness_service.dart';
+import 'package:helm/core/nudge/domain/nudge_evaluator.dart';
+import 'package:helm/core/nudge/domain/nudge_log_entry_entity.dart';
+import 'package:helm/core/nudge/notifications/notification_service.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 
 // ── Infrastructure providers ──────────────────────────────────────────────────
 

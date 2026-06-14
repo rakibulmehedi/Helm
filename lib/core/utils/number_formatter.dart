@@ -6,7 +6,7 @@
 
 // ignore_for_file: avoid_classes_with_only_static_members
 
-/// Formats monetary values for display in Pocketa.
+/// Formats monetary values for display in Helm.
 ///
 /// BDT uses the Indian/Bangladeshi number system:
 ///   - Groups of 3 for the rightmost digits, then groups of 2.

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
+import 'package:helm/core/themes/helm_colors.dart';
 
 double _linearize(double channel) {
   return channel <= 0.03928
@@ -27,10 +27,10 @@ double _computeContrast(Color a, Color b) {
 }
 
 void main() {
-  group('PocketaColors light mode WCAG AA contrast (≥4.5:1)', () {
+  group('HelmColors light mode WCAG AA contrast (≥4.5:1)', () {
     test('stateSafe meets WCAG AA contrast on light canvas (#FAFAF6)', () {
       final contrast = _computeContrast(
-        PocketaColors.light.stateSafe,
+        HelmColors.light.stateSafe,
         const Color(0xFFFAFAF6),
       );
       expect(contrast, greaterThanOrEqualTo(4.5));
@@ -38,17 +38,17 @@ void main() {
 
     test('stateTight meets WCAG AA contrast on light canvas (#FAFAF6)', () {
       final contrast = _computeContrast(
-        PocketaColors.light.stateTight,
+        HelmColors.light.stateTight,
         const Color(0xFFFAFAF6),
       );
       expect(contrast, greaterThanOrEqualTo(4.5));
     });
   });
 
-  group('PocketaColors dark mode WCAG AA contrast (≥4.5:1)', () {
+  group('HelmColors dark mode WCAG AA contrast (≥4.5:1)', () {
     test('interactive meets WCAG AA contrast on dark canvas (#0E0E0C)', () {
       final contrast = _computeContrast(
-        PocketaColors.dark.interactive,
+        HelmColors.dark.interactive,
         const Color(0xFF0E0E0C),
       );
       expect(contrast, greaterThanOrEqualTo(4.5));

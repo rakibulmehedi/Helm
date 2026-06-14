@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pocketa_v2/features/onboarding/domain/income_pattern.dart';
-import 'package:pocketa_v2/features/onboarding/domain/onboarding_draft.dart';
+import 'package:helm/features/onboarding/domain/income_pattern.dart';
+import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
 
 void main() {
   group('OnboardingDraft defaults', () {

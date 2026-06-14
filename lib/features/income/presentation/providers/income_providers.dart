@@ -17,10 +17,10 @@
 // Phase 7a — Income Data Layer
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/features/income/data/datasources/income_local_data_source.dart';
-import 'package:pocketa_v2/features/income/data/repositories/income_repository_impl.dart';
-import 'package:pocketa_v2/features/income/domain/entities/income_entry_entity.dart';
-import 'package:pocketa_v2/features/income/domain/repositories/income_repository.dart';
+import 'package:helm/features/income/data/datasources/income_local_data_source.dart';
+import 'package:helm/features/income/data/repositories/income_repository_impl.dart';
+import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
+import 'package:helm/features/income/domain/repositories/income_repository.dart';
 
 // ── Infrastructure providers ──────────────────────────────────────────────────
 

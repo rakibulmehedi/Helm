@@ -9,7 +9,7 @@ class AppLocalizationsBn extends AppLocalizations {
   AppLocalizationsBn([String locale = 'bn']) : super(locale);
 
   @override
-  String get appName => 'পকেটা';
+  String get appName => 'হেল্ম';
 
   @override
   String get appTagline => 'এখন আপনি আসলে কত টাকা খরচ করতে পারবেন?';
@@ -22,7 +22,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get setUpLater => 'পরে সেট করব';
 
   @override
-  String get signInToPocketa => 'পকেটায় সাইন ইন করুন';
+  String get signInToHelm => 'হেল্ম-এ সাইন ইন করুন';
 
   @override
   String get magicLinkSubtitle =>
@@ -94,7 +94,7 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get disqualifyHeading =>
-      'পকেটা বাংলাদেশের USD-আয়কারী ফ্রিল্যান্সারদের জন্য তৈরি।';
+      'হেল্ম বাংলাদেশের USD-আয়কারী ফ্রিল্যান্সারদের জন্য তৈরি।';
 
   @override
   String get disqualifySubtext =>

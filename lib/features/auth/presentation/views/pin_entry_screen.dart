@@ -1,6 +1,6 @@
 // lib/features/auth/presentation/views/pin_entry_screen.dart
 //
-// PIN entry (unlock) screen for Pocketa Trust Layer (D1).
+// PIN entry (unlock) screen for Helm Trust Layer (D1).
 // Shows attempt counter, locks after 5 failed attempts.
 // Uses custom numpad — no keyboard input.
 
@@ -9,12 +9,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/analytics/analytics_service.dart';
-import 'package:pocketa_v2/core/analytics/event_registry.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
 
 class PinEntryScreen extends ConsumerStatefulWidget {
   const PinEntryScreen({super.key});
@@ -103,7 +103,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
     final authState = ref.watch(authProvider);
     final lockedOut = authState.isLocked && authState.failedAttempts >= _maxAttempts;
 
@@ -155,7 +155,7 @@ class _PinEntryHeader extends StatelessWidget {
   final String? message;
   final int failedAttempts;
   final bool isLockedOut;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class _PinEntryHeader extends StatelessWidget {
       children: [
         Text(
           'Enter your PIN',
-          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
+          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
             color: colors.inkPrimary,
           ),
         ),
@@ -171,7 +171,7 @@ class _PinEntryHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             message!,
-            style: Theme.of(context).extension<PocketaTypography>()!.bodyMd.copyWith(
+            style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
               color: isLockedOut ? colors.stateAtRisk : colors.stateTight,
             ),
             textAlign: TextAlign.center,
@@ -195,7 +195,7 @@ class _PinDots extends StatelessWidget {
 
   final int filledCount;
   final int totalCount;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +236,7 @@ class _NumPad extends StatelessWidget {
 
   final ValueChanged<String> onDigit;
   final VoidCallback onClear;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   static const List<List<String?>> _rows = [
     ['1', '2', '3'],
@@ -284,7 +284,7 @@ class _NumKey extends StatelessWidget {
 
   final String label;
   final VoidCallback onTap;
-  final PocketaColors colors;
+  final HelmColors colors;
 
   @override
   Widget build(BuildContext context) {
@@ -301,7 +301,7 @@ class _NumKey extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).extension<PocketaTypography>()!.headingLg.copyWith(
+          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
             fontWeight: FontWeight.w500,
             color: colors.inkPrimary,
           ),

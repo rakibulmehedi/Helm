@@ -6,7 +6,7 @@
 // This seeds the dashboard so S2S isn't empty on first view.
 //
 // UX Improvements:
-//   - Uses PocketaMotion tokens
+//   - Uses HelmMotion tokens
 //   - Page entry animation
 //   - Loading state on submit
 //   - Error iconography
@@ -14,11 +14,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 /// Data captured from the optional first pipeline entry.
 class PipelineDraftEntry {
@@ -65,7 +65,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
     // Page entry animation
     _entryController = AnimationController(
       vsync: this,
-      duration: PocketaMotion.slow,
+      duration: HelmMotion.slow,
     );
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _entryController, curve: Curves.easeOut),
@@ -74,7 +74,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
       begin: const Offset(0, 0.05),
       end: Offset.zero,
     ).animate(
-      CurvedAnimation(parent: _entryController, curve: PocketaMotion.defaultCurve),
+      CurvedAnimation(parent: _entryController, curve: HelmMotion.defaultCurve),
     );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -104,8 +104,8 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
 
     return SafeArea(
       child: FadeTransition(
@@ -118,13 +118,13 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
               Expanded(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: PocketaSpacing.screenEdge),
+                      horizontal: HelmSpacing.screenEdge),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(height: PocketaSpacing.s10),
+                        const SizedBox(height: HelmSpacing.s10),
                         Semantics(
                           header: true,
                           child: Text(
@@ -133,14 +133,14 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                 typo.headingLg.copyWith(color: colors.inkPrimary),
                           ),
                         ),
-                        const SizedBox(height: PocketaSpacing.s2),
+                        const SizedBox(height: HelmSpacing.s2),
                         Text(
                           'Adding expected income helps Safe-to-Spend show you '
                           'the full picture from day one.',
                           style:
                               typo.bodyLg.copyWith(color: colors.inkSecondary),
                         ),
-                        const SizedBox(height: PocketaSpacing.s8),
+                        const SizedBox(height: HelmSpacing.s8),
 
                         // Client name
                         Semantics(
@@ -156,17 +156,17 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                    PocketaSpacing.cardRadius),
+                                    HelmSpacing.cardRadius),
                                 borderSide: BorderSide(color: colors.divider),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                    PocketaSpacing.cardRadius),
+                                    HelmSpacing.cardRadius),
                                 borderSide: BorderSide(color: colors.divider),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                    PocketaSpacing.cardRadius),
+                                    HelmSpacing.cardRadius),
                                 borderSide: BorderSide(
                                   color: colors.interactive,
                                   width: 2,
@@ -174,7 +174,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                    PocketaSpacing.cardRadius),
+                                    HelmSpacing.cardRadius),
                                 borderSide: BorderSide(
                                   color: colors.stateAtRisk,
                                   width: 1.5,
@@ -185,7 +185,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                               ),
                               prefixIcon: Icon(
                                 Icons.person_outline_rounded,
-                                size: PocketaSpacing.iconMd,
+                                size: HelmSpacing.iconMd,
                                 color: colors.inkTertiary,
                               ),
                             ),
@@ -197,7 +197,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                             },
                           ),
                         ),
-                        const SizedBox(height: PocketaSpacing.s4),
+                        const SizedBox(height: HelmSpacing.s4),
 
                         // Amount + currency
                         Semantics(
@@ -225,17 +225,17 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                     ),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
-                                          PocketaSpacing.cardRadius),
+                                          HelmSpacing.cardRadius),
                                       borderSide: BorderSide(color: colors.divider),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
-                                          PocketaSpacing.cardRadius),
+                                          HelmSpacing.cardRadius),
                                       borderSide: BorderSide(color: colors.divider),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
-                                          PocketaSpacing.cardRadius),
+                                          HelmSpacing.cardRadius),
                                       borderSide: BorderSide(
                                         color: colors.interactive,
                                         width: 2,
@@ -243,7 +243,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
-                                          PocketaSpacing.cardRadius),
+                                          HelmSpacing.cardRadius),
                                       borderSide: BorderSide(
                                         color: colors.stateAtRisk,
                                         width: 1.5,
@@ -263,7 +263,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                   },
                                 ),
                               ),
-                              const SizedBox(width: PocketaSpacing.s3),
+                              const SizedBox(width: HelmSpacing.s3),
                               Expanded(
                                 child: Semantics(
                                   label: 'Currency selector',
@@ -272,7 +272,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
-                                              PocketaSpacing.cardRadius)),
+                                              HelmSpacing.cardRadius)),
                                       contentPadding: const EdgeInsets.symmetric(
                                           horizontal: 12, vertical: 16),
                                     ),
@@ -294,24 +294,24 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                           ),
                         ),
 
-                        const SizedBox(height: PocketaSpacing.s6),
+                        const SizedBox(height: HelmSpacing.s6),
 
                         // Info note
                         Semantics(
                           label: 'Information: This will be marked as Expected. You can update the status later.',
                           child: Container(
-                            padding: const EdgeInsets.all(PocketaSpacing.s3),
+                            padding: const EdgeInsets.all(HelmSpacing.s3),
                             decoration: BoxDecoration(
                               color: colors.surface,
                               borderRadius:
-                                  BorderRadius.circular(PocketaSpacing.cardRadius),
+                                  BorderRadius.circular(HelmSpacing.cardRadius),
                               border: Border.all(color: colors.hairline),
                             ),
                             child: Row(
                               children: [
                                 Icon(Icons.info_outline_rounded,
-                                    size: PocketaSpacing.iconSm, color: colors.inkTertiary),
-                                const SizedBox(width: PocketaSpacing.s2),
+                                    size: HelmSpacing.iconSm, color: colors.inkTertiary),
+                                const SizedBox(width: HelmSpacing.s2),
                                 Expanded(
                                   child: Text(
                                     'This will be marked as "Expected". '
@@ -333,7 +333,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
               // Bottom buttons with loading state
               Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: PocketaSpacing.screenEdge),
+                    horizontal: HelmSpacing.screenEdge),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -343,7 +343,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                       isEnabled: !_isLoading,
                       isLoading: _isLoading,
                     ),
-                    const SizedBox(height: PocketaSpacing.s2),
+                    const SizedBox(height: HelmSpacing.s2),
                     Semantics(
                       label: 'Skip adding pipeline entry and continue to home',
                       button: true,
@@ -358,7 +358,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                         ),
                       ),
                     ),
-                    const SizedBox(height: PocketaSpacing.s4),
+                    const SizedBox(height: HelmSpacing.s4),
                   ],
                 ),
               ),

@@ -1,6 +1,6 @@
 // lib/config/router/app_router.dart
 //
-// Central GoRouter configuration for Pocketa.
+// Central GoRouter configuration for Helm.
 //
 // Guard logic:
 //   - If onboarding is NOT completed → always redirect to /welcome
@@ -16,28 +16,28 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/constants/app_box_names.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/features/auth/presentation/providers/auth_provider.dart';
-import 'package:pocketa_v2/features/auth/presentation/views/magic_link_screen.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/features/auth/presentation/views/pin_entry_screen.dart';
-import 'package:pocketa_v2/features/auth/presentation/views/pin_setup_screen.dart';
-import 'package:pocketa_v2/features/dashboard/presentation/views/dashboard_screen.dart';
-import 'package:pocketa_v2/features/income/presentation/views/add_income_screen.dart';
-import 'package:pocketa_v2/features/income/presentation/views/income_list_screen.dart';
-import 'package:pocketa_v2/features/income/presentation/views/pipeline_screen.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/onboarding_screen.dart';
-import 'package:pocketa_v2/features/onboarding/presentation/views/welcome_screen.dart';
-import 'package:pocketa_v2/features/account/presentation/views/delete_account_screen.dart';
-import 'package:pocketa_v2/features/audit_log/presentation/views/audit_log_screen.dart';
-import 'package:pocketa_v2/features/export/presentation/views/export_screen.dart';
-import 'package:pocketa_v2/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
-import 'package:pocketa_v2/features/splash/views/splash_screen.dart';
-import 'package:pocketa_v2/features/transactions/presentation/views/add_transaction_screen.dart';
-import 'package:pocketa_v2/core/nudge/presentation/screens/notification_center_screen.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/features/auth/presentation/views/magic_link_screen.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/features/auth/presentation/views/pin_entry_screen.dart';
+import 'package:helm/features/auth/presentation/views/pin_setup_screen.dart';
+import 'package:helm/features/dashboard/presentation/views/dashboard_screen.dart';
+import 'package:helm/features/income/presentation/views/add_income_screen.dart';
+import 'package:helm/features/income/presentation/views/income_list_screen.dart';
+import 'package:helm/features/income/presentation/views/pipeline_screen.dart';
+import 'package:helm/features/onboarding/presentation/views/onboarding_screen.dart';
+import 'package:helm/features/onboarding/presentation/views/welcome_screen.dart';
+import 'package:helm/features/account/presentation/views/delete_account_screen.dart';
+import 'package:helm/features/audit_log/presentation/views/audit_log_screen.dart';
+import 'package:helm/features/export/presentation/views/export_screen.dart';
+import 'package:helm/features/safe_to_spend/presentation/views/sts_settings_screen.dart';
+import 'package:helm/features/splash/views/splash_screen.dart';
+import 'package:helm/features/transactions/presentation/views/add_transaction_screen.dart';
+import 'package:helm/core/nudge/presentation/screens/notification_center_screen.dart';
 
 /// The single [GoRouter] instance used by [MaterialApp.router].
 final GoRouter appRouter = GoRouter(
@@ -233,8 +233,8 @@ class _AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     return Scaffold(
       body: child,

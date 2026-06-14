@@ -1,6 +1,6 @@
 // lib/features/safe_to_spend/domain/repositories/fixed_cost_repository.dart
 
-import 'package:pocketa_v2/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 
 /// Abstract repository for managing [FixedCostEntry] records.
 abstract class FixedCostRepository {
