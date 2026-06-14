@@ -63,10 +63,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   void initState() {
     super.initState();
     if (widget.incomeId != null) {
-      final incomes = ref.read(incomeNotifierProvider);
-      final entry =
-          incomes.where((e) => e.id == widget.incomeId).firstOrNull;
-      if (entry != null) {
+      // Defer provider read to avoid timing issues with uninitialized state.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _loadEntryForEdit();
+      });
+    }
+  }
+
+  void _loadEntryForEdit() {
+    if (!mounted || widget.incomeId == null) return;
+    final incomes = ref.read(incomeNotifierProvider);
+    final entry = incomes.where((e) => e.id == widget.incomeId).firstOrNull;
+    if (entry != null) {
+      setState(() {
         _clientNameController.text = entry.clientName;
         _projectNameController.text = entry.projectName;
         _amountController.text = entry.amount.toStringAsFixed(2);
@@ -81,9 +90,9 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         }
         _sourceLabelController.text = entry.sourceLabel ?? '';
         _excludeFromCalculation = entry.excludeFromCalculation;
-      } else {
-        _incomeNotFound = true;
-      }
+      });
+    } else {
+      setState(() => _incomeNotFound = true);
     }
   }
 
@@ -232,20 +241,27 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       return const _IncomeNotFoundView();
     }
 
-    return Scaffold(
-      backgroundColor: colors.canvas,
-      appBar: AppBar(
-        title: Text(
-          isEditing ? 'Edit Income' : 'Add Income',
-          style: typo.headingMd,
+    return PopScope(
+      canPop: true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        // Fallback for edge cases where canPop is true but pop didn't complete
+        if (mounted) context.pop();
+      },
+      child: Scaffold(
+        backgroundColor: colors.canvas,
+        appBar: AppBar(
+          title: Text(
+            isEditing ? 'Edit Income' : 'Add Income',
+            style: typo.headingMd,
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+            onPressed: () => context.pop(),
+          ),
         ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-          onPressed: () => context.pop(),
-        ),
-      ),
-      body: GestureDetector(
+        body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
           child: SingleChildScrollView(
@@ -276,7 +292,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Project Name ─────────────────────────────────────────
-                _FieldLabel('Project Name'),
+                _FieldLabel('Project Name (recommended)'),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _projectNameController,
@@ -285,12 +301,6 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                     hint: 'e.g. Website Redesign',
                     colors: colors,
                   ),
-                  validator: (v) {
-                    if (v == null || v.trim().isEmpty) {
-                      return 'Project name is required';
-                    }
-                    return null;
-                  },
                 ),
 
                 const SizedBox(height: 20),
@@ -332,7 +342,13 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                     _CurrencySelector(
                       selected: _selectedCurrency,
                       onChanged: (c) =>
-                          setState(() => _selectedCurrency = c),
+                          setState(() {
+                            _selectedCurrency = c;
+                            // Clear FX rate when switching away from USD to prevent stale data.
+                            if (c != 'USD') {
+                              _fxRateController.clear();
+                            }
+                          }),
                     ),
                   ],
                 ),
@@ -350,6 +366,16 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                       hint: 'e.g. 110.5',
                       colors: colors,
                     ),
+                    validator: (v) {
+                      if (v == null || v.trim().isEmpty) {
+                        return 'FX rate is required for USD entries';
+                      }
+                      final rate = double.tryParse(v.trim());
+                      if (rate == null || rate <= 0) {
+                        return 'Enter a valid positive rate';
+                      }
+                      return null;
+                    },
                   ),
                 ],
 
@@ -471,6 +497,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
           ),
         ),
         ),
+      ),
       ),
     );
   }

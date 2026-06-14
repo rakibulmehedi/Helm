@@ -425,3 +425,31 @@ The "Set up later" TextButton is trivial to add. What matters: (1) partial draft
 
 ### 27. Affirmation domain logic kept pure — worth the file overhead
 Creating `lib/features/dashboard/domain/affirmation.dart` (a 40-line file with no Flutter imports) felt excessive for 3 conditions. But it makes the logic testable without widget pumps, Hive, or Riverpod. 7 tests run in milliseconds. The alternative (inline in dashboard initState) would be untestable. Small domain files are never wasted.
+
+## Onboarding + Income Pipeline Bug Fixes (2026-06-14)
+
+### 28. Onboarding liquid balance silently disappears between SharedPrefs and Safe-to-Spend
+**Bug**: User entered liquid balance during onboarding, but it never appeared in the Income pipeline dashboard or Safe-to-Spend calculation.
+**Root Cause**: Onboarding stored `liquidBalanceBdt` in `SharedPrefServices` but the S2S calculator and pipeline read from Hive (`incomeNotifierProvider`). Two separate data systems with no bridge.
+**Fix**: In `_completeOnboarding()`, auto-create an `IncomeEntryEntity` with `status: received` and `receivedDate: now` when `_draft.liquidBalanceBdt > 0`. This converts the onboarding input into a pipeline entry that both the S2S calculator and dashboard can see.
+**Lesson**: A user-entered value that isn't persisted to the same storage layer as the consuming system will silently disappear. Always trace the data flow from input → storage → consumption.
+
+### 29. AddIncomeScreen provider timing issue in edit mode
+**Bug**: `ref.read(incomeNotifierProvider)` in `initState()` could return an empty list if the provider hadn't finished loading yet.
+**Root Cause**: `initState()` runs synchronously before any async initialization completes. Provider state may not be ready.
+**Fix**: Defer the provider read to `addPostFrameCallback()` to ensure state is loaded before accessing.
+**Lesson**: Never call `ref.read()` inside `initState()` for state that may not be initialized yet. Use post-frame callbacks for deferred reads in edit modes.
+
+### 30. FX rate field missing validation for USD entries
+**Bug**: USD entries could be saved with empty or invalid FX rates, causing silent exclusion from S2S calculations.
+**Fix**: Added required validator for FX rate when currency is USD, requiring positive numbers.
+**Additional fix**: Clear FX rate controller when switching from USD to BDT to prevent stale data submission.
+
+### 31. Project name made optional to match onboarding UX
+**Bug**: AddIncomeScreen required project name but FirstPipelinePage allowed empty project names, creating inconsistent UX.
+**Fix**: Removed required validator, changed label to "Project Name (recommended)" to align with onboarding patterns.
+
+### 32. PopScope needed for reliable back navigation
+**Bug**: Back button using `context.pop()` could fail in edge cases with GoRouter (navigation context invalid, route stack edge cases, iOS swipe conflicts).
+**Fix**: Wrapped AddIncomeScreen in `PopScope` with `canPop: true` and `onPopInvokedWithResult` fallback for robustness.
+**Lesson**: For modal routes and screens that need reliable back navigation, always wrap in `PopScope` rather than relying solely on `IconButton.context.pop()`.
