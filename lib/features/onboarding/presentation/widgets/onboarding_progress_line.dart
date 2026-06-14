@@ -16,7 +16,7 @@ class OnboardingProgressLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
 
     return Semantics(
       label: 'Onboarding progress: ${(progress * 100).round()}% complete',

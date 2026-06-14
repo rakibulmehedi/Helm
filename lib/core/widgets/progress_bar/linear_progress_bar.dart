@@ -26,8 +26,8 @@ class OnboardingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
     final progress =
         (step != null && totalSteps > 0)
             ? (step!.clamp(1, totalSteps) / totalSteps)

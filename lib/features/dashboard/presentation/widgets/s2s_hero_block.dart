@@ -96,8 +96,8 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     final Widget heroContent = Column(
       crossAxisAlignment: CrossAxisAlignment.start,

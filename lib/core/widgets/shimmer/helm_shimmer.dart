@@ -46,7 +46,7 @@ class _HelmShimmerState extends State<HelmShimmer>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
 
     return AnimatedBuilder(
       animation: _animation,
@@ -84,7 +84,7 @@ class ShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
 
     return Container(
       padding: padding ?? const EdgeInsets.all(HelmSpacing.s4),

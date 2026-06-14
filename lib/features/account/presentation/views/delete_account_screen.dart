@@ -19,6 +19,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/security/constants/security_keys.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
@@ -42,13 +44,15 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     if (_deleting) return;
     setState(() => _deleting = true);
 
-    const boxNames = [
-      'transactions',
-      'income_box',
-      'fixed_costs_box',
-      'categories',
-      'audit_events_box',
-      'auth_box',
+    // Clear least-sensitive boxes first; auth_box is last so a crash mid-wipe
+    // leaves the identity/PIN gate intact where possible.
+    final boxNames = [
+      AppBoxNames.transactions,
+      AppBoxNames.incomeBox,
+      AppBoxNames.fixedCostsBox,
+      AppBoxNames.categories,
+      AppBoxNames.auditEventsBox,
+      AppBoxNames.authBox,
     ];
 
     for (final name in boxNames) {
@@ -56,13 +60,17 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
         if (Hive.isBoxOpen(name)) {
           await Hive.box<dynamic>(name).clear();
         }
-      } catch (_) {}
+      } on Exception catch (e, st) {
+        debugPrint('[DELETE_ACCOUNT] failed to clear box $name: $e\n$st');
+      }
     }
 
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.clear();
-    } catch (_) {}
+    } on Exception catch (e, st) {
+      debugPrint('[DELETE_ACCOUNT] failed to clear SharedPreferences: $e\n$st');
+    }
 
     // D2P — Beta instrumentation: account deleted (irreversible data wipe)
     ref.read(analyticsProvider).trackEvent(TransactionalEvents.accountDeleted);
@@ -74,24 +82,28 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   /// Returns the stored PIN hash, or null if no PIN has been set up.
   String? _getStoredPinHash() {
     try {
-      if (Hive.isBoxOpen('auth_box')) {
-        final box = Hive.box<dynamic>('auth_box');
-        final hash = box.get('pin_hash');
+      if (Hive.isBoxOpen(AppBoxNames.authBox)) {
+        final box = Hive.box<dynamic>(AppBoxNames.authBox);
+        final hash = box.get(SecurityKeys.pinHashKey);
         if (hash is String && hash.isNotEmpty) return hash;
       }
-    } catch (_) {}
+    } on Exception catch (e, st) {
+      debugPrint('[DELETE_ACCOUNT] failed to read PIN hash: $e\n$st');
+    }
     return null;
   }
 
   /// Returns the stored PIN salt, or null if unavailable.
   String? _getStoredPinSalt() {
     try {
-      if (Hive.isBoxOpen('auth_box')) {
-        final box = Hive.box<dynamic>('auth_box');
-        final salt = box.get('pin_salt');
+      if (Hive.isBoxOpen(AppBoxNames.authBox)) {
+        final box = Hive.box<dynamic>(AppBoxNames.authBox);
+        final salt = box.get(SecurityKeys.pinSaltKey);
         if (salt is String && salt.isNotEmpty) return salt;
       }
-    } catch (_) {}
+    } on Exception catch (e, st) {
+      debugPrint('[DELETE_ACCOUNT] failed to read PIN salt: $e\n$st');
+    }
     return null;
   }
 
@@ -124,8 +136,8 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
 
     return Scaffold(
@@ -325,8 +337,8 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
 
     return Dialog(
@@ -430,8 +442,8 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
 
     return Dialog(
@@ -512,8 +524,8 @@ class _Keypad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     final rows = [
       ['1', '2', '3'],

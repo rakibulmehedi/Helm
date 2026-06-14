@@ -1,8 +1,21 @@
+// lib/core/local_storage/shared_pref_service.dart
+
 import 'package:helm/core/constants/app_language.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefServices {
   static SharedPreferences? _prefs;
+
+  static SharedPreferences get _instance {
+    if (_prefs == null) {
+      throw StateError(
+        'SharedPrefServices has not been initialized. '
+        'Call SharedPrefServices.init() before any read/write.',
+      );
+    }
+    return _prefs!;
+  }
+
   static const String _onboardingCompletedKey = 'onboarding_completed';
   static const String _isDarkModeKey = 'is_dark_mode';
   static const String _userCurrencyKey = 'user_currency';
@@ -13,50 +26,50 @@ class SharedPrefServices {
   }
 
   static Future<void> setUserLanguage(AppLanguage language) async {
-    await _prefs?.setString(_userLanguageKey, language.name);
+    await _instance.setString(_userLanguageKey, language.name);
   }
 
   static String? getUserLanguageCode() {
-    return _prefs?.getString(_userLanguageKey) ?? 'en';
+    return _instance.getString(_userLanguageKey) ?? 'en';
   }
 
   static Future<void> setOnboardingCompleted(bool completed) async {
-    await _prefs?.setBool(_onboardingCompletedKey, completed ? true : false);
+    await _instance.setBool(_onboardingCompletedKey, completed);
   }
 
   static bool getOnboardingCompleted() {
-    return _prefs?.getBool(_onboardingCompletedKey) ?? false;
+    return _instance.getBool(_onboardingCompletedKey) ?? false;
   }
 
   static Future<void> setIsDarkMode(bool isDarkMode) async {
-    await _prefs?.setBool(_isDarkModeKey, isDarkMode ? true : false);
+    await _instance.setBool(_isDarkModeKey, isDarkMode);
   }
 
   static bool getIsDarkMode() {
-    return _prefs?.getBool(_isDarkModeKey) ?? false;
+    return _instance.getBool(_isDarkModeKey) ?? false;
   }
 
   static Future<void> setUserCurrency(String currency) async {
-    await _prefs?.setString(_userCurrencyKey, currency);
+    await _instance.setString(_userCurrencyKey, currency);
   }
 
   static String getUserCurrency() {
-    return _prefs?.getString(_userCurrencyKey) ?? 'BDT';
+    return _instance.getString(_userCurrencyKey) ?? 'BDT';
   }
 
   static Future<void> remove(String key) async {
-    await _prefs?.remove(key);
+    await _instance.remove(key);
   }
 
   // ── S2S hint ─────────────────────────────────────────────────────────────
   static const String _stsHintShownKey = 'sts_hint_shown';
 
   static bool getStsHintShown() {
-    return _prefs?.getBool(_stsHintShownKey) ?? false;
+    return _instance.getBool(_stsHintShownKey) ?? false;
   }
 
   static Future<void> setStsHintShown(bool shown) async {
-    await _prefs?.setBool(_stsHintShownKey, shown);
+    await _instance.setBool(_stsHintShownKey, shown);
   }
 
   static const String _liquidBalanceBdtKey = 'liquid_balance_bdt';
@@ -65,68 +78,75 @@ class SharedPrefServices {
   static const String _sessionCountKey = 'session_count';
 
   static Future<void> setLiquidBalanceBdt(double amount) async {
-    await _prefs?.setDouble(_liquidBalanceBdtKey, amount);
+    await _instance.setDouble(_liquidBalanceBdtKey, amount);
   }
 
   static double getLiquidBalanceBdt() {
-    return _prefs?.getDouble(_liquidBalanceBdtKey) ?? 0.0;
+    return _instance.getDouble(_liquidBalanceBdtKey) ?? 0.0;
   }
 
   static Future<void> setIncomePattern(String pattern) async {
-    await _prefs?.setString(_incomePatternKey, pattern);
+    await _instance.setString(_incomePatternKey, pattern);
   }
 
   static String getIncomePattern() {
-    return _prefs?.getString(_incomePatternKey) ?? 'marketplace';
+    return _instance.getString(_incomePatternKey) ?? 'marketplace';
   }
 
   static int getSessionCount() {
-    return _prefs?.getInt(_sessionCountKey) ?? 0;
+    return _instance.getInt(_sessionCountKey) ?? 0;
   }
 
   static Future<void> incrementSessionCount() async {
-    final current = getSessionCount();
-    await _prefs?.setInt(_sessionCountKey, current + 1);
+    // SharedPreferences has no atomic increment. Use the cached instance to
+    // minimize the read-modify-write window; callers should not treat this as
+    // strictly atomic under concurrent access.
+    final current = _instance.getInt(_sessionCountKey) ?? 0;
+    await _instance.setInt(_sessionCountKey, current + 1);
   }
 
   static Future<void> setEventFired(String eventKey) async {
-    await _prefs?.setBool('event_fired_$eventKey', true);
+    await _instance.setBool('event_fired_$eventKey', true);
   }
 
   static bool getEventFired(String eventKey) {
-    return _prefs?.getBool('event_fired_$eventKey') ?? false;
+    return _instance.getBool('event_fired_$eventKey') ?? false;
   }
 
   static const String _lastSessionDateKey = 'last_session_date';
 
   static String getLastSessionDate() {
-    return _prefs?.getString(_lastSessionDateKey) ?? '';
+    return _instance.getString(_lastSessionDateKey) ?? '';
   }
 
   static Future<void> setLastSessionDate(String dateStr) async {
-    await _prefs?.setString(_lastSessionDateKey, dateStr);
+    await _instance.setString(_lastSessionDateKey, dateStr);
   }
 
-  static const String _lastNotificationOpenedAtKey = 'last_notification_opened_at';
+  static const String _lastNotificationOpenedAtKey =
+      'last_notification_opened_at';
 
   static DateTime? getLastNotificationOpenedAt() {
-    final millis = _prefs?.getInt(_lastNotificationOpenedAtKey);
+    final millis = _instance.getInt(_lastNotificationOpenedAtKey);
     if (millis == null) return null;
     return DateTime.fromMillisecondsSinceEpoch(millis);
   }
 
   static Future<void> setLastNotificationOpenedAt(DateTime time) async {
-    await _prefs?.setInt(_lastNotificationOpenedAtKey, time.millisecondsSinceEpoch);
+    await _instance.setInt(
+      _lastNotificationOpenedAtKey,
+      time.millisecondsSinceEpoch,
+    );
   }
 
   // ── Magic Link auth ─────────────────────────────────────────────────────
   static const String _magicLinkAuthCompletedKey = 'magic_link_auth_completed';
 
   static bool getMagicLinkAuthCompleted() {
-    return _prefs?.getBool(_magicLinkAuthCompletedKey) ?? false;
+    return _instance.getBool(_magicLinkAuthCompletedKey) ?? false;
   }
 
   static Future<void> setMagicLinkAuthCompleted(bool completed) async {
-    await _prefs?.setBool(_magicLinkAuthCompletedKey, completed);
+    await _instance.setBool(_magicLinkAuthCompletedKey, completed);
   }
 }

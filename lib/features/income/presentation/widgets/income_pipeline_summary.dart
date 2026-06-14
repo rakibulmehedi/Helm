@@ -38,7 +38,7 @@ class IncomePipelineSummary extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colors = context.colors;
-    final typo = theme.extension<HelmTypography>()!;
+    final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
     final allEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
 
@@ -247,7 +247,7 @@ class _StatusRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
 
     return InkWell(
       onTap: onTap,

@@ -147,8 +147,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<HelmColors>()!;
-    final typo = theme.extension<HelmTypography>()!;
+    final colors = theme.extension<HelmColors>() ?? HelmColors.light;
+    final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
 
     // ── Missing transaction error state ──────────────────────────────────────
     if (_transactionNotFound) {
@@ -358,7 +358,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     return InputDecoration(
       hintText: hint,
       prefixText: prefixText,
-      hintStyle: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
+      hintStyle: context.textStyles.bodyMd.copyWith(
         color: colors.inkTertiary,
       ),
       filled: true,
@@ -398,8 +398,8 @@ class _FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
     return Text(
       text,
       style: typo.bodySm.copyWith(

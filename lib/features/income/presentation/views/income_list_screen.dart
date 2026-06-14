@@ -131,7 +131,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
     final allEntries = ref.watch(incomeNotifierProvider);
     final displayed = _applyFilter(allEntries);
 
@@ -269,7 +269,7 @@ class _IncomeFilterChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
@@ -362,7 +362,7 @@ class _IncomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
 
     final statusColor = _statusColor(entry.status, colors);
     final statusLabel = _statusLabel(entry.status);
@@ -614,7 +614,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -675,7 +675,7 @@ class _FilterEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),

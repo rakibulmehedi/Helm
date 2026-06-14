@@ -232,8 +232,8 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<HelmColors>()!;
-    final typo = theme.extension<HelmTypography>()!;
+    final colors = theme.extension<HelmColors>() ?? HelmColors.light;
+    final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
     final isEditing = widget.incomeId != null;
 
     // ── Missing income error state ──────────────────────────────────────────
@@ -514,7 +514,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
   }) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
+      hintStyle: context.textStyles.bodyMd.copyWith(
         color: colors.inkTertiary.withValues(alpha: 0.6),
       ),
       filled: true,
@@ -555,8 +555,8 @@ class _FieldLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
     return Text(
       text,
       style: typo.bodySm.copyWith(
@@ -579,7 +579,7 @@ class _StatusToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
@@ -657,7 +657,7 @@ class _CurrencySelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
@@ -711,7 +711,7 @@ class _DatePickerTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<HelmColors>()!;
+    final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: onTap,
@@ -756,8 +756,8 @@ class _IncomeNotFoundView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colors = theme.extension<HelmColors>()!;
-    final typo = theme.extension<HelmTypography>()!;
+    final colors = theme.extension<HelmColors>() ?? HelmColors.light;
+    final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(

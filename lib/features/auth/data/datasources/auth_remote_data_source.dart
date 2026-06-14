@@ -3,6 +3,10 @@
 // Abstracted HTTP client for Magic Link auth backend.
 // Currently: mock implementation with simulated delays.
 // To swap in real backend: implement with http.Client and real API calls.
+//
+// SECURITY NOTE: This is a client-side mock. It uses cryptographically secure
+// random tokens so the mock is not trivially brute-forceable, but production
+// MUST validate tokens on a backend server.
 
 import 'dart:math';
 
@@ -10,29 +14,37 @@ import 'package:helm/features/auth/domain/entities/session_entity.dart';
 
 class AuthRemoteDataSource {
   static const _magicLinkRateLimitSeconds = 20;
+  static const _magicLinkTokenTtlMinutes = 5;
+  static const _sessionTokenLength = 32;
 
-  DateTime? _lastMagicLinkRequest;
-  final _issuedTokens = <String>{};
+  final Duration tokenTtl;
+  final _random = Random.secure();
+
+  AuthRemoteDataSource({this.tokenTtl = const Duration(minutes: _magicLinkTokenTtlMinutes)});
+
+  final _emailTokens = <String, _TokenRecord>{}; // email → latest token
   final _usedTokens = <String>{};
-  final _emailTokens = <String, String>{}; // email → latest token
 
   /// Sends a Magic Link email. Returns true if accepted (202).
   /// In mock mode: auto-issues a valid token so verifyMagicLink can succeed.
-  /// Rate limited: max 1 request per [_magicLinkRateLimitSeconds] seconds.
+  /// Rate limited: max 1 request per [_magicLinkRateLimitSeconds] seconds per email.
   Future<bool> sendMagicLink(String email) async {
     final now = DateTime.now();
+    final existing = _emailTokens[email];
 
-    if (_lastMagicLinkRequest != null &&
-        now.difference(_lastMagicLinkRequest!).inSeconds < _magicLinkRateLimitSeconds) {
+    if (existing != null &&
+        now.difference(existing.issuedAt).inSeconds <
+            _magicLinkRateLimitSeconds) {
       return false;
     }
 
-    _lastMagicLinkRequest = now;
-
-    // Auto-issue mock token for this email
-    final token = 'valid_${Random().nextInt(999999).toString().padLeft(6, '0')}';
-    _issuedTokens.add(token);
-    _emailTokens[email] = token;
+    final token = _generateToken();
+    _emailTokens[email] = _TokenRecord(
+      token: token,
+      email: email,
+      issuedAt: now,
+      expiresAt: now.add(tokenTtl),
+    );
 
     // Simulate network delay
     await Future<void>.delayed(const Duration(milliseconds: 400));
@@ -41,29 +53,61 @@ class AuthRemoteDataSource {
   }
 
   /// Verifies a Magic Link token and returns a [SessionEntity] if valid.
-  /// In mock mode: any token with `valid_` prefix that hasn't been used already
-  /// is accepted. In production: backend validates token, expiry, and single-use.
-  Future<SessionEntity?> verifyMagicLink(String token) async {
+  /// In mock mode: checks that the token was issued, has not expired, has not
+  /// been used, and matches the email it was issued for. In production: backend
+  /// validates token, expiry, and single-use.
+  Future<SessionEntity?> verifyMagicLink(String token, {String? email}) async {
     await Future<void>.delayed(const Duration(milliseconds: 300));
 
-    if (token.startsWith('valid_') && !_usedTokens.contains(token)) {
-      _usedTokens.add(token);
+    if (_usedTokens.contains(token)) return null;
 
-      return SessionEntity(
-        userId: 'user_${Random().nextInt(9999)}',
-        email: 'freelancer@example.com',
-        token: 'session_${Random().nextInt(999999).toString().padLeft(6, '0')}',
-        expiresAt: DateTime.now().add(const Duration(days: 30)),
-        createdAt: DateTime.now(),
-      );
-    }
+    final record = _emailTokens.values.cast<_TokenRecord?>().firstWhere(
+          (r) => r?.token == token,
+          orElse: () => null,
+        );
+    if (record == null) return null;
+    if (DateTime.now().isAfter(record.expiresAt)) return null;
+    if (email != null && email != record.email) return null;
 
-    return null;
+    _usedTokens.add(token);
+
+    return SessionEntity(
+      userId: 'user_${_random.nextInt(9999)}',
+      email: record.email,
+      token: _generateToken(),
+      expiresAt: DateTime.now().add(const Duration(days: 30)),
+      createdAt: DateTime.now(),
+    );
   }
 
   /// Returns the most recent mock token issued for [email], or null.
   /// In production: the backend emails the token; here: returned for dev/testing.
   String? getIssuedTokenForEmail(String email) {
-    return _emailTokens[email];
+    final record = _emailTokens[email];
+    if (record == null || DateTime.now().isAfter(record.expiresAt)) return null;
+    return record.token;
   }
+
+  String _generateToken() {
+    const chars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    return List.generate(
+      _sessionTokenLength,
+      (_) => chars[_random.nextInt(chars.length)],
+    ).join();
+  }
+}
+
+class _TokenRecord {
+  _TokenRecord({
+    required this.token,
+    required this.email,
+    required this.issuedAt,
+    required this.expiresAt,
+  });
+
+  final String token;
+  final String email;
+  final DateTime issuedAt;
+  final DateTime expiresAt;
 }

@@ -12,18 +12,12 @@ class StsSettingsRepositoryImpl implements StsSettingsRepository {
 
   @override
   Future<StsSettings> getSettings() async {
-    final taxRate = await _dataSource.getTaxRate();
-    final bufferPercent = await _dataSource.getBufferPercent();
-
-    return StsSettings(
-      taxRate: taxRate ?? 0.10,
-      bufferPercent: bufferPercent ?? 15.0,
-    );
+    return await _dataSource.loadSettings() ??
+        const StsSettings(taxRate: 0.10, bufferPercent: 15.0);
   }
 
   @override
   Future<void> saveSettings(StsSettings settings) async {
-    await _dataSource.saveTaxRate(settings.taxRate);
-    await _dataSource.saveBufferPercent(settings.bufferPercent);
+    await _dataSource.saveSettings(settings);
   }
 }

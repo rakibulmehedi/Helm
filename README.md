@@ -111,6 +111,20 @@ dart analyze
 flutter test
 ```
 
+### Release build (Android)
+
+Release builds must use the obfuscation script so identifiers are stripped from
+binaries and debug symbols are preserved separately for crash deobfuscation:
+
+```bash
+# 1. Configure your release keystore in android/key.properties
+# 2. Run the release build script
+./scripts/build_release_android.sh
+```
+
+> Keep `android/key.properties` and the generated `symbols/` directory private.
+> `symbols/` is required to symbolicate production crash reports.
+
 ### Common setup notes
 
 - If you use FVM, replace `flutter` with `fvm flutter` and `dart` with `fvm dart`.

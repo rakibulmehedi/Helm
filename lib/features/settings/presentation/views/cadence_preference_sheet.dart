@@ -78,8 +78,8 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     return Container(
       decoration: BoxDecoration(

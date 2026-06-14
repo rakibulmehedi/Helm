@@ -28,8 +28,8 @@ class PipelineScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
     final entries = ref.watch(incomeNotifierProvider);
 
     final now = DateTime.now();
@@ -294,8 +294,8 @@ class _PipelineFab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
 
     // PIPE-014: show label while user is learning (< 5 entries)
     if (entryCount < 5) {

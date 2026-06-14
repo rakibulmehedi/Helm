@@ -34,9 +34,9 @@ class AuthNotifier extends Notifier<AuthState> {
   static const int lockoutMinutes = 15;
   static const int pinLength = 6;
 
-  static const String _pinHashKey = 'pin_hash';
-  static const String _pinSaltKey = 'pin_salt';
-  static const String _pinIsSetupKey = 'pin_is_setup';
+  static const String _pinHashKey = SecurityKeys.pinHashKey;
+  static const String _pinSaltKey = SecurityKeys.pinSaltKey;
+  static const String _pinIsSetupKey = SecurityKeys.pinIsSetupKey;
 
   bool _mounted = true;
 

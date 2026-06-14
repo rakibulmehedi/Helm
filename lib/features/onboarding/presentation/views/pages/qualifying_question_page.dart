@@ -54,8 +54,8 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
 
     return GestureDetector(
       onTap: _onInteraction,

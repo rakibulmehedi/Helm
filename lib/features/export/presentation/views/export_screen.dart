@@ -22,8 +22,8 @@ class ExportScreen extends ConsumerStatefulWidget {
 class _ExportScreenState extends ConsumerState<ExportScreen> {
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
     final status = ref.watch(exportProvider);
     final isExporting = status == ExportStatus.exporting;
 
@@ -155,7 +155,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                 const SizedBox(width: 8),
                 Text(
                   name,
-                  style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
+                  style: context.textStyles.bodyMd.copyWith(
                     color: colors.inkSecondary,
                   ),
                 ),

@@ -259,5 +259,14 @@ class HelmTypography extends ThemeExtension<HelmTypography> {
 // BuildContext extension — access typography without boilerplate
 // ---------------------------------------------------------------------------
 extension BuildContextHelmTypography on BuildContext {
-  HelmTypography get textStyles => Theme.of(this).extension<HelmTypography>()!;
+  HelmTypography get textStyles {
+    final theme = Theme.of(this);
+    return theme.extension<HelmTypography>() ??
+        HelmTypography.build(
+          theme.extension<HelmColors>() ??
+              (theme.brightness == Brightness.dark
+                  ? HelmColors.dark
+                  : HelmColors.light),
+        );
+  }
 }

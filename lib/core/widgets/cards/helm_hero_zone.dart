@@ -23,7 +23,7 @@ class HelmHeroZone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
 
     return Container(
       padding: padding ??

@@ -19,8 +19,8 @@ class HelmFxEstimate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     final usdFormatted = '\$${usdAmount.toStringAsFixed(2)}';
 

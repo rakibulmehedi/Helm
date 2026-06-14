@@ -75,8 +75,8 @@ class _AuditEventTile extends StatelessWidget {
       ),
       subtitle: Text(
         _formatTimestamp(event.timestamp),
-        style: Theme.of(context).extension<HelmTypography>()!.labelSm.copyWith(
-          color: Theme.of(context).extension<HelmColors>()!.inkTertiary,
+        style: context.textStyles.labelSm.copyWith(
+          color: context.colors.inkTertiary,
         ),
       ),
     );
@@ -100,7 +100,7 @@ class _AuditEventTile extends StatelessWidget {
   }
 
   Color _colorFor(BuildContext context, AuditEventType type) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
     switch (type) {
       case AuditEventType.created:
         return colors.stateSafe;

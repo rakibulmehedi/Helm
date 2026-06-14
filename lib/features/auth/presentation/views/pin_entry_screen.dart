@@ -140,7 +140,7 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
     final authState = ref.watch(authProvider);
     final lockedOut = authState.isLocked && authState.failedAttempts >= _maxAttempts;
 
@@ -200,7 +200,7 @@ class _PinEntryHeader extends StatelessWidget {
       children: [
         Text(
           'Enter your PIN',
-          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
+          style: context.textStyles.headingLg.copyWith(
             color: colors.inkPrimary,
           ),
         ),
@@ -208,7 +208,7 @@ class _PinEntryHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             message!,
-            style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
+            style: context.textStyles.bodyMd.copyWith(
               color: isLockedOut ? colors.stateAtRisk : colors.stateTight,
             ),
             textAlign: TextAlign.center,
@@ -338,7 +338,7 @@ class _NumKey extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
+          style: context.textStyles.headingLg.copyWith(
             fontWeight: FontWeight.w500,
             color: colors.inkPrimary,
           ),

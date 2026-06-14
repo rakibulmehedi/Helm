@@ -136,5 +136,9 @@ class HelmColors extends ThemeExtension<HelmColors> {
 // BuildContext extension — access colors without boilerplate
 // ---------------------------------------------------------------------------
 extension BuildContextHelmColors on BuildContext {
-  HelmColors get colors => Theme.of(this).extension<HelmColors>()!;
+  HelmColors get colors {
+    final theme = Theme.of(this);
+    return theme.extension<HelmColors>() ??
+        (theme.brightness == Brightness.dark ? HelmColors.dark : HelmColors.light);
+  }
 }

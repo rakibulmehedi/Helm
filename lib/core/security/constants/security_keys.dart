@@ -16,4 +16,9 @@ abstract final class SecurityKeys {
   static const String authLockoutUntil = 'auth_lockout_until';
   static const String authSessionAuthenticated = 'auth_session_authenticated';
   static const String authMagicLinkSessionToken = 'auth_magic_link_session_token';
+
+  /// PIN storage keys.
+  static const String pinHashKey = 'pin_hash';
+  static const String pinSaltKey = 'pin_salt';
+  static const String pinIsSetupKey = 'pin_is_setup';
 }

@@ -20,8 +20,8 @@ class StsSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(stsSettingsProvider);
     final fixedCosts = ref.watch(fixedCostNotifierProvider);
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typo = context.textStyles;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -405,7 +405,7 @@ class _AddEditFixedCostSheetState
 
   @override
   Widget build(BuildContext context) {
-    final typo = Theme.of(context).extension<HelmTypography>()!;
+    final typo = context.textStyles;
 
     return Padding(
       padding: EdgeInsets.only(

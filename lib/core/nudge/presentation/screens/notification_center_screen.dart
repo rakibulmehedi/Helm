@@ -25,8 +25,8 @@ class NotificationCenterScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final entries = ref.watch(nudgeListProvider);
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     final grouped = _groupByDate(entries);
 

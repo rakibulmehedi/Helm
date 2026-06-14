@@ -55,8 +55,8 @@ final class HelmToast {
       'actionLabel and onAction must both be provided or both null.',
     );
 
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     final Color borderColor = _borderColor(type, colors);
 

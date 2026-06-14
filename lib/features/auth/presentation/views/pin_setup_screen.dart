@@ -85,7 +85,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
+    final colors = context.colors;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -139,7 +139,7 @@ class _PinHeader extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
+          style: context.textStyles.headingLg.copyWith(
             color: colors.inkPrimary,
           ),
         ),
@@ -147,7 +147,7 @@ class _PinHeader extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             errorMessage!,
-            style: Theme.of(context).extension<HelmTypography>()!.bodyMd.copyWith(
+            style: context.textStyles.bodyMd.copyWith(
               color: colors.stateAtRisk,
             ),
           ),
@@ -276,7 +276,7 @@ class _NumKey extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: Theme.of(context).extension<HelmTypography>()!.headingLg.copyWith(
+          style: context.textStyles.headingLg.copyWith(
             fontWeight: FontWeight.w500,
             color: colors.inkPrimary,
           ),

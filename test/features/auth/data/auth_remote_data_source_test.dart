@@ -24,11 +24,24 @@ void main() {
       expect(second, isFalse);
     });
 
-    test('does not reveal email existence — always returns true on first call', () async {
-      // New datasource instance, fresh rate limiter
+    test('rate limit is per-email', () async {
+      await ds.sendMagicLink('a@example.com');
+      final other = await ds.sendMagicLink('b@example.com');
+      expect(other, isTrue);
+    });
+
+    test('does not reveal email existence — always returns true on first call',
+        () async {
       final ds2 = AuthRemoteDataSource();
       final result = await ds2.sendMagicLink('does_not_exist@example.com');
       expect(result, isTrue);
+    });
+
+    test('issues long alphanumeric token', () async {
+      await ds.sendMagicLink('freelancer@example.com');
+      final token = ds.getIssuedTokenForEmail('freelancer@example.com')!;
+      expect(token.length, greaterThanOrEqualTo(32));
+      expect(token, matches(r'^[A-Za-z0-9]+$'));
     });
   });
 
@@ -39,8 +52,8 @@ void main() {
       ds = AuthRemoteDataSource();
     });
 
-    test('returns null for invalid prefix token', () async {
-      final result = await ds.verifyMagicLink('invalid_999999');
+    test('returns null for unknown token', () async {
+      final result = await ds.verifyMagicLink('not_a_real_token');
       expect(result, isNull);
     });
 
@@ -64,8 +77,17 @@ void main() {
       expect(second, isNull);
     });
 
-    test('returns null for token with invalid prefix', () async {
-      final result = await ds.verifyMagicLink('invalid_123456');
+    test('returns null for expired token', () async {
+      final shortDs = AuthRemoteDataSource(
+        tokenTtl: const Duration(milliseconds: 700),
+      );
+      await shortDs.sendMagicLink('test@example.com');
+      final token = shortDs.getIssuedTokenForEmail('test@example.com')!;
+
+      // Expire the issued token record by advancing past its TTL.
+      await Future<void>.delayed(const Duration(milliseconds: 800));
+
+      final result = await shortDs.verifyMagicLink(token);
       expect(result, isNull);
     });
 
@@ -85,7 +107,7 @@ void main() {
       await ds.sendMagicLink('test@example.com');
       final token = ds.getIssuedTokenForEmail('test@example.com');
       expect(token, isNotNull);
-      expect(token!.startsWith('valid_'), isTrue);
+      expect(token!.length, greaterThanOrEqualTo(32));
     });
 
     test('returns null for email with no issued token', () {

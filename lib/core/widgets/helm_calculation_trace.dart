@@ -169,8 +169,8 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<HelmColors>()!;
-    final typography = Theme.of(context).extension<HelmTypography>()!;
+    final colors = context.colors;
+    final typography = context.textStyles;
 
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
