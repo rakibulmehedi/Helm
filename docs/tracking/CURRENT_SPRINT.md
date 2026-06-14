@@ -57,6 +57,18 @@ Status: **🔄 IN PROGRESS** — 2026-06-14. 97 vulnerability tasks across 7 wav
 - A5 (Bangla + Release Build) — A5.1 ✅, A5.2 ⏳ (human keystore), A5.3 ⏳ (blocked on A5.2)
 - VCI (Version Control Infrastructure) — PENDING (runs before beta APK distribution)
 
+### S1-W4 — Implementation Record (2026-06-14)
+
+**Agent:** Claude Code. **Focus:** Security Waves 1-2 remediation continuation.
+- **4A — Secret Hygiene**: `.gitignore` hardened, release workflow email masked, agent definition docs stripped of project secrets.
+- **4E — Platform Hardening**: Android manifest/config updated (FLAG_SECURE, cleartext disabled, auto-backup off), iOS privacy/entitlements/backup hardened, root/jailbreak detection wired to auth gate (`JailbreakRootDetection.checkForRoot()`).
+- **4C — Trust-Layer Bugs**: PIN lockout expiry fixed, delete-account PIN verification salt passed correctly, auth provider lockout state hardened.
+- **4D — Crypto & Storage Hardening**: PIN KDF via `PinHasher` (SHA-256 + salt), secure storage options used, deleted box wipe + `SecureKeyManager.deleteHiveKey()`, PIN screens use `secure` keyboard configuration.
+- **4B — Input Validation & Sanitization**: central `InputValidator` (amount caps, currency whitelist, email normalization, ID validation, DateTime parsing, text sanitization); CSV export sanitized and clamped; `TransactionModel`/`IncomeModel` deserialization hardened; route parameters validated; magic-link email/token validation tightened; nudge actionRoute whitelisted.
+- **4G — Audit Log Hardening**: audit schema version constant, unique event ids via `IdGenerator`, `previousValue` populated for updates/deletes, SHA-256 tamper-evidence chain via `AuditChainService`, 90-day retention pruning, exported-event emission, schema version in CSV export, audit chain box cleared on account deletion.
+- **4F — Lint Final Sweep**: all non-test `dart analyze` infos resolved (catch clauses, unawaited futures, deprecated `withOpacity`/`Share`), test helper packages added to dev dependencies, test quote style fixed.
+- **Quality gates**: `dart analyze` 0 issues, `flutter test` 251/251 pass, no new runtime dependencies.
+
 ---
 
 ## 0. Master Plan Context — Updated (2026-06-14)

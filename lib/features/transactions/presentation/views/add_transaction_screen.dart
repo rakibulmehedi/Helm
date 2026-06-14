@@ -132,7 +132,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         type: ToastType.success,
       );
       context.pop();
-    } catch (_) {
+    } on Exception catch (_) {
       if (!mounted) return;
       setState(() => _isSaving = false);
       HelmToast.show(

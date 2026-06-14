@@ -45,7 +45,7 @@ class TransactionsNotifier
       // Sort transactions by date descending (newest first)
       transactions.sort((a, b) => b.date.compareTo(a.date));
       state = AsyncValue.data(transactions);
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
@@ -56,7 +56,7 @@ class TransactionsNotifier
       await _repository.addTransaction(transaction);
       if (!mounted) return;
       await loadTransactions();
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
@@ -67,7 +67,7 @@ class TransactionsNotifier
       await _repository.updateTransaction(transaction);
       if (!mounted) return;
       await loadTransactions();
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
@@ -78,7 +78,7 @@ class TransactionsNotifier
       await _repository.deleteTransaction(id);
       if (!mounted) return;
       await loadTransactions();
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       if (!mounted) return;
       state = AsyncValue.error(e, st);
     }
@@ -89,7 +89,7 @@ class TransactionsNotifier
       await _repository.clearTransactions();
       if (!mounted) return;
       await loadTransactions();
-    } catch (e, st) {
+    } on Exception catch (e, st) {
       if (!mounted) return;
       state = AsyncValue.error(e, st);
     }

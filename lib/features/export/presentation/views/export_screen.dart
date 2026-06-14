@@ -71,9 +71,11 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: colors.stateAtRisk.withOpacity(0.08),
+                color: colors.stateAtRisk.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: colors.stateAtRisk.withOpacity(0.24)),
+                border: Border.all(
+                  color: colors.stateAtRisk.withValues(alpha: 0.24),
+                ),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,9 +170,11 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
 
   void _shareFiles(List<String> filePaths) {
     if (filePaths.isEmpty) return;
-    Share.shareXFiles(
-      filePaths.map((p) => XFile(p)).toList(),
-      subject: 'Helm data export',
+    SharePlus.instance.share(
+      ShareParams(
+        files: filePaths.map((p) => XFile(p)).toList(),
+        subject: 'Helm data export',
+      ),
     );
   }
 }

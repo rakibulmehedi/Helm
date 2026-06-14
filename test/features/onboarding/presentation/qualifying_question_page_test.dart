@@ -40,7 +40,7 @@ void main() {
     testWidgets('shows "Yes, that happens to me" and "No" buttons', (tester) async {
       await tester.pumpWidget(buildTestWidget());
 
-      expect(find.text("Yes, that happens to me"), findsOneWidget);
+      expect(find.text('Yes, that happens to me'), findsOneWidget);
       expect(find.text('No, I always know exactly what cleared'), findsOneWidget);
     });
 
@@ -68,7 +68,7 @@ void main() {
         ),
       ));
 
-      await tester.tap(find.text("Yes, that happens to me"));
+      await tester.tap(find.text('Yes, that happens to me'));
       await tester.pumpAndSettle();
 
       expect(wasQualified, isTrue);
@@ -118,7 +118,7 @@ void main() {
 
       // Tap at 5s
       await tester.pump(const Duration(seconds: 5));
-      await tester.tap(find.text("Yes, that happens to me"));
+      await tester.tap(find.text('Yes, that happens to me'));
 
       // Advance past 12s — rephrase should not show
       await tester.pump(const Duration(seconds: 10));

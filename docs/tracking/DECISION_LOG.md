@@ -99,6 +99,69 @@ in named files. If killed, update TASKS.md backlog accordingly.
 Date: 2026-06-12
 Trigger: Phase 1 dispatch plan complete. Remaining 5 phases need equivalent TDD+clean architecture dispatch specs, each in a separate document per phase.
 
+---
+
+## Decision 032 — S1-W4 Security Hardening: Input Validation & Audit Log
+
+Date: 2026-06-14
+Trigger: Adversarial audit remediation Sprint S1, Waves 1-2.
+
+Decision:
+- Centralize all input validation/sanitization in `lib/core/utils/input_validator.dart`.
+  - Max amount cap (`kMaxAllowedAmount`), currency whitelist, email normalization,
+    ID pattern enforcement, safe DateTime parsing, control-character stripping.
+- Harden `TransactionModel` and `IncomeModel` JSON deserialization against NaN,
+  out-of-range amounts, invalid dates, and unknown currencies.
+- Sanitize CSV export: strip control characters, prefix formula-triggering values,
+  clamp settings to UI-defined ranges, write UTF-8 BOM, best-effort `chmod 600`.
+- Harden audit log:
+  - `kAuditSchemaVersion = 1` constant, included in CSV export column.
+  - Unique event ids via `IdGenerator.uniqueId()` instead of millisecond timestamps.
+  - `previousValue` populated for update/delete events.
+  - SHA-256 tamper-evidence chain (`AuditChainService`) keyed by event id.
+  - 90-day retention pruning on every append.
+  - `exported` event emitted on successful CSV export.
+
+Reason:
+Raw user input and deserialized JSON are the primary attack surface for a local-only
+financial app. Audit records must be trustworthy enough to reconstruct state changes
+and detect tampering. Retention prevents unbounded storage growth.
+
+Impact:
+- All free-text persistence paths now strip control characters.
+- CSV export is fail-closed on error and sanitized against formula injection.
+- Audit log records are tamper-evident and bounded by retention policy.
+- Operational docs updated: `CURRENT_SPRINT.md`, `PROJECT_STATE.md`, `TASKS.md`.
+
+---
+
+## Decision 033 — S1-W4 Security Hardening: Platform + Crypto + Lint Sweep
+
+Date: 2026-06-14
+Trigger: Adversarial audit remediation Sprint S1, Waves 1-2.
+
+Decision:
+- Platform hardening: disable Android cleartext traffic, disable auto-backup for
+  sensitive boxes, set `FLAG_SECURE` on PIN activities, wire root/jailbreak detection
+  to the auth gate.
+- Crypto/storage hardening: PIN uses `PinHasher` (SHA-256 + 16-byte salt), secure
+  storage for the Hive encryption key, explicit box wipe + key deletion on account
+  deletion, PIN entry uses `KeyboardType.number` with `secure: true`/`obscureText: true`.
+- Lint final sweep: convert all `catch` clauses in touched code to `on Exception catch`,
+  await or type haptic futures, replace deprecated `withOpacity`/`Share.shareXFiles`
+  with `withValues(alpha:)`/`SharePlus.instance.share()`.
+
+Reason:
+Client-side security for an offline-first app depends on making local extraction and
+observation expensive. Platform flags, hardened KDF, secure key storage, and a clean
+lint baseline reduce attack surface and accidental bugs.
+
+Impact:
+- PIN hash cannot be rainbow-tabled without per-device salt.
+- Sensitive boxes are encrypted at rest; key material is protected by platform secure
+  storage where available.
+- `dart analyze` reports 0 issues; 251 tests pass.
+
 Decision:
 Execute Phases 2-6 as TDD-gated, clean-architecture-enforced dispatches across 127 tasks in 19 task groups. Each phase has its own dispatch document:
 

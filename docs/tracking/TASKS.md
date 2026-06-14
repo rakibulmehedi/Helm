@@ -199,6 +199,16 @@
 
 ## Recently Completed
 
+**Sprint S1-W4 — Security Hardening (6 phases)** ✅ [2026-06-14] — `dart analyze` 0 issues, 251/251 tests pass
+- 4A Secret Hygiene: `.gitignore`, release workflow email, agent docs
+- 4E Platform Hardening: Android manifest/config, iOS privacy/entitlements/backup, root/jailbreak detection wiring
+- 4C Trust-Layer Bugs: PIN lockout expiry, delete-account PIN salt, auth provider hardening
+- 4D Crypto & Storage: PIN KDF (SHA-256 + salt), secure storage, box wipe on deletion, secure keyboard flags
+- 4B Input Validation & Sanitization: `InputValidator`, CSV hardening, model deserialization, route param validation, magic-link validation, nudge route whitelist
+- 4G Audit Log Hardening: schema version, unique ids, previousValue, SHA-256 chain hash, retention, exported event, CSV schema column
+- 4F Lint Final Sweep: catch clauses, unawaited futures, deprecated APIs, test helper deps
+- Operational docs updated: `CURRENT_SPRINT.md`, `PROJECT_STATE.md`
+
 **Phase 2 — Analytics Infrastructure** ✅ [2026-06-12] — 34 tests, dart analyze 0/0/0, 4 groups done
 - Group 2A — Hive event persistence + repository + dual-write + session dedup + event registry
 - Group 2B — NextBestActionCard (4 variants + Semantics)

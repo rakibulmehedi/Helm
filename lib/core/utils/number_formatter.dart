@@ -105,7 +105,7 @@ final class NumberFormatter {
       // Strip grouping commas
       s = s.replaceAll(',', '');
       return double.tryParse(s);
-    } catch (_) {
+    } on Exception catch (_) {
       return null;
     }
   }

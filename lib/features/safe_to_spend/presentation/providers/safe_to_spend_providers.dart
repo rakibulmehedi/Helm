@@ -138,13 +138,13 @@ final safeToSpendProvider = Provider<SafeToSpendResult>((ref) {
       fixedCosts: fixedCosts,
       now: DateTime.now(),
     );
-  } catch (e) {
+  } on Exception catch (e) {
     try {
       ref.read(analyticsProvider).trackEvent(
         BoundaryEvents.s2sCalcFailure,
         properties: {'error_type': e.runtimeType.toString()},
       );
-    } catch (_) {
+    } on Exception catch (_) {
       // analytics provider may not be available during tests
     }
     return const SafeToSpendResult.zero();
