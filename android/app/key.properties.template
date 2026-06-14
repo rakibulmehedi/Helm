@@ -1,0 +1,6 @@
+# Copy this file to key.properties and fill in your release keystore details.
+# key.properties is gitignored — never commit real credentials.
+storePassword=<your-keystore-password>
+keyPassword=<your-key-password>
+keyAlias=<your-key-alias>
+storeFile=<path-to-your-keystore>.jks
