@@ -1,6 +1,6 @@
 # 11 - Implementation Atoms (Codebase Reality)
 
-> Source: Codebase audit of `/Users/rakibulislammehedi/Pocketa-V2/lib/`
+> Source: Codebase audit of `/Users/rakibulislammehedi/Helm-V2/lib/`
 > Date: 2026-06-04
 > Method: File-by-file read of all screens, widgets, entities, providers, routes, and theme definitions
 > Scope: What the code actually does NOW -- not what docs say it should do
@@ -46,7 +46,7 @@
 
 ### IMPL-004: SplashScreen
 - **File:** `lib/features/splash/views/splash_screen.dart:1-103`
-- **Current state:** Fade-in animation (1800ms) of centered "P" CircleAvatar + "Pocketa" text
+- **Current state:** Fade-in animation (1800ms) of centered "P" CircleAvatar + "Helm" text
 - Background: `AppColors.primary` (solid blue #2453FF)
 - Logo: White CircleAvatar (radius 40) with "P" character, fontSize 52
 - After 2-second timer, navigates to `/welcome` (GoRouter redirect handles final destination)
@@ -63,9 +63,9 @@
 - Elements (top to bottom):
   1. Spacer
   2. CircleAvatar (radius 40, primary bg) with "P" letter
-  3. "Pocketa" title text (bold, 32pt responsive)
+  3. "Helm" title text (bold, 32pt responsive)
   4. Spacer
-  5. Welcome message (localized: "Welcome to Pocketa!")
+  5. Welcome message (localized: "Welcome to Helm!")
   6. Tag line (localized: "Your pocket accountant for Smart budgeting")
   7. Spacer
   8. "Get Started" AppButton -> navigates to `/onboarding`
@@ -113,7 +113,7 @@
 - **File:** `lib/features/dashboard/presentation/views/dashboard_screen.dart:1-508`
 - **Type:** `ConsumerStatefulWidget` (Riverpod-aware)
 - **Layout (top to bottom):**
-  1. AppBar: "Pocketa" title (left-aligned), reset-onboarding dev button (right)
+  1. AppBar: "Helm" title (left-aligned), reset-onboarding dev button (right)
   2. SafeToSpendHero widget (const)
   3. Income/Expense summary row (two `_SummaryChip` widgets side by side)
   4. IncomePipelineSummary widget

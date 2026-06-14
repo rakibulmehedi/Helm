@@ -1,6 +1,6 @@
-# Visual Identity Refinements — Extracted from Pocketa Visual Identity Critique & Refined System
+# Visual Identity Refinements — Extracted from Helm Visual Identity Critique & Refined System
 
-> **Source:** `docs/research/ux/Pocketa_Visual_Identity_Critique_and_Refined_System.md`
+> **Source:** `docs/research/ux/Helm_Visual_Identity_Critique_and_Refined_System.md`
 > **Authority level:** OVERRIDES earlier Visual Identity System (`07_visual_identity_requirements.md`) where conflicts exist. This document is the final authority on visual decisions.
 > **Review posture:** Global fintech design director -- adversarial, product-led, Bangladesh-aware.
 > **Extraction date:** 2026-06-04
@@ -13,7 +13,7 @@
 
 **Statement:** The visual north star shifts from "clinical instrument / chronometer" to "calm Bangladeshi cashflow ledger that separates real money from hopeful money."
 
-**What changed:** The earlier system described Pocketa as a "chronometer." The refined system argues this is too foreign, too cold, and too mechanical for the emotional job. Bangladeshi freelancers need a "quiet financial witness," not a Swiss instrument.
+**What changed:** The earlier system described Helm as a "chronometer." The refined system argues this is too foreign, too cold, and too mechanical for the emotional job. Bangladeshi freelancers need a "quiet financial witness," not a Swiss instrument.
 
 **Rationale:** The chronometer metaphor risks becoming emotionally cold. Users are not CFOs in boardrooms; they are freelancers checking money at 11 PM near month-end under stress. The product must be exact AND protective.
 
@@ -25,15 +25,15 @@
 
 **Statement:** New north star replaces the earlier one:
 
-> **Earlier:** "Pocketa looks like a calm clinical instrument that a Bangladeshi freelancer trusts at 11pm on Day 29."
+> **Earlier:** "Helm looks like a calm clinical instrument that a Bangladeshi freelancer trusts at 11pm on Day 29."
 >
-> **Refined:** "Pocketa looks like a calm Bangladeshi cashflow ledger that separates real money from hopeful money with absolute clarity -- quiet enough for stress, exact enough for trust, and distinctive enough to never feel like a generic expense tracker."
+> **Refined:** "Helm looks like a calm Bangladeshi cashflow ledger that separates real money from hopeful money with absolute clarity -- quiet enough for stress, exact enough for trust, and distinctive enough to never feel like a generic expense tracker."
 
 **What changed:** Added Bangladesh specificity, cashflow ledger metaphor, real vs hopeful money separation, distinctiveness requirement, and anti-expense-tracker positioning.
 
-**Rationale:** The earlier north star was defensively correct (killing bad patterns) but did not create positive distinctiveness. A blurred Pocketa screen was indistinguishable from Stripe, Wise, Notion, or a YC fintech MVP.
+**Rationale:** The earlier north star was defensively correct (killing bad patterns) but did not create positive distinctiveness. A blurred Helm screen was indistinguishable from Stripe, Wise, Notion, or a YC fintech MVP.
 
-**Implementation implication:** Every screen must pass the "is this recognizably Pocketa?" test, not just the "does this avoid bad patterns?" test.
+**Implementation implication:** Every screen must pass the "is this recognizably Helm?" test, not just the "does this avoid bad patterns?" test.
 
 ---
 
@@ -45,7 +45,7 @@
 
 **Rationale:** If you blur the logo and copy, the earlier system's output could be mistaken for any premium Flutter UI kit or YC fintech MVP. That is a distinctiveness failure.
 
-**Implementation implication:** Pocketa needs ownable interface signatures (Ledger Rail, Reality Stack, Trust Strip, Calculation Trace, BDT-first Money Stamp) rather than relying solely on restraint.
+**Implementation implication:** Helm needs ownable interface signatures (Ledger Rail, Reality Stack, Trust Strip, Calculation Trace, BDT-first Money Stamp) rather than relying solely on restraint.
 
 ---
 
@@ -120,7 +120,7 @@
 
 **Rationale:** The muted state colors from the earlier system were calm but borderline faint on budget Android displays with screen protectors. The Hope tier at 40% alpha was unreliable for text readability.
 
-**Implementation implication:** State colors must be updated in `PocketaColors`. The `state.hope` token now has two variants: full-strength for text, muted for decorative elements.
+**Implementation implication:** State colors must be updated in `HelmColors`. The `state.hope` token now has two variants: full-strength for text, muted for decorative elements.
 
 ---
 
@@ -160,7 +160,7 @@ Do NOT use mono for:
 
 **Rationale:** If JetBrains Mono dominates too much, the product feels like a code editor rather than a human-facing financial tool.
 
-**Implementation implication:** `PocketaAmount` widget uses mono. All other text widgets use Inter. Code review must verify mono is not used for non-financial text.
+**Implementation implication:** `HelmAmount` widget uses mono. All other text widgets use Inter. Code review must verify mono is not used for non-financial text.
 
 ---
 
@@ -179,7 +179,7 @@ Do NOT use mono for:
 
 **Rationale:** Hind Siliguri renders taller due to Bangla ascenders and descenders. Forcing Latin rhythm onto Bangla paragraphs causes cramped, unreadable text.
 
-**Implementation implication:** `PocketaTypography` must include locale-aware line heights. When Bangla locale is active, body and label text styles must switch to Bangla-specific line heights.
+**Implementation implication:** `HelmTypography` must include locale-aware line heights. When Bangla locale is active, body and label text styles must switch to Bangla-specific line heights.
 
 ---
 
@@ -187,7 +187,7 @@ Do NOT use mono for:
 
 ### VISR-011: Contrast Philosophy Shift [REFINED]
 
-**Statement:** The earlier system was tuned like a premium iPhone UI. Pocketa must be tuned like a Bangladesh Android-first financial instrument. "Pocketa can be quiet, but it cannot be faint."
+**Statement:** The earlier system was tuned like a premium iPhone UI. Helm must be tuned like a Bangladesh Android-first financial instrument. "Helm can be quiet, but it cannot be faint."
 
 **What changed:** The earlier system achieved correct WCAG scores but assumed ideal display conditions. The refined system accounts for real Bangladesh usage: outdoor use, high brightness, budget/midrange Android displays, screen protectors, reduced display quality over time, low-light rooms at night, and stress/fatigue/cognitive load.
 
@@ -239,7 +239,7 @@ Mandatory for: S2S hero, pipeline totals, FX converted amounts, reserve calculat
 
 **Rationale:** "Trust me because I look calm" is insufficient. Users need proof: "Trust me because every number has a source, a timestamp, and an explanation."
 
-**Implementation implication:** New `PocketaTrustStrip` widget. Must be included wherever `PocketaAmount` shows a financially significant value.
+**Implementation implication:** New `HelmTrustStrip` widget. Must be included wherever `HelmAmount` shows a financially significant value.
 
 ---
 
@@ -285,7 +285,7 @@ changed entry before relying on this number.
 
 **Rationale:** Generic errors in a financial app are more damaging than in other categories because users need to know if their numbers are reliable.
 
-**Implementation implication:** Error states must use `PocketaCard` with standard styling (no red backgrounds, no alarm icons). Error copy follows the three-part pattern from the Microcopy System.
+**Implementation implication:** Error states must use `HelmCard` with standard styling (no red backgrounds, no alarm icons). Error copy follows the three-part pattern from the Microcopy System.
 
 ---
 
@@ -307,15 +307,15 @@ Specification:
 
 **What changed:** Upgraded from decorative thin line to a recognizable product signature. The Ledger Rail is thicker, wider, always labeled, and becomes a visual identity element.
 
-**Rationale:** A thin line feels like decoration. A rail feels like an instrument. The Ledger Rail becomes recognizably Pocketa.
+**Rationale:** A thin line feels like decoration. A rail feels like an instrument. The Ledger Rail becomes recognizably Helm.
 
-**Implementation implication:** New `PocketaLedgerRail` widget replacing `PocketaAccentLine`. Must appear anywhere S2S number appears. Lint rule: no S2S value without `PocketaLedgerRail`.
+**Implementation implication:** New `HelmLedgerRail` widget replacing `HelmAccentLine`. Must appear anywhere S2S number appears. Lint rule: no S2S value without `HelmLedgerRail`.
 
 ---
 
 ### VISR-017: Reality Stack [REFINED]
 
-**Statement:** Pocketa's home screen must separate money reality levels in a defined stack:
+**Statement:** Helm's home screen must separate money reality levels in a defined stack:
 
 ```
 1. Safe to spend       -> usable now          (highest weight, mono, ink.primary)
@@ -330,7 +330,7 @@ Rule: Pending money must never appear in the same visual weight as usable money.
 
 **Rationale:** The strongest product idea is separating money reality levels. This should be the visual identity, not just a feature.
 
-**Implementation implication:** New `PocketaRealityStack` widget. Home screen must use this structure. Lint rule: no "Balance / Income / Expense" summary card above the fold.
+**Implementation implication:** New `HelmRealityStack` widget. Home screen must use this structure. Lint rule: no "Balance / Income / Expense" summary card above the fold.
 
 ---
 
@@ -358,7 +358,7 @@ Rules:
 
 **Rationale:** The calculation trace should be so consistent that users recognize it even without the logo. Transparency made into visual identity.
 
-**Implementation implication:** New `PocketaCalculationTrace` widget. Must use consistent layout across S2S breakdown, pipeline totals, and any future calculation surface.
+**Implementation implication:** New `HelmCalculationTrace` widget. Must use consistent layout across S2S breakdown, pipeline totals, and any future calculation surface.
 
 ---
 
@@ -379,9 +379,9 @@ Rules:
 
 **What changed:** The earlier system specified BDT-before-USD ordering. The refined system formalizes this as a "Money Stamp" with FX rate visibility and estimation labeling rules.
 
-**Rationale:** BDT is not just a currency. In Pocketa, BDT means usable reality. This distinction must be visually unmistakable.
+**Rationale:** BDT is not just a currency. In Helm, BDT means usable reality. This distinction must be visually unmistakable.
 
-**Implementation implication:** New `PocketaFxEstimate` widget. Lint rule: no dual-currency amount without `PocketaFxEstimate`. No pending amount inside same visual group as liquid BDT unless explicitly labeled.
+**Implementation implication:** New `HelmFxEstimate` widget. Lint rule: no dual-currency amount without `HelmFxEstimate`. No pending amount inside same visual group as liquid BDT unless explicitly labeled.
 
 ---
 
@@ -393,11 +393,11 @@ Rules:
 
 | Card type | Visual treatment | Use |
 |---|---|---|
-| `PocketaHeroZone` | No visible card, spatial grouping only | S2S hero |
-| `PocketaLedgerCard` | 1pt divider border, 12pt radius | Main money facts |
-| `PocketaAuditCard` | Slightly stronger top rule, right-aligned values | Calculation trace |
-| `PocketaSourceCard` | Compact card with source icon + status | Payoneer/bank/bKash entries |
-| `PocketaCautionCard` | AtRisk rail on left, no red fill | Reserve Mode / urgent due |
+| `HelmHeroZone` | No visible card, spatial grouping only | S2S hero |
+| `HelmLedgerCard` | 1pt divider border, 12pt radius | Main money facts |
+| `HelmAuditCard` | Slightly stronger top rule, right-aligned values | Calculation trace |
+| `HelmSourceCard` | Compact card with source icon + status | Payoneer/bank/bKash entries |
+| `HelmCautionCard` | AtRisk rail on left, no red fill | Reserve Mode / urgent due |
 
 New rule: Card borders define containers. Ledger rails define financial meaning. Do not use card color to communicate financial state.
 
@@ -413,7 +413,7 @@ New rule: Card borders define containers. Ledger rails define financial meaning.
 
 ### VISR-021: Custom Icon Subset [REFINED]
 
-**Statement:** Phosphor Icons remain the base, but Pocketa needs a small custom icon subset for money reality states:
+**Statement:** Phosphor Icons remain the base, but Helm needs a small custom icon subset for money reality states:
 
 | Icon | Meaning |
 |---|---|
@@ -426,7 +426,7 @@ New rule: Card borders define containers. Ledger rails define financial meaning.
 
 Rule: Custom icons must remain outline-only and match Phosphor geometry. No full-color brand logos in the main UI. Use simplified outline marks or text labels for bKash/Nagad/Payoneer.
 
-**What changed:** The earlier system used Phosphor for everything. The refined system adds 6 custom icons for Pocketa-specific financial concepts that Phosphor does not cover.
+**What changed:** The earlier system used Phosphor for everything. The refined system adds 6 custom icons for Helm-specific financial concepts that Phosphor does not cover.
 
 **Rationale:** Phosphor Icons are acceptable but not distinctive. Product-specific money states need product-specific visual markers.
 
@@ -449,9 +449,9 @@ Reduce motion: All stagger removed. Sheet appears instantly with 80ms opacity tr
 
 **What changed:** The earlier system specified the 240ms slide-up but not the row-level stagger. The refined system adds a 24ms stagger to make the math appear sequentially, reinforcing the calculation-trace identity.
 
-**Rationale:** The breakdown drawer is Pocketa's trust theater. Making math materialize line-by-line emphasizes transparency.
+**Rationale:** The breakdown drawer is Helm's trust theater. Making math materialize line-by-line emphasizes transparency.
 
-**Implementation implication:** `PocketaCalculationTrace` widget must implement staggered `AnimatedOpacity` per row with 24ms delay. Reduce-motion path must skip all stagger.
+**Implementation implication:** `HelmCalculationTrace` widget must implement staggered `AnimatedOpacity` per row with 24ms delay. Reduce-motion path must skip all stagger.
 
 ---
 
@@ -461,7 +461,7 @@ Reduce motion: All stagger removed. Sheet appears instantly with 80ms opacity tr
 
 **Statement:** Replace generic finance states with Bangladesh freelancer-aware states:
 
-| Generic | Pocketa |
+| Generic | Helm |
 |---|---|
 | Balance | Usable BDT |
 | Income | Payment expected / payment received |
@@ -475,13 +475,13 @@ Reduce motion: All stagger removed. Sheet appears instantly with 80ms opacity tr
 
 **Rationale:** Bangladesh-first fintech context includes bKash/Nagad mental models, Payoneer transfer delays, family-support obligations, manual cash tracking, and month-end stress. Formatting alone does not capture this.
 
-**Implementation implication:** All home screen labels and hierarchy must use Pocketa-specific vocabulary, not generic finance terms. Lint rule: no "Balance / Income / Expense" above the fold.
+**Implementation implication:** All home screen labels and hierarchy must use Helm-specific vocabulary, not generic finance terms. Lint rule: no "Balance / Income / Expense" above the fold.
 
 ---
 
 ### VISR-024: Source Labels [REFINED]
 
-**Statement:** Pocketa must support visible source labels for money origins: Payoneer, Wise, Bank, bKash, Nagad, Upay, Cash, Manual.
+**Statement:** Helm must support visible source labels for money origins: Payoneer, Wise, Bank, bKash, Nagad, Upay, Cash, Manual.
 
 Source labels appear as low-emphasis text, not brand-colored logos.
 
@@ -489,15 +489,15 @@ Example: `Payoneer - processing - not counted yet`
 
 **What changed:** The earlier system did not specify source labeling as a visual identity element. The refined system makes source visibility a trust requirement.
 
-**Rationale:** Freelancers mentally separate "client promised" vs "Payoneer arrived" vs "bank withdrawn." Pocketa must reflect this separation.
+**Rationale:** Freelancers mentally separate "client promised" vs "Payoneer arrived" vs "bank withdrawn." Helm must reflect this separation.
 
-**Implementation implication:** New `PocketaMoneySourceLabel` widget. Pipeline entries must show source labels.
+**Implementation implication:** New `HelmMoneySourceLabel` widget. Pipeline entries must show source labels.
 
 ---
 
 ### VISR-025: Bangla Copy Authoring [REFINED]
 
-**Statement:** Bangla UI copy must be authored separately by a native Bangla speaker, not translated from English. Pocketa should not sound translated.
+**Statement:** Bangla UI copy must be authored separately by a native Bangla speaker, not translated from English. Helm should not sound translated.
 
 Key Bangla terms:
 | English | Bangla |
@@ -558,7 +558,7 @@ If any answer is no, the screen fails.
 
 **What changed:** This is a new quality gate not present in the earlier system.
 
-**Rationale:** This test operationalizes Pocketa's core product truth into a design review checklist.
+**Rationale:** This test operationalizes Helm's core product truth into a design review checklist.
 
 **Implementation implication:** Add to PR review template for any change that affects visual layout or financial data display.
 
@@ -633,12 +633,12 @@ Good: "Know what is actually safe to spend", "Separate received money from pendi
 
 | Widget | Purpose |
 |---|---|
-| `PocketaLedgerRail` | Replaces `PocketaAccentLine`; ownable S2S state visual |
-| `PocketaTrustStrip` | Timestamp/source/calculation proof |
-| `PocketaRealityStack` | Safe / committed / reserve / pending hierarchy |
-| `PocketaCalculationTrace` | Auditable math drawer with stagger animation |
-| `PocketaMoneySourceLabel` | Payoneer/bank/bKash/Nagad/manual source clarity |
-| `PocketaFxEstimate` | FX rate and estimate status display |
+| `HelmLedgerRail` | Replaces `HelmAccentLine`; ownable S2S state visual |
+| `HelmTrustStrip` | Timestamp/source/calculation proof |
+| `HelmRealityStack` | Safe / committed / reserve / pending hierarchy |
+| `HelmCalculationTrace` | Auditable math drawer with stagger animation |
+| `HelmMoneySourceLabel` | Payoneer/bank/bKash/Nagad/manual source clarity |
+| `HelmFxEstimate` | FX rate and estimate status display |
 
 **What changed:** These are net-new widgets reflecting the five ownable visual assets.
 
@@ -654,11 +654,11 @@ Good: "Know what is actually safe to spend", "Separate received money from pendi
 
 1. No `withOpacity()` on text colors.
 2. No "Balance / Income / Expense" summary card above the fold.
-3. No financial amount without a `PocketaAmount` widget.
-4. No S2S value without `PocketaLedgerRail`.
-5. No dual-currency amount without `PocketaFxEstimate`.
+3. No financial amount without a `HelmAmount` widget.
+4. No S2S value without `HelmLedgerRail`.
+5. No dual-currency amount without `HelmFxEstimate`.
 6. No pending amount inside same visual group as liquid BDT unless explicitly labeled.
-7. No generic `SnackBar`; use `PocketaToast` with financial-safe copy.
+7. No generic `SnackBar`; use `HelmToast` with financial-safe copy.
 
 **What changed:** These are net-new lint rules not in the earlier system.
 
@@ -701,7 +701,7 @@ Good: "Know what is actually safe to spend", "Separate received money from pendi
 
 ### VISR-034: Final Refined Identity Principle
 
-**Statement:** Pocketa's visual identity is not the color palette, the logo, Inter + JetBrains Mono, or "minimalism." The brand is the repeated visual separation between:
+**Statement:** Helm's visual identity is not the color palette, the logo, Inter + JetBrains Mono, or "minimalism." The brand is the repeated visual separation between:
 
 ```
 Real money
@@ -712,7 +712,7 @@ Hopeful money
 
 That separation is the identity.
 
-> "Do not make Pocketa prettier. Make it harder to misunderstand."
+> "Do not make Helm prettier. Make it harder to misunderstand."
 
 **Rationale:** The earlier system's restraint is preserved. The refined system adds recognition and purpose to that restraint.
 

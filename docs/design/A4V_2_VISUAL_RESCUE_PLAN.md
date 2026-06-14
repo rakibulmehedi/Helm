@@ -10,10 +10,10 @@
 
 ## Strategic Diagnosis
 
-Pocketa's visual problem is **adoption, not design**.
+Helm's visual problem is **adoption, not design**.
 
 - Token system: **100% correct** (13 colors, 18 typography, 20+ spacing, 6 motion)
-- Core widgets: **12/13 fully compliant** (PocketaAmount, PocketaLedgerRail, PocketaTrustStrip, etc.)
+- Core widgets: **12/13 fully compliant** (HelmAmount, HelmLedgerRail, HelmTrustStrip, etc.)
 - Dashboard: **80-90/100** (near-doctrine)
 - Periphery: **20-40/100** (income list, settings, transaction, export)
 
@@ -34,11 +34,11 @@ Second: kill expense categories, kill italic text, fix splash timing. These are 
 | Component | Score | Reason |
 |-----------|-------|--------|
 | S2sHeroBlock | 90/100 | Near-perfect. Product's strongest visual moment. |
-| PocketaRealityStack | N/A | Correct 4-tier structure. Do not restructure. |
-| PocketaCalculationTrace | 85/100 | Correct stagger animation + audit pattern. |
+| HelmRealityStack | N/A | Correct 4-tier structure. Do not restructure. |
+| HelmCalculationTrace | 85/100 | Correct stagger animation + audit pattern. |
 | Dashboard layout | 80/100 | Reality Stack + FAB + bottom nav correct. |
-| All 12 core Pocketa widgets | 100% | Token-compliant. Rescue = adoption, not rewrite. |
-| PocketaColors/Typography/Spacing/Motion | 100% | Token definitions are correct. Never change tokens. |
+| All 12 core Helm widgets | 100% | Token-compliant. Rescue = adoption, not rewrite. |
+| HelmColors/Typography/Spacing/Motion | 100% | Token definitions are correct. Never change tokens. |
 | Riverpod state management | N/A | Sound architecture. Visual migration only. |
 | GoRouter navigation | N/A | Correct route guards. Visual migration only. |
 | S2S calculation logic | N/A | Financial formula is correct. Never touch. |
@@ -54,7 +54,7 @@ Second: kill expense categories, kill italic text, fix splash timing. These are 
 |---------------------|-------------|------------|
 | `AppButton` (button_multiple_types.dart) | 13 screens | Uses deprecated `AppColors.primary` (#2453FF) |
 | `AppColors` (colors.dart) | 4 files | Deprecated color system, never removed |
-| `ResponsiveUtilities.font()` | 6 files | Bypasses PocketaTypography entirely |
+| `ResponsiveUtilities.font()` | 6 files | Bypasses HelmTypography entirely |
 | `Material Icons` (Icons.*) | 16 files | No Phosphor package installed |
 | Hardcoded `fontSize:` | 14 files | Predates token system |
 | Hardcoded `BorderRadius.circular()` | 28 files | Predates spacing tokens |
@@ -81,7 +81,7 @@ Ranked by trust damage (user-facing impact x frequency x identity violation):
 
 | Fix | Effort | Screens Fixed | Score Lift | ROI |
 |-----|--------|-------------|-----------|-----|
-| AppButton -> PocketaColors | 15 min | 13 | +8 overall | EXTREME |
+| AppButton -> HelmColors | 15 min | 13 | +8 overall | EXTREME |
 | Kill expense categories | 20 min | 1 | +5 (identity) | EXTREME |
 | Kill 3 italic instances | 5 min | 2 | +3 (BLOCKER) | EXTREME |
 | Splash timing 1800->320ms | 5 min | 1 | +2 (BLOCKER) | EXTREME |
@@ -160,10 +160,10 @@ Ranked by trust damage (user-facing impact x frequency x identity violation):
 
 | Component | Current Score | Why Rebuild | Rebuild Scope |
 |-----------|-------------|-------------|---------------|
-| AppButton (button_multiple_types.dart) | 15 | Uses deprecated AppColors, wrong radius, ResponsiveUtilities for padding | Rewrite internals to PocketaColors + PocketaSpacing. Keep interface (label, onPressed, type). |
-| Splash Screen | 25 | CircleAvatar placeholder, 1800ms, wrong curve | Replace with wordmark + PocketaMotion.slow fade |
+| AppButton (button_multiple_types.dart) | 15 | Uses deprecated AppColors, wrong radius, ResponsiveUtilities for padding | Rewrite internals to HelmColors + HelmSpacing. Keep interface (label, onPressed, type). |
+| Splash Screen | 25 | CircleAvatar placeholder, 1800ms, wrong curve | Replace with wordmark + HelmMotion.slow fade |
 | Add Transaction Screen | 20 | Expense categories kill + full token migration | Remove categories, simplify to amount+note+date, migrate tokens |
-| Income List Screen | 30 | 14+ ResponsiveUtilities calls, italic notes, wrong card radius | Heavy token migration + PocketaAmount adoption for money values |
+| Income List Screen | 30 | 14+ ResponsiveUtilities calls, italic notes, wrong card radius | Heavy token migration + HelmAmount adoption for money values |
 
 **Note:** "Rebuild" here means rewriting the visual layer only. All business logic, state management, and data flow stay identical.
 
@@ -199,7 +199,7 @@ Phosphor icons (Phase 4) and spacing (Phase 5) push to 85+ but are not beta-bloc
 The design system is correct. The core widgets are correct. The dashboard proves the target aesthetic works. Every other screen must be brought UP to dashboard-level maturity by:
 
 1. Replacing deprecated references (AppColors, ResponsiveUtilities, raw Colors) with existing tokens
-2. Adopting existing Pocketa widgets where applicable (PocketaAmount for money values)
+2. Adopting existing Helm widgets where applicable (HelmAmount for money values)
 3. Removing violations (italic, bold, shadows, categories)
 4. Adding missing infrastructure only where required (Phosphor package, History screen)
 
@@ -279,7 +279,7 @@ After each phase:
 5. **Skeleton loading states** -- interaction maturity, not visual identity
 6. **Haptic feedback** -- interaction maturity, not visual identity
 7. **S2S performance gate** -- already passing per attack report
-8. **Dark mode verification** -- PocketaColors handles both modes via ThemeExtension
+8. **Dark mode verification** -- HelmColors handles both modes via ThemeExtension
 
 ---
 
@@ -290,12 +290,12 @@ After each phase:
 Scope: Phase 1 only (all 7 BLOCKERs resolved in ~2 hours)
 
 Tasks:
-1. Rewrite AppButton internals -> PocketaColors.interactive + PocketaSpacing
+1. Rewrite AppButton internals -> HelmColors.interactive + HelmSpacing
 2. Remove expense categories from add_transaction_screen.dart
 3. Remove 3 FontStyle.italic instances (sts_settings, income_list)
 4. Reduce splash animation from 1800ms to 320ms
 5. Delete safe_to_spend_hero.dart (dead code)
-6. Replace Colors.white with PocketaColors token in button_multiple_types.dart
+6. Replace Colors.white with HelmColors token in button_multiple_types.dart
 7. Run dart analyze + flutter test + visual verification
 
 After A4V-3: score jumps from 52 to ~62, zero BLOCKERs.

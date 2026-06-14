@@ -1,24 +1,24 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Pocketa safe-to-spend cash flow tracker banner" width="100%">
+  <img src="assets/banner.png" alt="Helm safe-to-spend cash flow tracker banner" width="100%">
 </p>
 
-# Pocketa - Safe-to-spend cash flow clarity for freelancers
+# Helm - Safe-to-spend cash flow clarity for freelancers
 
-[![CI](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Pocketa-V2/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/releases)
-[![License](https://img.shields.io/github/license/rakibulmehedi/Pocketa-V2)](https://github.com/rakibulmehedi/Pocketa-V2/blob/main/LICENSE)
+[![CI](https://github.com/rakibulmehedi/Helm-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Helm-V2/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Helm-V2)](https://github.com/rakibulmehedi/Helm-V2/releases)
+[![License](https://img.shields.io/github/license/rakibulmehedi/Helm-V2)](https://github.com/rakibulmehedi/Helm-V2/blob/main/LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-3.7%2B-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
 
-Freelancers overspend when pipeline income feels real before cash lands in hand. Pocketa is a Flutter finance app and safe-to-spend cash flow tracker for Bangladeshi USD-earning freelancers. It models expected, pending, and received income, subtracts fixed costs, safety buffer, and estimated tax, then shows one trusted BDT number you can act on now.
+Freelancers overspend when pipeline income feels real before cash lands in hand. Helm is a Flutter finance app and safe-to-spend cash flow tracker for Bangladeshi USD-earning freelancers. It models expected, pending, and received income, subtracts fixed costs, safety buffer, and estimated tax, then shows one trusted BDT number you can act on now.
 
 > Built for freelancers who earn in USD, spend in BDT, and need clarity faster than a spreadsheet can give it.
 
 ## Table of Contents
 
-- [What Pocketa does](#what-pocketa-does)
-- [Why Pocketa is different](#why-pocketa-is-different)
+- [What Helm does](#what-helm-does)
+- [Why Helm is different](#why-helm-is-different)
 - [Safe-to-spend calculator](#safe-to-spend-calculator)
 - [Income pipeline workflow](#income-pipeline-workflow)
 - [Getting started](#getting-started)
@@ -29,11 +29,11 @@ Freelancers overspend when pipeline income feels real before cash lands in hand.
 - [Disclaimer](#disclaimer)
 - [License](#license)
 
-## What Pocketa does
+## What Helm does
 
-Pocketa answers one operational question: how much money is actually safe to spend right now?
+Helm answers one operational question: how much money is actually safe to spend right now?
 
-| Need | How Pocketa handles it |
+| Need | How Helm handles it |
 |---|---|
 | Future income without false confidence | Tracks expected, pending, and received income separately |
 | Spendable cash you can trust | Computes a Safe-to-Spend number from current financial reality |
@@ -41,11 +41,11 @@ Pocketa answers one operational question: how much money is actually safe to spe
 | Financial stress margin | Applies an editable safety buffer |
 | Trust and auditability | Keeps audit logs, CSV export, PIN protection, and account deletion in product |
 
-## Why Pocketa is different
+## Why Helm is different
 
-Most personal finance apps tell freelancers what happened. Pocketa is built to tell them what is safe to do next.
+Most personal finance apps tell freelancers what happened. Helm is built to tell them what is safe to do next.
 
-| Problem | Spreadsheet or generic tracker | Pocketa |
+| Problem | Spreadsheet or generic tracker | Helm |
 |---|---|---|
 | USD income, BDT spending | Manual formulas, easy to drift | Designed around dual-currency freelancer cash flow |
 | Pending money vs real cash | Often mixed into one mental balance | Three-state income pipeline keeps them separate |
@@ -54,7 +54,7 @@ Most personal finance apps tell freelancers what happened. Pocketa is built to t
 
 ## Safe-to-spend calculator
 
-Pocketa centers product experience around one trusted figure instead of raw balance.
+Helm centers product experience around one trusted figure instead of raw balance.
 
 - Safe-to-Spend hero metric, computed in real time and never stored
 - Breakdown drawer that shows every deduction behind spendable cash
@@ -91,8 +91,8 @@ Current workflow covers:
 ### Run locally
 
 ```bash
-git clone https://github.com/rakibulmehedi/Pocketa-V2.git
-cd Pocketa-V2
+git clone https://github.com/rakibulmehedi/Helm-V2.git
+cd Helm-V2
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter run
@@ -148,7 +148,7 @@ lib/
 
 ## Current status
 
-Pocketa is in doctrine-aligned MVP refinement. Trust layer foundation is complete, beta instrumentation is next.
+Helm is in doctrine-aligned MVP refinement. Trust layer foundation is complete, beta instrumentation is next.
 
 | Area | Status |
 |---|---|
@@ -167,8 +167,8 @@ Key project docs:
 
 | Topic | Path |
 |---|---|
-| Product brain | [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) |
-| Final doctrine | [docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md](docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md) |
+| Product brain | [docs/core/HELM_BRAIN.md](docs/core/HELM_BRAIN.md) |
+| Final doctrine | [docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md](docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md) |
 | Architecture rules | [docs/core/ARCHITECTURE_RULES.md](docs/core/ARCHITECTURE_RULES.md) |
 | Roadmap | [docs/core/ROADMAP.md](docs/core/ROADMAP.md) |
 | Current sprint | [docs/tracking/CURRENT_SPRINT.md](docs/tracking/CURRENT_SPRINT.md) |
@@ -178,11 +178,11 @@ Key project docs:
 
 ## Contributing
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing code or docs. Pocketa uses spec-first development, strict architecture boundaries, and documentation-driven workflow.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before changing code or docs. Helm uses spec-first development, strict architecture boundaries, and documentation-driven workflow.
 
 ## Disclaimer
 
-Pocketa provides automated financial tracking assistance, not legal, tax, or professional financial advice.
+Helm provides automated financial tracking assistance, not legal, tax, or professional financial advice.
 
 ## License
 

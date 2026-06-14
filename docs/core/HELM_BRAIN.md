@@ -1,19 +1,19 @@
-# POCKETA — Product Brain
+# HELM — Product Brain
 
-> The single source of truth for what Pocketa is, who it serves, and how it should feel.
+> The single source of truth for what Helm is, who it serves, and how it should feel.
 > Every AI agent and human contributor must read this before writing a single line of code.
 
 ---
 
 ## Identity
 
-Pocketa is **NOT** a backward-looking expense tracker.
+Helm is **NOT** a backward-looking expense tracker.
 
-Pocketa is a:
+Helm is a:
 > **A single-purpose calm cockpit for Bangladeshi USD-earning freelancers.**
 > Category: Freelancer Cashflow Clarity
 
-Pocketa answers one question: 'After escrow, FX, fixed costs, buffer, and reserves — how many BDT can I actually spend right now?' It is a read-only intelligence + workflow layer that sits above the chaotic Bangladeshi freelancer financial stack and produces one trusted number.
+Helm answers one question: 'After escrow, FX, fixed costs, buffer, and reserves — how many BDT can I actually spend right now?' It is a read-only intelligence + workflow layer that sits above the chaotic Bangladeshi freelancer financial stack and produces one trusted number.
 
 ---
 
@@ -33,7 +33,7 @@ Our users struggle with:
 
 ## Product Philosophy
 
-Pocketa should feel:
+Helm should feel:
 - ✅ Calm — no information overload
 - ✅ Reassuring — the app should reduce stress, not add it
 - ✅ Operational — focused on what happens next, not just what happened before
@@ -42,7 +42,7 @@ Pocketa should feel:
 - ✅ Fast — instant transaction entry, no loading walls
 - ✅ Premium — feels like a $10/month app, even if free
 
-Pocketa must **avoid**:
+Helm must **avoid**:
 - ❌ AI chatbots (no scolding the user)
 - ❌ Enterprise accounting complexity
 - ❌ Complex invoicing systems
@@ -127,7 +127,7 @@ Every new feature must pass:
 
 ## Permanent Kill List (per Final Doctrine §8)
 
-NEVER build under Pocketa brand:
+NEVER build under Helm brand:
 - Generic expense categorization (TallyKhata territory)
 - F-commerce, COD, inventory, POS (wrong product entirely)
 - Gamification (points, streaks, badges — patronizing)
@@ -193,5 +193,5 @@ No AI agent may unilaterally expand scope, add packages, or refactor architectur
 
 ## Doctrine Alignment
 
-> This document was updated on 2026-06-04 to align with `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`, the highest strategic authority.
+> This document was updated on 2026-06-04 to align with `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`, the highest strategic authority.
 > Prior versions included F-commerce operators, generic expense tracking focus, broader target user definitions, and Subscription Leakage Radar — all now killed or narrowed by the Final Doctrine.

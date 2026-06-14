@@ -1,4 +1,4 @@
-# Pocketa Microcopy System
+# Helm Microcopy System
 
 > **Status:** Microcopy doctrine for MVP and V1 surfaces.  
 > **Product stance:** Calm financial cockpit for Bangladeshi USD-earning freelancers.  
@@ -11,7 +11,7 @@
 
 ### 1.1 The one-line voice rule
 
-Pocketa speaks like a calm, precise financial instrument:
+Helm speaks like a calm, precise financial instrument:
 
 > **Clear enough to trust. Quiet enough to calm. Specific enough to act.**
 
@@ -126,7 +126,7 @@ If a line does none of these, remove it.
 | `Level up your finances` | Childish gamification | Remove |
 | `Streak` | Patronizing | Remove |
 | `Smart recommendation` | Advice risk | `Calculation detail` |
-| `Pocketa recommends` | Financial advice claim | `Based on your inputs` |
+| `Helm recommends` | Financial advice claim | `Based on your inputs` |
 | `Emergency mode` | Alarm | `At Risk` |
 | `Reserve Mode activated` | Threatening/system-centric | `Safe-to-Spend is ৳0.00` + reason |
 | `Unlock insights` | SaaS hype | `View calculation` |
@@ -407,12 +407,12 @@ Have you ever spent money thinking a Payoneer or Upwork payment had cleared — 
 #### Soft disqualification
 
 ```text
-Pocketa is built for one specific problem: spending BDT before USD actually arrives.
+Helm is built for one specific problem: spending BDT before USD actually arrives.
 
-If that has not happened to you, you probably do not need Pocketa yet. Most people do not.
+If that has not happened to you, you probably do not need Helm yet. Most people do not.
 
 [ Close ]
-[ Tell me when Pocketa supports my use case ]
+[ Tell me when Helm supports my use case ]
 ```
 
 ---
@@ -426,7 +426,7 @@ What email should we use to sign you in?
 
 [ Send sign-in link ]
 
-Pocketa uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.
+Helm uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.
 ```
 
 #### Waiting state
@@ -465,7 +465,7 @@ A rough number is fine. You can refine it later.
 #### Zero input
 
 ```text
-Pocketa needs a current BDT amount to calculate Safe-to-Spend.
+Helm needs a current BDT amount to calculate Safe-to-Spend.
 ```
 
 #### Very high input sanity check
@@ -541,7 +541,7 @@ Both marketplace and direct clients
 ### 4.7 Screen 6 — safety buffer
 
 ```text
-How much should Pocketa hold aside before showing Safe-to-Spend?
+How much should Helm hold aside before showing Safe-to-Spend?
 
 15% is a calm default for irregular income.
 
@@ -561,7 +561,7 @@ This is not locked money. It is a safety margin inside the calculation.
 ### 4.8 Screen 7 — PIN / biometric
 
 ```text
-Protect your Pocketa.
+Protect your Helm.
 
 Set a PIN so your money view stays private on this device.
 
@@ -600,7 +600,7 @@ This number shows what is safe to spend from current BDT. Expected USD is not co
 #### If fixed costs exceed liquid balance
 
 ```text
-Your fixed costs exceed current BDT. Pocketa shows this as it is.
+Your fixed costs exceed current BDT. Helm shows this as it is.
 ```
 
 ---
@@ -833,7 +833,7 @@ not received
 ### 6.3 Boundary explanation
 
 ```text
-Pocketa never edits Safe‑to‑Spend directly. Edit the inputs to change the number.
+Helm never edits Safe‑to‑Spend directly. Edit the inputs to change the number.
 ```
 
 ---
@@ -1033,9 +1033,9 @@ Something went wrong.
 
 | Error | Copy | CTA |
 |---|---|---|
-| Offline | `You are offline. Pocketa is showing the last saved calculation.` | `Retry when online` |
+| Offline | `You are offline. Helm is showing the last saved calculation.` | `Retry when online` |
 | Sync failed | `Sync did not finish. Your device changes are saved and will retry.` | `Retry sync` |
-| Server timeout | `Pocketa could not refresh right now. Last saved calculation is still shown.` | `Try again` |
+| Server timeout | `Helm could not refresh right now. Last saved calculation is still shown.` | `Try again` |
 | Data conflict | `This entry was changed on another device. Review once before saving.` | `Review changes` |
 | Export failed | `Export could not be created right now. Your data was not changed.` | `Try again` |
 
@@ -1047,7 +1047,7 @@ Something went wrong.
 |---|---|---|
 | Magic link expired | `This sign-in link expired. Send a new link to continue.` | `Send new link` |
 | Wrong PIN | `PIN did not match. Try again.` | `Try again` |
-| Too many PIN attempts | `Pocketa is locked for a short time to protect your data.` | `Try later` |
+| Too many PIN attempts | `Helm is locked for a short time to protect your data.` | `Try later` |
 | Biometric failed | `Biometric unlock did not work. Use your PIN instead.` | `Use PIN` |
 | Session expired | `Your session expired. Sign in again to protect your data.` | `Sign in` |
 
@@ -1087,7 +1087,7 @@ Not counted yet
 
 No expected payments added yet.
 
-Add an expected payment when you invoice or expect money. Pocketa will keep it out of Safe-to-Spend until received.
+Add an expected payment when you invoice or expect money. Helm will keep it out of Safe-to-Spend until received.
 ```
 
 CTA:
@@ -1103,7 +1103,7 @@ Add expected payment
 ```text
 No payments in Pipeline yet.
 
-When you expect USD from a client or marketplace, add it here. Pocketa will track it until it becomes current BDT.
+When you expect USD from a client or marketplace, add it here. Helm will track it until it becomes current BDT.
 ```
 
 CTA:
@@ -1145,7 +1145,7 @@ Edits, received payments, exports, and deletions will appear here once they happ
 ```text
 No notifications.
 
-Pocketa only notifies you when a payment needs review or a fixed cost may affect Safe-to-Spend.
+Helm only notifies you when a payment needs review or a fixed cost may affect Safe-to-Spend.
 ```
 
 ---
@@ -1211,7 +1211,7 @@ Every notification must include:
 | FX missing | `FX rate is missing for Acme $1,500. Add it to restore Safe-to-Spend.` | FX edit |
 | Fixed cost due soon, covered | `Internet ৳1,500 is due in 2 days. Covered by current Safe-to-Spend.` | Obligation detail |
 | Fixed cost due today, covered | `Internet ৳1,500 is due today. Covered by current Safe-to-Spend.` | Obligation detail |
-| Export ready | `Your Pocketa export is ready.` | Export screen |
+| Export ready | `Your Helm export is ready.` | Export screen |
 | Account deletion requested | `Account deletion requested. Data will be removed after confirmation.` | Deletion screen |
 
 ---
@@ -1233,7 +1233,7 @@ Every notification must include:
 ```text
 Notifications
 
-Pocketa sends only two kinds of alerts: payment reviews and Safe-to-Spend boundary changes.
+Helm sends only two kinds of alerts: payment reviews and Safe-to-Spend boundary changes.
 
 [ Payment reviews ]
 Expected, pending, or overdue payments that need confirmation.
@@ -1250,7 +1250,7 @@ No notifications from 10 PM to 8 AM.
 ```text
 Turn off safety boundary alerts?
 
-Pocketa will stop notifying you when Safe-to-Spend becomes Tight or At Risk. You can still check the app anytime.
+Helm will stop notifying you when Safe-to-Spend becomes Tight or At Risk. You can still check the app anytime.
 
 [ Turn off ]
 [ Keep alerts on ]
@@ -1262,7 +1262,7 @@ Pocketa will stop notifying you when Safe-to-Spend becomes Tight or At Risk. You
 
 ### 11.1 Trust posture
 
-Pocketa’s privacy copy must be factual, short, and non-defensive.
+Helm’s privacy copy must be factual, short, and non-defensive.
 
 Avoid:
 
@@ -1279,7 +1279,7 @@ Use:
 Your data is not sold.
 You can export your data anytime.
 You can delete your account anytime.
-Pocketa does not move money.
+Helm does not move money.
 ```
 
 ---
@@ -1291,10 +1291,10 @@ Pocketa does not move money.
 ```text
 Privacy
 
-Pocketa uses your financial inputs only to calculate Safe-to-Spend and show your history.
+Helm uses your financial inputs only to calculate Safe-to-Spend and show your history.
 
 Your data is not sold.
-Pocketa does not move money.
+Helm does not move money.
 You can export or delete your data anytime.
 ```
 
@@ -1339,7 +1339,7 @@ Exports include your financial inputs. Keep the file somewhere private.
 ```text
 Delete account and data
 
-This removes your Pocketa account, Pipeline, fixed costs, history, and saved settings.
+This removes your Helm account, Pipeline, fixed costs, history, and saved settings.
 
 This cannot be undone.
 
@@ -1393,7 +1393,7 @@ Fixed cost updated from ৳1,200 to ৳1,500.
 ```text
 Use fingerprint or face unlock
 
-This unlocks Pocketa faster on this device. Your biometric data stays on your device.
+This unlocks Helm faster on this device. Your biometric data stays on your device.
 ```
 
 #### Notifications
@@ -1401,13 +1401,13 @@ This unlocks Pocketa faster on this device. Your biometric data stays on your de
 ```text
 Allow notifications
 
-Pocketa will only notify you when a payment needs review or Safe-to-Spend changes state.
+Helm will only notify you when a payment needs review or Safe-to-Spend changes state.
 ```
 
 #### No bank access
 
 ```text
-Pocketa does not connect to your bank or bKash in MVP. You enter the numbers you want it to use.
+Helm does not connect to your bank or bKash in MVP. You enter the numbers you want it to use.
 ```
 
 ---
@@ -1510,7 +1510,7 @@ Safe-to-Spend এখন দেখানো যাচ্ছে না।
 #### Privacy
 
 ```text
-Pocketa আপনার ডেটা বিক্রি করে না।
+Helm আপনার ডেটা বিক্রি করে না।
 আপনি যেকোনো সময় ডেটা এক্সপোর্ট বা মুছে ফেলতে পারবেন।
 ```
 
@@ -1565,9 +1565,9 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | `onboarding.qual.yes` | Onboarding | Button | `Yes — that has happened to me` | `হ্যাঁ, এমন হয়েছে` |
 | `onboarding.qual.no` | Onboarding | Button | `Not really` | `না, তেমন না` |
 | `onboarding.qual.help` | Onboarding | Helper | `Meaning, you spent BDT because USD seemed on the way, but the bill came before the money arrived.` | Plain Bangla explanation |
-| `onboarding.disqual.body` | Onboarding | Soft disqualify | `Pocketa is built for one specific problem: spending BDT before USD actually arrives.` | Boundary as fact, no judgment |
+| `onboarding.disqual.body` | Onboarding | Soft disqualify | `Helm is built for one specific problem: spending BDT before USD actually arrives.` | Boundary as fact, no judgment |
 | `onboarding.email.title` | Onboarding | Email | `What email should we use to sign you in?` | `সাইন ইনের জন্য কোন ইমেইল ব্যবহার করবেন?` |
-| `onboarding.email.privacy` | Onboarding | Privacy note | `Pocketa uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.` | Direct, factual |
+| `onboarding.email.privacy` | Onboarding | Privacy note | `Helm uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.` | Direct, factual |
 | `onboarding.balance.title` | Onboarding | Liquid balance | `Roughly how much do you have right now in bKash, bank, and cash — combined?` | `bKash, bank, cash মিলিয়ে এখন আনুমানিক কত আছে?` |
 | `onboarding.balance.helper` | Onboarding | Helper | `A rough number is fine. You can refine it later.` | `আনুমানিক দিলেই হবে। পরে ঠিক করতে পারবেন।` |
 | `onboarding.fixed.title` | Onboarding | Fixed costs | `What do you pay every month, no matter what?` | `প্রতি মাসে নিয়মিত কী কী খরচ দিতে হয়?` |
@@ -1575,9 +1575,9 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | `onboarding.fixed.zero.title` | Onboarding | Zero fixed cost | `No fixed monthly costs?` | `কোনো নিয়মিত মাসিক খরচ নেই?` |
 | `onboarding.fixed.zero.body` | Onboarding | Zero fixed cost | `That is unusual for most freelancers. You can continue and add them later if needed.` | Calm recheck |
 | `onboarding.income.title` | Onboarding | Income pattern | `How does your income usually arrive?` | `আপনার ইনকাম সাধারণত কীভাবে আসে?` |
-| `onboarding.buffer.title` | Onboarding | Buffer | `How much should Pocketa hold aside before showing Safe-to-Spend?` | `Safe-to-Spend দেখানোর আগে কতটুকু বাফার ধরে রাখবে?` |
+| `onboarding.buffer.title` | Onboarding | Buffer | `How much should Helm hold aside before showing Safe-to-Spend?` | `Safe-to-Spend দেখানোর আগে কতটুকু বাফার ধরে রাখবে?` |
 | `onboarding.buffer.helper` | Onboarding | Buffer | `This is not locked money. It is a safety margin inside the calculation.` | `এটা লক করা টাকা নয়; হিসাবের নিরাপত্তা মার্জিন।` |
-| `onboarding.pin.title` | Onboarding | Security | `Protect your Pocketa.` | `আপনার Pocketa সুরক্ষিত করুন।` |
+| `onboarding.pin.title` | Onboarding | Security | `Protect your Helm.` | `আপনার Helm সুরক্ষিত করুন।` |
 | `onboarding.reveal.explain` | Onboarding | FVM | `This number shows what is safe to spend from current BDT. Expected USD is not counted until received.` | Core explanation |
 
 ---
@@ -1647,7 +1647,7 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | `breakdown.not_counted` | Breakdown | Section | `Not counted yet` | `এখনও যোগ হয়নি` |
 | `breakdown.pending_payments` | Breakdown | Row | `Pending payments` | `অপেক্ষমান পেমেন্ট` |
 | `breakdown.reason.not_received` | Breakdown | Reason | `not received` | `এখনও পাওয়া যায়নি` |
-| `breakdown.boundary` | Breakdown | Explanation | `Pocketa never edits Safe‑to‑Spend directly. Edit the inputs to change the number.` | Direct Bangla, no lecture |
+| `breakdown.boundary` | Breakdown | Explanation | `Helm never edits Safe‑to‑Spend directly. Edit the inputs to change the number.` | Direct Bangla, no lecture |
 
 ---
 
@@ -1672,7 +1672,7 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | `error.fixed_invalid` | Error | Invalid fixed cost | `One fixed cost has an invalid amount. Review it to restore Safe-to-Spend.` | Direct Bangla |
 | `error.date_missing` | Error | Missing date | `Expected date is missing for {count} payment. Add a date to keep Pipeline accurate.` | Direct Bangla |
 | `error.balance_missing` | Error | Missing liquid BDT | `Current BDT is missing. Add your bKash + bank + cash total to restore Safe-to-Spend.` | Direct Bangla |
-| `error.offline` | Error | Offline | `You are offline. Pocketa is showing the last saved calculation.` | Direct Bangla |
+| `error.offline` | Error | Offline | `You are offline. Helm is showing the last saved calculation.` | Direct Bangla |
 | `error.sync_failed` | Error | Sync | `Sync did not finish. Your device changes are saved and will retry.` | Direct Bangla |
 | `error.magic_expired` | Auth | Expired link | `This sign-in link expired. Send a new link to continue.` | Direct Bangla |
 | `error.pin_wrong` | Auth | PIN | `PIN did not match. Try again.` | Direct Bangla |
@@ -1686,7 +1686,7 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | Key | Surface | Context | English copy | Bangla direction |
 |---|---|---|---|---|
 | `empty.home.no_pipeline.title` | Home | No pipeline | `No expected payments added yet.` | `এখনও কোনো প্রত্যাশিত পেমেন্ট যোগ হয়নি।` |
-| `empty.home.no_pipeline.body` | Home | No pipeline | `Add an expected payment when you invoice or expect money. Pocketa will keep it out of Safe-to-Spend until received.` | Direct Bangla |
+| `empty.home.no_pipeline.body` | Home | No pipeline | `Add an expected payment when you invoice or expect money. Helm will keep it out of Safe-to-Spend until received.` | Direct Bangla |
 | `empty.pipeline.title` | Pipeline | No entries | `No payments in Pipeline yet.` | `Pipeline-এ এখনও কোনো পেমেন্ট নেই।` |
 | `empty.pipeline.body` | Pipeline | No entries | `When you expect USD from a client or marketplace, add it here.` | Direct Bangla |
 | `empty.fixed.title` | Fixed costs | No fixed costs | `No fixed costs added.` | `কোনো নিয়মিত খরচ যোগ হয়নি।` |
@@ -1707,7 +1707,7 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | `notif.s2s_tight` | Push | Tight | `Safe-to-Spend is now {amount}. Current BDT covers costs but uses buffer.` | Direct Bangla |
 | `notif.s2s_risk` | Push | At Risk | `{name} {amount} is due in {days} days. Current BDT is short by {shortAmount}.` | Direct Bangla |
 | `notif.calc_unavailable` | Push | Error | `Safe-to-Spend is unavailable. One input needs review.` | Direct Bangla |
-| `notif.export_ready` | Push | Export | `Your Pocketa export is ready.` | Direct Bangla |
+| `notif.export_ready` | Push | Export | `Your Helm export is ready.` | Direct Bangla |
 
 ---
 
@@ -1716,16 +1716,16 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 | Key | Surface | Context | English copy | Bangla direction |
 |---|---|---|---|---|
 | `privacy.title` | Settings | Privacy | `Privacy` | `Privacy` / `গোপনীয়তা` |
-| `privacy.body` | Settings | Privacy | `Pocketa uses your financial inputs only to calculate Safe-to-Spend and show your history.` | Direct Bangla |
+| `privacy.body` | Settings | Privacy | `Helm uses your financial inputs only to calculate Safe-to-Spend and show your history.` | Direct Bangla |
 | `privacy.not_sold` | Settings | Trust | `Your data is not sold.` | `আপনার ডেটা বিক্রি করা হয় না।` |
-| `privacy.no_money_move` | Settings | Trust | `Pocketa does not move money.` | `Pocketa টাকা স্থানান্তর করে না।` |
+| `privacy.no_money_move` | Settings | Trust | `Helm does not move money.` | `Helm টাকা স্থানান্তর করে না।` |
 | `privacy.export_anytime` | Settings | Trust | `You can export your data anytime.` | `যেকোনো সময় ডেটা এক্সপোর্ট করতে পারবেন।` |
 | `privacy.delete_anytime` | Settings | Trust | `You can delete your account anytime.` | `যেকোনো সময় অ্যাকাউন্ট মুছতে পারবেন।` |
 | `export.title` | Export | Start | `Export your data` | `ডেটা এক্সপোর্ট করুন` |
 | `export.body` | Export | Start | `Create a CSV copy of your Pipeline, fixed costs, received payments, and edit history.` | Direct Bangla |
 | `export.warning` | Export | Privacy | `Exports include your financial inputs. Keep the file somewhere private.` | Direct Bangla |
 | `delete.title` | Delete | Start | `Delete account and data` | `অ্যাকাউন্ট ও ডেটা মুছুন` |
-| `delete.body` | Delete | Start | `This removes your Pocketa account, Pipeline, fixed costs, history, and saved settings.` | Direct Bangla |
+| `delete.body` | Delete | Start | `This removes your Helm account, Pipeline, fixed costs, history, and saved settings.` | Direct Bangla |
 | `delete.irreversible` | Delete | Warning | `This cannot be undone.` | `এটি ফিরিয়ে আনা যাবে না।` |
 | `delete.type_confirm` | Delete | Confirmation | `Type DELETE to confirm.` | `নিশ্চিত করতে DELETE লিখুন।` |
 | `delete.cancelled` | Delete | Cancel | `Deletion cancelled. Your account is unchanged.` | Direct Bangla |
@@ -1734,7 +1734,7 @@ Pocketa আপনার ডেটা বিক্রি করে না।
 
 ## Final Copy QA Checklist
 
-Before shipping any Pocketa string, check:
+Before shipping any Helm string, check:
 
 - [ ] Does it state a fact instead of a feeling?
 - [ ] Does it avoid blame, shame, and panic?
@@ -1751,6 +1751,6 @@ Before shipping any Pocketa string, check:
 
 ## Final Principle
 
-Pocketa should never sound like it is trying to motivate the user.
+Helm should never sound like it is trying to motivate the user.
 
 It should sound like it is protecting the truth of the number.

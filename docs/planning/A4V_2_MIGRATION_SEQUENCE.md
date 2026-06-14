@@ -54,7 +54,7 @@ P2, P3, P4 can run in parallel after P1. P5 depends on P2 (typography must be cl
 
 | Step | Task | File(s) | BLOCKERs Killed |
 |------|------|---------|-----------------|
-| 1.1 | Rewrite AppButton to use PocketaColors | `lib/core/widgets/buttons/button_multiple_types.dart` | B1 |
+| 1.1 | Rewrite AppButton to use HelmColors | `lib/core/widgets/buttons/button_multiple_types.dart` | B1 |
 | 1.2 | Remove expense categories | `lib/features/transactions/presentation/views/add_transaction_screen.dart` | B2 |
 | 1.3 | Remove italic from STS settings | `lib/features/safe_to_spend/presentation/views/sts_settings_screen.dart` | B6 |
 | 1.4 | Remove italic from income list | `lib/features/income/presentation/views/income_list_screen.dart` | B7 |
@@ -78,7 +78,7 @@ grep -r "AppColors" lib/core/widgets/buttons/  # 0 results
 ```
 feat(visual): P1 kill BLOCKERs — AppButton brand color, categories removed, italic killed
 
-- Rewrite button_multiple_types.dart: AppColors.primary -> PocketaColors.interactive
+- Rewrite button_multiple_types.dart: AppColors.primary -> HelmColors.interactive
 - Remove expense categories from add_transaction_screen.dart
 - Remove FontStyle.italic from sts_settings_screen.dart, income_list_screen.dart
 - Reduce splash animation from 1800ms to 320ms, Curves.easeIn -> easeOut
@@ -90,11 +90,11 @@ feat(visual): P1 kill BLOCKERs — AppButton brand color, categories removed, it
 
 ## Phase 2: Typography Migration
 
-**Goal:** Replace all hardcoded fontSize and ResponsiveUtilities.font() with PocketaTypography tokens.
+**Goal:** Replace all hardcoded fontSize and ResponsiveUtilities.font() with HelmTypography tokens.
 
 ### Token Mapping Reference
 
-| Hardcoded Value | PocketaTypography Token | Semantic Role |
+| Hardcoded Value | HelmTypography Token | Semantic Role |
 |----------------|------------------------|---------------|
 | 11 | labelSm | Small labels, badges |
 | 12 | labelMd | Medium labels, captions |
@@ -140,10 +140,10 @@ grep -rn "ResponsiveUtilities.font" lib/features/  # 0 results
 ### Commit
 
 ```
-feat(visual): P2 typography migration — 99 hardcoded fonts replaced with PocketaTypography tokens
+feat(visual): P2 typography migration — 99 hardcoded fonts replaced with HelmTypography tokens
 
 - Replace all ResponsiveUtilities.font() calls with semantic tokens
-- Replace all hardcoded fontSize: with PocketaTypography references
+- Replace all hardcoded fontSize: with HelmTypography references
 - 14 feature files migrated to token typography
 - dart analyze clean
 ```
@@ -202,7 +202,7 @@ grep -rn "Colors.black\|Colors.white" lib/features/  # 0 results
 feat(visual): P3 weight + color cleanup — bold->w600, raw Colors->tokens
 
 - Replace 26 FontWeight.bold/w700 with FontWeight.w600
-- Replace 20 Colors.black/white with PocketaColors tokens
+- Replace 20 Colors.black/white with HelmColors tokens
 - Remove deprecated AppColors imports from remaining files
 - dart analyze clean
 ```
@@ -289,15 +289,15 @@ feat(visual): P4 icon system migration — 66 Material Icons replaced with Phosp
 
 ## Phase 5: Spacing + Shadow Cleanup
 
-**Goal:** Migrate hardcoded BorderRadius to PocketaSpacing tokens, remove all BoxShadow.
+**Goal:** Migrate hardcoded BorderRadius to HelmSpacing tokens, remove all BoxShadow.
 
 ### Token Mapping Reference
 
-| Hardcoded Value | PocketaSpacing Token | Usage |
+| Hardcoded Value | HelmSpacing Token | Usage |
 |----------------|---------------------|-------|
-| BorderRadius.circular(12) | PocketaSpacing.cardRadius | Cards, containers |
-| BorderRadius.circular(10) | PocketaSpacing.buttonRadius | Buttons |
-| BorderRadius.circular(16) | PocketaSpacing.sheetTopRadius | Bottom sheet top corners |
+| BorderRadius.circular(12) | HelmSpacing.cardRadius | Cards, containers |
+| BorderRadius.circular(10) | HelmSpacing.buttonRadius | Buttons |
+| BorderRadius.circular(16) | HelmSpacing.sheetTopRadius | Bottom sheet top corners |
 | BorderRadius.circular(20) | (kill -- use 12 or 16) | Filter chips (non-standard) |
 | BorderRadius.circular(24) | (kill -- use 16) | Non-standard |
 | BorderRadius.circular(100) | (keep for pills/circles) | Status indicators only |
@@ -311,7 +311,7 @@ feat(visual): P4 icon system migration — 66 Material Icons replaced with Phosp
 | 5.3 | Button radius migration (10pt) | All files using BorderRadius.circular(10/12) in button context |
 | 5.4 | Sheet radius migration (16pt) | Bottom sheet shapes |
 | 5.5 | Kill non-standard radii (16, 20, 24 in card context) | income_list_screen, filter chips |
-| 5.6 | EdgeInsets standardization | Replace common hardcoded EdgeInsets with PocketaSpacing refs |
+| 5.6 | EdgeInsets standardization | Replace common hardcoded EdgeInsets with HelmSpacing refs |
 
 ### Verification
 
@@ -328,9 +328,9 @@ grep -rn "BorderRadius.circular" lib/features/ | wc -l  # < 15 (exceptions docum
 feat(visual): P5 spacing + shadow cleanup — zero shadows, radius tokens adopted
 
 - Remove all BoxShadow from 3 feature files
-- Migrate ~80 BorderRadius.circular to PocketaSpacing tokens
+- Migrate ~80 BorderRadius.circular to HelmSpacing tokens
 - Kill non-standard radii (16 on cards -> 12, 20 on chips -> 12)
-- Standardize EdgeInsets to PocketaSpacing references
+- Standardize EdgeInsets to HelmSpacing references
 - dart analyze clean
 ```
 
@@ -344,15 +344,15 @@ feat(visual): P5 spacing + shadow cleanup — zero shadows, radius tokens adopte
 
 | Step | Scope | File(s) | Change |
 |------|-------|---------|--------|
-| 6.1 | Splash redesign | `splash_screen.dart` | Replace CircleAvatar with "Pocketa" wordmark (Inter w600, inkPrimary, centered on canvas). Keep 320ms PocketaMotion.slow fade. |
-| 6.2 | Income list PocketaAmount adoption | `income_list_screen.dart` | Replace proportional font money values with PocketaAmount widget |
-| 6.3 | STS Settings money display | `sts_settings_screen.dart` | Use PocketaAmount for fixed cost amounts |
+| 6.1 | Splash redesign | `splash_screen.dart` | Replace CircleAvatar with "Helm" wordmark (Inter w600, inkPrimary, centered on canvas). Keep 320ms HelmMotion.slow fade. |
+| 6.2 | Income list HelmAmount adoption | `income_list_screen.dart` | Replace proportional font money values with HelmAmount widget |
+| 6.3 | STS Settings money display | `sts_settings_screen.dart` | Use HelmAmount for fixed cost amounts |
 | 6.4 | Add transaction simplification | `add_transaction_screen.dart` | Clean up form after category removal (P1). Ensure amount+note+date only. |
 | 6.5 | Button height standardization | `delete_account_screen.dart` | Fix 52pt -> 48pt button height per VIS-019 |
 
 **Deferred to separate sprint (not visual rescue scope):**
 - History tab (4th bottom nav tab) -- requires new screen, new route
-- Income list full rebuild with PocketaLedgerCard -- requires design decision
+- Income list full rebuild with HelmLedgerCard -- requires design decision
 - Loading skeleton states -- interaction maturity, not visual identity
 
 ### Verification
@@ -366,11 +366,11 @@ flutter test           # all pass
 ### Commit
 
 ```
-feat(visual): P6 screen polish — splash wordmark, PocketaAmount adoption, form cleanup
+feat(visual): P6 screen polish — splash wordmark, HelmAmount adoption, form cleanup
 
-- Splash: CircleAvatar -> "Pocketa" wordmark, Inter w600, canvas bg
-- Income list: money values use PocketaAmount widget
-- STS settings: fixed cost amounts use PocketaAmount
+- Splash: CircleAvatar -> "Helm" wordmark, Inter w600, canvas bg
+- Income list: money values use HelmAmount widget
+- STS settings: fixed cost amounts use HelmAmount
 - Transaction form: cleaned post-category-removal layout
 - Delete account: button height 52pt -> 48pt
 - dart analyze clean

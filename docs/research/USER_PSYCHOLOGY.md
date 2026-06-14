@@ -1,9 +1,9 @@
-# Pocketa: User Psychology & Behavioral Finance Research
+# Helm: User Psychology & Behavioral Finance Research
 
 ## 1. Executive Summary
 For freelancers and online earners in emerging markets, money is not experienced as a static balance; it is experienced as **velocity and probability**. Traditional finance tools fail because they assume a world of predictable W-2 paychecks and steady bi-weekly expenses. Freelancers live in a high-variance reality where the cognitive load of managing irregular income creates a perpetual state of low-grade anxiety. 
 
-Pocketa must not be an expense tracker. It must be an **Anxiety Reduction Engine**. The product succeeds not when a user perfectly categorizes a coffee purchase, but when a user opens the app and instantly feels the relief of knowing: *"I am safe to spend this, and I survive until the 25th."* 
+Helm must not be an expense tracker. It must be an **Anxiety Reduction Engine**. The product succeeds not when a user perfectly categorizes a coffee purchase, but when a user opens the app and instantly feels the relief of knowing: *"I am safe to spend this, and I survive until the 25th."* 
 
 ## 2. Core Psychological Findings
 - **The Feast/Famine Dopamine Cycle:** Freelancers experience extreme psychological whiplash. During "famine" (waiting for clients), scarcity mindset heavily restricts cognitive bandwidth, leading to decision paralysis. When a large payment finally clears ("feast"), there is a dopamine spike that often triggers "release spending"—buying items as an emotional reward for surviving the famine. 
@@ -26,7 +26,7 @@ Pocketa must not be an expense tracker. It must be an **Anxiety Reduction Engine
 - **Short-Term Myopia:** The stress of surviving the current month severely impairs the ability to plan for quarterly software renewals or annual taxes. Lumpy expenses blindside them repeatedly.
 
 ## 6. Bangladesh-Specific Insights
-- **Dual Liquidity (Bank vs. bKash/Nagad):** Bangladeshi freelancers operate across two distinct liquidity pools. Banks are for hoarding and receiving large remittance wires; Mobile Financial Services (MFS) like bKash/Nagad are for daily operational survival. Pocketa must respect this fragmentation.
+- **Dual Liquidity (Bank vs. bKash/Nagad):** Bangladeshi freelancers operate across two distinct liquidity pools. Banks are for hoarding and receiving large remittance wires; Mobile Financial Services (MFS) like bKash/Nagad are for daily operational survival. Helm must respect this fragmentation.
 - **The USD-to-BDT Conversion Mindset:** Freelancers acutely watch exchange rates and the 2.5% government remittance incentive. They often delay withdrawing from Payoneer/Wise to catch a better rate, deliberately extending their local cash famine in exchange for a 2-3% overall gain.
 - **Peer-to-Peer Bridge Lending:** To survive transit periods, Bangladeshi freelancers frequently borrow small amounts from peers ("Send me 5,000 Tk on bKash, I'll pay you back when my Upwork wire clears on Thursday").
 
@@ -41,11 +41,11 @@ Pocketa must not be an expense tracker. It must be an **Anxiety Reduction Engine
 - **Reassurance Design:** Use microcopy that validates their status: *"You are fully covered until the 24th."*
 
 ## 9. Retention Opportunities
-- **The Pipeline Check Habit:** If Pocketa becomes the single source of truth for tracking "Where is my money right now across 3 platforms?", it will achieve a daily active usage (DAU) habit loop identical to checking email.
+- **The Pipeline Check Habit:** If Helm becomes the single source of truth for tracking "Where is my money right now across 3 platforms?", it will achieve a daily active usage (DAU) habit loop identical to checking email.
 - **Subscription Leakage Radar:** Alerting a user to a forgotten $15/mo SaaS tool provides immediate, measurable ROI. They will keep the app just for this safety net.
 
 ## 10. Monetization Opportunities
-- **Pocketa Pro:** 
+- **Helm Pro:** 
   - Multi-currency pipeline tracking (USD pending, BDT cleared).
   - Infinite client/project profitability tracking.
   - Automated PDF export for the 2.5% remittance incentive documentation or tax filing.
@@ -54,7 +54,7 @@ Pocketa must not be an expense tracker. It must be an **Anxiety Reduction Engine
 ## 11. Dangerous Product Assumptions
 - **Assuming they want a strict budget.** They don’t. They want cashflow visibility.
 - **Assuming they care about deep analytics.** A pie chart showing they spent 14% on coffee is useless to a freelancer worried about a $2,000 invoice clearing.
-- **Assuming they will do double-entry bookkeeping.** They will abandon any app that requires balancing accounts perfectly. Pocketa must allow for "messy" approximations.
+- **Assuming they will do double-entry bookkeeping.** They will abandon any app that requires balancing accounts perfectly. Helm must allow for "messy" approximations.
 
 ## 12. What Would Make Users Churn
 - **Friction-heavy data entry.**
@@ -62,12 +62,12 @@ Pocketa must not be an expense tracker. It must be an **Anxiety Reduction Engine
 - **A dashboard that induces anxiety** by combining pending and cleared money, leading to a bounced real-world transaction.
 
 ## 13. Strategic Insights
-- **The "OS" Positioning is Perfect:** An OS handles background tasks so the user can focus on their actual work. Pocketa must handle the background simulation of cashflow so the freelancer can focus on writing code or designing graphics.
+- **The "OS" Positioning is Perfect:** An OS handles background tasks so the user can focus on their actual work. Helm must handle the background simulation of cashflow so the freelancer can focus on writing code or designing graphics.
 - **You are competing against cognitive load, not other apps.** Your biggest competitor is the freelancer's own stressed brain. If your app offloads that stress, you win.
 
 ## 14. Product Moat Opportunities
-- **Emotional Lock-In:** If Pocketa successfully reduces a freelancer's late-night financial anxiety, they will never leave. Traditional apps compete on features; Pocketa competes on peace of mind.
-- **Historical Pipeline Accuracy:** Over time, the app learns that "Client A takes 14 days to clear, Client B takes 3 days." Pocketa can start providing hyper-accurate cashflow forecasting that no generic tracker can match.
+- **Emotional Lock-In:** If Helm successfully reduces a freelancer's late-night financial anxiety, they will never leave. Traditional apps compete on features; Helm competes on peace of mind.
+- **Historical Pipeline Accuracy:** Over time, the app learns that "Client A takes 14 days to clear, Client B takes 3 days." Helm can start providing hyper-accurate cashflow forecasting that no generic tracker can match.
 
 ## 15. Founder Recommendations
 1. **Build the Pipeline First:** Stop building basic expense categorization. Accelerate the development of the "Pending → Cleared" income pipeline. This is the wedge feature.

@@ -114,7 +114,7 @@ testWidgets('At Risk state shows red tint', (tester) async { ... });
 
 ```dart
 // Implementation
-Color _heroTint(SafeToSpendResult r, PocketaColors colors) {
+Color _heroTint(SafeToSpendResult r, HelmColors colors) {
   if (r.safeToSpend > 0) return colors.stateSafe.withValues(alpha: 0.08);
   if (r.safeToSpend > -r.anxietyBuffer) return colors.stateTight.withValues(alpha: 0.08);
   return colors.stateAtRisk.withValues(alpha: 0.08);
@@ -147,12 +147,12 @@ Income list empty: — handled by onboarding.
 Transaction list: routed away from dashboard, not prominent.
 
 ### Error States (P5.11)
-Branded error UI (PocketaCautionCard or PocketaAuditCard), not default Flutter red screen.
+Branded error UI (HelmCautionCard or HelmAuditCard), not default Flutter red screen.
 Consistent pattern: "Hmm, we couldn't load [thing]. [Action button]"
 
 ### Skeleton Screens (P5.12)
 ```dart
-// test/core/widgets/pocketa_skeleton_test.dart
+// test/core/widgets/helm_skeleton_test.dart
 testWidgets('skeleton card shows shimmer animation', (tester) async { ... });
 testWidgets('skeleton respects disableAnimations', (tester) async { ... });
 ```

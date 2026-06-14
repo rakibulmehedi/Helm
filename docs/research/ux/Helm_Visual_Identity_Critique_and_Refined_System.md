@@ -1,8 +1,8 @@
-# Pocketa Visual Identity Critique & Refined Identity System
+# Helm Visual Identity Critique & Refined Identity System
 
 > **Review posture:** Global fintech design director — adversarial, product-led, Bangladesh-aware.  
-> **Reviewed file:** `Pocketa_Visual_Identity_System.md`  
-> **Product context:** Pocketa is a Safe-to-Spend cashflow clarity app for Bangladeshi freelancers and unstable-income earners.  
+> **Reviewed file:** `Helm_Visual_Identity_System.md`  
+> **Product context:** Helm is a Safe-to-Spend cashflow clarity app for Bangladeshi freelancers and unstable-income earners.  
 > **Core promise:** “Know what money is actually safe to spend.”  
 > **Verdict:** The current identity is strategically mature, but it overcorrects toward sterile minimalism. It has strong rules, but not enough ownable visual memory, trust proof, or Bangladesh-specific interface texture.
 
@@ -10,15 +10,15 @@
 
 ## 1. Executive Verdict
 
-The current Pocketa visual identity is **better than 90% of early fintech brand systems** because it refuses noisy neobank clichés: gradients, mascots, crypto colors, animated counters, lifestyle illustrations, and dopamine UI. That restraint is correct.
+The current Helm visual identity is **better than 90% of early fintech brand systems** because it refuses noisy neobank clichés: gradients, mascots, crypto colors, animated counters, lifestyle illustrations, and dopamine UI. That restraint is correct.
 
 But the system currently has a serious risk:
 
 > **It may become “beautifully correct” but visually forgettable.**
 
-The identity is calm, exact, and adult — good. But it is also close to the global minimalist SaaS-fintech pattern: warm off-white background, Inter, mono numerals, teal accent, no shadows, restrained cards. This can easily become “premium template fintech” unless Pocketa develops a distinctive visual grammar around its own product truth: **BDT-first cashflow clarity under uncertainty.**
+The identity is calm, exact, and adult — good. But it is also close to the global minimalist SaaS-fintech pattern: warm off-white background, Inter, mono numerals, teal accent, no shadows, restrained cards. This can easily become “premium template fintech” unless Helm develops a distinctive visual grammar around its own product truth: **BDT-first cashflow clarity under uncertainty.**
 
-The current doctrine says Pocketa should look like a **chronometer**. Strong direction, but slightly too foreign, too cold, and too mechanical for the emotional job. Bangladeshi freelancers do not only need an instrument. They need a quiet financial witness that says:
+The current doctrine says Helm should look like a **chronometer**. Strong direction, but slightly too foreign, too cold, and too mechanical for the emotional job. Bangladeshi freelancers do not only need an instrument. They need a quiet financial witness that says:
 
 > “This money is real. This money is not real yet. This is what you can safely touch.”
 
@@ -63,7 +63,7 @@ This is tasteful, but taste is not identity.
 
 A global fintech design director would ask:
 
-> “If I blur the logo and copy, can I still identify this as Pocketa?”
+> “If I blur the logo and copy, can I still identify this as Helm?”
 
 Current answer: **Not reliably.**
 
@@ -79,7 +79,7 @@ That is the core generic-visual risk.
 
 #### What must change
 
-Pocketa needs **ownable interface signatures**, not decorative branding.
+Helm needs **ownable interface signatures**, not decorative branding.
 
 The identity should introduce distinctive product-native elements:
 
@@ -117,7 +117,7 @@ For financial clarity apps, trust comes from repeated visible proof:
 
 The visual identity currently says “trust me because I look calm.” That is not enough.
 
-Pocketa must say:
+Helm must say:
 
 > “Trust me because every number has a source, a timestamp, and an explanation.”
 
@@ -191,7 +191,7 @@ In that context, “technically passes contrast” is not enough.
 | Muted state colors | Calm, but At Risk may not feel sufficiently clear if only shown as a thin line |
 | 1pt accent line | Too fragile for a mission-critical financial state |
 
-The current system is tuned like a premium iPhone UI. Pocketa should be tuned like a **Bangladesh Android-first financial instrument**.
+The current system is tuned like a premium iPhone UI. Helm should be tuned like a **Bangladesh Android-first financial instrument**.
 
 #### What must change
 
@@ -214,7 +214,7 @@ Recommended refinements:
 
 The refined rule:
 
-> Pocketa can be quiet, but it cannot be faint.
+> Helm can be quiet, but it cannot be faint.
 
 ---
 
@@ -228,7 +228,7 @@ The product rejects fake motivation and childish finance. Excellent.
 
 The “clinical instrument / chronometer” metaphor risks becoming emotionally cold.
 
-Pocketa is not for CFOs sitting calmly in boardrooms. It is for unstable-income freelancers checking money at 11 PM, near month-end, while rent, family support, loan payments, electricity bills, and future uncertainty sit in their head.
+Helm is not for CFOs sitting calmly in boardrooms. It is for unstable-income freelancers checking money at 11 PM, near month-end, while rent, family support, loan payments, electricity bills, and future uncertainty sit in their head.
 
 The emotional state is not just “needs precision.” It is:
 
@@ -309,11 +309,11 @@ Modern app-store templates often have:
 - Minimal tabs
 - Simple line dividers
 
-Pocketa’s current system could be implemented by a designer as a beautiful but generic “Finance App UI Kit.” That would be a fail.
+Helm’s current system could be implemented by a designer as a beautiful but generic “Finance App UI Kit.” That would be a fail.
 
 #### Template smell checklist
 
-If a Pocketa screen has these, it is drifting into app-store-template territory:
+If a Helm screen has these, it is drifting into app-store-template territory:
 
 - Generic “Total Balance” hero pattern
 - Generic rounded cards with three summary stats
@@ -324,11 +324,11 @@ If a Pocketa screen has these, it is drifting into app-store-template territory:
 - Generic green success state
 - Generic dashboard with “income / expense / balance”
 
-Pocketa must not look like another expense tracker.
+Helm must not look like another expense tracker.
 
 #### What must change
 
-Pocketa should visually reject generic personal finance hierarchy.
+Helm should visually reject generic personal finance hierarchy.
 
 Do not lead with:
 
@@ -385,7 +385,7 @@ The identity needs local money-state language.
 
 Examples:
 
-| Generic | Pocketa-local |
+| Generic | Helm-local |
 |---|---|
 | Pending | Client promised / Platform processing / Bank not received |
 | Received | Usable BDT |
@@ -404,7 +404,7 @@ Visual identity should support these concepts through layout, not just copy.
 
 ### 3.1 New Visual North Star
 
-> **Pocketa looks like a calm Bangladeshi cashflow ledger that separates real money from hopeful money with absolute clarity — quiet enough for stress, exact enough for trust, and distinctive enough to never feel like a generic expense tracker.**
+> **Helm looks like a calm Bangladeshi cashflow ledger that separates real money from hopeful money with absolute clarity — quiet enough for stress, exact enough for trust, and distinctive enough to never feel like a generic expense tracker.**
 
 This keeps the original restraint but adds:
 
@@ -433,7 +433,7 @@ This keeps the original restraint but adds:
 
 ## 4.1 Core Identity Assets
 
-Pocketa needs a small set of ownable visual assets that appear across the app.
+Helm needs a small set of ownable visual assets that appear across the app.
 
 ### Asset 1 — Safe-to-Spend Ledger Rail
 
@@ -464,13 +464,13 @@ A horizontal rail under the Safe-to-Spend number that shows the current state us
 
 A thin line feels like decoration. A rail feels like an instrument.
 
-The Ledger Rail becomes a recognizable Pocketa signature.
+The Ledger Rail becomes a recognizable Helm signature.
 
 ---
 
 ### Asset 2 — Reality Stack
 
-Pocketa’s strongest product idea is not “expense tracking.” It is separating money reality levels.
+Helm’s strongest product idea is not “expense tracking.” It is separating money reality levels.
 
 #### Stack order
 
@@ -531,7 +531,7 @@ The Trust Strip is mandatory for:
 
 ### Asset 4 — Calculation Trace Pattern
 
-The Calculation Breakdown drawer should not be a generic modal. It should be Pocketa’s trust theater — but in a restrained way.
+The Calculation Breakdown drawer should not be a generic modal. It should be Helm’s trust theater — but in a restrained way.
 
 #### Visual pattern
 
@@ -558,7 +558,7 @@ This pattern should be so consistent that users recognize it even without the lo
 
 ### Asset 5 — BDT-First Money Stamp
 
-BDT is not just a currency. In Pocketa, BDT means usable reality.
+BDT is not just a currency. In Helm, BDT means usable reality.
 
 #### Specification
 
@@ -674,7 +674,7 @@ Hind Siliguri is good, but Bangla UI should be visually tested in real screens b
 
 The 9-line rule is excellent. Keep it.
 
-But refine the home hierarchy from generic dashboard into Pocketa’s proprietary cockpit.
+But refine the home hierarchy from generic dashboard into Helm’s proprietary cockpit.
 
 ### Above-the-fold structure
 
@@ -716,11 +716,11 @@ Border-only cards are good, but all cards may become visually equal.
 
 | Card type | Visual treatment | Use |
 |---|---|---|
-| `PocketaHeroZone` | No visible card, only spatial grouping | S2S hero |
-| `PocketaLedgerCard` | 1pt divider border, 12pt radius | Main money facts |
-| `PocketaAuditCard` | Slightly stronger top rule, right-aligned values | Calculation trace |
-| `PocketaSourceCard` | Compact card with source icon + status | Payoneer/bank/bKash entries |
-| `PocketaCautionCard` | AtRisk rail on left, no red fill | Reserve Mode / urgent due |
+| `HelmHeroZone` | No visible card, only spatial grouping | S2S hero |
+| `HelmLedgerCard` | 1pt divider border, 12pt radius | Main money facts |
+| `HelmAuditCard` | Slightly stronger top rule, right-aligned values | Calculation trace |
+| `HelmSourceCard` | Compact card with source icon + status | Payoneer/bank/bKash entries |
+| `HelmCautionCard` | AtRisk rail on left, no red fill | Reserve Mode / urgent due |
 
 ### New rule
 
@@ -732,7 +732,7 @@ Do not use card color to communicate financial state.
 
 ## 4.6 Refined Iconography
 
-Phosphor Icons are acceptable, but they are not distinctive. Use them as base, but create a small custom icon subset for Pocketa’s money reality states.
+Phosphor Icons are acceptable, but they are not distinctive. Use them as base, but create a small custom icon subset for Helm’s money reality states.
 
 ### Required custom icons
 
@@ -778,7 +778,7 @@ All stagger removed. Sheet appears instantly with 80ms opacity transition.
 
 Replace generic finance states with Bangladesh freelancer-aware states.
 
-| Generic state | Pocketa state |
+| Generic state | Helm state |
 |---|---|
 | Balance | Usable BDT |
 | Income | Payment expected / payment received |
@@ -790,7 +790,7 @@ Replace generic finance states with Bangladesh freelancer-aware states.
 
 ### Source labels
 
-Pocketa should support visible source labels:
+Helm should support visible source labels:
 
 - Payoneer
 - Wise
@@ -813,7 +813,7 @@ Payoneer · processing · not counted yet
 
 ### Bangla + English UI approach
 
-Pocketa should not sound translated.
+Helm should not sound translated.
 
 #### Bangla examples
 
@@ -1090,22 +1090,22 @@ Add these to the original widget list:
 
 | Widget | Purpose |
 |---|---|
-| `PocketaLedgerRail` | Ownable S2S state visual |
-| `PocketaTrustStrip` | Timestamp/source/calculation proof |
-| `PocketaRealityStack` | Safe / committed / reserve / pending hierarchy |
-| `PocketaCalculationTrace` | Auditable math drawer |
-| `PocketaMoneySourceLabel` | Payoneer/bank/bKash/Nagad/manual source clarity |
-| `PocketaFxEstimate` | FX rate and estimate status display |
+| `HelmLedgerRail` | Ownable S2S state visual |
+| `HelmTrustStrip` | Timestamp/source/calculation proof |
+| `HelmRealityStack` | Safe / committed / reserve / pending hierarchy |
+| `HelmCalculationTrace` | Auditable math drawer |
+| `HelmMoneySourceLabel` | Payoneer/bank/bKash/Nagad/manual source clarity |
+| `HelmFxEstimate` | FX rate and estimate status display |
 
 ### Additional lint rules
 
 1. No `withOpacity()` on text colors.
 2. No “Balance / Income / Expense” summary card above the fold.
-3. No financial amount without a `PocketaAmount` widget.
-4. No S2S value without `PocketaLedgerRail`.
-5. No dual-currency amount without `PocketaFxEstimate`.
+3. No financial amount without a `HelmAmount` widget.
+4. No S2S value without `HelmLedgerRail`.
+5. No dual-currency amount without `HelmFxEstimate`.
 6. No pending amount inside the same visual group as liquid BDT unless explicitly labeled.
-7. No generic `SnackBar`; use `PocketaToast` with financial-safe copy.
+7. No generic `SnackBar`; use `HelmToast` with financial-safe copy.
 
 ---
 
@@ -1128,7 +1128,7 @@ Add these to the original widget list:
 
 ## 11. Final Refined Doctrine
 
-Pocketa’s visual identity should not try to look like a bank, wallet, expense tracker, crypto app, or productivity tool.
+Helm’s visual identity should not try to look like a bank, wallet, expense tracker, crypto app, or productivity tool.
 
 It should look like this:
 
@@ -1178,7 +1178,7 @@ The next version must not add decoration. It must add **recognizable financial t
 - Calculation Trace
 - BDT-first Money Stamp
 
-These are the pieces that can make Pocketa feel globally credible and locally inevitable.
+These are the pieces that can make Helm feel globally credible and locally inevitable.
 
-> **Do not make Pocketa prettier. Make it harder to misunderstand.**
+> **Do not make Helm prettier. Make it harder to misunderstand.**
 

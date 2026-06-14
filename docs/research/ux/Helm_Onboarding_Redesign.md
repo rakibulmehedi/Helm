@@ -1,4 +1,4 @@
-# Pocketa Onboarding Redesign
+# Helm Onboarding Redesign
 
 > **Status:** Operational specification. Extends UX Doctrine §5 and Final Product Doctrine §2.
 > **Authority:** Subordinate to both Doctrines. If anything here contradicts them, the Doctrine wins.
@@ -31,9 +31,9 @@ Push back on the default temptations now, before sprint 1, so they don't smuggle
 
 - **Not trying to maximize signups.** Disqualifying the wrong user is a feature, not a leak.
 - **Not trying to collect data for analytics.** Every field asked must directly feed the first S2S calculation.
-- **Not trying to demo features.** No carousels, no "here's what Pocketa can do," no value-prop slides.
+- **Not trying to demo features.** No carousels, no "here's what Helm can do," no value-prop slides.
 - **Not trying to convince.** If the qualifying question doesn't sell itself, the rest of the product won't either.
-- **Not trying to be friendly.** Pocketa is a chronometer (UX Doctrine §2.6). Onboarding is the moment the user picks up the instrument, not meets a person.
+- **Not trying to be friendly.** Helm is a chronometer (UX Doctrine §2.6). Onboarding is the moment the user picks up the instrument, not meets a person.
 
 ---
 
@@ -41,7 +41,7 @@ Push back on the default temptations now, before sprint 1, so they don't smuggle
 
 ### The qualification frame
 
-Pocketa's onboarding does something almost no fintech product does: **it actively rejects the wrong user on screen 1.** This is strategic, not modesty. Wrong users churn, inflate support costs, dilute beta data, and write reviews from a perspective Pocketa was never built for.
+Helm's onboarding does something almost no fintech product does: **it actively rejects the wrong user on screen 1.** This is strategic, not modesty. Wrong users churn, inflate support costs, dilute beta data, and write reviews from a perspective Helm was never built for.
 
 ### The qualifying signal
 
@@ -61,7 +61,7 @@ Q1: Overspend Incident Memory
 │
 ├── "Not really / not sure"
 │       └─► SOFT DISQUALIFY. 
-│            Show the "Pocketa is not for you yet" exit screen.
+│            Show the "Helm is not for you yet" exit screen.
 │            No data captured. No account created. No retry loop.
 │
 └── "What does that mean?"  (interpreted from > 12s of inactivity on this screen)
@@ -75,11 +75,11 @@ This is where most fintech products fail their own integrity. They either:
 - Force the wrong user through onboarding anyway (greed), or
 - Slam the door with "You don't qualify" (cruelty).
 
-Pocketa does neither. The exit copy is honest and dignified:
+Helm does neither. The exit copy is honest and dignified:
 
-> **"Pocketa is built for one specific problem — the moment you spend BDT thinking USD has arrived, and the math turns against you. If that hasn't happened to you, you don't need this app yet. Most people don't. Come back if it does."**
+> **"Helm is built for one specific problem — the moment you spend BDT thinking USD has arrived, and the math turns against you. If that hasn't happened to you, you don't need this app yet. Most people don't. Come back if it does."**
 >
-> [ Close ] [ Tell me when Pocketa adds features for me ] *(email-optional, no account created)*
+> [ Close ] [ Tell me when Helm adds features for me ] *(email-optional, no account created)*
 
 Notice what this screen does:
 - States the boundary as a fact, not a judgment.
@@ -89,12 +89,12 @@ Notice what this screen does:
 
 ### Disqualifying signals beyond Q1
 
-Per Final Doctrine §2, certain users will pass Q1 but still be wrong for Pocketa. Onboarding does **not** try to filter all of them — that's product-positioning's job, not the form's job. But two specific paths surface during onboarding:
+Per Final Doctrine §2, certain users will pass Q1 but still be wrong for Helm. Onboarding does **not** try to filter all of them — that's product-positioning's job, not the form's job. But two specific paths surface during onboarding:
 
 | Signal during onboarding | Surface | Treatment |
 |---|---|---|
-| User enters liquid balance < ৳5,000 *and* fixed costs > liquid | Step 3 calc preview | **Continue onboarding, but show a one-line note on the S2S reveal:** "Your fixed costs exceed liquid balance right now. Pocketa will show this as it is. We won't soften the number." |
-| User selects "I don't have recurring fixed costs" | Step 3 | **Continue, but flag the cohort.** This is likely a marketplace beginner; Pocketa's S2S has reduced value for them. Track for V2 product-shape decision. |
+| User enters liquid balance < ৳5,000 *and* fixed costs > liquid | Step 3 calc preview | **Continue onboarding, but show a one-line note on the S2S reveal:** "Your fixed costs exceed liquid balance right now. Helm will show this as it is. We won't soften the number." |
+| User selects "I don't have recurring fixed costs" | Step 3 | **Continue, but flag the cohort.** This is likely a marketplace beginner; Helm's S2S has reduced value for them. Track for V2 product-shape decision. |
 
 **Important:** Onboarding never asks income amount. Never asks USD pending. Never asks client list. Those are pipeline-entry actions that happen post-onboarding, when the user has skin in the game.
 
@@ -137,10 +137,10 @@ The doctrine specifies "5 steps." Operationally, that becomes **7 screens** beca
 
 **What is NOT on this screen:**
 - No app logo at the top (the user is here; they don't need branding reassurance).
-- No "Welcome to Pocketa" headline.
+- No "Welcome to Helm" headline.
 - No progress bar — the user hasn't committed yet.
 - No "skip" or "later" affordance.
-- No marketing copy explaining what Pocketa does.
+- No marketing copy explaining what Helm does.
 
 **Time budget:** ≤ 15 seconds.
 
@@ -158,7 +158,7 @@ The doctrine specifies "5 steps." Operationally, that becomes **7 screens** beca
 - One field: email address.
 - One button: "Send me a link".
 - One inline disclosure under the field, in 12pt secondary ink:
-  > *Pocketa uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.*
+  > *Helm uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.*
 
 **Copy:**
 > What email should we use to sign you in?
@@ -166,7 +166,7 @@ The doctrine specifies "5 steps." Operationally, that becomes **7 screens** beca
 > [ email field ]
 > [ Send me a link ]
 >
-> *Pocketa uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.*
+> *Helm uses your email only to sign you in. No marketing. No selling. You can delete your account anytime.*
 
 **The 14-word privacy disclosure** above replaces the 200-word ToS scroll. The doctrine's stance: inline, factual, non-defensive. If the user wants more, the full Privacy Policy link sits at the bottom — but it is not a click-to-continue gate.
 
@@ -197,17 +197,17 @@ The doctrine specifies "5 steps." Operationally, that becomes **7 screens** beca
 
 **The "rough number is fine" framing is doing serious psychological work:**
 1. Reduces precision pressure (lowers abandonment).
-2. Sets the precedent that Pocketa values truth over decoration.
+2. Sets the precedent that Helm values truth over decoration.
 3. Establishes the user's relationship with their own inputs — they own them, they can change them.
 
 **What is NOT on this screen:**
 - No wallet partitioning (bKash separate from bank separate from cash) — this is MVP scope. Multi-wallet is V1.
-- No "connect your bank" affordance — no Pocketa integration exists in MVP, and pretending otherwise is the first trust break.
+- No "connect your bank" affordance — no Helm integration exists in MVP, and pretending otherwise is the first trust break.
 - No currency picker — BDT is implicit and unambiguous.
 
 **Input validation:**
 - Accept any positive integer up to 10 crore (৳100,000,000).
-- Reject 0 with a one-line correction: "Pocketa needs at least a small liquid balance to compute S2S. If you have nothing right now, come back when you do."
+- Reject 0 with a one-line correction: "Helm needs at least a small liquid balance to compute S2S. If you have nothing right now, come back when you do."
 - Format the number with lakh/crore separators in real time as the user types (UX Doctrine §8 typography rule).
 
 **Time budget:** ≤ 25 seconds.
@@ -319,7 +319,7 @@ This is **not** a nag. It is one re-ask, because zero fixed costs is genuinely u
 - Bottom: "Continue" button.
 
 **Copy:**
-> How much of your money should Pocketa keep aside as a "don't touch" buffer?
+> How much of your money should Helm keep aside as a "don't touch" buffer?
 >
 > *Recommended: 15%.*
 >
@@ -353,7 +353,7 @@ This is **not** a nag. It is one re-ask, because zero fixed costs is genuinely u
 - Bottom: "Continue" button (auto-active when 6 digits entered).
 
 **Copy:**
-> Pocketa shows your income. Only you should see it.
+> Helm shows your income. Only you should see it.
 >
 > Set a 6-digit PIN.
 >
@@ -375,11 +375,11 @@ After PIN confirmation, present a single screen with a 12-word recovery phrase:
 >
 > [ 12-word recovery phrase, monospaced, copy button ]
 >
-> *Save this somewhere offline. Pocketa cannot recover it for you.*
+> *Save this somewhere offline. Helm cannot recover it for you.*
 >
 > [ I've saved it — Continue ]
 
-**The friction here is the trust signal.** The user is being asked to do something that the average consumer app would consider a UX violation — manually save a recovery phrase. Pocketa does it because the doctrine demands it (Final Doctrine §10, Trust Layer L1).
+**The friction here is the trust signal.** The user is being asked to do something that the average consumer app would consider a UX violation — manually save a recovery phrase. Helm does it because the doctrine demands it (Final Doctrine §10, Trust Layer L1).
 
 **Time budget:** ≤ 35 seconds.
 
@@ -407,7 +407,7 @@ After PIN confirmation, present a single screen with a 12-word recovery phrase:
 > [ Updated just now ]
 
 **What is NOT on this screen:**
-- No "Welcome to Pocketa!" celebration banner.
+- No "Welcome to Helm!" celebration banner.
 - No "Onboarding complete!" toast.
 - No confetti, no haptic burst, no sound.
 - No tour overlay pointing at things.
@@ -461,7 +461,7 @@ Two screens carry disproportionate abandonment risk and must be designed defensi
 
 **Danger Zone 2 — Screen 7 (PIN + Recovery).** This is where the user crosses from "playing" to "committed." Mitigations:
 - PIN entry is one screen, not five.
-- Recovery phrase is presented with honest copy ("Pocketa cannot recover it for you") — frightening, but correct. The fear is the feature.
+- Recovery phrase is presented with honest copy ("Helm cannot recover it for you") — frightening, but correct. The fear is the feature.
 - Biometric option visible immediately for users on capable devices — reduces PIN-typing friction without sacrificing security.
 
 ### The deliberate emotional silence at Screen 8
@@ -478,7 +478,7 @@ That "Huh" is worth more than 10,000 confetti animations.
 
 ## 5. Required Inputs
 
-The hard floor of data Pocketa needs to compute a meaningful S2S number on Screen 8.
+The hard floor of data Helm needs to compute a meaningful S2S number on Screen 8.
 
 | Input | Captured on | Used for | Editable later? |
 |---|---|---|---|
@@ -542,7 +542,7 @@ These exist in the product, but **not as onboarding screens**. They are discover
 | Bangla mode toggle | Settings → Display (auto from locale) |
 | Notification preferences | Settings → Notifications (sensible defaults from Day 1) |
 | Custom fixed cost category | Inline within Fixed Costs registry, not onboarding |
-| Profile picture / display name | Never. Pocketa doesn't have a profile screen. |
+| Profile picture / display name | Never. Helm doesn't have a profile screen. |
 
 The principle, restated for code review enforcement:
 
@@ -556,7 +556,7 @@ The principle, restated for code review enforcement:
 
 The **First Value Moment (FVM)** is the precise instant on Screen 8 when the user's eye lands on the S2S number and reads it as a personal, mathematically honest figure.
 
-This is not a moment Pocketa schedules. It is the natural consequence of doing the previous 7 screens correctly.
+This is not a moment Helm schedules. It is the natural consequence of doing the previous 7 screens correctly.
 
 ### What makes FVM "land"
 
@@ -575,7 +575,7 @@ Nothing they have to do. Three things they can do:
 
 1. **Tap the S2S number** → breakdown drawer opens. They see the math. Trust deepens.
 2. **Scroll down** → see the Threat tier (their fixed costs in countdown form) and the Hope tier (currently empty pipeline).
-3. **Tap the floating "+"** → add their first pipeline entry. This is the moment Pocketa transitions from "onboarded tool" to "active instrument."
+3. **Tap the floating "+"** → add their first pipeline entry. This is the moment Helm transitions from "onboarded tool" to "active instrument."
 
 None of these is forced. The user can also simply close the app. That's allowed. The S2S number, once computed, is the entire promise — they came for it, they got it, the rest is theirs to discover.
 
@@ -597,13 +597,13 @@ The microcopy across onboarding, organized by the trust function each line perfo
 |---|---|---|---|
 | **Recognition** | Screen 1 | "Have you ever spent money thinking a Payoneer or Upwork payment had cleared — then realized a bill was due before the BDT actually arrived?" | Names the exact moment. Doesn't generalize. The specificity IS the recognition. |
 | **Dignified rejection** | Screen 1 (Not-really path) | "If that hasn't happened to you, you don't need this app yet. Most people don't. Come back if it does." | Boundary-stated, not apologetic. "Most people don't" normalizes — no one feels rejected as inferior. |
-| **Privacy without paranoia** | Screen 2 | "Pocketa uses your email only to sign you in. No marketing. No selling. You can delete your account anytime." | Three short claims. No legal hedging. The inline placement signals "this is not a wall, just a fact." |
+| **Privacy without paranoia** | Screen 2 | "Helm uses your email only to sign you in. No marketing. No selling. You can delete your account anytime." | Three short claims. No legal hedging. The inline placement signals "this is not a wall, just a fact." |
 | **Permission to be imprecise** | Screen 3 | "A rough number is fine. You can refine this later." | Lowers precision pressure. Sets a precedent that user inputs are mutable, not contracts. |
 | **Friction acceptance** | Screen 4 | "What do you pay every month, no matter what?" | "No matter what" is the qualifier — it narrows the user's mental search to truly recurring items. |
 | **Guidance without judgment** | Screen 4 (zero-state) | "No fixed monthly costs? That's unusual. You can add them later if any come up." | "That's unusual" is factual, not corrective. Offers a forward escape without nagging. |
 | **Pedagogical clarity** | Screen 6 | "Held aside: ৳7,860 / Safe-to-Spend after buffer: ৳44,540" | The slider teaches by showing. No "Here's how buffer works" tooltip needed. |
-| **Security as care** | Screen 7 | "Pocketa shows your income. Only you should see it." | Frames PIN as care, not bureaucracy. "Only you" is a value statement disguised as a fact. |
-| **Honest recovery** | Screen 7 | "If you forget your PIN, this is the only way back in. Save this somewhere offline. Pocketa cannot recover it for you." | The honesty is itself the trust. False reassurance ("Don't worry, we can reset it!") would be a permanent break. |
+| **Security as care** | Screen 7 | "Helm shows your income. Only you should see it." | Frames PIN as care, not bureaucracy. "Only you" is a value statement disguised as a fact. |
+| **Honest recovery** | Screen 7 | "If you forget your PIN, this is the only way back in. Save this somewhere offline. Helm cannot recover it for you." | The honesty is itself the trust. False reassurance ("Don't worry, we can reset it!") would be a permanent break. |
 | **Arrival without celebration** | Screen 8 | "৳44,540.00 / Safe to spend / covers ~18 days at your usual pace" | No greeting. No celebration. The number does the talking. |
 | **The one allowed hint** | Screen 8 | "Tap the number to see the math." | Single sentence. Vanishes on any action. The transparency contract made discoverable. |
 
@@ -614,17 +614,17 @@ The microcopy across onboarding, organized by the trust function each line perfo
 | "Let's get started!" | Performative. The user has already started. |
 | "Almost there!", "One more step!" | Treats the user as if they can't see the progress. |
 | "Just X more questions" | Counts down to a moment the user already understands. |
-| "Welcome to Pocketa!" | Pocketa is a tool, not a destination. |
-| "Tell us about yourself" | Pocketa doesn't want to know the user; it wants to compute their S2S. |
+| "Welcome to Helm!" | Helm is a tool, not a destination. |
+| "Tell us about yourself" | Helm doesn't want to know the user; it wants to compute their S2S. |
 | "We need this to give you the best experience" | The doctrine forbids "best experience" as marketing language masquerading as helpfulness. |
 | "Your data is safe with us" | Defensive copy is the strongest signal the data isn't safe. |
-| "Welcome aboard!" | Pocketa is not a ship. |
+| "Welcome aboard!" | Helm is not a ship. |
 | "Awesome! Just one more thing..." | Triple violation: praise, hedge, time-disrespect. |
 | Progress bar percentage labels ("33% complete") | The bar itself is enough; the percentage adds anxiety. |
 
 ### Bangla mode considerations
 
-In Bangla mode, every line above must be translated by a native-speaker copywriter familiar with the cultural register. Pocketa's Bangla voice is **formal-modern** — the same register as a respected newspaper or a doctor's prescription pad — not the conversational Banglish of social media nor the textbook-formal of government documents. This calibration is non-trivial and is itself a v1 design artifact.
+In Bangla mode, every line above must be translated by a native-speaker copywriter familiar with the cultural register. Helm's Bangla voice is **formal-modern** — the same register as a respected newspaper or a doctor's prescription pad — not the conversational Banglish of social media nor the textbook-formal of government documents. This calibration is non-trivial and is itself a v1 design artifact.
 
 ---
 
@@ -770,7 +770,7 @@ Below is the spatial and visual specification for each screen, written at a fide
 │  │ name@example.com              │  │ ← 56pt input, monospace
 │  └───────────────────────────────┘  │
 │                                     │ ← 8pt gap
-│  Pocketa uses your email only to    │ ← 13pt Inter Regular,
+│  Helm uses your email only to    │ ← 13pt Inter Regular,
 │  sign you in. No marketing.         │   60% opacity
 │  No selling. You can delete         │
 │  your account anytime.              │
@@ -883,7 +883,7 @@ Below is the spatial and visual specification for each screen, written at a fide
 │ [thin progress line — ~63% filled]  │
 │                                     │
 │  How much of your money should      │ ← 22pt Inter Medium
-│  Pocketa keep aside as a            │
+│  Helm keep aside as a            │
 │  "don't touch" buffer?              │
 │                                     │ ← 4pt gap
 │  Recommended: 15%.                  │ ← 14pt secondary
@@ -909,7 +909,7 @@ Below is the spatial and visual specification for each screen, written at a fide
 ┌─────────────────────────────────────┐
 │ [thin progress line — ~75% filled]  │
 │                                     │
-│  Pocketa shows your income.         │ ← 22pt Inter Medium
+│  Helm shows your income.         │ ← 22pt Inter Medium
 │  Only you should see it.            │
 │                                     │ ← 8pt gap
 │  Set a 6-digit PIN.                 │ ← 16pt Inter Regular
@@ -946,7 +946,7 @@ Below is the spatial and visual specification for each screen, written at a fide
 │  [ Copy ]                           │ ← text button, teal
 │                                     │ ← 16pt gap
 │  Save this somewhere offline.       │ ← 13pt secondary
-│  Pocketa cannot recover it          │
+│  Helm cannot recover it          │
 │  for you.                           │
 │                                     │ ← flex spacer
 │  ┌───────────────────────────────┐  │
@@ -1068,11 +1068,11 @@ The entire onboarding flow lives behind a feature flag `onboarding_v1` from Day 
 
 For code review enforcement, these patterns must be rejected:
 
-- Any `analytics.track('onboarding_completed', {is_lead: true})` — Pocketa has no lead pipeline.
+- Any `analytics.track('onboarding_completed', {is_lead: true})` — Helm has no lead pipeline.
 - Any `notification.schedule()` during onboarding — engagement notifications are forbidden by Doctrine.
 - Any `localStorage`-only state — onboarding state must be server-side resumable.
 - Any third-party SDK initialized before Screen 1 (Mixpanel, Amplitude, Segment) — first-party only until trust is established.
-- Any `setTimeout` for "fake delay" UX — Pocketa does not stage performance theater.
+- Any `setTimeout` for "fake delay" UX — Helm does not stage performance theater.
 
 ### Testing requirements
 
@@ -1088,7 +1088,7 @@ Before closed beta:
 
 ## Closing Note
 
-Mehedi — the onboarding is the moment the entire Pocketa promise is delivered or broken. The seven screens above are not a funnel optimization exercise; they are the trust handshake the Doctrine has been describing all along, made operational.
+Mehedi — the onboarding is the moment the entire Helm promise is delivered or broken. The seven screens above are not a funnel optimization exercise; they are the trust handshake the Doctrine has been describing all along, made operational.
 
 Three things to internalize before Sprint 1:
 
@@ -1104,4 +1104,4 @@ The shipped onboarding, not the doctrine of onboarding, is the product.
 
 ---
 
-*End of Pocketa Onboarding Redesign. Subordinate to UX Doctrine and Final Product Doctrine. No amendments without an explicit Doctrine review session.*
+*End of Helm Onboarding Redesign. Subordinate to UX Doctrine and Final Product Doctrine. No amendments without an explicit Doctrine review session.*

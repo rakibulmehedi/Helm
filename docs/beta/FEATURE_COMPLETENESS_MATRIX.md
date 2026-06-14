@@ -16,7 +16,7 @@
 | 5 | One-tap Pending to Received | DONE | ConfirmReceivedSheet with FX rate. Swipe-to-advance gesture. | Complete. |
 | 6 | Fixed Costs registry | DONE | CRUD with label, amount, due-day. Hive persistence. Undo on delete. | Complete. |
 | 7 | Safe-to-Spend hero metric | DONE | Computed, never stored. Reality Stack layout. Dashboard hero. | Missing "---" fallback on failure. |
-| 8 | Calculation breakdown drawer | DONE | PocketaCalculationTrace. Step-by-step math. Stagger animation. | Complete. |
+| 8 | Calculation breakdown drawer | DONE | HelmCalculationTrace. Step-by-step math. Stagger animation. | Complete. |
 | 9 | Editable inputs (FX, date, exclude) | DONE | Per-entry fxRate, expectedDate, excludeFromCalculation. | Complete. |
 | 10 | Audit log on financial edits | PARTIAL | Append-only events. All write paths wired. Screen exists. | Screen unreachable from UI. No before/after display. |
 | 11 | Data export (CSV) | DONE | 5 CSVs. Native share sheet. "Your data belongs to you." | Complete. |
@@ -107,7 +107,7 @@
 | Riverpod for state management | PASS | No ChangeNotifier or raw setState for business logic |
 | Hive for persistence | PASS | All boxes declared in app_box_names.dart |
 | GoRouter for navigation | PASS | ShellRoute with 4 tabs |
-| No raw hex colors | PASS | AppColors/PocketaColors used throughout |
+| No raw hex colors | PASS | AppColors/HelmColors used throughout |
 | withValues not withOpacity | PASS | Verified in delete_account_screen.dart |
 | mounted guards | PASS | All async navigation guarded |
 | File size < 300 lines | PASS | All files within limit |

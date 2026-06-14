@@ -1,7 +1,7 @@
-# Pocketa: Freelancer Cashflow & Behavioral Finance Research
+# Helm: Freelancer Cashflow & Behavioral Finance Research
 
 ## 1. Executive Summary
-Freelancers in emerging markets do not experience cashflow as a spreadsheet; they experience it as a highly volatile emotional wave. Traditional finance applications treat all income as equal and all dates as fixed. For a freelancer, money has *states of being*—from promised, to pending, to cleared—and each state carries a different psychological weight. Pocketa must function as an "Anxiety Reduction Engine," translating chaotic, unpredictable cashflow into a calm, operational timeline that restores the user's feeling of control.
+Freelancers in emerging markets do not experience cashflow as a spreadsheet; they experience it as a highly volatile emotional wave. Traditional finance applications treat all income as equal and all dates as fixed. For a freelancer, money has *states of being*—from promised, to pending, to cleared—and each state carries a different psychological weight. Helm must function as an "Anxiety Reduction Engine," translating chaotic, unpredictable cashflow into a calm, operational timeline that restores the user's feeling of control.
 
 ## 2. Core Emotional Findings
 - **The Scarcity Trap:** Irregular cashflow forces a chronic "scarcity mindset." Behavioral science demonstrates that scarcity taxes cognitive bandwidth, reducing a person's functional IQ. When a freelancer is worried about cashflow, they physically cannot focus on long-term strategy (taxes, savings); they are locked in a survival loop.
@@ -31,7 +31,7 @@ In a finance app for an anxious user, trust is built through **predictable, flaw
 - **Progressive Disclosure:** Hide complexity. Only show the pipeline details when they tap into it. The dashboard must be impossibly clean, utilizing negative space to create literal "breathing room" in the UI.
 
 ## 7. Retention Psychology Insights
-- **The Reassurance Loop:** Users will not return daily to "do accounting." They will return daily to receive a hit of psychological reassurance. If opening Pocketa feels like taking a deep breath, retention is guaranteed.
+- **The Reassurance Loop:** Users will not return daily to "do accounting." They will return daily to receive a hit of psychological reassurance. If opening Helm feels like taking a deep breath, retention is guaranteed.
 - **Closing the Loop:** When a pending payment finally clears, the app should celebrate it subtly. This creates a dopamine reward tied directly to checking the app.
 - **Certainty over Gamification:** Do not use cheap gamification (badges, streaks) for finances. Predictability and operational certainty are the highest rewards for a stressed user.
 
@@ -50,11 +50,11 @@ In a finance app for an anxious user, trust is built through **predictable, flaw
 - **Rigid Budgeting:** Attempting to force an irregular earner into a rigid monthly envelope system (like YNAB) will fail. Their income doesn't support it, and the inevitable failure to adhere to the budget will cause them to churn.
 
 ## 11. Product Design Implications
-- Pocketa must be designed like a **cockpit**, not a spreadsheet.
+- Helm must be designed like a **cockpit**, not a spreadsheet.
 - Everything must be centered around the **future timeline** (What is coming? What is due?) rather than the **past ledger** (What did I spend?).
 - The visual design must evoke premium, quiet luxury. High contrast, clean typography, soft corners, and absolute layout stability (no UI jumping as things load).
 
 ## 12. Founder-Level Strategic Insights
 - **You are selling a feeling, not a feature.** You are not selling expense tracking; you are selling the elimination of 2:00 AM financial panic.
-- **Compete on Cognitive Load.** Your biggest competitor isn't another app; it's the chaotic Excel sheet and the mental math in the freelancer's head. If Pocketa requires less brainpower than the Excel sheet, you win the market.
-- **The Moat is Emotional Safety.** If Pocketa becomes the place where the freelancer feels financially safe, switching to a competitor with "more features" will feel psychologically risky to them. Establish the trust foundation first; build the feature towers later.
+- **Compete on Cognitive Load.** Your biggest competitor isn't another app; it's the chaotic Excel sheet and the mental math in the freelancer's head. If Helm requires less brainpower than the Excel sheet, you win the market.
+- **The Moat is Emotional Safety.** If Helm becomes the place where the freelancer feels financially safe, switching to a competitor with "more features" will feel psychologically risky to them. Establish the trust foundation first; build the feature towers later.

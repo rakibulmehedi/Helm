@@ -1,7 +1,7 @@
-# UX Constraints Extracted from Pocketa UX Doctrine
+# UX Constraints Extracted from Helm UX Doctrine
 
-> **Source:** `docs/research/ux/Pocketa_UX_Doctrine.md`
-> **Authority Level:** HIGHEST UX authority. Canonical. Governs every screen, transition, word, and silence in Pocketa.
+> **Source:** `docs/research/ux/Helm_UX_Doctrine.md`
+> **Authority Level:** HIGHEST UX authority. Canonical. Governs every screen, transition, word, and silence in Helm.
 > **Foundation:** Built on the Final Product Doctrine (June 2026) and the UX Research Sprint behavioral evidence.
 > **Extraction Date:** 2026-06-04
 > **Purpose:** Machine-readable UX constraint inventory for all implementation agents, design work, and code review.
@@ -11,13 +11,13 @@
 ## A. UX Philosophy and North Star
 
 ### UX-001 | The Single UX Sentence
-- **Statement:** Pocketa is a calm financial cockpit that returns one trusted BDT number -- "what is actually safe to spend right now" -- in under two seconds, with the full math one tap away.
+- **Statement:** Helm is a calm financial cockpit that returns one trusted BDT number -- "what is actually safe to spend right now" -- in under two seconds, with the full math one tap away.
 - **Rationale:** This sentence resolves every UX question. If a design decision moves toward it, ship. If away, kill.
 - **Implementation Implication:** Every screen must be testable against this sentence. If a screen does not serve the one-number-in-two-seconds goal, it does not belong.
 
 ### UX-002 | Replace Mental Math with Deterministic Math
-- **Statement:** Pocketa's job is to replace mental math under stress with deterministic math you can trust at a glance. Not budgeting. Not accounting. Not financial advice.
-- **Rationale:** The ICP spends 8.5 hours/month on cognitive overhead of payment management. Pocketa competes for those 102 hours/year.
+- **Statement:** Helm's job is to replace mental math under stress with deterministic math you can trust at a glance. Not budgeting. Not accounting. Not financial advice.
+- **Rationale:** The ICP spends 8.5 hours/month on cognitive overhead of payment management. Helm competes for those 102 hours/year.
 - **Implementation Implication:** Every computation must be verifiable by the user with a calculator in 30 seconds. No opaque algorithms.
 
 ---
@@ -26,7 +26,7 @@
 
 ### UX-003 | Reduce Cortisol, Never Raise It
 - **Statement:** The app's job is to leave the user calmer than it found them. Every screen passes this test or it does not ship.
-- **Rationale:** 50-55% of gig workers report psychological distress from payment uncertainty. Pocketa is an emotional regulation event.
+- **Rationale:** 50-55% of gig workers report psychological distress from payment uncertainty. Helm is an emotional regulation event.
 - **Implementation Implication:** No urgent-feeling UI elements unless mathematically justified. No anxiety-inducing patterns (counters, timers, red states used casually). Every screen must pass the "does my heart rate feel lower?" test.
 
 ### UX-004 | Respect Mental Accounting -- Never Flatten It
@@ -36,21 +36,21 @@
 
 ### UX-005 | Pessimistic by Default; Surplus Is the Dopamine
 - **Statement:** Always model the worst plausible case. Use lower-bound FX volatility. Assume worst-case fees. Surplus is the only acceptable surprise.
-- **Rationale:** If Pocketa shows 30,000 and actual yields 30,800, the user feels relief. If Pocketa shows 30,800 and actual yields 30,000, the user feels betrayed.
+- **Rationale:** If Helm shows 30,000 and actual yields 30,800, the user feels relief. If Helm shows 30,800 and actual yields 30,000, the user feels betrayed.
 - **Implementation Implication:** Conservative FX rate is the default in all calculations. Optimistic rate is available one tap away but never used for S2S.
 
 ### UX-006 | Closed Cognitive Loops (Zeigarnik Antidote)
 - **Statement:** Every screen must answer a question the user is already carrying. Never introduce a new open question. Never end an interaction without a resolved state.
-- **Rationale:** The freelancer's brain holds open every uninvoiced, unpaid, unconfirmed loop (allostatic load). Pocketa closes loops, not surfaces them.
+- **Rationale:** The freelancer's brain holds open every uninvoiced, unpaid, unconfirmed loop (allostatic load). Helm closes loops, not surfaces them.
 - **Implementation Implication:** No screens that end with "come back later." Every flow resolves to a concrete state. Empty states provide clear next actions, not open-ended prompts.
 
 ### UX-007 | Calm Is Louder Than Alarm
 - **Statement:** The default emotional tone is settled. Alarm exists but is rare and earned. A user who never sees a red state has used the product correctly.
-- **Rationale:** Most fintech apps default to alarm. Pocketa inverts this -- calm is the baseline.
+- **Rationale:** Most fintech apps default to alarm. Helm inverts this -- calm is the baseline.
 - **Implementation Implication:** Only one red color in the entire app, reserved for the At Risk state. No red in error messages, no red on buttons, no red in navigation.
 
 ### UX-008 | Respect the User's Adulthood
-- **Statement:** The freelancer is running a complex cross-border micro-business. They do not need encouragement, mascots, streaks, or motivational copy. Pocketa is a chronometer, not a coach.
+- **Statement:** The freelancer is running a complex cross-border micro-business. They do not need encouragement, mascots, streaks, or motivational copy. Helm is a chronometer, not a coach.
 - **Rationale:** Patronizing UX is a trust-killer for a financially sophisticated user under stress.
 - **Implementation Implication:** No coaching copy, no motivational messages, no "great job!" feedback, no tutorials that assume incompetence.
 
@@ -64,8 +64,8 @@
 ## C. Information Hierarchy Rules
 
 ### UX-010 | Three-Tier Cognitive Stack
-- **Statement:** Every Pocketa screen is built on a three-tier model: Tier 1 (The Answer: S2S in BDT, ~40% of canvas), Tier 2 (The Threat: next 3 obligations with countdown, ~25%), Tier 3 (The Hope: pending pipeline summary, ~20%). Remaining ~15% is whitespace and navigation.
-- **Rationale:** When a panicked freelancer opens Pocketa at a checkout counter, they have ~1.5 seconds of cognitive bandwidth. Whatever wins the visual hierarchy IS the product.
+- **Statement:** Every Helm screen is built on a three-tier model: Tier 1 (The Answer: S2S in BDT, ~40% of canvas), Tier 2 (The Threat: next 3 obligations with countdown, ~25%), Tier 3 (The Hope: pending pipeline summary, ~20%). Remaining ~15% is whitespace and navigation.
+- **Rationale:** When a panicked freelancer opens Helm at a checkout counter, they have ~1.5 seconds of cognitive bandwidth. Whatever wins the visual hierarchy IS the product.
 - **Implementation Implication:** Layout measurements must enforce these proportions. The S2S number is always the dominant visual element. Whitespace is mandatory, not optional.
 
 ### UX-011 | What Never Appears on Tier 1
@@ -152,8 +152,8 @@
 - **Implementation Implication:** Microcopy review on onboarding screens is mandatory. Banned phrases must be in a lint check or review checklist.
 
 ### UX-026 | PIN/Biometric Gate After Step 5
-- **Statement:** PIN/biometric setup fires immediately after step 5, before the first home screen render. Framed as "Pocketa shows your income. Only you should see it."
-- **Rationale:** The friction IS the trust signal. This is where Pocketa first earns trust through friction.
+- **Statement:** PIN/biometric setup fires immediately after step 5, before the first home screen render. Framed as "Helm shows your income. Only you should see it."
+- **Rationale:** The friction IS the trust signal. This is where Helm first earns trust through friction.
 - **Implementation Implication:** Auth setup screen is mandatory. No "set up later" option. 6-digit PIN minimum. Biometric if device supports it.
 
 ### UX-027 | Onboarding State Recovery
@@ -245,12 +245,12 @@
 
 ### UX-042 | Five Named Colors Only
 - **Statement:** Canvas (near-white #FAFAF7 light / near-black #0E0E0C dark), Primary ink (near-black/off-white), Secondary ink (60% opacity), Safe (#6B8F71), Tight (#B88A4A), At Risk (#9E4A3A), Hope (#5A7A8C at 40%), Interactive (#2C5F5D deep teal). No more.
-- **Rationale:** The freelancer's eye is overstimulated by Upwork, Payoneer, bKash, Telegram, Facebook. Pocketa is the calm room.
+- **Rationale:** The freelancer's eye is overstimulated by Upwork, Payoneer, bKash, Telegram, Facebook. Helm is the calm room.
 - **Implementation Implication:** AppColors must contain exactly these values. Code review rejects any raw hex color outside this set.
 
 ### UX-043 | No Gradients Anywhere
 - **Statement:** Zero gradients in the entire product.
-- **Rationale:** Gradients are decorative. Pocketa is not decorative.
+- **Rationale:** Gradients are decorative. Helm is not decorative.
 - **Implementation Implication:** No LinearGradient, RadialGradient, or gradient-containing assets. Lint or review check.
 
 ### UX-044 | No Drop Shadows on Cards
@@ -289,7 +289,7 @@
 - **Implementation Implication:** Custom number formatter that applies Bangladeshi grouping (last 3 digits, then groups of 2). Not the default intl NumberFormat.
 
 ### UX-051 | No Italics Anywhere
-- **Statement:** Italics signal aside. Pocketa has no asides.
+- **Statement:** Italics signal aside. Helm has no asides.
 - **Rationale:** Every piece of text is primary communication. No text is secondary enough for italics.
 - **Implementation Implication:** No fontStyle: FontStyle.italic in any text style. Review check.
 
@@ -324,7 +324,7 @@
 
 ### UX-057 | Motion Is Rare and Slow
 - **Statement:** Default transition: 200-280ms with ease-out curves. No springs. No bounces.
-- **Rationale:** Fast or bouncy motion signals playfulness. Pocketa is not playful.
+- **Rationale:** Fast or bouncy motion signals playfulness. Helm is not playful.
 - **Implementation Implication:** All transition durations must fall in the 200-280ms range. Use Curves.easeOut. No spring physics simulations.
 
 ### UX-058 | Breakdown Drawer Is the Showcase Animation
@@ -339,7 +339,7 @@
 
 ### UX-060 | No Skeleton Shimmer Animations
 - **Statement:** Skeleton states are solid, low-opacity placeholders that hold position. No shimmer or pulse animations.
-- **Rationale:** Shimmer implies loading-as-entertainment. Pocketa's loading is just waiting.
+- **Rationale:** Shimmer implies loading-as-entertainment. Helm's loading is just waiting.
 - **Implementation Implication:** Skeleton widgets use static containers with low opacity. No Shimmer package, no animated placeholder effects.
 
 ### UX-061 | Reduce-Motion Respected Globally
@@ -353,11 +353,11 @@
 
 ### UX-062 | 9-Line Rule
 - **Statement:** The home screen displays no more than 9 lines of content above the fold on a standard 6.1" mobile screen. If a feature requires more, it lives one layer below.
-- **Rationale:** Density signals overwhelm. Pocketa is less dense than 80% of comparable fintech apps, intentionally.
+- **Rationale:** Density signals overwhelm. Helm is less dense than 80% of comparable fintech apps, intentionally.
 - **Implementation Implication:** A custom lint rule or layout test verifies the 9-line limit on a reference device. Density violations fail CI.
 
 ### UX-063 | Generous Vertical Rhythm
-- **Statement:** Pocketa is intentionally less dense than comparable apps. Spacing is generous.
+- **Statement:** Helm is intentionally less dense than comparable apps. Spacing is generous.
 - **Rationale:** Density signals overwhelm. The calm room requires breathing space.
 - **Implementation Implication:** Minimum spacing between content groups is 24pt. Minimum spacing within groups is 16pt. Do not compress to "fit more in."
 
@@ -366,7 +366,7 @@
 ## K. Notification Constraints
 
 ### UX-064 | Two-Class Notification System Only
-- **Statement:** Pocketa sends exactly two classes: Class A (Transactional -- triggered by state change in user's own data) and Class B (Boundary -- triggered by mathematical proximity to financial harm). No others exist or may be added without Doctrine amendment.
+- **Statement:** Helm sends exactly two classes: Class A (Transactional -- triggered by state change in user's own data) and Class B (Boundary -- triggered by mathematical proximity to financial harm). No others exist or may be added without Doctrine amendment.
 - **Rationale:** A push notification is an uninvited cognitive interruption. For a population at 50-55% baseline anxiety, wrong notifications trigger physiological stress.
 - **Implementation Implication:** Notification registry enforces two types at the type level. Adding a third type requires a Doctrine review, not just a code change.
 
@@ -394,7 +394,7 @@
 
 ## L. Empty/Error State Constraints
 
-### UX-069 | Pocketa Never Panics
+### UX-069 | Helm Never Panics
 - **Statement:** Every empty state, error state, and edge case is treated as a normal state with a specific cause and a specific next action.
 - **Rationale:** "Something went wrong" is where products lose trust faster than anywhere else.
 - **Implementation Implication:** No generic error screens. Every error has a specific message and a recovery action.
@@ -410,7 +410,7 @@
 - **Implementation Implication:** When pipeline is empty, Tier 3 (Hope) shows "No pending pipeline right now. Add expected payments as work comes in." Never "You have no income."
 
 ### UX-072 | Offline Tolerance
-- **Statement:** Pocketa works in read-only mode without network. Edits queue locally and sync on reconnection. User sees "Last sync X hours ago. Tap to refresh. You can still use Pocketa offline."
+- **Statement:** Helm works in read-only mode without network. Edits queue locally and sync on reconnection. User sees "Last sync X hours ago. Tap to refresh. You can still use Helm offline."
 - **Rationale:** "No internet" must never be a blocker for a financial instrument.
 - **Implementation Implication:** Local-first data architecture. Offline edit queue. Conflict resolution by event timestamp + device ID.
 
@@ -435,7 +435,7 @@
 
 ### UX-076 | Reserve Mode Activates Automatically on Math
 - **Statement:** Activates when: liquid BDT drops below buffer threshold, S2S would be negative without buffer, or no pending pipeline + S2S covers fewer than 10 days.
-- **Rationale:** The Trough (Days 29-31) is when Pocketa's psychological role is most critical.
+- **Rationale:** The Trough (Days 29-31) is when Helm's psychological role is most critical.
 - **Implementation Implication:** Reserve Mode is a computed state, not a user toggle. Checked on every S2S recomputation.
 
 ### UX-077 | Reserve Mode = Runway UI, Not Panic UI
@@ -483,7 +483,7 @@
 - **Implementation Implication:** Copy review checklist includes these banned patterns. Automated string search where possible.
 
 ### UX-085 | Killed Conceptual Patterns
-- **Statement:** Permanently forbidden: gamification, social comparison, affiliate-driven recommendations, in-product credit scoring, auto-advice ("Pocketa recommends..."), aggregated net worth combining USD+BDT, reset/restart features ("start fresh this month").
+- **Statement:** Permanently forbidden: gamification, social comparison, affiliate-driven recommendations, in-product credit scoring, auto-advice ("Helm recommends..."), aggregated net worth combining USD+BDT, reset/restart features ("start fresh this month").
 - **Rationale:** Each either violates the product identity, creates regulatory risk, violates mental accounting, or implies the user failed.
 - **Implementation Implication:** No gamification state models. No social features. No recommendation engines. No aggregated cross-currency totals. No "reset month" actions.
 
@@ -493,7 +493,7 @@
 
 ### UX-086 | Liquid BDT and Pending USD Are Visually Severed
 - **Statement:** Liquid BDT dominates the canvas with full typographic weight. Pending USD recedes to the bottom with smaller, lighter, lower-contrast treatment. They never appear in the same number.
-- **Rationale:** Mixing real (liquid) and hopeful (pending) money in one figure is the exact cognitive error Pocketa exists to prevent.
+- **Rationale:** Mixing real (liquid) and hopeful (pending) money in one figure is the exact cognitive error Helm exists to prevent.
 - **Implementation Implication:** Tier 1 shows only BDT liquid figure. Tier 3 shows USD pipeline separately with explicitly reduced visual weight (smaller font, secondary ink color, lower contrast).
 
 ### UX-087 | Temporal Segregation: Present > Threat > Hope

@@ -1,6 +1,6 @@
 # Known Limitations
 
-> Documented limitations for Pocketa closed beta release.
+> Documented limitations for Helm closed beta release.
 > These are NOT blockers. Each has been evaluated and accepted for beta.
 > Date: 2026-06-06
 
@@ -50,7 +50,7 @@
 ## Visual / UX Limitations
 
 ### L7: Feature Screens Use Legacy Design Tokens
-- **What**: Feature files reference `AppColors.*` via legacy re-export, not new `PocketaColors`
+- **What**: Feature files reference `AppColors.*` via legacy re-export, not new `HelmColors`
 - **Impact**: Visual parity maintained through re-export shim; no user-visible difference
 - **When to fix**: Gradual migration post-beta
 

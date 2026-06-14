@@ -1,4 +1,4 @@
-# 🧠 Pocketa V2 — Behavioral Nudge Engine Audit
+# 🧠 Helm V2 — Behavioral Nudge Engine Audit
 **Auditor:** Behavioral Nudge Engine Specialist
 **Date:** June 12, 2026
 **Product:** Freelancer Cashflow Clarity App (FinTech, Mobile-First, Flutter)
@@ -72,7 +72,7 @@
 | **No adaptive cadence** | CRITICAL | If user stops engaging, there's no mechanism to detect churn and adjust. |
 | **No notification system exists at all** | CRITICAL | `notification_event_stub.dart` has 3 stubbed events but `flutter_local_notifications` is not a dependency. Local push is listed as "Post-Beta / Deferred." |
 
-**This is the single biggest behavioral gap.** Pocketa has sophisticated in-app psychology but zero out-of-app engagement infrastructure. The user must remember to open the app — the app never reaches out to the user.
+**This is the single biggest behavioral gap.** Helm has sophisticated in-app psychology but zero out-of-app engagement infrastructure. The user must remember to open the app — the app never reaches out to the user.
 
 ---
 
@@ -104,7 +104,7 @@
 | One-time S2S hint banner | Dashboard | In-app pill banner, once per install |
 | Onboarding 12-second Bangla rephrase | Qualifier | Timer-triggered language switch |
 | Fixed costs re-ask card | Onboarding step 2 | Inline card on skip attempt |
-| PocketaToast | Throughout | Success/warning/error toasts |
+| HelmToast | Throughout | Success/warning/error toasts |
 | Trust strip "Tap to audit" | Dashboard hero | Persistent inline label |
 | Empty state CTAs | Pipeline, Income, Fixed costs | Action-oriented copy |
 
@@ -154,7 +154,7 @@ pipeline_state_changed   → Trigger "Payment confirmed!" celebration
 ## 7. OPT-OUT & USER FREEDOM — Score: 75/100
 
 ### Done Right
-- ✅ **Honest disqualification**: "Pocketa is built for USD-earning freelancers in Bangladesh. Come back when you start billing internationally." — respectful, specific, no retention trick
+- ✅ **Honest disqualification**: "Helm is built for USD-earning freelancers in Bangladesh. Come back when you start billing internationally." — respectful, specific, no retention trick
 - ✅ **"Not yet" escape hatch** on confirm-received sheet — always present, never hidden
 - ✅ **Undo pattern everywhere**: 4-5s undo on delete, confirm-received — reversible actions
 - ✅ **No double-confirm dialogs** — single conscious confirmation, not nagware
@@ -181,7 +181,7 @@ Per ONB-012: *"After last step, go straight to home."*
 
 ### Analysis
 
-This is a deliberate product decision — Pocketa is clinical, warm but not congratulatory. The rationale is sound: Rafiq doesn't need confetti, he needs clarity. Celebration would feel patronizing to a user managing real financial stress.
+This is a deliberate product decision — Helm is clinical, warm but not congratulatory. The rationale is sound: Rafiq doesn't need confetti, he needs clarity. Celebration would feel patronizing to a user managing real financial stress.
 
 **However:** Absence of ALL positive reinforcement leaves the product emotionally flat. There's a middle ground between confetti and silence:
 
@@ -218,7 +218,7 @@ This is a deliberate product decision — Pocketa is clinical, warm but not cong
 | 2 | **Add local event persistence** — store events to Hive, not just `debugPrint` | CRITICAL | Medium | Analytics |
 | 3 | **Design and implement notification system** — `flutter_local_notifications` + local push for daily S2S summary and overdue payment nudges | CRITICAL | High | Nudge Delivery |
 | 4 | **Add "next best action" to dashboard** — if overdue entries exist, show a contextual banner: "You have 2 payments overdue — confirm the oldest?" | HIGH | Medium | Cognitive Load |
-| 5 | **Add preference discovery** — during onboarding or first week, ask "How often should Pocketa check in with you?" (daily/weekly/silent) | HIGH | Medium | Personalization |
+| 5 | **Add preference discovery** — during onboarding or first week, ask "How often should Helm check in with you?" (daily/weekly/silent) | HIGH | Medium | Personalization |
 
 ---
 
@@ -229,7 +229,7 @@ DAY 0 (Onboarding Complete):
   → "Your Safe-to-Spend is set up. We'll help you stay on top of it."
 
 DAY 1 (Morning):
-  → Push: "Morning! Your safe-to-spend is ৳X today. Open Pocketa →"
+  → Push: "Morning! Your safe-to-spend is ৳X today. Open Helm →"
 
 DAY 3 (If no pipeline entries added):
   → Push: "Got any money coming in from Upwork? Add an expected payment to track it."

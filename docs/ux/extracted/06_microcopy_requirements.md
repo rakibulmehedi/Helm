@@ -1,7 +1,7 @@
-# Microcopy Requirements — Extracted from Pocketa Microcopy System
+# Microcopy Requirements — Extracted from Helm Microcopy System
 
-> **Source:** `docs/research/ux/Pocketa_Microcopy_System.md`
-> **Authority level:** Copy authority for all user-facing text in Pocketa MVP and V1.
+> **Source:** `docs/research/ux/Helm_Microcopy_System.md`
+> **Authority level:** Copy authority for all user-facing text in Helm MVP and V1.
 > **Extraction date:** 2026-06-04
 
 ---
@@ -12,7 +12,7 @@
 
 **Statement:** Every line of copy must do one of three jobs: (1) reduce anxiety, (2) increase trust, or (3) move the user toward one safe action. If a line does none of these, remove it.
 
-**Rationale:** Pocketa speaks like a calm, precise financial instrument: "Clear enough to trust. Quiet enough to calm. Specific enough to act."
+**Rationale:** Helm speaks like a calm, precise financial instrument: "Clear enough to trust. Quiet enough to calm. Specific enough to act."
 
 **Implementation implication:** Every string in the localization layer must be auditable against these three criteria. No decorative or filler copy is permitted.
 
@@ -20,7 +20,7 @@
 
 ### COPY-002: Core Voice Attributes
 
-**Statement:** Pocketa copy must be Calm, Protective, Clear, Premium, Non-judgmental, Freelancer-aware, and Deterministic.
+**Statement:** Helm copy must be Calm, Protective, Clear, Premium, Non-judgmental, Freelancer-aware, and Deterministic.
 
 **Rationale:** Each attribute maps to a specific behavior:
 
@@ -121,7 +121,7 @@
 | `Everything looks fine` | `Safe-to-Spend covers 17 days at your usual pace.` |
 | `Financial health score` | `Safe-to-Spend state` |
 | `Smart recommendation` | `Calculation detail` |
-| `Pocketa recommends` | `Based on your inputs` |
+| `Helm recommends` | `Based on your inputs` |
 | `Emergency mode` | `At Risk` |
 | `Reserve Mode activated` | `Safe-to-Spend is tk0.00` + reason |
 | `Unlock insights` | `View calculation` |
@@ -212,9 +212,9 @@ Examples from the system:
 
 | Error | Copy | CTA |
 |---|---|---|
-| Offline | `You are offline. Pocketa is showing the last saved calculation.` | `Retry when online` |
+| Offline | `You are offline. Helm is showing the last saved calculation.` | `Retry when online` |
 | Sync failed | `Sync did not finish. Your device changes are saved and will retry.` | `Retry sync` |
-| Server timeout | `Pocketa could not refresh right now. Last saved calculation is still shown.` | `Try again` |
+| Server timeout | `Helm could not refresh right now. Last saved calculation is still shown.` | `Try again` |
 | Data conflict | `This entry was changed on another device. Review once before saving.` | `Review changes` |
 | Export failed | `Export could not be created right now. Your data was not changed.` | `Try again` |
 
@@ -232,7 +232,7 @@ Examples from the system:
 |---|---|---|
 | Magic link expired | `This sign-in link expired. Send a new link to continue.` | `Send new link` |
 | Wrong PIN | `PIN did not match. Try again.` | `Try again` |
-| Too many PIN attempts | `Pocketa is locked for a short time to protect your data.` | `Try later` |
+| Too many PIN attempts | `Helm is locked for a short time to protect your data.` | `Try later` |
 | Biometric failed | `Biometric unlock did not work. Use your PIN instead.` | `Use PIN` |
 | Session expired | `Your session expired. Sign in again to protect your data.` | `Sign in` |
 
@@ -313,7 +313,7 @@ Examples from the system:
 
 **Rationale:** The number is the primary information; the symbol is context. Bold symbols compete visually.
 
-**Implementation implication:** `PocketaAmount` widget must apply different font weights to symbol vs digits.
+**Implementation implication:** `HelmAmount` widget must apply different font weights to symbol vs digits.
 
 ---
 
@@ -395,7 +395,7 @@ Examples:
 | Pending payments | `Expected or in-transit USD. Not counted until received.` |
 | Missing inputs | `This input is needed to calculate the number.` |
 
-**Rationale:** The breakdown is Pocketa's trust theater. Every row must be self-explanatory.
+**Rationale:** The breakdown is Helm's trust theater. Every row must be self-explanatory.
 
 **Implementation implication:** Helper text is shown inline below each row, not as tooltips that require tap-and-hold.
 
@@ -417,7 +417,7 @@ Examples:
 
 ### COPY-026: Boundary Explanation
 
-**Statement:** The breakdown drawer includes a non-editable boundary explanation: `Pocketa never edits Safe-to-Spend directly. Edit the inputs to change the number.`
+**Statement:** The breakdown drawer includes a non-editable boundary explanation: `Helm never edits Safe-to-Spend directly. Edit the inputs to change the number.`
 
 **Rationale:** Prevents user confusion about why S2S cannot be manually adjusted.
 
@@ -441,7 +441,7 @@ Examples:
 
 **Statement:** Bangla copy must feel calm, mature, clear, non-fear-inducing, and freelancer reality-aware. It must not feel like a bank notice, motivational Facebook post, sales copy, childish gamification, or overly formal government language.
 
-**Rationale:** Bangla fintech copy in Bangladesh tends toward either bank-formal or casual-sales. Pocketa needs a distinct middle.
+**Rationale:** Bangla fintech copy in Bangladesh tends toward either bank-formal or casual-sales. Helm needs a distinct middle.
 
 **Implementation implication:** Bangla copy must be authored by a Bangladesh-resident copywriter, not machine-translated.
 
@@ -674,7 +674,7 @@ Examples:
 
 ### COPY-042: Trust Copy Rules
 
-**Statement:** Privacy copy must be factual, short, and non-defensive. Avoid: "We take your privacy very seriously", "Bank-grade security", "Military-grade encryption." Use: "Your data is not sold", "You can export your data anytime", "You can delete your account anytime", "Pocketa does not move money."
+**Statement:** Privacy copy must be factual, short, and non-defensive. Avoid: "We take your privacy very seriously", "Bank-grade security", "Military-grade encryption." Use: "Your data is not sold", "You can export your data anytime", "You can delete your account anytime", "Helm does not move money."
 
 **Rationale:** Defensive privacy language implies the opposite. Factual statements are more trustworthy.
 
@@ -684,7 +684,7 @@ Examples:
 
 ### COPY-043: No Bank Access Statement
 
-**Statement:** The app must clearly state: `Pocketa does not connect to your bank or bKash in MVP. You enter the numbers you want it to use.`
+**Statement:** The app must clearly state: `Helm does not connect to your bank or bKash in MVP. You enter the numbers you want it to use.`
 
 **Rationale:** Proactively addresses the biggest trust concern: "Will this app access my money?"
 
@@ -708,7 +708,7 @@ Examples:
 
 ### COPY-045: Pre-Ship Copy Checklist
 
-**Statement:** Before shipping any Pocketa string, verify:
+**Statement:** Before shipping any Helm string, verify:
 
 1. Does it state a fact instead of a feeling?
 2. Does it avoid blame, shame, and panic?
@@ -729,7 +729,7 @@ Examples:
 
 ### COPY-046: Final Principle
 
-**Statement:** Pocketa should never sound like it is trying to motivate the user. It should sound like it is protecting the truth of the number.
+**Statement:** Helm should never sound like it is trying to motivate the user. It should sound like it is protecting the truth of the number.
 
 **Rationale:** This is the north star for every copy decision. When in doubt, choose truth-protection over motivation.
 

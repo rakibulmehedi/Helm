@@ -1,6 +1,6 @@
 # UX Sprint Sequence
 
-> Implementation order for Pocketa UX Canon. Each sprint builds on prior.
+> Implementation order for Helm UX Canon. Each sprint builds on prior.
 > No lib/ changes in this planning sprint. This is the execution roadmap.
 > Updated: 2026-06-05
 
@@ -27,15 +27,15 @@
 **Rationale:** Foundation. Every other sprint depends on correct colors, typography, spacing, and widgets.
 
 ### Tasks
-1. UX-5.01: Create `pocketa_colors.dart` with full doctrine palette
-2. UX-5.02: Create `pocketa_typography.dart` with Inter + JetBrains Mono + Hind Siliguri
-3. UX-5.03: Create `pocketa_spacing.dart` with 8pt grid tokens
-4. UX-5.04: Create `pocketa_motion.dart` with animation timing tokens
+1. UX-5.01: Create `helm_colors.dart` with full doctrine palette
+2. UX-5.02: Create `helm_typography.dart` with Inter + JetBrains Mono + Hind Siliguri
+3. UX-5.03: Create `helm_spacing.dart` with 8pt grid tokens
+4. UX-5.04: Create `helm_motion.dart` with animation timing tokens
 5. UX-5.05: Rebuild `app_theme.dart` using new token files
-6. UX-5.06: Create `PocketaAmount` widget (lakh/crore formatting)
-7. UX-5.07: Create `PocketaLedgerRail` widget
-8. UX-5.08: Create `PocketaTrustStrip` widget
-9. UX-5.09: Create `PocketaToast` widget
+6. UX-5.06: Create `HelmAmount` widget (lakh/crore formatting)
+7. UX-5.07: Create `HelmLedgerRail` widget
+8. UX-5.08: Create `HelmTrustStrip` widget
+9. UX-5.09: Create `HelmToast` widget
 10. UX-5.10: Create 5 card widgets (HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard)
 11. UX-5.11: Create `number_formatter.dart` (BDT lakh/crore, USD Western, 2 decimals)
 12. UX-5.12: dart analyze clean + verify 0/0/0
@@ -47,15 +47,15 @@
 **Rationale:** Home screen is the product. Must be rebuilt before anything else is visible.
 
 ### Tasks
-1. UX-1.01: Create `PocketaRealityStack` widget
-2. UX-1.02: Create `PocketaCalculationTrace` widget with stagger animation
-3. UX-1.03: Create `PocketaHeroZone` with S2S display + Ledger Rail + Trust Strip
+1. UX-1.01: Create `HelmRealityStack` widget
+2. UX-1.02: Create `HelmCalculationTrace` widget with stagger animation
+3. UX-1.03: Create `HelmHeroZone` with S2S display + Ledger Rail + Trust Strip
 4. UX-1.04: Create "Already committed" section (upcoming obligations display)
 5. UX-1.05: Create "Reserve protected" section
 6. UX-1.06: Create "Not counted yet" section (pipeline summary)
 7. UX-1.07: Create bottom navigation (4 tabs: Home, Pipeline, History, Settings)
 8. UX-1.08: Redesign `dashboard_screen.dart` to Reality Stack layout
-9. UX-1.09: Replace breakdown bottom sheet with PocketaCalculationTrace
+9. UX-1.09: Replace breakdown bottom sheet with HelmCalculationTrace
 10. UX-1.10: Add FAB "Add Pipeline Entry" (not "Add Transaction")
 11. UX-1.11: Remove dev reset button from production (gate with kDebugMode)
 12. UX-1.12: Implement empty state (zero pipeline, runway emphasis)
@@ -92,8 +92,8 @@
 2. UX-3.02: Create `ConfirmReceivedSheet` widget (the most important widget)
 3. UX-3.03: Create `PipelineEntryCard` (state-driven display)
 4. UX-3.04: Create `PipelineScreen` (grouped by state, overdue section)
-5. UX-3.05: Create `PocketaFxEstimate` widget
-6. UX-3.06: Create `PocketaMoneySourceLabel` widget
+5. UX-3.05: Create `HelmFxEstimate` widget
+6. UX-3.06: Create `HelmMoneySourceLabel` widget
 7. UX-3.07: Add FX rate input + exclude toggle to add_income_screen
 8. UX-3.08: Update STS calculator to use per-entry FX + exclude flag
 9. UX-3.09: Implement "Duplicate last" long-press gesture

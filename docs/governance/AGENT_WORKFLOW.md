@@ -1,6 +1,6 @@
-# POCKETA — Agent Workflow Protocol
+# HELM — Agent Workflow Protocol
 
-> Standard operating procedure for all AI agents working on Pocketa.
+> Standard operating procedure for all AI agents working on Helm.
 > This document defines how Claude Code, Gemini CLI, and Antigravity must behave.
 
 ---
@@ -39,8 +39,8 @@ Before implementing **any** feature, every agent must:
 
 1. **Follow the Session Start Protocol** — execute all steps in `docs/governance/SESSION_START_PROTOCOL.md`.
 2. **Read** these core documents:
-   - `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority; supersedes all prior roadmaps**
-   - `docs/core/POCKETA_BRAIN.md` — understand the product
+   - `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority; supersedes all prior roadmaps**
+   - `docs/core/HELM_BRAIN.md` — understand the product
    - `docs/core/ARCHITECTURE_RULES.md` — understand the constraints
    - `docs/core/ROADMAP.md` — understand what's been done and what's next
    - `AGENTS.md` — understand your role and boundaries
@@ -62,7 +62,7 @@ After completing any feature, every agent must:
 
 ## Phase-Based Execution Model
 
-Pocketa is built in **strict phases**. Each phase:
+Helm is built in **strict phases**. Each phase:
 - Has a defined scope (provided by the Chief Architect)
 - Must not bleed into other phases
 - Must produce a clean `dart analyze` result
@@ -162,8 +162,8 @@ Ready-to-use commit message.
 
 When instructions are ambiguous:
 
-1. **Check POCKETA_FINAL_PRODUCT_DOCTRINE.md** — does the Doctrine address it?
-2. **Check POCKETA_BRAIN.md** — does it answer the question?
+1. **Check HELM_FINAL_PRODUCT_DOCTRINE.md** — does the Doctrine address it?
+2. **Check HELM_BRAIN.md** — does it answer the question?
 3. **Check ARCHITECTURE_RULES.md** — is there a binding constraint?
 4. **Check ROADMAP.md** — is this feature in scope for the current phase?
 5. **If still unclear** — ask the Chief Architect. Do not guess.
@@ -174,9 +174,9 @@ When instructions are ambiguous:
 
 When documents conflict, resolve using this precedence order:
 
-1. **Final Product Doctrine** (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`) — supreme authority
+1. **Final Product Doctrine** (`docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`) — supreme authority
 2. **CLAUDE.md** — project-level agent instructions
-3. **POCKETA_BRAIN.md** — product identity and philosophy
+3. **HELM_BRAIN.md** — product identity and philosophy
 4. **ARCHITECTURE_RULES.md** — technical constraints
 5. **ROADMAP.md** — phase history and current state
 6. **Spec documents** (`docs/specs/`) — feature-level details
@@ -187,7 +187,7 @@ If a spec or roadmap contradicts the Final Doctrine, the Doctrine wins. Update t
 
 ## Multi-Agent Coordination
 
-When multiple agents work on Pocketa:
+When multiple agents work on Helm:
 
 - Each agent must read the same documentation set
 - No agent may override another agent's committed work without approval

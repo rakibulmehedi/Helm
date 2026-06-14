@@ -212,7 +212,7 @@ testWidgets('Semantics announces overdue count and action button', (tester) asyn
 | `relief` | 0 overdue, S2S > 0 | "Pipeline up to date" | (no CTA — passive relief) | `stateSafe` tint |
 | `setup` | 0 pipeline entries, onboarding done | "Add your first expected payment" | "Add payment" → add-income | `interactive` tint |
 
-**Placement:** Reality Stack Tier 3 (`maintenanceTier` slot). The slot already exists in `PocketaRealityStack` — just pass the card as `maintenanceTier`.
+**Placement:** Reality Stack Tier 3 (`maintenanceTier` slot). The slot already exists in `HelmRealityStack` — just pass the card as `maintenanceTier`.
 
 ### Exit Gate
 - [ ] 5 widget tests pass (4 variants + Semantics)

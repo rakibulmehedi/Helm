@@ -1,4 +1,4 @@
-# Pocketa — Pipeline Interaction Optimization
+# Helm — Pipeline Interaction Optimization
 
 > **Status:** Doctrine extension. Governs every state-transition interaction in the Income Pipeline.
 > **Foundation:** Final Product Doctrine §4, §10, §11 · UX Doctrine §6, §9 · Tier-1 Dashboard Critique v2 §6, §7.
@@ -38,7 +38,7 @@ Looking at your existing Pipeline screens (the five shots you sent), here is the
 | **Heavy Add form** | Add Income asks Client, Project, Amount, Currency, Status, Date, Notes in a single screen. Seven fields = ~45–60 seconds of capture. | Capture friction kills the "log it the moment it happens" behavior. |
 | **`By 04 Jun 2026` + `Expected` is doubled info** | Both the status badge and the date label communicate "future." Cognitive redundancy without clarity gain. | Visual noise without trust gain. |
 | **No visible audit trail** | Entries have no history view — no way to see "edited from $1,500 to $1,200 on May 22." | When numbers feel wrong, no way to reconstruct. Trust collapses silently. |
-| **No FX rate per entry** | The currency toggle is global on the Add form; the per-entry FX value isn't visible later. | First time the BDT-equivalent looks wrong, the user blames Pocketa, not the rate they used. |
+| **No FX rate per entry** | The currency toggle is global on the Add form; the per-entry FX value isn't visible later. | First time the BDT-equivalent looks wrong, the user blames Helm, not the rate they used. |
 
 ### The cumulative diagnosis
 
@@ -73,7 +73,7 @@ Three states. No others. No sub-states. No "partially received." This is enforce
 |---|---|---|---|---|
 | **Expected** | _Not counted yet_ | `Expected` | No | Invoice sent or work agreed; client has not yet acknowledged. |
 | **Pending** | _Not counted yet_ | `Pending` | No (Hope tier only, conservative FX shown) | Client acknowledged or money in transit (Upwork released, Payoneer processing). |
-| **Received** | _Counted_ | `Received` | Yes (adds to liquid BDT) | Funds landed in a Pocketa-tracked liquid wallet, BDT-converted. |
+| **Received** | _Counted_ | `Received` | Yes (adds to liquid BDT) | Funds landed in a Helm-tracked liquid wallet, BDT-converted. |
 | **Excluded** | _(Not visible)_ | `Excluded` (greyed) | No | User-declared "don't count this." Reversible. |
 | **Cancelled** | _(Not visible)_ | `Cancelled` (archived) | No | Deal fell through. Reversible within 30 days, then archive-only. |
 
@@ -92,7 +92,7 @@ Three states. No others. No sub-states. No "partially received." This is enforce
 ### Forbidden transitions
 
 - `Received → Pending` — once funds are in liquid balance, downgrading rewrites history. If the user truly made a mistake, they **delete** the received entry (audit-logged) and re-create it. This protects the liquid balance invariant.
-- Any **automatic** transition. Pocketa never moves a state without the user's tap. Ever. Auto-mark-on-date-passed is the worst pattern the product could ship.
+- Any **automatic** transition. Helm never moves a state without the user's tap. Ever. Auto-mark-on-date-passed is the worst pattern the product could ship.
 
 ---
 
@@ -133,7 +133,7 @@ Triggered from any of: notification tap, maintenance strip tap, pipeline row tap
 |---|---|---|
 | **`You expected $1,500 from Acme`** | Anchors the user's memory; confirms identity of the entry before they commit. | Plain prose, not a heading — heading-weight would make this feel like a form. |
 | **`At rate 119.66`** with `[edit ›]` | The single most-edited field in the real world. Surfacing it inline prevents "tap to edit > another sheet > save > back > confirm" — that path was a 6-tap problem. | Edit is a chevron, not a button — it's a refinement, not the primary action. |
-| **Conservative + live FX comparison** | Trains the user that Pocketa is pessimistic; live rate is the upside, not the baseline. | One small line. Not a chart. Not a graph. |
+| **Conservative + live FX comparison** | Trains the user that Helm is pessimistic; live rate is the upside, not the baseline. | One small line. Not a chart. Not a graph. |
 | **`Date received: Today`** with `[edit ›]` | 95% of confirms are same-day. Default to today; let edge cases edit. | Pre-filled, not a date picker by default. |
 | **Single primary `Confirm — adds to liquid`** button | The label states the consequence. The user knows what their tap will do. | One verb. One outcome. No marketing copy. |
 | **`Not yet`** | Closes the loop without state change. Necessary for the "I tapped the notification at a bus stop" case. | Tertiary action, no border. |
@@ -334,7 +334,7 @@ Amber 60% opacity is the right weight: visible enough to draw attention, quiet e
 
 ### Why we never auto-cancel
 
-The Doctrine §10 explicitly forbids it. From a behavioral standpoint: a user who returns to Pocketa after a 3-week silence and finds Pocketa has unilaterally cancelled their $4,000 entry will never trust the app again. The cost of an auto-cancel error is permanent. The cost of an entry sitting in "Needs decision" for 60 days is zero.
+The Doctrine §10 explicitly forbids it. From a behavioral standpoint: a user who returns to Helm after a 3-week silence and finds Helm has unilaterally cancelled their $4,000 entry will never trust the app again. The cost of an auto-cancel error is permanent. The cost of an entry sitting in "Needs decision" for 60 days is zero.
 
 ### The "polite follow-up" template
 
@@ -352,13 +352,13 @@ Thanks,
 Mehedi
 ```
 
-User can copy to clipboard, edit, and paste into WhatsApp / email / Upwork message. **Pocketa does NOT send the message itself.** Sending implies CRM territory and creates a confused responsibility model. Copy-paste keeps the user in control.
+User can copy to clipboard, edit, and paste into WhatsApp / email / Upwork message. **Helm does NOT send the message itself.** Sending implies CRM territory and creates a confused responsibility model. Copy-paste keeps the user in control.
 
 ---
 
 ## 8. Reminder / ETA Behavior
 
-> **The whole product's emotional contract is here.** A wrong notification reverses three weeks of trust-building. The notification surface is the most restrained part of Pocketa.
+> **The whole product's emotional contract is here.** A wrong notification reverses three weeks of trust-building. The notification surface is the most restrained part of Helm.
 
 ### The two-class system (already locked by UX Doctrine §9)
 
@@ -378,7 +378,7 @@ Only **Transactional** and **Boundary** notifications exist. `Engagement` is a T
 1. **Quiet hours by default** — 22:00 to 08:00 local time. No transactional notification fires in this window. Boundary notifications are also suppressed unless the obligation is ≤24h away.
 2. **Cap: 2 transactional + 1 boundary per day.** Hard ceiling at the registry level. Excess triggers are silently dropped, not queued.
 3. **Snooze without nagging.** Tapping "Not yet" on the Confirm Sheet snoozes the entry for 48 hours. After two snoozes, the notification is silenced for that entry forever — the maintenance strip on home takes over.
-4. **No re-engagement.** If the user has not opened the app in 7 days, Pocketa does NOT send a "we miss you" notification. The product trusts the user's absence is intentional.
+4. **No re-engagement.** If the user has not opened the app in 7 days, Helm does NOT send a "we miss you" notification. The product trusts the user's absence is intentional.
 5. **Notification → app open → Confirm Sheet, in that order, in <2 taps.** The notification deep-links directly to the sheet for that entry. Not the pipeline screen. Not the home screen. The exact action.
 
 ### The opening sequence (notification → confirm)
@@ -502,7 +502,7 @@ Friction is measured along three dimensions: **taps**, **screens traversed**, an
 
 ### The 9-line rule, applied to interaction depth
 
-A subtler friction metric: the **cumulative cognitive surface** of a single update interaction. Current path forces the user to hold ~9 cognitive atoms in working memory across 4 screens. Optimized path collapses this to 2 atoms across 2 screens. This is the difference between "Pocketa is a tool" and "Pocketa is paperwork."
+A subtler friction metric: the **cumulative cognitive surface** of a single update interaction. Current path forces the user to hold ~9 cognitive atoms in working memory across 4 screens. Optimized path collapses this to 2 atoms across 2 screens. This is the difference between "Helm is a tool" and "Helm is paperwork."
 
 ---
 
@@ -555,10 +555,10 @@ The explicit kill list for pipeline interaction. Each of these is plausible-soun
 **Looks like:** "Make overdue entries stand out with a red badge and a pulsing icon."
 **Why it's a trap:** Red is reserved for S2S `At Risk`. Pulsing motion violates the calm contract. Amber 60% opacity + clock annotation does the work without raising cortisol. Doctrine §2 Principle 1, §8.
 
-### Anti-pattern 10 — "Pocketa sends the follow-up email for you"
+### Anti-pattern 10 — "Helm sends the follow-up email for you"
 
 **Looks like:** "Tap Send → we email the client a polite follow-up."
-**Why it's a trap:** Three different traps in one. (1) Implies Pocketa has a CRM-style relationship with the client. (2) Creates a confused responsibility model — was it Mehedi who followed up, or his app? (3) Begins the long slide toward Pocketa being an email tool. Copy-to-clipboard is the right pattern.
+**Why it's a trap:** Three different traps in one. (1) Implies Helm has a CRM-style relationship with the client. (2) Creates a confused responsibility model — was it Mehedi who followed up, or his app? (3) Begins the long slide toward Helm being an email tool. Copy-to-clipboard is the right pattern.
 
 ### Anti-pattern 11 — Calendar view of pipeline entries
 
@@ -721,4 +721,4 @@ The system is the product, not the founder. The doctrine is the spine. The gramm
 
 ---
 
-*End of Pocketa Pipeline Interaction Optimization. Frozen. No amendments without an explicit Doctrine review session.*
+*End of Helm Pipeline Interaction Optimization. Frozen. No amendments without an explicit Doctrine review session.*

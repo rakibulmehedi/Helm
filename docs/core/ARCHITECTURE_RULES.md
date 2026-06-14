@@ -1,7 +1,7 @@
-# POCKETA — Architecture Rules
+# HELM — Architecture Rules
 
 > Binding constraints for all contributors — human and AI.
-> Read POCKETA_BRAIN.md first.
+> Read HELM_BRAIN.md first.
 
 ---
 
@@ -138,7 +138,7 @@ presentation → domain ← data
 - Extract widgets when a build method exceeds **100 lines**
 
 ### Imports
-- Use package imports, not relative: `package:pocketa_v2/...`
+- Use package imports, not relative: `package:helm_v2/...`
 - Group imports: dart → flutter → packages → project
 
 ### Immutability

@@ -1,4 +1,4 @@
-# Pocketa Canonical UX Implementation Spec
+# Helm Canonical UX Implementation Spec
 
 > **Status:** Canonical. Single source of truth for all UX implementation work.
 > **Created:** 2026-06-05
@@ -54,8 +54,8 @@ Maximum 9 lines of content above the fold on 6.1" reference device. Enforced in 
 |------|--------|----------------|
 | S2S visible < 2s on 3G | UX-015 | CI performance gate, Samsung A14 reference |
 | S2S never animated as counter | UX-016 | 200ms fade-in only, no AnimatedCount |
-| State via Ledger Rail only (3pt) | VISR-004 | `PocketaLedgerRail` widget, replaces thin accent line |
-| "Updated X min ago" always visible | UX-018 | `PocketaTrustStrip` widget, mandatory |
+| State via Ledger Rail only (3pt) | VISR-004 | `HelmLedgerRail` widget, replaces thin accent line |
+| "Updated X min ago" always visible | UX-018 | `HelmTrustStrip` widget, mandatory |
 | Bottom nav: 4 items max | UX-019 | Home, Pipeline, History, Settings |
 | Single FAB: "Add Pipeline Entry" | UX-020 | 56pt circle, interactive bg, "+" icon |
 | No avatars, welcome animations | UX-017 | Text greeting only, top-left, low prominence |
@@ -158,7 +158,7 @@ Calm, Objective, Specific, Direct, Respectful, Bangla-aware. Six attributes, non
 |-----------|--------|---------|
 | State statement | Subject + verb + number + context | "Safe-to-Spend is tk32,400 -- covers 17 days" |
 | Action invitation | Verb-led + outcome stated | "Confirm received -> updates Safe-to-Spend" |
-| Boundary statement | Direct statement + reason | "Pocketa does not move money." |
+| Boundary statement | Direct statement + reason | "Helm does not move money." |
 | Settlement copy | Past tense + value + invitation | "$800 settled at 119.66 -- added tk95,728" |
 | Threat copy | Fact + math implication + action | "Rent tk18,000 due in 4 days. S2S after rent: tk14,400." |
 
@@ -247,13 +247,13 @@ Colors (IMPL-032) use blue primary (#2453FF), orange secondary, Poppins font. Co
 ## 6. Refined Visual Signatures (5 Ownable Assets)
 
 ### 6.1 Safe-to-Spend Ledger Rail
-Replaces thin accent line. Recognizable Pocketa signature.
+Replaces thin accent line. Recognizable Helm signature.
 - Width: 72pt compact / 96pt regular
 - Height: 3pt hero / 1.5pt elsewhere
 - Radius: 2pt
 - Always paired with text label: "Safe", "Tight", "Reserve Mode"
 - Must appear anywhere S2S number appears
-- **Widget:** `PocketaLedgerRail`
+- **Widget:** `HelmLedgerRail`
 
 ### 6.2 Reality Stack
 Four-layer money hierarchy replacing generic dashboard.
@@ -261,22 +261,22 @@ Four-layer money hierarchy replacing generic dashboard.
 2. Already committed (medium, ink.primary + risk marker)
 3. Reserve protected (medium-low, ink.secondary)
 4. Not counted yet (recessed, state.hope, separated)
-- **Widget:** `PocketaRealityStack`
+- **Widget:** `HelmRealityStack`
 
 ### 6.3 Trust Strip
 Mandatory on every financially meaningful surface.
 Format: `Updated 11:42 PM . Received only . FX tk119.66 . Tap to audit`
 - Font: label.sm, color: ink.secondary
 - Required on: S2S hero, pipeline totals, FX amounts, reserves, exports
-- **Widget:** `PocketaTrustStrip`
+- **Widget:** `HelmTrustStrip`
 
 ### 6.4 Calculation Trace
 Auditable math drawer. Values right-aligned mono. Labels plain language. Stronger divider before total. "Pending not counted" as recessed block below.
-- **Widget:** `PocketaCalculationTrace`
+- **Widget:** `HelmCalculationTrace`
 
 ### 6.5 BDT-First Money Stamp
 BDT first and larger. USD second and smaller. FX rate always shown. Estimated labeled as estimated.
-- **Widget:** `PocketaFxEstimate` + `PocketaMoneySourceLabel`
+- **Widget:** `HelmFxEstimate` + `HelmMoneySourceLabel`
 
 ---
 
@@ -314,7 +314,7 @@ Users operate on: budget/midrange Android, outdoor/high brightness, screen prote
 10. Test on Redmi Note series with screen protector, not just WCAG calculator
 
 ### The Governing Rule
-> "Pocketa can be quiet, but it cannot be faint."
+> "Helm can be quiet, but it cannot be faint."
 
 ---
 
@@ -385,19 +385,19 @@ Refined system: "trust me because every number has a source, a timestamp, and an
 
 | Widget | Purpose | Replaces |
 |--------|---------|----------|
-| `PocketaLedgerRail` | S2S state indicator (3pt rail + label) | Current accent line concept |
-| `PocketaTrustStrip` | Timestamp + source + FX + audit link | Nothing (new requirement) |
-| `PocketaRealityStack` | 4-layer money hierarchy for home screen | Current dashboard layout |
-| `PocketaCalculationTrace` | Auditable math drawer with stagger | Current breakdown bottom sheet |
-| `PocketaMoneySourceLabel` | Payoneer/bank/bKash/etc source labels | Nothing (new requirement) |
-| `PocketaFxEstimate` | FX rate + estimate status display | Nothing (new requirement) |
-| `PocketaAmount` | Financial amount with proper formatting | Current inline number formatting |
-| `PocketaHeroZone` | S2S hero container (no visible card) | Current SafeToSpendHero |
-| `PocketaLedgerCard` | Standard money fact card (1pt border, 12r) | Current card patterns |
-| `PocketaAuditCard` | Calculation trace card (stronger top rule) | Nothing (new) |
-| `PocketaSourceCard` | Compact source + status card | Nothing (new) |
-| `PocketaCautionCard` | AtRisk rail on left, no red fill | Nothing (new) |
-| `PocketaToast` | Financial-safe snackbar replacement | Current SnackBar usage |
+| `HelmLedgerRail` | S2S state indicator (3pt rail + label) | Current accent line concept |
+| `HelmTrustStrip` | Timestamp + source + FX + audit link | Nothing (new requirement) |
+| `HelmRealityStack` | 4-layer money hierarchy for home screen | Current dashboard layout |
+| `HelmCalculationTrace` | Auditable math drawer with stagger | Current breakdown bottom sheet |
+| `HelmMoneySourceLabel` | Payoneer/bank/bKash/etc source labels | Nothing (new requirement) |
+| `HelmFxEstimate` | FX rate + estimate status display | Nothing (new requirement) |
+| `HelmAmount` | Financial amount with proper formatting | Current inline number formatting |
+| `HelmHeroZone` | S2S hero container (no visible card) | Current SafeToSpendHero |
+| `HelmLedgerCard` | Standard money fact card (1pt border, 12r) | Current card patterns |
+| `HelmAuditCard` | Calculation trace card (stronger top rule) | Nothing (new) |
+| `HelmSourceCard` | Compact source + status card | Nothing (new) |
+| `HelmCautionCard` | AtRisk rail on left, no red fill | Nothing (new) |
+| `HelmToast` | Financial-safe snackbar replacement | Current SnackBar usage |
 
 ---
 
@@ -405,11 +405,11 @@ Refined system: "trust me because every number has a source, a timestamp, and an
 
 1. No `withOpacity()` on text colors
 2. No "Balance / Income / Expense" summary card above fold
-3. No financial amount without `PocketaAmount` widget
-4. No S2S value without `PocketaLedgerRail`
-5. No dual-currency amount without `PocketaFxEstimate`
+3. No financial amount without `HelmAmount` widget
+4. No S2S value without `HelmLedgerRail`
+5. No dual-currency amount without `HelmFxEstimate`
 6. No pending amount in same visual group as liquid BDT unless labeled
-7. No generic `SnackBar` -- use `PocketaToast`
+7. No generic `SnackBar` -- use `HelmToast`
 8. No gradients (LinearGradient, RadialGradient)
 9. No BoxShadow or elevation > 0 on cards
 10. No fontStyle: FontStyle.italic
@@ -446,7 +446,7 @@ Typography-only. Must teach the mental model, not merely announce absence. Every
 
 ### Error States
 - S2S calc failure: show "---", never a wrong number. Most important error pattern.
-- Sync errors: non-blocking. "Last sync X hours ago. You can still use Pocketa offline."
+- Sync errors: non-blocking. "Last sync X hours ago. You can still use Helm offline."
 - Validation: conversation, not rejection. "FX rate 18% above average. Are you sure?"
 - Never "Something went wrong" without specifying what.
 - Never lose user input on error.

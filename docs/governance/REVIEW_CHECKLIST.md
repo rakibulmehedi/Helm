@@ -1,4 +1,4 @@
-# POCKETA — Review Checklist
+# HELM — Review Checklist
 
 > Use this checklist before approving any phase or committing changes.
 > Applies to both human reviewers and AI self-review.

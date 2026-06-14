@@ -1,4 +1,4 @@
-# Pocketa — FINAL Product Doctrine
+# Helm — FINAL Product Doctrine
 
 > **Status:** Canonical. Supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts.
 > **Last Updated:** June 2026
@@ -9,17 +9,17 @@
 
 ## 0. Opening Verdict
 
-Pocketa is worth building under **one condition**: you finish Stage 0 validation in 4 weeks and the data clears. If it doesn't clear, you stop. If you can't even start it in 7 days, you also stop.
+Helm is worth building under **one condition**: you finish Stage 0 validation in 4 weeks and the data clears. If it doesn't clear, you stop. If you can't even start it in 7 days, you also stop.
 
-Everything you have written about Pocketa before this document was strategy without execution constraint. Your audits already told you most of what is below — this doctrine simply enforces it as canon and cuts the noise.
+Everything you have written about Helm before this document was strategy without execution constraint. Your audits already told you most of what is below — this doctrine simply enforces it as canon and cuts the noise.
 
-The product you should actually build is **smaller, more boring, and more disciplined** than anything in your prior drafts. That is not a regression. That is the path to a Pocketa that ships and survives.
+The product you should actually build is **smaller, more boring, and more disciplined** than anything in your prior drafts. That is not a regression. That is the path to a Helm that ships and survives.
 
 ---
 
 ## 1. Final Product Thesis
 
-Pocketa is a **single-purpose calm cockpit** for Bangladeshi USD-earning freelancers. It exists to answer one question, fast and trustworthy:
+Helm is a **single-purpose calm cockpit** for Bangladeshi USD-earning freelancers. It exists to answer one question, fast and trustworthy:
 
 > **"After escrow, FX, fixed costs, buffer, and reserves — how many BDT can I actually spend right now?"**
 
@@ -79,7 +79,7 @@ The freelancer's daily question is not "where did my money go?" (TallyKhata's jo
 
 A freelancer sees ৳52,000 in bKash, has $1,200 pending Upwork escrow, owes ৳18,000 rent in 4 days, has a domain renewal in 2 weeks, and forgot they spent ৳7,000 on Adobe last week. They mentally subtract rent, feel safe, buy a phone for ৳30,000 — and now rent is short.
 
-Pocketa exists to **prevent that exact moment**.
+Helm exists to **prevent that exact moment**.
 
 ---
 
@@ -163,7 +163,7 @@ Pocketa exists to **prevent that exact moment**.
 
 ## 6. Exact V2 Scope
 
-> **V2 Goal:** Turn Pocketa from tracker into workflow. This is also where monetization begins.
+> **V2 Goal:** Turn Helm from tracker into workflow. This is also where monetization begins.
 
 | # | Feature | Notes |
 |---|---|---|
@@ -208,13 +208,13 @@ The **daily S2S snapshot job must be designed and stubbed in MVP**, even though 
 
 ## 8. Permanent Kill List
 
-These are NEVER to be built under the Pocketa brand. Re-litigating them is a sign of scope drift.
+These are NEVER to be built under the Helm brand. Re-litigating them is a sign of scope drift.
 
 ### Killed at the product level
 
 | Killed Feature | Why |
 |---|---|
-| Generic expense categorization | TallyKhata/Hishabee territory; no Pocketa advantage |
+| Generic expense categorization | TallyKhata/Hishabee territory; no Helm advantage |
 | Cloud Backup as a marketed feature | SaaS implies it; marketing it signals offline-first archaism |
 | Gamification (points, streaks, badges) | Patronizing; financial clarity is its own reward |
 | Generic charts/reports without S2S context | Data without the answer is noise |
@@ -321,7 +321,7 @@ These opinions must be sought **before Sprint 1** (budget ৳50,000–৳200,000
 | # | Opinion Required |
 |---|---|
 | L1 | PDPO 2026 lawful basis, data minimization, retention, and residency for financial data |
-| L2 | Confirmation Pocketa is NOT a regulated PSP/PSO/credit reference agency under current scope |
+| L2 | Confirmation Helm is NOT a regulated PSP/PSO/credit reference agency under current scope |
 | L3 | Marketing copy review — must not cross into "financial advice" classification |
 | L4 | Disclaimer pattern for user-declared tax reserve ("This is not tax advice") |
 | L5 | Invoice PDF format compliance for NBR / VAT / Freelancer ID |
@@ -353,7 +353,7 @@ Retention is the product. If the user opens the app and updates the pipeline onc
 
 - Fixed cost approaching due date triggers in-app banner (NOT push) on next open
 - "Internet bill of ৳1,500 due in 2 days — covered by current S2S"
-- Frames Pocketa as the source of *calm*, not the source of alerts
+- Frames Helm as the source of *calm*, not the source of alerts
 
 ### Retention Loop 4 — Surprise Avoidance
 
@@ -379,7 +379,7 @@ If beta data shows any of these, the retention model is broken and you must stop
 
 ## 12. Competitive Moat
 
-> **Brutal truth: at launch, Pocketa has no real moat.** The red-team is correct. Stop pretending otherwise.
+> **Brutal truth: at launch, Helm has no real moat.** The red-team is correct. Stop pretending otherwise.
 
 The audits claimed four moats. Here is what each actually is:
 
@@ -413,7 +413,7 @@ Your moat is **time + focus**. You have ~12 months before a well-funded local in
 2. Get to 100 paying users in V2
 3. Build the freelancer-trust brand before they notice
 
-If you take 9 months to ship MVP because you ran APEX and Wolf Syndicate in parallel, the window closes and Pocketa dies.
+If you take 9 months to ship MVP because you ran APEX and Wolf Syndicate in parallel, the window closes and Helm dies.
 
 ---
 
@@ -439,7 +439,7 @@ If you take 9 months to ship MVP because you ran APEX and Wolf Syndicate in para
 ### Pricing validation gate
 
 Before V2 ships, run a 10-user willingness test:
-- *"Would you pay ৳299/month for Pocketa with Invoice-Lite, multi-wallet, and tax reserve?"*
+- *"Would you pay ৳299/month for Helm with Invoice-Lite, multi-wallet, and tax reserve?"*
 - **Go:** ≥50% say yes at ৳299+
 - **No-go:** Iterate. Pricing failure at this stage kills the business model.
 
@@ -548,7 +548,7 @@ Only after V1 is in beta-cohort hands for 2 weeks without regression.
 
 ## 16. Closed Beta Strategy
 
-> **The closed beta is the most important validation event in Pocketa's life. Treat it as a controlled experiment, not a launch.**
+> **The closed beta is the most important validation event in Helm's life. Treat it as a controlled experiment, not a launch.**
 
 ### Beta cohort design
 
@@ -586,7 +586,7 @@ Only after V1 is in beta-cohort hands for 2 weeks without regression.
 
 - 15-minute call with each beta user, weekly
 - Three questions:
-  1. *"When did you open Pocketa this week and what did you do?"*
+  1. *"When did you open Helm this week and what did you do?"*
   2. *"When did you feel like trusting the S2S number — and when did you not?"*
   3. *"What did you wish it had done that it didn't?"*
 
@@ -614,12 +614,12 @@ Ranked by severity-times-probability.
 | 1 | **Manual pipeline attrition** (users forget to mark Received) | Critical | High | One-tap update + transactional notifications + conservative S2S that excludes overdue entries; KILL switch at <85% compliance |
 | 2 | **Wrong S2S damages trust** | Critical | High | Conservative formula, "—" fallback, editable inputs (not output), audit log, breakdown drawer |
 | 3 | **Users stay with Sheets** | Critical | High | Speed (<2s to S2S) + transparent breakdown + later Sheets import |
-| 4 | **Founder bandwidth fragmentation** (APEX + Wolf + agency + duplex + QuantGate + Pocketa) | Critical | Very High | See §18 — pause at least one project before Sprint 1 |
+| 4 | **Founder bandwidth fragmentation** (APEX + Wolf + agency + duplex + QuantGate + Helm) | Critical | Very High | See §18 — pause at least one project before Sprint 1 |
 | 5 | **TallyKhata/Hishabee add freelancer mode in 6 months** | High | Medium | Ship in 12 weeks; build BD-specific context depth they can't easily copy |
 | 6 | **Tax reserve advice misclassified as financial advice** | High | Medium | V2 only; user-declared %; explicit disclaimer; counsel-reviewed copy |
 | 7 | **PDPO 2026 compliance gap** (cloud residency, data export, deletion) | High | Medium | Architect for residency from Day 1; build export + deletion in MVP |
 | 8 | **Magic-link / email compromise** | High | Low (with PIN) | Mandatory PIN/biometric from Day 1 |
-| 9 | **bKash adds "Reserve for Bills"** | Medium | Medium | Pocketa's multi-source aggregation (Payoneer + bKash + bank + cash) is the defense; bKash will never aggregate competitors |
+| 9 | **bKash adds "Reserve for Bills"** | Medium | Medium | Helm's multi-source aggregation (Payoneer + bKash + bank + cash) is the defense; bKash will never aggregate competitors |
 | 10 | **Payoneer adds cashflow forecast view** | Medium | Low | Payoneer's incentive is fund retention, not S2S; low probability they build this |
 | 11 | **Closed beta data shows low retention** | Critical | Medium | Kill switch is documented; don't launch V1 if MVP fails thresholds |
 | 12 | **Invoice-Lite PDF rejected by international clients** | Medium | Medium | Pre-validate with 5 real clients before V2 launch |
@@ -631,7 +631,7 @@ Ranked by severity-times-probability.
 
 ## 18. Founder Execution Risks
 
-> **This is the section you didn't write into your own previous doctrines. It is the one most likely to kill Pocketa.**
+> **This is the section you didn't write into your own previous doctrines. It is the one most likely to kill Helm.**
 
 You are currently running:
 1. **APEX V4** — paper trading on VPS, V5 ahead, Telegram community marketing
@@ -639,17 +639,17 @@ You are currently running:
 3. **MTech agency with Foysal** — client work + Korean skincare + Sentia BD
 4. **Duplex construction in Rampal** — foundation phase
 5. **QuantGate YouTube** — content pipeline planning
-6. **Now adding: Pocketa Stages 0 through V3**
+6. **Now adding: Helm Stages 0 through V3**
 
-You have explicitly told me, on record, that your **recurring pattern is preparation without execution completion**. This document — and every Pocketa document you've produced — is preparation. If you do not address the bandwidth problem first, Pocketa becomes the 4th half-finished system on your list.
+You have explicitly told me, on record, that your **recurring pattern is preparation without execution completion**. This document — and every Helm document you've produced — is preparation. If you do not address the bandwidth problem first, Helm becomes the 4th half-finished system on your list.
 
 ### The hard rule
 
-**Before Sprint 1 of Pocketa MVP, you must:**
+**Before Sprint 1 of Helm MVP, you must:**
 
-1. **Decide Pocketa is real or exploration.** Write it down. If exploration, freeze it here and don't open a repo.
+1. **Decide Helm is real or exploration.** Write it down. If exploration, freeze it here and don't open a repo.
 2. **Pause at least one of:** APEX V5 development, Wolf Syndicate deployment, agency client expansion, QuantGate launch. Pick one. Pause it for 90 days minimum.
-3. **Allocate ≥15 focused hours/week** to Pocketa, protected from agency work and Telegram community management.
+3. **Allocate ≥15 focused hours/week** to Helm, protected from agency work and Telegram community management.
 4. **Set a no-fly date** (e.g., end of 12 weeks). If MVP isn't in closed beta by then, kill or pivot. No extensions.
 
 ### What pausing looks like (concretely)
@@ -665,19 +665,19 @@ You have explicitly told me, on record, that your **recurring pattern is prepara
 
 ### Founder failure modes specific to you
 
-| Pattern | Symptom in Pocketa | Counter |
+| Pattern | Symptom in Helm | Counter |
 |---|---|---|
 | Preparation > execution | Writing the V4 spec while MVP is at 40% | Freeze docs after V2; ban writing V3+ specs until V1 ships |
 | System-architect overbuild | Microservices, dual-stack, "extensible" abstractions | Monolith. One stack. Boring code. |
 | Adversarial-mentor avoidance | Reading audits, agreeing, not changing behavior | Re-read this §18 weekly until MVP ships |
-| Multi-project tab-switching | 3 hours on Pocketa, 1 hour on APEX, 1 hour on agency — no flow | Time-blocked: minimum 4-hour Pocketa blocks, 4 days/week |
-| Faith-aligned overthink | "Should Pocketa accept interest-related features?" → stalls execution | Decide now: tax reserve is a math container, not interest-bearing. Move on. |
+| Multi-project tab-switching | 3 hours on Helm, 1 hour on APEX, 1 hour on agency — no flow | Time-blocked: minimum 4-hour Helm blocks, 4 days/week |
+| Faith-aligned overthink | "Should Helm accept interest-related features?" → stalls execution | Decide now: tax reserve is a math container, not interest-bearing. Move on. |
 
 ---
 
 ## 19. Final Strategic Recommendation
 
-**Build Pocketa. But build the boring, narrow, trust-heavy version that ships in 12 weeks.**
+**Build Helm. But build the boring, narrow, trust-heavy version that ships in 12 weeks.**
 
 The winning product is NOT:
 - "AI fintech for freelancers"
@@ -696,11 +696,11 @@ Every other ambition is V2+, contingent on this working. Most of those ambitions
 
 1. **You will not write a V3 spec until V1 ships.** Doctrine docs are sunk-cost generators.
 2. **You will pause one parallel project before Sprint 1.** Specify which.
-3. **You will kill Pocketa if the MVP beta misses 2+ thresholds.** No "let me iterate forever."
+3. **You will kill Helm if the MVP beta misses 2+ thresholds.** No "let me iterate forever."
 
 ### The one-line verdict
 
-> Pocketa is a 12-week build, a 4-week beta, and a binary go/no-go. Anything you do to dilute that timeline is the failure mode in disguise.
+> Helm is a 12-week build, a 4-week beta, and a binary go/no-go. Anything you do to dilute that timeline is the failure mode in disguise.
 
 ---
 
@@ -710,13 +710,13 @@ Every other ambition is V2+, contingent on this working. Most of those ambitions
 
 | Day | Action |
 |---|---|
-| Day 1 | Write a 1-page "Pocketa is real" or "Pocketa is exploration" memo. Sign it. Date it. |
+| Day 1 | Write a 1-page "Helm is real" or "Helm is exploration" memo. Sign it. Date it. |
 | Day 2 | Choose which project to pause for 90 days. Communicate it to Foysal / team. |
 | Day 3 | Lock pricing decision (Free / ৳299 Pro / ৳599 Power). Write the pricing page copy. |
 | Day 4 | Contact 2 Bangladeshi fintech/data-protection lawyers (Tahmidur Rahman Remura Wahid or equivalent). Request quote for L1–L7 opinions. Budget ৳50k–200k. |
 | Day 5 | Compile interview recruit list: 15 Bangladeshi freelancers from Onyx + Facebook groups + personal network. Bias: mix of escrow / direct / retainer cohorts. |
 | Day 6 | Draft Stage 0 interview script (3 hypotheses to test + 5 standard questions + pricing question + qualifying-pain question). |
-| Day 7 | First 3 interviews scheduled. Pocketa repo NOT created. Doctrine docs frozen. |
+| Day 7 | First 3 interviews scheduled. Helm repo NOT created. Doctrine docs frozen. |
 
 ### Week 2 — Interviews + Paper Prototype
 
@@ -762,7 +762,7 @@ If on Day 7 you have not:
 - Contacted a lawyer
 - Scheduled 3 interviews
 
-**Then Pocketa is not happening this quarter.** Either restart Day 1 honestly, or shelve the project formally and stop writing strategy documents about it. The strategy docs themselves are the dopamine trap that lets you feel like progress is happening.
+**Then Helm is not happening this quarter.** Either restart Day 1 honestly, or shelve the project formally and stop writing strategy documents about it. The strategy docs themselves are the dopamine trap that lets you feel like progress is happening.
 
 ---
 

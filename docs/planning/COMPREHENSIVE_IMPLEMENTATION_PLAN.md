@@ -1,4 +1,4 @@
-# POCKETA — Comprehensive Implementation & Upgrade Plan
+# HELM — Comprehensive Implementation & Upgrade Plan
 
 > **Authority:** Final Product Doctrine, 100% Master Plan, 210-test suite, 0/0/0 analyze
 > **Current State:** Phase 4 complete. Sprint A5 (Bangla + Release) pending. Beta readied.
@@ -22,7 +22,7 @@
 
 ### What ships in the beta APK
 
-- **Dashboard**: PocketaRealityStack with 4 tiers (hero S2S, committed costs, reserve, pipeline hope). Nudge evaluator loop, affirmation signals, next-best-action card, one-time S2S hint, FAB → add pipeline entry.
+- **Dashboard**: HelmRealityStack with 4 tiers (hero S2S, committed costs, reserve, pipeline hope). Nudge evaluator loop, affirmation signals, next-best-action card, one-time S2S hint, FAB → add pipeline entry.
 - **Income Pipeline**: 3-state (expected/pending/received), add/edit/list/delete, status transitions with confirm sheet and haptic feedback, exclude-from-calculation toggle.
 - **Safe-to-Spend**: Pure Dart calculator with tax reserve, 30-day fixed cost window, anxiety buffer (5-30%), em-dash fallback on failure, transparent breakdown sheet, "Not financial advice" disclaimer.
 - **Onboarding**: 6-step conversational flow with pain-point qualifier (Bangla rephrase at 12s), "Set up later" skip, optional first pipeline entry.
@@ -174,7 +174,7 @@
 | ID | Task | Detail |
 |---|---|---|
 | P6.16 | Full a11y audit — Semantics, screen reader, focus traversal across all screens. 15+ screens. |
-| P6.17 | Dark mode pass — verify all PocketaColors dark variants render correctly on OLED. |
+| P6.17 | Dark mode pass — verify all HelmColors dark variants render correctly on OLED. |
 | P6.18 | Haptic audit — all 8 haptic sites fire on correct gestures. No double-fire. |
 | P6.19 | Semantics audit — every interactive element has label + hint + trait. |
 | P6.20 | Performance — widget rebuild count, provider disposal, list viewport optimization |

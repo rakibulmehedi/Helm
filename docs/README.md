@@ -1,6 +1,6 @@
-# Pocketa Documentation Index
+# Helm Documentation Index
 
-All documentation for Pocketa lives here. This index makes it navigable.
+All documentation for Helm lives here. This index makes it navigable.
 
 Documentation is the active operating memory of the product — not an archive.
 
@@ -12,7 +12,7 @@ Foundational documents every contributor must read before touching the codebase.
 
 | Document | Purpose |
 |---|---|
-| [POCKETA_BRAIN.md](core/POCKETA_BRAIN.md) | Product identity, philosophy, target user, emotional contract |
+| [HELM_BRAIN.md](core/HELM_BRAIN.md) | Product identity, philosophy, target user, emotional contract |
 | [ARCHITECTURE_RULES.md](core/ARCHITECTURE_RULES.md) | Hard technical constraints, naming conventions, forbidden patterns |
 | [ROADMAP.md](core/ROADMAP.md) | Phase history, current direction, strategic priorities |
 

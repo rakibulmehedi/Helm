@@ -9,11 +9,11 @@
 
 ## Decision Context
 
-Pocketa currently uses Hive for local persistence. An external audit recommended immediate
+Helm currently uses Hive for local persistence. An external audit recommended immediate
 migration to Drift (SQLite). This document evaluates four migration paths against the actual
 codebase state, not theoretical concerns.
 
-**Key repo fact that changes the calculus:** Pocketa already uses string primary keys
+**Key repo fact that changes the calculus:** Helm already uses string primary keys
 (`IdGenerator.uniqueId()`), not Hive integer auto-keys. The audit's most severe claim
 about integer-to-UUID sync nightmares does not apply.
 
@@ -309,7 +309,7 @@ For the record, these specific claims from the Brutal Product Audit are addresse
 
 | Audit Claim | Accuracy | Correction |
 |------------|----------|------------|
-| "Hive mandates integer primary keys" | WRONG (for this codebase) | Pocketa uses `box.put(stringId, model)` — string keys throughout |
+| "Hive mandates integer primary keys" | WRONG (for this codebase) | Helm uses `box.put(stringId, model)` — string keys throughout |
 | "Integer PK makes sync impossible" | N/A | String IDs are already sync-compatible |
 | "Immediately deprecate Hive" | PREMATURE | Domain abstraction + validation first, migrate when needed |
 | "Migrate before defining data layer" | COUNTERPRODUCTIVE | Data layer already defined and working; rebuild costs 34h |

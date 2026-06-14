@@ -1,6 +1,6 @@
 # Go / No-Go Criteria
 
-> Decision framework for Pocketa closed beta launch and post-beta V1 decision.
+> Decision framework for Helm closed beta launch and post-beta V1 decision.
 > Authority: Final Product Doctrine S16
 
 ---
@@ -83,7 +83,7 @@
 
 Even if metrics pass, consider NO-GO if:
 - Multiple testers say "I prefer my spreadsheet"
-- Zero testers would miss Pocketa if removed
+- Zero testers would miss Helm if removed
 - Feature requests indicate fundamental misalignment with product
 - Trust in S2S number is low despite comprehension being high
 - Testers maintain pipeline only because they're asked to (observer effect)

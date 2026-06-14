@@ -2,7 +2,7 @@
 
 ## Scope
 
-Pocketa is an offline-first, local-storage-only mobile application. It does not transmit user financial data to any server. There is no backend, no authentication service, and no cloud storage in the current MVP.
+Helm is an offline-first, local-storage-only mobile application. It does not transmit user financial data to any server. There is no backend, no authentication service, and no cloud storage in the current MVP.
 
 All data is stored locally on the user's device using Hive.
 

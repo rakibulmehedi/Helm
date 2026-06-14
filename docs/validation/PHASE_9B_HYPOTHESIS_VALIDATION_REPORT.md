@@ -3,10 +3,10 @@
 > **Disclaimer:** This document is a hypothesis-based validation using simulated data, cognitive persona models, product strategy documents, and architectural audits. It is NOT real human validation and does not represent empirical market truth. All findings remain hypotheses until tested with real users.
 
 ## 1. Summary
-Phase 9b pressure-tests Pocketa's core product assumptions by synthesizing existing documentation, simulated QA, and architectural audits. The validation confirms that the Safe-to-Spend formula and Income Pipeline correctly target freelancer cashflow anxiety (differentiating from generic expense trackers). However, the manual maintenance of the pipeline (Expected → Pending → Received) is identified as the highest-risk behavioral assumption, posing a critical threat to data freshness and user retention. 
+Phase 9b pressure-tests Helm's core product assumptions by synthesizing existing documentation, simulated QA, and architectural audits. The validation confirms that the Safe-to-Spend formula and Income Pipeline correctly target freelancer cashflow anxiety (differentiating from generic expense trackers). However, the manual maintenance of the pipeline (Expected → Pending → Received) is identified as the highest-risk behavioral assumption, posing a critical threat to data freshness and user retention. 
 
 ## 2. Evidence Sources Used
-- `docs/core/POCKETA_BRAIN.md`
+- `docs/core/HELM_BRAIN.md`
 - `docs/research/BRUTAL_AUDIT_VALIDATION.md`
 - `docs/validation/PHASE_9A_COGNITIVE_PERSONA_SIMULATION.md`
 - `docs/qa/DEEP_QA_VALIDATION_REPORT.md`
@@ -32,7 +32,7 @@ Phase 9b pressure-tests Pocketa's core product assumptions by synthesizing exist
 ### H2 — Pending/Expected Exclusion Trust
 *Users will accept that Pending and Expected income should not count as spendable if explained as financial safety protection.*
 *   **Confidence Score:** High
-*   **Evidence For:** `POCKETA_BRAIN.md` and Research note that "Pending money is hope, not cash." Cognitive simulation predicts relief for users separating owed vs. spendable money.
+*   **Evidence For:** `HELM_BRAIN.md` and Research note that "Pending money is hope, not cash." Cognitive simulation predicts relief for users separating owed vs. spendable money.
 *   **Evidence Against:** None directly, though some power users might want overrides.
 *   **Risk Level:** Low
 *   **Invalidation Trigger:** Users demanding to include pending funds in their Safe-to-Spend balance.
@@ -90,7 +90,7 @@ Phase 9b pressure-tests Pocketa's core product assumptions by synthesizing exist
 *   **Action:** Proceed, verify styling on real devices.
 
 ### H8 — Product Differentiation
-*Pocketa’s Income Pipeline + Safe-to-Spend model is meaningfully more useful than generic expense trackers for unstable-income workers.*
+*Helm’s Income Pipeline + Safe-to-Spend model is meaningfully more useful than generic expense trackers for unstable-income workers.*
 *   **Confidence Score:** High
 *   **Evidence For:** `BRUTAL_AUDIT_VALIDATION.md` and product strategy strongly validate this wedge against crowded expense trackers.
 *   **Evidence Against:** None.

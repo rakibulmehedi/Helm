@@ -1,6 +1,6 @@
 # Phase 8 Real Device QA Checklist
 
-This checklist is designed for real-device testing of Pocketa after completing Phase 8 (Safe-to-Spend flow). Perform these tests on both a high-end device and a low-end device if possible, to verify smoothness and memory efficiency.
+This checklist is designed for real-device testing of Helm after completing Phase 8 (Safe-to-Spend flow). Perform these tests on both a high-end device and a low-end device if possible, to verify smoothness and memory efficiency.
 
 ## 1. Installation & Onboarding Flow
 - [ ] **Fresh Install Flow:** App starts cleanly, default settings applied, empty states shown for dashboard and transactions.

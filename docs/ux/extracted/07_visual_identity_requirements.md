@@ -1,6 +1,6 @@
-# Visual Identity Requirements — Extracted from Pocketa Visual Identity System
+# Visual Identity Requirements — Extracted from Helm Visual Identity System
 
-> **Source:** `docs/research/ux/Pocketa_Visual_Identity_System.md`
+> **Source:** `docs/research/ux/Helm_Visual_Identity_System.md`
 > **Authority level:** Canonical visual layer. Sits beneath Final Product Doctrine and UX Doctrine. Subject to overrides by the Visual Identity Critique & Refined System (see `08_visual_identity_refinements.md`).
 > **Extraction date:** 2026-06-04
 
@@ -14,7 +14,7 @@
 
 **Rationale:** Restraint is the brand. The absence of decoration signals seriousness.
 
-**Implementation implication:** `PocketaColors` theme extension must contain exactly these tokens. Any additional color in a PR is a blocking review issue.
+**Implementation implication:** `HelmColors` theme extension must contain exactly these tokens. Any additional color in a PR is a blocking review issue.
 
 ---
 
@@ -34,7 +34,7 @@
 
 **Rationale:** Warm-tinted neutrals avoid the clinical feel of pure white/black while maintaining high contrast for financial figures.
 
-**Implementation implication:** All values must be defined in `PocketaColors` ThemeExtension. No raw `Colors.X` anywhere.
+**Implementation implication:** All values must be defined in `HelmColors` ThemeExtension. No raw `Colors.X` anywhere.
 
 ---
 
@@ -96,7 +96,7 @@
 
 **Statement:** These colors are permanently banned: purple, magenta, hot pink (crypto territory), neon/saturated green ("growth" theater), hot orange/safety yellow (generic fintech warnings), more than five colors on screen.
 
-**Rationale:** Each is associated with a product category Pocketa must never resemble.
+**Rationale:** Each is associated with a product category Helm must never resemble.
 
 **Implementation implication:** If a developer reaches for any of these, the feature design is wrong.
 
@@ -140,7 +140,7 @@
 
 **Rationale:** The S2S number at 64pt is the largest element in the entire product, establishing visual hierarchy through size alone.
 
-**Implementation implication:** Define as `PocketaTypography` ThemeExtension. The `display.hero` token must be used only by the `PocketaSafeToSpend` widget.
+**Implementation implication:** Define as `HelmTypography` ThemeExtension. The `display.hero` token must be used only by the `HelmSafeToSpend` widget.
 
 ---
 
@@ -148,7 +148,7 @@
 
 **Statement:** Seven non-negotiable typography rules:
 
-1. **No italics. Anywhere.** Italics signal aside; Pocketa has no asides.
+1. **No italics. Anywhere.** Italics signal aside; Helm has no asides.
 2. **No ALL-CAPS** except optionally on tab bar labels at 11pt.
 3. **No underlines** except on inline links in the Calculation Breakdown drawer.
 4. **No letter-spacing trickery.** Default tracking on Inter and JetBrains Mono.
@@ -180,7 +180,7 @@
 
 **Rationale:** Consistent spacing creates visual order that signals reliability.
 
-**Implementation implication:** Define as `PocketaSpacing` ThemeExtension. Custom lint rule must reject raw spacing values (e.g., `EdgeInsets.all(15)` fails; only `PocketaSpacing` tokens allowed).
+**Implementation implication:** Define as `HelmSpacing` ThemeExtension. Custom lint rule must reject raw spacing values (e.g., `EdgeInsets.all(15)` fails; only `HelmSpacing` tokens allowed).
 
 ---
 
@@ -203,7 +203,7 @@
 
 **Rationale:** Named tokens prevent spacing drift across screens and developers.
 
-**Implementation implication:** All `EdgeInsets`, `SizedBox`, and `Gap` must reference `PocketaSpacing` tokens.
+**Implementation implication:** All `EdgeInsets`, `SizedBox`, and `Gap` must reference `HelmSpacing` tokens.
 
 ---
 
@@ -277,7 +277,7 @@
 
 **Rationale:** Depth is conveyed by border + spacing, never by faked physics.
 
-**Implementation implication:** `PocketaCard` widget must enforce these values. Raw `Card` widget with `elevation > 0` is banned.
+**Implementation implication:** `HelmCard` widget must enforce these values. Raw `Card` widget with `elevation > 0` is banned.
 
 ---
 
@@ -311,7 +311,7 @@
 
 **Rationale:** More than four button types means the screen is asking too much.
 
-**Implementation implication:** `PocketaButton.{primary, secondary, tertiary, destructive}` factory constructors. Never two primaries on one screen.
+**Implementation implication:** `HelmButton.{primary, secondary, tertiary, destructive}` factory constructors. Never two primaries on one screen.
 
 ---
 
@@ -331,7 +331,7 @@
 
 **Rationale:** Consistent sizing ensures predictable touch targets and visual hierarchy.
 
-**Implementation implication:** All values must be enforced in the `PocketaButton` widget. No overrides allowed.
+**Implementation implication:** All values must be enforced in the `HelmButton` widget. No overrides allowed.
 
 ---
 
@@ -386,7 +386,7 @@
 
 **Rationale:** Outline-only icons maintain the calm, restrained aesthetic. Filled icons add visual weight that competes with financial data.
 
-**Implementation implication:** Use `phosphor_flutter` package. `PocketaIcon` wrapper must reject filled variants. Custom icons must match Phosphor geometry.
+**Implementation implication:** Use `phosphor_flutter` package. `HelmIcon` wrapper must reject filled variants. Custom icons must match Phosphor geometry.
 
 ---
 
@@ -403,7 +403,7 @@
 
 **Rationale:** Consistent sizing prevents visual chaos.
 
-**Implementation implication:** `PocketaIcon` widget must enforce these sizes via token enum.
+**Implementation implication:** `HelmIcon` widget must enforce these sizes via token enum.
 
 ---
 
@@ -418,7 +418,7 @@
 5. No mascot, avatar, or profile photo. Home screen is an instrument.
 6. Custom icons match Phosphor geometric language (1.5pt outline, Phosphor metrics).
 
-**Rationale:** Each rule prevents a specific pattern that would make Pocketa feel like a lifestyle app.
+**Rationale:** Each rule prevents a specific pattern that would make Helm feel like a lifestyle app.
 
 **Implementation implication:** Tab bar must use color + underline for active state. Empty states must use text widgets only.
 
@@ -484,7 +484,7 @@
 
 **Rationale:** Ease-out only. No springs, no bounces.
 
-**Implementation implication:** Define in `PocketaMotion` ThemeExtension. Custom lint must reject `Curves.bounceX`, `Curves.elasticX`, and any duration > 320ms without exception tag.
+**Implementation implication:** Define in `HelmMotion` ThemeExtension. Custom lint must reject `Curves.bounceX`, `Curves.elasticX`, and any duration > 320ms without exception tag.
 
 ---
 
@@ -513,7 +513,7 @@
 
 | Pattern | Reason |
 |---|---|
-| Hero illustration animation on splash | No illustrations in Pocketa |
+| Hero illustration animation on splash | No illustrations in Helm |
 | Pulsing dots on home | Demands unearned attention |
 | Slot-machine number rolls | Financial trust violation |
 | Parallax cards | Lifestyle-app pattern |
@@ -681,7 +681,7 @@ Permitted types: calendar heatmap, single-series line chart, single-series bar c
 - Custom illustrations for tax/invoice flows
 - Hand-drawn empty-state graphics
 
-**Rationale:** Each pattern moves the product toward lifestyle fintech, expense tracker, or crypto dashboard -- all of which Pocketa must never resemble.
+**Rationale:** Each pattern moves the product toward lifestyle fintech, expense tracker, or crypto dashboard -- all of which Helm must never resemble.
 
 **Implementation implication:** This list must be referenced in every design review and PR that touches visual elements.
 
@@ -695,7 +695,7 @@ Permitted types: calendar heatmap, single-series line chart, single-series bar c
 
 **Rationale:** Material 3's seed-based scheme generates incorrect palettes and applies them to surfaces and ripples.
 
-**Implementation implication:** `ThemeData` must use `ThemeExtension<T>` for `PocketaColors`, `PocketaSpacing`, `PocketaTypography`, `PocketaMotion`.
+**Implementation implication:** `ThemeData` must use `ThemeExtension<T>` for `HelmColors`, `HelmSpacing`, `HelmTypography`, `HelmMotion`.
 
 ---
 
@@ -705,14 +705,14 @@ Permitted types: calendar heatmap, single-series line chart, single-series bar c
 
 | Widget | Replaces | Purpose |
 |---|---|---|
-| `PocketaSafeToSpend` | Raw `Text` | Font, size, weight, lakh/crore, "--" fallback, fade-in, accessibility |
-| `PocketaAmount` | Raw `Text` | Monospace, symbol weight, decimals, lakh/crore for BDT |
-| `PocketaCard` | `Card` | Border-not-shadow, 12pt radius, 16pt padding, no elevation |
-| `PocketaButton` | `ElevatedButton` etc. | 4-tier hierarchy, label rules, no shadows, 48pt height |
-| `PocketaAccentLine` | -- | Safe/Tight/AtRisk line under S2S |
-| `PocketaSheet` | `showModalBottomSheet` | Drag handle, 16pt top radius, 240ms slide-up |
-| `PocketaIcon` | `Icon` | Phosphor wrapping, size tokens, rejects filled variants |
-| `PocketaPipelineDot` | -- | Circle/half-circle/check marker primitive |
+| `HelmSafeToSpend` | Raw `Text` | Font, size, weight, lakh/crore, "--" fallback, fade-in, accessibility |
+| `HelmAmount` | Raw `Text` | Monospace, symbol weight, decimals, lakh/crore for BDT |
+| `HelmCard` | `Card` | Border-not-shadow, 12pt radius, 16pt padding, no elevation |
+| `HelmButton` | `ElevatedButton` etc. | 4-tier hierarchy, label rules, no shadows, 48pt height |
+| `HelmAccentLine` | -- | Safe/Tight/AtRisk line under S2S |
+| `HelmSheet` | `showModalBottomSheet` | Drag handle, 16pt top radius, 240ms slide-up |
+| `HelmIcon` | `Icon` | Phosphor wrapping, size tokens, rejects filled variants |
+| `HelmPipelineDot` | -- | Circle/half-circle/check marker primitive |
 
 **Rationale:** Raw Material widgets allow doctrine violations. Custom widgets enforce rules mechanically.
 
@@ -760,7 +760,7 @@ Permitted types: calendar heatmap, single-series line chart, single-series bar c
 
 **Rationale:** Shape redundancy ensures color-blind accessibility.
 
-**Implementation implication:** `PocketaPipelineDot` widget must render shape variants, not just colored circles.
+**Implementation implication:** `HelmPipelineDot` widget must render shape variants, not just colored circles.
 
 ---
 

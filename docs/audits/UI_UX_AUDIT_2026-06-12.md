@@ -1,4 +1,4 @@
-# 🔍 Pocketa V2 — UI/UX Design Audit
+# 🔍 Helm V2 — UI/UX Design Audit
 **Auditor:** Senior Product Designer (DAN Persona)
 **Date:** June 12, 2026
 **Product:** Freelancer Cashflow Clarity App (FinTech, Mobile-First, Flutter)
@@ -48,9 +48,9 @@
 ### Done Right
 - ✅ **4 `Semantics` widgets** on critical financial displays (amount, ledger rail, trust strip, ledger card)
 - ✅ **Never color-only signaling** — LedgerRail has text + shape + color
-- ✅ **44pt minimum touch targets** on PocketaTrustStrip
+- ✅ **44pt minimum touch targets** on HelmTrustStrip
 - ✅ **`prefers-reduced-motion` respected** via `MediaQuery.disableAnimations`
-- ✅ **`TextScaler.noScaling`** on all `PocketaAmount` widgets
+- ✅ **`TextScaler.noScaling`** on all `HelmAmount` widgets
 
 ### Missing / Needs Work
 
@@ -110,7 +110,7 @@
 
 ### Done Right
 - ✅ **Strict motion tokens:** 120-320ms, ease-out only, no springs/bounces/elastic
-- ✅ **`PocketaMotion` system:** Centralized timing + curve constants
+- ✅ **`HelmMotion` system:** Centralized timing + curve constants
 - ✅ **Staggered calculation trace:** 24ms stagger with `Interval` curves
 - ✅ **Reduced motion compliance:** `MediaQuery.disableAnimations` skips to final state
 - ✅ **FadeTransition on hero:** 200ms entrance, not scale/bounce
@@ -123,7 +123,7 @@
 ## 7. LAYOUT & SPACING — Score: 82/100
 
 ### Done Right
-- ✅ **8pt grid:** `PocketaSpacing` with s0-s12 tokens
+- ✅ **8pt grid:** `HelmSpacing` with s0-s12 tokens
 - ✅ **Consistent card radii:** 12pt cards, 10pt buttons, 16pt sheets
 - ✅ **Screen edge padding:** 16pt horizontal
 - ✅ **Bottom nav + FAB clearance:** 100pt bottom padding on scroll view

@@ -1,9 +1,9 @@
 # 12 - Conflicts and Overrides (Code vs Doctrine Gap Registry)
 
-> Source: Codebase audit cross-referenced against Final Product Doctrine and POCKETA_BRAIN.md
+> Source: Codebase audit cross-referenced against Final Product Doctrine and HELM_BRAIN.md
 > Date: 2026-06-04
 > Method: Line-by-line comparison of implemented behavior against documented requirements
-> Reference Doctrine: `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` (canonical)
+> Reference Doctrine: `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` (canonical)
 
 ---
 
@@ -16,12 +16,12 @@
 - **Severity:** MVP-blocking
 
 ### GAP-002: Onboarding Copy Conflicts With Product Identity
-- **Doctrine (S1):** Pocketa is "NOT a budgeting app" and "NOT a backward-looking expense tracker"
+- **Doctrine (S1):** Helm is "NOT a budgeting app" and "NOT a backward-looking expense tracker"
 - **Code reality:**
   - `onboarding_screen.dart:38` -- "Track your expenses" (expense tracker language)
   - `onboarding_screen.dart:39` -- "Set your budget" (budgeting app language)
   - `onboarding_screen.dart:40` -- "Achieve financial freedom" (generic fintech platitude)
-- **Gap:** All three copy lines position Pocketa as exactly what the Doctrine says it is NOT
+- **Gap:** All three copy lines position Helm as exactly what the Doctrine says it is NOT
 - **Severity:** Identity-breaking
 
 ### GAP-003: Welcome Screen Copy Conflicts With Product Identity
@@ -192,7 +192,7 @@
 ### GAP-024: Most UI Text Is Hardcoded English
 - **Code reality:** Only 3 strings are localized (welcomeMessage, tagLine, getStarted). All other UI text is hardcoded:
   - Onboarding pages: hardcoded English (`onboarding_screen.dart:38-40`)
-  - Dashboard labels: "Pocketa", "Income", "Expense", "Recent Transactions" -- hardcoded
+  - Dashboard labels: "Helm", "Income", "Expense", "Recent Transactions" -- hardcoded
   - STS labels: "Safe to spend", "In reserve mode", "Fully allocated" -- hardcoded
   - Pipeline: "Income Pipeline", "Received", "Pending", "Expected" -- hardcoded
   - Settings: "Tax Reserve Rate", "Anxiety Buffer", "Fixed Costs" -- hardcoded

@@ -2,7 +2,7 @@
 
 > **Source Document:** `docs/research/ux/Freelancer Finance UX Research.md`
 > **Authority Level:** EVIDENCE-DERIVED -- these criteria synthesize research findings into testable standards. They do not override the Final Product Doctrine but provide measurable benchmarks for validating doctrine requirements.
-> **Cross-Reference:** `docs/research/ux/Pocketa_FINAL_Product_Doctrine.md` (canonical authority)
+> **Cross-Reference:** `docs/research/ux/Helm_FINAL_Product_Doctrine.md` (canonical authority)
 > **Companion File:** `docs/ux/extracted/09_research_evidence.md` (underlying evidence)
 > **Extracted:** 2026-06-04
 
@@ -22,7 +22,7 @@
 **Test Method:** Add a fixed cost with a due date 1-7 days out. Verify S2S deducts it automatically without user action.
 **Evidence Source:** RES-004 (42% miss rent payments), RES-010
 **Evidence Strength:** Strong
-**Pass/Fail:** Binary -- displaying gross balance without liability deduction directly causes the failure mode Pocketa exists to prevent.
+**Pass/Fail:** Binary -- displaying gross balance without liability deduction directly causes the failure mode Helm exists to prevent.
 
 ### ACC-003 -- Users Correctly Identify S2S Meaning (Comprehension)
 **Criterion:** When shown the dashboard for 5 seconds, at least 80% of test users must correctly articulate that S2S represents "money I can actually spend right now after all commitments," NOT "total money I have" or "total money I am owed."

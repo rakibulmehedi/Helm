@@ -1,6 +1,6 @@
-# CLAUDE.md — Claude Code Instructions for Pocketa
+# CLAUDE.md — Claude Code Instructions for Helm
 
-> This file configures Claude Code's behavior when working on the Pocketa project.
+> This file configures Claude Code's behavior when working on the Helm project.
 > Claude: read this file completely before executing any task.
 
 ---
@@ -35,15 +35,15 @@ Every agent must use docs to:
 
 ## Project Identity
 
-You are working on **Pocketa** — a single-purpose calm cockpit for Bangladeshi USD-earning freelancers, answering one question: "How many BDT can I actually spend right now?"
+You are working on **Helm** — a single-purpose calm cockpit for Bangladeshi USD-earning freelancers, answering one question: "How many BDT can I actually spend right now?"
 Category: **Freelancer Cashflow Clarity**.
-This is NOT a backward-looking expense tracker. Read `docs/core/POCKETA_BRAIN.md` for full product context.
+This is NOT a backward-looking expense tracker. Read `docs/core/HELM_BRAIN.md` for full product context.
 
 ---
 
 ## Your Role
 
-You are a **senior implementation agent** on the Pocketa engineering team.
+You are a **senior implementation agent** on the Helm engineering team.
 The **Chief Architect** (human operator) defines phase scope, approves architecture decisions, and controls feature prioritization.
 
 You execute. You do not decide product direction.
@@ -52,7 +52,7 @@ You execute. You do not decide product direction.
 
 ## Strategic Authority
 
-The **Final Product Doctrine** (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`) is the highest product strategy authority for Pocketa. It supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts.
+The **Final Product Doctrine** (`docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`) is the highest product strategy authority for Helm. It supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts.
 
 When any document conflicts with the Final Doctrine:
 - The Doctrine wins
@@ -60,7 +60,7 @@ When any document conflicts with the Final Doctrine:
 - No agent may implement features killed or deferred by the Doctrine
 
 Key doctrine constraints:
-- Pocketa = Freelancer Cashflow Clarity (not a generic expense tracker)
+- Helm = Freelancer Cashflow Clarity (not a generic expense tracker)
 - Core wedge = pipeline-aware Safe-to-Spend
 - F-commerce, generic expense tracking = permanently killed
 - Multi-wallet = V1 (not MVP)
@@ -73,8 +73,8 @@ Key doctrine constraints:
 ## Mandatory Pre-Flight
 
 Before every task, read these files:
-1. `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority**
-2. `docs/core/POCKETA_BRAIN.md` — product identity and philosophy
+1. `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` — **highest strategic authority**
+2. `docs/core/HELM_BRAIN.md` — product identity and philosophy
 3. `docs/core/ARCHITECTURE_RULES.md` — technical constraints
 4. `docs/core/ROADMAP.md` — current state and phase history
 5. `docs/governance/AGENT_WORKFLOW.md` — execution protocol
@@ -91,7 +91,7 @@ Before every task, read these files:
 | Navigation | GoRouter (go_router) |
 | Architecture | Feature-first clean architecture |
 | Dart SDK | ^3.7.2 |
-| Package Name | `pocketa_v2` |
+| Package Name | `helm_v2` |
 | Analyzer | Must be 0/0/0 (errors/warnings/infos) |
 | FVM Path | `/Users/rakibulislammehedi/fvm/versions/stable/bin/dart` |
 
@@ -137,7 +137,7 @@ Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`
 
 ## When Unsure
 
-1. Check `docs/core/POCKETA_BRAIN.md`
+1. Check `docs/core/HELM_BRAIN.md`
 2. Check `docs/core/ARCHITECTURE_RULES.md`
 3. If still unclear — **ask the Chief Architect**. Do not guess.
 

@@ -1,6 +1,6 @@
 # Pipeline Interaction Requirements Extraction
 
-> **Source:** `docs/research/ux/Pocketa_Pipeline_Interaction_Optimization.md`
+> **Source:** `docs/research/ux/Helm_Pipeline_Interaction_Optimization.md`
 > **Authority level:** Doctrine extension. Governs every state-transition interaction in the Income Pipeline.
 > **Foundation:** Final Product Doctrine Sections 4, 10, 11; UX Doctrine Sections 6, 9; Tier-1 Dashboard Critique v2 Sections 6, 7.
 > **Extracted:** 2026-06-04
@@ -59,7 +59,7 @@
 
 ### PIPE-004: Forbidden transitions
 
-**Statement:** (1) `Received -> Pending` is forbidden -- once funds are in liquid balance, downgrading rewrites history. If the user made a mistake, they delete the received entry (audit-logged) and re-create it. (2) Any automatic transition is forbidden -- Pocketa never moves a state without the user's tap. Auto-mark-on-date-passed is the worst pattern the product could ship.
+**Statement:** (1) `Received -> Pending` is forbidden -- once funds are in liquid balance, downgrading rewrites history. If the user made a mistake, they delete the received entry (audit-logged) and re-create it. (2) Any automatic transition is forbidden -- Helm never moves a state without the user's tap. Auto-mark-on-date-passed is the worst pattern the product could ship.
 
 **Rationale:** (1) Protects the liquid balance invariant. (2) One false positive (auto-marking received when money never arrived) means the user spends against phantom money. Trust dies in a single event.
 
@@ -125,7 +125,7 @@
 
 **Statement:** The Confirm Sheet contains exactly: (1) "You expected $X from [Client]" anchor text, (2) FX rate with inline `[edit]` chevron, (3) Conservative BDT conversion + live rate comparison in small text, (4) Date received defaulting to today with `[edit]` chevron, (5) Primary "Confirm -- adds to liquid" button, (6) "Not yet" and "Cancel" tertiary actions.
 
-**Rationale:** Each element earns its place. The FX rate is the single most-edited field. Surfacing it inline prevents a 6-tap edit path. The conservative + live FX comparison trains the user that Pocketa is pessimistic.
+**Rationale:** Each element earns its place. The FX rate is the single most-edited field. Surfacing it inline prevents a 6-tap edit path. The conservative + live FX comparison trains the user that Helm is pessimistic.
 
 **Implementation implication:** Sheet layout is fixed. FX edit is inline (chevron, not button). Date defaults to today and only shows a picker on edit tap. Primary button label explicitly states the consequence.
 
@@ -253,7 +253,7 @@
 
 **Statement:** Expected and Pending entries NEVER count in S2S. They appear in the Hope tier for information only with conservative FX shown. When an entry moves to Received via the Confirm Sheet, its BDT-converted amount is added to liquid balance and S2S recalculates.
 
-**Rationale:** This is the core conservatism of the product. Counting unconfirmed money in S2S would be the single most dangerous lie Pocketa could tell.
+**Rationale:** This is the core conservatism of the product. Counting unconfirmed money in S2S would be the single most dangerous lie Helm could tell.
 
 **Implementation implication:** The S2S function sums liquid balance (which includes all Received entries) minus fixed costs minus buffer. Pipeline entries in Expected/Pending states are excluded from this calculation entirely.
 
@@ -313,7 +313,7 @@
 
 ### PIPE-027: No auto-marking based on date passing
 
-**Statement:** Auto-marking received when the expected date passes is the worst pattern the product could ship. Pocketa never moves a state without the user's tap.
+**Statement:** Auto-marking received when the expected date passes is the worst pattern the product could ship. Helm never moves a state without the user's tap.
 
 **Rationale:** One false positive and the user's S2S lies to them. They spend against phantom money. Trust dies in a single event.
 
@@ -421,9 +421,9 @@
 
 ---
 
-### PIPE-038: Pocketa does not send follow-up emails
+### PIPE-038: Helm does not send follow-up emails
 
-**Statement:** The "polite follow-up" for overdue entries is copy-to-clipboard only. Pocketa does NOT send messages on behalf of the user.
+**Statement:** The "polite follow-up" for overdue entries is copy-to-clipboard only. Helm does NOT send messages on behalf of the user.
 
 **Rationale:** Sending implies CRM territory and creates confused responsibility. Was it the freelancer or their app that followed up? Copy-paste keeps the user in control.
 
@@ -437,7 +437,7 @@
 
 **Statement:** The Confirm Sheet shows a conservative FX rate (pessimistic) as the default conversion, with the live rate shown as a comparison in small text: "(conservative . live: 120.10)."
 
-**Rationale:** Trains the user that Pocketa is pessimistic. The live rate is the upside, not the baseline. This prevents the scenario where the user sees a generous conversion, confirms, and then finds less BDT in their actual account.
+**Rationale:** Trains the user that Helm is pessimistic. The live rate is the upside, not the baseline. This prevents the scenario where the user sees a generous conversion, confirms, and then finds less BDT in their actual account.
 
 **Implementation implication:** FX rate logic must default to a conservative (below-market) rate. The live rate is displayed for reference but not used as the default. User can manually edit to the live rate if they choose.
 
@@ -447,7 +447,7 @@
 
 **Statement:** Every pipeline entry stores its own FX rate. The rate is visible on the Confirm Sheet with an inline edit chevron. The per-entry FX value is visible in the entry detail view.
 
-**Rationale:** Global currency toggle without per-entry FX visibility means the first time the BDT-equivalent looks wrong, the user blames Pocketa instead of the rate they used.
+**Rationale:** Global currency toggle without per-entry FX visibility means the first time the BDT-equivalent looks wrong, the user blames Helm instead of the rate they used.
 
 **Implementation implication:** Each pipeline entry model includes an `fxRate` field. The Confirm Sheet displays it prominently with edit affordance. Entry detail view shows the stored rate and its BDT conversion.
 
@@ -497,7 +497,7 @@
 
 **Statement:** Notification rules: (1) Quiet hours 22:00-08:00 by default, (2) Cap: 2 transactional + 1 boundary per day hard ceiling, (3) Two snoozes silences a notification forever for that entry, (4) No re-engagement if user absent 7+ days, (5) Deep-link directly to Confirm Sheet in <2 taps.
 
-**Rationale:** Every notification NOT sent is felt as respect. A wrong notification reverses three weeks of trust-building. The notification surface is the most restrained part of Pocketa.
+**Rationale:** Every notification NOT sent is felt as respect. A wrong notification reverses three weeks of trust-building. The notification surface is the most restrained part of Helm.
 
 **Implementation implication:** Notification registry enforces class (`transactional` | `boundary` only), quiet hours, daily caps, snooze counters, and deep-link targets. "Engagement" class is a compile-time error. No weekly summaries, guilt-pings, feature-education pushes, email digests, re-marketing, or streaks.
 
@@ -555,4 +555,4 @@
 
 ---
 
-*End of pipeline interaction requirements extraction. Source: `docs/research/ux/Pocketa_Pipeline_Interaction_Optimization.md`.*
+*End of pipeline interaction requirements extraction. Source: `docs/research/ux/Helm_Pipeline_Interaction_Optimization.md`.*

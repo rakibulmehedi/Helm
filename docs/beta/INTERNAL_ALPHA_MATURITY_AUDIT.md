@@ -1,6 +1,6 @@
 # Internal Alpha Maturity Audit
 
-> A1 Sprint Deliverable. Honest assessment of Pocketa's readiness as an internal alpha.
+> A1 Sprint Deliverable. Honest assessment of Helm's readiness as an internal alpha.
 > Date: 2026-06-07
 > Auditor: Senior Implementation Agent
 > Method: Full code inspection + docs cross-reference + dart analyze + test suite
@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-Pocketa is an **internal alpha ready** product with significant strengths in its core S2S engine, dashboard UX, and trust layer foundation. However, it is **NOT external closed beta ready** due to 3 beta blockers, 5 major gaps, and incomplete design system migration.
+Helm is an **internal alpha ready** product with significant strengths in its core S2S engine, dashboard UX, and trust layer foundation. However, it is **NOT external closed beta ready** due to 3 beta blockers, 5 major gaps, and incomplete design system migration.
 
 The D3 sprint declared "CONDITIONAL GO" for beta — this audit downgrades that to **INTERNAL ALPHA** pending resolution of the blockers identified below.
 
@@ -92,14 +92,14 @@ The D3 sprint declared "CONDITIONAL GO" for beta — this audit downgrades that 
 - **Screen**: `sts_settings_screen.dart`
 - **Evidence**: Line 6 imports `colors.dart` (legacy). Uses `AppColors.textSecondary`, `AppColors.primary`, `AppColors.error` throughout.
 - **Impact**: Settings tab is visually inconsistent with doctrine-aligned dashboard. Users see two visual languages in one session.
-- **Fix**: Migrate to PocketaColors ThemeExtension.
+- **Fix**: Migrate to HelmColors ThemeExtension.
 - **Effort**: ~45 minutes
 
 ### M2: Audit Log Screen Uses Raw Material Colors
 - **Screen**: `audit_log_screen.dart`
 - **Evidence**: Lines 99-111 use `Colors.green.shade600`, `Colors.blue.shade600`, `Colors.red.shade600`, etc.
 - **Impact**: Colors don't match doctrine palette. Dark mode will have inconsistent styling.
-- **Fix**: Replace with PocketaColors state/accent tokens.
+- **Fix**: Replace with HelmColors state/accent tokens.
 - **Effort**: ~20 minutes
 
 ### M3: History Tab Is Placeholder
@@ -166,8 +166,8 @@ The D3 sprint declared "CONDITIONAL GO" for beta — this audit downgrades that 
 | 1 | B1: Add audit log link to Settings | 15min | Beta launch |
 | 2 | B2: Fix auth guard cold-start PIN enforcement | 30min | Trust, Beta launch |
 | 3 | B3: Add "---" S2S fallback display | 30min | Trust, Beta launch |
-| 4 | M1: Migrate STS Settings to PocketaColors | 45min | Visual consistency |
-| 5 | M2: Migrate Audit Log to PocketaColors | 20min | Visual consistency |
+| 4 | M1: Migrate STS Settings to HelmColors | 45min | Visual consistency |
+| 5 | M2: Migrate Audit Log to HelmColors | 20min | Visual consistency |
 | 6 | M3: Handle History tab (hide or implement) | 30min-4h | UX completeness |
 
 **Minimum for external beta**: B1 + B2 + B3 + M3 (hide tab) = ~2 hours
@@ -179,7 +179,7 @@ The D3 sprint declared "CONDITIONAL GO" for beta — this audit downgrades that 
 ### Sprint A2: Beta Blocker Resolution (~3 hours)
 - Fix B1, B2, B3
 - Hide or implement History tab (M3)
-- Migrate Settings + Audit Log to PocketaColors (M1, M2)
+- Migrate Settings + Audit Log to HelmColors (M1, M2)
 - Add "Not financial advice" disclaimer (P5)
 - dart analyze clean + test pass
 

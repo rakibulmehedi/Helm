@@ -23,7 +23,7 @@ If this hypothesis fails, the product fails. Watch for it above all else.
 - Tester creates Expected entries before payment arrives
 - Tester updates status within 24 hours of real-world event
 - Tester has 3+ pipeline entries after Week 1
-- Tester mentions checking Pocketa before making a purchase
+- Tester mentions checking Helm before making a purchase
 
 **Warning signals:**
 - Tester creates entries only as Received (skipping Expected/Pending)
@@ -42,7 +42,7 @@ If this hypothesis fails, the product fails. Watch for it above all else.
 ### 2. S2S Trust
 
 **Strong positive signals:**
-- Tester says "I checked Pocketa before spending"
+- Tester says "I checked Helm before spending"
 - Tester can explain S2S in own words (not memorized definition)
 - Tester taps breakdown drawer to verify the math
 - Tester trusts S2S enough to stop Google Sheet
@@ -193,7 +193,7 @@ A successful beta means:
 - 60%+ testers still active and checking daily
 - 85%+ pipeline entries reach Received state
 - Testers can explain S2S without prompting
-- At least 3 testers say they'd miss Pocketa if it disappeared
+- At least 3 testers say they'd miss Helm if it disappeared
 - Zero data-loss incidents
 - Feature requests focus on "more of this" not "this is wrong"
 - No tester reverts to Google Sheet as primary tool

@@ -1,6 +1,6 @@
 # UX Execution TODO
 
-> Atomic, verifiable implementation tasks for Pocketa UX Canon.
+> Atomic, verifiable implementation tasks for Helm UX Canon.
 > Each task has 11 required fields. No lib/ changes in this planning sprint.
 > Updated: 2026-06-05
 > Total tasks: 81 across 8 sprints
@@ -9,75 +9,75 @@
 
 ## Sprint 1: UX-5 Visual Identity / Design System
 
-### UX-5.01: Create pocketa_colors.dart — ✅ DONE [2026-06-05]
+### UX-5.01: Create helm_colors.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.01 |
 | **Source Requirement** | VIS-001 to VIS-010, VISR-001 to VISR-008 (refined palette with solid hex values) |
 | **Affected Screen/Module** | `core/themes` |
-| **Likely Files Affected** | `lib/core/themes/pocketa_colors.dart` (new), `lib/core/themes/colors.dart` (deprecate) |
+| **Likely Files Affected** | `lib/core/themes/helm_colors.dart` (new), `lib/core/themes/colors.dart` (deprecate) |
 | **Expected Outcome** | New color token file with full doctrine palette: ink (primary `#141413`, secondary `#3B3A36`, disabled `#8A8880`), surface (base `#FAFAF7`, elevated `#FFFFFF`, sunken `#F0EFE9`), accent (safe `#2E7D32`, caution `#E65100`, atRisk `#B71C1C`, neutral `#1565C0`), rail colors (3 states). All solid hex, no alpha for text. |
 | **Non-Goals** | Do not migrate existing widgets yet. Do not delete colors.dart yet. |
 | **Acceptance Criteria** | File compiles. All colors match VISR refined spec. No alpha-based text colors. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual diff against VISR spec table |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Solid hex values prevent Android alpha rendering bugs on budget devices |
-| **Suggested Commit** | `feat(theme): create pocketa_colors.dart with doctrine-aligned solid palette` |
+| **Suggested Commit** | `feat(theme): create helm_colors.dart with doctrine-aligned solid palette` |
 
 ---
 
-### UX-5.02: Create pocketa_typography.dart — ✅ DONE [2026-06-05]
+### UX-5.02: Create helm_typography.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.02 |
 | **Source Requirement** | VIS-011 to VIS-017, VISR-009 to VISR-012 (refined type system) |
 | **Affected Screen/Module** | `core/themes` |
-| **Likely Files Affected** | `lib/core/themes/pocketa_typography.dart` (new), `pubspec.yaml` (font deps) |
+| **Likely Files Affected** | `lib/core/themes/helm_typography.dart` (new), `pubspec.yaml` (font deps) |
 | **Expected Outcome** | Type scale with 3 font families: JetBrains Mono (money amounts only), Inter (all UI text), Hind Siliguri (Bangla with locale-specific lineHeight 1.6). Sizes: heroAmount 34pt mono, sectionHeader 16pt semibold, bodyText 14pt regular, caption 12pt, microLabel 10pt. |
 | **Non-Goals** | Do not apply to screens yet. Do not remove Poppins/Noto Sans Bengali references yet. |
 | **Acceptance Criteria** | All text styles defined per spec. JetBrains Mono restricted to amount contexts. Bangla line height 1.6. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, grep for font family assignments |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Hind Siliguri needs explicit lineHeight because Bangla glyphs are taller than Latin |
-| **Suggested Commit** | `feat(theme): create pocketa_typography.dart with Inter/JetBrains Mono/Hind Siliguri` |
+| **Suggested Commit** | `feat(theme): create helm_typography.dart with Inter/JetBrains Mono/Hind Siliguri` |
 
 ---
 
-### UX-5.03: Create pocketa_spacing.dart — ✅ DONE [2026-06-05]
+### UX-5.03: Create helm_spacing.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.03 |
 | **Source Requirement** | VIS-018 to VIS-022 (8pt grid system) |
 | **Affected Screen/Module** | `core/themes` |
-| **Likely Files Affected** | `lib/core/themes/pocketa_spacing.dart` (new) |
+| **Likely Files Affected** | `lib/core/themes/helm_spacing.dart` (new) |
 | **Expected Outcome** | 8pt grid tokens: xs=4, sm=8, md=16, lg=24, xl=32, xxl=48. Card padding 16px. Section gap 24px. Screen margin 16px. Touch target minimum 48x48. |
 | **Non-Goals** | Do not apply to existing screens. |
 | **Acceptance Criteria** | All values on 8pt grid. Touch target minimum documented. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, verify all values divisible by 4 |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | 8pt grid ensures consistent density on varying Android screen sizes |
-| **Suggested Commit** | `feat(theme): create pocketa_spacing.dart with 8pt grid tokens` |
+| **Suggested Commit** | `feat(theme): create helm_spacing.dart with 8pt grid tokens` |
 
 ---
 
-### UX-5.04: Create pocketa_motion.dart — ✅ DONE [2026-06-05]
+### UX-5.04: Create helm_motion.dart — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.04 |
 | **Source Requirement** | VIS-038 to VIS-042 (motion system) |
 | **Affected Screen/Module** | `core/themes` |
-| **Likely Files Affected** | `lib/core/themes/pocketa_motion.dart` (new) |
+| **Likely Files Affected** | `lib/core/themes/helm_motion.dart` (new) |
 | **Expected Outcome** | Animation timing tokens: micro=100ms, short=200ms, medium=300ms, long=500ms. Curves: default=easeOutCubic, enter=decelerate, exit=accelerate. Stagger delay 50ms per item. Rail state transitions 200ms. No bounce/spring effects. |
 | **Non-Goals** | Do not implement actual animations yet. Token definitions only. |
 | **Acceptance Criteria** | All durations and curves defined. No spring/bounce curves. `dart analyze` clean. |
 | **Verification Method** | `dart analyze` |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Calm product = no playful bounces. Financial UI must feel precise, not fun. |
-| **Suggested Commit** | `feat(theme): create pocketa_motion.dart with animation timing tokens` |
+| **Suggested Commit** | `feat(theme): create helm_motion.dart with animation timing tokens` |
 
 ---
 
@@ -89,7 +89,7 @@
 | **Source Requirement** | VIS-001 to VIS-045, VISR-001 to VISR-034 (full visual identity) |
 | **Affected Screen/Module** | `core/themes` |
 | **Likely Files Affected** | `lib/core/themes/app_theme.dart` (rewrite) |
-| **Expected Outcome** | ThemeData rebuilt using pocketa_colors, pocketa_typography, pocketa_spacing tokens. Surface base `#FAFAF7` not pure white. AppBar transparent/surface. BottomNav uses doctrine colors. All Material overrides use new tokens. |
+| **Expected Outcome** | ThemeData rebuilt using helm_colors, helm_typography, helm_spacing tokens. Surface base `#FAFAF7` not pure white. AppBar transparent/surface. BottomNav uses doctrine colors. All Material overrides use new tokens. |
 | **Non-Goals** | Do not fix individual screen styling yet. Theme file only. |
 | **Acceptance Criteria** | App compiles with new theme. No hardcoded colors in theme file. All references use token files. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, app builds and runs |
@@ -99,75 +99,75 @@
 
 ---
 
-### UX-5.06: Create PocketaAmount widget — ✅ DONE [2026-06-05]
+### UX-5.06: Create HelmAmount widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.06 |
 | **Source Requirement** | COPY-030 to COPY-035 (number formatting), VISR-009 (JetBrains Mono for money) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_amount.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_amount.dart` (new) |
 | **Expected Outcome** | Widget displays BDT amounts in lakh/crore format with JetBrains Mono. Params: amount (int paisa), currency, showSign, size. BDT: `12,45,000` format. USD: `12,450.00` format. Always 2 decimal places. Monospace font for tabular alignment. |
 | **Non-Goals** | Do not integrate into screens yet. Widget only. |
 | **Acceptance Criteria** | Formats BDT in lakh/crore. Formats USD in Western. Uses JetBrains Mono. Handles zero, negative, large amounts. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, widget test with sample amounts |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Integer paisa storage avoids float precision errors in financial calculations |
-| **Suggested Commit** | `feat(widget): create PocketaAmount with lakh/crore BDT formatting` |
+| **Suggested Commit** | `feat(widget): create HelmAmount with lakh/crore BDT formatting` |
 
 ---
 
-### UX-5.07: Create PocketaLedgerRail widget — ✅ DONE [2026-06-05]
+### UX-5.07: Create HelmLedgerRail widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.07 |
 | **Source Requirement** | VISR-013 to VISR-018 (Ledger Rail as ownable visual asset) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_ledger_rail.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_ledger_rail.dart` (new) |
 | **Expected Outcome** | 3pt vertical rail with state-driven color: Safe=`#2E7D32`, Caution=`#E65100`, AtRisk=`#B71C1C`. State label next to rail. Animates color transition 200ms. Replaces thin accent line from earlier spec. |
 | **Non-Goals** | Do not integrate into cards yet. Standalone widget. |
 | **Acceptance Criteria** | Rail renders 3pt width. Color matches state. Label displays. Transition animates. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, widget test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Ledger Rail is ownable visual asset #1 — must be distinct from generic accent lines |
-| **Suggested Commit** | `feat(widget): create PocketaLedgerRail with 3pt state-driven rail` |
+| **Suggested Commit** | `feat(widget): create HelmLedgerRail with 3pt state-driven rail` |
 
 ---
 
-### UX-5.08: Create PocketaTrustStrip widget — ✅ DONE [2026-06-05]
+### UX-5.08: Create HelmTrustStrip widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.08 |
 | **Source Requirement** | VISR-019 to VISR-022 (Trust Strip), UX-078 to UX-082 (trust model) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_trust_strip.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_trust_strip.dart` (new) |
 | **Expected Outcome** | Compact strip showing: last updated timestamp, data source label, FX rate used (if applicable), tap-to-audit link. Required on every financial surface. Caption size text, muted color. |
 | **Non-Goals** | Do not wire audit navigation yet. Placeholder onTap. |
 | **Acceptance Criteria** | Displays all 4 trust elements. Caption text styling. Muted color from doctrine palette. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, widget test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
-| **Learning/Reflection** | Trust Strip is ownable visual asset #3 — visible proof Pocketa shows its work |
-| **Suggested Commit** | `feat(widget): create PocketaTrustStrip with timestamp/source/audit display` |
+| **Learning/Reflection** | Trust Strip is ownable visual asset #3 — visible proof Helm shows its work |
+| **Suggested Commit** | `feat(widget): create HelmTrustStrip with timestamp/source/audit display` |
 
 ---
 
-### UX-5.09: Create PocketaToast widget — ✅ DONE [2026-06-05]
+### UX-5.09: Create HelmToast widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-5.09 |
 | **Source Requirement** | UX-090 to UX-092 (feedback patterns), VIS-043 to VIS-045 (motion) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_toast.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_toast.dart` (new) |
 | **Expected Outcome** | Financial-safe snackbar replacement. No confetti, no celebratory language. Neutral confirmation tone. Types: success (green rail), warning (orange rail), error (red rail), info (blue rail). Auto-dismiss after 3s. |
 | **Non-Goals** | Do not replace existing SnackBars yet. |
 | **Acceptance Criteria** | 4 toast types with correct rail colors. Auto-dismiss. No celebratory copy. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, widget test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Toasts must never celebrate financial events — calm confirmation only |
-| **Suggested Commit** | `feat(widget): create PocketaToast with financial-safe feedback patterns` |
+| **Suggested Commit** | `feat(widget): create HelmToast with financial-safe feedback patterns` |
 
 ---
 
@@ -178,7 +178,7 @@
 | **Task ID** | UX-5.10 |
 | **Source Requirement** | VIS-023 to VIS-037 (card system), VISR-023 to VISR-028 (refined cards) |
 | **Affected Screen/Module** | `core/widgets/cards` |
-| **Likely Files Affected** | `lib/core/widgets/cards/pocketa_hero_zone.dart`, `pocketa_ledger_card.dart`, `pocketa_audit_card.dart`, `pocketa_source_card.dart`, `pocketa_caution_card.dart` (all new) |
+| **Likely Files Affected** | `lib/core/widgets/cards/helm_hero_zone.dart`, `helm_ledger_card.dart`, `helm_audit_card.dart`, `helm_source_card.dart`, `helm_caution_card.dart` (all new) |
 | **Expected Outcome** | 5 card types: HeroZone (S2S container, elevated surface, 12px radius), LedgerCard (standard money card with Ledger Rail), AuditCard (calculation trace container), SourceCard (source + status display), CautionCard (AtRisk state, red rail, caution surface). All use 8pt padding, doctrine colors, no decorative borders (1px functional divider only). |
 | **Non-Goals** | Do not populate with real data. Shell widgets with slots. |
 | **Acceptance Criteria** | All 5 cards render correctly. Use doctrine tokens. No decorative elements. `dart analyze` clean. |
@@ -198,7 +198,7 @@
 | **Affected Screen/Module** | `core/utils` |
 | **Likely Files Affected** | `lib/core/utils/number_formatter.dart` (new) |
 | **Expected Outcome** | Utility with: `formatBDT(int paisa)` -> `12,45,000.00` (lakh/crore), `formatUSD(int cents)` -> `12,450.00` (Western), `formatCompact(int paisa)` -> `12.45L` or `1.2Cr`. Always 2 decimal places for full format. Integer input (paisa/cents), string output. |
-| **Non-Goals** | Do not change PocketaAmount widget to use this yet (but it will). |
+| **Non-Goals** | Do not change HelmAmount widget to use this yet (but it will). |
 | **Acceptance Criteria** | BDT lakh/crore formatting correct. USD Western formatting correct. Compact format works. Zero/negative handling. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, unit tests |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
@@ -227,57 +227,57 @@
 
 ## Sprint 2: UX-1 Dashboard Cockpit Redesign
 
-### UX-1.01: Create PocketaRealityStack widget — ✅ DONE [2026-06-05]
+### UX-1.01: Create HelmRealityStack widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-1.01 |
 | **Source Requirement** | DR-001 to DR-008 (Reality Stack model), VISR-013 to VISR-018 |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_reality_stack.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_reality_stack.dart` (new) |
 | **Expected Outcome** | 4-layer vertical stack: Layer 1 (HeroZone: S2S), Layer 2 (Already committed: obligations), Layer 3 (Reserve protected: buffer), Layer 4 (Not counted yet: pipeline). Each layer is a slot accepting child widgets. 9-line above-fold rule for Layer 1. |
 | **Non-Goals** | Do not populate layers with real widgets yet. Slot-based container only. |
 | **Acceptance Criteria** | 4 layers render in correct order. Scrollable. Layer 1 fits 9 lines above fold. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual inspection on reference device size |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Reality Stack is ownable visual asset #2 — the money hierarchy visualization |
-| **Suggested Commit** | `feat(widget): create PocketaRealityStack with 4-layer money hierarchy` |
+| **Suggested Commit** | `feat(widget): create HelmRealityStack with 4-layer money hierarchy` |
 
 ---
 
-### UX-1.02: Create PocketaCalculationTrace widget — ✅ DONE [2026-06-05]
+### UX-1.02: Create HelmCalculationTrace widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-1.02 |
 | **Source Requirement** | DR-009 to DR-014 (calculation transparency), UX-078 to UX-082 |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_calculation_trace.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_calculation_trace.dart` (new) |
 | **Expected Outcome** | Expandable drawer showing S2S math step by step. Format: `Balance: 1,50,000` / `- Fixed costs: 45,000` / `- Reserved: 22,500` / `= Safe to spend: 82,500`. Stagger animation 50ms per line. Uses JetBrains Mono for amounts. Each line tappable for source detail. |
 | **Non-Goals** | Do not wire to real calculator yet. Mock data for now. |
 | **Acceptance Criteria** | Shows calculation steps. Stagger animation works. Amounts in JetBrains Mono. Tappable lines. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, animation visual test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Calculation Trace is ownable visual asset #4 — "show your work" principle |
-| **Suggested Commit** | `feat(widget): create PocketaCalculationTrace with stagger animation` |
+| **Suggested Commit** | `feat(widget): create HelmCalculationTrace with stagger animation` |
 
 ---
 
-### UX-1.03: Create PocketaHeroZone — ✅ DONE [2026-06-05]
+### UX-1.03: Create HelmHeroZone — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-1.03 |
 | **Source Requirement** | DR-001 to DR-004 (hero zone spec), VISR-023 (hero card) |
 | **Affected Screen/Module** | `core/widgets/cards` or `features/dashboard/presentation/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/cards/pocketa_hero_zone.dart` (enhance from UX-5.10) |
-| **Expected Outcome** | Hero container combining: S2S amount (PocketaAmount, 34pt), Ledger Rail (state indicator), Trust Strip (timestamp + source), tap-to-expand for Calculation Trace. Elevated surface card. Label: "Safe to spend right now". |
+| **Likely Files Affected** | `lib/core/widgets/cards/helm_hero_zone.dart` (enhance from UX-5.10) |
+| **Expected Outcome** | Hero container combining: S2S amount (HelmAmount, 34pt), Ledger Rail (state indicator), Trust Strip (timestamp + source), tap-to-expand for Calculation Trace. Elevated surface card. Label: "Safe to spend right now". |
 | **Non-Goals** | Do not wire to real S2S provider yet. Accept props. |
 | **Acceptance Criteria** | Displays S2S amount with correct typography. Ledger Rail visible. Trust Strip present. Tap expands trace area. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual inspection |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | HeroZone must answer "how much can I spend?" in under 1 second of looking |
-| **Suggested Commit** | `feat(widget): enhance PocketaHeroZone with S2S display + rail + trust strip` |
+| **Suggested Commit** | `feat(widget): enhance HelmHeroZone with S2S display + rail + trust strip` |
 
 ---
 
@@ -361,7 +361,7 @@
 | **Source Requirement** | DR-001 to DR-018 (full dashboard cockpit model) |
 | **Affected Screen/Module** | `features/dashboard/presentation/views` |
 | **Likely Files Affected** | `lib/features/dashboard/presentation/views/dashboard_screen.dart` (rewrite) |
-| **Expected Outcome** | Complete rewrite using Reality Stack layout. Remove: summary chips, transaction list from home, category breakdown pie chart, generic greeting. Add: PocketaRealityStack with all 4 layers, PocketaHeroZone at top, sections below. File under 300 lines. |
+| **Expected Outcome** | Complete rewrite using Reality Stack layout. Remove: summary chips, transaction list from home, category breakdown pie chart, generic greeting. Add: HelmRealityStack with all 4 layers, HelmHeroZone at top, sections below. File under 300 lines. |
 | **Non-Goals** | Do not fix S2S calculation logic. Display layer only. |
 | **Acceptance Criteria** | Reality Stack layout visible. Old UI elements removed. Under 300 lines. Wired to existing providers. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual inspection, line count check |
@@ -379,13 +379,13 @@
 | **Source Requirement** | DR-009 to DR-014 (calculation transparency replaces breakdown) |
 | **Affected Screen/Module** | `features/safe_to_spend/presentation` |
 | **Likely Files Affected** | `lib/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart` (modify) |
-| **Expected Outcome** | Remove existing breakdown bottom sheet. Replace with PocketaCalculationTrace expansion. Tap on S2S amount expands inline trace instead of opening modal. Wire to real S2S calculator outputs. |
+| **Expected Outcome** | Remove existing breakdown bottom sheet. Replace with HelmCalculationTrace expansion. Tap on S2S amount expands inline trace instead of opening modal. Wire to real S2S calculator outputs. |
 | **Non-Goals** | Do not change S2S formula. Display refactor only. |
 | **Acceptance Criteria** | Old bottom sheet removed. Calculation trace shows real math. Inline expansion works. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, tap test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Inline expansion is calmer than modal — fewer context switches |
-| **Suggested Commit** | `refactor(dashboard): replace breakdown bottom sheet with PocketaCalculationTrace` |
+| **Suggested Commit** | `refactor(dashboard): replace breakdown bottom sheet with HelmCalculationTrace` |
 
 ---
 
@@ -525,7 +525,7 @@
 | **Source Requirement** | ONB-016 to ONB-020 (Step 2: current balance) |
 | **Affected Screen/Module** | `features/onboarding/presentation/views/pages` |
 | **Likely Files Affected** | `lib/features/onboarding/presentation/views/pages/liquid_balance_page.dart` (new) |
-| **Expected Outcome** | Step 2 of 7. Single BDT amount input for current liquid balance. Uses PocketaAmount formatting as user types. Helper text: "How much is in your accounts right now that you could spend?" No bank linking — manual entry. |
+| **Expected Outcome** | Step 2 of 7. Single BDT amount input for current liquid balance. Uses HelmAmount formatting as user types. Helper text: "How much is in your accounts right now that you could spend?" No bank linking — manual entry. |
 | **Non-Goals** | Do not ask about savings or investments. Liquid (spendable) only. |
 | **Acceptance Criteria** | Amount input works with BDT formatting. Stores in provider. Clear helper text. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, input test |
@@ -725,7 +725,7 @@
 | **Source Requirement** | PIPE-021 to PIPE-028 (state-driven card) |
 | **Affected Screen/Module** | `features/income/presentation/widgets` |
 | **Likely Files Affected** | `lib/features/income/presentation/widgets/pipeline_entry_card.dart` (new) |
-| **Expected Outcome** | Card displaying single pipeline entry with state-driven visuals. Expected: neutral rail, future date. Pending: caution rail, approaching date. Received: safe rail, confirmed amount. Overdue: red rail, days overdue badge. Shows: amount (PocketaAmount), source label, expected date, Ledger Rail, state label. Tap opens ConfirmReceivedSheet (for non-received entries). |
+| **Expected Outcome** | Card displaying single pipeline entry with state-driven visuals. Expected: neutral rail, future date. Pending: caution rail, approaching date. Received: safe rail, confirmed amount. Overdue: red rail, days overdue badge. Shows: amount (HelmAmount), source label, expected date, Ledger Rail, state label. Tap opens ConfirmReceivedSheet (for non-received entries). |
 | **Non-Goals** | Do not handle bulk operations. Single entry card. |
 | **Acceptance Criteria** | All 4 visual states render correctly. Tap triggers confirm sheet. Uses doctrine widgets. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual test per state |
@@ -753,39 +753,39 @@
 
 ---
 
-### UX-3.05: Create PocketaFxEstimate widget — ✅ DONE [2026-06-05]
+### UX-3.05: Create HelmFxEstimate widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-3.05 |
 | **Source Requirement** | PIPE-039 to PIPE-042 (FX as first-class concept) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_fx_estimate.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_fx_estimate.dart` (new) |
 | **Expected Outcome** | Dual-currency display: shows USD amount + BDT estimate at stored FX rate. Label: "~BDT [amount] at [rate]". Uses conservative rate (user-entered, not live). Muted secondary styling for estimate. |
 | **Non-Goals** | Do not fetch live FX rates. User-entered conservative rate only. |
 | **Acceptance Criteria** | Shows both currencies. Uses stored rate. Muted estimate styling. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual test |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
-| **Learning/Reflection** | Conservative FX = user sets cautious rate, Pocketa never overpromises |
-| **Suggested Commit** | `feat(widget): create PocketaFxEstimate dual-currency display` |
+| **Learning/Reflection** | Conservative FX = user sets cautious rate, Helm never overpromises |
+| **Suggested Commit** | `feat(widget): create HelmFxEstimate dual-currency display` |
 
 ---
 
-### UX-3.06: Create PocketaMoneySourceLabel widget — ✅ DONE [2026-06-05]
+### UX-3.06: Create HelmMoneySourceLabel widget — ✅ DONE [2026-06-05]
 
 | Field | Value |
 |-------|-------|
 | **Task ID** | UX-3.06 |
 | **Source Requirement** | PIPE-043 to PIPE-045 (source labeling) |
 | **Affected Screen/Module** | `core/widgets` |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_money_source_label.dart` (new) |
+| **Likely Files Affected** | `lib/core/widgets/helm_money_source_label.dart` (new) |
 | **Expected Outcome** | Compact label showing money source (e.g., "Upwork", "Fiverr", "Direct client", "Bank transfer"). Pill/chip style. Used in pipeline entries and Trust Strip. |
 | **Non-Goals** | Do not build source management/CRUD. Label display only. |
 | **Acceptance Criteria** | Label renders source name. Pill/chip styling. Consistent with doctrine tokens. `dart analyze` clean. |
 | **Verification Method** | `dart analyze` |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
 | **Learning/Reflection** | Source labels build trust — user sees where each number came from |
-| **Suggested Commit** | `feat(widget): create PocketaMoneySourceLabel pill display` |
+| **Suggested Commit** | `feat(widget): create HelmMoneySourceLabel pill display` |
 
 ---
 
@@ -998,8 +998,8 @@
 | **Task ID** | UX-4.05 |
 | **Source Requirement** | COPY-030 to COPY-035 (BDT formatting) |
 | **Affected Screen/Module** | All screens displaying money amounts |
-| **Likely Files Affected** | All screens using amount display that don't yet use PocketaAmount |
-| **Expected Outcome** | Every BDT amount display uses PocketaAmount widget or number_formatter utility. No Western comma grouping for BDT. All amounts show lakh/crore format. |
+| **Likely Files Affected** | All screens using amount display that don't yet use HelmAmount |
+| **Expected Outcome** | Every BDT amount display uses HelmAmount widget or number_formatter utility. No Western comma grouping for BDT. All amounts show lakh/crore format. |
 | **Non-Goals** | Do not change amount storage format. Display only. |
 | **Acceptance Criteria** | Every BDT display uses lakh/crore. No `1,245,000` format anywhere. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual sweep of all screens |
@@ -1015,14 +1015,14 @@
 |-------|-------|
 | **Task ID** | UX-4.06 |
 | **Source Requirement** | UX-078 to UX-082 (calculation transparency) |
-| **Affected Screen/Module** | `core/widgets` (PocketaCalculationTrace) |
-| **Likely Files Affected** | `lib/core/widgets/pocketa_calculation_trace.dart` |
+| **Affected Screen/Module** | `core/widgets` (HelmCalculationTrace) |
+| **Likely Files Affected** | `lib/core/widgets/helm_calculation_trace.dart` |
 | **Expected Outcome** | Calculation trace lines use doctrine copy: "Your balance", "Minus fixed costs", "Minus breathing room", "Equals safe to spend". Not: "Income", "Expenses", "Buffer", "Available". Each line has l10n key. |
 | **Non-Goals** | Do not change calculation logic. Copy layer only. |
 | **Acceptance Criteria** | All trace lines use doctrine terminology. L10n keys used. Both languages correct. `dart analyze` clean. |
 | **Verification Method** | `dart analyze`, visual review |
 | **Docs Update** | Update `docs/tracking/CURRENT_SPRINT.md` |
-| **Learning/Reflection** | "Show your work" builds trust — users verify Pocketa's math themselves |
+| **Learning/Reflection** | "Show your work" builds trust — users verify Helm's math themselves |
 | **Suggested Commit** | `feat(copy): implement show-your-work terminology in calculation trace` |
 
 ---

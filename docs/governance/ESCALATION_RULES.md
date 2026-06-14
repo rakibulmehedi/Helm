@@ -5,7 +5,7 @@
 ## 1. When Agents Must STOP
 - When encountering persistent analyzer errors that cannot be solved within 2 attempts.
 - When two agents need to modify the exact same file simultaneously.
-- When an instruction contradicts the `POCKETA_BRAIN.md` or `ARCHITECTURE_RULES.md`.
+- When an instruction contradicts the `HELM_BRAIN.md` or `ARCHITECTURE_RULES.md`.
 
 ## 2. When Architectural Approval is Required
 - Adding new packages to `pubspec.yaml`.

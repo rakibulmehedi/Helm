@@ -204,7 +204,7 @@ items in "Final Ship Criteria" are checked. Use sub-phase checks as internal qua
 
 - [ ] All files under 300 lines
 - [ ] No file contains a `build()` method exceeding 100 lines without sub-widget extraction
-- [ ] All imports use `package:pocketa_v2/...` (no relative imports)
+- [ ] All imports use `package:helm_v2/...` (no relative imports)
 - [ ] No `withOpacity()` anywhere — uses `withValues(alpha:)` instead
 - [ ] `IdGenerator.uniqueId()` used for all `FixedCostEntry` IDs
 - [ ] All async operations wrapped in `try/catch` with user-facing SnackBar error handling

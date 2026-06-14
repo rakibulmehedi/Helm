@@ -1,9 +1,9 @@
-# Pocketa: Freelancer Finance OS Strategy
+# Helm: Freelancer Finance OS Strategy
 
 ## 1. Executive Summary
 The pivot from a generic expense tracker to a "Freelancer Finance OS" is strategically sound and necessary. The generic expense tracking market is an impenetrable red ocean optimized for W-2 salaried employees with predictable, bi-weekly paychecks. Freelancers in emerging markets like Bangladesh live in a fundamentally different financial reality: **irregular income vs. regular expenses**. 
 
-Pocketa’s core value proposition must shift from *categorizing past spending* (looking backward) to *creating operational clarity and cashflow certainty* (looking forward). The product will win by eliminating the cognitive load of financial anxiety, separating virtual business/personal funds, and deeply understanding the "pending payment" lifecycle that dominates a freelancer's mental space.
+Helm’s core value proposition must shift from *categorizing past spending* (looking backward) to *creating operational clarity and cashflow certainty* (looking forward). The product will win by eliminating the cognitive load of financial anxiety, separating virtual business/personal funds, and deeply understanding the "pending payment" lifecycle that dominates a freelancer's mental space.
 
 ## 2. Strategic Product Analysis
 ### Is "Freelancer Finance OS" strong positioning?
@@ -50,7 +50,7 @@ Ranked by Retention / Differentiation / Complexity:
 ## 7. Monetization Strategy
 Avoid standard B2C SaaS models ($5/mo) initially; the local market will pirate or abandon it.
 - **Freemium Core:** The basic income pipeline and expense tracking must be free to build habit and market share.
-- **Premium (Pocketa Pro):** 
+- **Premium (Helm Pro):** 
   - Target price: highly localized, e.g., 99 BDT/month or 990 BDT/year, paid via bKash. 
   - Pro features: Multi-currency tracking (critical for freelancers), automated tax export reports, unlimited clients/projects, receipt OCR.
 - **B2B2C / Partnerships (Long-term):** Once you have the data of verified earning freelancers, you become a lead generation engine for local banks offering credit cards or loans (which freelancers currently cannot get easily).
@@ -58,7 +58,7 @@ Avoid standard B2C SaaS models ($5/mo) initially; the local market will pirate o
 ## 8. Product Moat Analysis
 Your strongest moat is **Workflow Lock-in via Operational Clarity**.
 - If a user just tracks expenses, they can switch apps anytime. 
-- If a user manages their *future income pipeline* and *client profitability* in Pocketa, switching costs become astronomically high. 
+- If a user manages their *future income pipeline* and *client profitability* in Helm, switching costs become astronomically high. 
 - **Offline-First** is a massive technical moat. In emerging markets, networks drop. Fast, optimistic UI that syncs later is a luxury feature that builds fierce loyalty.
 
 ## 9. Architecture Recommendations

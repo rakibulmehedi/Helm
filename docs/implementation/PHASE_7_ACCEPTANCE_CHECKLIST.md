@@ -135,7 +135,7 @@ Instructions: Check each item manually or via analyzer. Do NOT mark Phase 7 comp
 ### Code Quality
 - [ ] All files under 300 lines
 - [ ] No file contains a `build()` method exceeding 100 lines without sub-widget extraction
-- [ ] All imports use `package:pocketa_v2/...` (no relative imports)
+- [ ] All imports use `package:helm_v2/...` (no relative imports)
 - [ ] No `withOpacity()` anywhere in income feature — uses `withValues(alpha:)` instead
 - [ ] `IdGenerator.uniqueId()` used for all income entry IDs — no manual UUID or random generation
 - [ ] All async operations wrapped in `try/catch` with user-facing SnackBar error handling

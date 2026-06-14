@@ -1,7 +1,7 @@
 # Virtual Wallets — DEFERRED TO V1
 
 > **Status: DEFERRED TO V1**
-> **Per:** `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` S5 (2026-06-04)
+> **Per:** `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` S5 (2026-06-04)
 > **Reason:** MVP uses single aggregated balance. Multi-wallet is V1 scope, earned only after MVP beta clears thresholds. Per Decision 019.
 > **Original Status:** FUTURE PHASE — NOT IMPLEMENTATION READY
 > **Original Phase:** TBD (post Phase 8)
@@ -30,9 +30,9 @@ Virtual Wallets solve this at the UI/mental layer without requiring users to ope
 
 ## 2. Concept
 
-Virtual Wallets are a **mental separation and obfuscation layer** built on top of a single bank account. They have no actual banking integration — transactions tagged to a wallet exist only in Pocketa's ledger.
+Virtual Wallets are a **mental separation and obfuscation layer** built on top of a single bank account. They have no actual banking integration — transactions tagged to a wallet exist only in Helm's ledger.
 
-**Core principle:** Users manage one real bank account, but see their money divided into logical buckets in Pocketa. This creates psychological clarity and prevents mixing of concerns.
+**Core principle:** Users manage one real bank account, but see their money divided into logical buckets in Helm. This creates psychological clarity and prevents mixing of concerns.
 
 ### Default Wallet Types
 

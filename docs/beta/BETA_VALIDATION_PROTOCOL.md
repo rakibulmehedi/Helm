@@ -1,6 +1,6 @@
 # Beta Validation Protocol
 
-> Structured protocol for Pocketa closed beta validation.
+> Structured protocol for Helm closed beta validation.
 > Duration: 4 weeks | Cohort: 15-25 Bangladeshi freelancers
 > Authority: Final Product Doctrine S16
 
@@ -66,7 +66,7 @@
 - **How**: Review audit log CSV exports at Day 14 and Day 28
 - **Count**: Income entries created as Expected/Pending that eventually reach Received
 - **Exclude**: Entries cancelled (legitimate business event)
-- **Manual check**: Ask in check-in "Did any payments arrive that you didn't mark in Pocketa?"
+- **Manual check**: Ask in check-in "Did any payments arrive that you didn't mark in Helm?"
 
 ### M2: Override-Equivalent Rate
 - **How**: Review audit log for rapid edit-then-revert patterns
@@ -114,7 +114,7 @@
 **Day 3 Check-in:**
 - Have you added any income entries?
 - Have you added any expenses?
-- Do you check Pocketa daily?
+- Do you check Helm daily?
 - What does the main number on the dashboard mean to you?
 
 **Day 7 Check-in:**
@@ -128,12 +128,12 @@
 ### Week 2: Habit Formation (Days 8-14)
 
 **Day 14 Check-in:**
-- Are you still using Pocketa daily?
+- Are you still using Helm daily?
 - Request CSV export: Settings > Export > share to WhatsApp/email
 - Review audit log for pipeline compliance (M1)
 - Review for override-equivalent patterns (M2)
-- Ask: "Has Pocketa prevented you from overspending?"
-- Ask: "Did any payments arrive that you didn't mark in Pocketa?"
+- Ask: "Has Helm prevented you from overspending?"
+- Ask: "Did any payments arrive that you didn't mark in Helm?"
 - Record: M1 (pipeline compliance, interim), M2 (override rate, interim)
 
 ### Week 3: Stress Test (Days 15-21)
@@ -143,16 +143,16 @@
 - Has the S2S number ever been wrong? When?
 - Did you try exporting your data?
 - Did you explore the audit log?
-- Would you trust Pocketa enough to stop your Google Sheet?
-- Ask: "If Pocketa disappeared tomorrow, would you miss it?"
+- Would you trust Helm enough to stop your Google Sheet?
+- Ask: "If Helm disappeared tomorrow, would you miss it?"
 
 ### Week 4: Final Assessment (Days 22-28)
 
 **Day 28 Final Check-in:**
 - Request final CSV export
 - Full metric calculation (M1-M5)
-- Ask: "Would you recommend Pocketa to a freelancer friend?"
-- Ask: "What single feature would make Pocketa essential?"
+- Ask: "Would you recommend Helm to a freelancer friend?"
+- Ask: "What single feature would make Helm essential?"
 - Ask: "Rate your trust in the S2S number: 1 (don't trust) to 5 (fully trust)"
 - Record: M1, M2, M3 (retention), reconfirm M4, M5
 

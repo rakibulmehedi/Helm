@@ -1,4 +1,4 @@
-# POCKETA V2 — 100% Master Implementation Plan
+# HELM V2 — 100% Master Implementation Plan
 
 > **Status:** Canonical planning document. All agents read this before starting any phase.
 > **Date:** June 12, 2026
@@ -10,7 +10,7 @@
 
 ## 0. CURRENT STATE — Scorecard
 
-### Where Pocketa is right now (June 12, 2026)
+### Where Helm is right now (June 12, 2026)
 
 | Dimension | Score | Target | Gap |
 |---|---|---|---|
@@ -322,7 +322,7 @@ Conditional on: Beta clearing, legal opinions, package approvals, stack decision
 | P3.17 | Add swipe-to-dismiss with undo (consistent with app's forgiveness pattern) | Behavioral #7 | Antigravity | 30min |
 | P3.18 | Add tap-to-navigate: tapping notification → relevant screen with context | Behavioral #7 | Antigravity | 1h |
 
-### Nudge copy (all in Pocketa's brand voice — clinical-warm, factual, consequence-aware)
+### Nudge copy (all in Helm's brand voice — clinical-warm, factual, consequence-aware)
 
 | # | Nudge Copy | Context | Agent |
 |---|---|---|---|
@@ -401,7 +401,7 @@ Conditional on: Beta clearing, legal opinions, package approvals, stack decision
 | P4.11 | Rebuild onboarding screens as conversational (question → answer → next question) not form-fill | D4.2 | Antigravity | 3h |
 | P4.12 | Write conversational copy: "How much BDT do you have right now across all accounts?" not "Enter your balance" | D4.2 | Brand Guardian | 1h |
 | P4.13 | Add qualifier question: "Have you ever spent money thinking a payment cleared, then realized it hadn't?" | D4.2 | Antigravity | 30min |
-| P4.14 | Add honest disqualification: "Pocketa is built for USD-earning freelancers in Bangladesh." | D4.2 | Antigravity | 20min |
+| P4.14 | Add honest disqualification: "Helm is built for USD-earning freelancers in Bangladesh." | D4.2 | Antigravity | 20min |
 | P4.15 | Target: entire onboarding complete in ≤3 minutes | D4.2 | Persona Walkthrough | 30min |
 
 ### Remaining MVP gaps
@@ -629,7 +629,7 @@ If all thresholds cleared → PROCEED.
 | Navigation | 10/10 | Clean 3-tab + notification center + settings IA improved |
 | **UI/UX Total** | **98/100** | |
 
-**Why not 100/100?** The remaining 2-5% represents things that can't be scored higher without fundamental product changes: Typography loses 1 point for 3-font loading overhead; Motion loses 1 point because splash delay is intentionally long; Psychological framing loses 5 because gamification is deliberately absent (correct for Pocketa's brand, but score ceiling is lower by design).
+**Why not 100/100?** The remaining 2-5% represents things that can't be scored higher without fundamental product changes: Typography loses 1 point for 3-font loading overhead; Motion loses 1 point because splash delay is intentionally long; Psychological framing loses 5 because gamification is deliberately absent (correct for Helm's brand, but score ceiling is lower by design).
 
 ---
 
@@ -798,7 +798,7 @@ TEST COVERAGE
 
 ## 13. BETA GATE DECISION MATRIX
 
-This is the single most important decision point in Pocketa's life. After Phase 4, before Phase 5.
+This is the single most important decision point in Helm's life. After Phase 4, before Phase 5.
 
 | Metric | Target | Actual | Pass? |
 |---|---|---|---|
@@ -822,7 +822,7 @@ All 5 cleared      → GO. Begin Phase 5 (V1). Public launch deferred to post-V1
 
 Before writing any code:
 
-1. **Read this entire plan.** Every agent assigned to Pocketa reads this document first.
+1. **Read this entire plan.** Every agent assigned to Helm reads this document first.
 2. **Verify Phase 0 readiness:** A4 complete. 0 beta blockers. 78 tests. dart analyze 0/0/0.
 3. **Begin Sprint A5:** Bangla strings + Release APK + Device testing.
 4. **Chief Architect decides:** Begin Phase 1 now (parallel with A5) or wait for beta launch?
@@ -849,7 +849,7 @@ This plan was built from:
 
 | Document | Purpose |
 |---|---|
-| `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` | Supreme strategic authority — version scopes, kill list, trust architecture, beta gates |
+| `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` | Supreme strategic authority — version scopes, kill list, trust architecture, beta gates |
 | `docs/audits/BEHAVIORAL_NUDGE_AUDIT_2026-06-12.md` | Behavioral score (62/100), 12-item action plan, nudge sequence design |
 | `docs/audits/UI_UX_AUDIT_2026-06-12.md` | UI/UX score (78/100), 5-item action plan, contrast/haptic/Semantics gaps |
 | `docs/audits/SYNTHESIZED_AGENT_ANALYSIS_2026-06-12.md` | Cross-audit synthesis through 7 agent lenses, merged priority matrix |

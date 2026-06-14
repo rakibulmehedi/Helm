@@ -1,4 +1,4 @@
-# POCKETA — Feature Specification Template
+# HELM — Feature Specification Template
 
 > Use this template when requesting a new feature phase.
 > Copy, fill in, and hand to the implementing agent.

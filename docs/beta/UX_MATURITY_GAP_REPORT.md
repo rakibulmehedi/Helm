@@ -9,10 +9,10 @@
 
 | Component | Token System | Screen Usage | Gap |
 |-----------|-------------|-------------|-----|
-| pocketa_colors.dart | Created | Dashboard, Pipeline, PIN, Export, Delete Account | STS Settings, Audit Log use legacy AppColors |
-| pocketa_typography.dart | Created | Dashboard, Pipeline, AppShell | STS Settings uses inline TextStyle. Audit Log uses Theme.of() |
-| pocketa_spacing.dart | Created | Dashboard, Pipeline, Delete Account | STS Settings uses raw 16.0 padding |
-| pocketa_motion.dart | Created | Onboarding PageView | Not applied to most transitions |
+| helm_colors.dart | Created | Dashboard, Pipeline, PIN, Export, Delete Account | STS Settings, Audit Log use legacy AppColors |
+| helm_typography.dart | Created | Dashboard, Pipeline, AppShell | STS Settings uses inline TextStyle. Audit Log uses Theme.of() |
+| helm_spacing.dart | Created | Dashboard, Pipeline, Delete Account | STS Settings uses raw 16.0 padding |
+| helm_motion.dart | Created | Onboarding PageView | Not applied to most transitions |
 
 **Migration Score: ~65%** — New screens use doctrine tokens. Pre-UX-5 screens still use legacy shim.
 
@@ -22,19 +22,19 @@
 
 | Widget | Defined | Used In Screens | Gap |
 |--------|---------|----------------|-----|
-| PocketaRealityStack | Yes | Dashboard | Only 1 screen uses it (as intended) |
-| PocketaAmount | Yes | S2sHeroBlock | NOT used in Pipeline cards, STS Settings amounts, Export |
-| PocketaLedgerRail | Yes | PipelineEntryCard, S2sHeroBlock | Not in Audit Log or Settings |
-| PocketaTrustStrip | Yes | S2sHeroBlock | Not in Pipeline, Settings, or any other screen |
-| PocketaToast | Yes | **UNUSED** — SnackBars used instead everywhere |
-| PocketaCalculationTrace | Yes | Dashboard (modal) | Correctly used |
-| PocketaFxEstimate | Yes | PipelineEntryCard | Correctly used |
-| PocketaMoneySourceLabel | Yes | PipelineEntryCard | Correctly used |
-| PocketaHeroZone (card) | Yes | S2sHeroBlock wraps it | Correctly used |
-| PocketaLedgerCard | Yes | CommittedSection, ReserveSection | Correctly used |
-| PocketaAuditCard | Yes | **UNUSED** — Audit Log uses basic ListTile |
-| PocketaSourceCard | Yes | NotCountedSection | Correctly used |
-| PocketaCautionCard | Yes | **UNUSED** — Reserve mode uses inline styling |
+| HelmRealityStack | Yes | Dashboard | Only 1 screen uses it (as intended) |
+| HelmAmount | Yes | S2sHeroBlock | NOT used in Pipeline cards, STS Settings amounts, Export |
+| HelmLedgerRail | Yes | PipelineEntryCard, S2sHeroBlock | Not in Audit Log or Settings |
+| HelmTrustStrip | Yes | S2sHeroBlock | Not in Pipeline, Settings, or any other screen |
+| HelmToast | Yes | **UNUSED** — SnackBars used instead everywhere |
+| HelmCalculationTrace | Yes | Dashboard (modal) | Correctly used |
+| HelmFxEstimate | Yes | PipelineEntryCard | Correctly used |
+| HelmMoneySourceLabel | Yes | PipelineEntryCard | Correctly used |
+| HelmHeroZone (card) | Yes | S2sHeroBlock wraps it | Correctly used |
+| HelmLedgerCard | Yes | CommittedSection, ReserveSection | Correctly used |
+| HelmAuditCard | Yes | **UNUSED** — Audit Log uses basic ListTile |
+| HelmSourceCard | Yes | NotCountedSection | Correctly used |
+| HelmCautionCard | Yes | **UNUSED** — Reserve mode uses inline styling |
 
 **Widget Adoption: 9/13 (69%)** — 4 widgets created but never integrated into screens.
 
@@ -81,7 +81,7 @@
 - Fixed costs CRUD: complete
 - **Missing audit log link**: GAP (B1)
 - **Legacy design tokens**: GAP (M1)
-- **No PocketaTypography**: GAP — uses inline TextStyle
+- **No HelmTypography**: GAP — uses inline TextStyle
 - **No doctrine card widgets**: GAP — uses Material ListTile
 - Export and Delete links: complete
 
@@ -90,9 +90,9 @@
 - Event type icons: complete
 - **Unreachable from UI**: GAP (B1)
 - **Raw Material colors**: GAP (M2)
-- **PocketaAuditCard not used**: GAP
+- **HelmAuditCard not used**: GAP
 - **No before/after value display**: GAP — only shows "Income added", not what changed
-- **Not using PocketaColors/Typography**: GAP
+- **Not using HelmColors/Typography**: GAP
 
 ### Export (Score: 4/5)
 - 5 CSV types: complete
@@ -119,7 +119,7 @@
 - Form validation: complete
 - Category selection: complete
 - Double-submit prevention: complete
-- **No PocketaAmount formatting in input**: GAP
+- **No HelmAmount formatting in input**: GAP
 - **Categories are placeholder strings**: GAP
 
 ---
@@ -159,7 +159,7 @@
 2. **Verify and fix PIN cold-start** — ensure PIN required on every open (30 min)
 3. **Add "---" fallback** — never show wrong number (30 min)
 4. **Migrate Settings to doctrine tokens** — visual consistency (45 min)
-5. **Replace PocketaToast for SnackBars** — use the widget you built (2h)
-6. **Use PocketaAuditCard in Audit Log** — visual consistency (1h)
+5. **Replace HelmToast for SnackBars** — use the widget you built (2h)
+6. **Use HelmAuditCard in Audit Log** — visual consistency (1h)
 7. **Add before/after values to audit display** — trust transparency (1h)
 8. **Decide on History tab** — implement or hide (30 min - 4h)

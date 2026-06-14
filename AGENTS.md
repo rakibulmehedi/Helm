@@ -1,6 +1,6 @@
-# AGENTS.md — Multi-Agent Coordination for Pocketa
+# AGENTS.md — Multi-Agent Coordination for Helm
 
-> This file defines how multiple AI agents collaborate on the Pocketa project.
+> This file defines how multiple AI agents collaborate on the Helm project.
 > All agents must read this file to understand their role and boundaries.
 
 ---
@@ -109,7 +109,7 @@ All agents share and must respect:
 
 | Document | Purpose | Location |
 |---|---|---|
-| Product Brain | What Pocketa is and isn't | `docs/core/POCKETA_BRAIN.md` |
+| Product Brain | What Helm is and isn't | `docs/core/HELM_BRAIN.md` |
 | Architecture Rules | How code must be structured | `docs/core/ARCHITECTURE_RULES.md` |
 | Agent Workflow | How to execute phases | `docs/governance/AGENT_WORKFLOW.md` |
 | Roadmap | What's done and what's next | `docs/core/ROADMAP.md` |
@@ -183,7 +183,7 @@ Escalate to the Chief Architect when:
 <claude-mem-context>
 # Memory Context
 
-# [Pocketa-V2] recent context, 2026-06-13 2:50am GMT+6
+# [Helm-V2] recent context, 2026-06-13 2:50am GMT+6
 
 No previous sessions found.
 </claude-mem-context>

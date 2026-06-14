@@ -97,10 +97,10 @@
 | # | Criterion | Measurement | Pass |
 |---|-----------|-------------|------|
 | 6.1 | Splash: no CircleAvatar | `grep -n "CircleAvatar" lib/features/splash/` | 0 results |
-| 6.2 | Splash: wordmark present | Visual: "Pocketa" text centered on canvas | Confirmed |
+| 6.2 | Splash: wordmark present | Visual: "Helm" text centered on canvas | Confirmed |
 | 6.3 | Splash: fast | Total splash visible time <= 500ms | Confirmed |
-| 6.4 | Income list: PocketaAmount for money | Visual: all amounts in monospace with tk prefix | Confirmed |
-| 6.5 | STS settings: PocketaAmount for costs | Visual: fixed cost amounts in monospace | Confirmed |
+| 6.4 | Income list: HelmAmount for money | Visual: all amounts in monospace with tk prefix | Confirmed |
+| 6.5 | STS settings: HelmAmount for costs | Visual: fixed cost amounts in monospace | Confirmed |
 | 6.6 | Transaction form: clean 3-field | Visual: amount + note + date only, no categories | Confirmed |
 | 6.7 | Delete account: button 48pt | Button height = 48pt | Confirmed |
 | 6.8 | Analyzer clean | `dart analyze` | 0/0/0 |

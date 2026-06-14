@@ -11,11 +11,11 @@
 
 | Document | Status | Relevance |
 |----------|--------|-----------|
-| `docs/Pocketa_ Brutal Product Audit.md` | READ | Primary trigger for this review |
+| `docs/Helm_ Brutal Product Audit.md` | READ | Primary trigger for this review |
 | `docs/research/BRUTAL_AUDIT_VALIDATION.md` | READ | Gemini validation of audit claims |
 | `docs/architecture/LOCAL_DATABASE_DECISION_REVIEW.md` | READ | Claude architecture audit (codebase-verified) |
 | `docs/architecture/HIVE_TO_DRIFT_MIGRATION_OPTIONS.md` | READ | Options A/B/C/D analysis |
-| `docs/core/POCKETA_BRAIN.md` | READ | Product identity and philosophy |
+| `docs/core/HELM_BRAIN.md` | READ | Product identity and philosophy |
 | `docs/core/ROADMAP.md` | READ | Current phase history and plan |
 | `docs/tracking/CURRENT_SPRINT.md` | READ | Phase 7e pending status |
 | `docs/tracking/PROJECT_STATE.md` | READ | Stable systems, frozen systems, debt |
@@ -32,25 +32,25 @@
 ### 2.1 What the Audit Got Right (Critical)
 
 **The core product bet is correct.**
-Safe-to-Spend + Income Pipeline is the right product direction. This is now validated across three independent sources: the Brutal Product Audit (Gemini research), the Gemini validation doc (`BRUTAL_AUDIT_VALIDATION.md`), and the existing product decisions (`DECISION 005`, `POCKETA_BRAIN.md`). There is strong alignment here. No contradiction.
+Safe-to-Spend + Income Pipeline is the right product direction. This is now validated across three independent sources: the Brutal Product Audit (Gemini research), the Gemini validation doc (`BRUTAL_AUDIT_VALIDATION.md`), and the existing product decisions (`DECISION 005`, `HELM_BRAIN.md`). There is strong alignment here. No contradiction.
 
 **Manual entry friction is a real and critical risk.**
 The 3-state manual pipeline (Expected → Pending → Received) requires behavioral discipline that most users will not sustain. If users stop updating statuses, the Safe-to-Spend number becomes stale and untrustworthy. A stale Safe-to-Spend number is worse than no number — it actively misleads. This is the **product's #1 failure vector** and it is currently unaddressed by any spec or implementation.
 
 **"Freelancer Finance OS" positioning is internally useful but externally dangerous.**
-Internally, "OS" helps agents and contributors think systemically. Externally, it signals ERP/accounting software, which contradicts the Pocketa scope guardrails in `POCKETA_BRAIN.md`. This is a clear external positioning problem that must be resolved before any public launch or App Store listing.
+Internally, "OS" helps agents and contributors think systemically. Externally, it signals ERP/accounting software, which contradicts the Helm scope guardrails in `HELM_BRAIN.md`. This is a clear external positioning problem that must be resolved before any public launch or App Store listing.
 
 **AI Categorization should stay dead.**
 `DECISION 004` already killed this. The audit correctly buries it. Nothing to resolve here — this is settled.
 
 **Generic expense tracking is secondary.**
-The existing transaction CRUD (Phases 1–6) is a foundation, not the product. Pocketa should not push users to obsessively tag every purchase. Expenses are aggregate deductions against Safe-to-Spend, not a categorization mission.
+The existing transaction CRUD (Phases 1–6) is a foundation, not the product. Helm should not push users to obsessively tag every purchase. Expenses are aggregate deductions against Safe-to-Spend, not a categorization mission.
 
 ### 2.2 What the Audit Got Wrong or Overstated
 
 **The Hive urgency is overstated.**
 The audit's most alarming claim — "Hive mandates integer primary keys, making distributed UUID sync an engineering nightmare" — is **factually wrong for this specific codebase**. Claude's architecture audit (conducted against actual source code) confirmed:
-- Pocketa uses `box.put(model.id, model)` with string IDs throughout
+- Helm uses `box.put(model.id, model)` with string IDs throughout
 - `IdGenerator.uniqueId()` produces `timestamp_hex` strings — already sync-compatible
 - The presentation layer has zero Hive coupling
 - Abstract data source interfaces already exist
@@ -58,7 +58,7 @@ The audit's most alarming claim — "Hive mandates integer primary keys, making 
 The audit read the Hive ecosystem documentation but not the actual repo. This is a significant research error that would have caused a destructive, unnecessary 34-hour migration sprint.
 
 **"Immediately strip Hive" is product malpractice at this stage.**
-Safe-to-Spend is the singular value proposition of Pocketa. Delaying it by 1–2 weeks to migrate a storage backend that works correctly, for sync that is 12+ months away (Phase 13+), is the textbook definition of premature optimization. The risk/reward is deeply unfavorable.
+Safe-to-Spend is the singular value proposition of Helm. Delaying it by 1–2 weeks to migrate a storage backend that works correctly, for sync that is 12+ months away (Phase 13+), is the textbook definition of premature optimization. The risk/reward is deeply unfavorable.
 
 **SMS parsing is a Phase 3+ concern.**
 The audit correctly identifies EZer as a competitive threat via SMS auto-parsing. But implementing a local SMS parser in MVP scope would be scope explosion. It is a valid future feature, not an immediate one. The audit treats it as an urgent mitigation — it is not.
@@ -118,7 +118,7 @@ Execute Option C → D (actual Drift migration) when ANY of the following become
 |---------------|------------|
 | Audit says migrate Hive immediately vs. Architecture Audit says defer | **Defer. Architecture audit is codebase-verified. Audit's premise was factually wrong.** |
 | Audit says "OS" positioning is correct internally vs. externally "bloated" | **Both are right. Keep "OS" for internal docs/agent orientation. Drop it in all public copy.** |
-| Audit says SMS parsing is urgent vs. POCKETA_BRAIN.md excludes scope expansion | **SMS parsing is a valid future feature (Phase 10+), not MVP. Do not expand scope.** |
+| Audit says SMS parsing is urgent vs. HELM_BRAIN.md excludes scope expansion | **SMS parsing is a valid future feature (Phase 10+), not MVP. Do not expand scope.** |
 | Audit says Virtual Wallets are "Build Next" vs. ROADMAP.md shows Phase 8+ | **Roadmap wins. S2S first, wallets second. Both agree on order, audit just has tighter framing.** |
 | TASKS.md shows Phase 7e as done vs. CURRENT_SPRINT.md shows it as "Not started" | **TASKS.md is incorrect. Phase 7e status transitions are NOT yet implemented. See below.** |
 
@@ -275,7 +275,7 @@ None of the original paths A–D are exactly right in isolation. The recommended
 **Trigger:** Brutal Product Audit recommended immediate Hive → Drift migration
 **Decision:** Do NOT migrate from Hive to Drift before Phase 8.
 **Rationale:**
-- The audit's core claim (integer primary keys make sync impossible) is factually wrong for this codebase — Pocketa uses string IDs via `IdGenerator.uniqueId()`
+- The audit's core claim (integer primary keys make sync impossible) is factually wrong for this codebase — Helm uses string IDs via `IdGenerator.uniqueId()`
 - Abstract data source interfaces already exist; migration surface is already minimal (~4 files when actually needed)
 - Cloud sync is Phase 13+ (12+ months away); optimizing for it now is premature
 - Delaying Safe-to-Spend (the singular product value) for infrastructure work is product malpractice
@@ -289,7 +289,7 @@ None of the original paths A–D are exactly right in isolation. The recommended
 **Date:** 2026-05-22
 **Trigger:** Brutal Product Audit identified "Freelancer Finance OS" as externally dangerous positioning
 **Decision:**
-- **Internal (docs, agents, POCKETA_BRAIN.md):** Keep "Freelancer Finance OS" — it helps contributors think systematically
+- **Internal (docs, agents, HELM_BRAIN.md):** Keep "Freelancer Finance OS" — it helps contributors think systematically
 - **External (App Store, website, social, taglines):** Drop "OS" permanently. Use cashflow-first positioning.
 **Recommended external tagline direction:** "Know your Safe-to-Spend balance in seconds — no matter how many payments are pending." or equivalent from the Brutal Audit's Section 5 alternatives.
 **Action:** No code changes required. Update external-facing copy before any App Store listing or public promotion.

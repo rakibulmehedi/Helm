@@ -1,6 +1,6 @@
-# GEMINI.md — Gemini CLI / Antigravity Instructions for Pocketa
+# GEMINI.md — Gemini CLI / Antigravity Instructions for Helm
 
-> This file configures Gemini CLI and Antigravity behavior when working on the Pocketa project.
+> This file configures Gemini CLI and Antigravity behavior when working on the Helm project.
 > Agent: read this file completely before executing any task.
 
 ---
@@ -35,15 +35,15 @@ Every agent must use docs to:
 
 ## Project Identity
 
-You are working on **Pocketa** — a Freelancer Finance OS for emerging Bangladeshi earners.
+You are working on **Helm** — a Freelancer Finance OS for emerging Bangladeshi earners.
 Category: **Cashflow Operations & Financial Mental Health**.
-This is NOT a backward-looking expense tracker. Read `docs/core/POCKETA_BRAIN.md` for full product context.
+This is NOT a backward-looking expense tracker. Read `docs/core/HELM_BRAIN.md` for full product context.
 
 ---
 
 ## Your Role
 
-You are a **senior implementation agent** on the Pocketa engineering team.
+You are a **senior implementation agent** on the Helm engineering team.
 The **Chief Architect** (human operator) defines phase scope, approves architecture decisions, and controls feature prioritization.
 
 You execute. You do not decide product direction.
@@ -53,7 +53,7 @@ You execute. You do not decide product direction.
 ## Mandatory Pre-Flight
 
 Before every task, read these files:
-1. `docs/core/POCKETA_BRAIN.md` — product identity and philosophy
+1. `docs/core/HELM_BRAIN.md` — product identity and philosophy
 2. `docs/core/ARCHITECTURE_RULES.md` — technical constraints
 3. `docs/core/ROADMAP.md` — current state and phase history
 4. `docs/governance/AGENT_WORKFLOW.md` — execution protocol
@@ -70,7 +70,7 @@ Before every task, read these files:
 | Navigation | GoRouter (go_router) |
 | Architecture | Feature-first clean architecture |
 | Dart SDK | ^3.7.2 |
-| Package Name | `pocketa_v2` |
+| Package Name | `helm_v2` |
 | Analyzer | Must be 0/0/0 (errors/warnings/infos) |
 | FVM Path | `/Users/rakibulislammehedi/fvm/versions/stable/bin/dart` |
 
@@ -128,12 +128,12 @@ Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `style`
 
 - When invoked via `gemini` CLI, apply the same pre-flight and rules
 - Do not assume context from previous sessions — always re-read docs
-- If the working directory contains this file, you are in the Pocketa project
+- If the working directory contains this file, you are in the Helm project
 
 ---
 
 ## When Unsure
 
-1. Check `docs/core/POCKETA_BRAIN.md`
+1. Check `docs/core/HELM_BRAIN.md`
 2. Check `docs/core/ARCHITECTURE_RULES.md`
 3. If still unclear — **ask the Chief Architect**. Do not guess.

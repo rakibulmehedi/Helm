@@ -1,6 +1,6 @@
 # Product Constraints Extracted from Final Product Doctrine
 
-> **Source:** `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`
+> **Source:** `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`
 > **Authority Level:** HIGHEST. Canonical. Supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts.
 > **Extraction Date:** 2026-06-04
 > **Purpose:** Machine-readable constraint inventory for all implementation agents and UX design work.
@@ -10,18 +10,18 @@
 ## A. Product Identity Constraints
 
 ### PC-001 | Single-Purpose Calm Cockpit
-- **Statement:** Pocketa is a single-purpose calm cockpit for Bangladeshi USD-earning freelancers. It answers one question: "After escrow, FX, fixed costs, buffer, and reserves -- how many BDT can I actually spend right now?"
-- **Rationale:** The entire product thesis collapses if Pocketa tries to be more than this. Every added concern dilutes the one-number trust.
+- **Statement:** Helm is a single-purpose calm cockpit for Bangladeshi USD-earning freelancers. It answers one question: "After escrow, FX, fixed costs, buffer, and reserves -- how many BDT can I actually spend right now?"
+- **Rationale:** The entire product thesis collapses if Helm tries to be more than this. Every added concern dilutes the one-number trust.
 - **Implementation Implication:** Every screen, feature, and data model must serve the Safe-to-Spend number. If a feature does not feed into, explain, or maintain S2S, it does not belong in the product.
 
-### PC-002 | What Pocketa IS NOT
-- **Statement:** Pocketa is not a budgeting app, accounting suite, neobank, payment router, tax filer, invoicing platform (until V2), or CRM. It never touches money.
+### PC-002 | What Helm IS NOT
+- **Statement:** Helm is not a budgeting app, accounting suite, neobank, payment router, tax filer, invoicing platform (until V2), or CRM. It never touches money.
 - **Rationale:** Each of these categories carries its own regulatory burden, competitive landscape, and user expectation. Entering any of them destroys focus.
-- **Implementation Implication:** No feature may imply that Pocketa moves, holds, lends, or manages real money. All data is record-only. All transfers are record-only annotations.
+- **Implementation Implication:** No feature may imply that Helm moves, holds, lends, or manages real money. All data is record-only. All transfers are record-only annotations.
 
 ### PC-003 | Read-Only Intelligence Layer
-- **Statement:** Pocketa is a read-only intelligence + workflow layer that sits above the chaotic Bangladeshi freelancer financial stack and produces one trusted number.
-- **Rationale:** Touching real money triggers PSP/PSO regulation in Bangladesh. Read-only status keeps Pocketa outside that classification.
+- **Statement:** Helm is a read-only intelligence + workflow layer that sits above the chaotic Bangladeshi freelancer financial stack and produces one trusted number.
+- **Rationale:** Touching real money triggers PSP/PSO regulation in Bangladesh. Read-only status keeps Helm outside that classification.
 - **Implementation Implication:** No payment processing, no fund transfers, no wallet integrations that move money. Every "transfer" feature is explicitly labeled "record-only."
 
 ### PC-004 | The Wedge Is the Pipeline Cascade
@@ -31,8 +31,8 @@
 
 ### PC-005 | The Enemy Is Spreadsheets, Not Competitors
 - **Statement:** The enemy is Google Sheets + gut feel + spreadsheet trust inertia. Every product decision must beat Sheets on speed and effort, not on features.
-- **Rationale:** The ICP currently maintains a Google Sheet or mental ledger. Pocketa wins by being faster and less effortful, not by having more columns.
-- **Implementation Implication:** Time-to-S2S < 2 seconds. Pipeline update in one tap. If any Pocketa workflow takes longer than the equivalent Sheet operation, the workflow fails.
+- **Rationale:** The ICP currently maintains a Google Sheet or mental ledger. Helm wins by being faster and less effortful, not by having more columns.
+- **Implementation Implication:** Time-to-S2S < 2 seconds. Pipeline update in one tap. If any Helm workflow takes longer than the equivalent Sheet operation, the workflow fails.
 
 ---
 
@@ -44,7 +44,7 @@
 - **Implementation Implication:** All UX copy, onboarding flows, and default values must be calibrated for this exact profile. No generalization to broader populations.
 
 ### PC-007 | Disqualifying User Signals
-- **Statement:** F-commerce/COD sellers, pure marketplace beginners (<$500/mo), salaried employees with side income, YouTubers/TikTokers, and freelancers who never feel surprise from payment timing are NOT Pocketa users.
+- **Statement:** F-commerce/COD sellers, pure marketplace beginners (<$500/mo), salaried employees with side income, YouTubers/TikTokers, and freelancers who never feel surprise from payment timing are NOT Helm users.
 - **Rationale:** Building for these segments dilutes the product and pollutes retention metrics.
 - **Implementation Implication:** The qualifying onboarding question ("Have you ever spent money thinking a payment had cleared...") must exist and must gracefully disqualify users who answer "no." No dark-pattern workarounds to retain unqualified users.
 
@@ -72,8 +72,8 @@
 ## D. Feature Kill List (Permanently Killed)
 
 ### PC-011 | Generic Expense Categorization -- KILLED
-- **Statement:** Never build generic expense categorization under the Pocketa brand.
-- **Rationale:** TallyKhata/Hishabee territory; no Pocketa advantage.
+- **Statement:** Never build generic expense categorization under the Helm brand.
+- **Rationale:** TallyKhata/Hishabee territory; no Helm advantage.
 - **Implementation Implication:** No category field on expenses. No spending breakdown by category. No pie charts.
 
 ### PC-012 | Cloud Backup as Marketed Feature -- KILLED
@@ -139,7 +139,7 @@
 ### PC-024 | In-Product Spending Recommendations -- KILLED
 - **Statement:** No "recommend you spend X" or "maybe skip eating out" copy.
 - **Rationale:** Borders on financial advice classification.
-- **Implementation Implication:** No recommendation engine. No spending suggestions. Pocketa states facts; it does not advise.
+- **Implementation Implication:** No recommendation engine. No spending suggestions. Helm states facts; it does not advise.
 
 ### PC-025 | Ads Monetization -- KILLED
 - **Statement:** No ads of any kind.
@@ -153,7 +153,7 @@
 
 ### PC-027 | Creditworthiness Profile / Predictability Index -- KILLED
 - **Statement:** No credit scoring or creditworthiness features.
-- **Rationale:** Likely places Pocketa under CIB regulation; requires bank partnership + legal opinion + capital.
+- **Rationale:** Likely places Helm under CIB regulation; requires bank partnership + legal opinion + capital.
 - **Implementation Implication:** No score calculation, no "creditworthiness" metric, no data sharing with lenders.
 
 ### PC-028 | Bank Lending Partnerships in MVP/V1/V2/V3 -- KILLED
@@ -251,7 +251,7 @@
 
 ### PC-045 | Pending Income Never Counts Toward S2S
 - **Statement:** Expected and Pending pipeline entries count toward the "Hope" tier only. They never feed into S2S until marked Received.
-- **Rationale:** Counting unconfirmed money as spendable is exactly the behavioral failure Pocketa exists to prevent.
+- **Rationale:** Counting unconfirmed money as spendable is exactly the behavioral failure Helm exists to prevent.
 - **Implementation Implication:** The S2S function only includes entries with state === Received in its liquid balance. Pending entries appear in the Hope tier with conservative FX labeling.
 
 ### PC-046 | Overdue Entries Treated Conservatively
@@ -405,7 +405,7 @@
 - **Implementation Implication:** Every code path that renders S2S must handle the null/failure case.
 
 ### PC-072 | Never Auto-Mark Received
-- **Statement:** Pocketa never silently marks a pipeline entry as Received based on date passing or any automated signal.
+- **Statement:** Helm never silently marks a pipeline entry as Received based on date passing or any automated signal.
 - **Rationale:** If a client cancels and the entry was silently confirmed, trust is catastrophically broken.
 - **Implementation Implication:** All state transitions to Received require explicit one-tap user confirmation.
 

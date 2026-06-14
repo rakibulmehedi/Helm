@@ -1,4 +1,4 @@
-# 🧠 Pocketa V2 — Synthesized Multi-Agent Audit Analysis
+# 🧠 Helm V2 — Synthesized Multi-Agent Audit Analysis
 **Date:** June 12, 2026
 **Sources:** Behavioral Nudge Audit (62/100), UI/UX Audit (78/100), 10 Agent Definitions
 **Method:** Cross-referencing both audits through 7 specialized agent lenses
@@ -40,8 +40,8 @@
 | No session length tracking | Can't distinguish "engaged user checking numbers" from "confused user staring at screen." Session duration = engagement quality metric. | Missing behavioral metric |
 
 ### Researcher's recommended study sequence
-1. **Observational study (Week 1):** When do beta users actually open Pocketa? What triggers openings? What do they do first?
-2. **Preference interviews (Week 2):** "If Pocketa could check in with you, when and how?" (not "should we add notifications?")
+1. **Observational study (Week 1):** When do beta users actually open Helm? What triggers openings? What do they do first?
+2. **Preference interviews (Week 2):** "If Helm could check in with you, when and how?" (not "should we add notifications?")
 3. **A/B test framework (Week 3+):** Wire boundary events → measure baseline behavior → introduce nudges → measure delta
 4. **Cohort analysis (ongoing):** Segment by income pattern (marketplace vs. direct vs. retainer), by engagement frequency, by pipeline hygiene
 
@@ -160,7 +160,7 @@ The behavioral audit gives Celebration & Reinforcement 10/100 ("deliberately abs
 
 **Resolution: "Quiet Affirmation" tier — not celebration, not silence.**
 
-| Whimsy Tier | What It Means for Pocketa | Example |
+| Whimsy Tier | What It Means for Helm | Example |
 |---|---|---|
 | ❌ **Confetti tier** (rejected) | Gamified celebrations, pop-ups, "Congratulations!" | "🎉 You tracked 100 payments!" — wrong for Rafiq |
 | ✅ **Quiet Affirmation tier** (missing) | Inline status signals that acknowledge consistency without patronizing | Trust strip text change: "7 days tracked — your numbers are holding steady" |
@@ -227,7 +227,7 @@ If there's nothing guiding me, I close the app. The number is useful
 but passive. I'll check again when I remember."
 ```
 
-### What Rafiq needs vs. what Pocketa delivers
+### What Rafiq needs vs. what Helm delivers
 
 | Rafiq's Need | Current Delivery | Gap |
 |---|---|---|
@@ -245,7 +245,7 @@ but passive. I'll check again when I remember."
 
 ### Brand consistency across behavioral layer
 
-Pocketa's documented brand voice per CLAUDE.md and audit context:
+Helm's documented brand voice per CLAUDE.md and audit context:
 - **Clinical, warm but not congratulatory**
 - **Warm white canvas (#FAFAF6), teal interactive (#3E807D)**
 - **"Not locked — a safety margin" framing** (choice, not constraint)

@@ -266,7 +266,7 @@ lib/features/safe_to_spend/
 6. Use `withValues(alpha: x)` — NEVER `withOpacity(x)`.
 7. Use `IdGenerator.uniqueId()` for all `FixedCostEntry` IDs.
 8. All files under 300 lines. Extract sub-widgets when `build()` exceeds 100 lines.
-9. Use package imports: `package:pocketa_v2/...` — no relative imports.
+9. Use package imports: `package:helm_v2/...` — no relative imports.
 10. Safe-to-spend feature is isolated — no cross-feature imports into income or transaction features.
 11. `FixedCostModel` typeId MUST be `3` — never reuse a typeId.
 

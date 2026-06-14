@@ -2,7 +2,7 @@
 
 > Status: ACTIVE
 > Date: 2026-06-04
-> Authority: Final Product Doctrine (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`)
+> Authority: Final Product Doctrine (`docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`)
 > Prerequisite: `docs/planning/DOCTRINE_TO_CODE_GAP_ANALYSIS.md`
 
 ---

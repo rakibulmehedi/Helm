@@ -1,7 +1,7 @@
 # Subscription Leakage Radar — SUPERSEDED
 
 > **Status: SUPERSEDED / KILLED**
-> **Superseded by:** `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` (2026-06-04)
+> **Superseded by:** `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` (2026-06-04)
 > **Reason:** Feature does not appear in any doctrine version scope (MVP/V1/V2/V3). Killed per Decision 018.
 > **Original Status:** FUTURE PHASE — NOT IMPLEMENTATION READY
 > **Original Phase:** 9 (candidate, per ROADMAP.md)

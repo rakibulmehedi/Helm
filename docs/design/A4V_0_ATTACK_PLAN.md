@@ -4,14 +4,14 @@
 > **Posture:** Hostile fintech design examiner
 > **Verdict prerequisite:** This plan must execute fully before any visual fix is attempted
 > **Date:** 2026-06-07
-> **Examiner mandate:** Decide whether Pocketa deserves to be seen by real Bangladeshi freelancers
+> **Examiner mandate:** Decide whether Helm deserves to be seen by real Bangladeshi freelancers
 > **Codebase state:** Post-A4 sprint. Design system ~90% migrated. 13 core widgets built. 12 feature files still on deprecated AppColors/AppButton.
 
 ---
 
 ## 1. Attack Philosophy
 
-**Core thesis:** Pocketa has built a strong design system foundation (PocketaColors, PocketaTypography, PocketaSpacing, PocketaMotion, 13 core widgets) but the **last-mile adoption gap** means the app still presents inconsistently on a real device. Token definitions are correct; token usage is incomplete. The foundation is professional; the surface layer has cracks.
+**Core thesis:** Helm has built a strong design system foundation (HelmColors, HelmTypography, HelmSpacing, HelmMotion, 13 core widgets) but the **last-mile adoption gap** means the app still presents inconsistently on a real device. Token definitions are correct; token usage is incomplete. The foundation is professional; the surface layer has cracks.
 
 The app has the right bones. The question is: does it have the right skin?
 
@@ -61,40 +61,40 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
   - `pages/buffer_comfort_page.dart` -- 4-anchor slider (5/15/25/30%) with live preview
   - `pages/first_pipeline_page.dart` -- Optional client/amount/currency entry
 - **Known issues from recon:**
-  - Uses correct PocketaColors tokens (canvas, interactive, inkPrimary)
+  - Uses correct HelmColors tokens (canvas, interactive, inkPrimary)
   - Has NeverScrollableScrollPhysics (no swipe -- forward-only, correct)
   - Still uses deprecated AppButton in some sub-pages
-  - Hardcoded BorderRadius.circular(12) instead of PocketaSpacing.cardRadius
+  - Hardcoded BorderRadius.circular(12) instead of HelmSpacing.cardRadius
   - Progress values defined as [0.0, 0.20, 0.40, 0.55, 0.70, 0.90]
-- **Attack vectors:** Legacy AppButton adoption, hardcoded radii, animation timing (300ms easeOutCubic -- should be 200ms ease-out per PocketaMotion), copy maturity
+- **Attack vectors:** Legacy AppButton adoption, hardcoded radii, animation timing (300ms easeOutCubic -- should be 200ms ease-out per HelmMotion), copy maturity
 
 ### 2.4 Dashboard / Home Screen
 - **File:** `lib/features/dashboard/presentation/views/dashboard_screen.dart`
 - **Known state from recon (POST A4):**
-  - Uses PocketaRealityStack (4-tier: hero + pressure + maintenance + hope) -- CORRECT pattern
-  - S2sHeroBlock with onTapTrace -> PocketaCalculationTrace -- CORRECT interaction
+  - Uses HelmRealityStack (4-tier: hero + pressure + maintenance + hope) -- CORRECT pattern
+  - S2sHeroBlock with onTapTrace -> HelmCalculationTrace -- CORRECT interaction
   - CommittedSection + ReserveSection + NotCountedSection -- CORRECT structure
   - FAB with interactive bg, add_rounded icon -- inspect label ("Expected" or generic "+")
   - First-run S2S hint (dismissible, one-time) -- inspect visual
   - Dev reset button gated by kDebugMode -- CORRECT (not visible in production)
   - Analytics: stsViewed, dailyActiveSession, calculationBreakdownOpened -- CORRECT
-  - AppBar: "Pocketa" title (headingMd) -- inspect if this feels right
+  - AppBar: "Helm" title (headingMd) -- inspect if this feels right
 - **Remaining attack vectors:** Verify Reality Stack renders correctly, inspect spacing compliance, check S2S hero size (should be 64pt monoHero), verify Ledger Rail presence, check Trust Strip
 
 ### 2.5 S2S Hero Widget
 - **File:** `lib/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart`
 - **Known issues from recon:**
-  - Hardcoded spacing values (20, 4.0, 6.0, 8.0, 12) -- should use PocketaSpacing tokens
+  - Hardcoded spacing values (20, 4.0, 6.0, 8.0, 12) -- should use HelmSpacing tokens
   - Hardcoded BorderRadius.circular(2) at line 215 -- inconsistent
-  - Design system widgets (PocketaAmount, PocketaLedgerRail) may or may not be used here
+  - Design system widgets (HelmAmount, HelmLedgerRail) may or may not be used here
 - **Attack vectors:** Verify 64pt monoHero usage, spacing token compliance, Ledger Rail integration, Trust Strip presence, "--" fallback for calc failure
 
 ### 2.6 Breakdown / Calculation Trace
-- **File:** `lib/core/widgets/pocketa_calculation_trace.dart`
+- **File:** `lib/core/widgets/helm_calculation_trace.dart`
 - **Known state from recon:**
   - Draggable bottom sheet with staggered fade animations (24ms per row) -- CORRECT per VISR-022
   - Labels left, values right-aligned -- CORRECT trace pattern
-  - PocketaAuditCard with 1.5pt divider between rows, final row bold -- CORRECT
+  - HelmAuditCard with 1.5pt divider between rows, final row bold -- CORRECT
 - **Attack vectors:** Verify mono right-alignment, verify stagger timing, verify reduce-motion path, verify copy ("Received usable BDT" not "Income Received")
 
 ### 2.7 Pipeline Screen
@@ -121,7 +121,7 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 - **File:** `lib/features/income/presentation/views/add_income_screen.dart`
 - **Known issues from recon:**
   - Still uses deprecated AppColors/AppButton
-  - Hardcoded BorderRadius.circular(12) (6+ instances) -- should use PocketaSpacing.cardRadius
+  - Hardcoded BorderRadius.circular(12) (6+ instances) -- should use HelmSpacing.cardRadius
   - Has FX rate field (conditional on USD) -- CORRECT
   - Has exclude-from-S2S checkbox -- CORRECT
   - Has source label field -- CORRECT
@@ -135,7 +135,7 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
   - Still uses deprecated AppColors/AppButton
   - Hardcoded BorderRadius values (10, 12) -- inconsistent
   - 8 hardcoded expense categories (Food, Transport, Shopping, etc.)
-  - Category system is a doctrine concern (Pocketa doesn't categorize per kill list) but transaction expenses may be acceptable as simple labeling
+  - Category system is a doctrine concern (Helm doesn't categorize per kill list) but transaction expenses may be acceptable as simple labeling
 - **Attack vectors:** Legacy color migration, hardcoded radii, category labeling review, form styling
 
 ### 2.11 STS Settings Screen
@@ -143,7 +143,7 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 - **Known issues from recon:**
   - Still uses deprecated AppColors/AppButton
   - Hardcoded fontSize: 16 and 13 -- should use typography tokens
-  - Hardcoded EdgeInsets.all(16.0) -- should use PocketaSpacing.s4
+  - Hardcoded EdgeInsets.all(16.0) -- should use HelmSpacing.s4
   - Hardcoded fontWeight: FontWeight.bold / w600 at multiple lines
   - Bottom nav items: Export, Change history, Delete account -- CORRECT
   - Buffer now percentage-based slider (5-30%) -- CORRECT
@@ -191,14 +191,14 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 ## 3. Component-by-Component Attack Route
 
 ### 3.1 Color System
-- **Token file:** `lib/core/themes/pocketa_colors.dart` -- BUILT, 13 tokens per mode, ThemeExtension
-- **Legacy file:** `lib/core/themes/colors.dart` -- DEPRECATED, still exists, re-exports PocketaColors
+- **Token file:** `lib/core/themes/helm_colors.dart` -- BUILT, 13 tokens per mode, ThemeExtension
+- **Legacy file:** `lib/core/themes/colors.dart` -- DEPRECATED, still exists, re-exports HelmColors
 - **Current state:** Token definitions are CORRECT (canvas #FAFAF6, interactive #255E5B, all state colors match VISR-006/007)
 - **Gap:** 12 feature files still reference deprecated AppColors
 - **Attack:** Grep for AppColors usage. Every remaining reference is a migration failure. Check withOpacity() on text colors.
 
 ### 3.2 Typography System
-- **File:** `lib/core/themes/pocketa_typography.dart` -- BUILT, 18 styles, ThemeExtension
+- **File:** `lib/core/themes/helm_typography.dart` -- BUILT, 18 styles, ThemeExtension
 - **Current:** Inter (Latin) + JetBrains Mono (financial) + Hind Siliguri (Bangla) -- ALL CORRECT
 - **Type scale:** 64pt monoHero, 40pt displayLarge, 22pt headingLg, etc. -- matches VIS-008
 - **Bangla line heights:** 1.58 for bodyLg/Md, 1.52 for bodySm, 1.38 for labelMd -- CORRECT
@@ -207,7 +207,7 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 
 ### 3.3 Theme Architecture
 - **File:** `lib/core/themes/app_theme.dart` -- BUILT with ThemeExtension integration
-- **Current:** Custom ThemeData with PocketaColors + PocketaTypography extensions. NO ColorScheme.fromSeed. Correct.
+- **Current:** Custom ThemeData with HelmColors + HelmTypography extensions. NO ColorScheme.fromSeed. Correct.
 - **ColorScheme mapping:** primary=interactive, error=stateAtRisk, surface=surface, onSurface=inkPrimary
 - **Component styling:** Card elevation 0, 12pt radius, 1pt divider border -- CORRECT
 - **ElevatedButton:** elevation 0, interactive bg, 10pt radius, 14pt vertical padding -- MOSTLY correct
@@ -216,13 +216,13 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 ### 3.4 Button System
 - **File:** `lib/core/widgets/buttons/button_multiple_types.dart`
 - **Current:** Still uses LEGACY AppColors (confirmed by agents) -- this is a known high-blast-radius file
-- **Required:** Should use PocketaColors tokens. 4 types (primary/secondary/tertiary/destructive), 10pt radius, 48pt height
+- **Required:** Should use HelmColors tokens. 4 types (primary/secondary/tertiary/destructive), 10pt radius, 48pt height
 - **Attack:** This file is the #1 migration target. Verify all screens that consume AppButton.
 
 ### 3.5 Card System
-- **Current:** 5 doctrine-correct card widgets EXIST (PocketaHeroZone, PocketaLedgerCard, PocketaAuditCard, PocketaCautionCard, PocketaSourceCard)
+- **Current:** 5 doctrine-correct card widgets EXIST (HelmHeroZone, HelmLedgerCard, HelmAuditCard, HelmCautionCard, HelmSourceCard)
 - **Implementation:** 12pt radius, 1pt divider border, NO shadow, NO elevation -- CORRECT
-- **Gap:** Some feature screens may still use raw Card or Container instead of Pocketa card widgets
+- **Gap:** Some feature screens may still use raw Card or Container instead of Helm card widgets
 - **Attack:** Grep for raw `Card(` and raw `Container(` with BoxShadow in feature files.
 
 ### 3.6 Icon System
@@ -232,13 +232,13 @@ Every screen listed below will be inspected in A4V-1. Each receives a maturity s
 - **Attack:** Grep for `Icons.` usage across all files. Count material icon references. Check pubspec for phosphor_flutter.
 
 ### 3.7 Spacing System
-- **Token file:** `lib/core/themes/pocketa_spacing.dart` -- BUILT, full 8pt grid + component dimensions
+- **Token file:** `lib/core/themes/helm_spacing.dart` -- BUILT, full 8pt grid + component dimensions
 - **Current:** Tokens defined correctly (s1=4, s2=8, s3=12, s4=16... cardRadius=12, buttonRadius=10, screenEdge=16)
-- **Gap:** Feature files use hardcoded EdgeInsets (10, 20, 40, 4.0, 6.0, 8.0) instead of PocketaSpacing references
+- **Gap:** Feature files use hardcoded EdgeInsets (10, 20, 40, 4.0, 6.0, 8.0) instead of HelmSpacing references
 - **Attack:** Grep all `EdgeInsets` and `SizedBox(` with hardcoded values. Flag non-token usage.
 
 ### 3.8 Motion System
-- **Token file:** `lib/core/themes/pocketa_motion.dart` -- BUILT, 6 timing tokens + curves
+- **Token file:** `lib/core/themes/helm_motion.dart` -- BUILT, 6 timing tokens + curves
 - **Current:** instant/fast/base/medium/slow/s2sAppear defined. Ease-out only. drawerRowStagger=24ms. CORRECT.
 - **Gap:** Splash still uses 1800ms fade. Onboarding pages use 300ms easeOutCubic instead of 200ms ease-out.
 - **Attack:** Grep for Duration values in feature files. Flag any > 320ms or non-ease-out curves. Flag Curves.bounceIn/Out/elasticIn/Out.
@@ -320,7 +320,7 @@ These patterns actively damage user trust in a financial context:
 ## 7. Typography Attack Criteria
 
 ### Font Family Audit
-| Check | Expected | Token Defined (PocketaTypography) | Verdict |
+| Check | Expected | Token Defined (HelmTypography) | Verdict |
 |-------|----------|-----------------------------------|---------|
 | Financial numerals font | JetBrains Mono Variable | JetBrains Mono (monoFinancial*) | CORRECT |
 | UI text font (Latin) | Inter Variable | Inter (headingLg, bodyLg, etc.) | CORRECT |
@@ -342,7 +342,7 @@ These patterns actively damage user trust in a financial context:
 |------|--------|
 | No italics anywhere | VIOLATION FOUND -- income_list_screen notes rendered italic |
 | No ALL-CAPS | INSPECT |
-| No weight < 400 | INSPECT (PocketaTypography restricts to 400-600, but hardcoded FontWeight.w300 possible) |
+| No weight < 400 | INSPECT (HelmTypography restricts to 400-600, but hardcoded FontWeight.w300 possible) |
 | No weight > 600 | INSPECT (FontWeight.bold = 700, found in hardcoded feature code) |
 | No letter-spacing overrides | INSPECT |
 | Bangla baseline alignment | Bangla line heights defined (1.58/1.52/1.38) -- INSPECT runtime rendering |
@@ -376,8 +376,8 @@ These patterns actively damage user trust in a financial context:
 
 ## 9. Color/Surface/Radius Attack Criteria
 
-### Color Token Audit (PocketaColors vs Doctrine)
-| Token | Expected (VISR-006 refined) | Current (PocketaColors) | Status |
+### Color Token Audit (HelmColors vs Doctrine)
+| Token | Expected (VISR-006 refined) | Current (HelmColors) | Status |
 |-------|-----------------------------|-------------------------|--------|
 | canvas.light | #FAFAF6 | #FAFAF6 | CORRECT |
 | surface.light | #FFFFFC | #FFFFFC | CORRECT |
@@ -414,10 +414,10 @@ These patterns actively damage user trust in a financial context:
 ### Border Radius Audit
 | Component | Expected | Token Defined | Feature Files | Status |
 |-----------|----------|---------------|---------------|--------|
-| Cards | 12pt | PocketaSpacing.cardRadius = 12 | Hardcoded 12 in ~10 places | TOKEN EXISTS but not always referenced |
-| Primary buttons | 10pt | PocketaSpacing.buttonRadius = 10 | AppButton uses 12px | MAJOR -- button still wrong |
-| Sheets | 16pt top | PocketaSpacing.sheetTopRadius = 16 | INSPECT | |
-| FAB | Full circle | PocketaSpacing.fabSize = 56 | INSPECT | |
+| Cards | 12pt | HelmSpacing.cardRadius = 12 | Hardcoded 12 in ~10 places | TOKEN EXISTS but not always referenced |
+| Primary buttons | 10pt | HelmSpacing.buttonRadius = 10 | AppButton uses 12px | MAJOR -- button still wrong |
+| Sheets | 16pt top | HelmSpacing.sheetTopRadius = 16 | INSPECT | |
+| FAB | Full circle | HelmSpacing.fabSize = 56 | INSPECT | |
 | Income list | 12pt | -- | 20, 16, 12, 8 (scattered) | MAJOR -- inconsistent |
 
 ### Shadow/Elevation Audit
@@ -511,7 +511,7 @@ Based on corrected recon data (post-A4 sprint, design system ~90% migrated):
 | Splash | ~40/100 | Correct color token but placeholder logo, 1800ms violation, hardcoded sizes |
 | Welcome | ~45/100 | Likely rewritten but still uses AppColors/AppButton legacy |
 | Onboarding (6 steps) | ~65/100 | Correct flow, correct tokens in most pages, AppButton legacy, hardcoded radii |
-| Dashboard | ~70/100 | Reality Stack + PocketaCalculationTrace + correct FAB. Inspect polish. |
+| Dashboard | ~70/100 | Reality Stack + HelmCalculationTrace + correct FAB. Inspect polish. |
 | S2S Hero | ~55/100 | Hardcoded spacing values, may use correct monoHero but inspect |
 | Calculation Trace | ~80/100 | Purpose-built widget, stagger animation, audit card -- near-doctrine |
 | Pipeline Screen | ~60/100 | Correct sections/colors, material icons (not Phosphor) |
@@ -529,8 +529,8 @@ Based on corrected recon data (post-A4 sprint, design system ~90% migrated):
 **Key gaps preventing beta readiness:**
 1. 12 files still on deprecated AppColors/AppButton (~15% of surface area)
 2. Material Icons throughout (should be Phosphor -- systemic gap)
-3. 40+ hardcoded font sizes (should use PocketaTypography tokens)
-4. Scattered hardcoded spacing/radii (should use PocketaSpacing tokens)
+3. 40+ hardcoded font sizes (should use HelmTypography tokens)
+4. Scattered hardcoded spacing/radii (should use HelmSpacing tokens)
 5. Splash 1800ms animation (motion violation)
 6. Italic text in income list notes (typography violation)
 7. Button radius 12px in AppButton (should be 10pt per buttonRadius token)
@@ -576,10 +576,10 @@ Before ANY visual implementation work begins, A4V-1 must verify these items by r
 ### Design System Foundation
 - [ ] Read `lib/core/themes/colors.dart` -- audit every hex value
 - [ ] Read `lib/core/themes/app_theme.dart` -- audit ThemeData structure
-- [ ] Search for `PocketaColors` -- confirm ThemeExtension existence or absence
-- [ ] Search for `PocketaTypography` -- confirm ThemeExtension existence or absence
-- [ ] Search for `PocketaSpacing` -- confirm ThemeExtension existence or absence
-- [ ] Search for `PocketaMotion` -- confirm ThemeExtension existence or absence
+- [ ] Search for `HelmColors` -- confirm ThemeExtension existence or absence
+- [ ] Search for `HelmTypography` -- confirm ThemeExtension existence or absence
+- [ ] Search for `HelmSpacing` -- confirm ThemeExtension existence or absence
+- [ ] Search for `HelmMotion` -- confirm ThemeExtension existence or absence
 - [ ] Grep `BoxShadow` -- count shadow violations
 - [ ] Grep `elevation` -- count elevation violations
 - [ ] Grep `withOpacity` -- count opacity violations on text
@@ -680,10 +680,10 @@ docs(design): A4V-0 Visual Adversarial Attack Plan -- hostile fintech design aud
 ### Design System (6 token files + 2 legacy)
 | Component | File | Status |
 |-----------|------|--------|
-| Colors (active) | `lib/core/themes/pocketa_colors.dart` | CORRECT |
-| Typography (active) | `lib/core/themes/pocketa_typography.dart` | CORRECT |
-| Spacing (active) | `lib/core/themes/pocketa_spacing.dart` | CORRECT |
-| Motion (active) | `lib/core/themes/pocketa_motion.dart` | CORRECT |
+| Colors (active) | `lib/core/themes/helm_colors.dart` | CORRECT |
+| Typography (active) | `lib/core/themes/helm_typography.dart` | CORRECT |
+| Spacing (active) | `lib/core/themes/helm_spacing.dart` | CORRECT |
+| Motion (active) | `lib/core/themes/helm_motion.dart` | CORRECT |
 | Theme builder | `lib/core/themes/app_theme.dart` | CORRECT |
 | Colors (deprecated) | `lib/core/themes/colors.dart` | KILL TARGET |
 | Button (legacy) | `lib/core/widgets/buttons/button_multiple_types.dart` | MIGRATION TARGET |
@@ -692,26 +692,26 @@ docs(design): A4V-0 Visual Adversarial Attack Plan -- hostile fintech design aud
 ### Core Widget Library (13 files)
 | Widget | File |
 |--------|------|
-| PocketaHeroZone | `lib/core/widgets/cards/pocketa_hero_zone.dart` |
-| PocketaLedgerCard | `lib/core/widgets/cards/pocketa_ledger_card.dart` |
-| PocketaAuditCard | `lib/core/widgets/cards/pocketa_audit_card.dart` |
-| PocketaCautionCard | `lib/core/widgets/cards/pocketa_caution_card.dart` |
-| PocketaSourceCard | `lib/core/widgets/cards/pocketa_source_card.dart` |
-| PocketaAmount | `lib/core/widgets/pocketa_amount.dart` |
-| PocketaTrustStrip | `lib/core/widgets/pocketa_trust_strip.dart` |
-| PocketaFxEstimate | `lib/core/widgets/pocketa_fx_estimate.dart` |
-| PocketaLedgerRail | `lib/core/widgets/pocketa_ledger_rail.dart` |
-| PocketaRealityStack | `lib/core/widgets/pocketa_reality_stack.dart` |
-| PocketaCalculationTrace | `lib/core/widgets/pocketa_calculation_trace.dart` |
-| PocketaMoneySourceLabel | `lib/core/widgets/pocketa_money_source_label.dart` |
-| PocketaToast | `lib/core/widgets/pocketa_toast.dart` |
+| HelmHeroZone | `lib/core/widgets/cards/helm_hero_zone.dart` |
+| HelmLedgerCard | `lib/core/widgets/cards/helm_ledger_card.dart` |
+| HelmAuditCard | `lib/core/widgets/cards/helm_audit_card.dart` |
+| HelmCautionCard | `lib/core/widgets/cards/helm_caution_card.dart` |
+| HelmSourceCard | `lib/core/widgets/cards/helm_source_card.dart` |
+| HelmAmount | `lib/core/widgets/helm_amount.dart` |
+| HelmTrustStrip | `lib/core/widgets/helm_trust_strip.dart` |
+| HelmFxEstimate | `lib/core/widgets/helm_fx_estimate.dart` |
+| HelmLedgerRail | `lib/core/widgets/helm_ledger_rail.dart` |
+| HelmRealityStack | `lib/core/widgets/helm_reality_stack.dart` |
+| HelmCalculationTrace | `lib/core/widgets/helm_calculation_trace.dart` |
+| HelmMoneySourceLabel | `lib/core/widgets/helm_money_source_label.dart` |
+| HelmToast | `lib/core/widgets/helm_toast.dart` |
 
 ### Doctrine References (3 files)
 | Doc | File |
 |-----|------|
 | Visual Identity Requirements | `docs/ux/extracted/07_visual_identity_requirements.md` |
 | Visual Identity Refinements | `docs/ux/extracted/08_visual_identity_refinements.md` |
-| UX Canon | `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` |
+| UX Canon | `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md` |
 
 ---
 

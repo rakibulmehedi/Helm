@@ -1,4 +1,4 @@
-# POCKETA — DECISION LOG
+# HELM — DECISION LOG
 
 This file records important product and architecture decisions.
 
@@ -124,7 +124,7 @@ Phase 3 completed with all 5 groups implemented:
 
 - **Group 3C** (In-App Notification Center): `NudgeLogEntryEntity` + Hive model (typeId 8). `NudgeDataSourceImpl` (Hive CRUD), `NudgeRepositoryImpl`. `NotificationCenterScreen` with date-grouped timeline, swipe-to-dismiss + undo toast, tap-to-navigate. Route at `/notifications`. Settings badge shows unread count.
 
-- **Group 3D** (Nudge Copy): Implemented inline in evaluator — clinical-warm Pocketa voice. No exclamation marks, no emoji, no comparative language. Copy varies by context (single-overdue vs multi-overdue, totalEntries presence).
+- **Group 3D** (Nudge Copy): Implemented inline in evaluator — clinical-warm Helm voice. No exclamation marks, no emoji, no comparative language. Copy varies by context (single-overdue vs multi-overdue, totalEntries presence).
 
 - **Group 3E** (Effectiveness Tracking): `NudgeEffectivenessService` computes sent/opened/dismissed/actioned rates per nudge type. `NudgeEffectivenessMetrics` with `toReportRow()`. 4 tests.
 
@@ -196,7 +196,7 @@ Date: 2026-06-12
 Trigger: 10 agent lenses available, master plan adopted, codebase needs multi-dimensional audit
 
 Decision:
-Execute a 3-wave parallel agent dispatch against the Pocketa codebase to find insane/aggressive/missing practices across all 10 agent domains. The dispatch plan is documented in `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md`.
+Execute a 3-wave parallel agent dispatch against the Helm codebase to find insane/aggressive/missing practices across all 10 agent domains. The dispatch plan is documented in `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md`.
 
 Wave structure:
 - **Wave 1** (6 agents, zero deps): Nudge Engine, UX Researcher, UI Designer, Whimsy Injector, Brand Guardian, UX Architect — all hunt the same codebase for different categories of insanity
@@ -266,7 +266,7 @@ Ref: `docs/planning/100_PERCENT_MASTER_PLAN.md`, `docs/audits/BEHAVIORAL_NUDGE_A
 Date: 2026-06-06
 
 Decision:
-Pocketa is **CONDITIONAL GO** for closed beta distribution. All technical prerequisites pass. All product prerequisites pass. Critical PIN deletion bug (base64 vs SHA-256 hash mismatch in `_PinConfirmDialog`) fixed during sprint. 17 known limitations documented — none are beta blockers.
+Helm is **CONDITIONAL GO** for closed beta distribution. All technical prerequisites pass. All product prerequisites pass. Critical PIN deletion bug (base64 vs SHA-256 hash mismatch in `_PinConfirmDialog`) fixed during sprint. 17 known limitations documented — none are beta blockers.
 
 Conditions for full GO:
 1. Release build verified on physical device (Samsung A14 or equivalent)
@@ -291,7 +291,7 @@ Impact:
 Date: 2026-05-22
 
 Decision:
-Pocketa will evolve from a generic expense tracker into a Freelancer Finance OS for emerging Bangladeshi earners.
+Helm will evolve from a generic expense tracker into a Freelancer Finance OS for emerging Bangladeshi earners.
 
 Reason:
 Generic expense trackers have low differentiation and weak ROI. Freelancer finance has stronger pain around irregular income, pending payments, subscriptions, and business/personal separation.
@@ -306,7 +306,7 @@ Future features must prioritize freelancer cashflow clarity over generic persona
 Date: 2026-05-22
 
 Decision:
-Pocketa will remain offline-first using Hive for local persistence.
+Helm will remain offline-first using Hive for local persistence.
 
 Reason:
 Target users may have unstable internet, and financial logging must feel instant.
@@ -321,13 +321,13 @@ Cloud sync will be added later without breaking local-first behavior.
 Date: 2026-05-22
 
 Decision:
-Pocketa will use project brain documentation to guide Antigravity, Claude Code, and Gemini CLI.
+Helm will use project brain documentation to guide Antigravity, Claude Code, and Gemini CLI.
 
 Reason:
 Multi-agent development creates architecture drift unless agents share product and engineering rules.
 
 Impact:
-Agents must read POCKETA_BRAIN.md, ARCHITECTURE_RULES.md, AGENT_WORKFLOW.md, and ROADMAP.md before major work.
+Agents must read HELM_BRAIN.md, ARCHITECTURE_RULES.md, AGENT_WORKFLOW.md, and ROADMAP.md before major work.
 
 ---
 
@@ -432,7 +432,7 @@ Execute domain cleanup only (TransactionEntity, @HiveType relocation, fromJson/t
 Revisit full migration at Phase 9 kickoff or when gate criteria are met.
 
 Reason:
-- Audit's core claim ("integer primary keys make sync impossible") is factually wrong for this codebase — Pocketa uses string IDs via IdGenerator.uniqueId()
+- Audit's core claim ("integer primary keys make sync impossible") is factually wrong for this codebase — Helm uses string IDs via IdGenerator.uniqueId()
 - Abstract data source interfaces already exist; eventual migration surface is ~4 files
 - Cloud sync is Phase 13+ (12+ months away); migrating now is premature optimization
 - Delaying Safe-to-Spend (the singular product value) for infrastructure is product malpractice
@@ -455,7 +455,7 @@ Decision:
 - External (App Store, website, social, taglines): Drop "OS" permanently. Use cashflow-specific framing.
 
 Reason:
-"OS" implies ERP/accounting software to consumers, creating an expectation-reality gap. Pocketa explicitly excludes invoicing, tax filing, and complex accounting. The term sets expectations it cannot meet.
+"OS" implies ERP/accounting software to consumers, creating an expectation-reality gap. Helm explicitly excludes invoicing, tax filing, and complex accounting. The term sets expectations it cannot meet.
 
 Impact:
 No code changes required. External-facing copy must use cashflow-specific positioning before any App Store listing or public promotion.
@@ -470,12 +470,12 @@ Authority: Chief Architect
 Trigger: External Brutal Product Audit recommended immediate Hive → Drift migration. Repo-aware audit (Claude) contradicted this.
 
 Decision:
-Pocketa will NOT immediately migrate from Hive to Drift before Phase 8. Instead, it will first clean the transaction domain and storage boundaries so future migration becomes low-risk.
+Helm will NOT immediately migrate from Hive to Drift before Phase 8. Instead, it will first clean the transaction domain and storage boundaries so future migration becomes low-risk.
 
 This work is scoped as Phase 7f and runs before Phase 8 (Safe-to-Spend).
 
 Reason:
-- Repo-aware audit found the external audit's integer-key sync concern does not apply — Pocketa uses string IDs with box.put(id, model), not integer auto-keys
+- Repo-aware audit found the external audit's integer-key sync concern does not apply — Helm uses string IDs with box.put(id, model), not integer auto-keys
 - Full Drift migration now delays Safe-to-Spend by 1–2 weeks for sync readiness that is 12+ months away
 - Option C (Storage Abstraction First) provides the best risk/reward at this stage
 - Safe-to-Spend is the singular product value proposition and must not be delayed for infrastructure
@@ -586,7 +586,7 @@ Impact:
 ## Decision 016 — Final Product Doctrine Adopted as Canon
 
 Date: 2026-06-04
-Trigger: Chief Architect approved `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` as the highest strategic authority.
+Trigger: Chief Architect approved `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` as the highest strategic authority.
 
 Decision:
 The Final Product Doctrine supersedes all prior roadmaps, expansion maps, and earlier doctrine drafts. All future product, architecture, and scope decisions must align with the Doctrine. Conflicting documents must be updated or marked as superseded.
@@ -610,10 +610,10 @@ Decision:
 F-commerce operators (Facebook/Instagram sellers, COD, inventory, POS) are permanently excluded from target users. Generic expense categorization is permanently excluded from product scope. These are not deferred — they are killed.
 
 Reason:
-F-commerce is a different product entirely (COD tracking, inventory, POS). Generic expense tracking is TallyKhata/Hishabee territory with no Pocketa advantage. Both dilute the core wedge (pipeline-aware Safe-to-Spend for USD→BDT freelancers).
+F-commerce is a different product entirely (COD tracking, inventory, POS). Generic expense tracking is TallyKhata/Hishabee territory with no Helm advantage. Both dilute the core wedge (pipeline-aware Safe-to-Spend for USD→BDT freelancers).
 
 Impact:
-- Target Users updated in POCKETA_BRAIN.md
+- Target Users updated in HELM_BRAIN.md
 - ROADMAP.md scope cleaned
 - No future agent may propose these features
 
@@ -715,7 +715,7 @@ Date: 2026-06-05
 Trigger: UX Canon Extraction & Implementation Planning Sprint
 
 Decision:
-The Canonical UX Implementation Spec (`docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`) is now the single source of truth for all UX implementation decisions. It merges and resolves conflicts across 10 source documents using this authority hierarchy:
+The Canonical UX Implementation Spec (`docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md`) is now the single source of truth for all UX implementation decisions. It merges and resolves conflicts across 10 source documents using this authority hierarchy:
 1. Final Product Doctrine (highest product authority)
 2. UX Doctrine (highest UX authority)
 3. Visual Identity Critique & Refined System (overrides earlier VI System)
@@ -793,7 +793,7 @@ Full code inspection revealed:
 - **B1**: Audit log screen exists but is unreachable from UI (no navigation link in Settings)
 - **B2**: Auth guard in `app_router.dart:288-299` checks PIN setup but NOT session authentication — cold-start may bypass PIN entry
 - **B3**: S2S hero shows 0 instead of "---" on calculation failure (Doctrine §4 item 14 violation)
-- **M1-M2**: STS Settings and Audit Log screens use legacy AppColors instead of PocketaColors
+- **M1-M2**: STS Settings and Audit Log screens use legacy AppColors instead of HelmColors
 - **M3**: History tab is placeholder (25% of bottom nav non-functional)
 - **M4**: No Bangla localization
 - **M5**: Onboarding missing first pipeline entry step
@@ -832,7 +832,7 @@ Impact:
 - Next: Phase 2 (Analytics Infrastructure) — unblocked (Phase 1 was dependency)
 - `pipeline_state_changed` added to `BoundaryEvents` in event_registry
 - `sessionCount`, `setEventFired`, `getEventFired` added to `SharedPrefServices`
-- `affirmation` parameter added to `PocketaTrustStrip` and `S2sHeroBlock` constructors (backward-compatible optional params)
+- `affirmation` parameter added to `HelmTrustStrip` and `S2sHeroBlock` constructors (backward-compatible optional params)
 
 Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`, `docs/planning/100_PERCENT_MASTER_PLAN.md`
 

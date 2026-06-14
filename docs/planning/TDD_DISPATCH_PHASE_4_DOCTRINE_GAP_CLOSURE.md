@@ -118,7 +118,7 @@ testWidgets('qualifier question appears first', (tester) async {
 testWidgets('disqualification screen appears when user says no to qualifier', (tester) async {
   await tester.tap(find.text('No, I always know exactly what cleared'));
   await tester.pumpAndSettle();
-  expect(find.textContaining('Pocketa is built for USD-earning freelancers in Bangladesh'), findsOneWidget);
+  expect(find.textContaining('Helm is built for USD-earning freelancers in Bangladesh'), findsOneWidget);
 });
 
 testWidgets('conversational: each answer reveals next question', (tester) async { ... });
@@ -133,7 +133,7 @@ testWidgets('completes in ≤3 minutes with simulated Rafiq speed', (tester) asy
 ```
 Step 1: "Have you ever spent money thinking a payment cleared, then realized it hadn't?"
         → Yes → Step 2
-        → No → Disqualification: "Pocketa is built for USD-earning freelancers in Bangladesh."
+        → No → Disqualification: "Helm is built for USD-earning freelancers in Bangladesh."
 
 Step 2: "How much BDT do you have right now across all your accounts?" → Number input
 

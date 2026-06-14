@@ -6,7 +6,7 @@
 
 **Reference:** `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan, adopted 2026-06-12.
 
-Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/100) to 100% maturity (Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35). Current position: Phase 0 (Beta Launch Readiness). Next: Phase 1 (Behavioral Foundation).
+Helm is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/100) to 100% maturity (Behavioral 95/100, UI/UX 98/100, Trust Layer 35/35). Current position: Phase 0 (Beta Launch Readiness). Next: Phase 1 (Behavioral Foundation).
 
 | Phase | Status | Score Target | Effort |
 |-------|--------|-------------|--------|
@@ -23,11 +23,11 @@ Pocketa is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/
 
 **Sprint A5 (Bangla + Release Build):**
 Status: **🔄 IN PROGRESS** — 2026-06-14. 3/5 tasks complete. Depends on: A4 complete (✅).
-- [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 Pocketa V2 keys, native Bangla, full parity ✅
+- [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 Helm V2 keys, native Bangla, full parity ✅
 - [~] A5.2 Build release APK — build config fixed (version, label, description); actual build needs keystore + `flutter build apk --release` (human action)
 - [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent reference device) — blocked on A5.2
 - [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21 = Android 5+; Galaxy A14 API 33 = fully compatible ✅
-- [x] A5.5 Verify app icon and branded splash — splash #FAFAF6, iOS display name "Pocketa"; icons still default Flutter (needs designer + flutter_launcher_icons approval)
+- [x] A5.5 Verify app icon and branded splash — splash #FAFAF6, iOS display name "Helm"; icons still default Flutter (needs designer + flutter_launcher_icons approval)
 - Exit: Release APK runs on reference device. Bangla strings authored. All tests pass (210/210).
 
 **VCI (Version Control Infrastructure):**
@@ -48,7 +48,7 @@ Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 104/104 tests pass 
 - **Group D — Button Pressed States**: AppButton → StatefulWidget with `AnimatedScale(0.97)` + `InkWell` pressed state. 5 widget tests.
 - **Group E — Slider Steppers**: ±1% stepper buttons on tax rate + buffer sliders, disabled at min/max bounds. 4 structure tests.
 - **Group F — Onboarding Skip**: "Set up later" button persistent on all 6 onboarding steps, persists partial draft data, navigates to dashboard. 3 skip structure tests.
-- **Group G — Quiet Affirmations**: `Affirmation` pure-domain computation (pipeline up to date / 7 days / 14 days), wired to `PocketaTrustStrip` via `S2sHeroBlock`. Facts only, no celebration. 7 affirmation logic tests.
+- **Group G — Quiet Affirmations**: `Affirmation` pure-domain computation (pipeline up to date / 7 days / 14 days), wired to `HelmTrustStrip` via `S2sHeroBlock`. Facts only, no celebration. 7 affirmation logic tests.
 - **0 packages added**, 15 source files modified, 7 new test files created.
 - **Behavioral score: 62→68** (boundary events + haptics + affirmations + skip)
 - **UI/UX score: 78→83** (contrast AA + pressed states + stepper buttons)
@@ -76,14 +76,14 @@ Status: **COMPLETE** ✅ — 2026-06-13. dart analyze 0/0/0. 11 files changed (1
 
 - **Haptics & tactile feedback**: Slider `selectionClick`/`lightImpact` on drag/snap (buffer_comfort_page), `AppButton` tap `lightImpact`, pattern card `selectionClick`, CTA buttons `mediumImpact`.
 - **Floating tooltip**: buffer_comfort_page animated `FadeTransition` tooltip showing selected % while dragging, reverses on release.
-- **Page entry animations**: liquid_balance, income_pattern, buffer_comfort, first_pipeline pages — `FadeTransition` + `SlideTransition` with `PocketaMotion.slow`.
+- **Page entry animations**: liquid_balance, income_pattern, buffer_comfort, first_pipeline pages — `FadeTransition` + `SlideTransition` with `HelmMotion.slow`.
 - **Semantics (screen reader)**: Progress bars labeled "Onboarding step N of 6", slider labeled with percentage value, pattern cards with `button` + `selected` roles, all form inputs with `textField` role.
 - **Zero-state reask animation**: fixed_costs_page `AnimatedSwitcher` with `SlideTransition` + `FadeTransition` — no jarring below-fold jump.
 - **Responsive layout fix**: fixed_costs_page amount input uses `LayoutBuilder` — 140px on >300dp, 100px on narrow screens.
 - **Error states with iconography**: liquid_balance_page (`error_outline` icon + guidance copy), income_pattern_page (validation error when no pattern selected + `heavyImpact`), first_pipeline_page (`OutlineInputBorder` error style + `isLoading` state).
-- **Empty state**: `PocketaAuditCard` shows icon + "No calculation data" when rows is empty.
-- **Bug fixes**: Added `IncomePattern.none` sentinel, removed `const` from `_kStepProgress` in onboarding_screen, removed unused `PocketaMotion` import from shimmer.
-- New file: `lib/core/widgets/shimmer/pocketa_shimmer.dart` (shimmer skeleton system ready for loading states).
+- **Empty state**: `HelmAuditCard` shows icon + "No calculation data" when rows is empty.
+- **Bug fixes**: Added `IncomePattern.none` sentinel, removed `const` from `_kStepProgress` in onboarding_screen, removed unused `HelmMotion` import from shimmer.
+- New file: `lib/core/widgets/shimmer/helm_shimmer.dart` (shimmer skeleton system ready for loading states).
 - Next: Sprint A5 continues (build APK + device test).
 
 **Phase 4 (Doctrine Gap Closure) — 100% Master Plan:**
@@ -108,10 +108,10 @@ Status: **✅ COMPLETE** — 2026-06-13. dart analyze 0/0/0. 210/210 tests pass 
 **Sprint A4 (Test Coverage + Design Stabilization):**
 Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 78/78 tests pass.
 - 40 new tests: NumberFormatter (27 tests), OnboardingDraft (13 tests)
-- 6 files migrated from AppColors to PocketaColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
-- Raw SnackBars replaced with PocketaToast in: add_transaction, add_income, income_list, sts_settings, export
+- 6 files migrated from AppColors to HelmColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
+- Raw SnackBars replaced with HelmToast in: add_transaction, add_income, income_list, sts_settings, export
 - Only 2 core widgets remain on AppColors: button_multiple_types, linear_progress_bar (high blast radius — intentionally deferred)
-- Only 1 raw SnackBar remains: confirm_received_sheet (post-pop context — PocketaToast incompatible)
+- Only 1 raw SnackBar remains: confirm_received_sheet (post-pop context — HelmToast incompatible)
 - Test coverage: 78 tests across 4 test files
 - Design system migration: ~90% (up from ~70%)
 - Next sprint: A5 (Bangla + Release Build)
@@ -131,8 +131,8 @@ Status: **COMPLETE** ✅ — 2026-06-07. dart analyze 0/0/0. 38/38 tests pass.
 - B2 FIXED: Auth guard enforces PIN entry on cold start via `AuthNotifier.sessionAuthenticated` static flag
 - B3 FIXED: S2S hero shows "---" on provider exception instead of fake 0
 - M3 FIXED: History tab removed from bottom nav (3-tab layout: Home, Pipeline, Settings)
-- M1 FIXED: STS Settings migrated from AppColors to PocketaColors ThemeExtension
-- M2 FIXED: Audit Log migrated from raw Material colors to PocketaColors tokens
+- M1 FIXED: STS Settings migrated from AppColors to HelmColors ThemeExtension
+- M2 FIXED: Audit Log migrated from raw Material colors to HelmColors tokens
 - P5 FIXED: "Not financial advice" disclaimer added to S2S breakdown sheet
 - 0 beta blockers remaining
 - Next sprint: A3 (First Impression Polish)
@@ -206,10 +206,10 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 - **All prior sprints COMPLETE** — 17+ sprints done, 210 tests, dart analyze 0/0/0.
 - **Dashboard is doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
 - **Onboarding is doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
-- **Token foundation is stable** — new widgets consume pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion
+- **Token foundation is stable** — new widgets consume helm_colors, helm_typography, helm_spacing, helm_motion
 - **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` — 6 phases, ~85 hours, 100% maturity target
 - **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
-- **Canonical spec**: `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
+- **Canonical spec**: `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
 - MVP success criteria locked per Doctrine §4:
   - Pipeline update compliance ≥85%
   - Override-equivalent rate <5%
@@ -239,7 +239,7 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 | A1 | Internal Alpha Maturity Audit | **COMPLETE** ✅ | Code-only audit |
 | A2 | Beta Blocker Resolution | **COMPLETE** ✅ | 8/8 (B1+B2+B3+M1+M2+M3+P5) |
 | A3 | First Impression Polish | **COMPLETE** ✅ | 3/3 (M5+P2+S2S hint) |
-| A4 | Test Coverage + Design Stabilization | **COMPLETE** ✅ | 9/9 (40 tests, 6 migrations, PocketaToast) |
+| A4 | Test Coverage + Design Stabilization | **COMPLETE** ✅ | 9/9 (40 tests, 6 migrations, HelmToast) |
 | A5 | Bangla + Release Build | **🔲 PENDING** | 5 tasks, ~4h |
 
 ### 100% Master Plan (2026-06-12)
@@ -315,7 +315,7 @@ A freelancer should be able to:
 - `docs/ux/extracted/12_conflicts_and_overrides.md` — 33 gaps, 8 MVP-blocking
 
 **Canonical Spec (Pass 2):**
-- `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` — single source of truth
+- `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md` — single source of truth
 
 **Planning (Pass 3):**
 - `docs/planning/UX_TO_CODE_FILE_MAP.md` — file impact map
@@ -326,8 +326,8 @@ A freelancer should be able to:
 
 - **Final Product Doctrine** adopted 2026-06-04 — supersedes all prior roadmaps
 - **UX Canon** created 2026-06-05 — supersedes ad-hoc UX decisions
-- See `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md` for canonical product scope
-- See `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical UX spec
+- See `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md` for canonical product scope
+- See `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical UX spec
 - See `docs/planning/UX_EXECUTION_TODO.md` for implementation task list
 - See `docs/planning/DOCTRINE_TO_CODE_GAP_ANALYSIS.md` for implementation gaps
 - Prior decisions (010–021) remain valid where aligned with doctrine and UX canon

@@ -8,7 +8,7 @@
 - Follow the steps below systematically.
 
 ## 2. Mandatory Files to Reread
-1. `docs/core/POCKETA_BRAIN.md`
+1. `docs/core/HELM_BRAIN.md`
 2. `docs/core/ARCHITECTURE_RULES.md`
 3. `docs/core/ROADMAP.md`
 4. `docs/tracking/CURRENT_SPRINT.md`
@@ -20,7 +20,7 @@
 - Read recent commits (`git log -n 5`) to understand the latest changes.
 
 ## 4. Product Identity Recovery
-- Remind yourself: *"Pocketa is a Freelancer Finance OS for emerging Bangladeshi earners."*
+- Remind yourself: *"Helm is a Freelancer Finance OS for emerging Bangladeshi earners."*
 - Ensure any upcoming work aligns with this specific demographic and use case.
 
 ## 5. Known Frozen Systems

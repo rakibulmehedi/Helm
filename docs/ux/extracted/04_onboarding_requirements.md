@@ -1,6 +1,6 @@
 # Onboarding Requirements Extraction
 
-> **Source:** `docs/research/ux/Pocketa_Onboarding_Redesign.md`
+> **Source:** `docs/research/ux/Helm_Onboarding_Redesign.md`
 > **Authority level:** Operational specification. Subordinate to UX Doctrine and Final Product Doctrine. If conflict, Doctrine wins.
 > **Extracted:** 2026-06-04
 
@@ -167,7 +167,7 @@
 
 ### ONB-014: No tour, no carousels, no feature demo, no welcome banner
 
-**Statement:** Screen 8 must NOT contain: "Welcome to Pocketa!" celebration banner, "Onboarding complete!" toast, confetti, haptic burst, sound, tour overlay, or "Add your first invoice" CTA.
+**Statement:** Screen 8 must NOT contain: "Welcome to Helm!" celebration banner, "Onboarding complete!" toast, confetti, haptic burst, sound, tour overlay, or "Add your first invoice" CTA.
 
 **Rationale:** The user's internal monologue at Screen 8, if onboarding succeeded, should be: "Oh. So that's actually what I can spend. Huh." That "Huh" is worth more than 10,000 confetti animations.
 
@@ -252,11 +252,11 @@
 
 ---
 
-### ONB-021: Pocketa's voice is a chronometer, not a person
+### ONB-021: Helm's voice is a chronometer, not a person
 
-**Statement:** Pocketa is not trying to be friendly. Onboarding is the moment the user picks up the instrument, not meets a person. The tone is factual, matter-of-fact, never performative.
+**Statement:** Helm is not trying to be friendly. Onboarding is the moment the user picks up the instrument, not meets a person. The tone is factual, matter-of-fact, never performative.
 
-**Rationale:** UX Doctrine Section 2.6 defines Pocketa as a chronometer. Warmth is signaled through accuracy and honesty, not through conversational copy.
+**Rationale:** UX Doctrine Section 2.6 defines Helm as a chronometer. Warmth is signaled through accuracy and honesty, not through conversational copy.
 
 **Implementation implication:** All onboarding copy must pass the "chronometer test" -- would this sentence make sense on the face of a precision instrument? If not, rewrite.
 
@@ -286,7 +286,7 @@
 
 ### ONB-024: Screen 3 rejects zero balance with honest copy
 
-**Statement:** Entering 0 on Screen 3 triggers: "Pocketa needs at least a small liquid balance to compute S2S. If you have nothing right now, come back when you do." No account deletion -- they can return.
+**Statement:** Entering 0 on Screen 3 triggers: "Helm needs at least a small liquid balance to compute S2S. If you have nothing right now, come back when you do." No account deletion -- they can return.
 
 **Rationale:** S2S cannot be computed from zero. Rather than showing a meaningless "0" S2S, be honest that the tool requires at least some balance.
 
@@ -402,7 +402,7 @@
 
 **Statement:** Disqualifying the wrong user is a feature, not a leak. Onboarding must not be optimized for conversion of all visitors.
 
-**Rationale:** Wrong users churn, inflate support costs, dilute beta data, and write reviews from a perspective Pocketa was never built for.
+**Rationale:** Wrong users churn, inflate support costs, dilute beta data, and write reviews from a perspective Helm was never built for.
 
 **Implementation implication:** No A/B tests aimed at increasing Q1 "Yes" rate. The qualifying question can be A/B tested for clarity, but not for conversion.
 
@@ -420,7 +420,7 @@
 
 ### ONB-036: Must not demo features
 
-**Statement:** No carousels, no "here's what Pocketa can do," no value-prop slides, no feature tour.
+**Statement:** No carousels, no "here's what Helm can do," no value-prop slides, no feature tour.
 
 **Rationale:** The qualifying question is the only selling needed. If it does not resonate, no feature demo will convert the user.
 
@@ -430,7 +430,7 @@
 
 ### ONB-037: Must not use banned copy patterns
 
-**Statement:** The following copy is explicitly banned: "Let's get started!", "Almost there!", "One more step!", "Just X more questions", "Welcome to Pocketa!", "Tell us about yourself", "We need this to give you the best experience", "Your data is safe with us", "Welcome aboard!", "Awesome! Just one more thing...", progress bar percentage labels.
+**Statement:** The following copy is explicitly banned: "Let's get started!", "Almost there!", "One more step!", "Just X more questions", "Welcome to Helm!", "Tell us about yourself", "We need this to give you the best experience", "Your data is safe with us", "Welcome aboard!", "Awesome! Just one more thing...", progress bar percentage labels.
 
 **Rationale:** Each violates the chronometer tone. Performative copy signals a marketing mindset, not a trust mindset.
 
@@ -460,7 +460,7 @@
 
 ### ONB-040: Must not use fake delays for performance theater
 
-**Statement:** No `setTimeout` or artificial delays to simulate loading or processing. Pocketa does not stage performance theater.
+**Statement:** No `setTimeout` or artificial delays to simulate loading or processing. Helm does not stage performance theater.
 
 **Rationale:** Fake delays disrespect the user's time and signal dishonesty about what the app is doing.
 
@@ -474,7 +474,7 @@
 
 **Statement:** No currency picker on any onboarding screen. BDT is implicit and unambiguous.
 
-**Rationale:** Pocketa's target user earns in USD but lives in BDT. The S2S is always in BDT. Currency selection adds complexity without value in MVP.
+**Rationale:** Helm's target user earns in USD but lives in BDT. The S2S is always in BDT. Currency selection adds complexity without value in MVP.
 
 **Implementation implication:** All monetary displays use the taka symbol. No currency selector widget in onboarding.
 
@@ -562,4 +562,4 @@
 
 ---
 
-*End of onboarding requirements extraction. Source: `docs/research/ux/Pocketa_Onboarding_Redesign.md`.*
+*End of onboarding requirements extraction. Source: `docs/research/ux/Helm_Onboarding_Redesign.md`.*

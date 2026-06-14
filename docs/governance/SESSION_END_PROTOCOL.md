@@ -1,4 +1,4 @@
-# POCKETA — Session End Protocol
+# HELM — Session End Protocol
 
 > Mandatory completion protocol for all AI agents when wrapping up a session or task.
 

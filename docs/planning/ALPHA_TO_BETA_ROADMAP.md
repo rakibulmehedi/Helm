@@ -32,8 +32,8 @@
 | A2.3 | Add "---" fallback display in S2S hero when calculation result is null/error | Blocker fix | 30min |
 | A2.4 | Hide History tab from bottom nav (replace with 3-tab layout or disable) | Major fix | 30min |
 | A2.5 | Add "Not financial advice" disclaimer to S2S breakdown | Polish | 20min |
-| A2.6 | Migrate STS Settings screen from AppColors to PocketaColors | Major fix | 45min |
-| A2.7 | Migrate Audit Log screen from raw Material colors to PocketaColors | Major fix | 20min |
+| A2.6 | Migrate STS Settings screen from AppColors to HelmColors | Major fix | 45min |
+| A2.7 | Migrate Audit Log screen from raw Material colors to HelmColors | Major fix | 20min |
 | A2.8 | dart analyze clean + flutter test pass | Gate | 10min |
 
 **Exit Criteria**: All 3 blockers resolved. dart analyze 0/0/0. 38+ tests pass.
@@ -68,8 +68,8 @@
 | A4.1 | Widget test: onboarding 5-step flow | Test | 1.5h |
 | A4.2 | Widget test: PIN setup + entry flow | Test | 1h |
 | A4.3 | Widget test: dashboard rendering with mock S2S data | Test | 1h |
-| A4.4 | Replace SnackBars with PocketaToast across all screens | Design | 1h |
-| A4.5 | Use PocketaAuditCard in Audit Log screen | Design | 30min |
+| A4.4 | Replace SnackBars with HelmToast across all screens | Design | 1h |
+| A4.5 | Use HelmAuditCard in Audit Log screen | Design | 30min |
 | A4.6 | Add before/after values to audit event display | Feature | 1h |
 
 **Exit Criteria**: 60+ automated tests. All screens use doctrine widgets.
@@ -105,7 +105,7 @@ After completing sprints A2-A5:
 | Automated tests | 60+ |
 | Release build | Verified on device |
 | Bangla strings | Authored natively |
-| Design consistency | All screens use PocketaColors |
+| Design consistency | All screens use HelmColors |
 | Audit log | Accessible from Settings |
 | PIN enforcement | Verified on cold start + background resume |
 | S2S fallback | "---" on failure |

@@ -64,7 +64,7 @@ No task may:
 
 ### GROUP A — Contrast Ratio Fixes (P1.9–P1.11)
 
-**Files touched:** `lib/core/themes/pocketa_colors.dart` (light + dark)
+**Files touched:** `lib/core/themes/helm_colors.dart` (light + dark)
 **Architecture layer:** Theme (core/themes), no domain/feature changes
 **Agent lead:** Antigravity (code change: 3 color values)
 **Review agent:** UI Designer (verifies WCAG AA compliance)
@@ -72,24 +72,24 @@ No task may:
 #### TDD Approach
 Color value changes are declarative — test the computed contrast ratio, not the color itself.
 
-**Test file:** `test/core/themes/pocketa_colors_contrast_test.dart`
+**Test file:** `test/core/themes/helm_colors_contrast_test.dart`
 
 ```dart
 // Test that state tokens meet WCAG AA (4.5:1 minimum for normal text)
 // Against canvas background (#FAFAF6 for light, #0E0E0C for dark)
 
 test('stateSafe meets WCAG AA contrast on light canvas', () {
-  final contrast = _computeContrast(PocketaColors.light.stateSafe, Color(0xFFFAFAF6));
+  final contrast = _computeContrast(HelmColors.light.stateSafe, Color(0xFFFAFAF6));
   expect(contrast, greaterThanOrEqualTo(4.5));
 });
 
 test('stateTight meets WCAG AA contrast on light canvas', () {
-  final contrast = _computeContrast(PocketaColors.light.stateTight, Color(0xFFFAFAF6));
+  final contrast = _computeContrast(HelmColors.light.stateTight, Color(0xFFFAFAF6));
   expect(contrast, greaterThanOrEqualTo(4.5));
 });
 
 test('dark interactive meets WCAG AA contrast on dark canvas', () {
-  final contrast = _computeContrast(PocketaColors.dark.interactive, Color(0xFF0E0E0C));
+  final contrast = _computeContrast(HelmColors.dark.interactive, Color(0xFF0E0E0C));
   expect(contrast, greaterThanOrEqualTo(4.5));
 });
 ```
@@ -440,7 +440,7 @@ Positioned(
 ### GROUP G — Quiet Affirmation Signals (P1.16–P1.18)
 
 **Files touched:**
-- `lib/core/widgets/pocketa_trust_strip.dart` (affirmation slot)
+- `lib/core/widgets/helm_trust_strip.dart` (affirmation slot)
 - `lib/features/dashboard/presentation/views/dashboard_screen.dart` (condition computation)
 - `lib/features/income/domain/entities/income_entry_entity.dart` (read-only, check overdue)
 
@@ -495,11 +495,11 @@ test('shows nothing when pipeline has overdue AND sessionCount < 7', () {
 
 1. Add `AffirmationType` enum + `Affirmation` value object in dashboard domain (or compute inline — keep it simple, this is a conditional display, not a business rule)
 2. Compute from `SafeToSpendResult` + `List<IncomeEntryEntity>`: count overdue entries, check session count from `SharedPrefServices`
-3. Display in `PocketaTrustStrip` as a small text line below the timestamp
+3. Display in `HelmTrustStrip` as a small text line below the timestamp
 
 **Trust strip affirmation slot:**
 ```dart
-// Current PocketaTrustStrip signature (check actual):
+// Current HelmTrustStrip signature (check actual):
 // updatedAt, sourceLabel, onTapAudit
 
 // Add:
@@ -525,7 +525,7 @@ Rule: Facts only. No exclamation marks. No emoji. No comparative language ("grea
 **Exit gate:**
 - [ ] 6 affirmation tests pass (conditions + copy)
 - [ ] No exclamation marks, emoji, or comparative language in copy
-- [ ] Brand Guardian confirms copy matches Pocketa voice
+- [ ] Brand Guardian confirms copy matches Helm voice
 - [ ] Behavioral Nudge Engineer confirms celebration tension resolved (facts, not gamification)
 - [ ] Trust strip does not shift layout when affirmation appears (pre-allocated space or animated reveal)
 - [ ] `dart analyze` 0/0/0
@@ -538,7 +538,7 @@ Groups are ordered by dependency and file-touch conflict risk.
 
 ```
 WAVE 1 (parallel, independent files):
-  ├── GROUP A — Contrast Fixes (pocketa_colors.dart only)
+  ├── GROUP A — Contrast Fixes (helm_colors.dart only)
   ├── GROUP C — Haptics (pin_screen, hero_block, confirm_sheet)
   ├── GROUP D — Button States (core/widgets/ buttons)
   └── GROUP E — Slider Steppers (sts_settings_screen.dart)
@@ -553,7 +553,7 @@ WAVE 3 (depends on Wave 1 groups, independent otherwise):
 
 **Conflict resolution:**
 - Group B and Group G both touch `dashboard_screen.dart` — serialize them (G first, B after)
-- Group A touches `pocketa_colors.dart` which every widget imports — but only changes hex values (no API change), so it's safe to parallel
+- Group A touches `helm_colors.dart` which every widget imports — but only changes hex values (no API change), so it's safe to parallel
 - Group C touches 5+ files across features — no overlap with other groups
 
 ---
@@ -591,14 +591,14 @@ WAVE 3 (depends on Wave 1 groups, independent otherwise):
 [ ] Persona Walkthrough: Rafiq completes flow without confusion
 [ ] UI Designer: all visual changes meet spec
 [ ] Behavioral Nudge Engineer: all behavioral triggers correct
-[ ] Brand Guardian: all copy matches Pocketa voice
+[ ] Brand Guardian: all copy matches Helm voice
 ```
 
 ---
 
 ## Immediate Actions
 
-1. [ ] Antigravity reads all touched files (dashboard, onboarding, sts_settings, pin_screen, trust_strip, pocketa_colors, core widgets, analytics service)
+1. [ ] Antigravity reads all touched files (dashboard, onboarding, sts_settings, pin_screen, trust_strip, helm_colors, core widgets, analytics service)
 2. [ ] Whimsy Injector designs affirmation copy for 3 states (deliver before GROUP G starts)
 3. [ ] Antigravity dispatches Wave 1 (Groups A, C, D, E in sequence)
 4. [ ] Antigravity dispatches Wave 2 (Group G — affirmation computation + trust strip)

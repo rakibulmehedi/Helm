@@ -32,7 +32,7 @@
 
 | Key | Current String | Status | Replacement |
 |-----|---------------|--------|-------------|
-| welcomeMessage | 'Welcome to Pocketa!' | BANNED (exclamation + forbidden greeting pattern) | 'How much BDT can you actually spend right now?' |
+| welcomeMessage | 'Welcome to Helm!' | BANNED (exclamation + forbidden greeting pattern) | 'How much BDT can you actually spend right now?' |
 | tagLine | 'Your pocket accountant for\nSmart budgeting' | BANNED ("Smart budgeting" adjacent to "budget smarter") | 'Know your Safe-to-Spend — before you spend.' |
 | getStarted | 'Get Started' | STALE | 'Continue' |
 | onboardingStep1–4 | 'Step 1 of 4' … 'Step 4 of 4' | STALE (flow is now 5 steps, progress bar only) | Remove — progress is visual only per ONB-003 |
@@ -58,7 +58,7 @@
 
 | Line | Current String | Status | Replacement |
 |------|---------------|--------|-------------|
-| 91 | 'Pocketa' | OK | — |
+| 91 | 'Helm' | OK | — |
 | 80 | 'P' (avatar letter) | OK | — |
 
 *No user-facing copy violations. Splash is display-only.*
@@ -69,7 +69,7 @@
 
 | Line | Current String | Status | Replacement |
 |------|---------------|--------|-------------|
-| 32 | 'Pocketa' | OK | — |
+| 32 | 'Helm' | OK | — |
 | 38 | 'How much BDT can you actually spend right now?' | OK (doctrine-aligned) | — |
 | 44 | 'Continue' | OK | — |
 
@@ -87,7 +87,7 @@
 | 96 | 'Is that you?' | OK | — |
 | 102 | "Yes, that's me" | OK | — |
 | 111 | 'Not really' | OK | — |
-| 121 | 'Pocketa is built for USD-earning freelancers in Bangladesh.' | OK | — |
+| 121 | 'Helm is built for USD-earning freelancers in Bangladesh.' | OK | — |
 | 127 | 'Come back when you start billing internationally.' | OK | — |
 | 133 | 'Close' | OK | — |
 
@@ -101,7 +101,7 @@
 |------|---------------|--------|-------------|
 | 96 | 'Roughly how much do you have right now?' | OK | — |
 | 101 | 'bKash, bank, and cash — combined. Rough is fine.' | OK | — |
-| 51 | 'Pocketa needs a balance to compute your safe amount.' | VAGUE ("balance", "safe amount") | 'Enter a BDT amount to compute your Safe-to-Spend.' |
+| 51 | 'Helm needs a balance to compute your safe amount.' | VAGUE ("balance", "safe amount") | 'Enter a BDT amount to compute your Safe-to-Spend.' |
 | 155 | 'Continue' | OK | — |
 
 ---
@@ -162,7 +162,7 @@
 
 | Line | Current String | Status | Replacement |
 |------|---------------|--------|-------------|
-| 54 | 'Pocketa' | OK | — |
+| 54 | 'Helm' | OK | — |
 | 63 | 'Reset onboarding (dev only)' | OK (debug only, not user-facing) | — |
 | 77 | 'Add pipeline entry' (tooltip) | OK | — |
 
@@ -361,7 +361,7 @@
 
 ---
 
-### lib/core/widgets/pocketa_calculation_trace.dart
+### lib/core/widgets/helm_calculation_trace.dart
 
 | Line | Current String | Status | Replacement |
 |------|---------------|--------|-------------|
@@ -389,7 +389,7 @@ The following strings contain **explicitly forbidden phrases** and must be repla
 
 | File | String | Rule Violated |
 |------|--------|---------------|
-| app_localizations_en.dart | 'Welcome to Pocketa!' | Exclamation mark + banned greeting |
+| app_localizations_en.dart | 'Welcome to Helm!' | Exclamation mark + banned greeting |
 | app_localizations_en.dart | 'Your pocket accountant for\nSmart budgeting' | Adjacent to "budget smarter" doctrine kill |
 | app_localizations_en.dart | 'Set up your budget categories' | "budget categories" |
 | app_localizations_en.dart | 'Set Monthly Budget' | "Budget" as feature label |
@@ -439,15 +439,15 @@ The following Bangla strings require native speaker verification. They are prese
 ## What Was Changed in l10n Files
 
 See updated files:
-- `/Users/rakibulislammehedi/Pocketa-V2/lib/l10n/app_localizations_en.dart` — all BANNED and STALE strings replaced
-- `/Users/rakibulislammehedi/Pocketa-V2/lib/l10n/app_localizations_bn.dart` — all strings flagged with `// TODO: native Bangla review needed`; English placeholder used for changed keys
-- `/Users/rakibulislammehedi/Pocketa-V2/lib/l10n/app_localizations.dart` — doc comments updated to match new copy
+- `/Users/rakibulislammehedi/Helm-V2/lib/l10n/app_localizations_en.dart` — all BANNED and STALE strings replaced
+- `/Users/rakibulislammehedi/Helm-V2/lib/l10n/app_localizations_bn.dart` — all strings flagged with `// TODO: native Bangla review needed`; English placeholder used for changed keys
+- `/Users/rakibulislammehedi/Helm-V2/lib/l10n/app_localizations.dart` — doc comments updated to match new copy
 
 ### Key changes in English l10n
 
 | Key | Old | New |
 |-----|-----|-----|
-| welcomeMessage | 'Welcome to Pocketa!' | 'How much BDT can you actually spend right now?' |
+| welcomeMessage | 'Welcome to Helm!' | 'How much BDT can you actually spend right now?' |
 | tagLine | 'Your pocket accountant for\nSmart budgeting' | 'Know your Safe-to-Spend — before you spend.' |
 | getStarted | 'Get Started' | 'Continue' |
 | setupYourBudgetCategories | 'Set up your budget categories' | 'What are your fixed monthly costs?' |

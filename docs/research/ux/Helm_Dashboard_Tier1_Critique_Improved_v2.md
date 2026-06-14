@@ -1,7 +1,7 @@
-# Pocketa Dashboard — Tier‑1 Fintech Design Critique & Improved Version v2
+# Helm Dashboard — Tier‑1 Fintech Design Critique & Improved Version v2
 
 > **Role posture:** Tier‑1 fintech product design director.  
-> **Review target:** `Pocketa_Dashboard_Redesign.md`  
+> **Review target:** `Helm_Dashboard_Redesign.md`  
 > **Constraints:** Final Product Doctrine + UX Doctrine.  
 > **Verdict:** The redesign is directionally correct, but still too much like a beautiful doctrine document translated into a screen. The next version must become a stricter **decision surface**: one answer, one freshness signal, one pressure summary, one maintenance action when needed.
 
@@ -58,7 +58,7 @@ Three such rows equal twelve cognitive atoms, not three.
 Current order:
 
 ```text
-Pocketa
+Helm
 Good evening, Mehedi
 Updated 2 min ago
 ৳ 32,400.00
@@ -101,7 +101,7 @@ This is acceptable in a spec, but risky in production. Most users will only disc
 
 Even if the spec says the FAB means “Add Pipeline Entry,” a lone `+` on a finance home screen still reads as generic add transaction.
 
-**Risk:** users trained by bKash/TallyKhata/expense apps may tap it expecting expense logging. That pulls Pocketa back toward generic accounting.
+**Risk:** users trained by bKash/TallyKhata/expense apps may tap it expecting expense logging. That pulls Helm back toward generic accounting.
 
 **Fix:** use an **extended FAB during MVP learning period**:
 
@@ -299,7 +299,7 @@ Boring copy is a feature here.
 
 ### 5.1 The current draft still gives brand/greeting too much surface weight
 
-The cockpit should start with truth, not identity. Pocketa’s brand is the math, not the wordmark.
+The cockpit should start with truth, not identity. Helm’s brand is the math, not the wordmark.
 
 **Improved hierarchy:**
 
@@ -403,7 +403,7 @@ Long-press is a power-user shortcut. It should never be required for an action t
 
 ## 7. Attack: Unclear Money States
 
-Pocketa lives or dies on the user understanding what money is real.
+Helm lives or dies on the user understanding what money is real.
 
 The current draft has the right internal states:
 
@@ -448,7 +448,7 @@ The current redesign uses:
 
 > Present → Threat → Hope.
 
-That is correct emotionally, but not sufficient operationally. Pocketa also needs to tell the user whether the answer is trustworthy and whether they need to update anything.
+That is correct emotionally, but not sufficient operationally. Helm also needs to tell the user whether the answer is trustworthy and whether they need to update anything.
 
 So the improved hierarchy becomes:
 
@@ -466,7 +466,7 @@ Reference: 6.1" Android, 412 × 915 logical px, 8pt grid.
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ Pocketa                                   ↻  │
+│ Helm                                   ↻  │
 │ Updated 2 min ago · inputs current           │
 │                                              │
 │ SAFE‑TO‑SPEND                                │
@@ -504,7 +504,7 @@ Reference: 6.1" Android, 412 × 915 logical px, 8pt grid.
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ Pocketa                                   ↻  │
+│ Helm                                   ↻  │
 │ Updated 4 min ago · inputs current           │
 │                                              │
 │ SAFE‑TO‑SPEND                                │
@@ -545,7 +545,7 @@ This is specific, calm, and mathematically grounded.
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ Pocketa                                   ↻  │
+│ Helm                                   ↻  │
 │ Updated 1 min ago · inputs current           │
 │                                              │
 │ SAFE‑TO‑SPEND                                │
@@ -578,7 +578,7 @@ This is specific, calm, and mathematically grounded.
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ Pocketa                                   ↻  │
+│ Helm                                   ↻  │
 │ Updated 2 min ago · 1 input needs review     │
 │                                              │
 │ SAFE‑TO‑SPEND                                │
@@ -609,7 +609,7 @@ This state directly supports the MVP’s most important behavioral metric: pipel
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ Pocketa                                   ↻  │
+│ Helm                                   ↻  │
 │ Updated 12 min ago · 1 payment due today     │
 │                                              │
 │ SAFE‑TO‑SPEND                                │
@@ -674,7 +674,7 @@ Reason                                   not received
 Boundary copy:
 
 ```text
-Pocketa never edits Safe‑to‑Spend directly. Edit the inputs to change the number.
+Helm never edits Safe‑to‑Spend directly. Edit the inputs to change the number.
 ```
 
 ---
@@ -768,7 +768,7 @@ This is the highest-leverage copy change in the whole redesign.
 
 ```text
 1. Top bar
-   - Pocketa wordmark
+   - Helm wordmark
    - refresh icon
    - freshness + input confidence
 
@@ -867,7 +867,7 @@ The biggest upgrade is not visual. It is semantic:
 
 > Replace “Pending pipeline” with **“Not counted yet.”**
 
-That phrase protects the user from the exact overspend error Pocketa exists to prevent.
+That phrase protects the user from the exact overspend error Helm exists to prevent.
 
 The second biggest upgrade is Reserve Mode correction:
 

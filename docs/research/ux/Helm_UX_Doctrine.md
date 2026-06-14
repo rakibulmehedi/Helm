@@ -1,6 +1,6 @@
-# Pocketa UX Doctrine
+# Helm UX Doctrine
 
-> **Status:** Canonical. Governs every screen, transition, word, and silence in Pocketa.
+> **Status:** Canonical. Governs every screen, transition, word, and silence in Helm.
 > **Foundation:** Built on the Final Product Doctrine (June 2026) and the UX Research Sprint behavioral evidence.
 > **Posture:** Adversarial-mentor. Every rule here is a constraint, not a suggestion. Violate one and the calm collapses in a predictable way.
 > **Reading Order:** Sections 1–3 are philosophy. Sections 4–11 are operational. Sections 12–14 are enforcement.
@@ -11,63 +11,63 @@
 
 ### The single sentence
 
-> **Pocketa is a calm financial cockpit that returns one trusted BDT number — "what is actually safe to spend right now" — in under two seconds, with the full math one tap away.**
+> **Helm is a calm financial cockpit that returns one trusted BDT number — "what is actually safe to spend right now" — in under two seconds, with the full math one tap away.**
 
 That sentence resolves every UX question. If a design decision moves you toward it, ship. If it moves you away, kill.
 
 ### The five tensions, resolved
 
-Mehedi — these are the contradictions every fintech product blurs. Pocketa resolves them in writing, in advance, so no future debate is needed:
+Mehedi — these are the contradictions every fintech product blurs. Helm resolves them in writing, in advance, so no future debate is needed:
 
 | Tension | Resolution |
 |---|---|
 | **Calm vs Urgency** | Calm is the default. Urgency is earned only by *mathematical proximity to financial harm* — i.e., insufficient liquid BDT for an obligation due within 7 days. Urgency is never used for engagement, promotion, retention, or "we miss you." There is exactly one red color in the entire app and it is reserved. |
 | **Transparency vs Simplicity** | Simplicity at the surface; transparency on tap. The home screen shows one number. Tapping it reveals the math. Tapping the math reveals the inputs. Each layer is independently complete — the user can stop at any depth and trust what they see. |
 | **User Control vs Financial Safety** | Users own every *input*. Users cannot override the *output*. The math is the contract. If the user dislikes the S2S number, they change an input — never the result. This is the middle path between paternalism and danger. |
-| **Trust vs Automation** | Automation reduces effort, not verification. Every automated state change ends in a one-tap human confirmation. Pocketa never silently marks an invoice received. It asks. |
+| **Trust vs Automation** | Automation reduces effort, not verification. Every automated state change ends in a one-tap human confirmation. Helm never silently marks an invoice received. It asks. |
 | **Pipeline Visibility vs Cognitive Overload** | Temporal segregation: **Present > Threat > Hope**. Liquid BDT dominates the canvas. Upcoming obligations sit middle. Pending USD recedes to the bottom. Detail lives one layer below the surface. |
 
 ### The product's job, in one line
 
 > **Replace mental math under stress with deterministic math you can trust at a glance.**
 
-That's it. Not budgeting. Not accounting. Not financial advice. Not a neobank. Pocketa is a calm answer to a recurring panicked question.
+That's it. Not budgeting. Not accounting. Not financial advice. Not a neobank. Helm is a calm answer to a recurring panicked question.
 
 ---
 
 ## 2. Emotional Design Principles
 
-> **Why this section exists first:** The freelancer's interaction with Pocketa is not a transaction. It is an emotional regulation event. The UX research is unambiguous — 50–55% of gig workers report psychological distress from payment uncertainty, and 8.5 hours per month are spent on the cognitive overhead of payment management. Pocketa is competing for those 102 hours per year. It wins by becoming a place that *reduces cortisol*, not raises it.
+> **Why this section exists first:** The freelancer's interaction with Helm is not a transaction. It is an emotional regulation event. The UX research is unambiguous — 50–55% of gig workers report psychological distress from payment uncertainty, and 8.5 hours per month are spent on the cognitive overhead of payment management. Helm is competing for those 102 hours per year. It wins by becoming a place that *reduces cortisol*, not raises it.
 
 ### Principle 1 — Reduce cortisol, never raise it
 
 The app's job is to leave the user calmer than it found them. Every screen passes this test or it doesn't ship.
 
-- A user opens Pocketa anxious → leaves with a number, a runway, a known math.
-- A user opens Pocketa calm → leaves still calm, with nothing pushed at them.
-- A user opens Pocketa during the Trough (Days 29–31) → sees runway in days, not "you have no income."
+- A user opens Helm anxious → leaves with a number, a runway, a known math.
+- A user opens Helm calm → leaves still calm, with nothing pushed at them.
+- A user opens Helm during the Trough (Days 29–31) → sees runway in days, not "you have no income."
 
 ### Principle 2 — Respect mental accounting; do not flatten it
 
 The research is explicit: capital exists in **four psychological states** in the freelancer's mind — Theoretical (invoiced), Trapped (in foreign wallets), Transit (mid-route), Liquid (in BDT). Aggregating these into one "Net Worth" number is a UX crime.
 
-**Pocketa rule:** Liquid BDT and pending USD are *visually severed*. They never appear in the same number. They never share typography weight. Trapped wealth is acknowledged but visually demoted.
+**Helm rule:** Liquid BDT and pending USD are *visually severed*. They never appear in the same number. They never share typography weight. Trapped wealth is acknowledged but visually demoted.
 
 ### Principle 3 — Pessimistic by default; surplus is the dopamine
 
-If Pocketa shows ৳30,000 Safe-to-Spend and the actual settlement yields ৳30,800, the user feels relief. If Pocketa shows ৳30,800 and the actual yields ৳30,000, the user feels betrayed.
+If Helm shows ৳30,000 Safe-to-Spend and the actual settlement yields ৳30,800, the user feels relief. If Helm shows ৳30,800 and the actual yields ৳30,000, the user feels betrayed.
 
-**Pocketa rule:** Always model the worst plausible case. Use the lower bound of recent FX volatility. Assume worst-case fees if the platform routing is unclear. Surplus is the only acceptable surprise.
+**Helm rule:** Always model the worst plausible case. Use the lower bound of recent FX volatility. Assume worst-case fees if the platform routing is unclear. Surplus is the only acceptable surprise.
 
 ### Principle 4 — Closed cognitive loops over open ones (the Zeigarnik antidote)
 
-The freelancer's brain holds open every uninvoiced, unpaid, unconfirmed loop. The research calls this *allostatic load*. Pocketa's job is to *close loops*, not surface them.
+The freelancer's brain holds open every uninvoiced, unpaid, unconfirmed loop. The research calls this *allostatic load*. Helm's job is to *close loops*, not surface them.
 
-**Pocketa rule:** Every screen must answer a question the user is already carrying. Never introduce a new open question. Never end an interaction without a resolved state.
+**Helm rule:** Every screen must answer a question the user is already carrying. Never introduce a new open question. Never end an interaction without a resolved state.
 
 ### Principle 5 — Calm is louder than alarm
 
-Most fintech apps default to alarm and reserve calm for special states. Pocketa inverts this. The default emotional tone is *settled*. Alarm exists, but it is rare and earned.
+Most fintech apps default to alarm and reserve calm for special states. Helm inverts this. The default emotional tone is *settled*. Alarm exists, but it is rare and earned.
 
 A user who never sees a red state has used the product correctly. A user who sees red sees it because the math says they must.
 
@@ -75,21 +75,21 @@ A user who never sees a red state has used the product correctly. A user who see
 
 The freelancer is running a complex cross-border micro-business. They do not need encouragement, mascots, streaks, or motivational copy. They need an objective instrument that does not lie to them.
 
-**Pocketa is a chronometer, not a coach.**
+**Helm is a chronometer, not a coach.**
 
 ### Principle 7 — Faith- and culture-aligned restraint
 
-No interest-bearing nudges. No gambling-adjacent language ("you might win," "lucky day," "jackpot rate"). No premium FOMO ("upgrade now and unlock"). Pocketa's tone is the financial equivalent of a calm physician — clinical, kind, exact.
+No interest-bearing nudges. No gambling-adjacent language ("you might win," "lucky day," "jackpot rate"). No premium FOMO ("upgrade now and unlock"). Helm's tone is the financial equivalent of a calm physician — clinical, kind, exact.
 
 ---
 
 ## 3. Information Hierarchy
 
-> **Why this matters:** When a panicked freelancer opens Pocketa at a checkout counter, they have ~1.5 seconds of cognitive bandwidth. Whatever wins the visual hierarchy in that moment IS the product. Everything else is decoration.
+> **Why this matters:** When a panicked freelancer opens Helm at a checkout counter, they have ~1.5 seconds of cognitive bandwidth. Whatever wins the visual hierarchy in that moment IS the product. Everything else is decoration.
 
 ### The Three-Tier Cognitive Stack
 
-Every Pocketa screen is built on this three-tier model. No exceptions.
+Every Helm screen is built on this three-tier model. No exceptions.
 
 | Tier | What lives here | Visual weight | Information type |
 |---|---|---|---|
@@ -129,7 +129,7 @@ The home screen does not link to "more details." It *contains* more details unde
 
 ## 4. Dashboard Doctrine
 
-> **The dashboard is not a dashboard. It is a cockpit.** A dashboard reports. A cockpit informs the next decision in a high-stakes environment. Pocketa's home screen must be the latter.
+> **The dashboard is not a dashboard. It is a cockpit.** A dashboard reports. A cockpit informs the next decision in a high-stakes environment. Helm's home screen must be the latter.
 
 ### What the home screen IS
 
@@ -184,7 +184,7 @@ Pending pipeline    $1,800 across 2 invoices
 
 - Welcome banners after onboarding (one-time only, dismissable, never repeated)
 - "What's new" announcements (these belong in a versioned changelog in Settings)
-- Cross-promotion to other Pocketa features ("Did you know about Tax Reserve?")
+- Cross-promotion to other Helm features ("Did you know about Tax Reserve?")
 - Inline tooltips that appear without being summoned
 - Notifications inbox dot indicators on the home screen
 - Any metric labeled as a "score"
@@ -193,7 +193,7 @@ Pending pipeline    $1,800 across 2 invoices
 
 ## 5. Onboarding Doctrine
 
-> **Onboarding is the trust handshake.** It is also the highest-attrition surface in the entire product. The research is clear: 70%+ of users abandon finance apps during setup because the effort/reward ratio inverts. Pocketa onboarding must invert the inversion.
+> **Onboarding is the trust handshake.** It is also the highest-attrition surface in the entire product. The research is clear: 70%+ of users abandon finance apps during setup because the effort/reward ratio inverts. Helm onboarding must invert the inversion.
 
 ### The 3-minute conversational onboarding contract
 
@@ -203,7 +203,7 @@ Pending pipeline    $1,800 across 2 invoices
 
 The conventional finance app asks: *"Connect your accounts, enter your transactions, categorize your spending, set your budget."* This is data-extraction theater. The user has not yet seen value; the app is already demanding labor.
 
-Pocketa inverts this. **The first thing the user sees is an answer, populated from minimal input.** Every onboarding question must directly contribute to the S2S number the user sees at the end.
+Helm inverts this. **The first thing the user sees is an answer, populated from minimal input.** Every onboarding question must directly contribute to the S2S number the user sees at the end.
 
 ### The 5-step conversational sequence
 
@@ -215,21 +215,21 @@ Each step is a single screen with a single question. No multi-field forms. No op
 | 2 | **Liquid balance entry:** "Roughly how much do you have right now in bKash + bank + cash combined? You can refine this later." → single BDT input + helper hint | One number. No wallet splitting in MVP. The "refine later" framing reduces precision pressure. |
 | 3 | **Fixed costs capture:** "What do you pay every month no matter what?" → guided list: Rent, Internet, Phone, Subscriptions, Family support, Other → each with amount + day-of-month | Critical input for S2S. Presented as a conversational checklist, not a form. User can add custom items but defaults cover 80% of cases. |
 | 4 | **Income pattern declaration:** "How does income usually arrive?" → three picture-cards: Marketplace escrow (Upwork/Fiverr/FC) / Direct client invoicing / Retainer or recurring | Captures the freelancer's "shape" without making them list every client. Drives the pipeline UX defaults. |
-| 5 | **Buffer comfort:** "How much of your money do you want Pocketa to keep aside as a 'don't touch' safety buffer?" → slider 5% / **15%** / 25% / 30% with live BDT preview | Default 15%. The slider's live preview teaches the user immediately that buffer = real money set aside, not abstract. |
+| 5 | **Buffer comfort:** "How much of your money do you want Helm to keep aside as a 'don't touch' safety buffer?" → slider 5% / **15%** / 25% / 30% with live BDT preview | Default 15%. The slider's live preview teaches the user immediately that buffer = real money set aside, not abstract. |
 
 After step 5: **the home screen loads with the S2S number already computed**. No "Done!" celebration. No confetti. The reward IS the number.
 
 ### Onboarding microcopy rules
 
 - Address the user as "you," never "Mehedi" by name during onboarding. Name personalization here feels manipulative. Use the name only in greeting lines on the home screen.
-- Every step explains in one sentence WHY the data is needed. "This helps Pocketa show you what's actually safe to spend after your fixed bills." No "we promise to keep this safe" boilerplate — that signals doubt.
+- Every step explains in one sentence WHY the data is needed. "This helps Helm show you what's actually safe to spend after your fixed bills." No "we promise to keep this safe" boilerplate — that signals doubt.
 - Never use phrases like "Let's get started," "Almost there!", or "Just one more step." Treat the user like an adult; they can see the progress bar.
 
 ### The PIN/biometric gate
 
-Set immediately after step 5, before the first home screen render. Framed as: *"Pocketa shows your income. Only you should see it. Set a 6-digit PIN — biometric if your device supports it."*
+Set immediately after step 5, before the first home screen render. Framed as: *"Helm shows your income. Only you should see it. Set a 6-digit PIN — biometric if your device supports it."*
 
-This is the **first place Pocketa earns trust through friction**. The friction here is itself the trust signal.
+This is the **first place Helm earns trust through friction**. The friction here is itself the trust signal.
 
 ### Onboarding state recovery
 
@@ -239,7 +239,7 @@ If a user abandons mid-onboarding, the next app open resumes at the exact step. 
 
 ## 6. Pipeline Interaction Doctrine
 
-> **The Pipeline IS the product's beating heart.** Safe-to-Spend is the surface metric, but the pipeline is what makes S2S real. If pipeline maintenance fails, S2S becomes fiction and the product dies. The MVP success threshold of ≥85% pipeline update compliance is therefore THE most important UX metric in Pocketa.
+> **The Pipeline IS the product's beating heart.** Safe-to-Spend is the surface metric, but the pipeline is what makes S2S real. If pipeline maintenance fails, S2S becomes fiction and the product dies. The MVP success threshold of ≥85% pipeline update compliance is therefore THE most important UX metric in Helm.
 
 ### The three-state pipeline contract
 
@@ -249,7 +249,7 @@ A pipeline entry exists in exactly one of three states. No others. No sub-states
 |---|---|---|---|
 | **Expected** | Outline circle, muted text | Invoice sent or work agreed, not yet acknowledged paid | Counts toward "Hope" tier only; never toward S2S |
 | **Pending** | Half-filled circle, normal text | Client acknowledged or payment in transit (e.g., Upwork released to Payoneer) | Counts toward "Hope" tier with conservative FX; still never toward S2S |
-| **Received** | Filled circle, full text + checkmark | Funds landed in a Pocketa-tracked liquid wallet, converted to BDT | Adds to liquid balance; immediately recalculates S2S |
+| **Received** | Filled circle, full text + checkmark | Funds landed in a Helm-tracked liquid wallet, converted to BDT | Adds to liquid balance; immediately recalculates S2S |
 
 ### The one-tap gesture (the most important interaction in the app)
 
@@ -309,7 +309,7 @@ For retainer freelancers — long-press any received entry → "Duplicate as exp
 
 ## 7. Microcopy Doctrine
 
-> **Microcopy is the voice of the system.** In finance, voice IS trust. A single tone-deaf sentence collapses a month of UX work. Pocketa's voice is calibrated against the research's most damning finding: 42% of freelancers have missed personal payments due to systemic delays. This is not a population that responds to perky copy.
+> **Microcopy is the voice of the system.** In finance, voice IS trust. A single tone-deaf sentence collapses a month of UX work. Helm's voice is calibrated against the research's most damning finding: 42% of freelancers have missed personal payments due to systemic delays. This is not a population that responds to perky copy.
 
 ### Voice attributes
 
@@ -324,7 +324,7 @@ For retainer freelancers — long-press any received entry → "Duplicate as exp
 
 ### The five microcopy archetypes
 
-Every string in Pocketa fits into one of five categories. Each has a strict rule:
+Every string in Helm fits into one of five categories. Each has a strict rule:
 
 #### Archetype 1 — State statements ("here is the truth")
 
@@ -350,9 +350,9 @@ Rules: Always lead with the verb. Always state the outcome if it affects S2S. Ne
 
 Format: *Direct statement + reason if helpful*.
 
-> "Pocketa does not move money. This is a record-only transfer."
+> "Helm does not move money. This is a record-only transfer."
 > "This is your declared tax reserve, not tax advice."
-> "Pocketa never overrides Safe-to-Spend. Edit an input to change the number."
+> "Helm never overrides Safe-to-Spend. Edit an input to change the number."
 
 Rules: No apologies. No softening. Limits are clarity, not punishment.
 
@@ -384,7 +384,7 @@ Rules: Never use "URGENT," "WARNING," "ALERT," or all-caps. The fact itself carr
 | "Don't worry!" | Patronizing in a context where worry is rational |
 | "Looks like...", "It seems..." | Hedging suggests the system isn't sure of its own data |
 | "Sorry, something went wrong" | Either say what went wrong, or stay silent |
-| "Hi there!", "Hey friend!" | Pocketa is not the user's friend |
+| "Hi there!", "Hey friend!" | Helm is not the user's friend |
 | "Awesome!", "Great job!", "Nice!" | The user did not perform; they updated a value |
 | "Premium", "Pro", "Power" in promotional voice | Plan names are fine; promotional adjectives are not |
 | "Limited time offer" | Never. Not for any reason. |
@@ -410,7 +410,7 @@ Every line is tappable. Every line explains itself in one sentence on tap. This 
 
 ## 8. Visual Design Doctrine
 
-> **Pocketa's visual language is restraint.** The freelancer's eye is already overstimulated by Upwork red, Payoneer blue, bKash pink, Telegram cyan, Facebook indigo, and a Bangladeshi tropical environment outside the screen. Pocketa's job is to be the calm room in a noisy house.
+> **Helm's visual language is restraint.** The freelancer's eye is already overstimulated by Upwork red, Payoneer blue, bKash pink, Telegram cyan, Facebook indigo, and a Bangladeshi tropical environment outside the screen. Helm's job is to be the calm room in a noisy house.
 
 ### Color system
 
@@ -427,7 +427,7 @@ Every line is tappable. Every line explains itself in one sentence on tap. This 
 
 **Rules:**
 - Five named colors. No more. Every screen uses only this palette.
-- No gradients. None. Anywhere. Gradients are decorative; Pocketa is not decorative.
+- No gradients. None. Anywhere. Gradients are decorative; Helm is not decorative.
 - No drop shadows on cards. Depth is conveyed by border + spacing, not by faked physics.
 - Light mode is default; dark mode is automatic from system. No manual toggle in MVP.
 
@@ -444,20 +444,20 @@ Every line is tappable. Every line explains itself in one sentence on tap. This 
 - The currency symbol (৳) is rendered at half-weight of the number — it labels, doesn't compete.
 - Decimals are always shown (৳ 32,400.00 not ৳ 32,400) — finance precision is a trust signal.
 - Bangladeshi number formatting (lakh / crore separators) — ৳ 1,32,400 not ৳ 132,400. This is non-negotiable cultural correctness.
-- No italics anywhere. Italics signal aside, and Pocketa has no asides.
+- No italics anywhere. Italics signal aside, and Helm has no asides.
 - No ALL-CAPS except in tab bar labels (and only if needed). ALL-CAPS feels shouty.
 
 ### Spatial rhythm
 
 - An 8pt grid system. Every margin, every padding, every gap is a multiple of 8.
-- Vertical rhythm is generous — Pocketa is less dense than 80% of comparable fintech apps. This is intentional. Density signals overwhelm.
+- Vertical rhythm is generous — Helm is less dense than 80% of comparable fintech apps. This is intentional. Density signals overwhelm.
 - The Tier 1 (S2S) block has 32pt of breathing room above and 24pt below. The visual frame says: *this is the answer; let it sit*.
 
 ### Iconography
 
 - A single, restrained icon family — outline style, 1.5pt stroke, rounded joins (Phosphor, Tabler, or a custom restrained set).
 - No filled icons in the active state — instead, the active tab gets the brand accent color and a thin underline. Avoids the "kindergarten lights" feeling of filled active icons.
-- No illustrated mascots, no hand-drawn empty-state graphics with smiling envelopes. Pocketa has no mascot. The brand is the math.
+- No illustrated mascots, no hand-drawn empty-state graphics with smiling envelopes. Helm has no mascot. The brand is the math.
 
 ### Motion
 
@@ -475,11 +475,11 @@ The home screen displays no more than **9 lines of content** above the fold on a
 
 ## 9. Notification Doctrine
 
-> **A push notification is an uninvited cognitive interruption.** For a population already at 50–55% baseline anxiety, the wrong notification triggers a literal physiological stress response. Pocketa's notification architecture is therefore the most restrained surface in the product.
+> **A push notification is an uninvited cognitive interruption.** For a population already at 50–55% baseline anxiety, the wrong notification triggers a literal physiological stress response. Helm's notification architecture is therefore the most restrained surface in the product.
 
 ### The two-class system
 
-Pocketa sends exactly two classes of notification. No others exist.
+Helm sends exactly two classes of notification. No others exist.
 
 #### Class A — Transactional notifications
 
@@ -501,11 +501,11 @@ Triggered by **mathematical proximity to financial harm**.
 |---|---|
 | S2S transitions into Tight state | "Safe-to-Spend is now ৳14,400 — covers 6 days at your usual pace." |
 | S2S transitions into At Risk state | "Rent of ৳18,000 is due in 4 days. Current liquid BDT is short by ৳3,600. Tap to review pipeline." |
-| Liquid BDT below buffer floor | "Liquid BDT has dropped below your 15% buffer. Pocketa is now in Reserve mode — see suggestions." |
+| Liquid BDT below buffer floor | "Liquid BDT has dropped below your 15% buffer. Helm is now in Reserve mode — see suggestions." |
 
 That's the entire list. Two classes. Roughly seven trigger types. No others exist or may be added without Doctrine amendment.
 
-### Notifications that DO NOT exist in Pocketa
+### Notifications that DO NOT exist in Helm
 
 | Type | Why killed |
 |---|---|
@@ -514,7 +514,7 @@ That's the entire list. Two classes. Roughly seven trigger types. No others exis
 | "You saved ৳X this month!" | Hype copy; financial clarity is its own reward |
 | Cross-sell ("Upgrade to Pro!") | Trust collapse |
 | "New feature available!" | Goes in a versioned changelog, not push |
-| Holiday messages, festival greetings | Pocketa is not the user's friend |
+| Holiday messages, festival greetings | Helm is not the user's friend |
 | Tips, suggestions, "did you know" content | Coaching copy; killed |
 | Streak / habit notifications | Patronizing; killed |
 | Marketing or content notifications | Never |
@@ -537,21 +537,21 @@ That's the entire list. Two classes. Roughly seven trigger types. No others exis
 
 ## 10. Empty/Error State Doctrine
 
-> **Empty and error states are where products lose trust faster than anywhere else.** A loading spinner that never resolves, a "Something went wrong" screen, an empty list with no explanation — these moments are when the user decides whether Pocketa is a serious instrument or a beta toy.
+> **Empty and error states are where products lose trust faster than anywhere else.** A loading spinner that never resolves, a "Something went wrong" screen, an empty list with no explanation — these moments are when the user decides whether Helm is a serious instrument or a beta toy.
 
 ### The first principle of states
 
-**Pocketa never panics.** Every empty state, error state, and edge case is treated as a normal state with a specific cause and a specific next action.
+**Helm never panics.** Every empty state, error state, and edge case is treated as a normal state with a specific cause and a specific next action.
 
 ### Empty state catalog
 
-| Screen | Empty trigger | Pocketa's response |
+| Screen | Empty trigger | Helm's response |
 |---|---|---|
 | Home (no pipeline entries, fresh install) | New user, post-onboarding | Show S2S based on liquid balance + fixed costs (it works without pipeline). Tier 3 ("Hope" block) shows: "Add your first expected payment to forecast Safe-to-Spend further." Never: "You have no income." |
-| Pipeline screen (no entries) | New user | One illustration-free message: "When you invoice or expect a payment, add it here. Pocketa will track it through to your Safe-to-Spend." Below: prominent "Add first entry" button. |
+| Pipeline screen (no entries) | New user | One illustration-free message: "When you invoice or expect a payment, add it here. Helm will track it through to your Safe-to-Spend." Below: prominent "Add first entry" button. |
 | Pipeline screen (all received this month) | Successful month with no current pending | "All caught up for now. Pending pipeline will reappear when you add your next expected payment." NOT: "Nothing here! Start earning!" |
 | History (new user) | No transaction history | "History will populate as you confirm received payments and pay obligations. Nothing here yet." |
-| Tax Reserve (V2, not set up) | User hasn't declared reserve % | "Pocketa can set aside a percentage of received income as a tax reserve. You declare the percentage — Pocketa never decides tax for you." → "Set up tax reserve" button. |
+| Tax Reserve (V2, not set up) | User hasn't declared reserve % | "Helm can set aside a percentage of received income as a tax reserve. You declare the percentage — Helm never decides tax for you." → "Set up tax reserve" button. |
 
 ### The Zero-State Panic Killer (the critical rule)
 
@@ -594,10 +594,10 @@ A dash, never a wrong number. This is the **most important error pattern in the 
 
 ```
 "Last sync 4 hours ago. Tap to refresh.
- You can still use Pocketa offline."
+ You can still use Helm offline."
 ```
 
-Pocketa is offline-tolerant. Edits made offline queue and sync on reconnection. The user never sees "no internet" as a blocker.
+Helm is offline-tolerant. Edits made offline queue and sync on reconnection. The user never sees "no internet" as a blocker.
 
 #### Category 3 — Input validation errors
 
@@ -606,7 +606,7 @@ Pocketa is offline-tolerant. Edits made offline queue and sync on reconnection. 
  Are you sure? [ Confirm ] [ Adjust ]"
 ```
 
-Validation is a conversation, not a rejection. Pocketa flags anomalies, explains the discrepancy, lets the user proceed with eyes open.
+Validation is a conversation, not a rejection. Helm flags anomalies, explains the discrepancy, lets the user proceed with eyes open.
 
 ### What error states never do
 
@@ -620,7 +620,7 @@ Validation is a conversation, not a rejection. Pocketa flags anomalies, explains
 
 ## 11. Zero/Reserve Mode Doctrine
 
-> **The Trough is real.** Days 29–31 of any freelancer's emotional timeline — and any inter-contract gap — push Pocketa into its most important psychological role: not the gardener of abundance, but the lifeguard of survival. This mode is what separates Pocketa from a tracker.
+> **The Trough is real.** Days 29–31 of any freelancer's emotional timeline — and any inter-contract gap — push Helm into its most important psychological role: not the gardener of abundance, but the lifeguard of survival. This mode is what separates Helm from a tracker.
 
 ### When Reserve Mode activates
 
@@ -659,17 +659,17 @@ The home screen does **not** transform into a panic UI. It transforms into a **r
 ### Reserve Mode behavioral rules
 
 1. **No new feature promotions appear.** Tax reserve setup, multi-wallet onboarding, all secondary CTAs are suppressed.
-2. **Suggested actions are presented as options, never as instructions.** Pocketa offers; the user decides.
+2. **Suggested actions are presented as options, never as instructions.** Helm offers; the user decides.
 3. **The buffer is visible and editable in this mode.** If the user explicitly chooses to dip into the buffer, they do so with eyes open — a single confirmation modal: *"Reducing buffer from 15% to 10% releases ৳1,900. This reduces Safe-to-Spend protection. Proceed?"*
 4. **No paywalls appear during Reserve Mode.** A user in financial duress is never shown an "Upgrade to Pro" prompt. This is an absolute rule.
 5. **Tone shifts to extra-clinical, not extra-warm.** The user does not need empathy in Reserve Mode — they need precision. Empathy here reads as pity, and pity damages dignity.
 
 ### The Reserve Mode action menu
 
-When the user taps "View suggested actions," Pocketa presents a context-aware list, sorted by impact in BDT:
+When the user taps "View suggested actions," Helm presents a context-aware list, sorted by impact in BDT:
 
 ```
-Actions Pocketa can help with
+Actions Helm can help with
 
 → Confirm Acme invoice receipt              + ৳89,750 potential
 → Send polite follow-up to overdue clients  + variable potential
@@ -689,7 +689,7 @@ The user does not need to be reminded they were in trouble. They lived it.
 
 ## 12. Forbidden UX Patterns
 
-> **This section exists because every product, given enough time and feature pressure, drifts into anti-patterns.** This list is canonical. Adding to a Pocketa surface anything in this list requires a Doctrine amendment, not a Jira ticket.
+> **This section exists because every product, given enough time and feature pressure, drifts into anti-patterns.** This list is canonical. Adding to a Helm surface anything in this list requires a Doctrine amendment, not a Jira ticket.
 
 ### Permanently killed visual patterns
 
@@ -699,7 +699,7 @@ The user does not need to be reminded they were in trouble. They lived it.
 | Slot-machine counter animations on numbers | The S2S number is not a jackpot |
 | Glowing buttons, pulsing CTAs | Demands attention the math hasn't earned |
 | Hero illustrations on home screen | Decoration where decision lives |
-| Mascots, characters, anthropomorphized brand | Pocketa is an instrument, not a friend |
+| Mascots, characters, anthropomorphized brand | Helm is an instrument, not a friend |
 | Gradient backgrounds | Decorative; signals lifestyle app |
 | Skeuomorphic finance UI (leather wallets, paper receipts) | Cultural mismatch + dated aesthetic |
 | Dashboards with 4+ widgets visible at once | Cognitive overload |
@@ -721,14 +721,14 @@ The user does not need to be reminded they were in trouble. They lived it.
 | Modals that block app use for engagement (NPS in mid-flow) | Hostility |
 | Forced tutorials / coach-marks on every new feature | The product must explain itself in use |
 | Hidden withdrawal or export actions | Buried liquidity is dark pattern |
-| Time-locked features ("available again in 24 hours") | Pocketa is not a game |
+| Time-locked features ("available again in 24 hours") | Helm is not a game |
 
 ### Permanently killed copy patterns
 
 | Pattern | Why forbidden |
 |---|---|
 | Toxic positivity ("Don't worry!", "Hang in there!", "You got this!") | See Microcopy Doctrine §7 |
-| Moralizing financial advice ("Maybe skip eating out this week") | Pocketa is not a moralist |
+| Moralizing financial advice ("Maybe skip eating out this week") | Helm is not a moralist |
 | Vague reassurance ("Everything looks fine!") | The math is the reassurance |
 | Mystery copy ("Something interesting happened in your account") | Either say it or stay silent |
 | "Powered by AI", "AI-driven insights" | AI is a tool; not a value proposition |
@@ -740,10 +740,10 @@ The user does not need to be reminded they were in trouble. They lived it.
 | Pattern | Why forbidden |
 |---|---|
 | Gamification (streaks, badges, points, levels) | Financial clarity is its own reward — Final Doctrine §8 |
-| Social comparison features | Owned by Facebook + Telegram; not Pocketa's lane |
+| Social comparison features | Owned by Facebook + Telegram; not Helm's lane |
 | Affiliate-driven product recommendations | Conflict of neutrality |
 | In-product credit scoring / creditworthiness display | Regulatory + classification risk |
-| Auto-advice ("Pocketa recommends you spend less on X") | Borders on financial advice classification |
+| Auto-advice ("Helm recommends you spend less on X") | Borders on financial advice classification |
 | Aggregated "net worth" number combining USD + BDT | Mental accounting violation |
 | Reset / restart features ("Start fresh this month") | Implies the user failed; never |
 
@@ -753,7 +753,7 @@ The user does not need to be reminded they were in trouble. They lived it.
 
 > **A product can be functionally correct and emotionally wrong.** This checklist is the final gate before any new screen, feature, or copy block ships. It is reviewed in code review with the same gravity as type safety or test coverage.
 
-For every Pocketa surface, ask:
+For every Helm surface, ask:
 
 ### The Calm Test
 
@@ -937,7 +937,7 @@ The discipline these two docs ask for is identical to the discipline that did no
 
 The right next action is not amending this Doctrine. It is sitting with the home screen on paper for 30 minutes and asking, of every element, the questions in §13.
 
-If you finish this 30-minute exercise and Pocketa still feels right — you are ready for Sprint 1.
+If you finish this 30-minute exercise and Helm still feels right — you are ready for Sprint 1.
 
 If it doesn't feel right — kill it now, before the repo exists. That is also a victory. The strategy docs are not the product. The shipped app is.
 
@@ -945,4 +945,4 @@ If it doesn't feel right — kill it now, before the repo exists. That is also a
 
 ---
 
-*End of Pocketa UX Doctrine. Frozen. No amendments without an explicit Doctrine review session.*
+*End of Helm UX Doctrine. Frozen. No amendments without an explicit Doctrine review session.*

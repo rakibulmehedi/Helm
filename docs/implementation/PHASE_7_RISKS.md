@@ -13,7 +13,7 @@
 
 ### R1 — Dashboard Clutter
 
-**Description:** Adding an Income Pipeline Summary section below the existing transaction summary may make the dashboard feel dense, overwhelming, or visually cluttered — degrading the "calm, reassuring" UX that is core to Pocketa's identity.
+**Description:** Adding an Income Pipeline Summary section below the existing transaction summary may make the dashboard feel dense, overwhelming, or visually cluttered — degrading the "calm, reassuring" UX that is core to Helm's identity.
 
 **Likelihood:** High (dashboard already has summary cards; adding more is additive risk)
 

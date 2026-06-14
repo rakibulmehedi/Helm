@@ -1,6 +1,6 @@
 # Manual QA Script
 
-> Step-by-step manual QA procedures for Pocketa closed beta.
+> Step-by-step manual QA procedures for Helm closed beta.
 > Reference device: Samsung Galaxy A14 (or equivalent mid-range Android)
 > Network: Test on both WiFi and 3G/4G (app is offline-first, but verify no network-dependent crashes)
 
@@ -8,7 +8,7 @@
 
 ## Pre-QA Setup
 
-1. Uninstall any previous Pocketa build
+1. Uninstall any previous Helm build
 2. Clear app data if reinstalling over existing
 3. Ensure device has no prior Hive/SharedPreferences data
 4. Have stopwatch ready for timing measurements

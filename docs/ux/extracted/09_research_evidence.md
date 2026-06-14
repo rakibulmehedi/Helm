@@ -2,7 +2,7 @@
 
 > **Source Document:** `docs/research/ux/Freelancer Finance UX Research.md`
 > **Authority Level:** EVIDENCE -- not implementation law. Findings inform and validate (or challenge) product decisions but do not override the Final Product Doctrine.
-> **Cross-Reference:** `docs/research/ux/Pocketa_FINAL_Product_Doctrine.md` (canonical authority)
+> **Cross-Reference:** `docs/research/ux/Helm_FINAL_Product_Doctrine.md` (canonical authority)
 > **Extracted:** 2026-06-04
 
 ---
@@ -12,13 +12,13 @@
 ### RES-001 -- Mental Accounting: Four Psychological Money States
 **Finding:** Bangladeshi freelancers do not treat their total net worth as a fungible pool. Capital exists in four rigidly distinct psychological states: Theoretical Wealth (invoices sent, unacknowledged), Trapped Wealth (cleared by client but held in platform wallets like Upwork/Payoneer/nsave), Transit Wealth (moving through SWIFT/ACH networks), and Liquid Wealth (BDT in local bank or bKash).
 **Evidence Strength:** Strong -- grounded in established behavioral economics (Mental Accounting theory) and corroborated by platform-specific Bangladeshi community discourse.
-**Implementation Implication:** Pocketa's pipeline model (expected -> pending -> received) directly maps to these states. The doctrine's decision to use a single aggregated balance in MVP is a simplification; the research suggests users will still mentally separate these states. The calculation breakdown drawer must make these distinctions visible even if the balance is aggregated.
+**Implementation Implication:** Helm's pipeline model (expected -> pending -> received) directly maps to these states. The doctrine's decision to use a single aggregated balance in MVP is a simplification; the research suggests users will still mentally separate these states. The calculation breakdown drawer must make these distinctions visible even if the balance is aggregated.
 **Doctrine Alignment:** VALIDATES Doctrine SS4 (MVP scope, item 4: Income Pipeline with three states) and SS10 (Trust Layer 2: Calculation Transparency).
 
 ### RES-002 -- 8.5 Hours/Month Lost to Payment Administration
 **Finding:** Freelancers spend an average of 8.5 hours monthly (102 hours/year) on payment-related administrative tasks: chasing late invoices (~3.2h), managing cash flow (~2.8h), researching payment methods (~1.5h), and dealing with platform support (~1.0h). At $50/hr, this represents ~$5,100 in annual opportunity cost.
 **Evidence Strength:** Strong -- sourced from the Global Freelance Client Payment Delay Report 2026 (Jobbers).
-**Implementation Implication:** Pocketa's core value proposition is reclaiming this time. The "cash flow management" bucket (2.8h/month) is the direct target. MVP must demonstrably reduce time-to-answer on "what can I spend?" to seconds, not minutes.
+**Implementation Implication:** Helm's core value proposition is reclaiming this time. The "cash flow management" bucket (2.8h/month) is the direct target. MVP must demonstrably reduce time-to-answer on "what can I spend?" to seconds, not minutes.
 **Doctrine Alignment:** VALIDATES Doctrine SS11 (Retention Loop 1: Daily Open Habit, <2s to S2S).
 
 ### RES-003 -- 85% Late Payment Rate; 21% Chronic Non-Payment
@@ -30,13 +30,13 @@
 ### RES-004 -- Real-World Consequences of Payment Delays
 **Finding:** Due to systemic delays, 42% of freelancers have missed utility/rent payments, 38% have incurred late fees, 31% have been forced to borrow money, and 27% have reduced essential spending on healthcare/food.
 **Evidence Strength:** Strong -- sourced from Stanford GSB research via Jobbers report.
-**Implementation Implication:** These are the exact failure modes Pocketa exists to prevent. The Safe-to-Spend metric with hard deduction of imminent liabilities (Rule 1 in the research) directly addresses the 42% who miss rent. The doctrine's behavioral failure mode example (freelancer buys phone, then rent is short) mirrors these findings precisely.
+**Implementation Implication:** These are the exact failure modes Helm exists to prevent. The Safe-to-Spend metric with hard deduction of imminent liabilities (Rule 1 in the research) directly addresses the 42% who miss rent. The doctrine's behavioral failure mode example (freelancer buys phone, then rent is short) mirrors these findings precisely.
 **Doctrine Alignment:** VALIDATES Doctrine SS3 (Core Behavioral Problem) and SS4 (MVP item 7: S2S hero metric).
 
 ### RES-005 -- 50-55% Psychological Distress; 28-33% Consider Quitting
 **Finding:** 50-55% of gig workers report psychological distress related to payment uncertainty. 28-33% have actively considered abandoning freelancing entirely due to payment instability.
 **Evidence Strength:** Strong -- multi-source research data.
-**Implementation Implication:** Pocketa is not a convenience tool; it is a psychological harm reduction tool. The product's tone, notification language, and visual design must be calibrated for users under chronic stress. This validates the doctrine's "calm cockpit" framing and "calm > hype" retention philosophy.
+**Implementation Implication:** Helm is not a convenience tool; it is a psychological harm reduction tool. The product's tone, notification language, and visual design must be calibrated for users under chronic stress. This validates the doctrine's "calm cockpit" framing and "calm > hype" retention philosophy.
 **Doctrine Alignment:** VALIDATES Doctrine SS1 (Final Product Thesis: "single-purpose calm cockpit") and SS11 (Retention Loop 5: Calm > Hype).
 
 ---
@@ -46,19 +46,19 @@
 ### RES-006 -- FX Fee Opacity ("Ghost Charges")
 **Finding:** The primary catalyst for user disenfranchisement with legacy platforms is fee obfuscation. Payoneer implements layered fees: 1.5% transfer fees, 1-4% conversion spreads, $29.95 annual card fee, and a $30 fee for accounts under $2,000. The community term is "ghost charges." The realization that a $1,000 invoice yields only ~$940 in BDT triggers profound anger and feelings of exploitation.
 **Evidence Strength:** Strong -- corroborated by community discourse (Reddit), WorldFirst review, and VaultLeap fee analysis.
-**Implementation Implication:** Pocketa's calculation breakdown drawer must explicitly model platform-specific fee deductions. If Pocketa shows an optimistic number that does not match reality, it will be immediately classified alongside legacy platforms as untrustworthy.
+**Implementation Implication:** Helm's calculation breakdown drawer must explicitly model platform-specific fee deductions. If Helm shows an optimistic number that does not match reality, it will be immediately classified alongside legacy platforms as untrustworthy.
 **Doctrine Alignment:** VALIDATES Doctrine SS10 (Trust Layer 2: Calculation Transparency) and SS4 (MVP item 8: Calculation breakdown drawer). VALIDATES Doctrine SS4 (MVP item 9: Editable inputs including FX rate per entry).
 
 ### RES-007 -- Behavioral Migration Away from Payoneer
 **Finding:** Bangladeshi freelancer community is actively migrating from Payoneer to newer platforms like Elevate Pay (local US checking accounts via MCB, fee-free ACH) and nsave (USD digital accounts, flat $1 transfer fee). Community sentiment: "Payoneer sucks now!"
 **Evidence Strength:** Strong -- multiple Reddit community threads, nsave and Elevate Pay documentation.
-**Implementation Implication:** Pocketa must be platform-agnostic and support multiple routing paths. The doctrine's multi-wallet feature (V1, not MVP) aligns, but even in MVP the editable FX rate and fee inputs must accommodate different platform cost structures.
+**Implementation Implication:** Helm must be platform-agnostic and support multiple routing paths. The doctrine's multi-wallet feature (V1, not MVP) aligns, but even in MVP the editable FX rate and fee inputs must accommodate different platform cost structures.
 **Doctrine Alignment:** VALIDATES Doctrine SS2 (Core User: "Uses Payoneer (most common) or nsave/ElevatePay as USD receiver") and SS5 (V1 item 1: Multi-wallet).
 
 ### RES-008 -- Manual Data Entry Fatigue (Pipeline Abandonment)
 **Finding:** PFM apps fail because they demand continuous manual data entry with zero psychological reward. The reward-to-effort ratio is catastrophically skewed. Users begin skipping entries, the dashboard loses accuracy, the S2S number becomes unreliable, and the app is abandoned.
 **Evidence Strength:** Strong -- validated by Reddit community feedback on freelancer finance dashboards and established cognitive load theory.
-**Implementation Implication:** This is the single biggest threat to Pocketa's MVP. The doctrine acknowledges this as Risk #1 ("Manual pipeline attrition"). Research prescribes: API data parsing, predictive settlement timelines, and one-tap reconciliations. However, the doctrine explicitly excludes API integrations and email auto-ingestion from MVP. The tension is real.
+**Implementation Implication:** This is the single biggest threat to Helm's MVP. The doctrine acknowledges this as Risk #1 ("Manual pipeline attrition"). Research prescribes: API data parsing, predictive settlement timelines, and one-tap reconciliations. However, the doctrine explicitly excludes API integrations and email auto-ingestion from MVP. The tension is real.
 **Doctrine Alignment:** VALIDATES Doctrine SS17 (Risk #1: Manual pipeline attrition) but CHALLENGES the sufficiency of MVP mitigations. The doctrine relies on one-tap update + transactional notifications. The research suggests this may not be enough -- the 85% pipeline update compliance threshold will be the critical test.
 **Contradiction Flag:** The research strongly advocates for automated pipeline updates (API parsing, email ingestion). The doctrine kills these for MVP due to cost and regulatory burden. This is a deliberate, eyes-open trade-off, not an oversight -- but it is the highest-risk bet in the product.
 
@@ -81,7 +81,7 @@
 ### RES-011 -- Loss Aversion Amplified by FX Anchoring
 **Finding:** Freelancers anchor expectations to the mid-market rate (Google/Xe). The gap between this anchor and the actual received amount (after fees and spreads) triggers loss aversion responses roughly 2x the intensity of equivalent gains. This manifests as "FX paranoia."
 **Evidence Strength:** Strong -- grounded in Kahneman's Loss Aversion theory, applied to specific BD freelancer FX context.
-**Implementation Implication:** Pocketa must use pessimistic financial modeling (lowest plausible conversion rate within recent volatility window). When the actual settlement exceeds the pessimistic estimate, the user experiences micro-relief instead of deficit shock.
+**Implementation Implication:** Helm must use pessimistic financial modeling (lowest plausible conversion rate within recent volatility window). When the actual settlement exceeds the pessimistic estimate, the user experiences micro-relief instead of deficit shock.
 **Doctrine Alignment:** VALIDATES Doctrine SS4 (MVP item 13: Default 15% safety buffer) and SS10 (Trust Layer 2). The research provides the psychological rationale for the buffer that the doctrine mandates.
 
 ### RES-012 -- The Zeigarnik Effect on Unpaid Invoices
@@ -103,7 +103,7 @@
 ### RES-014 -- Multi-Layer Routing Infrastructure
 **Finding:** Bangladeshi freelancers navigate a multi-layered routing system: Upwork/Fiverr/Freelancer.com -> Payoneer/nsave/ElevatePay -> SWIFT/ACH -> local Bangladeshi bank -> bKash/cash. Each layer adds fees, delays, and opacity. PayPal is absent. This routing complexity is structurally unique to Bangladesh.
 **Evidence Strength:** Strong -- extensively documented across multiple BD-specific sources.
-**Implementation Implication:** Pocketa's pipeline model must accommodate this multi-hop reality. Even in MVP's single-wallet mode, the pipeline states (expected -> pending -> received) must map to real routing stages. The editable FX rate per entry accommodates different routing costs.
+**Implementation Implication:** Helm's pipeline model must accommodate this multi-hop reality. Even in MVP's single-wallet mode, the pipeline states (expected -> pending -> received) must map to real routing stages. The editable FX rate per entry accommodates different routing costs.
 **Doctrine Alignment:** VALIDATES Doctrine SS2 (Core User profile) and SS12 (Competitive Moat: "Bangladesh context depth").
 
 ### RES-015 -- bKash as Final-Mile Liquidity
@@ -115,7 +115,7 @@
 ### RES-016 -- Platform-Specific Fee Structures Are Common Knowledge
 **Finding:** Specific fee structures (Payoneer 1.5% + spread, nsave $1 flat, Elevate Pay zero ACH fee) are widely discussed and compared in Bangladeshi freelancer communities. Users are highly fee-literate.
 **Evidence Strength:** Strong -- Reddit threads, WorldFirst reviews, community discourse.
-**Implementation Implication:** Pocketa's calculation breakdown must be at least as granular as community knowledge. If a user knows nsave charges $1 and Pocketa's math does not reflect this, trust breaks immediately.
+**Implementation Implication:** Helm's calculation breakdown must be at least as granular as community knowledge. If a user knows nsave charges $1 and Helm's math does not reflect this, trust breaks immediately.
 **Doctrine Alignment:** VALIDATES Doctrine SS10 (Trust Layer 2: Calculation Transparency) and SS4 (MVP item 9: Editable inputs including FX rate).
 
 ---
@@ -151,7 +151,7 @@
 **Doctrine Alignment:** VALIDATES Doctrine SS4 (MVP item 13: Default 15% safety buffer, hard floor at 5%).
 
 ### RES-021 -- Contextual Parity with Trusted Platforms
-**Finding:** Displaying authentic logos and mirroring UI confirmation patterns of trusted platforms (Upwork, bKash, nsave, Elevate Pay) creates psychological trust transference. If Pocketa can accurately reflect platform-specific status (e.g., "Confirming on network"), it inherits institutional trust.
+**Finding:** Displaying authentic logos and mirroring UI confirmation patterns of trusted platforms (Upwork, bKash, nsave, Elevate Pay) creates psychological trust transference. If Helm can accurately reflect platform-specific status (e.g., "Confirming on network"), it inherits institutional trust.
 **Evidence Strength:** Moderate -- logical extension of trust-transference psychology; not yet validated with users.
 **Implementation Implication:** V1 multi-wallet should use authentic platform identifiers. MVP pipeline entries should allow platform association (which platform is this income routing through).
 **Doctrine Alignment:** Neutral -- doctrine does not explicitly address logo/brand parity but does not contradict it. Low-cost implementation opportunity for trust gains.
@@ -159,13 +159,13 @@
 ### RES-022 -- "Black Box" Metrics Destroy Trust
 **Finding:** Abstract metrics like "Financial Health Score: 85/100" are universally interpreted as patronizing marketing gimmicks. Bangladeshi freelancers operating on FX margins need hard, actionable arithmetic, not abstractions.
 **Evidence Strength:** Strong -- directly correlated with the "Show Your Work" principle (RES-019).
-**Implementation Implication:** Pocketa must never introduce abstract health scores, sentiment indicators, or opaque composite metrics. Every number shown must be traceable to concrete arithmetic.
+**Implementation Implication:** Helm must never introduce abstract health scores, sentiment indicators, or opaque composite metrics. Every number shown must be traceable to concrete arithmetic.
 **Doctrine Alignment:** VALIDATES Doctrine SS8 (Kill List: "Generic charts/reports without S2S context" and "AI insights / financial advice text").
 
 ### RES-023 -- Toxic Positivity in Copy is a Trust Breaker
 **Finding:** When an invoice is 18 days overdue and the user is calculating whether to borrow from family, cheerful/gamified copy ("Hang in there!") is "deeply offensive" and demonstrates "catastrophic lack of empathy." This permanently breaks the illusion that the app understands the user's reality.
 **Evidence Strength:** Strong -- grounded in the 42% missed-rent and 31% borrowing-from-family statistics.
-**Implementation Implication:** All Pocketa copy must be factual, objective, and empathetic. No motivational cheerfulness. No gamified encouragement. The doctrine's "calm doctor, not personal trainer" tone is the correct approach.
+**Implementation Implication:** All Helm copy must be factual, objective, and empathetic. No motivational cheerfulness. No gamified encouragement. The doctrine's "calm doctor, not personal trainer" tone is the correct approach.
 **Doctrine Alignment:** VALIDATES Doctrine SS8 (Kill List: "Gamification") and SS11 (Retention Loop 5: "Calm > Hype").
 
 ---
@@ -175,24 +175,24 @@
 ### RES-024 -- Traditional PFM Apps Fail This User
 **Finding:** Traditional PFM apps experience staggering abandonment rates among freelancers because they demand high cognitive load (manual entry, complex reconciliation) while offering minimal anxiety regulation. They digitize accounting rather than digitizing emotional stability.
 **Evidence Strength:** Strong -- Reddit community feedback, PFM abandonment data, and the 102-hours-per-year administrative burden figure.
-**Implementation Implication:** Pocketa must not be a PFM. It must not position itself as a budgeting app. The doctrine's explicit exclusion of generic expense tracking is validated.
+**Implementation Implication:** Helm must not be a PFM. It must not position itself as a budgeting app. The doctrine's explicit exclusion of generic expense tracking is validated.
 **Doctrine Alignment:** VALIDATES Doctrine SS1 ("It is not a budgeting app, accounting suite...") and SS8 (Kill List: "Generic expense categorization").
 
 ### RES-025 -- Elevate Pay and nsave as Emerging Infrastructure
 **Finding:** Elevate Pay offers local US-based checking accounts (via MCB) with fee-free ACH. nsave provides USD digital accounts with $1 flat transfer fees and stablecoin yield features. Both are gaining rapid adoption among Bangladeshi freelancers as Payoneer alternatives.
 **Evidence Strength:** Strong -- platform documentation and community adoption patterns.
-**Implementation Implication:** Pocketa's pipeline model must accommodate these newer platforms alongside legacy Payoneer. Fee calculations must support both percentage-based (Payoneer) and flat-fee (nsave) models.
+**Implementation Implication:** Helm's pipeline model must accommodate these newer platforms alongside legacy Payoneer. Fee calculations must support both percentage-based (Payoneer) and flat-fee (nsave) models.
 **Doctrine Alignment:** VALIDATES Doctrine SS2 (Core User: "nsave/ElevatePay as USD receiver") and SS9 (Validate-First: Live FX API).
 
 ### RES-026 -- The "Hotel California" Anti-Pattern
 **Finding:** International wallets intentionally bury withdrawal functionality to retain capital. For a freelancer who needs USD-to-bKash for groceries, this feels like a "hostage situation." The "Convert to Local/Withdraw" action must be a persistent, unmissable affordance.
 **Evidence Strength:** Moderate -- anti-pattern analysis based on dark pattern recognition.
-**Implementation Implication:** Pocketa does not move money, but the one-tap Pending -> Received gesture must be prominent and frictionless. The research reinforces that any friction in confirming fund arrival will be perceived as obstruction.
+**Implementation Implication:** Helm does not move money, but the one-tap Pending -> Received gesture must be prominent and frictionless. The research reinforces that any friction in confirming fund arrival will be perceived as obstruction.
 **Doctrine Alignment:** VALIDATES Doctrine SS4 (MVP item 5: one-tap gesture as primary UX moment).
 
 ---
 
-## H. Behavioral Finance Findings Relevant to Pocketa
+## H. Behavioral Finance Findings Relevant to Helm
 
 ### RES-027 -- The Emotional Monthly Timeline (5 Phases)
 **Finding:** The freelancer's financial month follows a predictable emotional cycle: (1) Hustle & Invoice (Days 1-5, anticipation), (2) The Void/Waiting (Days 6-20, escalating anxiety), (3) The Arrival & Routing (Days 21-25, relief then FX stress), (4) The Settlement (Days 26-28, brief security then liability stress), (5) The Trough (Days 29-31, scarcity mindset).
@@ -225,7 +225,7 @@
 ### RES-031 -- Monospaced Typography for Financial Data
 **Finding:** Monospaced fonts for all numerical values ensure decimal alignment, facilitate rapid visual scanning, and subconsciously reinforce mathematical precision and systemic stability.
 **Evidence Strength:** Moderate -- established financial UI convention; not BD-specific.
-**Implementation Implication:** All monetary figures in the Pocketa UI should use a monospaced or tabular-figure font variant.
+**Implementation Implication:** All monetary figures in the Helm UI should use a monospaced or tabular-figure font variant.
 **Doctrine Alignment:** Neutral -- doctrine does not specify typography rules. This is an additive design recommendation.
 
 ### RES-032 -- Color as Semantic Indicator (Not Decoration)

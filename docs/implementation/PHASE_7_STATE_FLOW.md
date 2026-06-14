@@ -30,7 +30,7 @@ Money exists in multiple states simultaneously in a freelancer's world:
 
 If these states bleed into each other in the data model, the UI will show numbers that feel wrong even when they are technically correct. A user who sees pending money counted in their "available balance" will over-spend. A user who does not see any summary of pending money will under-plan.
 
-Pocketa's promise is **cashflow clarity**. That promise fails if the state model is ambiguous.
+Helm's promise is **cashflow clarity**. That promise fails if the state model is ambiguous.
 
 ### Why Pending Income Must Never Behave Like Liquid Money
 
@@ -47,7 +47,7 @@ The moment Pending income is treated as Received income in any calculation, the 
 
 ## 2. Financial Domain Separation
 
-Pocketa operates with three distinct financial domains. These domains have separate persistence, separate providers, and separate calculation responsibilities. They must never be merged.
+Helm operates with three distinct financial domains. These domains have separate persistence, separate providers, and separate calculation responsibilities. They must never be merged.
 
 ---
 

@@ -10,30 +10,30 @@
 ### New Files Required
 | File | Purpose |
 |------|---------|
-| `lib/core/themes/pocketa_colors.dart` | Doctrine-aligned color tokens (replaces colors.dart) |
-| `lib/core/themes/pocketa_typography.dart` | Type scale with mono/sans/Bangla separation |
-| `lib/core/themes/pocketa_spacing.dart` | 8pt grid spacing tokens |
-| `lib/core/widgets/pocketa_ledger_rail.dart` | S2S state rail (3pt, labeled) |
-| `lib/core/widgets/pocketa_trust_strip.dart` | Timestamp + source + audit link |
-| `lib/core/widgets/pocketa_reality_stack.dart` | 4-layer home screen hierarchy |
-| `lib/core/widgets/pocketa_amount.dart` | Financial number formatting (lakh/crore) |
-| `lib/core/widgets/pocketa_calculation_trace.dart` | Auditable math drawer |
-| `lib/core/widgets/pocketa_fx_estimate.dart` | Dual-currency display with FX |
-| `lib/core/widgets/pocketa_money_source_label.dart` | Source label widget |
-| `lib/core/widgets/cards/pocketa_hero_zone.dart` | S2S hero container |
-| `lib/core/widgets/cards/pocketa_ledger_card.dart` | Standard money card |
-| `lib/core/widgets/cards/pocketa_audit_card.dart` | Calculation trace card |
-| `lib/core/widgets/cards/pocketa_source_card.dart` | Source + status card |
-| `lib/core/widgets/cards/pocketa_caution_card.dart` | AtRisk rail card |
-| `lib/core/widgets/pocketa_toast.dart` | Financial-safe snackbar |
+| `lib/core/themes/helm_colors.dart` | Doctrine-aligned color tokens (replaces colors.dart) |
+| `lib/core/themes/helm_typography.dart` | Type scale with mono/sans/Bangla separation |
+| `lib/core/themes/helm_spacing.dart` | 8pt grid spacing tokens |
+| `lib/core/widgets/helm_ledger_rail.dart` | S2S state rail (3pt, labeled) |
+| `lib/core/widgets/helm_trust_strip.dart` | Timestamp + source + audit link |
+| `lib/core/widgets/helm_reality_stack.dart` | 4-layer home screen hierarchy |
+| `lib/core/widgets/helm_amount.dart` | Financial number formatting (lakh/crore) |
+| `lib/core/widgets/helm_calculation_trace.dart` | Auditable math drawer |
+| `lib/core/widgets/helm_fx_estimate.dart` | Dual-currency display with FX |
+| `lib/core/widgets/helm_money_source_label.dart` | Source label widget |
+| `lib/core/widgets/cards/helm_hero_zone.dart` | S2S hero container |
+| `lib/core/widgets/cards/helm_ledger_card.dart` | Standard money card |
+| `lib/core/widgets/cards/helm_audit_card.dart` | Calculation trace card |
+| `lib/core/widgets/cards/helm_source_card.dart` | Source + status card |
+| `lib/core/widgets/cards/helm_caution_card.dart` | AtRisk rail card |
+| `lib/core/widgets/helm_toast.dart` | Financial-safe snackbar |
 
 ### Modified Files
 | File | Changes |
 |------|---------|
 | `lib/features/dashboard/presentation/views/dashboard_screen.dart` | Complete redesign: Reality Stack layout, remove summary chips, remove transaction list from home |
-| `lib/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart` | Replace with PocketaHeroZone + PocketaLedgerRail + PocketaTrustStrip |
+| `lib/features/safe_to_spend/presentation/widgets/safe_to_spend_hero.dart` | Replace with HelmHeroZone + HelmLedgerRail + HelmTrustStrip |
 | `lib/features/income/presentation/widgets/income_pipeline_summary.dart` | Replace with "Not counted yet" section in Reality Stack |
-| `lib/core/themes/colors.dart` | Deprecated in favor of pocketa_colors.dart |
+| `lib/core/themes/colors.dart` | Deprecated in favor of helm_colors.dart |
 | `lib/core/themes/app_theme.dart` | Update to use new tokens, fonts (Inter/JetBrains Mono/Hind Siliguri) |
 | `lib/config/router/app_router.dart` | Add bottom nav with 4 tabs |
 | `lib/config/router/route_names.dart` | Add pipeline, history routes |
@@ -110,16 +110,16 @@
 ### New Files Required
 | File | Purpose |
 |------|---------|
-| `lib/core/themes/pocketa_colors.dart` | Full doctrine color system |
-| `lib/core/themes/pocketa_typography.dart` | Inter + JetBrains Mono + Hind Siliguri |
-| `lib/core/themes/pocketa_spacing.dart` | 8pt grid tokens |
-| `lib/core/themes/pocketa_motion.dart` | Animation timing tokens |
+| `lib/core/themes/helm_colors.dart` | Full doctrine color system |
+| `lib/core/themes/helm_typography.dart` | Inter + JetBrains Mono + Hind Siliguri |
+| `lib/core/themes/helm_spacing.dart` | 8pt grid tokens |
+| `lib/core/themes/helm_motion.dart` | Animation timing tokens |
 
 ### Modified Files
 | File | Changes |
 |------|---------|
 | `lib/core/themes/app_theme.dart` | Rebuild using new token files |
-| `lib/core/themes/colors.dart` | Deprecate, redirect to pocketa_colors |
+| `lib/core/themes/colors.dart` | Deprecate, redirect to helm_colors |
 | `pubspec.yaml` | Add google_fonts for Inter, JetBrains Mono (needs approval) |
 | All widget files | Migrate to new color/type tokens |
 

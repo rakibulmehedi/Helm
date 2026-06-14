@@ -1,6 +1,6 @@
 # ANTI-PATTERNS
 
-> Behaviors and implementation patterns that are strictly prohibited in the Pocketa project.
+> Behaviors and implementation patterns that are strictly prohibited in the Helm project.
 
 ## 1. Product Anti-Patterns
 - Feature soup (adding features just to have them)

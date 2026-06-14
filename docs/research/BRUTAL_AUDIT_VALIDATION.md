@@ -1,9 +1,9 @@
-# Research Validation: Pocketa Brutal Product Audit
+# Research Validation: Helm Brutal Product Audit
 
 **Date**: 2026-05-22
 
 ## Executive Conclusion
-The "Brutal Product Audit" report is a highly accurate, behaviorally sound, and architecturally prescient critique of the current Pocketa strategy. The majority of its strategic insights align with the underlying philosophy outlined in `POCKETA_BRAIN.md`, while correctly identifying severe technical and UX contradictions in the execution plan (specifically regarding Hive and manual data entry). The report successfully differentiates between internal product vision and external market positioning. The recommendation to focus aggressively on the Safe-to-Spend engine and pivot the database architecture before scaling is strategically sound.
+The "Brutal Product Audit" report is a highly accurate, behaviorally sound, and architecturally prescient critique of the current Helm strategy. The majority of its strategic insights align with the underlying philosophy outlined in `HELM_BRAIN.md`, while correctly identifying severe technical and UX contradictions in the execution plan (specifically regarding Hive and manual data entry). The report successfully differentiates between internal product vision and external market positioning. The recommendation to focus aggressively on the Safe-to-Spend engine and pivot the database architecture before scaling is strategically sound.
 
 ## Validated Insights
 - **Income Pipeline & Safe-to-Spend are the true wedge:** The shift from retrospective tracking to forward-looking cashflow predictability perfectly aligns with `DECISION 005` (Cashflow Operations Over Expense Tracking) and the core user persona (Rafiq) described in the Product Brain.
@@ -17,12 +17,12 @@ The "Brutal Product Audit" report is a highly accurate, behaviorally sound, and 
 
 ## Manual Entry Risk Assessment
 **Severity: CRITICAL**
-The audit identifies the fatal flaw in the `INCOME_PIPELINE_MVP.md` spec: the 3-state pipeline (Expected -> Pending -> Received) requires high user discipline. If a freelancer forgets to manually transition an invoice from Pending to Received, the `SAFE_TO_SPEND_MODEL.md` formula breaks, outputting an artificially low number. This instantly destroys the "calm, operational peace of mind" mandated in `POCKETA_BRAIN.md`. Friction-reducing UI (single-tap status updates) may not be enough to overcome behavioral inertia.
+The audit identifies the fatal flaw in the `INCOME_PIPELINE_MVP.md` spec: the 3-state pipeline (Expected -> Pending -> Received) requires high user discipline. If a freelancer forgets to manually transition an invoice from Pending to Received, the `SAFE_TO_SPEND_MODEL.md` formula breaks, outputting an artificially low number. This instantly destroys the "calm, operational peace of mind" mandated in `HELM_BRAIN.md`. Friction-reducing UI (single-tap status updates) may not be enough to overcome behavioral inertia.
 
 ## Positioning Assessment
-**Current:** "Freelancer Finance OS" (`POCKETA_BRAIN.md`, `DECISION 001`)
+**Current:** "Freelancer Finance OS" (`HELM_BRAIN.md`, `DECISION 001`)
 **Audit Verdict:** Bloated and dangerous publicly.
-**Validation:** The report is correct. `POCKETA_BRAIN.md` explicitly forbids building an ERP, heavy invoicing, or tax filing. Yet, "OS" implies exactly those features to the market. Internally, "OS" helps the team think systematically. Externally, it creates an expectation-reality gap. The suggested pivot to "Active Cashflow Guardian" or "The Pragmatic Buffer" is much stronger for consumer acquisition.
+**Validation:** The report is correct. `HELM_BRAIN.md` explicitly forbids building an ERP, heavy invoicing, or tax filing. Yet, "OS" implies exactly those features to the market. Internally, "OS" helps the team think systematically. Externally, it creates an expectation-reality gap. The suggested pivot to "Active Cashflow Guardian" or "The Pragmatic Buffer" is much stronger for consumer acquisition.
 
 ## Safe-to-Spend Assessment
 **Status: Highly Validated**
@@ -33,8 +33,8 @@ The report praises this as the true product moat. `SAFE_TO_SPEND_MODEL.md` defin
 `ROADMAP.md` has this as the current Phase 7. The report confirms this is the correct feature to build immediately, as it mirrors the actual mental accounting of freelancers (Thaler's concept). The simplification to a 3-state model (`DECISION 006`) is validated, but the manual maintenance of these states remains the primary failure vector.
 
 ## Competitive Risk Notes
-- **Local SMS Apps (EZer, DigiKhata):** Major threat due to zero-friction automated expense logging via SMS. Pocketa's manual entry will feel archaic.
-- **Spreadsheets:** The ultimate flexible competitor. Pocketa must win on zero-setup UI and specific Safe-to-Spend math that spreadsheets require complex formulas to achieve.
+- **Local SMS Apps (EZer, DigiKhata):** Major threat due to zero-friction automated expense logging via SMS. Helm's manual entry will feel archaic.
+- **Spreadsheets:** The ultimate flexible competitor. Helm must win on zero-setup UI and specific Safe-to-Spend math that spreadsheets require complex formulas to achieve.
 - **Generic Trackers:** Not a threat to the pipeline model, but they dominate app store search intent.
 
 ## Validation Recommendations (30-Day Plan)

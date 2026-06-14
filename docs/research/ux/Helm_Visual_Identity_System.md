@@ -1,4 +1,4 @@
-# Pocketa Visual Identity System
+# Helm Visual Identity System
 
 > **Status:** Canonical visual layer. Sits beneath the Final Product Doctrine and the UX Doctrine; never contradicts either.
 > **Posture:** Senior fintech design direction. Restraint over expression. Trust over taste.
@@ -11,7 +11,7 @@
 
 ### The single sentence
 
-> **Pocketa looks like a calm clinical instrument that a Bangladeshi freelancer trusts at 11pm on Day 29 — quiet, exact, ad-free, adult, locally fluent, and visually severed from every other fintech app on their phone.**
+> **Helm looks like a calm clinical instrument that a Bangladeshi freelancer trusts at 11pm on Day 29 — quiet, exact, ad-free, adult, locally fluent, and visually severed from every other fintech app on their phone.**
 
 If a visual decision moves the product toward that sentence, it ships. If it moves it toward "lifestyle fintech app," "crypto dashboard," "neobank super-app," or "personal-finance influencer template" — it dies.
 
@@ -27,7 +27,7 @@ If a visual decision moves the product toward that sentence, it ships. If it mov
 
 ### The "next to" test
 
-Place a Pocketa screen next to bKash, Payoneer, TallyKhata, Hishabee, YNAB, and Wise on the same home screen. Pocketa should be the screen that looks **least like a fintech app and most like a chronometer**. Every other app is loud, branded, and feature-promotional. Pocketa is intentionally the quietest icon in the dock.
+Place a Helm screen next to bKash, Payoneer, TallyKhata, Hishabee, YNAB, and Wise on the same home screen. Helm should be the screen that looks **least like a fintech app and most like a chronometer**. Every other app is loud, branded, and feature-promotional. Helm is intentionally the quietest icon in the dock.
 
 ---
 
@@ -115,12 +115,12 @@ Two type families plus the Bangla pair. That's the whole typographic system.
 
 ### Typographic rules (hard)
 
-1. **No italics. Anywhere.** Italics signal aside; Pocketa has no asides.
+1. **No italics. Anywhere.** Italics signal aside; Helm has no asides.
 2. **No ALL-CAPS** except optionally on tab bar labels at 11pt. ALL-CAPS reads as shouty in a calm product.
 3. **No underlines** except on inline links inside the Calculation Breakdown drawer.
 4. **No letter-spacing trickery.** Default tracking on Inter; default tracking on JetBrains Mono. Tightening type to "look premium" is the move of a junior designer.
 5. **No font weight below 400 (regular)** in any production text. 300/light reads as fragile on small-screen finance.
-6. **No font weight above 600 (semibold)** anywhere — including the S2S hero. Bold (700+) is a shout; Pocketa speaks at semibold maximum.
+6. **No font weight above 600 (semibold)** anywhere — including the S2S hero. Bold (700+) is a shout; Helm speaks at semibold maximum.
 7. **Bangla and Latin must share baseline** at body and label sizes. Test with a mixed-script string before signing off a screen.
 
 ---
@@ -154,7 +154,7 @@ Every margin, padding, gap, height, and stroke offset is a multiple of 4pt, bias
 | Card max-width | 100% within gutters | No center-constrained cards on phone; full-bleed within gutters |
 | Sheet handle inset | 24pt top, 12pt sides | Modal sheets always carry a 4pt × 36pt drag handle in `divider` color |
 | Safe area | Respect OS insets fully | The S2S hero block must clear the notch by ≥ `space.6` |
-| Bottom nav height | 56pt | iOS HIG / Material both land here; Pocketa matches |
+| Bottom nav height | 56pt | iOS HIG / Material both land here; Helm matches |
 
 ### Vertical rhythm (the home screen budget)
 
@@ -188,7 +188,7 @@ The home screen displays **no more than 9 lines of content** above the fold on a
 
 ### Philosophy
 
-Cards in Pocketa are **containers of fact**, not visual objects competing for attention. Depth is conveyed by border + spacing, never by faked physics.
+Cards in Helm are **containers of fact**, not visual objects competing for attention. Depth is conveyed by border + spacing, never by faked physics.
 
 ### Card specification
 
@@ -213,7 +213,7 @@ Cards in Pocketa are **containers of fact**, not visual objects competing for at
 
 ### 5.4 Data Visualization Language
 
-> **Read this section twice before adding any chart.** Pocketa's default chart count is zero. Every chart is a request to violate the cockpit's calm — and every request must justify itself against this section.
+> **Read this section twice before adding any chart.** Helm's default chart count is zero. Every chart is a request to violate the cockpit's calm — and every request must justify itself against this section.
 
 #### What is forbidden (V0 through V2)
 
@@ -234,7 +234,7 @@ Cards in Pocketa are **containers of fact**, not visual objects competing for at
 | **Calendar heatmap** of pipeline activity | Cells are `interactive` (deep teal) at opacity steps 0% / 20% / 40% / 60% / 80%. No second color. |
 | **Single-series line chart** (e.g. liquid BDT over 90 days) | 1.5pt stroke in `interactive`; no fill; no gridlines except one baseline; no point markers; no animation on load |
 | **Single-series bar chart** (e.g. monthly received income) | Bars in `interactive` at 80% opacity; no gridlines; no axis labels beyond start/end; data labels above each bar in `mono.financial` |
-| **Numeric tables** (preferred over charts whenever the data has ≤ 12 points) | `mono.financial` for values, right-aligned. This is the most "Pocketa" form of data visualization. |
+| **Numeric tables** (preferred over charts whenever the data has ≤ 12 points) | `mono.financial` for values, right-aligned. This is the most "Helm" form of data visualization. |
 
 #### Chart rules (when one finally ships)
 
@@ -323,7 +323,7 @@ Four button levels. Anything beyond four is a sign the screen is asking too much
 2. **No full-width primary buttons except on Quick-Confirm sheets and onboarding.** Full-width buttons signal "do this now"; the home screen never demands a single action.
 3. **Verb-led labels.** "Confirm Received" not "OK". "Add Pipeline Entry" not "+". (UX §7 Archetype 2.)
 4. **No emoji or icon-only buttons** in production. Icons accompany labels; they don't replace them. The only exceptions are tab bar icons (which have labels below) and the floating "+" FAB on the home screen (which is universally understood).
-5. **Floating Action Button** is the only Pocketa exception to "labels required." Style: 56pt circle, `interactive` background, `surface`-colored "+" at `icon.lg`. No shadow; 1pt `divider` ring instead.
+5. **Floating Action Button** is the only Helm exception to "labels required." Style: 56pt circle, `interactive` background, `surface`-colored "+" at `icon.lg`. No shadow; 1pt `divider` ring instead.
 6. **Never two primaries on one screen.** If you think you need two, one of them is actually secondary.
 
 ---
@@ -381,7 +381,7 @@ Motion is rare and slow. The S2S number does not wiggle. Sacred things do not bo
 ### Motion rules (hard)
 
 1. **No springs. No bounces.** Material spring physics are banned. Ease-out only.
-2. **No parallax.** Not on scroll. Not on home. Pocketa is not a magazine.
+2. **No parallax.** Not on scroll. Not on home. Helm is not a magazine.
 3. **No shimmer skeletons.** Skeleton states are static low-opacity placeholders that hold the position of incoming content. Animated shimmer reads as "AI loading" — wrong product category.
 4. **No animated counters on financial numbers.** The S2S number appears fully formed at 0→100% opacity over 200ms. No rolling digits.
 5. **No celebratory animations.** No confetti, no particle effects, no success bounces. The number changing IS the success.
@@ -393,7 +393,7 @@ Motion is rare and slow. The S2S number does not wiggle. Sacred things do not bo
 
 | Pattern | Why killed |
 |---|---|
-| Hero illustration animation on splash | No illustrations exist in Pocketa |
+| Hero illustration animation on splash | No illustrations exist in Helm |
 | Pulsing dots on the home screen | Demands attention the math hasn't earned |
 | Slot-machine number rolls | Financial trust violation |
 | Parallax cards | Lifestyle-app pattern |
@@ -407,7 +407,7 @@ Motion is rare and slow. The S2S number does not wiggle. Sacred things do not bo
 
 ### WCAG floor
 
-Pocketa targets **WCAG 2.2 AA across the entire product, AAA on the S2S number and any financial figure**. This is not a stretch goal; it is the floor.
+Helm targets **WCAG 2.2 AA across the entire product, AAA on the S2S number and any financial figure**. This is not a stretch goal; it is the floor.
 
 | Surface | Contrast requirement |
 |---|---|
@@ -461,7 +461,7 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 
 ## 11. What To Avoid
 
-> This list is the visual equivalent of the Final Doctrine's Permanent Kill List. Adding any item below to a Pocketa screen requires a Visual Identity amendment, not a Jira ticket.
+> This list is the visual equivalent of the Final Doctrine's Permanent Kill List. Adding any item below to a Helm screen requires a Visual Identity amendment, not a Jira ticket.
 
 ### Permanently killed visual patterns
 
@@ -473,7 +473,7 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 | Neumorphism | Untrustworthy on financial figures; low contrast |
 | Branded splash screen with animated logo | Splash should be invisible; the home screen IS the brand |
 | Hero illustrations on home, empty states, or onboarding | The brand is the math, not an envelope cartoon |
-| Mascots, characters, anthropomorphic brand | Pocketa is an instrument, not a friend |
+| Mascots, characters, anthropomorphic brand | Helm is an instrument, not a friend |
 | Confetti, particle effects, celebration animations | Trivializes financial events |
 | Slot-machine counter animations on the S2S number | Sacred metric never wiggles |
 | Glowing buttons, pulsing CTAs, attention-seeking animation | Demands attention the math hasn't earned |
@@ -488,7 +488,7 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 | Notification dot indicators on the home screen | Trains app-blame |
 | Time-locked or "premium-only" visual locks (padlock icons over features) | Hostile pattern |
 | Emoji in system-generated copy | Earned only by explicit user choice |
-| Holiday or festival theming (Eid, Pohela Boishakh visual takeovers) | Pocketa is not the user's friend |
+| Holiday or festival theming (Eid, Pohela Boishakh visual takeovers) | Helm is not the user's friend |
 | Custom illustrations for tax forms, invoices, ERQ flows | Stock-illustration fintech tropes |
 | Hand-drawn empty-state graphics | Brand-voice mismatch |
 
@@ -498,7 +498,7 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 |---|---|
 | Purple, magenta, hot pink | Crypto-app territory |
 | Neon / saturated green | "Growth" theater; misleading on a non-investment product |
-| Hot orange / safety yellow | Generic-fintech / warning-banner; not Pocketa's emotional range |
+| Hot orange / safety yellow | Generic-fintech / warning-banner; not Helm's emotional range |
 | More than five colors on screen | Restraint is the brand |
 | Brand color outside `interactive` (deep teal) | One accent. Period. |
 | Tinting the S2S number red on At Risk | Sacred number stays in `ink.primary` |
@@ -513,7 +513,7 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 | Font sizes below 11pt for any readable text | Accessibility floor |
 | Light or thin weights (100–300) | Fragile on small-screen finance |
 | ALL-CAPS body text | Shouty |
-| Italic body text | Pocketa has no asides |
+| Italic body text | Helm has no asides |
 
 ---
 
@@ -539,11 +539,11 @@ State is conveyed by **color + position + label**, never by color alone. The acc
 
 ### Design token structure (Dart-friendly)
 
-Define tokens as `ThemeExtension<PocketaTokens>` so they survive theme swaps and are reachable from `Theme.of(context).extension<PocketaTokens>()`.
+Define tokens as `ThemeExtension<HelmTokens>` so they survive theme swaps and are reachable from `Theme.of(context).extension<HelmTokens>()`.
 
 ```dart
 @immutable
-class PocketaColors extends ThemeExtension<PocketaColors> {
+class HelmColors extends ThemeExtension<HelmColors> {
   final Color canvas;
   final Color surface;
   final Color inkPrimary;
@@ -559,7 +559,7 @@ class PocketaColors extends ThemeExtension<PocketaColors> {
 }
 
 @immutable
-class PocketaSpacing extends ThemeExtension<PocketaSpacing> {
+class HelmSpacing extends ThemeExtension<HelmSpacing> {
   final double s0 = 0;
   final double s1 = 4;
   final double s2 = 8;
@@ -574,7 +574,7 @@ class PocketaSpacing extends ThemeExtension<PocketaSpacing> {
 }
 
 @immutable
-class PocketaMotion extends ThemeExtension<PocketaMotion> {
+class HelmMotion extends ThemeExtension<HelmMotion> {
   final Duration fast = const Duration(milliseconds: 120);
   final Duration base = const Duration(milliseconds: 200);
   final Duration medium = const Duration(milliseconds: 240);
@@ -590,14 +590,14 @@ These widgets are the **mechanical enforcement** of the Doctrine. Build them onc
 
 | Widget | Replaces | Why custom |
 |---|---|---|
-| `PocketaSafeToSpend` | Raw `Text` | Enforces font, size, weight, lakh/crore formatting, "—" fallback, fade-in motion, accessibility semantics. The S2S number is too important for a `Text` widget. |
-| `PocketaAmount` | Raw `Text` for financial figures | Enforces monospace, currency symbol weight, two-decimal places, lakh/crore for BDT, Western for USD |
-| `PocketaCard` | `Card` | Enforces border-instead-of-shadow, 12pt radius, 16pt padding, no `elevation` parameter |
-| `PocketaButton.{primary,secondary,tertiary,destructive}` | `ElevatedButton`, etc. | Enforces 4-tier hierarchy, label rules, no shadows, 48pt height |
-| `PocketaAccentLine` | — | The thin Safe/Tight/AtRisk line under S2S. Reusable across screens. |
-| `PocketaSheet` | `showModalBottomSheet` | Enforces drag handle, 16pt top radius, 240ms slide-up |
-| `PocketaIcon` | `Icon` | Wraps `phosphor_flutter` with size tokens; rejects filled variants |
-| `PocketaPipelineDot` | — | The ○ ◐ ● marker primitive |
+| `HelmSafeToSpend` | Raw `Text` | Enforces font, size, weight, lakh/crore formatting, "—" fallback, fade-in motion, accessibility semantics. The S2S number is too important for a `Text` widget. |
+| `HelmAmount` | Raw `Text` for financial figures | Enforces monospace, currency symbol weight, two-decimal places, lakh/crore for BDT, Western for USD |
+| `HelmCard` | `Card` | Enforces border-instead-of-shadow, 12pt radius, 16pt padding, no `elevation` parameter |
+| `HelmButton.{primary,secondary,tertiary,destructive}` | `ElevatedButton`, etc. | Enforces 4-tier hierarchy, label rules, no shadows, 48pt height |
+| `HelmAccentLine` | — | The thin Safe/Tight/AtRisk line under S2S. Reusable across screens. |
+| `HelmSheet` | `showModalBottomSheet` | Enforces drag handle, 16pt top radius, 240ms slide-up |
+| `HelmIcon` | `Icon` | Wraps `phosphor_flutter` with size tokens; rejects filled variants |
+| `HelmPipelineDot` | — | The ○ ◐ ● marker primitive |
 
 ### Lint rules to ship in MVP
 
@@ -605,10 +605,10 @@ Custom lint rules (via `custom_lint` package) that fail CI:
 
 1. **No raw `BoxShadow`** anywhere in widget code. Shadows are forbidden.
 2. **No `LinearGradient` / `RadialGradient`** in widget code.
-3. **No raw `Colors.X`** — all colors must come from `PocketaColors`.
-4. **No raw spacing values** — `EdgeInsets.all(15)` fails; only `PocketaSpacing` tokens are allowed.
+3. **No raw `Colors.X`** — all colors must come from `HelmColors`.
+4. **No raw spacing values** — `EdgeInsets.all(15)` fails; only `HelmSpacing` tokens are allowed.
 5. **No `AnimatedContainer` durations > 320ms** outside an explicitly tagged exception.
-6. **No `Curves.bounceX`, `Curves.elasticX`, `Curves.fastLinearToSlowEaseIn`** — only the `PocketaMotion.curve` is allowed.
+6. **No `Curves.bounceX`, `Curves.elasticX`, `Curves.fastLinearToSlowEaseIn`** — only the `HelmMotion.curve` is allowed.
 7. **The home screen widget tree must render ≤ 9 child rows above the fold on a 6.1" reference device** (layout test, not a lint rule, but enforced in CI).
 
 ### Performance budgets (CI-enforced)
@@ -645,15 +645,15 @@ Use `ThemeMode.system` only. No manual toggle in MVP. The dark mode palette is n
 | `lottie` package in MVP/V1 | Adds size + violates "no illustrations" |
 | `chart_X` packages (fl_chart, syncfusion_charts, etc.) until V3 | No charts ship in MVP/V1/V2 |
 | `flutter_svg` for icons | Phosphor's Flutter package is enough; SVG adds parse cost |
-| Material's `SnackBar` default | Doctrine-noncompliant copy patterns; build `PocketaToast` instead |
+| Material's `SnackBar` default | Doctrine-noncompliant copy patterns; build `HelmToast` instead |
 
 ### Theme handoff checklist (Sprint 1, Day 1)
 
-1. ✅ `PocketaColors`, `PocketaSpacing`, `PocketaTypography`, `PocketaMotion` extensions defined and registered on `ThemeData.extensions`.
+1. ✅ `HelmColors`, `HelmSpacing`, `HelmTypography`, `HelmMotion` extensions defined and registered on `ThemeData.extensions`.
 2. ✅ Light + dark `ThemeData` built; verified `MaterialApp.themeMode: ThemeMode.system` switches correctly.
 3. ✅ Fonts bundled, subset, declared in `pubspec.yaml` with explicit weight ranges.
-4. ✅ Phosphor icons added; custom `PocketaIcon` wrapper built; raw `Icon(Icons.X)` lint rule added.
-5. ✅ `PocketaSafeToSpend`, `PocketaAmount`, `PocketaCard`, `PocketaButton`, `PocketaAccentLine`, `PocketaPipelineDot` widgets stubbed with tests.
+4. ✅ Phosphor icons added; custom `HelmIcon` wrapper built; raw `Icon(Icons.X)` lint rule added.
+5. ✅ `HelmSafeToSpend`, `HelmAmount`, `HelmCard`, `HelmButton`, `HelmAccentLine`, `HelmPipelineDot` widgets stubbed with tests.
 6. ✅ Custom lint rules (no shadows, no gradients, no raw colors, no raw spacing) failing CI for violations.
 7. ✅ Bangla locale + Latin-numeral exception confirmed; lakh/crore formatter unit-tested against 30+ cases including edge cases (negative, < 1000, exactly 1 lakh, 99,99,999 → 1 crore boundary).
 8. ✅ Accessibility audit on a single test screen: VoiceOver + TalkBack pass with Bengali + English packs.
@@ -664,7 +664,7 @@ Use `ThemeMode.system` only. No manual toggle in MVP. The dark mode palette is n
 
 This Visual Identity System is the operational layer between the UX Doctrine's principles and the Flutter widget tree. It is **not a moodboard**. It is a contract: every token, every rule, every kill-list item is enforceable in code review or by lint rule.
 
-The temptation, the moment you start `lib/theme/`, will be to add a sixth color, a softer shadow, a friendlier icon set, a more "modern" gradient on the FAB. Every one of those instincts is the failure mode of every fintech app that came before Pocketa. The visual brand is in the restraint. The restraint *is* the trust signal.
+The temptation, the moment you start `lib/theme/`, will be to add a sixth color, a softer shadow, a friendlier icon set, a more "modern" gradient on the FAB. Every one of those instincts is the failure mode of every fintech app that came before Helm. The visual brand is in the restraint. The restraint *is* the trust signal.
 
 If you finish reading this and want to amend it — close the file, open Day 1 of the 30-day plan, and build the boring thing.
 
@@ -672,4 +672,4 @@ If you finish reading this and want to amend it — close the file, open Day 1 o
 
 ---
 
-*End of Pocketa Visual Identity System. Frozen pending an explicit Visual Identity review session.*
+*End of Helm Visual Identity System. Frozen pending an explicit Visual Identity review session.*

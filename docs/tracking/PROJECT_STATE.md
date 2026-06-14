@@ -24,7 +24,7 @@
 - behavioral foundation (June 2026: Phase 1 complete — 4 boundary events, 5 haptic types, 3 WCAG AA contrasts, button pressed states, slider stepper buttons, onboarding global skip, quiet affirmations in trust strip)
 - notification system (June 2026: Phase 3 complete — push notifications via flutter_local_notifications, nudge evaluator engine, Hive log persistence, notification center UI with badge, effectiveness tracking, dashboard session loop)
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
-- beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Pocketa", splash #FAFAF6, iOS display name "Pocketa", 96 Bangla ARB keys authored)
+- beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Helm", splash #FAFAF6, iOS display name "Helm", 96 Bangla ARB keys authored)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 
 ## 2. Frozen Systems
@@ -42,7 +42,7 @@
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
 - A5.3 ⏳ — blocked on A5.2
 - A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33)
-- A5.5 ✅ — splash #FAFAF6, iOS name "Pocketa"; icons still default (needs designer)
+- A5.5 ✅ — splash #FAFAF6, iOS name "Helm"; icons still default (needs designer)
 - Core S2S engine + dashboard + pipeline: production-grade
 - Distance to closed beta: APK build + device test (human action)
 - Distance to 100% maturity: ~85 hours across 6 phases (see master plan)
@@ -63,10 +63,10 @@
 - No notification system exists (push notifications are V1, but no infrastructure prep done)
 - Pipeline shows all overdue entries — no micro-sprint decomposition or prioritization
 - Settings screen: one long scroll, no section collapsing
-- STS Settings + Audit Log migrated to PocketaColors (A2 sprint)
-- 4 doctrine widgets created but unused (PocketaToast, PocketaAuditCard, PocketaCautionCard, PocketaAmount partial)
+- STS Settings + Audit Log migrated to HelmColors (A2 sprint)
+- 4 doctrine widgets created but unused (HelmToast, HelmAuditCard, HelmCautionCard, HelmAmount partial)
 - Design system migration: ~95% (all onboarding pages migrated to design tokens; only remaining raw values in non-onboarding screens)
-- Widget adoption: 11/13 (85%) — PocketaToast adopted across all feature screens
+- Widget adoption: 11/13 (85%) — HelmToast adopted across all feature screens
 - Trust Layer score: 23/35 (66%)
 - Test coverage: 104 tests in 11 files
 - **Full debt inventory**: See `docs/planning/100_PERCENT_MASTER_PLAN.md` §1-8 for 145+ tasks
@@ -128,15 +128,15 @@
   - 81 implementation tasks across 8 sprints defined
   - 7 doc conflicts resolved via authority hierarchy
   - 33 code-vs-doctrine gaps documented, 8 MVP-blocking
-  - See `docs/ux/POCKETA_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical spec
+  - See `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md` for canonical spec
   - See `docs/planning/UX_EXECUTION_TODO.md` for task list
 - **Sprint 1 (UX-5) COMPLETE** (2026-06-05): Visual Identity / Design System — 12 tasks, dart analyze 0/0/0
 - **Next**: Sprint 2 (UX-1 Dashboard Cockpit Redesign) — 14 tasks
 
 ## Visual Foundation Status (2026-06-05)
-- Token system: STABLE (pocketa_colors, pocketa_typography, pocketa_spacing, pocketa_motion)
+- Token system: STABLE (helm_colors, helm_typography, helm_spacing, helm_motion)
 - app_theme.dart: REBUILT (new tokens, legacy shim intact)
-- Core widgets: STABLE (PocketaAmount, PocketaLedgerRail, PocketaTrustStrip, PocketaToast)
+- Core widgets: STABLE (HelmAmount, HelmLedgerRail, HelmTrustStrip, HelmToast)
 - Card widgets: STABLE (HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard)
 - NumberFormatter: STABLE
 - Feature files: NOT YET migrated to new tokens (still using AppColors.* via re-export)
@@ -187,8 +187,8 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 - B1 FIXED: "Change history" ListTile added to Settings (navigates to `/audit-log`)
 - B2 FIXED: `AuthNotifier.sessionAuthenticated` static flag + router redirect enforces PIN on cold start
 - B3 FIXED: S2S hero catches provider exceptions, shows "---" fallback
-- M1 FIXED: STS Settings migrated from `AppColors` to `PocketaColors` ThemeExtension
-- M2 FIXED: Audit Log migrated from raw `Colors.*` to `PocketaColors` tokens
+- M1 FIXED: STS Settings migrated from `AppColors` to `HelmColors` ThemeExtension
+- M2 FIXED: Audit Log migrated from raw `Colors.*` to `HelmColors` tokens
 - M3 FIXED: History tab removed from bottom nav (3-tab: Home, Pipeline, Settings)
 - P5 FIXED: "Not financial advice" disclaimer added to S2S breakdown sheet
 - Quality gate: dart analyze 0/0/0, 38/38 tests pass
@@ -205,10 +205,10 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 ## 6d. A4 Test Coverage + Design Stabilization — COMPLETE (2026-06-07)
 
 - **40 new tests**: NumberFormatter (27 tests: BDT lakh/crore, USD, compact, FX rate, parse round-trip), OnboardingDraft (13 tests: copyWith, computed properties)
-- **6 files migrated** from AppColors to PocketaColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
-- **PocketaToast adopted** across 5 screens: add_transaction, add_income, income_list, sts_settings, export
+- **6 files migrated** from AppColors to HelmColors: safe_to_spend_hero, add_transaction_screen, add_income_screen, income_list_screen, income_pipeline_summary, splash_screen
+- **HelmToast adopted** across 5 screens: add_transaction, add_income, income_list, sts_settings, export
 - **Remaining AppColors**: 2 core widgets (button_multiple_types, linear_progress_bar) — high blast radius, deferred
-- **Remaining raw SnackBar**: 1 (confirm_received_sheet — post-pop context, PocketaToast incompatible)
+- **Remaining raw SnackBar**: 1 (confirm_received_sheet — post-pop context, HelmToast incompatible)
 - Test count: 38 → 78 (105% increase)
 - Design system migration: ~70% → ~90%
 - Quality gate: dart analyze 0/0/0, 78/78 tests pass
@@ -218,13 +218,13 @@ New routes: `/pin-setup`, `/pin-entry`, `/audit-log`, `/delete-account`, `/expor
 > Reference: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`
 > Agent: Antigravity (Claude Code), Review: Behavioral Nudge Engine, UI Designer, Brand Guardian
 
-- **Group A — Contrast Fixes (P1.9-P1.11)**: `stateSafe` light #3D6B3C (4.7:1 AA), `stateTight` light #8B6500 (4.6:1 AA), `interactive` dark #4DA09C (5.0:1 AA). Test: `pocketa_colors_contrast_test.dart` (3 tests, WCAG relative luminance computation).
+- **Group A — Contrast Fixes (P1.9-P1.11)**: `stateSafe` light #3D6B3C (4.7:1 AA), `stateTight` light #8B6500 (4.6:1 AA), `interactive` dark #4DA09C (5.0:1 AA). Test: `helm_colors_contrast_test.dart` (3 tests, WCAG relative luminance computation).
 - **Group B — Boundary Event Wiring (P1.1-P1.4)**: 4 analytics events wired — `sts_at_risk_entered` + `reserve_depleted` (dashboard initState, SharedPrefs once-per-session deduplication), `first_pipeline_entry` (add_income_screen, once-ever), `pipeline_state_changed` (confirm_received_sheet, fires on every state transition). Test: `dashboard_boundary_events_test.dart` (7 tests). `BoundaryEvents.pipelineStateChanged` added to event_registry.
 - **Group C — Haptic Feedback (P1.5-P1.8)**: 5 action types — PIN digit/clear (light), PIN confirm (medium), PIN fail (heavy), confirm received (medium), delete income undo (medium), S2S hero card tap (light). 5 files modified: `pin_entry_screen.dart`, `pin_setup_screen.dart`, `s2s_hero_block.dart`, `confirm_received_sheet.dart`, `income_list_screen.dart`. All haptics in presentation layer (clean architecture — no domain calls).
 - **Group D — Button Active States (P1.12)**: `AppButton` converted from StatelessWidget to StatefulWidget with `AnimatedScale(0.97)`, `InkWell` press feedback, `Material` splash, 100ms duration. Test: `button_pressed_state_test.dart` (5 widget tests across all 3 variants + disabled + loading).
 - **Group E — Slider Stepper Buttons (P1.13-P1.14)**: ±1% `IconButton` steppers on tax rate slider (0-40%) and buffer percent slider (5-30%), disabled at min/max via null `onPressed`. Keys: `tax_rate_plus`, `tax_rate_minus`, `buffer_plus`, `buffer_minus`. Test: `sts_settings_slider_test.dart` (4 structure tests).
 - **Group F — Onboarding Global Skip (P1.15)**: Persistent "Set up later" `TextButton` (key: `onboarding_skip`) on all 6 onboarding steps via Stack overlay. Persists partial draft data (liquid balance, income pattern), sets onboarding complete, navigates to `/home`. Test: `onboarding_skip_test.dart` (3 structure tests).
-- **Group G — Quiet Affirmation Signals (P1.16-P1.18)**: `Affirmation` pure-domain value object (`lib/features/dashboard/domain/affirmation.dart`) with `compute(overdueEntryCount, sessionCount)`. 3 states: pipeline up to date / 7 days tracked / 14 days tracked. Wired to `PocketaTrustStrip.affirmation` → `S2sHeroBlock.affirmation` → dashboard `_computeAffirmation()`. Session counting via `SharedPrefServices.incrementSessionCount()`. Copy rules enforced: no exclamation marks, no emoji, no comparative language. Test: `dashboard_affirmations_test.dart` (7 logic tests including copy validation).
+- **Group G — Quiet Affirmation Signals (P1.16-P1.18)**: `Affirmation` pure-domain value object (`lib/features/dashboard/domain/affirmation.dart`) with `compute(overdueEntryCount, sessionCount)`. 3 states: pipeline up to date / 7 days tracked / 14 days tracked. Wired to `HelmTrustStrip.affirmation` → `S2sHeroBlock.affirmation` → dashboard `_computeAffirmation()`. Session counting via `SharedPrefServices.incrementSessionCount()`. Copy rules enforced: no exclamation marks, no emoji, no comparative language. Test: `dashboard_affirmations_test.dart` (7 logic tests including copy validation).
 - **New files**: `affirmation.dart` (domain), 7 test files.
 - **Quality gate**: dart analyze 0/0/0, 104/104 tests pass (78→104, +26). 0 packages added. 15 source files modified.
 
@@ -283,7 +283,7 @@ The project runs entirely on `main` with zero branching strategy. 60 commits in 
 - Target: $800–$3,000/month USD earners using Payoneer/nsave/ElevatePay
 - MVP Goal: Validate manual pipeline maintenance + S2S trust
 - Next: Release build verification → APK distribution → Closed Beta (15-25 freelancers, 4 weeks)
-- Strategic Authority: `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`
+- Strategic Authority: `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`
 
 ## 9. Doctrine-Killed Features
 - F-commerce / COD / inventory / POS — wrong product entirely

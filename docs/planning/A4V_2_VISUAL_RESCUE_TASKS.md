@@ -11,7 +11,7 @@
 
 ---
 
-### VR-001: Rewrite AppButton to PocketaColors
+### VR-001: Rewrite AppButton to HelmColors
 
 | Field | Value |
 |-------|-------|
@@ -20,7 +20,7 @@
 | **Phase** | 1 |
 | **Source Issue** | A4V-1 B1, TOY-01 |
 | **Affected Files** | `lib/core/widgets/buttons/button_multiple_types.dart` |
-| **Expected Visual Change** | All 13 screens using AppButton change from bright blue (#2453FF) to deep teal (#255E5B). Button radius changes from 12 to 10 (PocketaSpacing.buttonRadius). Disabled state uses PocketaColors.interactive.withValues(alpha: 0.4). Foreground uses PocketaColors surface token instead of Colors.white. |
+| **Expected Visual Change** | All 13 screens using AppButton change from bright blue (#2453FF) to deep teal (#255E5B). Button radius changes from 12 to 10 (HelmSpacing.buttonRadius). Disabled state uses HelmColors.interactive.withValues(alpha: 0.4). Foreground uses HelmColors surface token instead of Colors.white. |
 | **Non-Goals** | Do not change AppButton interface (label, onPressed, type enum). Do not rename the widget. Do not refactor callers. |
 | **Risk** | LOW. Single file, no interface change. All 13 callers get fixed automatically. |
 | **Verification** | `grep -rn "AppColors" lib/core/widgets/buttons/` returns 0. `grep -rn "Colors.white\|Colors.grey" lib/core/widgets/buttons/` returns 0. Visual: buttons are teal on all screens. |
@@ -88,11 +88,11 @@
 | **Phase** | 1 |
 | **Source Issue** | A4V-1 B4 |
 | **Affected Files** | `lib/features/splash/views/splash_screen.dart` (line ~37) |
-| **Expected Visual Change** | Splash visible time drops from ~2000ms to ~500ms. Animation uses PocketaMotion.slow (320ms) duration and Curves.easeOut. App feels fast on launch. |
+| **Expected Visual Change** | Splash visible time drops from ~2000ms to ~500ms. Animation uses HelmMotion.slow (320ms) duration and Curves.easeOut. App feels fast on launch. |
 | **Non-Goals** | Do not redesign splash visual (that is P6 VR-028). Only fix timing and curve. |
 | **Risk** | VERY LOW. Change Duration value and Curves constant. |
 | **Verification** | `grep -n "1800\|easeIn" lib/features/splash/` returns 0. Splash total visible time <= 500ms. |
-| **Acceptance Criteria** | Splash animation duration = PocketaMotion.slow (320ms). Curve = Curves.easeOut. Total splash time <= 500ms. |
+| **Acceptance Criteria** | Splash animation duration = HelmMotion.slow (320ms). Curve = Curves.easeOut. Total splash time <= 500ms. |
 
 ---
 
@@ -126,11 +126,11 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 M2 |
 | **Affected Files** | `lib/features/safe_to_spend/presentation/views/sts_settings_screen.dart` |
-| **Expected Visual Change** | All text uses PocketaTypography tokens. Section headers use headingMd. Descriptions use bodySm. Amounts use monoFinancial tokens. Consistent type rhythm throughout screen. |
-| **Non-Goals** | Do not change layout structure. Do not add PocketaAmount here (that is P6 VR-030). Do not change spacing (that is P5). |
+| **Expected Visual Change** | All text uses HelmTypography tokens. Section headers use headingMd. Descriptions use bodySm. Amounts use monoFinancial tokens. Consistent type rhythm throughout screen. |
+| **Non-Goals** | Do not change layout structure. Do not add HelmAmount here (that is P6 VR-030). Do not change spacing (that is P5). |
 | **Risk** | LOW. Mechanical replacement. Each fontSize maps to a known token. |
 | **Verification** | `grep -n "fontSize:" lib/features/safe_to_spend/presentation/views/sts_settings_screen.dart` returns 0. Visual: consistent type scale on STS settings screen. |
-| **Acceptance Criteria** | Zero hardcoded fontSize in file. All text styles reference PocketaTypography. Sheet title uses headingLg. Section headers use headingMd. Descriptions use bodySm. Percentage values use monoFinancialSm. |
+| **Acceptance Criteria** | Zero hardcoded fontSize in file. All text styles reference HelmTypography. Sheet title uses headingLg. Section headers use headingMd. Descriptions use bodySm. Percentage values use monoFinancialSm. |
 
 ---
 
@@ -143,11 +143,11 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 M1 |
 | **Affected Files** | `lib/features/income/presentation/views/income_list_screen.dart` |
-| **Expected Visual Change** | All 14+ ResponsiveUtilities.font() calls replaced with PocketaTypography tokens. All hardcoded fontSize replaced. Consistent type hierarchy. Money amounts use monoFinancial tokens (not PocketaAmount widget yet -- that is P6). |
-| **Non-Goals** | Do not restructure the screen layout. Do not add PocketaAmount (P6). Do not change filter logic. |
+| **Expected Visual Change** | All 14+ ResponsiveUtilities.font() calls replaced with HelmTypography tokens. All hardcoded fontSize replaced. Consistent type hierarchy. Money amounts use monoFinancial tokens (not HelmAmount widget yet -- that is P6). |
+| **Non-Goals** | Do not restructure the screen layout. Do not add HelmAmount (P6). Do not change filter logic. |
 | **Risk** | MEDIUM. Most ResponsiveUtilities.font() replacements. Screen may reflow slightly at different widths since ResponsiveUtilities was width-adaptive. Test on 360px and 390px widths. |
 | **Verification** | `grep -n "ResponsiveUtilities.font\|fontSize:" lib/features/income/presentation/views/income_list_screen.dart` returns 0. Visual: consistent type scale, no size drift across device widths. |
-| **Acceptance Criteria** | Zero ResponsiveUtilities.font() in file. Zero hardcoded fontSize. All text uses PocketaTypography tokens. |
+| **Acceptance Criteria** | Zero ResponsiveUtilities.font() in file. Zero hardcoded fontSize. All text uses HelmTypography tokens. |
 
 ---
 
@@ -160,7 +160,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 M7 (typography portion) |
 | **Affected Files** | `lib/features/income/presentation/views/add_income_screen.dart` |
-| **Expected Visual Change** | All ResponsiveUtilities.font() and hardcoded fontSize replaced with PocketaTypography tokens. |
+| **Expected Visual Change** | All ResponsiveUtilities.font() and hardcoded fontSize replaced with HelmTypography tokens. |
 | **Non-Goals** | Do not change form field structure. Do not change FX rate or exclude logic. |
 | **Risk** | LOW. Mechanical replacement. |
 | **Verification** | `grep -n "ResponsiveUtilities.font\|fontSize:" lib/features/income/presentation/views/add_income_screen.dart` returns 0. |
@@ -177,7 +177,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 screen score 20 |
 | **Affected Files** | `lib/features/transactions/presentation/views/add_transaction_screen.dart` |
-| **Expected Visual Change** | All ResponsiveUtilities.font() and hardcoded fontSize replaced with PocketaTypography tokens. Post-category-removal form uses clean token typography. |
+| **Expected Visual Change** | All ResponsiveUtilities.font() and hardcoded fontSize replaced with HelmTypography tokens. Post-category-removal form uses clean token typography. |
 | **Non-Goals** | Do not change transaction data model. Do not add new fields. |
 | **Risk** | LOW. Categories already removed in P1. Typography migration is mechanical. |
 | **Verification** | `grep -n "ResponsiveUtilities.font\|fontSize:" lib/features/transactions/presentation/views/add_transaction_screen.dart` returns 0. |
@@ -211,7 +211,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 splash score 25 |
 | **Affected Files** | `lib/features/splash/views/splash_screen.dart` |
-| **Expected Visual Change** | Hardcoded fontSize: 52 and fontSize: 32 replaced with PocketaTypography tokens. |
+| **Expected Visual Change** | Hardcoded fontSize: 52 and fontSize: 32 replaced with HelmTypography tokens. |
 | **Non-Goals** | Do not redesign splash visual (P6 VR-028). Only replace font sizes. |
 | **Risk** | LOW. 2 replacements. |
 | **Verification** | `grep -n "fontSize:" lib/features/splash/` returns 0. |
@@ -228,7 +228,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 PIN score 55 |
 | **Affected Files** | `lib/features/auth/presentation/views/pin_entry_screen.dart`, `lib/features/auth/presentation/views/pin_setup_screen.dart` |
-| **Expected Visual Change** | 3 hardcoded fontSize (22, 14, 24) replaced with PocketaTypography tokens. |
+| **Expected Visual Change** | 3 hardcoded fontSize (22, 14, 24) replaced with HelmTypography tokens. |
 | **Non-Goals** | Do not change PIN logic, numpad layout, or auth flow. |
 | **Risk** | LOW. 3 replacements across 2 files. |
 | **Verification** | `grep -n "fontSize:" lib/features/auth/presentation/views/` returns 0. |
@@ -245,7 +245,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 audit log score 45 |
 | **Affected Files** | `lib/features/audit_log/presentation/views/audit_log_screen.dart` |
-| **Expected Visual Change** | Hardcoded fontSize: 12 replaced with PocketaTypography.labelMd. |
+| **Expected Visual Change** | Hardcoded fontSize: 12 replaced with HelmTypography.labelMd. |
 | **Non-Goals** | Do not change audit log data or event types. |
 | **Risk** | VERY LOW. 1 replacement. |
 | **Verification** | `grep -n "fontSize:" lib/features/audit_log/` returns 0. |
@@ -262,7 +262,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 delete account score 50 |
 | **Affected Files** | `lib/features/account/presentation/views/delete_account_screen.dart` |
-| **Expected Visual Change** | Hardcoded fontSize replaced with PocketaTypography tokens. |
+| **Expected Visual Change** | Hardcoded fontSize replaced with HelmTypography tokens. |
 | **Non-Goals** | Do not change deletion logic or PIN verification flow. |
 | **Risk** | LOW. Mechanical replacement. |
 | **Verification** | `grep -n "fontSize:" lib/features/account/` returns 0. |
@@ -279,7 +279,7 @@
 | **Phase** | 2 |
 | **Source Issue** | A4V-1 pipeline summary score 40 |
 | **Affected Files** | `lib/features/income/presentation/widgets/income_pipeline_summary.dart` |
-| **Expected Visual Change** | ResponsiveUtilities.font() and hardcoded fontSize replaced with PocketaTypography tokens. |
+| **Expected Visual Change** | ResponsiveUtilities.font() and hardcoded fontSize replaced with HelmTypography tokens. |
 | **Non-Goals** | Do not change summary calculation logic. |
 | **Risk** | LOW. Mechanical replacement. |
 | **Verification** | `grep -n "ResponsiveUtilities.font\|fontSize:" lib/features/income/presentation/widgets/income_pipeline_summary.dart` returns 0. |
@@ -318,14 +318,14 @@
 | **Source Issue** | A4V-1 M4 |
 | **Affected Files** | `sts_settings_screen.dart`, `export_screen.dart`, `splash_screen.dart`, `add_income_screen.dart`, `income_list_screen.dart`, `add_transaction_screen.dart`, `linear_progress_bar.dart` (7 files after dead code deleted in P1) |
 | **Expected Visual Change** | All text currently w700 (bold) becomes w600 (semi-bold). Subtle but meaningful -- text no longer shouts. Headers have confident emphasis without aggression. |
-| **Non-Goals** | Do not change text that already uses PocketaTypography tokens (tokens already specify correct weight). Only fix hardcoded FontWeight.bold/w700. |
+| **Non-Goals** | Do not change text that already uses HelmTypography tokens (tokens already specify correct weight). Only fix hardcoded FontWeight.bold/w700. |
 | **Risk** | LOW. Mechanical find-replace. Visual change is subtle (w700 -> w600). |
 | **Verification** | `grep -rn "FontWeight.bold\|FontWeight.w700\|FontWeight.w800\|FontWeight.w900" lib/features/` returns 0. |
 | **Acceptance Criteria** | Zero FontWeight.bold, w700, w800, w900 in feature files. Maximum weight in features is w600. |
 
 ---
 
-### VR-019: Colors.white -> PocketaColors Token (All Files)
+### VR-019: Colors.white -> HelmColors Token (All Files)
 
 | Field | Value |
 |-------|-------|
@@ -338,11 +338,11 @@
 | **Non-Goals** | Do not change structural layout. Colors.white in system widgets (DatePicker, etc.) is acceptable. |
 | **Risk** | LOW. Mechanical replacement. Each `Colors.white` maps to `colors.surface` (on cards/buttons) or `colors.canvas` (on backgrounds). |
 | **Verification** | `grep -rn "Colors.white" lib/features/` returns 0. |
-| **Acceptance Criteria** | Zero Colors.white in feature files. All white surfaces use PocketaColors.surface or .canvas. |
+| **Acceptance Criteria** | Zero Colors.white in feature files. All white surfaces use HelmColors.surface or .canvas. |
 
 ---
 
-### VR-020: Colors.black -> PocketaColors Token (All Files)
+### VR-020: Colors.black -> HelmColors Token (All Files)
 
 | Field | Value |
 |-------|-------|
@@ -355,7 +355,7 @@
 | **Non-Goals** | Same as VR-019. System widget colors acceptable. |
 | **Risk** | LOW. Each `Colors.black` maps to `colors.inkPrimary`. |
 | **Verification** | `grep -rn "Colors.black" lib/features/` returns 0. |
-| **Acceptance Criteria** | Zero Colors.black in feature files. All black elements use PocketaColors.inkPrimary. |
+| **Acceptance Criteria** | Zero Colors.black in feature files. All black elements use HelmColors.inkPrimary. |
 
 ---
 
@@ -370,7 +370,7 @@
 | **Affected Files** | Remaining files importing `AppColors` after VR-001 (button fix). Estimated: `linear_progress_bar.dart`, plus any feature files. |
 | **Expected Visual Change** | None directly. Code cleanup -- deprecated color system fully removed from usage. |
 | **Non-Goals** | Do not delete the AppColors file itself yet (may be referenced in tests). Just remove all imports in feature/widget code. |
-| **Risk** | LOW. Find all imports, replace referenced colors with PocketaColors equivalents. |
+| **Risk** | LOW. Find all imports, replace referenced colors with HelmColors equivalents. |
 | **Verification** | `grep -rn "AppColors" lib/features/ lib/core/widgets/` returns 0 (excluding the definition file itself). |
 | **Acceptance Criteria** | Zero AppColors references in feature files and widget files. |
 
@@ -444,11 +444,11 @@
 | **Phase** | 5 |
 | **Source Issue** | A4V-1 N6, screen-level findings |
 | **Affected Files** | ~20 files with BorderRadius.circular in card context |
-| **Expected Visual Change** | All card-context BorderRadius use PocketaSpacing.cardRadius (12). Cards that used 16 become 12. Consistent surface family. |
+| **Expected Visual Change** | All card-context BorderRadius use HelmSpacing.cardRadius (12). Cards that used 16 become 12. Consistent surface family. |
 | **Non-Goals** | Do not change button radii (separate token). Do not change pill/circle indicators (100 is acceptable for those). |
 | **Risk** | MEDIUM. Must distinguish card context from button/pill context before replacing. |
 | **Verification** | `grep -rn "BorderRadius.circular" lib/features/ | grep -v "10\|100"` returns only documented exceptions. |
-| **Acceptance Criteria** | All card-context borders use PocketaSpacing.cardRadius. No BorderRadius.circular(16) or (20) in card context. |
+| **Acceptance Criteria** | All card-context borders use HelmSpacing.cardRadius. No BorderRadius.circular(16) or (20) in card context. |
 
 ---
 
@@ -461,11 +461,11 @@
 | **Phase** | 5 |
 | **Source Issue** | A4V-1 various |
 | **Affected Files** | Files with BorderRadius.circular(12) or (10) in button/input context |
-| **Expected Visual Change** | All button-context BorderRadius use PocketaSpacing.buttonRadius (10). |
+| **Expected Visual Change** | All button-context BorderRadius use HelmSpacing.buttonRadius (10). |
 | **Non-Goals** | AppButton already fixed in VR-001. This covers TextFormField borders and OutlinedButton borders in feature files. |
 | **Risk** | LOW. Mechanical replacement in form contexts. |
 | **Verification** | Visual: all buttons and form inputs have consistent 10pt radius. |
-| **Acceptance Criteria** | All button/input borders use PocketaSpacing.buttonRadius or equivalent token. |
+| **Acceptance Criteria** | All button/input borders use HelmSpacing.buttonRadius or equivalent token. |
 
 ---
 
@@ -477,12 +477,12 @@
 | **Priority** | P2-MINOR |
 | **Phase** | 5 |
 | **Source Issue** | A4V-1 various MINOR findings |
-| **Affected Files** | Feature files with hardcoded EdgeInsets that match PocketaSpacing tokens |
-| **Expected Visual Change** | Hardcoded EdgeInsets.all(16) -> PocketaSpacing.screenEdge where applicable. Hardcoded SizedBox(height: 8/16/24/32) -> PocketaSpacing tokens. |
+| **Affected Files** | Feature files with hardcoded EdgeInsets that match HelmSpacing tokens |
+| **Expected Visual Change** | Hardcoded EdgeInsets.all(16) -> HelmSpacing.screenEdge where applicable. Hardcoded SizedBox(height: 8/16/24/32) -> HelmSpacing tokens. |
 | **Non-Goals** | Do not obsess over every SizedBox. Focus on screen-level padding and section spacing. Leave minor gaps between form fields as-is if they look correct. |
 | **Risk** | LOW. Most values are already correct (16 = screenEdge, 8 = s2, etc.). Just adding token references. |
 | **Verification** | Spot-check major screens for consistent spacing. |
-| **Acceptance Criteria** | Screen-level padding uses PocketaSpacing.screenEdge. Major section gaps use PocketaSpacing tokens. |
+| **Acceptance Criteria** | Screen-level padding uses HelmSpacing.screenEdge. Major section gaps use HelmSpacing tokens. |
 
 ---
 
@@ -499,15 +499,15 @@
 | **Phase** | 6 |
 | **Source Issue** | A4V-1 B3 |
 | **Affected Files** | `lib/features/splash/views/splash_screen.dart` |
-| **Expected Visual Change** | CircleAvatar "P" replaced with "Pocketa" wordmark text: Inter font, w600 weight, inkPrimary color, centered on canvas background. 320ms PocketaMotion.slow fade-in. Immediate navigation after fade. Clean, confident, minimal. |
+| **Expected Visual Change** | CircleAvatar "P" replaced with "Helm" wordmark text: Inter font, w600 weight, inkPrimary color, centered on canvas background. 320ms HelmMotion.slow fade-in. Immediate navigation after fade. Clean, confident, minimal. |
 | **Non-Goals** | Do not add logo image/SVG (text wordmark only). Do not add tagline. Do not add loading indicator. Do not add animation beyond fade. |
 | **Risk** | LOW. Single file. Visual identity change requires device verification. |
-| **Verification** | Visual on device: "Pocketa" text centered, canvas bg, fast fade, no CircleAvatar. `grep -n "CircleAvatar" lib/features/splash/` returns 0. |
-| **Acceptance Criteria** | No CircleAvatar. "Pocketa" in Inter w600 centered on canvas. PocketaMotion.slow fade. Total splash <= 500ms. |
+| **Verification** | Visual on device: "Helm" text centered, canvas bg, fast fade, no CircleAvatar. `grep -n "CircleAvatar" lib/features/splash/` returns 0. |
+| **Acceptance Criteria** | No CircleAvatar. "Helm" in Inter w600 centered on canvas. HelmMotion.slow fade. Total splash <= 500ms. |
 
 ---
 
-### VR-029: Income List PocketaAmount Adoption
+### VR-029: Income List HelmAmount Adoption
 
 | Field | Value |
 |-------|-------|
@@ -516,15 +516,15 @@
 | **Phase** | 6 |
 | **Source Issue** | A4V-1 Gap Map #8 |
 | **Affected Files** | `lib/features/income/presentation/views/income_list_screen.dart` |
-| **Expected Visual Change** | All money values on income list rendered via PocketaAmount widget. Monospace JetBrains Mono. BDT-formatted (taka prefix, lakh grouping). Right-aligned. Consistent decimal places. Financial data looks serious. |
-| **Non-Goals** | Do not restructure income list layout. Do not add PocketaLedgerCard (that would be a full rebuild, deferred). |
-| **Risk** | MEDIUM. Must ensure PocketaAmount receives correct amount values from existing data. |
+| **Expected Visual Change** | All money values on income list rendered via HelmAmount widget. Monospace JetBrains Mono. BDT-formatted (taka prefix, lakh grouping). Right-aligned. Consistent decimal places. Financial data looks serious. |
+| **Non-Goals** | Do not restructure income list layout. Do not add HelmLedgerCard (that would be a full rebuild, deferred). |
+| **Risk** | MEDIUM. Must ensure HelmAmount receives correct amount values from existing data. |
 | **Verification** | Visual: all money values on income list in monospace with "tk" prefix. `grep -n "formatter.format(amount)\|toStringAsFixed" lib/features/income/presentation/views/income_list_screen.dart` returns 0 for money display contexts. |
-| **Acceptance Criteria** | All money values on income list use PocketaAmount widget. Monospace font. BDT formatting. |
+| **Acceptance Criteria** | All money values on income list use HelmAmount widget. Monospace font. BDT formatting. |
 
 ---
 
-### VR-030: STS Settings PocketaAmount Adoption
+### VR-030: STS Settings HelmAmount Adoption
 
 | Field | Value |
 |-------|-------|
@@ -533,11 +533,11 @@
 | **Phase** | 6 |
 | **Source Issue** | A4V-1 STS settings score 25 |
 | **Affected Files** | `lib/features/safe_to_spend/presentation/views/sts_settings_screen.dart` |
-| **Expected Visual Change** | Fixed cost amounts (`'৳ ${cost.amount.toStringAsFixed(0)}'`) rendered via PocketaAmount widget. Consistent with dashboard money display. |
+| **Expected Visual Change** | Fixed cost amounts (`'৳ ${cost.amount.toStringAsFixed(0)}'`) rendered via HelmAmount widget. Consistent with dashboard money display. |
 | **Non-Goals** | Do not change slider or form inputs for percentage values. |
-| **Risk** | LOW. Replace Text widget with PocketaAmount in ListTile trailing. |
+| **Risk** | LOW. Replace Text widget with HelmAmount in ListTile trailing. |
 | **Verification** | Visual: fixed cost amounts in monospace with BDT formatting. |
-| **Acceptance Criteria** | Fixed cost amounts use PocketaAmount. No manual taka symbol concatenation for amounts. |
+| **Acceptance Criteria** | Fixed cost amounts use HelmAmount. No manual taka symbol concatenation for amounts. |
 
 ---
 
@@ -571,7 +571,7 @@
 | **Non-Goals** | Do not change deletion flow. |
 | **Risk** | VERY LOW. Single value change. |
 | **Verification** | `grep -n "52" lib/features/account/presentation/views/delete_account_screen.dart` -- no button height of 52. |
-| **Acceptance Criteria** | Button height = 48pt (PocketaSpacing.buttonHeight). |
+| **Acceptance Criteria** | Button height = 48pt (HelmSpacing.buttonHeight). |
 
 ---
 

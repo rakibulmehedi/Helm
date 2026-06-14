@@ -1,7 +1,7 @@
 # PARALLEL AGENT DISPATCH — Insane Practice Hunt
 
 > Date: 2026-06-12
-> Purpose: Dispatch all 10 agent lenses in parallel against the Pocketa codebase to find practices that are aggressive, missing, or architecturally "insane" for a production fintech app.
+> Purpose: Dispatch all 10 agent lenses in parallel against the Helm codebase to find practices that are aggressive, missing, or architecturally "insane" for a production fintech app.
 > Output: Per-agent findings feed back into master plan priority reordering.
 
 ---
@@ -35,7 +35,7 @@ All 6 agents receive the same codebase context but hunt for different categories
 
 **Deliverable:** `docs/audits/nudge-engine/DEAD_DASHBOARD_FINDINGS.md` — quantified insanity score per Fogg dimension + priority reordering recommendation for master plan Phase 1-3.
 
-**Insane if:** Dashboard is passive, zero out-of-app reach, zero preference capture, zero haptics, zero celebration — all true for Pocketa today.
+**Insane if:** Dashboard is passive, zero out-of-app reach, zero preference capture, zero haptics, zero celebration — all true for Helm today.
 
 ---
 
@@ -53,14 +53,14 @@ All 6 agents receive the same codebase context but hunt for different categories
 
 **Deliverable:** `docs/audits/ux-researcher/ASSUMPTION_DRIVEN_DESIGN_FINDINGS.md` — gap analysis of measurement infrastructure vs what's needed to validate behavioral hypotheses.
 
-**Insane if:** Zero A/B framework, zero time-based metrics, zero completion analytics, zero in-app feedback, zero heuristic evaluation — mostly true for Pocketa today.
+**Insane if:** Zero A/B framework, zero time-based metrics, zero completion analytics, zero in-app feedback, zero heuristic evaluation — mostly true for Helm today.
 
 ---
 
 ### 3. UI Designer — Hunt for "Visually Hostile" Anti-Pattern
 
 **What to hunt:**
-- What are the ACTUAL contrast ratios in the design tokens? Check `pocketa_colors.dart` or `app_colors.dart` — compute WCAG AA/AAA compliance for every foreground/background pair used in text.
+- What are the ACTUAL contrast ratios in the design tokens? Check `helm_colors.dart` or `app_colors.dart` — compute WCAG AA/AAA compliance for every foreground/background pair used in text.
 - Do buttons have visible active/pressed states? Search for `onPressed`, `onTap` — are there `withValues(alpha:)` reductions or `AnimatedScale`?
 - Are there skeleton screens or shimmer loading anywhere? Search for `shimmer`, `skeleton`, `loading_placeholder`.
 - Does the onboarding have a global skip? Check `onboarding_screen.dart` for "Set up later" or skip-to-end behavior.
@@ -90,7 +90,7 @@ All 6 agents receive the same codebase context but hunt for different categories
 
 **Deliverable:** `docs/audits/whimsy-injector/PERSONALITY_VOID_FINDINGS.md` — screen-by-screen personality audit with delight deficit score.
 
-**Insane if:** Empty states are blank or default text, error states are generic, zero celebration/affirmation, zero Easter eggs, no branded animations — largely true for Pocketa today.
+**Insane if:** Empty states are blank or default text, error states are generic, zero celebration/affirmation, zero Easter eggs, no branded animations — largely true for Helm today.
 
 ---
 
@@ -99,11 +99,11 @@ All 6 agents receive the same codebase context but hunt for different categories
 **What to hunt:**
 - Is the microcopy consistent across ALL screens? Pull every user-facing string — do terms like "Safe-to-Spend", "buffer", "fixed costs", "pipeline" appear consistently with the same casing and meaning?
 - Are error messages in brand voice or default English? Check all toast/snackbar/dialog text.
-- Is the app name "Pocketa" consistent everywhere? Check window title, app bar titles, splash text, settings "About" text.
+- Is the app name "Helm" consistent everywhere? Check window title, app bar titles, splash text, settings "About" text.
 - Are there any competing identity signals? Check for generic fintech language ("income/expenses", "budget", "tracker") that contradicts the freelancer-specific identity.
 - Is there a Bangla localization? Check `l10n/` folder — is `app_bn.arb` authored or auto-translated?
 - Check the app icon and splash screen — consistent brand colors, no generic Flutter defaults.
-- Are the design tokens (colors, typography, spacing) used consistently? Audit 10 random screens for AppColors vs PocketaColors usage.
+- Are the design tokens (colors, typography, spacing) used consistently? Audit 10 random screens for AppColors vs HelmColors usage.
 - Is there a brand voice document? Check `docs/` for any voice/tone guide. If missing — insane for a fintech brand.
 
 **Deliverable:** `docs/audits/brand-guardian/BRAND_SCHIZOPHRENIA_FINDINGS.md` — copy inconsistency heatmap, missing brand assets inventory, voice gap analysis.
@@ -149,7 +149,7 @@ Age & gender:   28M
 Nationality:    Bangladeshi, living in Dhaka
 Current situation: Freelances on Upwork/Fiverr. Earns $800-1200/month. 3-4 active clients.
                   Just had a client payment delayed by 2 weeks — caused rent anxiety.
-                  Downloads Pocketa from Play Store. Never used a finance app before.
+                  Downloads Helm from Play Store. Never used a finance app before.
 
 SEARCH CONTEXT
 ==============
@@ -273,7 +273,7 @@ Each agent should be invoked with:
 
 ```
 You are the [AGENT NAME] — [agent description from your definition].
-You are being dispatched against the Pocketa Flutter/Dart codebase to hunt for INSANE PRACTICES in your domain.
+You are being dispatched against the Helm Flutter/Dart codebase to hunt for INSANE PRACTICES in your domain.
 
 CODEBASE CONTEXT:
 - 103 Dart files in lib/ + 4 test files (78 tests)

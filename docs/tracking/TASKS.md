@@ -1,4 +1,4 @@
-# POCKETA — TASKS
+# HELM — TASKS
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` (adopted 2026-06-12)
 
@@ -111,10 +111,10 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 ## Phase 0 — Beta Launch Readiness (A5) — IN PROGRESS 🔄 [2026-06-14]
 
 - [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 keys, native Bangla, 0/0/0 ✅
-- [~] A5.2 Build release APK — build config fixed (version 0.3.0-beta.1+1, label "Pocketa"); needs keystore + `flutter build apk --release` (human action) ⏳
+- [~] A5.2 Build release APK — build config fixed (version 0.3.0-beta.1+1, label "Helm"); needs keystore + `flutter build apk --release` (human action) ⏳
 - [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent) — blocked on A5.2 APK build
 - [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21, Galaxy A14 API 33, fully compatible ✅
-- [x] A5.5 Verify app icon and branded splash — audited; splash color set to #FAFAF6, iOS name "Pocketa"; icons still default Flutter (needs designer + package approval) ✅
+- [x] A5.5 Verify app icon and branded splash — audited; splash color set to #FAFAF6, iOS name "Helm"; icons still default Flutter (needs designer + package approval) ✅
 
 ## VCI — Version Control Infrastructure — PENDING (runs before beta APK)
 
@@ -147,7 +147,7 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [x] P3.1-P3.6 Notification infrastructure (flutter_local_notifications, init, schedule daily/periodic)
 - [x] P3.7-P3.13 Nudge evaluator engine (rules provider, overdue/S2S/re-engagement/affirmation rules)
 - [x] P3.14-P3.18 In-app notification center (grouped list, Hive storage, badge, swipe-to-dismiss, tap-nav)
-- [x] P3.19-P3.25 Nudge copy (7 copy strings in Pocketa brand voice — Brand Guardian review)
+- [x] P3.19-P3.25 Nudge copy (7 copy strings in Helm brand voice — Brand Guardian review)
 - [x] P3.26-P3.30 Nudge effectiveness tracking (SENT/OPENED/DISMISSED/ACTIONED + report)
 
 ## Phase 4 — Doctrine Gap Closure — COMPLETE ✅ [2026-06-13]
@@ -268,15 +268,15 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 ## UX-5: Visual Identity / Design System Foundation — COMPLETED [2026-06-05]
 
 ### Completed
-- [x] UX-5.01: pocketa_colors.dart — ThemeExtension, 13 tokens, light+dark
-- [x] UX-5.02: pocketa_typography.dart — Inter/JetBrains Mono/Hind Siliguri, 18 styles
-- [x] UX-5.03: pocketa_spacing.dart — 8pt grid tokens + component dimensions
-- [x] UX-5.04: pocketa_motion.dart — timing tokens, ease-out only
+- [x] UX-5.01: helm_colors.dart — ThemeExtension, 13 tokens, light+dark
+- [x] UX-5.02: helm_typography.dart — Inter/JetBrains Mono/Hind Siliguri, 18 styles
+- [x] UX-5.03: helm_spacing.dart — 8pt grid tokens + component dimensions
+- [x] UX-5.04: helm_motion.dart — timing tokens, ease-out only
 - [x] UX-5.05: app_theme.dart rebuilt — new tokens, legacy API preserved
-- [x] UX-5.06: PocketaAmount widget — mono font, BDT/USD, lakh/crore
-- [x] UX-5.07: PocketaLedgerRail widget — state rail with label
-- [x] UX-5.08: PocketaTrustStrip widget — timestamp/source/audit strip
-- [x] UX-5.09: PocketaToast widget — financial-safe snackbar
+- [x] UX-5.06: HelmAmount widget — mono font, BDT/USD, lakh/crore
+- [x] UX-5.07: HelmLedgerRail widget — state rail with label
+- [x] UX-5.08: HelmTrustStrip widget — timestamp/source/audit strip
+- [x] UX-5.09: HelmToast widget — financial-safe snackbar
 - [x] UX-5.10: 5 card widgets — HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard
 - [x] UX-5.11: number_formatter.dart — BDT lakh/crore, USD Western
 - [x] UX-5.12: dart analyze 0/0/0 verified

@@ -237,7 +237,7 @@ test('tax reserve changes are audit-logged', () {
 
 ### Disclaimer (Brand Guardian)
 ```
-⚠️ This is not tax advice. Pocketa's tax reserve is a savings reminder,
+⚠️ This is not tax advice. Helm's tax reserve is a savings reminder,
 not a tax calculation. Consult a tax practitioner for your actual liability.
 ```
 
@@ -370,7 +370,7 @@ if (!gate.isEnabled(Feature.multiWallet)) {
 Every screen, every interactive element — Semantics label, contrast, touch target ≥44pt, Tab order logical. Inclusive Visuals leads.
 
 ### Dark Mode Pass (P6.22)
-Verify every screen in dark mode. Hand-tuned tokens from PocketaColors.dark. No hardcoded light-mode-only colors. UI Designer leads.
+Verify every screen in dark mode. Hand-tuned tokens from HelmColors.dark. No hardcoded light-mode-only colors. UI Designer leads.
 
 ### Haptic Audit (P6.23)
 Every tappable action confirmed: PIN taps, confirm, delete, errors, card taps, slider changes, form submissions. Behavioral Nudge Engine leads.
@@ -452,4 +452,4 @@ Update ROADMAP.md, PROJECT_STATE.md, DECISION_LOG.md, TASKS.md. All agents. Per 
 | Navigation | 10/10 | Clean 3-tab + notification center + settings IA improved |
 | **UI/UX Total** | **98/100** | |
 
-**Why not 100/100?** Typography loses 1 point for 3-font loading overhead. Motion loses 1 point because splash delay is intentionally long (brand moment). Psychological framing loses 5 because gamification is deliberately absent (correct for Pocketa's clinical-warm brand, but score ceiling is lower by design).
+**Why not 100/100?** Typography loses 1 point for 3-font loading overhead. Motion loses 1 point because splash delay is intentionally long (brand moment). Psychological framing loses 5 because gamification is deliberately absent (correct for Helm's clinical-warm brand, but score ceiling is lower by design).

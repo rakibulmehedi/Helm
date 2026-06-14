@@ -185,7 +185,7 @@ Do NOT start a sub-phase before its dependency is analyzer-clean and manually ve
 5. Use `withValues(alpha: x)` — NEVER `withOpacity(x)`.
 6. Use `IdGenerator.uniqueId()` for all income entry IDs — never manual ID generation.
 7. All files under 300 lines. Extract sub-widgets when `build()` exceeds 100 lines.
-8. Use package imports: `package:pocketa_v2/...` — no relative imports.
+8. Use package imports: `package:helm_v2/...` — no relative imports.
 9. Income feature is fully isolated from transaction feature — no cross-feature dependencies.
 
 ---

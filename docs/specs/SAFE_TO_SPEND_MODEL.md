@@ -154,7 +154,7 @@ The following are explicitly excluded and must be enforced at the calculation la
 | Anxiety buffer amount | This is subtracted FROM the result, not added |
 | Fixed costs NOT in the 30-day window | Only deduct what is due within 30 days |
 | Bank balance (if ever synced in future) | Not available in Phase 8; do not scaffold |
-| Investment amounts | Out of scope — Pocketa is not an investment tracker |
+| Investment amounts | Out of scope — Helm is not an investment tracker |
 | Loan / credit amounts | Out of scope — no liability tracking in Phase 8 |
 
 ---
@@ -314,7 +314,7 @@ Safe to Spend                  =৳XX,XXX
 | Safe to spend freely | Green (gentle, from AppColors) | `Safe_to_Spend > Anxiety_Buffer` |
 | Dipping into runway | Amber/Yellow (from AppColors) | `0 < Safe_to_Spend ≤ Anxiety_Buffer` |
 | Pause mode | Grey/Neutral (from AppColors) | `Safe_to_Spend ≤ 0` |
-| Any state | ❌ NEVER RED | Pocketa rule: red is forbidden for money states |
+| Any state | ❌ NEVER RED | Helm rule: red is forbidden for money states |
 
 ### 9.2 Copy Rules
 

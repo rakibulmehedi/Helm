@@ -3,13 +3,13 @@
 ## Getting Help
 
 **Read the docs first:**
-- [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) — product identity and what Pocketa is designed to do
+- [docs/core/HELM_BRAIN.md](docs/core/HELM_BRAIN.md) — product identity and what Helm is designed to do
 - [docs/tracking/PROJECT_STATE.md](docs/tracking/PROJECT_STATE.md) — current state, known limitations
 - [docs/STATUS.md](docs/STATUS.md) — phase status and QA checklist
 
 ## Reporting Bugs
 
-Use [GitHub Issues](https://github.com/rakibulmehedi/Pocketa-V2/issues) with the **Bug Report** template.
+Use [GitHub Issues](https://github.com/rakibulmehedi/Helm-V2/issues) with the **Bug Report** template.
 
 Bug reports require:
 - Steps to reproduce
@@ -18,9 +18,9 @@ Bug reports require:
 
 ## Feature Requests
 
-Use [GitHub Issues](https://github.com/rakibulmehedi/Pocketa-V2/issues) with the **Feature Request** template.
+Use [GitHub Issues](https://github.com/rakibulmehedi/Helm-V2/issues) with the **Feature Request** template.
 
-Feature requests must align with the product mission in [POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md). Requests that contradict the mission will be closed.
+Feature requests must align with the product mission in [HELM_BRAIN.md](docs/core/HELM_BRAIN.md). Requests that contradict the mission will be closed.
 
 ## Security Issues
 

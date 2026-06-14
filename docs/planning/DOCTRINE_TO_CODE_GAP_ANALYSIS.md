@@ -2,7 +2,7 @@
 
 > Status: ACTIVE
 > Date: 2026-06-04
-> Authority: Final Product Doctrine (`docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`)
+> Authority: Final Product Doctrine (`docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`)
 > Scope: Compare current implemented app against Doctrine MVP requirements
 
 ---
@@ -75,7 +75,7 @@
 
 | Current Feature | Doctrine Conflict | Resolution |
 |---|---|---|
-| Onboarding copy ("Track expenses", "Set budget", "Financial freedom") | Doctrine: Pocketa is NOT an expense tracker or budgeting app | Rewrite onboarding to conversational flow capturing fixed costs, buffer, income pattern |
+| Onboarding copy ("Track expenses", "Set budget", "Financial freedom") | Doctrine: Helm is NOT an expense tracker or budgeting app | Rewrite onboarding to conversational flow capturing fixed costs, buffer, income pattern |
 | Tax rate slider in STS settings (Phase 8c) | Doctrine: Tax Reserve is V2, not MVP | **Keep as-is.** Current tax rate is a simple S2S deduction, not the full Tax Reserve feature (V2 includes audit-logged history, disclaimers, etc.). Rename to avoid confusion. |
 | Transaction system supports income type | Decision 015 already hid legacy income | Aligned. No action needed. |
 | `v0.2-cashflow-operations` milestone naming | Doctrine uses MVP/V1/V2/V3 naming | Updated in ROADMAP.md. Keep internal milestone for git tags. |
@@ -91,7 +91,7 @@
 | `docs/planning/POST_AUDIT_EXECUTION_ROADMAP.md` | **PARTIALLY SUPERSEDED** | Phase 9 references Subscription Leakage Radar (killed). Validation thresholds updated by doctrine. Core analysis still valid. |
 | `docs/research/PRODUCT_STRATEGY_ANALYSIS.md` | **NEEDS REVIEW** | May contain F-commerce or generic expense tracking references |
 | `docs/validation/VALIDATION_METRICS.md` | **NEEDS UPDATE** | Must align with Doctrine S4 thresholds (85/5/60/70/80) |
-| `docs/Pocketa_ Brutal Product Audit.md` | **INPUT ONLY** | Pre-doctrine audit. Informational, not authoritative. |
+| `docs/Helm_ Brutal Product Audit.md` | **INPUT ONLY** | Pre-doctrine audit. Informational, not authoritative. |
 
 ---
 

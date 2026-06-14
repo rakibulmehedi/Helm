@@ -2,7 +2,7 @@
 
 > **Extraction date:** 2026-06-04
 > **Extracted by:** Senior Implementation Agent
-> **Purpose:** Canonical dashboard requirements for Pocketa home screen implementation.
+> **Purpose:** Canonical dashboard requirements for Helm home screen implementation.
 
 ---
 
@@ -10,8 +10,8 @@
 
 | Doc ID | Document | Authority Level | Role |
 |--------|----------|-----------------|------|
-| **DR** | `docs/research/ux/Pocketa_Dashboard_Redesign.md` | Baseline | Original doctrine-aligned dashboard design. Provides foundational architecture, wireframes, and spec detail. |
-| **CR** | `docs/research/ux/Pocketa_Dashboard_Tier1_Critique_Improved_v2.md` | **Override** | Tier-1 fintech design critique. Overrides DR on every point of conflict. Provides improved wireframes, state handling, component rules, and shippability criteria. |
+| **DR** | `docs/research/ux/Helm_Dashboard_Redesign.md` | Baseline | Original doctrine-aligned dashboard design. Provides foundational architecture, wireframes, and spec detail. |
+| **CR** | `docs/research/ux/Helm_Dashboard_Tier1_Critique_Improved_v2.md` | **Override** | Tier-1 fintech design critique. Overrides DR on every point of conflict. Provides improved wireframes, state handling, component rules, and shippability criteria. |
 
 **Authority rule:** Where DR and CR conflict, CR wins. Overridden requirements are marked with `[OVERRIDDEN BY v2]`.
 
@@ -21,7 +21,7 @@
 
 ### DASH-001 — Dashboard is a cockpit, not a dashboard
 - **Requirement:** The home screen is a decision surface ("what's possible?"), not a reporting surface ("what happened?"). It answers one question: "How much BDT is actually safe to spend right now?"
-- **Rationale:** Pocketa's wedge is forward-looking pipeline-aware Safe-to-Spend. Backward-looking patterns belong to generic expense trackers.
+- **Rationale:** Helm's wedge is forward-looking pipeline-aware Safe-to-Spend. Backward-looking patterns belong to generic expense trackers.
 - **Source:** DR S1, CR S0
 - **Implementation:** No backward-looking aggregates (income/expense totals, recent transactions, spending categories) may appear on the home screen.
 
@@ -203,7 +203,7 @@
 
 ### DASH-043 — Pipeline never adds to hero number
 - **Requirement:** Pending USD is never included in the S2S hero number. The two are visually and computationally severed.
-- **Rationale:** Pending USD is not yet real money. Including it causes the exact overspend behavior Pocketa exists to prevent.
+- **Rationale:** Pending USD is not yet real money. Including it causes the exact overspend behavior Helm exists to prevent.
 - **Source:** DR S6
 - **Implementation:** S2S calculator excludes all non-received pipeline entries.
 
@@ -277,7 +277,7 @@
 
 ### DASH-060 — Canonical section order [OVERRIDDEN BY v2]
 - **Requirement:** Top to bottom:
-  1. Top bar (Pocketa wordmark left, refresh icon right, freshness + input confidence line)
+  1. Top bar (Helm wordmark left, refresh icon right, freshness + input confidence line)
   2. S2S Hero (label above number, number, meaning line, accent line + state label)
   3. Conditional Maintenance Strip (only when action needed)
   4. Next Obligations (2-3 rows with coverage status)
@@ -346,7 +346,7 @@
   - Fixed costs: tap to view fixed cost list
   - Safety buffer: tap to adjust 5-30% buffer slider
   - Pending payments: tap to open Pipeline
-  - Safe-to-Spend total: not editable; tap shows boundary explanation: "Pocketa never edits Safe-to-Spend directly. Edit the inputs to change the number."
+  - Safe-to-Spend total: not editable; tap shows boundary explanation: "Helm never edits Safe-to-Spend directly. Edit the inputs to change the number."
 - **Rationale:** Every line is tappable and explains itself. The S2S total is read-only to enforce Trust Layer 3.
 - **Source:** CR S14. **Overrides** DR S9 row behavior (minor refinements).
 - **Implementation:** Each row has a tap handler navigating to the appropriate edit surface.
@@ -458,7 +458,7 @@
 
 ### DASH-103 — No pending pipeline (the Trough)
 - **Requirement:** Hero populates normally. Hope section shows: `No pending pipeline right now. / Add expected payments as work comes in. >`. NEVER show "0 expected income" with alarm framing. Truth without alarm.
-- **Rationale:** The Trough (between contracts) is the high-anxiety moment. Pocketa must pivot to runway emphasis, never panic.
+- **Rationale:** The Trough (between contracts) is the high-anxiety moment. Helm must pivot to runway emphasis, never panic.
 - **Source:** DR S10
 - **Implementation:** Conditional empty state in "Not counted yet" section. No alarm copy.
 
@@ -485,7 +485,7 @@
 - **Implementation:** Conditional styling on freshness line when staleness threshold is exceeded.
 
 ### DASH-112 — Offline tolerance
-- **Requirement:** "No internet" is never a blocker. Local edits queue and sync on reconnection. The user can still use Pocketa offline. Display: "You can still use Pocketa offline."
+- **Requirement:** "No internet" is never a blocker. Local edits queue and sync on reconnection. The user can still use Helm offline. Display: "You can still use Helm offline."
 - **Rationale:** Freelancers in Bangladesh may have intermittent connectivity. Blocking on network is unacceptable.
 - **Source:** DR S11
 - **Implementation:** Local-first architecture. Queued sync with connectivity listener.
@@ -550,13 +550,13 @@
 
 ### DASH-128 — No "Something went wrong" without specificity
 - **Requirement:** Error states must always specify what is wrong and what the user can do. Never show generic "Something went wrong" or "Try again later" without an alternative path.
-- **Rationale:** Vague errors make the user feel they broke something. Pocketa errors must be specific and actionable.
+- **Rationale:** Vague errors make the user feel they broke something. Helm errors must be specific and actionable.
 - **Source:** DR S11
 - **Implementation:** All error states map to specific copy with remediation paths.
 
 ### DASH-129 — No direct S2S override by the user
 - **Requirement:** No gesture, input field, or setting allows the user to directly set or override the S2S number. They edit inputs; the system computes the result.
-- **Rationale:** Trust Layer 3 -- the calculation is the product. Overriding it makes Pocketa a manual tracker, not a cockpit.
+- **Rationale:** Trust Layer 3 -- the calculation is the product. Overriding it makes Helm a manual tracker, not a cockpit.
 - **Source:** DR S9, CR S14
 - **Implementation:** No edit affordance on S2S display. Breakdown drawer S2S row tap shows boundary explanation only.
 
@@ -568,7 +568,7 @@
 
 ### DASH-131 — No engagement notification artifacts
 - **Requirement:** No notification badges, inbox dots, "what's new" indicators, or engagement-theater elements on the dashboard.
-- **Rationale:** Notification Doctrine limits to two classes: transactional and boundary. "Time to check Pocketa" is engagement and is not allowed.
+- **Rationale:** Notification Doctrine limits to two classes: transactional and boundary. "Time to check Helm" is engagement and is not allowed.
 - **Source:** DR S14, CR S19
 - **Implementation:** No badge widgets on home. Maintenance strip serves genuine maintenance only.
 
@@ -580,7 +580,7 @@
 
 ### DASH-133 — No AI insights panel
 - **Requirement:** No "AI insights," ML-generated tips, or automated financial advice on the home screen.
-- **Rationale:** Hallucination risk on financial data is unforgivable. Killed under Pocketa brand.
+- **Rationale:** Hallucination risk on financial data is unforgivable. Killed under Helm brand.
 - **Source:** DR S14
 - **Implementation:** Kill list item.
 

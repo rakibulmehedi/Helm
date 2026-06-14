@@ -1,4 +1,4 @@
-# POCKETA — Session Start Protocol
+# HELM — Session Start Protocol
 
 > Mandatory initialization protocol for all AI agents when beginning a new session or task.
 
@@ -32,7 +32,7 @@ Every agent must use docs to:
 
 ## 1. Mandatory Reading Order
 Every agent must read these documents in exact order before writing any code:
-1. `docs/core/POCKETA_BRAIN.md` — Core identity and philosophy
+1. `docs/core/HELM_BRAIN.md` — Core identity and philosophy
 2. `docs/core/ARCHITECTURE_RULES.md` — Technical boundaries
 3. `docs/tracking/PROJECT_STATE.md` — Current system stability
 4. `docs/tracking/CURRENT_SPRINT.md` — Active goals and priorities
@@ -40,7 +40,7 @@ Every agent must read these documents in exact order before writing any code:
 6. `docs/governance/AGENT_WORKFLOW.md` — Execution rules
 
 ## 2. Project Identity Verification
-- Verify the task aligns with: *"Pocketa is a Freelancer Finance OS for emerging Bangladeshi earners."*
+- Verify the task aligns with: *"Helm is a Freelancer Finance OS for emerging Bangladeshi earners."*
 - Reject generic expense tracker features.
 
 ## 3. Sprint Verification

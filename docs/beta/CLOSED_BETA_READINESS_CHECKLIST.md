@@ -71,7 +71,7 @@
 | 5.4 | Route health | PASS | 18 routes, no dead routes |
 | 5.5 | pubspec dependencies | PASS | 10 prod deps, all stable/maintained |
 | 5.6 | File size < 300 lines | PASS | All files within limit |
-| 5.7 | No raw hex colors | PASS | AppColors/PocketaColors used throughout |
+| 5.7 | No raw hex colors | PASS | AppColors/HelmColors used throughout |
 | 5.8 | mounted guards on async | PASS | All setState/navigation guarded |
 
 ## 6. Build Readiness

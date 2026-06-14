@@ -1,8 +1,8 @@
-# Pocketa Dashboard Redesign
+# Helm Dashboard Redesign
 
 > **Status:** Doctrine-aligned redesign of the current home screen.
 > **Posture:** Adversarial-mentor. Built directly against the Final Product Doctrine and UX Doctrine. Every choice below is a constraint, not a suggestion.
-> **Verdict on current screen:** Not a redesign target — a *replacement* target. The existing dashboard is a generic expense tracker with Pocketa's name on it. The product thesis (Safe-to-Spend cockpit) does not appear anywhere on the home screen, and "In reserve mode · BDT 0.00" is a *wrong number*, which violates the most important Trust Layer in the entire product. Doctrine §10.1 + §10.3 are unambiguous: on calc failure, the answer is "—", never zero.
+> **Verdict on current screen:** Not a redesign target — a *replacement* target. The existing dashboard is a generic expense tracker with Helm's name on it. The product thesis (Safe-to-Spend cockpit) does not appear anywhere on the home screen, and "In reserve mode · BDT 0.00" is a *wrong number*, which violates the most important Trust Layer in the entire product. Doctrine §10.1 + §10.3 are unambiguous: on calc failure, the answer is "—", never zero.
 
 ---
 
@@ -16,7 +16,7 @@
 
 | Mistaken framing | Why it's wrong |
 |---|---|
-| A summary of income vs expenses this month | TallyKhata's job. Pocketa does not look backward. |
+| A summary of income vs expenses this month | TallyKhata's job. Helm does not look backward. |
 | A dashboard of recent transactions | Looking backward. Backward is History tab. |
 | A "financial health" overview | Health scores are killed (Doctrine §12). |
 | A net-worth screen aggregating USD + BDT | Mental accounting violation (UX Doctrine §2 P2). |
@@ -36,14 +36,14 @@
 
 ## 2. First 2-Second Attention Path
 
-The Bangladeshi freelancer who opens Pocketa at a checkout counter has **~1.5 seconds of cognitive bandwidth**. The visual hierarchy must do the thinking for them.
+The Bangladeshi freelancer who opens Helm at a checkout counter has **~1.5 seconds of cognitive bandwidth**. The visual hierarchy must do the thinking for them.
 
 ### The intended eye path (in order, by milliseconds)
 
 | Time | Where the eye lands | What it learns |
 |---|---|---|
 | 0–200ms | Skeleton in the position of the hero number | "The answer is loading here." |
-| 200–600ms | Greeting + "Updated X min ago" timestamp | "I'm in Pocketa. The number is fresh." |
+| 200–600ms | Greeting + "Updated X min ago" timestamp | "I'm in Helm. The number is fresh." |
 | 600–1,200ms | The S2S number itself (largest element) | "৳ 32,400 is safe to spend." |
 | 1,200–1,600ms | The runway sub-line ("covers 17 days...") | "...for about 17 days." |
 | 1,600–2,000ms | Accent line color (Safe / Tight / At Risk) | Confirms emotional state. |
@@ -65,7 +65,7 @@ Current screen draws the eye in this order:
 3. Income Pipeline card (three states, all in BDT, which inverts the USD-first reality)
 4. Recent Transactions feed (the wrong tier of product entirely)
 
-None of those land on "is it safe to spend right now?" The current screen answers "what happened" — Pocketa is supposed to answer "what's possible."
+None of those land on "is it safe to spend right now?" The current screen answers "what happened" — Helm is supposed to answer "what's possible."
 
 ---
 
@@ -88,7 +88,7 @@ The temporal hierarchy mirrors how anxiety actually moves through the freelancer
 
 - **Present** dominates because the question is *now*.
 - **Threat** sits second because deadlines apply pressure on the present.
-- **Hope** is demoted because pending USD is *not yet real money* and pretending it is causes the exact overspend behavior Pocketa exists to prevent.
+- **Hope** is demoted because pending USD is *not yet real money* and pretending it is causes the exact overspend behavior Helm exists to prevent.
 
 The current dashboard inverts this: it puts a (wrong) hero number first, then aggregates from the past (Income/Expense), then shows pipeline as if it's spendable (BDT 100 "Pending"). That is the failure-mode tour in reverse.
 
@@ -219,7 +219,7 @@ expected by ~Nov 18  ›
 
 ### Why
 
-Pending USD is **not safe to spend** (Doctrine §3, UX §2 P2). Treating it visually as if it is *causes the exact overspend behavior Pocketa exists to prevent.* The Hope tier exists so the user knows pipeline exists, but its visual weight states clearly: *this is not yet real.*
+Pending USD is **not safe to spend** (Doctrine §3, UX §2 P2). Treating it visually as if it is *causes the exact overspend behavior Helm exists to prevent.* The Hope tier exists so the user knows pipeline exists, but its visual weight states clearly: *this is not yet real.*
 
 This is the inversion of the current screen's "Income Pipeline" card, which shows three buckets in BDT with the same visual weight as Tier 1 — treating future capital as equivalent to present capital. Mental accounting violation.
 
@@ -270,7 +270,7 @@ A list of the next **three** upcoming fixed-cost obligations, sorted by due date
 
 ### Why
 
-The freelancer's anxiety is already on these. By surfacing them at Tier 2, Pocketa *closes the cognitive loop* (UX §2 P4 — Zeigarnik antidote) instead of leaving the user to mentally track them. This is the calm-cockpit move.
+The freelancer's anxiety is already on these. By surfacing them at Tier 2, Helm *closes the cognitive loop* (UX §2 P4 — Zeigarnik antidote) instead of leaving the user to mentally track them. This is the calm-cockpit move.
 
 It also gives mathematical context to the S2S hero: when the user sees ৳ 32,400 + the threat tier showing ৳21,900 of obligations in ≤11 days, they understand *why* the number is what it is without opening the breakdown drawer.
 
@@ -314,9 +314,9 @@ This is the most disagreement-likely section of this redesign, so the rationale 
 ### Why removed
 
 1. **Doctrine forbids it.** UX §3 lists Tier 1 / 2 / 3 — there is no "Tier 4 — Recent activity." Adding a transactions feed on home directly violates the 9-line rule (UX §8).
-2. **It's a TallyKhata pattern.** Generic expense apps put a transactions feed on home because they answer "what happened?" Pocketa answers "what's possible?" — a different cognitive direction.
+2. **It's a TallyKhata pattern.** Generic expense apps put a transactions feed on home because they answer "what happened?" Helm answers "what's possible?" — a different cognitive direction.
 3. **It dilutes the cockpit.** The eye path described in §2 ends at the Hope tier. A transactions feed below adds 200–800ms of "should I read this?" cognition for zero S2S value.
-4. **It looks-backward when the product looks-forward.** Pocketa's wedge is the forward-looking pipeline → S2S cascade (Final §1). Recent activity is the past. The past lives in the History tab.
+4. **It looks-backward when the product looks-forward.** Helm's wedge is the forward-looking pipeline → S2S cascade (Final §1). Recent activity is the past. The past lives in the History tab.
 
 ### Where it goes instead
 
@@ -329,10 +329,10 @@ A dedicated **History tab** in the bottom nav (Home · Pipeline · History · Yo
 
 ### What to do with the "recent transactions" data currently displayed
 
-The two entries in the screenshot ("Salman -BDT 15,000" and "Meth -BDT 50…") appear to be manual expenses. **Manual expense logging is a category check** — is this Pocketa or TallyKhata?
+The two entries in the screenshot ("Salman -BDT 15,000" and "Meth -BDT 50…") appear to be manual expenses. **Manual expense logging is a category check** — is this Helm or TallyKhata?
 
 - If these are *fixed cost payments* (paid rent, paid internet) → they belong in the Threat tier history, accessible by tapping a fixed-cost row.
-- If these are *arbitrary daily expenses* (groceries, transport) → **this feature should be killed.** The Permanent Kill List (Final §8) explicitly removes "generic expense categorization" — TallyKhata territory. Pocketa is not an expense tracker; it is a cashflow cockpit.
+- If these are *arbitrary daily expenses* (groceries, transport) → **this feature should be killed.** The Permanent Kill List (Final §8) explicitly removes "generic expense categorization" — TallyKhata territory. Helm is not an expense tracker; it is a cashflow cockpit.
 
 This is a Doctrine drift to address in the data model, not on the dashboard.
 
@@ -479,7 +479,7 @@ Updated just now
            Add your liquid balance to see your first number.  ›
 
 [ Tier 2 and Tier 3 — replaced with single line: ]
-Pocketa needs three things to begin:
+Helm needs three things to begin:
   1. Your current BDT balance  ›
   2. Your monthly fixed costs  ›
   3. Your first expected payment (optional)  ›
@@ -514,10 +514,10 @@ Tap → opens a focused list: *"These entries need attention before Safe-to-Spen
 [ Hero — last known computed value, marked as "as of 4 hours ago" ]
 
 Last sync 4 hours ago. Tap to refresh.
-You can still use Pocketa offline.
+You can still use Helm offline.
 ```
 
-Pocketa is offline-tolerant. Local edits queue and sync on reconnection. The user *never* sees "no internet" as a blocker. (UX §14 Impl. 9.)
+Helm is offline-tolerant. Local edits queue and sync on reconnection. The user *never* sees "no internet" as a blocker. (UX §14 Impl. 9.)
 
 ### Category 3 — Input validation error (e.g., FX rate way off the 90-day average)
 
@@ -584,7 +584,7 @@ Reference device: 6.1" Android (Samsung A14 class, ~412 × 915 logical px). 8pt 
 ┌──────────────────────────────────────────────────────────┐
 │  status bar                                              │  44pt
 ├──────────────────────────────────────────────────────────┤
-│  Pocketa                                          ↻      │  56pt
+│  Helm                                          ↻      │  56pt
 │  ─────────────────────────────────────────────────────── │
 │                                                          │
 │  Good evening, Mehedi                                    │  36pt
@@ -627,7 +627,7 @@ Reference device: 6.1" Android (Samsung A14 class, ~412 × 915 logical px). 8pt 
 
 Lines of content above the fold (excluding system chrome and nav):
 
-1. Pocketa wordmark
+1. Helm wordmark
 2. "Good evening, Mehedi"
 3. "Updated 2 min ago"
 4. ৳ 32,400.00 (counts as one visual line — dominant)
@@ -674,7 +674,7 @@ Ranked by severity of Doctrine violation.
 
 | Element | Refinement |
 |---|---|
-| Pocketa wordmark top-left | Keep. Smaller weight, same position. |
+| Helm wordmark top-left | Keep. Smaller weight, same position. |
 | Refresh icon top-right (↻) | Keep. Becomes the manual sync affordance. |
 | FAB bottom-right (+) | Keep, but **single purpose**: Add Pipeline Entry. Not a multi-action menu. |
 
@@ -718,9 +718,9 @@ If you come back asking for:
 
 - **Charts on the home screen** — pushback: "Doctrine §12 kills charts at home. What question are you trying to answer? If it's S2S, the breakdown drawer is the answer. If it's history, it's the History tab."
 - **A spending categorization feature** — pushback: "That's TallyKhata. Permanent Kill List (Final §8). What problem are you actually trying to solve?"
-- **Push notifications for re-engagement** — pushback: "Notification Doctrine §9 limits us to two classes — transactional and boundary. 'Time to check Pocketa' is engagement; it's not allowed."
+- **Push notifications for re-engagement** — pushback: "Notification Doctrine §9 limits us to two classes — transactional and boundary. 'Time to check Helm' is engagement; it's not allowed."
 - **A "financial health score"** — pushback: "Health scores are killed (UX §12). They compete with S2S as a sacred metric. No."
-- **An AI insights panel** — pushback: "Final §8 kills 'AI insights' under Pocketa brand. Hallucination risk on financial data is unforgivable. No."
+- **An AI insights panel** — pushback: "Final §8 kills 'AI insights' under Helm brand. Hallucination risk on financial data is unforgivable. No."
 
 ### The single most important implementation rule
 

@@ -241,7 +241,7 @@ testWidgets('tap notification navigates to correct screen', (tester) async { ...
 
 **Review gate:** All copy reviewed by Brand Guardian BEFORE implementation. Persona Walkthrough validates Rafiq's emotional response.
 
-Copy designed in Pocketa voice: clinical-warm, factual, consequence-aware. No exclamation marks. No emoji. No "great job" / "amazing" / comparative language.
+Copy designed in Helm voice: clinical-warm, factual, consequence-aware. No exclamation marks. No emoji. No "great job" / "amazing" / comparative language.
 
 | # | Copy | Context | Channel |
 |---|---|---|---|

@@ -1,6 +1,6 @@
-# Contributing to Pocketa
+# Contributing to Helm
 
-Pocketa is a Freelancer Finance OS. Contributions must serve that mission without compromising product integrity, architecture, or user trust.
+Helm is a Freelancer Finance OS. Contributions must serve that mission without compromising product integrity, architecture, or user trust.
 
 ---
 
@@ -8,7 +8,7 @@ Pocketa is a Freelancer Finance OS. Contributions must serve that mission withou
 
 Read these docs in order:
 
-1. [docs/core/POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md) — product identity and philosophy
+1. [docs/core/HELM_BRAIN.md](docs/core/HELM_BRAIN.md) — product identity and philosophy
 2. [docs/core/ARCHITECTURE_RULES.md](docs/core/ARCHITECTURE_RULES.md) — hard technical constraints
 3. [docs/core/ROADMAP.md](docs/core/ROADMAP.md) — current phase and direction
 4. [docs/governance/AGENT_WORKFLOW.md](docs/governance/AGENT_WORKFLOW.md) — execution protocol
@@ -33,8 +33,8 @@ Any change to product behavior, a new feature, or a new entity requires a spec i
 
 ```bash
 # 1. Clone
-git clone https://github.com/rakibulmehedi/Pocketa-V2.git
-cd Pocketa-V2
+git clone https://github.com/rakibulmehedi/Helm-V2.git
+cd Helm-V2
 
 # 2. Install dependencies
 flutter pub get
@@ -126,7 +126,7 @@ flutter test   → all tests must pass
 
 ## Reporting Issues
 
-Use GitHub Issues. Bug reports require reproduction steps. Feature requests require a product rationale aligned with [POCKETA_BRAIN.md](docs/core/POCKETA_BRAIN.md).
+Use GitHub Issues. Bug reports require reproduction steps. Feature requests require a product rationale aligned with [HELM_BRAIN.md](docs/core/HELM_BRAIN.md).
 
 ---
 

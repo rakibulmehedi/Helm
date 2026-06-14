@@ -131,7 +131,7 @@ Both test expectations corrected. No calculator or production code changes neede
 ## 10. Analyzer Result
 
 ```
-Analyzing Pocketa...
+Analyzing Helm...
 No issues found!
 ```
 

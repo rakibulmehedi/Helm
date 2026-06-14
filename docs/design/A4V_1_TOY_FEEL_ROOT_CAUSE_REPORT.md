@@ -2,7 +2,7 @@
 
 > **Sprint:** A4V-1
 > **Date:** 2026-06-08
-> **Purpose:** Identify exactly WHY Pocketa feels like a toy and WHERE the feeling originates
+> **Purpose:** Identify exactly WHY Helm feels like a toy and WHERE the feeling originates
 > **Input:** Real-device feedback: "the app looks totally toy"
 
 ---
@@ -11,7 +11,7 @@
 
 The user is right. The app feels toy-like. But the reason is not what you might expect.
 
-The **design system is correct**. PocketaColors, PocketaTypography, PocketaSpacing, PocketaMotion -- all 100% doctrine-compliant. 13 core widgets all use tokens properly. The S2S Hero Block is near-perfect. The dashboard is genuinely good.
+The **design system is correct**. HelmColors, HelmTypography, HelmSpacing, HelmMotion -- all 100% doctrine-compliant. 13 core widgets all use tokens properly. The S2S Hero Block is near-perfect. The dashboard is genuinely good.
 
 The toy-feel comes from **the gap between the designed core and the undesigned periphery**. The user doesn't separate "dashboard" from "settings." They experience the app as one thing. And that one thing has a split personality: calm teal cockpit on the home screen, bright blue buttons and generic Material Icons everywhere else.
 
@@ -29,7 +29,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **Blast radius:** 13 files, every user-facing action button.
 
-**Fix:** Single file change. Rewrite `button_multiple_types.dart` to use `PocketaColors.interactive` (#255E5B).
+**Fix:** Single file change. Rewrite `button_multiple_types.dart` to use `HelmColors.interactive` (#255E5B).
 
 **Acceptance criteria:** Zero `AppColors` references in `button_multiple_types.dart`. All buttons render deep teal in both light and dark mode.
 
@@ -57,7 +57,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **Blast radius:** First impression. Sets mental model for entire app.
 
-**Fix:** Replace with clean wordmark ("Pocketa" in Inter w600) on canvas background, or a minimal geometric mark. Reduce animation from 1800ms to 300ms.
+**Fix:** Replace with clean wordmark ("Helm" in Inter w600) on canvas background, or a minimal geometric mark. Reduce animation from 1800ms to 300ms.
 
 **Acceptance criteria:** No CircleAvatar on splash. Logo looks intentionally designed. Animation <= 320ms.
 
@@ -67,7 +67,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **What:** `add_transaction_screen.dart:26-35` -- hardcoded list: Food, Transport, Shopping, Bills, Entertainment, Health, Education, Other.
 
-**Why it feels toy:** TOY-06 BLOCKER. Expense categories are THE defining feature of generic expense trackers (TallyKhata, Hishabee, Mint, YNAB). The Final Product Doctrine explicitly kills categorization. When a user sees "Food" and "Shopping," they immediately classify Pocketa as "another expense tracker" and never discover the S2S value proposition. This is an identity-breaking violation.
+**Why it feels toy:** TOY-06 BLOCKER. Expense categories are THE defining feature of generic expense trackers (TallyKhata, Hishabee, Mint, YNAB). The Final Product Doctrine explicitly kills categorization. When a user sees "Food" and "Shopping," they immediately classify Helm as "another expense tracker" and never discover the S2S value proposition. This is an identity-breaking violation.
 
 **Blast radius:** Entire product positioning.
 
@@ -79,13 +79,13 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 ### 5. ResponsiveUtilities.font() Bypasses the Token System
 
-**What:** 30+ instances of `ResponsiveUtilities.font(context, XX)` across income_list_screen, add_income_screen, add_transaction_screen, income_pipeline_summary. This utility computes font sizes dynamically based on screen width, completely ignoring PocketaTypography tokens.
+**What:** 30+ instances of `ResponsiveUtilities.font(context, XX)` across income_list_screen, add_income_screen, add_transaction_screen, income_pipeline_summary. This utility computes font sizes dynamically based on screen width, completely ignoring HelmTypography tokens.
 
 **Why it feels toy:** Font sizes become inconsistent across devices. A "13" on one screen becomes a "14" on another. Typography loses its rhythm and hierarchy. The eye subconsciously detects that "something is off" without being able to articulate what. Professional apps have locked type scales. Toy apps have font sizes that drift.
 
 **Blast radius:** 4+ screens, 30+ text elements.
 
-**Fix:** Replace all `ResponsiveUtilities.font()` calls with appropriate PocketaTypography tokens. The token system has 18 predefined styles that cover every use case.
+**Fix:** Replace all `ResponsiveUtilities.font()` calls with appropriate HelmTypography tokens. The token system has 18 predefined styles that cover every use case.
 
 **Acceptance criteria:** Zero `ResponsiveUtilities.font()` calls in feature files.
 
@@ -99,7 +99,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **Blast radius:** 14 files.
 
-**Fix:** Replace with PocketaTypography tokens. Map: 11->labelSm, 12->labelMd, 13->bodySm, 14->bodyMd, 15->headingSm, 16->bodyLg, 18->headingMd, 22->headingLg, 40->displayLarge, 64->displayHero.
+**Fix:** Replace with HelmTypography tokens. Map: 11->labelSm, 12->labelMd, 13->bodySm, 14->bodyMd, 15->headingSm, 16->bodyLg, 18->headingMd, 22->headingLg, 40->displayLarge, 64->displayHero.
 
 **Acceptance criteria:** < 10 hardcoded fontSize in feature files (exceptions: one-off UI elements with documented rationale).
 
@@ -115,7 +115,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **Fix:** Reduce to 300ms fade + immediate navigation.
 
-**Acceptance criteria:** Splash total visible time <= 500ms. Animation uses PocketaMotion.slow (320ms) max.
+**Acceptance criteria:** Splash total visible time <= 500ms. Animation uses HelmMotion.slow (320ms) max.
 
 ---
 
@@ -127,9 +127,9 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **Blast radius:** 28 files.
 
-**Fix:** Replace all hardcoded radii with PocketaSpacing tokens: cardRadius (12), buttonRadius (10), sheetTopRadius (16). Delete non-standard values.
+**Fix:** Replace all hardcoded radii with HelmSpacing tokens: cardRadius (12), buttonRadius (10), sheetTopRadius (16). Delete non-standard values.
 
-**Acceptance criteria:** Zero `BorderRadius.circular(XX)` in feature files where a PocketaSpacing token exists for that value.
+**Acceptance criteria:** Zero `BorderRadius.circular(XX)` in feature files where a HelmSpacing token exists for that value.
 
 ---
 
@@ -137,7 +137,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 **What:** 20 instances of raw `Colors.black` and `Colors.white` across 12 files. Used for icon colors, text colors, dismiss backgrounds, and button foregrounds.
 
-**Why it feels toy:** The Pocketa doctrine uses warm-tinted neutrals: canvas #FAFAF6, ink.primary #141413. Pure black (#000000) and pure white (#FFFFFF) create harsh contrast that makes the warm elements look muddy by comparison. It's like having carefully selected paint colors in a room and then hanging a stark white fluorescent light -- everything else looks wrong.
+**Why it feels toy:** The Helm doctrine uses warm-tinted neutrals: canvas #FAFAF6, ink.primary #141413. Pure black (#000000) and pure white (#FFFFFF) create harsh contrast that makes the warm elements look muddy by comparison. It's like having carefully selected paint colors in a room and then hanging a stark white fluorescent light -- everything else looks wrong.
 
 **Blast radius:** 12 files, scattered throughout.
 
@@ -149,7 +149,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 ### 10. FontWeight.bold (w700) Exceeds Typography Rules
 
-**What:** 26 instances of `FontWeight.bold` (which is w700) or `FontWeight.w700` in 8 files. PocketaTypography restricts weights to 400-600. The heaviest allowed weight is w600 (semi-bold).
+**What:** 26 instances of `FontWeight.bold` (which is w700) or `FontWeight.w700` in 8 files. HelmTypography restricts weights to 400-600. The heaviest allowed weight is w600 (semi-bold).
 
 **Why it feels toy:** Bold text (w700) is the typographic equivalent of shouting. Financial apps use semi-bold (w600) for emphasis -- it's confident without being aggressive. When section headers, amounts, and labels are all w700, everything screams and nothing has emphasis. The hierarchy flattens.
 
@@ -168,7 +168,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 | 1 | AppButton | 10/10 | Single component contaminates 13 screens with wrong brand color |
 | 2 | Material Icons (global) | 9/10 | 66 instances make entire app look like Flutter template |
 | 3 | Splash CircleAvatar | 8/10 | First impression is "student project" |
-| 4 | Expense Categories | 8/10 | Kills product identity, makes Pocketa = TallyKhata |
+| 4 | Expense Categories | 8/10 | Kills product identity, makes Helm = TallyKhata |
 | 5 | ResponsiveUtilities.font() | 7/10 | Bypasses typography system in 4 screens |
 | 6 | safe_to_spend_hero.dart (dead code) | 3/10 | Confuses developers, no user impact |
 | 7 | linear_progress_bar.dart (legacy) | 3/10 | Uses AppColors but limited exposure |
@@ -179,10 +179,10 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 | Token System | Tokens Defined | Correct | Adopted in Features |
 |-------------|---------------|---------|-------------------|
-| PocketaColors | 13 per mode | 13/13 | ~70% (AppButton and 4 legacy screens still on AppColors) |
-| PocketaTypography | 18 styles | 18/18 | ~40% (69 hardcoded fontSize + 30 ResponsiveUtilities.font) |
-| PocketaSpacing | 20+ tokens | All correct | ~50% (98 hardcoded BorderRadius, scattered EdgeInsets) |
-| PocketaMotion | 6 timing + 2 curves | All correct | ~70% (splash 1800ms, progress_bar 500ms, 3-4 other violations) |
+| HelmColors | 13 per mode | 13/13 | ~70% (AppButton and 4 legacy screens still on AppColors) |
+| HelmTypography | 18 styles | 18/18 | ~40% (69 hardcoded fontSize + 30 ResponsiveUtilities.font) |
+| HelmSpacing | 20+ tokens | All correct | ~50% (98 hardcoded BorderRadius, scattered EdgeInsets) |
+| HelmMotion | 6 timing + 2 curves | All correct | ~70% (splash 1800ms, progress_bar 500ms, 3-4 other violations) |
 
 **The design system is 100% correctly defined. The problem is adoption, not design.**
 
@@ -193,12 +193,12 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 | Check | Expected | Actual | Status |
 |-------|----------|--------|--------|
 | Dashboard 9-line rule | Max 9 lines above fold | Reality Stack fits within 9 lines | PASS |
-| S2S breathing room | 32pt above, 24pt below | PocketaSpacing.s8 (32) above | PASS |
-| Card-to-card gap | 12pt minimum | PocketaSpacing.s4 (16) between tiers | PASS |
-| Screen edge gutter | 16pt minimum | PocketaSpacing.screenEdge (16) on dashboard | PASS |
+| S2S breathing room | 32pt above, 24pt below | HelmSpacing.s8 (32) above | PASS |
+| Card-to-card gap | 12pt minimum | HelmSpacing.s4 (16) between tiers | PASS |
+| Screen edge gutter | 16pt minimum | HelmSpacing.screenEdge (16) on dashboard | PASS |
 | Income list card density | Comfortable reading | 16pt card radius (wrong), tight 16pt padding | FAIL |
 | STS settings density | Financial settings need room | 16.0 EdgeInsets with tight section spacing | FAIL |
-| Bottom nav height | 56pt | PocketaSpacing.bottomNavHeight = 56 themed | PASS |
+| Bottom nav height | 56pt | HelmSpacing.bottomNavHeight = 56 themed | PASS |
 
 ---
 
@@ -206,13 +206,13 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 | Check | Expected | Actual | Status |
 |-------|----------|--------|--------|
-| S2S tap -> breakdown drawer | PocketaCalculationTrace | Present, correct | PASS |
-| Breakdown stagger animation | 24ms per row, ease-out | PocketaMotion tokens used | PASS |
+| S2S tap -> breakdown drawer | HelmCalculationTrace | Present, correct | PASS |
+| Breakdown stagger animation | 24ms per row, ease-out | HelmMotion tokens used | PASS |
 | Reduce-motion respect | System preference check | S2sHeroBlock checks disableAnimations | PASS |
 | Haptic on confirm-received | Single haptic | Not found in code | FAIL |
 | Loading states (skeleton) | Skeleton, not shimmer | No skeleton screens found | FAIL |
 | Empty states (teaching) | Instructive copy | "Add income to start" -- adequate | PARTIAL |
-| Swipe-to-delete with undo | PocketaToast undo | Present on transactions + income | PASS |
+| Swipe-to-delete with undo | HelmToast undo | Present on transactions + income | PASS |
 | No bounce/spring animations | Ease-out only | No Curves.bounce/elastic found | PASS |
 | Tab transitions | Instant | No tab transition animation | PASS |
 
@@ -224,10 +224,10 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 
 | # | Fix | Impact | Files |
 |---|-----|--------|-------|
-| Q1 | Rewrite AppButton to use PocketaColors.interactive | 13 screens fixed | 1 file |
+| Q1 | Rewrite AppButton to use HelmColors.interactive | 13 screens fixed | 1 file |
 | Q2 | Remove FontStyle.italic from 3 files | Kill 2 BLOCKERs | 3 files |
 | Q3 | Delete safe_to_spend_hero.dart | Remove confusion | 1 file |
-| Q4 | Replace Colors.black/white with PocketaColors | 12 files cleaner | 12 files |
+| Q4 | Replace Colors.black/white with HelmColors | 12 files cleaner | 12 files |
 | Q5 | Replace FontWeight.bold with w600 | 8 files corrected | 8 files |
 | Q6 | Remove expense categories from add_transaction | Kill BLOCKER | 1 file |
 | Q7 | Reduce splash animation to 300ms | Kill BLOCKER | 1 file |
@@ -237,7 +237,7 @@ The toy-feel comes from **the gap between the designed core and the undesigned p
 | # | Fix | Impact | Files |
 |---|-----|--------|-------|
 | D1 | Add phosphor_flutter + replace 66 Material Icons | Entire app identity shift | 16 files |
-| D2 | Replace ResponsiveUtilities.font with PocketaTypography | 4 screens token-compliant | 4 files |
+| D2 | Replace ResponsiveUtilities.font with HelmTypography | 4 screens token-compliant | 4 files |
 | D3 | Replace 69 hardcoded fontSize with tokens | Typography system fully adopted | 14 files |
 | D4 | Replace 80+ hardcoded BorderRadius with tokens | Spacing system fully adopted | 20+ files |
 | D5 | Redesign splash screen (wordmark + fast animation) | First impression fixed | 1 file |

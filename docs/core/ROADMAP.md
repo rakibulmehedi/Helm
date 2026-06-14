@@ -1,4 +1,4 @@
-# POCKETA — Product Roadmap
+# HELM — Product Roadmap
 
 > Living document tracking completed phases, current state, and planned work.
 > Updated after each phase completion.
@@ -303,6 +303,6 @@ Doctrine-Required Additions (planned):
 
 ## Doctrine Alignment Note
 
-> This roadmap was updated on 2026-06-04 to align with `docs/strategy/POCKETA_FINAL_PRODUCT_DOCTRINE.md`.
+> This roadmap was updated on 2026-06-04 to align with `docs/strategy/HELM_FINAL_PRODUCT_DOCTRINE.md`.
 > The Final Doctrine is the authoritative source for version scope.
 > Prior items superseded: Subscription Leakage Radar, Client/Project ROI, v0.3-pro-power, v1.0-cloud milestones.

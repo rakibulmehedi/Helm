@@ -1,4 +1,4 @@
-# POCKETA — LESSONS LEARNED
+# HELM — LESSONS LEARNED
 
 This file captures engineering, product, UX, and agentic workflow lessons.
 
@@ -7,7 +7,7 @@ This file captures engineering, product, UX, and agentic workflow lessons.
 ## Audit Synthesis Lessons (2026-06-12)
 
 ### 11. Behavioral Audit + UI/UX Audit — Nudge delivery is the single biggest gap
-Pocketa has sophisticated in-app psychology (loss aversion, anchoring, safety framing = 85/100) but zero out-of-app engagement infrastructure. Cadence & personalization scored 15/100, nudge delivery 20/100. The user must remember to open the app — the app never reaches out. Rule: in-app psychology without out-of-app delivery = great engine with no transmission.
+Helm has sophisticated in-app psychology (loss aversion, anchoring, safety framing = 85/100) but zero out-of-app engagement infrastructure. Cadence & personalization scored 15/100, nudge delivery 20/100. The user must remember to open the app — the app never reaches out. Rule: in-app psychology without out-of-app delivery = great engine with no transmission.
 
 ### 12. Behavioral Audit + UI/UX Audit — Haptics are behavioral infrastructure, not polish
 The UI/UX audit flagged zero haptic feedback as CRITICAL. The behavioral audit maps this to Fogg's "Ability" signal — haptics confirm micro-actions without cognitive load. Every tap, confirm, delete, and error should have haptic. This is table-stakes for fintech apps, not a "nice to have."
@@ -19,7 +19,7 @@ ONB-014 deliberately bans confetti and congratulations. But the behavioral audit
 The current dashboard is passive: it displays state but doesn't guide action. A user with 3 overdue entries sees the same dashboard as a user with 0. The nudge engine's core rule — "Show the 1 most critical item, not all 50" — directly applies to the pipeline list and dashboard. The "next best action" card is the single highest-impact behavioral change.
 
 ### 15. Agent Design — Keep agent definitions general-purpose, not codebase-hardcoded
-Per taste preference: agent definition files should be reusable lenses, not project-specific scripts. The behavioral nudge engine was briefly overwritten with Pocketa-specific Flutter/Dart code and brand voice constraints — then restored. The correct pattern: apply the agent as a lens to produce project-specific deliverables (in docs/), but leave the agent definition general-purpose.
+Per taste preference: agent definition files should be reusable lenses, not project-specific scripts. The behavioral nudge engine was briefly overwritten with Helm-specific Flutter/Dart code and brand voice constraints — then restored. The correct pattern: apply the agent as a lens to produce project-specific deliverables (in docs/), but leave the agent definition general-purpose.
 
 ### 16. Audit Workflow — Cross-referencing audits through agent lenses amplifies findings
 Running both audits (Behavioral 62/100, UI/UX 78/100) through 7 agent lenses (Nudge Engine, UX Researcher, UI Designer, UX Architect, Whimsy Injector, Persona Walkthrough, Brand Guardian) revealed connections neither audit caught alone. The UI/UX audit's "CRITICAL haptics" and the behavioral audit's "Fogg Ability signal" are the same gap seen from different angles. Synthesis produces a merged priority matrix that neither individual audit could produce.
@@ -34,13 +34,13 @@ Both audits ended with prioritized action lists. The nudge engine produced 10 co
 
 ## Product Lessons
 
-### 1. Pocketa should not be a generic expense tracker
-Generic expense apps are crowded and weakly differentiated. Pocketa is stronger as a Freelancer Finance OS.
+### 1. Helm should not be a generic expense tracker
+Generic expense apps are crowded and weakly differentiated. Helm is stronger as a Freelancer Finance OS.
 
 ### 2. Freelancer pain is more monetizable than general expense tracking
 Irregular income, pending payments, subscriptions, and business/personal separation create stronger product value.
 
-### 3. Pocketa must solve forward-looking freelancer cashflow uncertainty, not just backward-looking expense categorization
+### 3. Helm must solve forward-looking freelancer cashflow uncertainty, not just backward-looking expense categorization
 Users need to know "Am I okay this month?" and "When is this USD clearing?" Tracking past expenses doesn't solve this primary anxiety.
 
 ### 4. Calm UX matters more than feature count
@@ -102,7 +102,7 @@ Local-first CRUD made the app fast, usable, and reliable before cloud complexity
 ## Agentic Engineering Lessons
 
 ### 1. Agents need product brain, not just code instructions
-Without POCKETA_BRAIN.md, agents may build generic finance features.
+Without HELM_BRAIN.md, agents may build generic finance features.
 
 ### 2. Scope boundaries are mandatory
 Every prompt must say what NOT to build.
@@ -158,14 +158,14 @@ Users need to verify they deleted the right entry. Showing only client+project n
 1. **google_fonts already in pubspec** — No approval needed for Inter/JetBrains Mono/Hind Siliguri. All three available via GoogleFonts.*().
 2. **Legacy API preservation** — app_theme.dart legacy AppThemeData wrapper preserved so main.dart compiles unchanged. New API: AppTheme.light/AppTheme.dark. Feature files still use AppColors.* via re-export shim. Migration to context.colors.* is per-sprint, not big-bang.
 3. **Solid colors over alpha for text** — VISR-008 rule: all text tokens are solid hex (inkSecondary: #3B3A36, inkTertiary: #6A6760). Only decorative elements (rails, dots) use withValues(alpha:). Prevents contrast inconsistency on Bangladesh Android screens.
-4. **Token files are non-ThemeExtension where sensible** — PocketaSpacing and PocketaMotion are plain static-constant classes. Only PocketaColors and PocketaTypography need ThemeExtension (they vary light/dark).
+4. **Token files are non-ThemeExtension where sensible** — HelmSpacing and HelmMotion are plain static-constant classes. Only HelmColors and HelmTypography need ThemeExtension (they vary light/dark).
 5. **Card borders > shadows** — All cards use 1pt divider border, elevation: 0, no BoxShadow anywhere. This is enforced at widget level.
 
 ---
 
 ## UX-1 Sprint Lessons (2026-06-05)
 
-1. **Design system API names differ from spec** — PocketaTypography uses `headingMd/headingSm/bodyMd/bodySm/labelSm`, not `sectionHeader/bodyText/caption/microLabel`. PocketaSpacing uses `screenEdge` not `screenMargin`. PocketaMotion uses `base` not `short`, `drawerRowStagger` not `staggerDelay`. Always read actual token files before writing new widgets.
+1. **Design system API names differ from spec** — HelmTypography uses `headingMd/headingSm/bodyMd/bodySm/labelSm`, not `sectionHeader/bodyText/caption/microLabel`. HelmSpacing uses `screenEdge` not `screenMargin`. HelmMotion uses `base` not `short`, `drawerRowStagger` not `staggerDelay`. Always read actual token files before writing new widgets.
 2. **Parallel agent usage-limit failure** — Phase 2 agent (dashboard integration) hit usage limit mid-task. Mitigation: dispatch Phase 1 (pure widget creation) first, then do Phase 2 integration in main thread. Never depend on a single high-cost agent for critical integration work.
 3. **ShellRoute + nested Scaffold works cleanly** — `DashboardScreen` retains its own Scaffold (AppBar + FAB). Shell Scaffold provides only `bottomNavigationBar`. FAB positions relative to inner Scaffold's bottom, which sits above the bottom nav — no extra padding needed.
 4. **Pass location via ShellRoute builder, not GoRouterState.of** — `_AppShell(location: state.matchedLocation)` from the `ShellRoute.builder` is cleaner than calling `GoRouterState.of(context)` inside build. Avoids context dependency and works with const widgets.
@@ -213,7 +213,7 @@ The tax slider allowed 0–50% but `StsSettings` asserts `taxRate ≤ 0.40`. Inp
 ## Post-Audit Lessons (2026-05-22)
 
 ### 1. External audits must be verified against actual code, not just ecosystem knowledge
-The Brutal Product Audit's most alarming architectural claim ("Hive mandates integer primary keys") was factually wrong for this specific codebase. Pocketa uses string IDs throughout. The audit read ecosystem documentation but not the repo. Always validate audit claims against actual source before acting on them.
+The Brutal Product Audit's most alarming architectural claim ("Hive mandates integer primary keys") was factually wrong for this specific codebase. Helm uses string IDs throughout. The audit read ecosystem documentation but not the repo. Always validate audit claims against actual source before acting on them.
 
 ### 2. TASKS.md is an agent contract — stale tasks mislead future agents
 Phase 7e was marked `[x]` in TASKS.md but was NOT implemented. The next agent would have started Phase 8 on an incomplete Phase 7, breaking the pipeline feature. Docs must be updated at the moment a task is completed, not retroactively.
@@ -365,14 +365,14 @@ Every constraint (PC-001 to PC-079, UX-001 to UX-104, etc.) has a unique ID. Imp
 
 ## UX-3 Sprint Engineering Lessons (2026-06-05)
 
-### 8. PocketaColors field names diverge from spec descriptions — always read the file
-The implementation spec described fields as `stateCaution` and `stateNeutral`. The actual `PocketaColors` extension uses `stateTight` (amber) and `stateHope` (blue-grey). Agents who read the spec but not the actual token file produced compile-time errors. Rule: always read the live token file before using field names, never trust spec prose alone.
+### 8. HelmColors field names diverge from spec descriptions — always read the file
+The implementation spec described fields as `stateCaution` and `stateNeutral`. The actual `HelmColors` extension uses `stateTight` (amber) and `stateHope` (blue-grey). Agents who read the spec but not the actual token file produced compile-time errors. Rule: always read the live token file before using field names, never trust spec prose alone.
 
 ### 9. Manually updating Hive generated adapters is safe and necessary
 `income_model.g.dart` cannot be regenerated (would overwrite custom changes). Adding nullable HiveFields (11/12/13) by hand is safe when: (1) new fields are nullable, (2) existing field indices 0-10 are untouched, (3) the `writeByte` count header is incremented from 11 to 14. Nullable migration = backwards-compatible Hive box opens.
 
 ### 10. Parallel agent parameter name mismatches require a post-agent verify pass
-Agent D used `PocketaMoneySourceLabel(label: ...)` when Agent A created the widget with `source:`. Both agents completed clean in isolation but introduced a cross-file error. Fix: always run full `dart analyze` after all parallel agents complete — never trust individual agent analyzer results alone.
+Agent D used `HelmMoneySourceLabel(label: ...)` when Agent A created the widget with `source:`. Both agents completed clean in isolation but introduced a cross-file error. Fix: always run full `dart analyze` after all parallel agents complete — never trust individual agent analyzer results alone.
 
 ### 11. Calculator conservatism: fxRate=null means excluded, fxRate=value means counted
 Old behavior: all USD received entries → excluded. New behavior: USD with `fxRate != null` → converts to BDT and counts in S2S; USD without fxRate → still excluded (backwards-compat). This design lets users opt-in to FX conversion per entry rather than forcing global conversion or breaking existing data.
@@ -401,7 +401,7 @@ The audit log screen works perfectly — events are written from all financial p
 `app_router.dart` comment says "in-memory session auth is handled at screen level via authProvider" but no screen-level redirect exists in `dashboard_screen.dart`. Comments describing intended behavior that was never implemented are worse than no comments — they create false confidence. Rule: if a security-critical behavior is described in a comment, verify the implementation exists.
 
 ### 20. A1 — Design system tokens created but not migrated is worse than no design system
-PocketaColors, PocketaTypography, PocketaSpacing, and PocketaMotion all exist. 13 doctrine widgets created. But STS Settings still uses legacy `AppColors`, Audit Log uses raw `Colors.green.shade600`, and 4 widgets (PocketaToast, PocketaAuditCard, PocketaCautionCard) are never used anywhere. Two visual languages in one app damages trust more than one consistent legacy design. Rule: creating a design system without migrating all screens creates visual inconsistency debt.
+HelmColors, HelmTypography, HelmSpacing, and HelmMotion all exist. 13 doctrine widgets created. But STS Settings still uses legacy `AppColors`, Audit Log uses raw `Colors.green.shade600`, and 4 widgets (HelmToast, HelmAuditCard, HelmCautionCard) are never used anywhere. Two visual languages in one app damages trust more than one consistent legacy design. Rule: creating a design system without migrating all screens creates visual inconsistency debt.
 
 ### 21. A1 — "CONDITIONAL GO" without a maturity audit is premature
 D3 declared "CONDITIONAL GO" based on checklist compliance. A1 found 3 beta blockers that the checklist missed (audit log unreachable, auth guard gap, S2S fallback). Checklists verify what you think to check — audits find what you didn't think to check. Rule: always run a maturity audit before declaring readiness for any external milestone.
