@@ -33,13 +33,14 @@ void main() {
   });
 
   group('AuthNotifier lockout expiry', () {
-    test('build resets failed attempts when lockout has expired', () {
+    test('build resets failed attempts when lockout has expired', () async {
       final expiredLockout = DateTime.now()
           .subtract(const Duration(minutes: 1))
           .millisecondsSinceEpoch;
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: PinHasher.generateSalt(),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
         SecurityKeys.authFailedAttempts: 5,
         SecurityKeys.authLockoutUntil: expiredLockout,
       });
@@ -53,13 +54,14 @@ void main() {
       expect(authBox.get(SecurityKeys.authFailedAttempts), 0);
     });
 
-    test('build preserves lockout when still active', () {
+    test('build preserves lockout when still active', () async {
       final futureLockout = DateTime.now()
           .add(const Duration(minutes: 5))
           .millisecondsSinceEpoch;
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: PinHasher.generateSalt(),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
         SecurityKeys.authFailedAttempts: 5,
         SecurityKeys.authLockoutUntil: futureLockout,
       });
@@ -78,10 +80,11 @@ void main() {
     test('successful auth resets failed attempts', () async {
       final salt = PinHasher.generateSalt();
       const pin = '123456';
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: salt,
         SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
         SecurityKeys.authFailedAttempts: 2,
       });
 
@@ -97,10 +100,11 @@ void main() {
     test('locks out after max failed attempts', () async {
       final salt = PinHasher.generateSalt();
       const pin = '123456';
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: salt,
         SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
       });
 
       final container = TestHive.makeContainer();
@@ -120,12 +124,13 @@ void main() {
       final salt = PinHasher.generateSalt();
       const pin = '123456';
       final futureLockout = DateTime.now()
-          .add(const Duration(milliseconds: 50))
+          .add(const Duration(milliseconds: 200))
           .millisecondsSinceEpoch;
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: salt,
         SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
         SecurityKeys.authFailedAttempts: 5,
         SecurityKeys.authLockoutUntil: futureLockout,
       });
@@ -134,7 +139,7 @@ void main() {
       final notifier = container.read(authProvider.notifier);
 
       // Wait for the lockout to expire while the app is running.
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
       final ok = await notifier.authenticate(pin);
 
       expect(ok, isTrue);
@@ -145,10 +150,11 @@ void main() {
     test('returns true for correct PIN without authenticating session', () async {
       final salt = PinHasher.generateSalt();
       const pin = '123456';
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: salt,
         SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
       });
 
       final container = TestHive.makeContainer();
@@ -163,10 +169,11 @@ void main() {
     test('increments failed attempts and locks out', () async {
       final salt = PinHasher.generateSalt();
       const pin = '123456';
-      authBox.putAll({
+      await authBox.putAll({
         SecurityKeys.pinIsSetupKey: true,
         SecurityKeys.pinSaltKey: salt,
         SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.pinHashVersionKey: AuthNotifier.pinHashVersion,
       });
 
       final container = TestHive.makeContainer();

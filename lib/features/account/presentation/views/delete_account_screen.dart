@@ -21,6 +21,7 @@ import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/core/security/secure_key_manager.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -57,11 +58,20 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     for (final name in boxNames) {
       try {
         if (Hive.isBoxOpen(name)) {
-          await Hive.box<dynamic>(name).clear();
+          final box = Hive.box<dynamic>(name);
+          await box.clear();
+          await box.close();
+          await Hive.deleteBoxFromDisk(name);
         }
       } on Exception catch (e, st) {
         debugPrint('[DELETE_ACCOUNT] failed to clear box $name: $e\n$st');
       }
+    }
+
+    try {
+      await SecureKeyManager().deleteHiveKey();
+    } on Exception catch (e, st) {
+      debugPrint('[DELETE_ACCOUNT] failed to delete Hive key: $e\n$st');
     }
 
     try {

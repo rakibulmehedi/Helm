@@ -21,4 +21,5 @@ abstract final class SecurityKeys {
   static const String pinHashKey = 'pin_hash';
   static const String pinSaltKey = 'pin_salt';
   static const String pinIsSetupKey = 'pin_is_setup';
+  static const String pinHashVersionKey = 'pin_hash_version';
 }

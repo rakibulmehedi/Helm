@@ -29,8 +29,25 @@ abstract interface class SecureStorage {
 }
 
 /// Production adapter backed by [FlutterSecureStorage].
+///
+/// Configured to use the iOS keychain with kSecAttrAccessible
+/// AfterFirstUnlockThisDeviceOnly and Android EncryptedSharedPreferences for
+/// hardware-backed key protection where available.
 class FlutterSecureStorageAdapter implements SecureStorage {
-  const FlutterSecureStorageAdapter([this._storage = const FlutterSecureStorage()]);
+  static const _iOSOptions = IOSOptions(
+    accountName: 'flutter_secure_storage_service:helm',
+    accessibility: KeychainAccessibility.first_unlock_this_device,
+  );
+  // Use library defaults for Android; EncryptedSharedPreferences is deprecated
+  // and the package now applies its own secure migration automatically.
+  static const _androidOptions = AndroidOptions();
+
+  const FlutterSecureStorageAdapter([
+    this._storage = const FlutterSecureStorage(
+      iOptions: _iOSOptions,
+      aOptions: _androidOptions,
+    ),
+  ]);
 
   final FlutterSecureStorage _storage;
 

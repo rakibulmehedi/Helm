@@ -3,8 +3,11 @@
 // PIN-based auth state management for Helm Trust Layer (D1).
 // Uses Hive untyped dynamic box — no new packages required beyond crypto.
 //
-// Security: PIN stored as SHA-256(salt + pin). Salt generated per-setup.
-// Migration: old base64 hashes (no salt key) detected → clear → force re-setup.
+// Security: PIN stored as PBKDF2-HMAC-SHA256(salt + pin, 100k iterations).
+// Salt generated per-setup. Version key guards against algorithm rollback.
+// Migration: missing salt or stale hash version → clear → force re-setup.
+
+import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,6 +40,8 @@ class AuthNotifier extends Notifier<AuthState> {
   static const String _pinHashKey = SecurityKeys.pinHashKey;
   static const String _pinSaltKey = SecurityKeys.pinSaltKey;
   static const String _pinIsSetupKey = SecurityKeys.pinIsSetupKey;
+  static const String _pinHashVersionKey = SecurityKeys.pinHashVersionKey;
+  static const int pinHashVersion = 2;
 
   bool _mounted = true;
 
@@ -56,6 +61,22 @@ class AuthNotifier extends Notifier<AuthState> {
     if (!hasSalt) {
       _box.delete(_pinHashKey);
       _box.delete(_pinIsSetupKey);
+      _updateSessionAuthenticated(false);
+      return const AuthState(status: AuthStatus.setupRequired);
+    }
+
+    // Migration guard: hash algorithm version mismatch forces re-setup so that
+    // we never verify a v1 SHA-256 hash against the v2 PBKDF2 function.
+    final storedVersion = _box.get(_pinHashVersionKey) as int?;
+    if (storedVersion != pinHashVersion) {
+      unawaited(_box.deleteAll([
+        _pinHashKey,
+        _pinSaltKey,
+        _pinIsSetupKey,
+        _pinHashVersionKey,
+        SecurityKeys.authFailedAttempts,
+        SecurityKeys.authLockoutUntil,
+      ]));
       _updateSessionAuthenticated(false);
       return const AuthState(status: AuthStatus.setupRequired);
     }
@@ -102,6 +123,7 @@ class AuthNotifier extends Notifier<AuthState> {
       _pinSaltKey: salt,
       _pinHashKey: hash,
       _pinIsSetupKey: true,
+      _pinHashVersionKey: pinHashVersion,
       SecurityKeys.authFailedAttempts: 0,
       SecurityKeys.authLockoutUntil: null,
     });
@@ -269,6 +291,7 @@ class AuthNotifier extends Notifier<AuthState> {
       _pinHashKey,
       _pinSaltKey,
       _pinIsSetupKey,
+      _pinHashVersionKey,
       SecurityKeys.authFailedAttempts,
       SecurityKeys.authLockoutUntil,
       SecurityKeys.authMagicLinkSessionToken,
