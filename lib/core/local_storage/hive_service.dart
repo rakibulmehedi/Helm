@@ -161,6 +161,7 @@ class HiveService {
       _openBoxSafe<FixedCostModel>(AppBoxNames.fixedCostsBox, cipher),
       _openBoxSafe<dynamic>(AppBoxNames.authBox, cipher),
       _openBoxSafe<AuditEventModel>(AppBoxNames.auditEventsBox, cipher),
+      _openBoxSafe<String>(AppBoxNames.auditChainBox, cipher),
       _openBoxSafe<AnalyticsEventModel>(AppBoxNames.analyticsEventsBox, cipher),
       _openBoxSafe<NudgePreferencesModel>(
         AppBoxNames.nudgePreferencesBox,

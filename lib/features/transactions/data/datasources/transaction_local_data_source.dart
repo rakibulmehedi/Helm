@@ -1,6 +1,8 @@
 import 'package:hive_ce/hive_ce.dart';
 import '../../../../core/constants/app_box_names.dart';
 import '../models/transaction_model.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
@@ -21,36 +23,41 @@ class TransactionLocalDataSourceImpl implements TransactionLocalDataSource {
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.created,
         entityType: AuditEntityType.transaction,
         entityId: transaction.id,
         previousValue: null,
         newValue: transaction.toString(),
-        description: 'Transaction created: ${transaction.id}',
+        description: InputValidator.sanitizeText(
+          'Transaction created: ${transaction.id}',
+        ),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
 
   @override
   Future<void> updateTransaction(TransactionModel transaction) async {
+    final previous = _box.get(transaction.id)?.toString();
     await _box.put(transaction.id, transaction);
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.updated,
         entityType: AuditEntityType.transaction,
         entityId: transaction.id,
-        previousValue: null,
+        previousValue: previous,
         newValue: transaction.toString(),
-        description: 'Transaction updated: ${transaction.id}',
+        description: InputValidator.sanitizeText(
+          'Transaction updated: ${transaction.id}',
+        ),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
@@ -62,20 +69,21 @@ class TransactionLocalDataSourceImpl implements TransactionLocalDataSource {
 
   @override
   Future<void> deleteTransaction(String id) async {
+    final previous = _box.get(id)?.toString();
     await _box.delete(id);
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.deleted,
         entityType: AuditEntityType.transaction,
         entityId: id,
-        previousValue: null,
+        previousValue: previous,
         newValue: null,
-        description: 'Transaction deleted: $id',
+        description: InputValidator.sanitizeText('Transaction deleted: $id'),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }

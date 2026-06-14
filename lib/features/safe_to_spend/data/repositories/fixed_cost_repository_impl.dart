@@ -1,5 +1,7 @@
 // lib/features/safe_to_spend/data/repositories/fixed_cost_repository_impl.dart
 
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/safe_to_spend/data/datasources/fixed_cost_local_data_source.dart';
@@ -26,57 +28,73 @@ class FixedCostRepositoryImpl implements FixedCostRepository {
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.created,
         entityType: AuditEntityType.fixedCost,
         entityId: entry.id,
         previousValue: null,
         newValue: entry.toString(),
-        description: 'Fixed cost created: ${entry.id}',
+        description: InputValidator.sanitizeText(
+          'Fixed cost created: ${entry.id}',
+        ),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
 
   @override
   Future<void> updateFixedCost(FixedCostEntry entry) async {
+    final previous = (await _dataSource.getFixedCosts())
+        .cast<FixedCostModel?>()
+        .firstWhere(
+          (m) => m!.id == entry.id,
+          orElse: () => null,
+        );
     final model = FixedCostModel.fromEntity(entry);
     await _dataSource.updateFixedCost(model);
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.updated,
         entityType: AuditEntityType.fixedCost,
         entityId: entry.id,
-        previousValue: null,
+        previousValue: previous?.toString(),
         newValue: entry.toString(),
-        description: 'Fixed cost updated: ${entry.id}',
+        description: InputValidator.sanitizeText(
+          'Fixed cost updated: ${entry.id}',
+        ),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
 
   @override
   Future<void> deleteFixedCost(String id) async {
+    final previous = (await _dataSource.getFixedCosts())
+        .cast<FixedCostModel?>()
+        .firstWhere(
+          (m) => m!.id == id,
+          orElse: () => null,
+        );
     await _dataSource.deleteFixedCost(id);
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.deleted,
         entityType: AuditEntityType.fixedCost,
         entityId: id,
-        previousValue: null,
+        previousValue: previous?.toString(),
         newValue: null,
-        description: 'Fixed cost deleted: $id',
+        description: InputValidator.sanitizeText('Fixed cost deleted: $id'),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }

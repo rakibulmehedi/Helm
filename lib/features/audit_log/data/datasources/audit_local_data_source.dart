@@ -11,7 +11,10 @@
 
 import 'package:hive_ce/hive_ce.dart';
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/features/audit_log/core/audit_log_constants.dart';
 import 'package:helm/features/audit_log/data/models/audit_event_model.dart';
+import 'package:helm/features/audit_log/data/services/audit_chain_service.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 // ── Abstract interface ────────────────────────────────────────────────────────
@@ -38,14 +41,48 @@ abstract class AuditLocalDataSource {
 /// The box must be opened before any method is called.
 /// Opening is managed exclusively by [HiveService.init()].
 class AuditLocalDataSourceImpl implements AuditLocalDataSource {
+  final AuditChainService _chainService;
+
+  AuditLocalDataSourceImpl({AuditChainService? chainService})
+      : _chainService = chainService ?? AuditChainService();
+
   Box<AuditEventModel> get _box =>
       Hive.box<AuditEventModel>(AppBoxNames.auditEventsBox);
 
   @override
   Future<void> addEvent(AuditEvent event) async {
-    final model = AuditEventModel.fromEntity(event);
-    // Keyed by event id — never overwrite an existing key (append-only).
-    await _box.put(event.id, model);
+    // Ensure a stable, collision-resistant id at the persistence boundary.
+    final stableId = event.id.isEmpty ? IdGenerator.uniqueId() : event.id;
+    final stableEvent = event.copyWith(id: stableId);
+    final model = AuditEventModel.fromEntity(stableEvent);
+
+    // Append the event and extend the tamper-evidence chain.
+    await _box.put(stableId, model);
+    await _chainService.appendAndHash(stableEvent);
+
+    // Enforce retention policy on every append (best-effort).
+    await _pruneOldEvents();
+  }
+
+  /// Removes audit records older than [kAuditRetentionDays].
+  /// Deviates from strict append-only only for explicit retention policy.
+  Future<void> _pruneOldEvents() async {
+    try {
+      final cutoff = DateTime.now().subtract(
+        const Duration(days: kAuditRetentionDays),
+      );
+      final keysToDelete = <String>[];
+      for (final entry in _box.toMap().entries) {
+        if (entry.value.timestamp.isBefore(cutoff)) {
+          keysToDelete.add(entry.key as String);
+        }
+      }
+      if (keysToDelete.isNotEmpty) {
+        await _box.deleteAll(keysToDelete);
+      }
+    } on Exception catch (_) {
+      // Retention pruning is best-effort; do not fail the audited operation.
+    }
   }
 
   @override

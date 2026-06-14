@@ -52,6 +52,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       AppBoxNames.fixedCostsBox,
       AppBoxNames.categories,
       AppBoxNames.auditEventsBox,
+      AppBoxNames.auditChainBox,
       AppBoxNames.authBox,
     ];
 

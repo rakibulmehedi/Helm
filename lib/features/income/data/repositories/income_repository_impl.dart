@@ -10,6 +10,8 @@
 //
 // Phase 7a — Income Data Layer
 
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/income/data/datasources/income_local_data_source.dart';
@@ -34,22 +36,28 @@ class IncomeRepositoryImpl implements IncomeRepository {
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.created,
         entityType: AuditEntityType.income,
         entityId: entity.id,
         previousValue: null,
         newValue: entity.toString(),
-        description: 'Income entry created: ${entity.id}',
+        description: InputValidator.sanitizeText(
+          'Income entry created: ${entity.id}',
+        ),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
 
   @override
   Future<void> updateIncome(IncomeEntryEntity entity) async {
+    final previous = _dataSource.getIncomes().cast<IncomeModel?>().firstWhere(
+          (m) => m!.id == entity.id,
+          orElse: () => null,
+        );
     final model = IncomeModel.fromEntity(entity);
     await _dataSource.updateIncome(model);
     try {
@@ -62,36 +70,40 @@ class IncomeRepositoryImpl implements IncomeRepository {
           ? 'Income confirmed received: ${entity.id}'
           : 'Income entry updated: ${entity.id}';
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: eventType,
         entityType: AuditEntityType.income,
         entityId: entity.id,
-        previousValue: null,
+        previousValue: previous?.toString(),
         newValue: entity.toString(),
-        description: description,
+        description: InputValidator.sanitizeText(description),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }
 
   @override
   Future<void> deleteIncome(String id) async {
+    final previous = _dataSource.getIncomes().cast<IncomeModel?>().firstWhere(
+          (m) => m!.id == id,
+          orElse: () => null,
+        );
     await _dataSource.deleteIncome(id);
     try {
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.deleted,
         entityType: AuditEntityType.income,
         entityId: id,
-        previousValue: null,
+        previousValue: previous?.toString(),
         newValue: null,
-        description: 'Income entry deleted: $id',
+        description: InputValidator.sanitizeText('Income entry deleted: $id'),
       ));
-    } catch (_) {
+    } on Exception catch (_) {
       // Audit failure is non-fatal — do not propagate
     }
   }

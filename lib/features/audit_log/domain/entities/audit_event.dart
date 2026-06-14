@@ -51,4 +51,26 @@ class AuditEvent {
     this.newValue,
     required this.description,
   });
+
+  AuditEvent copyWith({
+    String? id,
+    DateTime? timestamp,
+    AuditEventType? eventType,
+    AuditEntityType? entityType,
+    String? entityId,
+    String? previousValue,
+    String? newValue,
+    String? description,
+  }) {
+    return AuditEvent(
+      id: id ?? this.id,
+      timestamp: timestamp ?? this.timestamp,
+      eventType: eventType ?? this.eventType,
+      entityType: entityType ?? this.entityType,
+      entityId: entityId ?? this.entityId,
+      previousValue: previousValue ?? this.previousValue,
+      newValue: newValue ?? this.newValue,
+      description: description ?? this.description,
+    );
+  }
 }

@@ -6,6 +6,8 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/sts_settings.dart';
@@ -83,8 +85,20 @@ class StsSettingsDataSourceImpl implements StsSettingsDataSource {
   Future<void> saveTaxRate(double rate) async {
     final current = await loadSettings() ??
         StsSettings(taxRate: 0.10, bufferPercent: 15.0);
+    final previous = jsonEncode({
+      'taxRate': current.taxRate,
+      'bufferPercent': current.bufferPercent,
+    });
     await saveSettings(current.copyWith(taxRate: rate));
-    await _audit('sts_tax_rate', 'STS tax rate updated: $rate');
+    await _audit(
+      entityId: 'sts_tax_rate',
+      previousValue: previous,
+      newValue: jsonEncode({
+        'taxRate': rate,
+        'bufferPercent': current.bufferPercent,
+      }),
+      description: 'STS tax rate updated: $rate',
+    );
   }
 
   @override
@@ -97,8 +111,20 @@ class StsSettingsDataSourceImpl implements StsSettingsDataSource {
   Future<void> saveBufferPercent(double percent) async {
     final current = await loadSettings() ??
         StsSettings(taxRate: 0.10, bufferPercent: 15.0);
+    final previous = jsonEncode({
+      'taxRate': current.taxRate,
+      'bufferPercent': current.bufferPercent,
+    });
     await saveSettings(current.copyWith(bufferPercent: percent));
-    await _audit('sts_buffer_percent', 'STS buffer percent updated: $percent%');
+    await _audit(
+      entityId: 'sts_buffer_percent',
+      previousValue: previous,
+      newValue: jsonEncode({
+        'taxRate': current.taxRate,
+        'bufferPercent': percent,
+      }),
+      description: 'STS buffer percent updated: $percent%',
+    );
   }
 
   Future<double?> _migrateBufferPercent(SharedPreferences prefs) async {
@@ -115,21 +141,26 @@ class StsSettingsDataSourceImpl implements StsSettingsDataSource {
     return null;
   }
 
-  Future<void> _audit(String entityId, String description) async {
+  Future<void> _audit({
+    required String entityId,
+    required String previousValue,
+    required String newValue,
+    required String description,
+  }) async {
     try {
       // Skip audit logging when the audit box is not open (e.g., unit tests
       // that only initialize SharedPreferences).
       if (!Hive.isBoxOpen(AppBoxNames.auditEventsBox)) return;
       final auditDs = AuditLocalDataSourceImpl();
       await auditDs.addEvent(AuditEvent(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.updated,
         entityType: AuditEntityType.stsSettings,
         entityId: entityId,
-        previousValue: null,
-        newValue: description,
-        description: description,
+        previousValue: previousValue,
+        newValue: newValue,
+        description: InputValidator.sanitizeText(description),
       ));
     } on Exception {
       // Audit failure is non-fatal — do not propagate

@@ -9,8 +9,12 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
+import 'package:helm/features/audit_log/core/audit_log_constants.dart';
+import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/data/models/audit_event_model.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/income/data/models/income_model.dart';
 import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
 import 'package:helm/features/transactions/data/models/transaction_model.dart';
@@ -105,6 +109,7 @@ class ExportService {
 
       // ── Audit Log ─────────────────────────────────────────────────────────────
       const eventTypeNames = [
+        'unknown',
         'created',
         'updated',
         'deleted',
@@ -112,6 +117,7 @@ class ExportService {
         'exported',
       ];
       const entityTypeNames = [
+        'unknown',
         'income',
         'transaction',
         'stsSettings',
@@ -121,7 +127,7 @@ class ExportService {
           _readBox<AuditEventModel>(AppBoxNames.auditEventsBox);
       final auditRows = [
         'id,timestamp,eventType,entityType,entityId,previousValue,'
-            'newValue,description',
+            'newValue,description,schemaVersion',
         ...auditModels.map(
           (m) => _row([
             InputValidator.sanitizeText(m.id),
@@ -136,6 +142,7 @@ class ExportService {
             InputValidator.sanitizeText(m.previousValue),
             InputValidator.sanitizeText(m.newValue),
             InputValidator.sanitizeText(m.description),
+            kAuditSchemaVersion.toString(),
           ]),
         ),
       ];
@@ -148,6 +155,10 @@ class ExportService {
         _writeCsv(dir, 'helm_settings_$ts.csv', settingsRows),
         _writeCsv(dir, 'helm_audit_$ts.csv', auditRows),
       ]);
+
+      // Record that an export occurred. Fail-closed: export success without
+      // an audit record is acceptable, but log failures do not roll back files.
+      await _recordExportAudit(paths);
 
       return ExportResult(
         success: true,
@@ -205,6 +216,27 @@ class ExportService {
   List<T> _readBox<T>(String boxName) {
     if (!Hive.isBoxOpen(boxName)) return [];
     return Hive.box<T>(boxName).values.toList();
+  }
+
+  Future<void> _recordExportAudit(List<String> filePaths) async {
+    try {
+      if (!Hive.isBoxOpen(AppBoxNames.auditEventsBox)) return;
+      final auditDs = AuditLocalDataSourceImpl();
+      await auditDs.addEvent(AuditEvent(
+        id: IdGenerator.uniqueId(),
+        timestamp: DateTime.now(),
+        eventType: AuditEventType.exported,
+        entityType: AuditEntityType.stsSettings,
+        entityId: 'export',
+        previousValue: null,
+        newValue: filePaths.length.toString(),
+        description: InputValidator.sanitizeText(
+          'Data exported: ${filePaths.length} files',
+        ),
+      ));
+    } on Exception {
+      // Best-effort audit record; do not fail export.
+    }
   }
 
   Future<String> _writeCsv(

@@ -36,6 +36,9 @@ abstract final class AppBoxNames {
   /// Registration and adapter handled by the audit_log agent.
   static const String auditEventsBox = 'audit_events_box';
 
+  /// Stores chain hashes for audit-event tamper evidence. Opened in S1-W4.
+  static const String auditChainBox = 'audit_chain_box';
+
   /// Stores [AnalyticsEventModel] objects. Opened in Phase 2.
   static const String analyticsEventsBox = 'analytics_events_box';
 
