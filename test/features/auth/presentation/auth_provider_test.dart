@@ -1,0 +1,182 @@
+// test/features/auth/presentation/auth_provider_test.dart
+//
+// Tests for AuthNotifier PIN lockout, expiry, and sensitive-action PIN
+// verification used by account deletion.
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:helm/core/constants/app_box_names.dart';
+import 'package:helm/core/security/constants/security_keys.dart';
+import 'package:helm/features/auth/domain/entities/auth_state.dart';
+import 'package:helm/features/auth/domain/pin_hasher.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+
+import '../../../helpers/test_hive.dart';
+
+void main() {
+  late Box<dynamic> authBox;
+
+  setUpAll(() async {
+    await TestHive.init();
+  });
+
+  tearDownAll(() async {
+    await TestHive.tearDown();
+  });
+
+  setUp(() async {
+    authBox = await TestHive.openBox(AppBoxNames.authBox);
+  });
+
+  tearDown(() async {
+    await TestHive.clearBox(AppBoxNames.authBox);
+  });
+
+  group('AuthNotifier lockout expiry', () {
+    test('build resets failed attempts when lockout has expired', () {
+      final expiredLockout = DateTime.now()
+          .subtract(const Duration(minutes: 1))
+          .millisecondsSinceEpoch;
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: PinHasher.generateSalt(),
+        SecurityKeys.authFailedAttempts: 5,
+        SecurityKeys.authLockoutUntil: expiredLockout,
+      });
+
+      final container = TestHive.makeContainer();
+      final state = container.read(authProvider);
+
+      expect(state.status, AuthStatus.locked);
+      expect(state.failedAttempts, 0);
+      expect(state.lockoutUntil, isNull);
+      expect(authBox.get(SecurityKeys.authFailedAttempts), 0);
+    });
+
+    test('build preserves lockout when still active', () {
+      final futureLockout = DateTime.now()
+          .add(const Duration(minutes: 5))
+          .millisecondsSinceEpoch;
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: PinHasher.generateSalt(),
+        SecurityKeys.authFailedAttempts: 5,
+        SecurityKeys.authLockoutUntil: futureLockout,
+      });
+
+      final container = TestHive.makeContainer();
+      final state = container.read(authProvider);
+
+      expect(state.status, AuthStatus.locked);
+      expect(state.failedAttempts, 5);
+      expect(state.lockoutUntil, isNotNull);
+      expect(state.isLockedOut, isTrue);
+    });
+  });
+
+  group('AuthNotifier authenticate', () {
+    test('successful auth resets failed attempts', () async {
+      final salt = PinHasher.generateSalt();
+      const pin = '123456';
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: salt,
+        SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.authFailedAttempts: 2,
+      });
+
+      final container = TestHive.makeContainer();
+      final notifier = container.read(authProvider.notifier);
+      final ok = await notifier.authenticate(pin);
+
+      expect(ok, isTrue);
+      expect(container.read(authProvider).status, AuthStatus.authenticated);
+      expect(authBox.get(SecurityKeys.authFailedAttempts), 0);
+    });
+
+    test('locks out after max failed attempts', () async {
+      final salt = PinHasher.generateSalt();
+      const pin = '123456';
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: salt,
+        SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+      });
+
+      final container = TestHive.makeContainer();
+      final notifier = container.read(authProvider.notifier);
+
+      for (var i = 0; i < AuthNotifier.maxAttempts; i++) {
+        await notifier.authenticate('000000');
+      }
+
+      final state = container.read(authProvider);
+      expect(state.failedAttempts, AuthNotifier.maxAttempts);
+      expect(state.lockoutUntil, isNotNull);
+      expect(state.isLockedOut, isTrue);
+    });
+
+    test('allows attempts again once lockout expires', () async {
+      final salt = PinHasher.generateSalt();
+      const pin = '123456';
+      final futureLockout = DateTime.now()
+          .add(const Duration(milliseconds: 50))
+          .millisecondsSinceEpoch;
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: salt,
+        SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+        SecurityKeys.authFailedAttempts: 5,
+        SecurityKeys.authLockoutUntil: futureLockout,
+      });
+
+      final container = TestHive.makeContainer();
+      final notifier = container.read(authProvider.notifier);
+
+      // Wait for the lockout to expire while the app is running.
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      final ok = await notifier.authenticate(pin);
+
+      expect(ok, isTrue);
+    });
+  });
+
+  group('AuthNotifier verifyPinForSensitiveAction', () {
+    test('returns true for correct PIN without authenticating session', () async {
+      final salt = PinHasher.generateSalt();
+      const pin = '123456';
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: salt,
+        SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+      });
+
+      final container = TestHive.makeContainer();
+      final notifier = container.read(authProvider.notifier);
+      final ok = await notifier.verifyPinForSensitiveAction(pin);
+
+      expect(ok, isTrue);
+      expect(container.read(authProvider).status, isNot(AuthStatus.authenticated));
+      expect(authBox.get(SecurityKeys.authFailedAttempts), 0);
+    });
+
+    test('increments failed attempts and locks out', () async {
+      final salt = PinHasher.generateSalt();
+      const pin = '123456';
+      authBox.putAll({
+        SecurityKeys.pinIsSetupKey: true,
+        SecurityKeys.pinSaltKey: salt,
+        SecurityKeys.pinHashKey: PinHasher.hashPin(pin, salt),
+      });
+
+      final container = TestHive.makeContainer();
+      final notifier = container.read(authProvider.notifier);
+
+      for (var i = 0; i < AuthNotifier.maxAttempts; i++) {
+        await notifier.verifyPinForSensitiveAction('000000');
+      }
+
+      expect(container.read(authProvider).isLockedOut, isTrue);
+    });
+  });
+}

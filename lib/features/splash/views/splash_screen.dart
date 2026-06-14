@@ -12,22 +12,28 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/security/root_check.dart';
+import 'package:helm/core/security/root_check_provider.dart';
+import 'package:helm/core/security/views/compromised_device_screen.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double>   _fadeAnimation;
+  bool _isCompromised = false;
 
   @override
   void initState() {
@@ -43,6 +49,20 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _controller.forward();
+
+    _runStartupChecks();
+  }
+
+  Future<void> _runStartupChecks() async {
+    final rootCheck = ref.read(rootCheckProvider);
+    final result = await rootCheck.check();
+
+    if (!mounted) return;
+
+    if (result == RootCheckResult.compromised) {
+      setState(() => _isCompromised = true);
+      return;
+    }
 
     // After the splash duration, navigate away.
     // GoRouter's global redirect decides the actual destination:
@@ -61,6 +81,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (_isCompromised) return const CompromisedDeviceScreen();
+
     final colors = context.colors;
     final typo = context.textStyles;
 

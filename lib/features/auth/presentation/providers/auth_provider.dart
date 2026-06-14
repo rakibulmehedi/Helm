@@ -60,7 +60,7 @@ class AuthNotifier extends Notifier<AuthState> {
       return const AuthState(status: AuthStatus.setupRequired);
     }
 
-    final failedAttempts =
+    var failedAttempts =
         _box.get(SecurityKeys.authFailedAttempts, defaultValue: 0) as int;
     final lockoutUntilMillis =
         _box.get(SecurityKeys.authLockoutUntil) as int?;
@@ -68,11 +68,23 @@ class AuthNotifier extends Notifier<AuthState> {
         ? null
         : DateTime.fromMillisecondsSinceEpoch(lockoutUntilMillis);
 
+    // If the lockout window has expired, reset the counter so the user is not
+    // permanently locked out after maxAttempts.
+    final lockoutExpired =
+        lockoutUntil != null && DateTime.now().isAfter(lockoutUntil);
+    if (lockoutExpired) {
+      failedAttempts = 0;
+      _box.putAll({
+        SecurityKeys.authFailedAttempts: 0,
+        SecurityKeys.authLockoutUntil: null,
+      });
+    }
+
     _updateSessionAuthenticated(false);
     return AuthState(
       status: AuthStatus.locked,
       failedAttempts: failedAttempts,
-      lockoutUntil: lockoutUntil,
+      lockoutUntil: lockoutExpired ? null : lockoutUntil,
     );
   }
 
@@ -99,11 +111,88 @@ class AuthNotifier extends Notifier<AuthState> {
     state = const AuthState(status: AuthStatus.authenticated);
   }
 
+  /// Verifies a PIN for a sensitive in-app action (e.g., account deletion)
+  /// without transitioning the global session to authenticated.
+  /// Enforces the same attempt limit and lockout policy as [authenticate].
+  Future<bool> verifyPinForSensitiveAction(String pin) async {
+    if (state.isLockedOut) return false;
+
+    final lockoutUntil = state.lockoutUntil;
+    if (lockoutUntil != null && DateTime.now().isAfter(lockoutUntil)) {
+      await _box.putAll({
+        SecurityKeys.authFailedAttempts: 0,
+        SecurityKeys.authLockoutUntil: null,
+      });
+      if (!_mounted) return false;
+      state = AuthState(
+        status: AuthStatus.locked,
+        failedAttempts: 0,
+        lockoutUntil: null,
+      );
+    }
+
+    if (state.failedAttempts >= maxAttempts) return false;
+
+    final stored = _box.get(_pinHashKey) as String?;
+    final salt = _box.get(_pinSaltKey) as String?;
+    if (stored == null || salt == null) return false;
+
+    if (PinHasher.verify(pin, salt, stored)) {
+      await _box.putAll({
+        SecurityKeys.authFailedAttempts: 0,
+        SecurityKeys.authLockoutUntil: null,
+      });
+      if (!_mounted) return true;
+      state = AuthState(
+        status: AuthStatus.locked,
+        failedAttempts: 0,
+        lockoutUntil: null,
+      );
+      return true;
+    }
+
+    final newAttempts = state.failedAttempts + 1;
+    DateTime? newLockoutUntil;
+    if (newAttempts >= maxAttempts) {
+      newLockoutUntil =
+          DateTime.now().add(const Duration(minutes: lockoutMinutes));
+    }
+
+    await _box.putAll({
+      SecurityKeys.authFailedAttempts: newAttempts,
+      SecurityKeys.authLockoutUntil: newLockoutUntil?.millisecondsSinceEpoch,
+    });
+
+    if (!_mounted) return false;
+    state = AuthState(
+      status: AuthStatus.locked,
+      failedAttempts: newAttempts,
+      lockoutUntil: newLockoutUntil,
+    );
+    return false;
+  }
+
   /// Attempts to authenticate with the provided PIN.
   /// Returns true on success, false on failure.
   /// Blocked after [maxAttempts] consecutive failures for [lockoutMinutes].
   Future<bool> authenticate(String pin) async {
     if (state.isLockedOut) return false;
+
+    // Refresh lockout state in case the expiry window has passed since build().
+    final lockoutUntil = state.lockoutUntil;
+    if (lockoutUntil != null && DateTime.now().isAfter(lockoutUntil)) {
+      await _box.putAll({
+        SecurityKeys.authFailedAttempts: 0,
+        SecurityKeys.authLockoutUntil: null,
+      });
+      if (!_mounted) return false;
+      state = AuthState(
+        status: AuthStatus.locked,
+        failedAttempts: 0,
+        lockoutUntil: null,
+      );
+    }
+
     if (state.failedAttempts >= maxAttempts) return false;
 
     final stored = _box.get(_pinHashKey) as String?;
@@ -123,22 +212,23 @@ class AuthNotifier extends Notifier<AuthState> {
     }
 
     final newAttempts = state.failedAttempts + 1;
-    DateTime? lockoutUntil;
+    DateTime? newLockoutUntil;
     if (newAttempts >= maxAttempts) {
-      lockoutUntil = DateTime.now().add(const Duration(minutes: lockoutMinutes));
+      newLockoutUntil =
+          DateTime.now().add(const Duration(minutes: lockoutMinutes));
     }
 
     await _box.putAll({
       SecurityKeys.authFailedAttempts: newAttempts,
       SecurityKeys.authLockoutUntil:
-          lockoutUntil?.millisecondsSinceEpoch,
+          newLockoutUntil?.millisecondsSinceEpoch,
     });
 
     if (!_mounted) return false;
     state = AuthState(
       status: AuthStatus.locked,
       failedAttempts: newAttempts,
-      lockoutUntil: lockoutUntil,
+      lockoutUntil: newLockoutUntil,
     );
     return false;
   }

@@ -20,12 +20,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/constants/app_box_names.dart';
-import 'package:helm/core/security/constants/security_keys.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
-import 'package:helm/features/auth/domain/pin_hasher.dart';
+import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -77,36 +76,6 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     if (mounted) context.go(RouteNames.welcome);
   }
 
-  // ── PIN check helper ────────────────────────────────────────────────────────
-
-  /// Returns the stored PIN hash, or null if no PIN has been set up.
-  String? _getStoredPinHash() {
-    try {
-      if (Hive.isBoxOpen(AppBoxNames.authBox)) {
-        final box = Hive.box<dynamic>(AppBoxNames.authBox);
-        final hash = box.get(SecurityKeys.pinHashKey);
-        if (hash is String && hash.isNotEmpty) return hash;
-      }
-    } on Exception catch (e, st) {
-      debugPrint('[DELETE_ACCOUNT] failed to read PIN hash: $e\n$st');
-    }
-    return null;
-  }
-
-  /// Returns the stored PIN salt, or null if unavailable.
-  String? _getStoredPinSalt() {
-    try {
-      if (Hive.isBoxOpen(AppBoxNames.authBox)) {
-        final box = Hive.box<dynamic>(AppBoxNames.authBox);
-        final salt = box.get(SecurityKeys.pinSaltKey);
-        if (salt is String && salt.isNotEmpty) return salt;
-      }
-    } on Exception catch (e, st) {
-      debugPrint('[DELETE_ACCOUNT] failed to read PIN salt: $e\n$st');
-    }
-    return null;
-  }
-
   // ── Step 2: show confirmation dialog ───────────────────────────────────────
 
   Future<void> _showConfirmDialog() async {
@@ -114,16 +83,13 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     ref.read(analyticsProvider).trackEvent(
       TransactionalEvents.accountDeletionRequested,
     );
-    final storedHash = _getStoredPinHash();
-    final storedSalt = _getStoredPinSalt();
+    final authState = ref.read(authProvider);
+    final hasPin = authState.isSetUp;
     final confirmed = await showDialog<bool>(
       context: context,
       barrierDismissible: false,
-      builder: (context) => storedHash != null && storedSalt != null
-          ? _PinConfirmDialog(
-              storedPinHash: storedHash,
-              storedPinSalt: storedSalt,
-            )
+      builder: (context) => hasPin
+          ? const _PinConfirmDialog()
           : const _TypeDeleteDialog(),
     );
 
@@ -288,29 +254,26 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 // PIN confirmation dialog
 // ---------------------------------------------------------------------------
 
-class _PinConfirmDialog extends StatefulWidget {
-  final String storedPinHash;
-  final String storedPinSalt;
-
-  const _PinConfirmDialog({
-    required this.storedPinHash,
-    required this.storedPinSalt,
-  });
+class _PinConfirmDialog extends ConsumerStatefulWidget {
+  const _PinConfirmDialog();
 
   @override
-  State<_PinConfirmDialog> createState() => _PinConfirmDialogState();
+  ConsumerState<_PinConfirmDialog> createState() => _PinConfirmDialogState();
 }
 
-class _PinConfirmDialogState extends State<_PinConfirmDialog> {
+class _PinConfirmDialogState extends ConsumerState<_PinConfirmDialog> {
   final List<String> _digits = [];
   bool _wrongPin = false;
-  static const int _pinLength = 4;
+  String? _lockoutMessage;
+
+  int get _pinLength => AuthNotifier.pinLength;
 
   void _onDigit(String d) {
     if (_digits.length >= _pinLength) return;
     setState(() {
       _digits.add(d);
       _wrongPin = false;
+      _lockoutMessage = null;
     });
     if (_digits.length == _pinLength) _verify();
   }
@@ -320,19 +283,33 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
     setState(() {
       _digits.removeLast();
       _wrongPin = false;
+      _lockoutMessage = null;
     });
   }
 
-  void _verify() {
+  Future<void> _verify() async {
+    final notifier = ref.read(authProvider.notifier);
     final entered = _digits.join();
-    if (PinHasher.verify(entered, widget.storedPinSalt, widget.storedPinHash)) {
+
+    final ok = await notifier.verifyPinForSensitiveAction(entered);
+
+    if (!mounted) return;
+
+    if (ok) {
       Navigator.of(context).pop(true);
-    } else {
-      setState(() {
-        _digits.clear();
-        _wrongPin = true;
-      });
+      return;
     }
+
+    final authState = ref.read(authProvider);
+    setState(() {
+      _digits.clear();
+      _wrongPin = true;
+      if (authState.isLockedOut && authState.lockoutUntil != null) {
+        final remaining = authState.lockoutUntil!.difference(DateTime.now());
+        _lockoutMessage =
+            'Too many attempts. Try again in ${remaining.inMinutes + 1}m.';
+      }
+    });
   }
 
   @override
@@ -358,7 +335,7 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
             ),
             const SizedBox(height: HelmSpacing.s4),
 
-            // 4 dot indicators
+            // Dot indicators
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(_pinLength, (i) {
@@ -383,8 +360,9 @@ class _PinConfirmDialogState extends State<_PinConfirmDialog> {
             if (_wrongPin) ...[
               const SizedBox(height: HelmSpacing.s2),
               Text(
-                'Incorrect PIN',
+                _lockoutMessage ?? 'Incorrect PIN',
                 style: typography.bodySm.copyWith(color: atRisk),
+                textAlign: TextAlign.center,
               ),
             ],
 
