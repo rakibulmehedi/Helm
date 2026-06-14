@@ -1,7 +1,7 @@
 {
-  "name": "pocketa_v2",
+  "name": "helm",
   "version": "1.0.0",
-  "description": "Pocketa - An expense and budget management app built with Flutter - MVVM Clean Architecture",
+  "description": "Helm - Safe-to-spend cash flow clarity for freelancers",
   "main": "index.js",
   "scripts": {
     "release": "standard-version",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MehedisGits/Pocketa-V2.git"
+    "url": "git+https://github.com/MehedisGits/Helm.git"
   },
   "config": {
     "commitizen": {
@@ -18,18 +18,17 @@
   },
   "keywords": [
     "flutter",
-    "expense-management",
-    "budget",
-    "localization",
-    "bangla",
-    "pocketa"
+    "cashflow",
+    "freelancer",
+    "safe-to-spend",
+    "helm"
   ],
   "author": "Rakibul Islam Mehedi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MehedisGits/Pocketa-V2/issues"
+    "url": "https://github.com/MehedisGits/Helm/issues"
   },
-  "homepage": "https://github.com/MehedisGits/Pocketa-V2#readme",
+  "homepage": "https://github.com/MehedisGits/Helm#readme",
   "devDependencies": {
     "cz-conventional-changelog": "^3.3.0",
     "standard-version": "^9.5.0"

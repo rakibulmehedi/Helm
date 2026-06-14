@@ -1,5 +1,5 @@
 {
-  "name": "Pocketa (Flutter/Dart)",
+  "name": "Helm (Flutter/Dart)",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
   "features": {
     "ghcr.io/devcontainers-community/features/flutter:1": {}
