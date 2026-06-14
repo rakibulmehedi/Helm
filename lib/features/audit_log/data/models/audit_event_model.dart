@@ -28,49 +28,73 @@ part 'audit_event_model.g.dart';
 @HiveType(typeId: 5)
 class AuditEventModel extends HiveObject {
   @HiveField(0)
-  late String id;
+  final String id;
 
   @HiveField(1)
-  late DateTime timestamp;
+  final DateTime timestamp;
 
   /// Persisted as [AuditEventType.index].
   @HiveField(2)
-  late int eventTypeIndex;
+  final int eventTypeIndex;
 
   /// Persisted as [AuditEntityType.index].
   @HiveField(3)
-  late int entityTypeIndex;
+  final int entityTypeIndex;
 
   @HiveField(4)
-  late String entityId;
+  final String entityId;
 
   @HiveField(5)
-  String? previousValue;
+  final String? previousValue;
 
   @HiveField(6)
-  String? newValue;
+  final String? newValue;
 
   @HiveField(7)
-  late String description;
+  final String description;
+
+  AuditEventModel({
+    required this.id,
+    required this.timestamp,
+    required this.eventTypeIndex,
+    required this.entityTypeIndex,
+    required this.entityId,
+    this.previousValue,
+    this.newValue,
+    required this.description,
+  });
 
   AuditEvent toEntity() => AuditEvent(
         id: id,
         timestamp: timestamp,
-        eventType: AuditEventType.values[eventTypeIndex],
-        entityType: AuditEntityType.values[entityTypeIndex],
+        eventType: _eventTypeOrDefault(eventTypeIndex),
+        entityType: _entityTypeOrDefault(entityTypeIndex),
         entityId: entityId,
         previousValue: previousValue,
         newValue: newValue,
         description: description,
       );
 
-  static AuditEventModel fromEntity(AuditEvent event) => AuditEventModel()
-    ..id = event.id
-    ..timestamp = event.timestamp
-    ..eventTypeIndex = event.eventType.index
-    ..entityTypeIndex = event.entityType.index
-    ..entityId = event.entityId
-    ..previousValue = event.previousValue
-    ..newValue = event.newValue
-    ..description = event.description;
+  static AuditEventType _eventTypeOrDefault(int index) {
+    final values = AuditEventType.values;
+    if (index < 0 || index >= values.length) return AuditEventType.unknown;
+    return values[index];
+  }
+
+  static AuditEntityType _entityTypeOrDefault(int index) {
+    final values = AuditEntityType.values;
+    if (index < 0 || index >= values.length) return AuditEntityType.unknown;
+    return values[index];
+  }
+
+  static AuditEventModel fromEntity(AuditEvent event) => AuditEventModel(
+        id: event.id,
+        timestamp: event.timestamp,
+        eventTypeIndex: event.eventType.index,
+        entityTypeIndex: event.entityType.index,
+        entityId: event.entityId,
+        previousValue: event.previousValue,
+        newValue: event.newValue,
+        description: event.description,
+      );
 }

@@ -94,6 +94,8 @@ class _AuditEventTile extends StatelessWidget {
         return Icons.check_circle_outline;
       case AuditEventType.exported:
         return Icons.upload_outlined;
+      case AuditEventType.unknown:
+        return Icons.help_outline;
     }
   }
 
@@ -110,6 +112,8 @@ class _AuditEventTile extends StatelessWidget {
         return colors.stateSafe;
       case AuditEventType.exported:
         return colors.stateTight;
+      case AuditEventType.unknown:
+        return colors.inkTertiary;
     }
   }
 
@@ -126,6 +130,8 @@ class _AuditEventTile extends StatelessWidget {
         return '$entityLabel confirmed';
       case AuditEventType.exported:
         return '$entityLabel exported';
+      case AuditEventType.unknown:
+        return '$entityLabel changed';
     }
   }
 
@@ -139,6 +145,8 @@ class _AuditEventTile extends StatelessWidget {
         return 'Settings';
       case AuditEntityType.fixedCost:
         return 'Fixed cost';
+      case AuditEntityType.unknown:
+        return 'Record';
     }
   }
 

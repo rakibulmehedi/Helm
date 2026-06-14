@@ -8,6 +8,7 @@
 
 /// Types of financial events that trigger audit records.
 enum AuditEventType {
+  unknown,
   created,
   updated,
   deleted,
@@ -17,6 +18,7 @@ enum AuditEventType {
 
 /// Types of entities that can be audited.
 enum AuditEntityType {
+  unknown,
   income,
   transaction,
   stsSettings,

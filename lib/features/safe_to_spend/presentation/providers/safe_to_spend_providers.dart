@@ -92,14 +92,18 @@ class StsSettingsNotifier extends StateNotifier<StsSettings> {
   }
 
   Future<void> updateTaxRate(double rate) async {
-    final newSettings = state.copyWith(taxRate: rate);
+    final clamped = rate.clamp(0.0, 0.40);
+    final newSettings = state.copyWith(taxRate: clamped);
     await _repository.saveSettings(newSettings);
+    if (!mounted) return;
     state = newSettings;
   }
 
   Future<void> updateBufferPercent(double percent) async {
-    final newSettings = state.copyWith(bufferPercent: percent);
+    final clamped = percent.clamp(0.0, 100.0);
+    final newSettings = state.copyWith(bufferPercent: clamped);
     await _repository.saveSettings(newSettings);
+    if (!mounted) return;
     state = newSettings;
   }
 

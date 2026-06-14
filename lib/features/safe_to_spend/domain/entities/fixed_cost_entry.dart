@@ -19,7 +19,12 @@ class FixedCostEntry {
     required this.amount,
     required this.dueDayOfMonth,
     required this.createdAt,
-  }) : assert(dueDayOfMonth >= 1 && dueDayOfMonth <= 28, 'dueDayOfMonth must be between 1 and 28');
+  }) : assert(dueDayOfMonth >= 1 && dueDayOfMonth <= 28,
+            'dueDayOfMonth must be between 1 and 28');
+
+  /// Runtime validation. [assert] is stripped in release builds, so callers
+  /// must validate before constructing or persisting.
+  static bool isValidDueDay(int day) => day >= 1 && day <= 28;
 
   FixedCostEntry copyWith({
     String? id,

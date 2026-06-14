@@ -14,10 +14,19 @@ class StsSettings {
   const StsSettings({
     this.taxRate = 0.10,
     this.bufferPercent = 15.0,
-  }) : assert(taxRate >= 0.0 && taxRate <= 0.40,
+  })  : assert(taxRate >= 0.0 && taxRate <= 0.40,
               'taxRate must be between 0.0 and 0.40'),
-       assert(bufferPercent >= 0.0 && bufferPercent <= 100.0,
+        assert(bufferPercent >= 0.0 && bufferPercent <= 100.0,
               'bufferPercent must be 0–100');
+
+  /// Validates values at runtime. Dart [assert] is stripped in release builds,
+  /// so callers must explicitly validate before constructing or saving.
+  static bool isValid({required double taxRate, required double bufferPercent}) {
+    return taxRate >= 0.0 &&
+        taxRate <= 0.40 &&
+        bufferPercent >= 0.0 &&
+        bufferPercent <= 100.0;
+  }
 
   /// Migration compatibility getter.
   @Deprecated('Use bufferPercent instead')

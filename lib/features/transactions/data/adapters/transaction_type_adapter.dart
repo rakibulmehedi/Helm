@@ -33,7 +33,9 @@ class TransactionTypeAdapter extends TypeAdapter<TransactionType> {
       case 1:
         return TransactionType.expense;
       default:
-        return TransactionType.income;
+        throw HiveError(
+          'TransactionTypeAdapter: unknown byte value in box',
+        );
     }
   }
 

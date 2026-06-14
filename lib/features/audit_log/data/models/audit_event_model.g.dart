@@ -16,15 +16,16 @@ class AuditEventModelAdapter extends TypeAdapter<AuditEventModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AuditEventModel()
-      ..id = fields[0] as String
-      ..timestamp = fields[1] as DateTime
-      ..eventTypeIndex = (fields[2] as num).toInt()
-      ..entityTypeIndex = (fields[3] as num).toInt()
-      ..entityId = fields[4] as String
-      ..previousValue = fields[5] as String?
-      ..newValue = fields[6] as String?
-      ..description = fields[7] as String;
+    return AuditEventModel(
+      id: fields[0] as String,
+      timestamp: fields[1] as DateTime,
+      eventTypeIndex: (fields[2] as num).toInt(),
+      entityTypeIndex: (fields[3] as num).toInt(),
+      entityId: fields[4] as String,
+      previousValue: fields[5] as String?,
+      newValue: fields[6] as String?,
+      description: fields[7] as String,
+    );
   }
 
   @override
