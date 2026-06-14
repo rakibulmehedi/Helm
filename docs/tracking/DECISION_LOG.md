@@ -838,6 +838,37 @@ Ref: `docs/planning/TDD_DISPATCH_PHASE_1_BEHAVIORAL_FOUNDATION.md`, `docs/planni
 
 ---
 
+## Decision 035 — 12-Agent Adversarial Security Audit: 97 Vulnerabilities Found
+
+Date: 2026-06-14
+Trigger: Full adversarial audit executed via 12 parallel specialized agents against entire Helm codebase (82+ .dart files, 17 screens, 40+ widgets, 30+ providers, 10 Hive boxes, 17 SharedPrefs keys, 200+ localization strings, all build configs).
+
+Decision:
+A **Security Hardening Sprint** (Sprint S1) is commissioned to address all 97 vulnerabilities sequentially. The sprint is structured across 12 security domains matching the audit agents, executing in priority order (CRITICAL → HIGH → MEDIUM → LOW). Full audit report at `.commandcode/adversarial_audit_report.md`.
+
+**97 findings**: 17 CRITICAL (P0), 35 HIGH (P1), 33 MEDIUM (P2), 12 LOW (P3)
+
+**Top 5 exploit chains identified:**
+1. Rooted device → SharedPrefs XML edit + Hive box extraction → offline PIN brute force → full data breach
+2. No PIN re-entry on app resume → pick up unlocked phone → full financial data access
+3. Debug signing + no obfuscation → reverse engineer Dart snapshots → extract auth patterns
+4. Cold-start PIN attempt reset → brute force 10K PINs across 2,500 process cycles
+5. Data corruption + silent error returns → wrong Safe-to-Spend → financial loss
+
+Reason:
+The audit covers every domain, every screen, every microcopy string, every build config, and every dependency — surface area that no single-focused sprint has covered. Architectural patterns that look safe in isolation reveal systemic vulnerabilities when viewed cross-domain. The 12-agent parallel dispatch proved that adversarial audits produce dramatically more findings than sequential single-domain reviews.
+
+Impact:
+- `docs/planning/SECURITY_HARDENING_PLAN.md` — new execution plan
+- `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` — TDD dispatch per domain
+- Sprint S1 inserted between Phase 4 and Phase 5 in master plan sequence
+- Phase 5 (V1 Features) gate updated: must also pass security review
+- All future sprints must include security gates at exit
+
+Ref: `.commandcode/adversarial_audit_report.md`, `.commandcode/adversarial_audit_prompt.md`
+
+---
+
 ## Decision 034 — Comprehensive Implementation Plan Adopted
 
 Date: 2026-06-13

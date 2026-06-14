@@ -5,18 +5,26 @@
 
 ---
 
-## Milestone: 100% Maturity Path (2026-06-13 Plan)
+## Milestone: 100% Maturity Path (2026-06-13 Plan, Updated 2026-06-14)
 
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
 > Reference: `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` — execution plan with VCI infra, risk register, dependency graph
-> Status: **Phase 0 (Sprint A5) pending. Phases 1-4 complete.**
-> Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 30/35
-> TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md`
+> **Security Audit:** `.commandcode/adversarial_audit_report.md` — 97 findings (17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW)
+> Status: **Sprint S1 (Security Hardening) ACTIVE. Phases 1-4 complete. A5 parallel.**
+> Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 33/35
+> TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md` + `TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md`
 
 ### Phase 0 — Beta Launch Readiness (🔲 PENDING)
-- Sprint A5: Bangla strings + Release APK + Device testing
+- Sprint A5: Bangla strings + Release APK + Device testing (parallel with S1)
 - Effort: ~4 hours
 - Gate: Release APK runs on reference device. Bangla authored.
+
+### Sprint S1 — Security Hardening (🔄 ACTIVE) [2026-06-14]
+- 12-agent adversarial audit: 97 findings across 12 security domains
+- 7 waves: Critical Auth/Storage → Navigation/Data → High Auth/Storage/Input → High State/Nav/Race → High Platform/Code → All Medium → All Low + Re-Audit
+- Effort: ~40 hours
+- Gate: 52/97 critical+high resolved. Hive encrypted. Release signing. FLAG_SECURE. Bundle ID. CSV guard. Re-audit ≤10 LOW.
+- Trust Layer target: 23→33/35
 
 ### Phase 1 — Behavioral Foundation (✅ COMPLETE) [2026-06-13]
 - Wire 4 boundary events, add haptics, fix 3 contrast ratios, button active states, slider steppers, quiet affirmations, global onboarding skip

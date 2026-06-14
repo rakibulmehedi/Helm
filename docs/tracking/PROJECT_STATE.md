@@ -26,6 +26,7 @@
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
 - beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Helm", splash #FAFAF6, iOS display name "Helm", 96 Bangla ARB keys authored)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
+- **security hardening sprint initiated** (June 2026: Sprint S1 — 12-agent adversarial audit found 97 vulnerabilities, full remediation sprint active)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -36,7 +37,9 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: SPRINT A5 IN PROGRESS — UX gap improvements phase 2 complete, 210 tests, dart analyze 0/0/0** (2026-06-13)
+**Current Verdict: SPRINT S1 IN PROGRESS — Security Hardening (Adversarial Audit Remediation)** (2026-06-14)
+- **Adversarial audit complete**: 12 agents, 97 findings (17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW)
+- **Sprint S1 active**: 97 vulnerability fixes across 7 waves, ~40h estimated
 - Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
 - A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
@@ -44,11 +47,11 @@
 - A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33)
 - A5.5 ✅ — splash #FAFAF6, iOS name "Helm"; icons still default (needs designer)
 - Core S2S engine + dashboard + pipeline: production-grade
-- Distance to closed beta: APK build + device test (human action)
-- Distance to 100% maturity: ~85 hours across 6 phases (see master plan)
+- **Security posture**: CRITICAL — all auth client-side, no encryption at rest, no root detection
+- Distance to closed beta: Security hardening completion + A5 APK build + device test
+- Distance to 100% maturity: ~85h (master plan) + ~40h (security sprint) = ~125h
 - **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` (adopted 2026-06-12)
-- **Audits complete**: Behavioral 62/100, UI/UX 78/100, Trust Layer 23/35
-- **Audit deliverables**: 3 new docs in `docs/audits/` (synthesized analysis, nudge engine deliverables)
+- **Security audit**: `.commandcode/adversarial_audit_report.md` (2026-06-14)
 - **Agent assets**: 10 agent definitions in `.claude/agents/` (all general-purpose, no codebase hardcoding)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
 - See `docs/planning/100_PERCENT_MASTER_PLAN.md` for complete 6-phase roadmap
@@ -58,18 +61,18 @@
 - no formal wallet model yet
 - no sync abstraction yet
 - Analytics: debugPrint-only, no Hive persistence, no nudge effectiveness tracking — RESOLVED in Phase 2/3
-- No "next best action" guidance on dashboard (passive state display only)
-- No cadence/personalization preferences (notification frequency, channel, check-in time)
-- No notification system exists (push notifications are V1, but no infrastructure prep done)
-- Pipeline shows all overdue entries — no micro-sprint decomposition or prioritization
-- Settings screen: one long scroll, no section collapsing
-- STS Settings + Audit Log migrated to HelmColors (A2 sprint)
-- 4 doctrine widgets created but unused (HelmToast, HelmAuditCard, HelmCautionCard, HelmAmount partial)
-- Design system migration: ~95% (all onboarding pages migrated to design tokens; only remaining raw values in non-onboarding screens)
-- Widget adoption: 11/13 (85%) — HelmToast adopted across all feature screens
-- Trust Layer score: 23/35 (66%)
-- Test coverage: 104 tests in 11 files
-- **Full debt inventory**: See `docs/planning/100_PERCENT_MASTER_PLAN.md` §1-8 for 145+ tasks
+- No "next best action" guidance on dashboard (passive state display only) — RESOLVED in Phase 2
+- No cadence/personalization preferences — RESOLVED in Phase 2
+- Client/Project ROI tracking — different product
+- Charts/reports without S2S context — noise
+- **SECURITY DEBT (97 findings from Sprint S1 — IN PROGRESS)**:
+  - Auth: client-side trust chain, no encryption at rest, 4-digit PIN, brute-force vectors
+  - Storage: zero Hive encryption, schema versioning absent, type confusion crash vectors
+  - Input: no sanitization on free-text fields, CSV formula injection, no maxLength
+  - State: provider disposal safety gaps, assert-stripped validation, TOCTOU races
+  - Platform: no root/jailbreak detection, debug signing, no obfuscation, `com.example.helm`
+  - Dependencies: abandoned Hive, google_fonts runtime network, caret version ranges
+  - Full inventory: `.commandcode/adversarial_audit_report.md`
 
 ## 5. Current Architecture
 - Framework: Flutter

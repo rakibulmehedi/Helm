@@ -4,6 +4,40 @@ This file captures engineering, product, UX, and agentic workflow lessons.
 
 ---
 
+## Adversarial Audit Methodology Lessons (2026-06-14)
+
+### 40. Parallel adversarial agents produce exponentially more findings than sequential audits
+Running 12 specialized attack agents simultaneously across auth, storage, input, state, navigation, exfiltration, business logic, UI/UX, race conditions, platform, dependencies, and code quality produced 97 findings in a single execution cycle. A sequential single-agent audit would have found ~15-20% of these. The cross-domain connections (e.g., "PIN gate fail-open" and "no encryption at rest" combining to form the "rooted device full compromise" chain) only surface when all agents report and findings are synthesized.
+
+### 41. Every agent needs exact file paths and line numbers in their system prompt
+Generic prompts ("audit auth") produce generic findings. The adversarial prompt for each agent specified exact files, exact method names, and exact attack vectors ("try `max(0.0, NaN)`", "check if `assert` is stripped in release mode"). This precision is what turned 12 agents into 97 evidence-cited findings — not generic observations.
+
+### 42. Adversarial mindset requires "guilty until proven innocent" framing
+Agents were instructed: "Assume every line of code is vulnerable. The app is guilty until proven innocent. Default position for every input, every state transition, every storage operation = VULNERABLE." This produced findings that normal code review (which assumes "this was written correctly") would miss.
+
+### 43. Code quality IS security — empty catch blocks are exploit vectors
+4 empty `catch(_){}` blocks in `delete_account_screen.dart` would be flagged by lint rules as code smells. But the adversarial audit revealed their true severity: silent account deletion failures = permanent data leak if users think data is wiped. Code quality issues in financial apps are not code quality issues — they are security vulnerabilities.
+
+### 44. The "fail-open" anti-pattern is the single most dangerous architecture decision
+The PIN gate checking `if (Hive.isBoxOpen(AppBoxNames.authBox))` fails open — if the box isn't open, auth is skipped entirely. Fail-open on security-critical paths is catastrophically wrong. Every auth guard, every validation, every integrity check must FAIL CLOSED. If you can't verify, you deny.
+
+### 45. Assert-based validation is production-grade malware in Flutter/Dart
+Dart `assert()` statements are stripped in release builds. Using `assert()` for business validation (taxRate range, bufferPercent range, dueDayOfMonth bounds) means these validations simply don't exist in the APK users download. This is not a code quality issue — it's a silent data corruption vector that only manifests at scale.
+
+### 46. Local-first financial apps need defense-in-depth, not defense-at-gate
+Helm's auth is a single gate (Magic Link → PIN → Home). Once through, everything is accessible. No session timeout, no PIN on resume, no screen-level auth. Financial apps need layered security: auth gate + session management + data protection + platform hardening + export controls. Every missing layer compounds the risk of the others.
+
+### 47. Export functions are hidden attack surfaces
+CSV injection via formula characters (`=`, `@`, `+`, `-`) in free-text fields is a classic OWASP vector. Helm's `_escapeCsv()` handles commas, quotes, and newlines perfectly — but completely ignores formula injection. Any user-entered text that reaches a CSV file must be sanitized for spreadsheet formula execution.
+
+### 48. Microcopy, localization, and accessibility are security surfaces
+Missing screen reader labels (5+ locations), WCAG AA contrast failures (`inkTertiary` at 3.7:1), Bangla transliterations masquerading as translations, and ~180 hardcoded English strings bypassing the localization system are not "polish" — they exclude users, erode trust, and create confusion that attackers can exploit.
+
+### 49. Documentation-as-operating-memory works: 97 findings tracked across 6 docs
+Within a single session, the adversarial audit report was converted into: DECISION_LOG.md (Decision 035), TASKS.md (97 ordered tasks across 7 waves), PROJECT_STATE.md (updated readiness + security debt), CURRENT_SPRINT.md (S1 as active sprint + wave plan), ROADMAP.md (milestone + gate), LESSONS.md (this file). The documentation system absorbed the audit and converted findings into executable tasks without losing traceability.
+
+---
+
 ## Audit Synthesis Lessons (2026-06-12)
 
 ### 11. Behavioral Audit + UI/UX Audit — Nudge delivery is the single biggest gap

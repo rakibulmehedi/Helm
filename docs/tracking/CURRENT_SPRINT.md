@@ -21,17 +21,60 @@ Helm is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/100
 
 ## 1. Active Sprint
 
-**Sprint A5 (Bangla + Release Build):**
-Status: **🔄 IN PROGRESS** — 2026-06-14. 3/5 tasks complete. Depends on: A4 complete (✅).
-- [x] A5.1 Author native Bangla strings (app_bn.arb) — 96 Helm V2 keys, native Bangla, full parity ✅
-- [~] A5.2 Build release APK — build config fixed (version, label, description); actual build needs keystore + `flutter build apk --release` (human action)
-- [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent reference device) — blocked on A5.2
-- [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21 = Android 5+; Galaxy A14 API 33 = fully compatible ✅
-- [x] A5.5 Verify app icon and branded splash — splash #FAFAF6, iOS display name "Helm"; icons still default Flutter (needs designer + flutter_launcher_icons approval)
-- Exit: Release APK runs on reference device. Bangla strings authored. All tests pass (210/210).
+**Sprint S1 — Security Hardening (Adversarial Audit Remediation):**
+Status: **🔄 IN PROGRESS** — 2026-06-14. 97 vulnerability tasks across 7 waves. Depends on: Phase 4 complete (✅).
+
+> **Audit:** `.commandcode/adversarial_audit_report.md` — 12-agent parallel adversarial audit
+> **Tasks:** `docs/tracking/TASKS.md` § Sprint S1 — 17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW
+> **Dispatch:** `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` (per-domain TDD)
+
+**Wave 1 — Critical Auth + Storage (C-1 to C-8, C-13, C-14, C-17):**
+- [ ] C-1 Entire auth trust chain client-side → trivial bypass on rooted device
+- [ ] C-2 Token prefix `valid_` predictable → 1M token brute force
+- [ ] C-3 PIN attempt counter not persisted → infinite cold-start retry
+- [ ] C-4 Zero at-rest encryption on all Hive boxes
+- [ ] C-6 Release build signed with debug keys
+- [ ] C-7 PIN gate fail-open when Hive box unavailable
+- [ ] C-8 Hive is abandoned → migrate to hive_ce
+- [ ] C-13 `AuditEventModel` uses `late` fields → crash on corrupt read
+- [ ] C-14 Negative tax rate & buffer percent in release mode
+- [ ] C-17 SDK constraint mismatch
+
+**Wave 2 — Navigation + Data Exfiltration (C-5, C-9 to C-12, C-15, C-16):**
+- [ ] C-5 No app lifecycle handling → PIN bypass on app resume
+- [ ] C-9 ~180 hardcoded English strings bypass localization
+- [ ] C-10 Silent data fabrication — fake "Initial Balance" income entry
+- [ ] C-11 `_isSaving` guards bypassable after provider disposal (4 notifiers)
+- [ ] C-12 CSV formula injection in export
+- [ ] C-15 `s2s_calc_failure` passes `e.toString()` → potential PII leak
+- [ ] C-16 `google_fonts` downloads fonts at runtime over internet
+
+**Waves 3-7:** See `docs/tracking/TASKS.md` for full HIGH (35), MEDIUM (33), LOW (12) task breakdown.
+
+**Exit:** 52/97 critical+high resolved. dart analyze 0/0/0. ~40 new security tests. Hive encrypted. Release signing configured. Bundle ID changed. FLAG_SECURE on PIN screens. CSV injection guarded. Security re-audit clean (≤10 LOW remaining).
+
+**Parallel with Sprint S1:**
+- A5 (Bangla + Release Build) — A5.1 ✅, A5.2 ⏳ (human keystore), A5.3 ⏳ (blocked on A5.2)
+- VCI (Version Control Infrastructure) — PENDING (runs before beta APK distribution)
+
+---
+
+## 0. Master Plan Context — Updated (2026-06-14)
+
+| Phase | Status | Score Target | Effort |
+|-------|--------|-------------|--------|
+| 0 — Beta Launch Readiness (A5) | 🔄 IN PROGRESS | — | ~4h |
+| **S1 — Security Hardening** | **🔄 IN PROGRESS** | **Trust 23→33/35** | **~40h** |
+| VCI — Version Control Infrastructure | 🔲 PENDING | — | ~1.5h |
+| 1 — Behavioral Foundation | ✅ COMPLETE | 62→68 behavioral, 78→83 UI/UX | ~6h |
+| 2 — Analytics Infrastructure | ✅ COMPLETE | 68→76 behavioral, 83→89 UI/UX | ~8h |
+| 3 — Notification System | ✅ COMPLETE | 76→82 behavioral | ~12h |
+| 4 — Doctrine Gap Closure | ✅ COMPLETE | 82→90 behavioral, 89→93 UI/UX | ~20h |
+| 5 — V1 Features (gated) | 🔲 BLOCKED — beta thresholds + security review | 90→93 behavioral, 93→95 UI/UX | ~15h |
+| 6 — V2 Features (gated) | 🔲 BLOCKED — V1 stable + legal + pricing | 93→95 behavioral, 95→98 UI/UX | ~20h |
 
 **VCI (Version Control Infrastructure):**
-Status: **🔲 PENDING** — Runs BEFORE beta APK distribution. Depends on: A5 done.
+Status: **🔲 PENDING** — Runs BEFORE beta APK distribution. Depends on: S1 + A5 done.
 - VCI-1 Create `develop` branch from `main`
 - VCI-2 Create `release/v0.3-beta` branch from `main`
 - VCI-3 Tag release (v0.3-beta.1), update pubspec.yaml version
@@ -201,21 +244,11 @@ Status: **COMPLETE** ✅ — 2026-06-05. 21 files changed. dart analyze 0/0/0. 3
 
 ## 2. Current Priority
 
-- **Phase 4 (Doctrine Gap Closure) COMPLETE** ✅ — 210/210 tests pass. dart analyze 0/0/0. Behavioral 82→90, UI/UX 89→93.
-- **Sprint A5** — Bangla + Release Build → closed beta distribution.
-- **All prior sprints COMPLETE** — 17+ sprints done, 210 tests, dart analyze 0/0/0.
-- **Dashboard is doctrine-aligned** — Reality Stack live, no Income/Expense chips, no transaction list on home
-- **Onboarding is doctrine-aligned** — qualifier → balance → fixed costs → income pattern → buffer → home
-- **Token foundation is stable** — new widgets consume helm_colors, helm_typography, helm_spacing, helm_motion
-- **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` — 6 phases, ~85 hours, 100% maturity target
-- **Execution docs**: `docs/planning/UX_EXECUTION_TODO.md`, `docs/planning/ALPHA_TO_BETA_ROADMAP.md`
-- **Canonical spec**: `docs/ux/HELM_CANONICAL_UX_IMPLEMENTATION_SPEC.md`
-- MVP success criteria locked per Doctrine §4:
-  - Pipeline update compliance ≥85%
-  - Override-equivalent rate <5%
-  - 30-day retention ≥60%
-  - Onboarding completion ≥70%
-  - S2S comprehension ≥80%
+- **Sprint S1 (ACTIVE)** — Security Hardening: 97 vulnerability fixes from adversarial audit. Wave 1 in progress.
+- **Sprint A5 (PARALLEL)** — Bangla + Release Build. A5.2 needs human keystore. A5.3 blocked on A5.2.
+- **Sprint VCI (AFTER S1+A5)** — Version Control Infrastructure. Branch model, hotfix protocol, tagging.
+- **Phase 5 (BLOCKED)** — V1 Features. Gated on: S1 exit + beta thresholds cleared + security review pass.
+- **Phase 6 (BLOCKED)** — V2 Features. Gated on: V1 stable + legal L5 + pricing validation.
 
 ## 3. Sprint Status — UX Canon + Alpha-to-Beta + Master Plan
 
