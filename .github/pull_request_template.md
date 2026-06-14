@@ -17,7 +17,7 @@ Issue: #
 
 ## Pre-Flight Checklist
 
-- [ ] Read `docs/core/POCKETA_BRAIN.md`
+- [ ] Read `docs/core/HELM_BRAIN.md`
 - [ ] Read `docs/core/ARCHITECTURE_RULES.md`
 - [ ] Changes reference an existing spec or a new spec is included
 - [ ] `dart analyze` — no issues

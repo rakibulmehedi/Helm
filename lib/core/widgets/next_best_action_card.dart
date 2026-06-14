@@ -5,11 +5,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pocketa_v2/config/router/route_names.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
-import 'package:pocketa_v2/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 
 enum ActionVariant {
   overdue,
@@ -32,8 +32,8 @@ class NextBestActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typography = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typography = Theme.of(context).extension<HelmTypography>()!;
 
     Color stateColor;
     String title;
@@ -75,7 +75,7 @@ class NextBestActionCard extends StatelessWidget {
         break;
     }
 
-    final cardBorderRadius = BorderRadius.circular(PocketaSpacing.cardRadius);
+    final cardBorderRadius = BorderRadius.circular(HelmSpacing.cardRadius);
     final String semanticsLabelText = variant == ActionVariant.relief
         ? '$title. $description'
         : '$title. $description Button: $ctaLabel';
@@ -90,7 +90,7 @@ class NextBestActionCard extends StatelessWidget {
           borderRadius: cardBorderRadius,
           border: Border.all(
             color: colors.divider,
-            width: PocketaSpacing.cardBorder,
+            width: HelmSpacing.cardBorder,
           ),
         ),
         child: ClipRRect(
@@ -110,10 +110,10 @@ class NextBestActionCard extends StatelessWidget {
               // Content details
               Padding(
                 padding: const EdgeInsets.only(
-                  left: PocketaSpacing.s4 + PocketaSpacing.s2,
-                  right: PocketaSpacing.s4,
-                  top: PocketaSpacing.s4,
-                  bottom: PocketaSpacing.s4,
+                  left: HelmSpacing.s4 + HelmSpacing.s2,
+                  right: HelmSpacing.s4,
+                  top: HelmSpacing.s4,
+                  bottom: HelmSpacing.s4,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,7 +142,7 @@ class NextBestActionCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: PocketaSpacing.s2),
+                    const SizedBox(height: HelmSpacing.s2),
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: Text(
@@ -153,7 +153,7 @@ class NextBestActionCard extends StatelessWidget {
                       ),
                     ),
                     if (ctaLabel != null) ...[
-                      const SizedBox(height: PocketaSpacing.s4),
+                      const SizedBox(height: HelmSpacing.s4),
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0),
                         child: AppButton(

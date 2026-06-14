@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pocketa_v2/core/local_storage/shared_pref_service.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 
 import '../../core/constants/app_language.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../utils/responsive_utils.dart';
-import 'package:pocketa_v2/core/themes/pocketa_colors.dart';
-import 'package:pocketa_v2/core/themes/pocketa_motion.dart';
-import 'package:pocketa_v2/core/themes/pocketa_spacing.dart';
-import 'package:pocketa_v2/core/themes/pocketa_typography.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_motion.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 
 class OnboardingHeader extends StatelessWidget {
   final String title;
@@ -26,8 +26,8 @@ class OnboardingHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<PocketaColors>()!;
-    final typo = Theme.of(context).extension<PocketaTypography>()!;
+    final colors = Theme.of(context).extension<HelmColors>()!;
+    final typo = Theme.of(context).extension<HelmTypography>()!;
     final progress =
         (step != null && totalSteps > 0)
             ? (step!.clamp(1, totalSteps) / totalSteps)
@@ -46,17 +46,17 @@ class OnboardingHeader extends StatelessWidget {
         children: [
           if (progress != null) ...[
             TweenAnimationBuilder<double>(
-              duration: PocketaMotion.slow,
-              curve: PocketaMotion.defaultCurve,
+              duration: HelmMotion.slow,
+              curve: HelmMotion.defaultCurve,
               tween: Tween<double>(begin: 0, end: progress),
               builder:
                   (context, value, _) => ClipRRect(
-                    borderRadius: BorderRadius.circular(PocketaSpacing.cardRadius),
+                    borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                     child: LinearProgressIndicator(
                       value: value,
                       backgroundColor: colors.hairline,
                       color: colors.interactive,
-                      minHeight: PocketaSpacing.progressBarHeightOnboarding,
+                      minHeight: HelmSpacing.progressBarHeightOnboarding,
                     ),
                   ),
             ),
