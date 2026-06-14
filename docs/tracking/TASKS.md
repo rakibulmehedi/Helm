@@ -11,25 +11,27 @@
 
 ## In Progress
 
-*Sprint S1 initiated — 97 vulnerability tasks defined across 12 security domains*
+*Sprint S1 code-evidence mapping complete (2026-06-14) — 43/97 tasks verified done in source/tests, 54/97 remain pending. See §Recently Completed for S1-W4 record and §Implementation Sequence for wave-by-wave status.*
+
+> Note: Dispatch file `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` is referenced but does not exist. Use `docs/tracking/S1_CODEBASE_TASK_MAPPING.md` for the code-evidence-based status of each S1 task.
 
 ## Active Focus (Top 5 Criticals — Immediate)
 
 - [ ] **C-1** Entire auth trust chain client-side → trivial bypass on rooted device [Agent: AUTH_CRACKER, V-1–V-4 chained, §C-1]
-- [ ] **C-2** Token prefix `valid_` predictable → 1M token brute force [Agent: AUTH_CRACKER, V-1 + V-7, `auth_remote_data_source.dart:32-33`]
-- [ ] **C-3** PIN attempt counter not persisted → infinite cold-start retry [Agent: AUTH_CRACKER, V-2, `auth_provider.dart:25-28`]
-- [ ] **C-4** Zero at-rest encryption on all Hive boxes [Agent: STORAGE_RAIDER, §4, `hive_service.dart:33`]
-- [ ] **C-5** No app lifecycle handling → PIN bypass on app resume [Agent: NAVIGATION_HIJACKER, F-3, `main.dart`]
-- [ ] **C-6** Release build signed with debug keys [Agent: PLATFORM_ABUSER, §8, `build.gradle.kts:41`]
-- [ ] **C-7** PIN gate fail-open when Hive box unavailable [Agent: AUTH_CRACKER, V-5, `app_router.dart:323`]
-- [ ] **C-8** Hive is abandoned → migrate to hive_ce [Agent: DEPENDENCY_POISONER, §4, `pubspec.yaml`]
+- [x] **C-2** Token prefix `valid_` predictable → 1M token brute force [Agent: AUTH_CRACKER, V-1 + V-7, `auth_remote_data_source.dart:32-33`]
+- [x] **C-3** PIN attempt counter not persisted → infinite cold-start retry [Agent: AUTH_CRACKER, V-2, `auth_provider.dart:25-28`]
+- [x] **C-4** Zero at-rest encryption on all Hive boxes [Agent: STORAGE_RAIDER, §4, `hive_service.dart:33`]
+- [x] **C-5** No app lifecycle handling → PIN bypass on app resume [Agent: NAVIGATION_HIJACKER, F-3, `main.dart`]
+- [x] **C-6** Release build signed with debug keys [Agent: PLATFORM_ABUSER, §8, `build.gradle.kts:41`]
+- [x] **C-7** PIN gate fail-open when Hive box unavailable [Agent: AUTH_CRACKER, V-5, `app_router.dart:323`]
+- [x] **C-8** Hive is abandoned → migrate to hive_ce [Agent: DEPENDENCY_POISONER, §4, `pubspec.yaml`]
 - [ ] **C-9** ~180 hardcoded English strings bypass localization [Agent: UI_PSYOP_AGENT, §1, all widget files]
 - [ ] **C-10** Silent data fabrication — fake "Initial Balance" income entry [Agent: UI_PSYOP_AGENT, §3, `onboarding_screen.dart:137-146`]
-- [ ] **C-11** `_isSaving` guards on StateNotifiers bypassable after provider disposal [Agent: STATE_CORRUPTOR, §2, 4 notifiers]
-- [ ] **C-12** CSV formula injection in export [Agent: INPUT_WEAPONIZER, §1, `export_service.dart:158-164`]
-- [ ] **C-13** `AuditEventModel` uses `late` fields → crash on corrupt read [Agent: STORAGE_RAIDER, §1, `audit_event_model.dart:30-54`]
-- [ ] **C-14** Negative tax rate & buffer percent in release mode [Agent: STATE_CORRUPTOR/BUSINESS_LOGIC_BREAKER, `sts_settings.dart:17-19`]
-- [ ] **C-15** `s2s_calc_failure` passes `e.toString()` → potential PII in analytics [Agent: DATA_EXFILTRATOR, §2, `safe_to_spend_providers.dart:132`]
+- [x] **C-11** `_isSaving` guards on StateNotifiers bypassable after provider disposal [Agent: STATE_CORRUPTOR, §2, 4 notifiers]
+- [x] **C-12** CSV formula injection in export [Agent: INPUT_WEAPONIZER, §1, `export_service.dart:158-164`]
+- [x] **C-13** `AuditEventModel` uses `late` fields → crash on corrupt read [Agent: STORAGE_RAIDER, §1, `audit_event_model.dart:30-54`]
+- [x] **C-14** Negative tax rate & buffer percent in release mode [Agent: STATE_CORRUPTOR/BUSINESS_LOGIC_BREAKER, `sts_settings.dart:17-19`]
+- [x] **C-15** `s2s_calc_failure` passes `e.toString()` → potential PII in analytics [Agent: DATA_EXFILTRATOR, §2, `safe_to_spend_providers.dart:132`]
 - [ ] **C-16** `google_fonts` downloads fonts at runtime over internet [Agent: DEPENDENCY_POISONER, §4, `pubspec.yaml`]
 - [ ] **C-17** SDK constraint mismatch — declared `^3.7.2`, resolved `>=3.11.0` [Agent: DEPENDENCY_POISONER, §3, `pubspec.yaml`]
 
@@ -37,30 +39,30 @@
 
 ### Domain: Auth (AUTH_CRACKER)
 - [ ] **H-1** `setMagicLinkAuthCompleted` not awaited → redirect loop race [M-1, `app_router.dart:137-139`]
-- [ ] **H-2** Fix 4-digit PIN → 6-digits minimum for financial app [V-8, `pin_setup_screen.dart:26`, `pin_entry_screen.dart:27`]
-- [ ] **H-3** Email regex allows double dots, special chars — tighten validation [V-10, `auth_repository_impl.dart:72-74`]
+- [x] **H-2** Fix 4-digit PIN → 6-digits minimum for financial app [V-8, `pin_setup_screen.dart:26`, `pin_entry_screen.dart:27`]
+- [x] **H-3** Email regex allows double dots, special chars — tighten validation [V-10, `auth_repository_impl.dart:72-74`]
 - [ ] **H-4** `_usedTokens` in-memory → persist or accept limitation [V-11, `auth_remote_data_source.dart:14`]
-- [ ] **H-5** `logout()` doesn't clear Magic Link session/SharedPrefs flag [V-12, `auth_provider.dart:83-89`]
-- [ ] **H-6** Rate limit global per-instance → make per-email [V-13, `auth_remote_data_source.dart:21-23`]
+- [x] **H-5** `logout()` doesn't clear Magic Link session/SharedPrefs flag [V-12, `auth_provider.dart:83-89`]
+- [x] **H-6** Rate limit global per-instance → make per-email [V-13, `auth_remote_data_source.dart:21-23`]
 
 ### Domain: Storage (STORAGE_RAIDER)
-- [ ] **H-7** `TransactionTypeAdapter.read()` silently defaults unknown bytes to `income` [§2, `transaction_type_adapter.dart:28-34`]
-- [ ] **H-8** `AuditEventModel.toEntity()` — no bounds check on enum index → RangeError [§2, `audit_event_model.dart:57-60`]
-- [ ] **H-9** Session token + email in unencrypted Hive `session_box` [§4, `hive_service.dart`]
-- [ ] **H-10** No schema version tracking anywhere — add migration framework [§7, all Hive models]
+- [x] **H-7** `TransactionTypeAdapter.read()` silently defaults unknown bytes to `income` [§2, `transaction_type_adapter.dart:28-34`]
+- [x] **H-8** `AuditEventModel.toEntity()` — no bounds check on enum index → RangeError [§2, `audit_event_model.dart:57-60`]
+- [x] **H-9** Session token + email in unencrypted Hive `session_box` [§4, `hive_service.dart`]
+- [x] **H-10** No schema version tracking anywhere — add migration framework [§7, all Hive models]
 - [ ] **H-11** STS buffer migration silently replaces user's absolute BDT with 15% [§7, `sts_settings_data_source.dart:65-71`]
-- [ ] **H-12** `SharedPreferences._prefs` nullable → errors silently discarded if init fails [§10, `shared_pref_service.dart`]
+- [x] **H-12** `SharedPreferences._prefs` nullable → errors silently discarded if init fails [§10, `shared_pref_service.dart`]
 
 ### Domain: Input (INPUT_WEAPONIZER)
-- [ ] **H-13** No input sanitization on any free-text field — RTL override, null byte injection [§2, 9 text fields]
-- [ ] **H-14** No maxLength on any text field → storage bloat, CSV distortion [§8, all screens]
+- [x] **H-13** No input sanitization on any free-text field — RTL override, null byte injection [§2, 9 text fields]
+- [x] **H-14** No maxLength on any text field → storage bloat, CSV distortion [§8, all screens]
 
 ### Domain: State (STATE_CORRUPTOR)
-- [ ] **H-15** `safeToSpendProvider` uses `[]` fallback during loading → inflated S2S [§2, `safe_to_spend_providers.dart:125`]
+- [x] **H-15** `safeToSpendProvider` uses `[]` fallback during loading → inflated S2S [§2, `safe_to_spend_providers.dart:125`]
 - [ ] **H-16** Calculator errors silently return `SafeToSpendResult.zero()` [§2, `safe_to_spend_providers.dart:127-138`]
 - [ ] **H-17** `FixedCostEntry` dueDayOfMonth assert bypassed in release → wrong month [§3, `fixed_cost_entry.dart:24`]
 - [ ] **H-18** `trackingStreak` uses session count, not consecutive-day streak [§3, `nudge_providers.dart:173`]
-- [ ] **H-19** `IncomeNotifier.updateIncome` TOCTOU race — delete between write and state update [§3, `income_providers.dart:108-114`]
+- [x] **H-19** `IncomeNotifier.updateIncome` TOCTOU race — delete between write and state update [§3, `income_providers.dart:108-114`]
 - [ ] **H-20** `FixedCostNotifier.addFixedCost` — no duplicate ID check [§3, `safe_to_spend_providers.dart:63-66`]
 
 ### Domain: Navigation (NAVIGATION_HIJACKER)
@@ -77,17 +79,17 @@
 
 ### Domain: Race Conditions (RACE_CONDITION_EXPLOITER)
 - [ ] **H-27** SplashScreen Timer not cancelled in dispose [§4, `splash_screen.dart:51`]
-- [ ] **H-28** `setupPin`/`clearPin` — 3 non-atomic Hive writes → corrupt auth state [§3, `auth_provider.dart:52-59, 88-93`]
+- [x] **H-28** `setupPin`/`clearPin` — 3 non-atomic Hive writes → corrupt auth state [§3, `auth_provider.dart:52-59, 88-93`]
 - [ ] **H-29** `_deleteAllData` — no transactional rollback → partial data loss [§3, `delete_account_screen.dart:49-63`]
 
 ### Domain: Platform (PLATFORM_ABUSER)
-- [ ] **H-30** No root/jailbreak detection [§10, all native layers]
-- [ ] **H-31** No code obfuscation — DART_OBFUSCATION=false [§8, `Generated.xcconfig`]
-- [ ] **H-32** No ProGuard/R8 custom rules [§11, `android/app/`]
-- [ ] **H-33** Bundle ID is `com.example.helm` — Google/Apple reserved domain [§2, manifest+plist]
+- [x] **H-30** No root/jailbreak detection [§10, all native layers]
+- [x] **H-31** No code obfuscation — DART_OBFUSCATION=false [§8, `Generated.xcconfig`]
+- [x] **H-32** No ProGuard/R8 custom rules [§11, `android/app/`]
+- [x] **H-33** Bundle ID is `com.example.helm` — Google/Apple reserved domain [§2, manifest+plist]
 
 ### Domain: Code Quality (CODE_QUALITY_BREACH_DETECTOR)
-- [ ] **H-34** 4 empty `catch(_){}` blocks in delete_account_screen → silent failures [§1A, `delete_account_screen.dart:59,65,82,94`]
+- [x] **H-34** 4 empty `catch(_){}` blocks in delete_account_screen → silent failures [§1A, `delete_account_screen.dart:59,65,82,94`]
 - [ ] **H-35** 122+ null-assert `!` on theme extensions → crash if missing [§2A, 52 files]
 
 ### Domain: Dependencies (DEPENDENCY_POISONER)
@@ -103,10 +105,10 @@
 ## MEDIUM — Fix Within 2 Sprints (33 tasks)
 
 ### Domain: Storage
-- [ ] **M-1** Generated .g.dart cast failures on corrupted boxes — add defensive reads [§1, all .g.dart files]
-- [ ] **M-2** Audit event ID collision — `millisecondsSinceEpoch.toString()` [§3, 6 files]
-- [ ] **M-3** `delete_account` hardcodes box names — use `AppBoxNames` constants [§7, `delete_account_screen.dart:47-54`]
-- [ ] **M-4** `_prefs` nullable → silent no-op if uninitialized [§10, `shared_pref_service.dart`]
+- [x] **M-1** Generated .g.dart cast failures on corrupted boxes — add defensive reads [§1, all .g.dart files]
+- [x] **M-2** Audit event ID collision — `millisecondsSinceEpoch.toString()` [§3, 6 files]
+- [x] **M-3** `delete_account` hardcodes box names — use `AppBoxNames` constants [§7, `delete_account_screen.dart:47-54`]
+- [x] **M-4** `_prefs` nullable → silent no-op if uninitialized [§10, `shared_pref_service.dart`]
 
 ### Domain: Input
 - [ ] **M-5** `_escapeCsv` missing RTL override protection [§2, `export_service.dart:158-164`]
@@ -117,38 +119,38 @@
 - [ ] **M-8** `fxRate=0` silently zeroes USD contribution [§4, `safe_to_spend_calculator.dart:40`]
 - [ ] **M-9** No state machine enforcement on IncomeStatus transitions [§5, `income_entry_entity.dart:24-32`]
 - [ ] **M-10** `ExportNotifier.lastResult` mutable field across async gap [§7, `export_provider.dart:11`]
-- [ ] **M-11** `AuthNotifier.sessionAuthenticated` static mutable field [§6, `auth_provider.dart:25`]
+- [x] **M-11** `AuthNotifier.sessionAuthenticated` static mutable field [§6, `auth_provider.dart:25`]
 
 ### Domain: Navigation
 - [ ] **M-12** `CadencePreferenceSheet._selectTime()` no mounted check [F-9, `cadence_preference_sheet.dart:54-59`]
 - [ ] **M-13** Missing GoRoute for `/history` path [F-4, `route_names.dart:19`]
 
 ### Domain: Data Exfiltration
-- [ ] **M-14** `FLAG_SECURE` not set — PIN screens visible in app switcher [§6, `MainActivity.kt`]
+- [x] **M-14** `FLAG_SECURE` not set — PIN screens visible in app switcher [§6, `MainActivity.kt`]
 - [ ] **M-15** Lock screen notifications visible — set `visibility: secret` [§7, `notification_service.dart:88-94`]
 - [ ] **M-16** `debugPrint` of analytics properties + notification payloads in debug builds [§1, `analytics_service.dart:54,67`]
 
 ### Domain: Business Logic
 - [ ] **M-17** `excludedUsdIncome` tracking skip for excluded entries — contradiction [V-4, `safe_to_spend_calculator.dart:32`]
-- [ ] **M-18** No amount upper-bound → MAX_DOUBLE cascades to Infinity [V-2, §2]
+- [x] **M-18** No amount upper-bound → MAX_DOUBLE cascades to Infinity [V-2, §2]
 
 ### Domain: Race Conditions
 - [ ] **M-19** `verifyMagicLink` token reuse — dual concurrent calls both pass [§1, `auth_remote_data_source.dart:48-52`]
 - [ ] **M-20** `sendMagicLink` rate limit TOCTOU bypass [§1, `auth_remote_data_source.dart:24-29`]
 - [ ] **M-21** `markRead`/`markActioned` zombie entry — deleted entry re-inserted [§1, `nudge_data_source.dart:68-98`]
 - [ ] **M-22** `ExportNotifier` missing double-submit guard [§2, `export_provider.dart:16`]
-- [ ] **M-23** `saveSettings`/`getSettings` torn reads/writes [§3, `sts_settings_repository_impl.dart:17-26`]
+- [x] **M-23** `saveSettings`/`getSettings` torn reads/writes [§3, `sts_settings_repository_impl.dart:17-26`]
 
 ### Domain: Platform
-- [ ] **M-24** Export CSVs never cleaned up — accumulate in documents dir [§9b, `export_service.dart`]
-- [ ] **M-25** iOS `ITSAppUsesNonExemptEncryption` missing — Apple may reject [§4, `Info.plist`]
+- [x] **M-24** Export CSVs never cleaned up — accumulate in documents dir [§9b, `export_service.dart`]
+- [x] **M-25** iOS `ITSAppUsesNonExemptEncryption` missing — Apple may reject [§4, `Info.plist`]
 
 ### Domain: Dependencies
 - [ ] **M-26** All versions use caret `^` ranges — pin critical deps [§1, `pubspec.yaml`]
 - [ ] **M-27** No integration tests for data integrity or export flow [§9, `test/`]
 
 ### Domain: Code Quality
-- [ ] **M-28** `AuditEventModel` 6 `late` fields — only model without constructor params [§3B, `audit_event_model.dart:31-54`]
+- [x] **M-28** `AuditEventModel` 6 `late` fields — only model without constructor params [§3B, `audit_event_model.dart:31-54`]
 - [ ] **M-29** Hardcoded defaults (taxRate 10%, buffer 15%) mask errors [§7, `sts_settings_repository_impl.dart:19-20`]
 - [ ] **M-30** Debug-only dev reset button on dashboard — add confirmation [§5A, `dashboard_screen.dart:207`]
 
@@ -161,7 +163,7 @@
 
 - [ ] **L-1** `addFixedCost` silent overwrite on duplicate ID [`fixed_cost_local_data_source.dart:27`]
 - [ ] **L-2** No referential integrity between audit log and entities [cross-box]
-- [ ] **L-3** `double.parse` instead of `tryParse` in add_transaction_screen [`add_transaction_screen.dart:98`]
+- [x] **L-3** `double.parse` instead of `tryParse` in add_transaction_screen [`add_transaction_screen.dart:98`]
 - [ ] **L-4** `TransactionsNotifier` wasteful full Hive re-read on every mutation [`transaction_provider.dart:56-63`]
 - [ ] **L-5** Nudge `[Client]` literal text — never interpolated [`nudge_evaluator.dart:108`]
 - [ ] **L-6** Path parameter `:id` not format-validated [`app_router.dart:100,119`]

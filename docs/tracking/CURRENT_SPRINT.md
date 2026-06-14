@@ -67,6 +67,7 @@ Status: **🔄 IN PROGRESS** — 2026-06-14. 97 vulnerability tasks across 7 wav
 - **4B — Input Validation & Sanitization**: central `InputValidator` (amount caps, currency whitelist, email normalization, ID validation, DateTime parsing, text sanitization); CSV export sanitized and clamped; `TransactionModel`/`IncomeModel` deserialization hardened; route parameters validated; magic-link email/token validation tightened; nudge actionRoute whitelisted.
 - **4G — Audit Log Hardening**: audit schema version constant, unique event ids via `IdGenerator`, `previousValue` populated for updates/deletes, SHA-256 tamper-evidence chain via `AuditChainService`, 90-day retention pruning, exported-event emission, schema version in CSV export, audit chain box cleared on account deletion.
 - **4F — Lint Final Sweep**: all non-test `dart analyze` infos resolved (catch clauses, unawaited futures, deprecated `withOpacity`/`Share`), test helper packages added to dev dependencies, test quote style fixed.
+- **Codebase mapping**: 43/97 S1 tasks verified done in source/tests; 54 still pending. Key remaining risks: client-side-only auth trust model, Magic Link token replay/races, fixed-cost duplicate-ID overwrite, several mounted-check/race gaps, notification lock-screen visibility, Android Dart obfuscation build config, RTL override scrubbing.
 - **Quality gates**: `dart analyze` 0 issues, `flutter test` 251/251 pass, no new runtime dependencies.
 
 ---

@@ -27,6 +27,7 @@
 - beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Helm", splash #FAFAF6, iOS display name "Helm", 96 Bangla ARB keys authored)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 - **security hardening S1-W4 complete** (June 2026: Waves 1-2 remediation — secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep; `dart analyze` 0 issues, 251 tests pass)
+- **S1 task mapping** (June 2026: 43/97 adversarial-audit tasks verified done in source/tests; 54 pending, with highest remaining risks documented in `docs/tracking/TASKS.md`)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
