@@ -14,7 +14,7 @@ class SignatureVerifier {
     } on MissingPluginException {
       // Not running on Android (e.g., tests, iOS).
       return null;
-    } catch (_) {
+    } on Exception catch (_) {
       return null;
     }
   }
