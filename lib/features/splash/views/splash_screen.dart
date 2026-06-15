@@ -34,6 +34,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   late AnimationController _controller;
   late Animation<double>   _fadeAnimation;
   bool _isCompromised = false;
+  Timer? _navigationTimer;
 
   @override
   void initState() {
@@ -68,13 +69,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     // GoRouter's global redirect decides the actual destination:
     //   - onboarding not done  → /welcome
     //   - onboarding done      → /dashboard
-    Timer(const Duration(milliseconds: 500), () {
+    _navigationTimer = Timer(const Duration(milliseconds: 500), () {
       if (mounted) context.go(RouteNames.welcome);
     });
   }
 
   @override
   void dispose() {
+    _navigationTimer?.cancel();
     _controller.dispose();
     super.dispose();
   }

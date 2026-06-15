@@ -147,6 +147,6 @@ final safeToSpendProvider = Provider<SafeToSpendResult>((ref) {
     } on Exception catch (_) {
       // analytics provider may not be available during tests
     }
-    return const SafeToSpendResult.zero();
+    return SafeToSpendResult.failure(e.runtimeType.toString());
   }
 });

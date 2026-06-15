@@ -275,5 +275,61 @@
 
   "dashboard": "ড্যাশবোর্ড",
 
-  "devResetOnboarding": "অনবোর্ডিং রিসেট করুন (শুধু ডেভ)"
+  "devResetOnboarding": "অনবোর্ডিং রিসেট করুন (শুধু ডেভ)",
+
+  "safeToSpendSettingsTitle": "নিরাপদ ব্যয়সীমা সেটিংস",
+  "@safeToSpendSettingsTitle": { "description": "STS settings screen app bar title" },
+
+  "taxReserveRate": "ট্যাক্স রিজার্ভের হার",
+  "@taxReserveRate": { "description": "STS settings: tax rate section label" },
+
+  "taxReserveRateDescription": "আয়ের কত শতাংশ ট্যাক্সের জন্য রাখবেন তার অনুমান।",
+  "@taxReserveRateDescription": { "description": "STS settings: tax rate section description" },
+
+  "breathingRoom": "নিরাপদ মার্জিন",
+  "@breathingRoom": { "description": "STS settings: buffer section label" },
+
+  "breathingRoomDescription": "আশা করা আয়ের এই শতাংশ নিরাপদ মার্জিন হিসেবে রাখুন",
+  "@breathingRoomDescription": { "description": "STS settings: buffer section description" },
+
+  "breathingRoomPercentOfExpected": "আশা করা আয়ের {percent}%",
+  "@breathingRoomPercentOfExpected": {
+    "description": "STS settings: buffer value subtitle",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "fixedCosts": "ফিক্সড খরচ",
+  "@fixedCosts": { "description": "STS settings: fixed costs section label" },
+
+  "fixedCostsDescription": "প্রতি মাসে নিরাপদ ব্যয়সীমা থেকে কাটা ফিক্সড খরচ।",
+  "@fixedCostsDescription": { "description": "STS settings: fixed costs section description" },
+
+  "noFixedCostsYet": "এখনো কোনো ফিক্সড খরচ যোগ করা হয়নি।",
+  "@noFixedCostsYet": { "description": "STS settings: fixed costs empty state" },
+
+  "addFixedCost": "ফিক্সড খরচ যোগ করুন",
+  "@addFixedCost": { "description": "STS settings: add fixed cost button" },
+
+  "saveFixedCost": "ফিক্সড খরচ সংরক্ষণ করুন",
+  "@saveFixedCost": { "description": "STS settings: save fixed cost button" },
+
+  "editFixedCost": "ফিক্সড খরচ সম্পাদনা করুন",
+  "@editFixedCost": { "description": "STS settings: edit fixed cost sheet title" },
+
+  "notificationPreferences": "নোটিফিকেশন পছন্দসমূহ",
+  "@notificationPreferences": { "description": "STS settings: notification preferences list item" },
+
+  "notifications": "নোটিফিকেশন",
+  "@notifications": { "description": "STS settings: notifications list item" },
+
+  "exportMyData": "আমার ডেটা এক্সপোর্ট করুন",
+  "@exportMyData": { "description": "STS settings: export data list item" },
+
+  "changeHistory": "পরিবর্তনের ইতিহাস",
+  "@changeHistory": { "description": "STS settings: audit log list item" },
+
+  "deleteAllData": "সব ডেটা মুছে ফেলুন",
+  "@deleteAllData": { "description": "STS settings: delete all data list item" }
 }

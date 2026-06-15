@@ -818,7 +818,7 @@ abstract class AppLocalizations {
   /// **'Enter a valid amount'**
   String get enterValidAmount;
 
-  /// Notification center screen title
+  /// STS settings: notifications list item
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
@@ -878,10 +878,10 @@ abstract class AppLocalizations {
   /// **'Older'**
   String get dateGroupOlder;
 
-  /// Cadence sheet title
+  /// STS settings: notification preferences list item
   ///
   /// In en, this message translates to:
-  /// **'Notification Preferences'**
+  /// **'Notification preferences'**
   String get notificationPreferences;
 
   /// Cadence sheet: frequency section label
@@ -925,6 +925,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset onboarding (dev only)'**
   String get devResetOnboarding;
+
+  /// STS settings screen app bar title
+  ///
+  /// In en, this message translates to:
+  /// **'Safe-to-Spend Settings'**
+  String get safeToSpendSettingsTitle;
+
+  /// STS settings: tax rate section label
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Reserve Rate'**
+  String get taxReserveRate;
+
+  /// STS settings: tax rate section description
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated percentage of income to reserve for taxes.'**
+  String get taxReserveRateDescription;
+
+  /// STS settings: buffer section label
+  ///
+  /// In en, this message translates to:
+  /// **'Breathing room'**
+  String get breathingRoom;
+
+  /// STS settings: buffer section description
+  ///
+  /// In en, this message translates to:
+  /// **'Reserve this % of expected income as a buffer'**
+  String get breathingRoomDescription;
+
+  /// STS settings: buffer value subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of expected income'**
+  String breathingRoomPercentOfExpected(String percent);
+
+  /// STS settings: fixed costs section label
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed Costs'**
+  String get fixedCosts;
+
+  /// STS settings: fixed costs section description
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed costs deducted from Safe-to-Spend each month.'**
+  String get fixedCostsDescription;
+
+  /// STS settings: fixed costs empty state
+  ///
+  /// In en, this message translates to:
+  /// **'No fixed costs added yet.'**
+  String get noFixedCostsYet;
+
+  /// STS settings: add fixed cost button
+  ///
+  /// In en, this message translates to:
+  /// **'Add Fixed Cost'**
+  String get addFixedCost;
+
+  /// STS settings: save fixed cost button
+  ///
+  /// In en, this message translates to:
+  /// **'Save Fixed Cost'**
+  String get saveFixedCost;
+
+  /// STS settings: edit fixed cost sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Fixed Cost'**
+  String get editFixedCost;
+
+  /// STS settings: export data list item
+  ///
+  /// In en, this message translates to:
+  /// **'Export my data'**
+  String get exportMyData;
+
+  /// STS settings: audit log list item
+  ///
+  /// In en, this message translates to:
+  /// **'Change history'**
+  String get changeHistory;
+
+  /// STS settings: delete all data list item
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all data'**
+  String get deleteAllData;
 }
 
 class _AppLocalizationsDelegate

@@ -95,7 +95,20 @@ class IncomeNotifier extends StateNotifier<List<IncomeEntryEntity>> {
   ///
   /// If [entity.id] is not found in state, the entry is appended defensively
   /// to keep Hive and in-memory state consistent.
+  ///
+  /// Throws [ArgumentError] if the status transition violates the Helm
+  /// income lifecycle rules (M-9).
   Future<void> updateIncome(IncomeEntryEntity entity) async {
+    final existing = state.cast<IncomeEntryEntity?>().firstWhere(
+          (e) => e?.id == entity.id,
+          orElse: () => null,
+        );
+    if (existing != null &&
+        !IncomeStatus.canTransition(existing.status, entity.status)) {
+      throw ArgumentError(
+        'Invalid status transition: ${existing.status.name} → ${entity.status.name}',
+      );
+    }
     await _repository.updateIncome(entity);
     if (!mounted) return;
     final found = state.any((e) => e.id == entity.id);

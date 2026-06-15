@@ -153,6 +153,9 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                           child: TextFormField(
                             controller: _clientController,
                             maxLength: 100,
+                            inputFormatters: const [
+                              SanitizingTextInputFormatter(),
+                            ],
                             decoration: InputDecoration(
                               labelText: 'Client or source',
                               hintText: 'e.g. Upwork, Client X',

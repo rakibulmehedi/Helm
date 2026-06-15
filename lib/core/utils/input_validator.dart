@@ -4,12 +4,21 @@
 // persisted data. All functions are pure and throw no exceptions unless
 // documented.
 
+import 'package:flutter/services.dart';
+
 /// Maximum monetary amount Helm will accept anywhere in the app.
 /// Chosen to avoid double precision issues and absurd values.
 const double kMaxAmount = 1000000000000.0; // 1 trillion
 
 /// Valid currency codes for Helm.
 const Set<String> kValidCurrencies = {'BDT', 'USD'};
+
+/// Unicode directional override / BiDi characters that can spoof UI order
+/// or inject invisible reordering into CSV exports.
+/// See M-5 / C-9.
+final RegExp _bidiOverridePattern = RegExp(
+  r'[\u202A-\u202E\u2066-\u2069\u200E\u200F]',
+);
 
 /// Reject IDs with anything other than alphanumeric, hyphen, or underscore.
 final RegExp _idPattern = RegExp(r'^[A-Za-z0-9_-]{1,64}$');
@@ -100,13 +109,32 @@ final class InputValidator {
     return parsed;
   }
 
-  /// Removes control characters and trims a string.
+  /// Removes control characters, trims, and strips BiDi override characters.
   static String sanitizeText(String? value, {int maxLength = 1000}) {
     if (value == null) return '';
     var cleaned = value.trim();
     // Strip ASCII control characters except tab/newline, then normalize runs.
-    cleaned = cleaned.replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]'), '');
+    cleaned = cleaned.replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\u001F\u007F]'), '');
+    // Strip RTL / BiDi override characters used in spoofing and CSV injection.
+    cleaned = cleaned.replaceAll(_bidiOverridePattern, '');
     if (cleaned.length > maxLength) cleaned = cleaned.substring(0, maxLength);
     return cleaned;
+  }
+}
+
+/// [TextInputFormatter] that strips BiDi override characters and ASCII control
+/// characters as the user types. Use on free-text fields to prevent UI spoofing
+/// and CSV-injection payloads (M-6).
+class SanitizingTextInputFormatter extends TextInputFormatter {
+  /// Creates a formatter that strips control/BiDi characters.
+  const SanitizingTextInputFormatter();
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final sanitized = InputValidator.sanitizeText(newValue.text);
+    return newValue.copyWith(text: sanitized);
   }
 }

@@ -24,7 +24,25 @@ enum IncomeStatus {
   pending,
 
   /// Money confirmed in hand — liquid and spendable.
-  received,
+  received;
+
+  /// Returns true if [from] may be updated to [to] according to the Helm
+  /// income lifecycle rules.
+  ///
+  /// Allowed transitions:
+  ///   expected → pending
+  ///   expected → received
+  ///   pending  → expected
+  ///   pending  → received
+  /// Forbidden:
+  ///   received → any prior state (terminal status)
+  static bool canTransition(IncomeStatus from, IncomeStatus to) {
+    if (from == to) return true;
+    if (from == IncomeStatus.received) return false;
+    if (from == IncomeStatus.expected) return to != IncomeStatus.expected;
+    if (from == IncomeStatus.pending) return to != IncomeStatus.pending;
+    return false;
+  }
 }
 
 /// A single income pipeline entry tracking a freelancer payment

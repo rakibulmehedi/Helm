@@ -13,6 +13,7 @@ import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
 import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
+import 'package:helm/l10n/app_localizations.dart';
 
 class StsSettingsScreen extends ConsumerWidget {
   const StsSettingsScreen({super.key});
@@ -24,10 +25,12 @@ class StsSettingsScreen extends ConsumerWidget {
     final colors = context.colors;
     final typo = context.textStyles;
 
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('Safe-to-Spend Settings'),
+        title: Text(loc.safeToSpendSettingsTitle),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
       ),
@@ -38,12 +41,12 @@ class StsSettingsScreen extends ConsumerWidget {
           children: [
             // ── Tax Reserve ──────────────────────────────────────────────────
             Text(
-              'Tax Reserve Rate',
+              loc.taxReserveRate,
               style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
-              'Estimated percentage of income to reserve for taxes.',
+              loc.taxReserveRateDescription,
               style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
@@ -97,17 +100,19 @@ class StsSettingsScreen extends ConsumerWidget {
 
             // ── Breathing Room (buffer %) ─────────────────────────────────────
             Text(
-              'Breathing room',
+              loc.breathingRoom,
               style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
-              'Reserve this % of expected income as a buffer',
+              loc.breathingRoomDescription,
               style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 4),
             Text(
-              '${settings.bufferPercent.round()}% of expected income',
+              loc.breathingRoomPercentOfExpected(
+                settings.bufferPercent.round().toString(),
+              ),
               style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
@@ -163,12 +168,12 @@ class StsSettingsScreen extends ConsumerWidget {
 
             // ── Fixed Costs ───────────────────────────────────────────────────
             Text(
-              'Fixed Costs',
+              loc.fixedCosts,
               style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
-              'Fixed costs deducted from Safe-to-Spend each month.',
+              loc.fixedCostsDescription,
               style: typo.bodySm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: 16),
@@ -181,7 +186,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'No fixed costs added yet.',
+                    loc.noFixedCostsYet,
                     style: TextStyle(color: colors.inkSecondary),
                   ),
                 ),
@@ -243,7 +248,7 @@ class StsSettingsScreen extends ConsumerWidget {
               child: OutlinedButton.icon(
                 onPressed: () => _showAddEditFixedCostSheet(context),
                 icon: const Icon(Icons.add),
-                label: const Text('Add Fixed Cost'),
+                label: Text(loc.addFixedCost),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -259,7 +264,7 @@ class StsSettingsScreen extends ConsumerWidget {
             const Divider(),
             ListTile(
               leading: const Icon(Icons.notifications_outlined),
-              title: const Text('Notification preferences'),
+              title: Text(loc.notificationPreferences),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => CadencePreferenceSheet.show(context),
             ),
@@ -274,7 +279,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 ),
                 child: const Icon(Icons.notifications_active_outlined),
               ),
-              title: const Text('Notifications'),
+              title: Text(loc.notifications),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => context.push(RouteNames.notifications),
             ),
@@ -282,7 +287,7 @@ class StsSettingsScreen extends ConsumerWidget {
             // ── Data export ────────────────────────────────────────────────────
             ListTile(
               leading: const Icon(Icons.download_outlined),
-              title: const Text('Export my data'),
+              title: Text(loc.exportMyData),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => context.push(RouteNames.exportData),
             ),
@@ -290,7 +295,7 @@ class StsSettingsScreen extends ConsumerWidget {
             // ── Change history ──────────────────────────────────────────────────
             ListTile(
               leading: const Icon(Icons.history_outlined),
-              title: const Text('Change history'),
+              title: Text(loc.changeHistory),
               trailing: const Icon(Icons.chevron_right),
               onTap: () => context.push(RouteNames.auditLog),
             ),
@@ -303,7 +308,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 color: colors.stateAtRisk,
               ),
               title: Text(
-                'Delete all data',
+                loc.deleteAllData,
                 style: TextStyle(color: colors.stateAtRisk),
               ),
               trailing: Icon(
@@ -378,7 +383,7 @@ class _AddEditFixedCostSheetState
     super.dispose();
   }
 
-  void _save() {
+  Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
 
     final amount = InputValidator.parseAmount(_amountController.text);
@@ -401,11 +406,11 @@ class _AddEditFixedCostSheetState
     );
 
     if (widget.entry == null) {
-      ref.read(fixedCostNotifierProvider.notifier).addFixedCost(newEntry);
+      await ref.read(fixedCostNotifierProvider.notifier).addFixedCost(newEntry);
     } else {
-      ref.read(fixedCostNotifierProvider.notifier).updateFixedCost(newEntry);
+      await ref.read(fixedCostNotifierProvider.notifier).updateFixedCost(newEntry);
     }
-    Navigator.pop(context);
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -426,7 +431,9 @@ class _AddEditFixedCostSheetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.entry == null ? 'Add Fixed Cost' : 'Edit Fixed Cost',
+              widget.entry == null
+                  ? AppLocalizations.of(context)!.addFixedCost
+                  : AppLocalizations.of(context)!.editFixedCost,
               style: typo.headingMd,
             ),
             const SizedBox(height: 16),
@@ -500,7 +507,7 @@ class _AddEditFixedCostSheetState
             SizedBox(
               width: double.infinity,
               child: AppButton(
-                label: 'Save Fixed Cost',
+                label: AppLocalizations.of(context)!.saveFixedCost,
                 onPressed: _save,
               ),
             ),

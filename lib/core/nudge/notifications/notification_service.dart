@@ -88,6 +88,7 @@ class FlutterNotificationService implements NotificationService {
       channelDescription: _androidChannelDesc,
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
+      visibility: NotificationVisibility.secret,
     );
     const iosDetails = DarwinNotificationDetails();
     const details = NotificationDetails(
@@ -131,6 +132,7 @@ class FlutterNotificationService implements NotificationService {
       channelDescription: _androidChannelDesc,
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
+      visibility: NotificationVisibility.secret,
     );
     final iosDetails = DarwinNotificationDetails();
     final details = NotificationDetails(

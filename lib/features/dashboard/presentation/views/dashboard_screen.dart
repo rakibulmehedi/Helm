@@ -24,6 +24,8 @@
 //          calculationBreakdownOpened on onTapTrace.
 
 import 'package:flutter/foundation.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -167,12 +169,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         ).id : null;
 
     final sessionService = ref.read(nudgeSessionServiceProvider);
-    sessionService.evaluateAndLog(
+    unawaited(sessionService.evaluateAndLog(
       overdueCount: overdueCount,
       totalEntries: totalEntries,
       s2sState: s2sState,
       oldestOverdueEntryId: oldestOverdueId,
-    );
+    ));
   }
 
   void _dismissStsHint() {

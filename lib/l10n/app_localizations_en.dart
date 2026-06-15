@@ -426,7 +426,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateGroupOlder => 'Older';
 
   @override
-  String get notificationPreferences => 'Notification Preferences';
+  String get notificationPreferences => 'Notification preferences';
 
   @override
   String get checkInFrequency => 'Check-in Frequency';
@@ -448,4 +448,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get devResetOnboarding => 'Reset onboarding (dev only)';
+
+  @override
+  String get safeToSpendSettingsTitle => 'Safe-to-Spend Settings';
+
+  @override
+  String get taxReserveRate => 'Tax Reserve Rate';
+
+  @override
+  String get taxReserveRateDescription =>
+      'Estimated percentage of income to reserve for taxes.';
+
+  @override
+  String get breathingRoom => 'Breathing room';
+
+  @override
+  String get breathingRoomDescription =>
+      'Reserve this % of expected income as a buffer';
+
+  @override
+  String breathingRoomPercentOfExpected(String percent) {
+    return '$percent% of expected income';
+  }
+
+  @override
+  String get fixedCosts => 'Fixed Costs';
+
+  @override
+  String get fixedCostsDescription =>
+      'Fixed costs deducted from Safe-to-Spend each month.';
+
+  @override
+  String get noFixedCostsYet => 'No fixed costs added yet.';
+
+  @override
+  String get addFixedCost => 'Add Fixed Cost';
+
+  @override
+  String get saveFixedCost => 'Save Fixed Cost';
+
+  @override
+  String get editFixedCost => 'Edit Fixed Cost';
+
+  @override
+  String get exportMyData => 'Export my data';
+
+  @override
+  String get changeHistory => 'Change history';
+
+  @override
+  String get deleteAllData => 'Delete all data';
 }

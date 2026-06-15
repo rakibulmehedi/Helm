@@ -56,6 +56,9 @@ android {
 
             isMinifyEnabled = true
             isShrinkResources = true
+            // In addition to R8/ProGuard, build release APKs with:
+            //   flutter build apk --release --obfuscate --split-debug-info=symbols
+            // This enables Dart code obfuscation (H-31).
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

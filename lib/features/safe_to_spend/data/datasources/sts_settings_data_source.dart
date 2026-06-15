@@ -133,9 +133,15 @@ class StsSettingsDataSourceImpl implements StsSettingsDataSource {
 
     final oldVal = prefs.getDouble(_legacyBufferKey);
     if (oldVal != null) {
-      await prefs.setDouble(_bufferPercentKey, 15.0);
+      // H-11: Preserve the user's legacy value when it is already a valid
+      // percentage. If it looks like an absolute BDT amount (outside 0–100),
+      // keep it in a backup key for support recovery and fall back to the
+      // documented default rather than silently discarding the user's value.
+      final migrated = oldVal >= 0.0 && oldVal <= 100.0 ? oldVal : 15.0;
+      await prefs.setDouble(_bufferPercentKey, migrated);
+      await prefs.setDouble('${_legacyBufferKey}_backup_bdt', oldVal);
       await prefs.remove(_legacyBufferKey);
-      return 15.0;
+      return migrated;
     }
 
     return null;

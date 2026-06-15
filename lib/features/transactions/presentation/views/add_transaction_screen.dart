@@ -234,6 +234,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   controller: _titleController,
                   maxLength: 100,
                   textCapitalization: TextCapitalization.sentences,
+                  inputFormatters: const [
+                    SanitizingTextInputFormatter(),
+                  ],
                   decoration: _inputDecoration(
                     hint: 'e.g. Lunch, Uber, Salary',
                     colors: colors,
@@ -318,6 +321,9 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   maxLength: 500,
                   maxLines: 3,
                   textCapitalization: TextCapitalization.sentences,
+                  inputFormatters: const [
+                    SanitizingTextInputFormatter(),
+                  ],
                   decoration: _inputDecoration(
                     hint: 'Add a note…',
                     colors: colors,

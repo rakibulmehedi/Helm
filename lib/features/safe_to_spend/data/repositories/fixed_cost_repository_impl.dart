@@ -1,5 +1,3 @@
-// lib/features/safe_to_spend/data/repositories/fixed_cost_repository_impl.dart
-
 import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
@@ -11,9 +9,15 @@ import 'package:helm/features/safe_to_spend/domain/repositories/fixed_cost_repos
 
 class FixedCostRepositoryImpl implements FixedCostRepository {
   final FixedCostLocalDataSource _dataSource;
+  final AuditLocalDataSource? _auditDataSource;
 
-  FixedCostRepositoryImpl({required FixedCostLocalDataSource dataSource})
-      : _dataSource = dataSource;
+  FixedCostRepositoryImpl({
+    required FixedCostLocalDataSource dataSource,
+    AuditLocalDataSource? auditDataSource,
+  })  : _dataSource = dataSource,
+        _auditDataSource = auditDataSource;
+
+  AuditLocalDataSource get _audit => _auditDataSource ?? AuditLocalDataSourceImpl();
 
   @override
   Future<List<FixedCostEntry>> getFixedCosts() async {
@@ -23,11 +27,25 @@ class FixedCostRepositoryImpl implements FixedCostRepository {
 
   @override
   Future<void> addFixedCost(FixedCostEntry entry) async {
+    if (!FixedCostEntry.isValidDueDay(entry.dueDayOfMonth)) {
+      throw ArgumentError.value(
+        entry.dueDayOfMonth,
+        'dueDayOfMonth',
+        'Must be between 1 and 28',
+      );
+    }
+    final existing = await _dataSource.getFixedCosts();
+    if (existing.any((m) => m.id == entry.id)) {
+      throw ArgumentError.value(
+        entry.id,
+        'id',
+        'A fixed cost with this id already exists',
+      );
+    }
     final model = FixedCostModel.fromEntity(entry);
     await _dataSource.addFixedCost(model);
     try {
-      final auditDs = AuditLocalDataSourceImpl();
-      await auditDs.addEvent(AuditEvent(
+      await _audit.addEvent(AuditEvent(
         id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.created,
@@ -46,6 +64,13 @@ class FixedCostRepositoryImpl implements FixedCostRepository {
 
   @override
   Future<void> updateFixedCost(FixedCostEntry entry) async {
+    if (!FixedCostEntry.isValidDueDay(entry.dueDayOfMonth)) {
+      throw ArgumentError.value(
+        entry.dueDayOfMonth,
+        'dueDayOfMonth',
+        'Must be between 1 and 28',
+      );
+    }
     final previous = (await _dataSource.getFixedCosts())
         .cast<FixedCostModel?>()
         .firstWhere(
@@ -55,8 +80,7 @@ class FixedCostRepositoryImpl implements FixedCostRepository {
     final model = FixedCostModel.fromEntity(entry);
     await _dataSource.updateFixedCost(model);
     try {
-      final auditDs = AuditLocalDataSourceImpl();
-      await auditDs.addEvent(AuditEvent(
+      await _audit.addEvent(AuditEvent(
         id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.updated,
@@ -83,8 +107,7 @@ class FixedCostRepositoryImpl implements FixedCostRepository {
         );
     await _dataSource.deleteFixedCost(id);
     try {
-      final auditDs = AuditLocalDataSourceImpl();
-      await auditDs.addEvent(AuditEvent(
+      await _audit.addEvent(AuditEvent(
         id: IdGenerator.uniqueId(),
         timestamp: DateTime.now(),
         eventType: AuditEventType.deleted,

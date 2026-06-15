@@ -176,15 +176,17 @@ class ExportService {
 
   String _pad(int n) => n.toString().padLeft(2, '0');
 
-  /// Neutralizes CSV formula-injection payloads and strips control characters.
-  /// Values beginning with spreadsheet formula characters (=, @, +, -, tab,
-  /// carriage return) are prefixed with a single quote so Excel/Sheets treat
-  /// them as text. This is applied before the RFC 4180 escaping so quoted
-  /// fields remain safe.
+  /// Neutralizes CSV formula-injection payloads and strips control / BiDi
+  /// characters. Values beginning with spreadsheet formula characters
+  /// (=, @, +, -, tab, carriage return) are prefixed with a single quote so
+  /// Excel/Sheets treat them as text. This is applied before the RFC 4180
+  /// escaping so quoted fields remain safe.
   static String _sanitizeCellStatic(String v) {
     if (v.isEmpty) return v;
     // Strip control characters except newline (handled by quoting below).
     var cleaned = v.replaceAll(RegExp(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]'), '');
+    // Strip RTL / BiDi override characters (M-5).
+    cleaned = cleaned.replaceAll(RegExp(r'[\u202A-\u202E\u2066-\u2069\u200E\u200F]'), '');
     if (cleaned.isEmpty) return cleaned;
     final first = cleaned.codeUnitAt(0);
     const formulaChars = {'=', '@', '+', '-', 0x09, 0x0D}; // tab, CR

@@ -418,5 +418,61 @@
   "@dashboard": { "description": "Dashboard nav label" },
 
   "devResetOnboarding": "Reset onboarding (dev only)",
-  "@devResetOnboarding": { "description": "Dev-only reset tooltip on dashboard" }
+  "@devResetOnboarding": { "description": "Dev-only reset tooltip on dashboard" },
+
+  "safeToSpendSettingsTitle": "Safe-to-Spend Settings",
+  "@safeToSpendSettingsTitle": { "description": "STS settings screen app bar title" },
+
+  "taxReserveRate": "Tax Reserve Rate",
+  "@taxReserveRate": { "description": "STS settings: tax rate section label" },
+
+  "taxReserveRateDescription": "Estimated percentage of income to reserve for taxes.",
+  "@taxReserveRateDescription": { "description": "STS settings: tax rate section description" },
+
+  "breathingRoom": "Breathing room",
+  "@breathingRoom": { "description": "STS settings: buffer section label" },
+
+  "breathingRoomDescription": "Reserve this % of expected income as a buffer",
+  "@breathingRoomDescription": { "description": "STS settings: buffer section description" },
+
+  "breathingRoomPercentOfExpected": "{percent}% of expected income",
+  "@breathingRoomPercentOfExpected": {
+    "description": "STS settings: buffer value subtitle",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "fixedCosts": "Fixed Costs",
+  "@fixedCosts": { "description": "STS settings: fixed costs section label" },
+
+  "fixedCostsDescription": "Fixed costs deducted from Safe-to-Spend each month.",
+  "@fixedCostsDescription": { "description": "STS settings: fixed costs section description" },
+
+  "noFixedCostsYet": "No fixed costs added yet.",
+  "@noFixedCostsYet": { "description": "STS settings: fixed costs empty state" },
+
+  "addFixedCost": "Add Fixed Cost",
+  "@addFixedCost": { "description": "STS settings: add fixed cost button" },
+
+  "saveFixedCost": "Save Fixed Cost",
+  "@saveFixedCost": { "description": "STS settings: save fixed cost button" },
+
+  "editFixedCost": "Edit Fixed Cost",
+  "@editFixedCost": { "description": "STS settings: edit fixed cost sheet title" },
+
+  "notificationPreferences": "Notification preferences",
+  "@notificationPreferences": { "description": "STS settings: notification preferences list item" },
+
+  "notifications": "Notifications",
+  "@notifications": { "description": "STS settings: notifications list item" },
+
+  "exportMyData": "Export my data",
+  "@exportMyData": { "description": "STS settings: export data list item" },
+
+  "changeHistory": "Change history",
+  "@changeHistory": { "description": "STS settings: audit log list item" },
+
+  "deleteAllData": "Delete all data",
+  "@deleteAllData": { "description": "STS settings: delete all data list item" }
 }

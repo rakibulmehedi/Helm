@@ -143,9 +143,9 @@ final GoRouter appRouter = GoRouter(
       name: 'magicLink',
       builder: (context, state) {
         return MagicLinkScreen(
-          onAuthenticated: () {
-            SharedPrefServices.setMagicLinkAuthCompleted(true);
-            context.go(RouteNames.home);
+          onAuthenticated: () async {
+            await SharedPrefServices.setMagicLinkAuthCompleted(true);
+            if (context.mounted) context.go(RouteNames.home);
           },
         );
       },

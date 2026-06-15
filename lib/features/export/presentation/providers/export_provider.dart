@@ -14,6 +14,8 @@ class ExportNotifier extends StateNotifier<ExportStatus> {
   ExportResult? lastResult;
 
   Future<void> export() async {
+    // Guard against double-submit / concurrent exports (M-10).
+    if (state == ExportStatus.exporting) return;
     state = ExportStatus.exporting;
     final result = await ExportService().exportAll();
     if (!mounted) return;

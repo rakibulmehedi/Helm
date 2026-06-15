@@ -77,6 +77,8 @@ class SharedPrefServices {
   static const String _incomePatternKey = 'income_pattern';
 
   static const String _sessionCountKey = 'session_count';
+  static const String _trackingStreakKey = 'tracking_streak';
+  static const String _lastActiveDateKey = 'last_active_date';
 
   static Future<void> setLiquidBalanceBdt(double amount) async {
     await _instance.setDouble(_liquidBalanceBdtKey, amount);
@@ -104,6 +106,47 @@ class SharedPrefServices {
     // strictly atomic under concurrent access.
     final current = _instance.getInt(_sessionCountKey) ?? 0;
     await _instance.setInt(_sessionCountKey, current + 1);
+  }
+
+  /// Returns the current consecutive-day tracking streak.
+  static int getTrackingStreak() {
+    return _instance.getInt(_trackingStreakKey) ?? 0;
+  }
+
+  /// Updates the consecutive-day tracking streak based on the last active date.
+  /// Returns the new streak value.
+  static Future<int> incrementTrackingStreak() async {
+    final today = DateTime.now();
+    final todayStr = today.toIso8601String().substring(0, 10);
+    final lastActiveStr = _instance.getString(_lastActiveDateKey) ?? '';
+
+    final currentStreak = _instance.getInt(_trackingStreakKey) ?? 0;
+    int newStreak;
+    if (lastActiveStr.isEmpty) {
+      newStreak = 1;
+    } else {
+      final lastDate = DateTime.tryParse(lastActiveStr);
+      if (lastDate == null) {
+        newStreak = 1;
+      } else if (_isSameDay(lastDate, today)) {
+        newStreak = currentStreak;
+      } else if (_isSameDay(
+        lastDate.add(const Duration(days: 1)),
+        today,
+      )) {
+        newStreak = currentStreak + 1;
+      } else {
+        newStreak = 1;
+      }
+    }
+
+    await _instance.setInt(_trackingStreakKey, newStreak);
+    await _instance.setString(_lastActiveDateKey, todayStr);
+    return newStreak;
+  }
+
+  static bool _isSameDay(DateTime a, DateTime b) {
+    return a.year == b.year && a.month == b.month && a.day == b.day;
   }
 
   static Future<void> setEventFired(String eventKey) async {

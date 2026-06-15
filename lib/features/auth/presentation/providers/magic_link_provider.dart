@@ -6,6 +6,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/datasources/used_magic_link_token_store.dart';
 import 'package:helm/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:helm/features/auth/domain/entities/session_entity.dart';
 import 'package:helm/features/auth/domain/repositories/auth_repository.dart';
@@ -13,7 +14,9 @@ import 'package:helm/features/auth/domain/repositories/auth_repository.dart';
 // ── Repository provider (singleton) ────────────────────────────────────────
 
 final _authRemoteDataSourceProvider = Provider<AuthRemoteDataSource>((ref) {
-  return AuthRemoteDataSource();
+  return AuthRemoteDataSource(
+    usedTokenStore: HiveUsedMagicLinkTokenStore(),
+  );
 });
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {

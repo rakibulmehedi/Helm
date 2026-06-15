@@ -13,14 +13,21 @@ class FixedCostEntry {
   final int dueDayOfMonth;
   final DateTime createdAt;
 
-  const FixedCostEntry({
+  FixedCostEntry({
     required this.id,
     required this.label,
     required this.amount,
     required this.dueDayOfMonth,
     required this.createdAt,
-  }) : assert(dueDayOfMonth >= 1 && dueDayOfMonth <= 28,
-            'dueDayOfMonth must be between 1 and 28');
+  }) {
+    if (dueDayOfMonth < 1 || dueDayOfMonth > 28) {
+      throw ArgumentError.value(
+        dueDayOfMonth,
+        'dueDayOfMonth',
+        'Must be between 1 and 28',
+      );
+    }
+  }
 
   /// Runtime validation. [assert] is stripped in release builds, so callers
   /// must validate before constructing or persisting.

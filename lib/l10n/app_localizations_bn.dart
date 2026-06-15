@@ -425,7 +425,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get dateGroupOlder => 'আগের';
 
   @override
-  String get notificationPreferences => 'নোটিফিকেশন পছন্দ';
+  String get notificationPreferences => 'নোটিফিকেশন পছন্দসমূহ';
 
   @override
   String get checkInFrequency => 'চেক-ইন ফ্রিকোয়েন্সি';
@@ -447,4 +447,54 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get devResetOnboarding => 'অনবোর্ডিং রিসেট করুন (শুধু ডেভ)';
+
+  @override
+  String get safeToSpendSettingsTitle => 'নিরাপদ ব্যয়সীমা সেটিংস';
+
+  @override
+  String get taxReserveRate => 'ট্যাক্স রিজার্ভের হার';
+
+  @override
+  String get taxReserveRateDescription =>
+      'আয়ের কত শতাংশ ট্যাক্সের জন্য রাখবেন তার অনুমান।';
+
+  @override
+  String get breathingRoom => 'নিরাপদ মার্জিন';
+
+  @override
+  String get breathingRoomDescription =>
+      'আশা করা আয়ের এই শতাংশ নিরাপদ মার্জিন হিসেবে রাখুন';
+
+  @override
+  String breathingRoomPercentOfExpected(String percent) {
+    return 'আশা করা আয়ের $percent%';
+  }
+
+  @override
+  String get fixedCosts => 'ফিক্সড খরচ';
+
+  @override
+  String get fixedCostsDescription =>
+      'প্রতি মাসে নিরাপদ ব্যয়সীমা থেকে কাটা ফিক্সড খরচ।';
+
+  @override
+  String get noFixedCostsYet => 'এখনো কোনো ফিক্সড খরচ যোগ করা হয়নি।';
+
+  @override
+  String get addFixedCost => 'ফিক্সড খরচ যোগ করুন';
+
+  @override
+  String get saveFixedCost => 'ফিক্সড খরচ সংরক্ষণ করুন';
+
+  @override
+  String get editFixedCost => 'ফিক্সড খরচ সম্পাদনা করুন';
+
+  @override
+  String get exportMyData => 'আমার ডেটা এক্সপোর্ট করুন';
+
+  @override
+  String get changeHistory => 'পরিবর্তনের ইতিহাস';
+
+  @override
+  String get deleteAllData => 'সব ডেটা মুছে ফেলুন';
 }

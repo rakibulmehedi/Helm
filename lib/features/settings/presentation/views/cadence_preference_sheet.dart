@@ -50,6 +50,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
       context: context,
       initialTime: _checkInTime,
     );
+    if (!mounted) return;
     if (picked != null) {
       setState(() => _checkInTime = picked);
     }

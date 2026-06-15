@@ -3,6 +3,8 @@
 // All Riverpod providers for the Nudge System (Phase 3).
 // Includes NudgeSessionService provider and notification providers.
 
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/domain/nudge_event_logger.dart';
@@ -103,25 +105,19 @@ class NudgeListNotifier extends StateNotifier<List<NudgeLogEntryEntity>> {
   }
 
   /// Mark a nudge as read by [id].
-  void markRead(String id) {
-    _repository.markRead(id);
-    state = [
-      for (final e in state)
-        if (e.id == id) e.copyWith(readAt: DateTime.now()) else e,
-    ];
+  Future<void> markRead(String id) async {
+    await _repository.markRead(id);
+    if (!mounted) return;
+    // Rebuild state from the repository so a deleted entry is not re-inserted.
+    state = _repository.getAll();
   }
 
   /// Mark a nudge as actioned by [id].
-  void markActioned(String id) {
-    _repository.markActioned(id);
-    final now = DateTime.now();
-    state = [
-      for (final e in state)
-        if (e.id == id)
-          e.copyWith(readAt: now, actionedAt: now)
-        else
-          e,
-    ];
+  Future<void> markActioned(String id) async {
+    await _repository.markActioned(id);
+    if (!mounted) return;
+    // Rebuild state from the repository so a deleted entry is not re-inserted.
+    state = _repository.getAll();
   }
 
   /// Delete a nudge entry by [id].
@@ -158,12 +154,12 @@ class NudgeSessionService {
         _analytics = analytics;
 
   /// Run evaluation and log any resulting nudge decision.
-  NudgeDecision? evaluateAndLog({
+  Future<NudgeDecision?> evaluateAndLog({
     required int overdueCount,
     required int totalEntries,
     required String s2sState,
     required String? oldestOverdueEntryId,
-  }) {
+  }) async {
     // Compute days since last session from SharedPrefs
     final lastDate = InputValidator.parseDateTime(
       SharedPrefServices.getLastSessionDate(),
@@ -172,8 +168,8 @@ class NudgeSessionService {
         ? DateTime.now().difference(lastDate).inDays
         : 0;
 
-    // Tracking streak: session count as proxy
-    final trackingStreak = SharedPrefServices.getSessionCount();
+    // Tracking streak: true consecutive-day streak (H-18).
+    final trackingStreak = await SharedPrefServices.incrementTrackingStreak();
 
     // Map S2S state string to enum
     final s2sEnum = switch (s2sState) {
