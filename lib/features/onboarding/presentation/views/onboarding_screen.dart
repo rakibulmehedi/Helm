@@ -13,7 +13,6 @@
 // UX Improvements:
 //   - Uses HelmMotion tokens for page transitions
 //   - Semantics for screen reader support
-//   - Proper skip button label for accessibility
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +23,6 @@ import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
-import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
 import 'package:helm/features/onboarding/presentation/views/pages/buffer_comfort_page.dart';
@@ -77,17 +75,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         properties: {EventProperties.stepNumber: step.toString()},
       );
     }
-  }
-
-  /// Global skip — persists partial draft data, navigates to home.
-  Future<void> _skipToHome() async {
-    await SharedPrefServices.setLiquidBalanceBdt(_draft.liquidBalanceBdt);
-    if (_draft.incomePattern.name.isNotEmpty) {
-      await SharedPrefServices.setIncomePattern(_draft.incomePattern.name);
-    }
-    await SharedPrefServices.setOnboardingCompleted(true);
-    ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
-    if (mounted) context.go(RouteNames.home);
   }
 
   /// Creates a pipeline entry from onboarding step 6, then completes.
@@ -165,7 +152,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final typo = context.textStyles;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -178,22 +164,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               children: [
                 OnboardingProgressLine(
                   progress: _kStepProgress[_currentStep],
-                ),
-                Positioned(
-                  top: 8,
-                  right: HelmSpacing.screenEdge,
-                  child: Semantics(
-                    label: 'Skip onboarding setup, save progress and go to home',
-                    button: true,
-                    child: TextButton(
-                      key: const Key('onboarding_skip'),
-                      onPressed: _skipToHome,
-                      child: Text(
-                        'Set up later',
-                        style: typo.labelMd.copyWith(color: colors.interactive),
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
