@@ -151,6 +151,10 @@ final GoRouter appRouter = GoRouter(
             await SharedPrefServices.setMagicLinkAuthCompleted(true);
             if (context.mounted) context.go(RouteNames.home);
           },
+          onGuest: () async {
+            await SharedPrefServices.setMagicLinkAuthCompleted(true);
+            if (context.mounted) context.go(RouteNames.home);
+          },
         );
       },
     ),

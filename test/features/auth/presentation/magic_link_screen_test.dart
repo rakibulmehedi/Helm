@@ -29,12 +29,13 @@ void main() {
   });
 
   group('MagicLinkScreen — email step', () {
-    Widget buildTestWidget({VoidCallback? onAuthenticated}) {
+    Widget buildTestWidget({VoidCallback? onAuthenticated, VoidCallback? onGuest}) {
       return ProviderScope(
         child: MaterialApp(
           theme: AppTheme.light,
           home: MagicLinkScreen(
             onAuthenticated: onAuthenticated ?? () {},
+            onGuest: onGuest ?? () {},
           ),
         ),
       );

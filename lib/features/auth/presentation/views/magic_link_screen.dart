@@ -18,8 +18,13 @@ enum _MagicLinkStep { emailInput, verifying }
 
 class MagicLinkScreen extends ConsumerStatefulWidget {
   final VoidCallback onAuthenticated;
+  final VoidCallback onGuest;
 
-  const MagicLinkScreen({super.key, required this.onAuthenticated});
+  const MagicLinkScreen({
+    super.key,
+    required this.onAuthenticated,
+    required this.onGuest,
+  });
 
   @override
   ConsumerState<MagicLinkScreen> createState() => _MagicLinkScreenState();
@@ -168,6 +173,12 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
           const SizedBox(height: HelmSpacing.s3),
           Text(_error, style: typo.labelSm.copyWith(color: colors.stateAtRisk), textAlign: TextAlign.center),
         ],
+        const SizedBox(height: HelmSpacing.s4),
+        AppButton(
+          label: 'Use as Guest',
+          onPressed: widget.onGuest,
+          type: AppButtonType.outline,
+        ),
       ],
     );
   }
