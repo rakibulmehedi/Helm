@@ -594,3 +594,18 @@ Reason:
 Mock-first auth architecture allows real backend swap (URL change only) without architecture changes. Legal L1-L7 still pending before real backend.
 
 Stats: 210 total tests (+48), dart analyze 0/0/0, MPI feature completion 100%. See git history.
+
+---
+
+## Decision 036 — Helm Signal Deck Visual Direction Approved
+
+Date: 2026-06-16
+
+Decision:
+Adopt **Helm Signal Deck**, a Spatial Editorialism design direction combining restrained spatial translucence, editorial hierarchy, and tactile interaction feedback. The approved composition uses a dominant Signal Hero, signature Signal Horizon, one-action Decision Deck, and `Signal / Flow / Trace` navigation model.
+
+Reason:
+Existing card and ledger layouts were judged insufficiently futuristic and structurally too close to generic finance dashboards. Signal Deck creates a premium, ownable decision-instrument identity while preserving Helm's trust, calm, and low-cognitive-load product contracts.
+
+Constraints:
+Visual redesign must not change business logic, trust model, persistence, routing, or state management. No new package may be added without Chief Architect approval. See `docs/superpowers/specs/2026-06-16-helm-signal-deck-design.md`.

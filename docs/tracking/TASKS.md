@@ -13,6 +13,13 @@
 
 *Sprint S1 code-evidence mapping complete (2026-06-14) — 43/97 tasks verified done in source/tests, 54/97 remain pending. See §Recently Completed for S1-W4 record and §Implementation Sequence for wave-by-wave status.*
 
+### Approved Design Awaiting Implementation Plan
+
+- [x] Approve Helm Signal Deck mobile UI/UX architecture proposal.
+- [x] Write canonical design spec: `docs/superpowers/specs/2026-06-16-helm-signal-deck-design.md`.
+- [ ] Review and approve written Signal Deck spec before implementation planning.
+- [ ] Create phased Signal Deck implementation plan after written-spec approval.
+
 > Note: Dispatch file `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` is referenced but does not exist. Use `docs/tracking/S1_CODEBASE_TASK_MAPPING.md` for the code-evidence-based status of each S1 task.
 
 ## Active Focus (Top 5 Criticals — Immediate)
