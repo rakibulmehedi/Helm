@@ -32,16 +32,18 @@ enum IncomeStatus {
   /// Allowed transitions:
   ///   expected → pending
   ///   expected → received
-  ///   pending  → expected
   ///   pending  → received
   /// Forbidden:
+  ///   pending  → expected
   ///   received → any prior state (terminal status)
   static bool canTransition(IncomeStatus from, IncomeStatus to) {
     if (from == to) return true;
-    if (from == IncomeStatus.received) return false;
-    if (from == IncomeStatus.expected) return to != IncomeStatus.expected;
-    if (from == IncomeStatus.pending) return to != IncomeStatus.pending;
-    return false;
+    const allowed = <IncomeStatus, Set<IncomeStatus>>{
+      IncomeStatus.expected: {IncomeStatus.pending, IncomeStatus.received},
+      IncomeStatus.pending: {IncomeStatus.received},
+      IncomeStatus.received: <IncomeStatus>{},
+    };
+    return allowed[from]?.contains(to) ?? false;
   }
 }
 

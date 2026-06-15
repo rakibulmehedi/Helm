@@ -74,10 +74,10 @@ void main() {
       );
     });
 
-    test('pending → expected is allowed', () {
+    test('pending → expected is forbidden', () {
       expect(
-        IncomeStatus.canTransition(IncomeStatus.expected, IncomeStatus.pending),
-        isTrue,
+        IncomeStatus.canTransition(IncomeStatus.pending, IncomeStatus.expected),
+        isFalse,
       );
     });
 
