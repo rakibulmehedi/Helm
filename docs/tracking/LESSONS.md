@@ -6,63 +6,13 @@ This file captures engineering, product, UX, and agentic workflow lessons.
 
 ## Adversarial Audit Methodology Lessons (2026-06-14)
 
-### 40. Parallel adversarial agents produce exponentially more findings than sequential audits
-Running 12 specialized attack agents simultaneously across auth, storage, input, state, navigation, exfiltration, business logic, UI/UX, race conditions, platform, dependencies, and code quality produced 97 findings in a single execution cycle. A sequential single-agent audit would have found ~15-20% of these. The cross-domain connections (e.g., "PIN gate fail-open" and "no encryption at rest" combining to form the "rooted device full compromise" chain) only surface when all agents report and findings are synthesized.
-
-### 41. Every agent needs exact file paths and line numbers in their system prompt
-Generic prompts ("audit auth") produce generic findings. The adversarial prompt for each agent specified exact files, exact method names, and exact attack vectors ("try `max(0.0, NaN)`", "check if `assert` is stripped in release mode"). This precision is what turned 12 agents into 97 evidence-cited findings — not generic observations.
-
-### 42. Adversarial mindset requires "guilty until proven innocent" framing
-Agents were instructed: "Assume every line of code is vulnerable. The app is guilty until proven innocent. Default position for every input, every state transition, every storage operation = VULNERABLE." This produced findings that normal code review (which assumes "this was written correctly") would miss.
-
-### 43. Code quality IS security — empty catch blocks are exploit vectors
-4 empty `catch(_){}` blocks in `delete_account_screen.dart` would be flagged by lint rules as code smells. But the adversarial audit revealed their true severity: silent account deletion failures = permanent data leak if users think data is wiped. Code quality issues in financial apps are not code quality issues — they are security vulnerabilities.
-
-### 44. The "fail-open" anti-pattern is the single most dangerous architecture decision
-The PIN gate checking `if (Hive.isBoxOpen(AppBoxNames.authBox))` fails open — if the box isn't open, auth is skipped entirely. Fail-open on security-critical paths is catastrophically wrong. Every auth guard, every validation, every integrity check must FAIL CLOSED. If you can't verify, you deny.
-
-### 45. Assert-based validation is production-grade malware in Flutter/Dart
-Dart `assert()` statements are stripped in release builds. Using `assert()` for business validation (taxRate range, bufferPercent range, dueDayOfMonth bounds) means these validations simply don't exist in the APK users download. This is not a code quality issue — it's a silent data corruption vector that only manifests at scale.
-
-### 46. Local-first financial apps need defense-in-depth, not defense-at-gate
-Helm's auth is a single gate (Magic Link → PIN → Home). Once through, everything is accessible. No session timeout, no PIN on resume, no screen-level auth. Financial apps need layered security: auth gate + session management + data protection + platform hardening + export controls. Every missing layer compounds the risk of the others.
-
-### 47. Export functions are hidden attack surfaces
-CSV injection via formula characters (`=`, `@`, `+`, `-`) in free-text fields is a classic OWASP vector. Helm's `_escapeCsv()` handles commas, quotes, and newlines perfectly — but completely ignores formula injection. Any user-entered text that reaches a CSV file must be sanitized for spreadsheet formula execution.
-
-### 48. Microcopy, localization, and accessibility are security surfaces
-Missing screen reader labels (5+ locations), WCAG AA contrast failures (`inkTertiary` at 3.7:1), Bangla transliterations masquerading as translations, and ~180 hardcoded English strings bypassing the localization system are not "polish" — they exclude users, erode trust, and create confusion that attackers can exploit.
-
-### 49. Documentation-as-operating-memory works: 97 findings tracked across 6 docs
-Within a single session, the adversarial audit report was converted into: DECISION_LOG.md (Decision 035), TASKS.md (97 ordered tasks across 7 waves), PROJECT_STATE.md (updated readiness + security debt), CURRENT_SPRINT.md (S1 as active sprint + wave plan), ROADMAP.md (milestone + gate), LESSONS.md (this file). The documentation system absorbed the audit and converted findings into executable tasks without losing traceability.
+**L40-49 summary:** Parallel adversarial agents (12 specialists, "guilty until proven innocent" framing, exact file:line prompts) produced 97 findings vs ~15-20% from sequential audit. Key sub-lessons: fail-open = catastrophic; assert() = stripped in release = silent corruption; empty catch = exploit vector; CSV injection = hidden attack surface; accessibility = security surface. See DECISION_LOG.md Decision 028-030 and `.commandcode/adversarial_audit_report.md`.
 
 ---
 
 ## Audit Synthesis Lessons (2026-06-12)
 
-### 11. Behavioral Audit + UI/UX Audit — Nudge delivery is the single biggest gap
-Helm has sophisticated in-app psychology (loss aversion, anchoring, safety framing = 85/100) but zero out-of-app engagement infrastructure. Cadence & personalization scored 15/100, nudge delivery 20/100. The user must remember to open the app — the app never reaches out. Rule: in-app psychology without out-of-app delivery = great engine with no transmission.
-
-### 12. Behavioral Audit + UI/UX Audit — Haptics are behavioral infrastructure, not polish
-The UI/UX audit flagged zero haptic feedback as CRITICAL. The behavioral audit maps this to Fogg's "Ability" signal — haptics confirm micro-actions without cognitive load. Every tap, confirm, delete, and error should have haptic. This is table-stakes for fintech apps, not a "nice to have."
-
-### 13. Behavioral Audit — Celebration tension has a middle ground
-ONB-014 deliberately bans confetti and congratulations. But the behavioral audit gives Celebration & Reinforcement 10/100. The resolution is "Quiet Affirmation" — acknowledgment without gamification. "7 days tracked" in the trust strip is factual, not celebratory. Relief signals (pipeline up to date = green rail) are rewards without fanfare.
-
-### 14. Behavioral Audit — Dashboard must be a coach, not a mirror
-The current dashboard is passive: it displays state but doesn't guide action. A user with 3 overdue entries sees the same dashboard as a user with 0. The nudge engine's core rule — "Show the 1 most critical item, not all 50" — directly applies to the pipeline list and dashboard. The "next best action" card is the single highest-impact behavioral change.
-
-### 15. Agent Design — Keep agent definitions general-purpose, not codebase-hardcoded
-Per taste preference: agent definition files should be reusable lenses, not project-specific scripts. The behavioral nudge engine was briefly overwritten with Helm-specific Flutter/Dart code and brand voice constraints — then restored. The correct pattern: apply the agent as a lens to produce project-specific deliverables (in docs/), but leave the agent definition general-purpose.
-
-### 16. Audit Workflow — Cross-referencing audits through agent lenses amplifies findings
-Running both audits (Behavioral 62/100, UI/UX 78/100) through 7 agent lenses (Nudge Engine, UX Researcher, UI Designer, UX Architect, Whimsy Injector, Persona Walkthrough, Brand Guardian) revealed connections neither audit caught alone. The UI/UX audit's "CRITICAL haptics" and the behavioral audit's "Fogg Ability signal" are the same gap seen from different angles. Synthesis produces a merged priority matrix that neither individual audit could produce.
-
-### 17. Planning — Comprehensive plans need explicit score projections and gates
-The master plan includes per-phase score projections with measurement criteria. Beta gates (5 thresholds, 2+ misses = KILL) are mandatory before V1. V2 gates (V1 stable + invoice pre-validation + legal L5 + pricing validation) are mandatory before Phase 6. Without explicit gates, scope drift is inevitable.
-
-### 18. Documentation — Audits must produce deliverables, not just findings
-Both audits ended with prioritized action lists. The nudge engine produced 10 concrete deliverables (event wiring plan, nudge sequence design, nudge copy library, preference discovery flow, quiet affirmation system, dashboard card spec, notification center UI, effectiveness tracking, haptic plan, implementation priority). Every audit should end with "what do we build next?" not just "what did we find?"
+**L11-18 summary:** Behavioral score 62→90, UI/UX 78→93 via parallel agents (see Decisions 028-030). Key: haptics = behavioral infrastructure not polish; quiet affirmation resolves celebration-ban tension; dashboard must coach not mirror; cross-referencing audits through agent lenses reveals connections neither finds alone; comprehensive plans need explicit score gates (beta: 5 thresholds, 2+ misses = KILL).
 
 ---
 
@@ -272,68 +222,17 @@ Phase 7 acceptance checklist had status transition items unchecked. TASKS.md sai
 ## Phase 7f Lessons (2026-05-23)
 
 ### 1. Moving a Hive adapter out of the domain is a surgical one-file change
-When `@HiveType` annotations live in the domain layer, the fix is: (a) strip the annotation and `part` directive from the domain enum, (b) create a manual TypeAdapter in `data/adapters/`, (c) delete the stale `.g.dart`, (d) update `HiveService` import. Zero stored data changes, zero typeId changes. The entire operation is safe and reversible.
-
-### 2. All generated adapters must have a matching manual fallback strategy documented
-If build_runner ever fails, manual adapters in `data/adapters/` serve as a safe fallback. The key rule: preserve typeId and byte-index assignments exactly. Changing either causes irreversible data corruption.
-
-### 3. Domain purity is testability — not just architecture theory
-A pure Dart domain layer can be tested without Flutter, without Hive, without any platform setup. This is the real payoff. A domain that imports Hive forces all tests to mock storage infrastructure before testing business logic.
-
-### 4. Repository interface type defines the domain boundary contract
-If `TransactionRepository` accepts `TransactionModel`, every caller in the presentation layer must know about Hive models. Changing the interface to accept `TransactionEntity` ripples through exactly the right files — presentation and domain — without touching the data layer internals.
+Strip `@HiveType` + `part` from domain enum → create manual TypeAdapter in `data/adapters/` → delete stale `.g.dart` → update `HiveService` import. Zero stored data changes, zero typeId changes. Safe and reversible.
 
 ---
 
 ## Phase 8a Lessons (2026-05-23)
 
 ### 1. Formula work is product work — it deserves its own phase
-The Safe-to-Spend formula has ten edge cases, two separate formulas (primary vs horizon), and a
-full liquidity taxonomy. Jumping into implementation without locking the contract would have
-produced a calculator that handles some edge cases and silently ignores others. Phase 8a treated
-formula design as a first-class deliverable — the result is a deterministic, auditable contract
-that Phase 8b can implement without guessing.
-
-### 2. A "data contract phase" prevents implementation drift
-Naming a phase "Formula & Data Contract" (rather than "research" or "planning") gives it
-artifact authority: the spec is the law, not a suggestion. Phase 8b implementers have a locked
-formula, named edge cases, a typed value object contract, and an acceptance checklist — zero
-ambiguity.
-
-### 3. The tax reserve base is gross income, not net liquid cash
-A subtlety that could have silently produced wrong numbers: tax is owed on income earned, not on
-income-minus-expenses. If a freelancer earns ৳100,000 and spends ৳60,000, their taxable income
-is ৳100,000 — not ৳40,000. The formula correctly applies `tax_rate × received_income`, not
-`tax_rate × liquid_cash`. This distinction only surfaces when you spell out every term explicitly.
-
-### 4. Two income systems coexist — the calculator must not conflate them
-Phase 8 introduces a critical accounting distinction: `TransactionEntity` with
-`type == TransactionType.income` (the old Phase 1–6 transaction system) and `IncomeEntryEntity`
-with `status == received` (the Phase 7 income pipeline) are SEPARATE. A careless calculator
-implementation could double-count income by summing both. The contract explicitly states: only
-`IncomeEntryEntity` with `status == received` AND `currency == 'BDT'` feeds the liquid cash
-calculation. Old income transactions are not counted.
-
-### 5. Clamping negative to zero is a UX decision, not a math decision — preserve the raw value
-The formula can produce a negative Safe-to-Spend result (e.g., fixed costs + buffer exceed liquid
-cash). The UI must never show a bare negative number — it must show ৳0 with calming contextual
-copy. But the raw negative value must be stored in `SafeToSpendResult.rawSafeToSpend` so the
-breakdown can be mathematically accurate. This distinction — display value vs computed value —
-must be encoded in the value object, not hacked in the UI widget.
-
-### 6. The dueDayOfMonth range of 1–28 prevents month-length bugs
-Days 29, 30, 31 do not exist in all months. A fixed cost "due on day 31" would silently never
-trigger in February, April, June, September, November. Constraining the input to 1–28 prevents
-this class of bug entirely in the MVP. Advanced recurrence logic (end-of-month, last business day,
-etc.) is a future enhancement — not a Phase 8 concern.
+The S2S formula has 10 edge cases, 2 formulas (primary vs horizon), and a full liquidity taxonomy. A "data contract phase" gives artifact authority: spec is law, not suggestion. Phase 8b had a locked formula, named edge cases, typed value object contract, and acceptance checklist.
 
 ### 7. TypeId assignment must be documented as a global registry
-Hive typeIds are global to the app — not scoped to a feature. Two features accidentally using the
-same typeId will cause runtime corruption with no useful error. The rule: maintain a registry.
-Phase 8 uses typeId: 3 for `FixedCostModel`. Document this in the spec and check the acceptance
-checklist. Future features must consult this registry before assigning a new typeId.
-
-### 8. Hive typeIds are global architecture state and require a registry.
+Hive typeIds are global to the app — not scoped per feature. Two features sharing a typeId = runtime corruption, no useful error. See `docs/architecture/HIVE_TYPEID_REGISTRY.md`. All new models must consult it before assigning.
 
 ---
 

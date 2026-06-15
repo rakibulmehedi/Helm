@@ -13,9 +13,7 @@
 
 ## Global TDD Mandate
 
-```
 RED: Write failing test → GREEN: Minimal implementation → REFACTOR: Clean architecture guard
-```
 
 **Test file convention:** `test/features/<feature>/<layer>/<file>_test.dart` mirrors `lib/` structure.
 
@@ -31,7 +29,7 @@ RED: Write failing test → GREEN: Minimal implementation → REFACTOR: Clean ar
 
 ## GROUP 5A — Multi-Wallet System (P5.1–P5.6)
 
-**Files touched (new feature):**
+**New files:**
 - `lib/features/wallets/domain/entities/wallet_entity.dart`
 - `lib/features/wallets/domain/repositories/wallet_repository.dart`
 - `lib/features/wallets/data/models/wallet_model.dart` (Hive TypeAdapter)
@@ -40,35 +38,17 @@ RED: Write failing test → GREEN: Minimal implementation → REFACTOR: Clean ar
 - `lib/features/wallets/presentation/views/add_wallet_screen.dart`
 - `lib/features/wallets/presentation/providers/wallet_providers.dart`
 
-### TDD Approach
+### Test Files
 
-```dart
-// test/features/wallets/domain/wallet_entity_test.dart
-test('WalletEntity: Payoneer preset type, USD currency', () {
-  final wallet = WalletEntity(
-    id: 'w1',
-    name: 'Payoneer',
-    type: WalletType.payoneer,
-    currency: 'USD',
-    balance: 1200.0,
-  );
-  expect(wallet.type, equals(WalletType.payoneer));
-  expect(wallet.currency, equals('USD'));
-});
+- `test/features/wallets/domain/wallet_entity_test.dart` — WalletType enum, currency, balance fields
+- `test/features/wallets/domain/wallet_repository_test.dart` — abstract contract
+- `test/features/wallets/data/wallet_repository_impl_test.dart` — Hive CRUD
+- `test/features/wallets/presentation/wallet_list_screen_test.dart` — shows wallets, add button
+- `test/features/wallets/presentation/transfer_test.dart` — deducts source, adds target, audit-logged
 
-// test/features/wallets/domain/wallet_repository_test.dart (abstract contract)
-// test/features/wallets/data/wallet_repository_impl_test.dart (Hive CRUD)
+// see implementation
 
-// test/features/wallets/presentation/wallet_list_screen_test.dart
-testWidgets('shows all wallets with balance', (tester) async { ... });
-testWidgets('add wallet button opens form', (tester) async { ... });
-
-// test/features/wallets/presentation/transfer_test.dart
-testWidgets('intra-wallet transfer deducts from source, adds to target', (tester) async { ... });
-testWidgets('transfer is audit-logged but never moves real money', (tester) async { ... });
-```
-
-### Clean Architecture
+### Clean Architecture Layout
 ```
 features/wallets/
 ├── domain/
@@ -84,7 +64,7 @@ features/wallets/
     └── views/                         # Screens + widgets
 ```
 
-### S2S Calculator Update
+### S2S Formula After Multi-Wallet
 ```
 S2S = aggregateBalance.allWallets
     − taxReserve(aggregateBalance)
@@ -105,32 +85,24 @@ S2S = aggregateBalance.allWallets
 
 ### State Colors (P5.7–P5.8)
 
-```dart
-// test/features/dashboard/presentation/s2s_state_colors_test.dart
-testWidgets('Safe state shows green tint on hero background', (tester) async { ... });
-testWidgets('Tight state shows amber tint', (tester) async { ... });
-testWidgets('At Risk state shows red tint', (tester) async { ... });
-```
+**Test file:** `test/features/dashboard/presentation/s2s_state_colors_test.dart`
+- Safe state → green tint on hero background
+- Tight state → amber tint
+- At Risk state → red tint
 
-```dart
-// Implementation
-Color _heroTint(SafeToSpendResult r, HelmColors colors) {
-  if (r.safeToSpend > 0) return colors.stateSafe.withValues(alpha: 0.08);
-  if (r.safeToSpend > -r.anxietyBuffer) return colors.stateTight.withValues(alpha: 0.08);
-  return colors.stateAtRisk.withValues(alpha: 0.08);
-}
-```
+// see implementation
+
+State logic: `safeToSpend > 0 → Safe`, `rawSafeToSpend > -buffer → Tight`, `<= -buffer → AtRisk`.
+Tint applied via `withValues(alpha: 0.08)` — subtle, not garish.
 
 ### Duplicate Last Entry (P5.9)
 
-```dart
-// On pipeline screen: "Quick add — same as last" button
-// Copies client name, amount, currency from most recent entry
-// Opens AddIncomeScreen pre-filled
-```
+"Quick add — same as last" button on pipeline screen. Copies client name, amount, currency from most recent entry. Opens `AddIncomeScreen` pre-filled.
+
+// see implementation
 
 ### Exit Gate
-- [ ] State colors visible on S2S hero background (subtle tint, not garish)
+- [ ] State colors visible on S2S hero background
 - [ ] "Duplicate last entry" works for retainer freelancers
 - [ ] 3+ new visual tests pass
 
@@ -138,33 +110,32 @@ Color _heroTint(SafeToSpendResult r, HelmColors colors) {
 
 ## GROUP 5C — Polish (P5.10–P5.13)
 
-**Whimsy Injector designs empty/error state copy per screen.**
-**UI Designer specs skeleton screen layout.**
+**Whimsy Injector designs empty/error state copy per screen. UI Designer specs skeleton layout.**
 
 ### Empty States (P5.10)
-Pipeline empty: "No expected payments yet. Your Safe-to-Spend shows money you have right now."
-Income list empty: — handled by onboarding.
-Transaction list: routed away from dashboard, not prominent.
+
+- Pipeline empty: `"No expected payments yet. Your Safe-to-Spend shows money you have right now."`
+- Income list: handled by onboarding
 
 ### Error States (P5.11)
-Branded error UI (HelmCautionCard or HelmAuditCard), not default Flutter red screen.
-Consistent pattern: "Hmm, we couldn't load [thing]. [Action button]"
+
+Pattern: `"Hmm, we couldn't load [thing]. [Action button]"` using HelmCautionCard/HelmAuditCard — not default Flutter red screen.
 
 ### Skeleton Screens (P5.12)
-```dart
-// test/core/widgets/helm_skeleton_test.dart
-testWidgets('skeleton card shows shimmer animation', (tester) async { ... });
-testWidgets('skeleton respects disableAnimations', (tester) async { ... });
-```
+
+**Test file:** `test/core/widgets/helm_skeleton_test.dart`
+- shimmer animation renders
+- respects `disableAnimations`
 
 Skeleton screens for: pipeline list, income list (if exposed), wallet list.
 
+// see implementation
+
 ### USD Conversion Sanity (P5.13)
-```dart
-// If user enters USD amount with manual conversion rate:
-// If rate > 1.2× 90-day avg OR rate < 0.8× 90-day avg:
-// Show warning: "This rate is significantly different from recent entries. Double-check?"
-```
+
+If manual conversion rate > 1.2× or < 0.8× 90-day average: show warning `"This rate is significantly different from recent entries. Double-check?"`
+
+// see implementation
 
 ### Exit Gate
 - [ ] All empty states have friendly copy
@@ -187,7 +158,7 @@ Skeleton screens for: pipeline list, income list (if exposed), wallet list.
 [ ] dart analyze 0/0/0
 ```
 
-## Score projection after Phase 5
+## Score Projection After Phase 5
 
 | Dimension | Before | After | Delta |
 |---|---|---|---|

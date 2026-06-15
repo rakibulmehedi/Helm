@@ -2,24 +2,6 @@
 
 > Mandatory completion protocol for all AI agents when wrapping up a session or task.
 
-## Documentation Operating Purpose
-
-**Core principle: Documentation is not archive. Documentation is the active operating memory of the product.**
-
-Every agent must use docs to:
-1. Understand product identity
-2. Verify current sprint
-3. Prevent scope creep
-4. Preserve architecture decisions
-5. Avoid repeating past mistakes
-6. Convert research into product decisions
-7. Convert specs into implementation boundaries
-8. Update state after every meaningful change
-
-> **WARNING:** If documentation is not updated after changes, the Agentic OS becomes stale and future agents will make bad decisions.
-
----
-
 ## 1. Analyzer Verification
 - Run `dart analyze lib/`.
 - Target must be: 0 errors, 0 warnings, 0 infos.

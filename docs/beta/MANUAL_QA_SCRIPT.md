@@ -1,8 +1,6 @@
 # Manual QA Script
 
-> Step-by-step manual QA procedures for Helm closed beta.
-> Reference device: Samsung Galaxy A14 (or equivalent mid-range Android)
-> Network: Test on both WiFi and 3G/4G (app is offline-first, but verify no network-dependent crashes)
+> Reference device: Samsung Galaxy A14 (Android mid-range). Offline-first — test WiFi and 3G/4G.
 
 ---
 

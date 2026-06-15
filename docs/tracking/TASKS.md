@@ -38,10 +38,10 @@
 ## HIGH — Fix Before Next Release (35 tasks)
 
 ### Domain: Auth (AUTH_CRACKER)
-- [ ] **H-1** `setMagicLinkAuthCompleted` not awaited → redirect loop race [M-1, `app_router.dart:137-139`]
+- [x] **H-1** `setMagicLinkAuthCompleted` not awaited → redirect loop race [M-1, `app_router.dart:137-139`]
 - [x] **H-2** Fix 4-digit PIN → 6-digits minimum for financial app [V-8, `pin_setup_screen.dart:26`, `pin_entry_screen.dart:27`]
 - [x] **H-3** Email regex allows double dots, special chars — tighten validation [V-10, `auth_repository_impl.dart:72-74`]
-- [ ] **H-4** `_usedTokens` in-memory → persist or accept limitation [V-11, `auth_remote_data_source.dart:14`]
+- [x] **H-4** `_usedTokens` in-memory → persist or accept limitation [V-11, `auth_remote_data_source.dart:14`]
 - [x] **H-5** `logout()` doesn't clear Magic Link session/SharedPrefs flag [V-12, `auth_provider.dart:83-89`]
 - [x] **H-6** Rate limit global per-instance → make per-email [V-13, `auth_remote_data_source.dart:21-23`]
 
@@ -135,8 +135,8 @@
 - [x] **M-18** No amount upper-bound → MAX_DOUBLE cascades to Infinity [V-2, §2]
 
 ### Domain: Race Conditions
-- [ ] **M-19** `verifyMagicLink` token reuse — dual concurrent calls both pass [§1, `auth_remote_data_source.dart:48-52`]
-- [ ] **M-20** `sendMagicLink` rate limit TOCTOU bypass [§1, `auth_remote_data_source.dart:24-29`]
+- [x] **M-19** `verifyMagicLink` token reuse — dual concurrent calls both pass [§1, `auth_remote_data_source.dart:48-52`]
+- [x] **M-20** `sendMagicLink` rate limit TOCTOU bypass [§1, `auth_remote_data_source.dart:24-29`]
 - [ ] **M-21** `markRead`/`markActioned` zombie entry — deleted entry re-inserted [§1, `nudge_data_source.dart:68-98`]
 - [ ] **M-22** `ExportNotifier` missing double-submit guard [§2, `export_provider.dart:16`]
 - [x] **M-23** `saveSettings`/`getSettings` torn reads/writes [§3, `sts_settings_repository_impl.dart:17-26`]
@@ -260,35 +260,6 @@ See `docs/planning/TDD_DISPATCH_PHASE_5_V1_FEATURES.md`
 
 See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 
-## Parallel Agent Dispatch — 3-Wave Insane Practice Hunt
-
-> Reference: `docs/planning/PARALLEL_AGENT_DISPATCH_PLAN.md` (Decision 029)
-
-### Wave 1 — 6 Agents (zero deps, can run NOW parallel with A5)
-
-- [ ] W1-DISPATCH-1 Behavioral Nudge Engine → `docs/audits/nudge-engine/DEAD_DASHBOARD_FINDINGS.md`
-- [ ] W1-DISPATCH-2 UX Researcher → `docs/audits/ux-researcher/ASSUMPTION_DRIVEN_DESIGN_FINDINGS.md`
-- [ ] W1-DISPATCH-3 UI Designer → `docs/audits/ui-designer/VISUALLY_HOSTILE_FINDINGS.md`
-- [ ] W1-DISPATCH-4 Whimsy Injector → `docs/audits/whimsy-injector/PERSONALITY_VOID_FINDINGS.md`
-- [ ] W1-DISPATCH-5 Brand Guardian → `docs/audits/brand-guardian/BRAND_SCHIZOPHRENIA_FINDINGS.md`
-- [ ] W1-DISPATCH-6 UX Architect → `docs/audits/ux-architect/ARCHITECTURAL_VIOLENCE_FINDINGS.md`
-
-### Wave 2 — 2 Agents (depends on Wave 1 + persona profile)
-
-- [ ] W2-DISPATCH-7 Persona Walkthrough (Rafiq) → `docs/audits/persona-walkthrough/RAFIQ_JOURNEY_FINDINGS.md`
-- [ ] W2-DISPATCH-8 Visual Storyteller → `docs/audits/visual-storyteller/NARRATIVE_VOID_FINDINGS.md`
-
-### Wave 3 — 2 Agents (deferred to Phase 5 exit)
-
-- [ ] W3-DISPATCH-9 Inclusive Visuals Specialist → App Store screenshot prompts
-- [ ] W3-DISPATCH-10 Image Prompt Engineer → App Store feature graphic prompts
-
-### Integration Tasks
-
-- [ ] INT-1 Merge all 8 Wave 1+2 findings into master plan priority reordering
-- [ ] INT-2 Inject new tasks discovered into relevant master plan phases
-- [ ] INT-3 Recalibrate behavioral + UI/UX scores based on actual findings
-- [ ] INT-4 Update `docs/governance/ANTI_PATTERNS.md` with new architectural violence patterns
 
 ## Completed UX Canon Sprints (16 sprints, 2026-05-22 to 2026-06-07)
 
@@ -438,80 +409,4 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 
 ## Done
 
-## D3: Closed Beta Readiness — COMPLETED [2026-06-06]
-
-### Completed
-- [x] D3.01: Fix PIN deletion confirmation hash mismatch (base64 → SHA-256 PinHasher.verify)
-- [x] D3.02: Create CLOSED_BETA_READINESS_CHECKLIST.md (46 checks, 37 PASS)
-- [x] D3.03: Create MANUAL_QA_SCRIPT.md (13 QA sections)
-- [x] D3.04: Create BETA_VALIDATION_PROTOCOL.md (4-week protocol, 5 metrics)
-- [x] D3.05: Create TESTER_ONBOARDING_SCRIPT.md (WhatsApp templates)
-- [x] D3.06: Create FOUNDER_OBSERVATION_SHEET.md (signal categories)
-- [x] D3.07: Create GO_NO_GO_CRITERIA.md (decision framework)
-- [x] D3.08: Create KNOWN_LIMITATIONS.md (17 limitations, 0 blockers)
-
----
-
-## D2: Beta Instrumentation — COMPLETED [2026-06-06]
-
-### Completed
-- [x] D2.01: AnalyticsService abstract + LocalAnalyticsService
-- [x] D2.02: event_registry.dart (15 event constants)
-- [x] D2.03: Dashboard instrumentation (stsViewed, dailyActiveSession, breakdownOpened)
-- [x] D2.04: Income pipeline instrumentation (pipelineEntryCreated)
-- [x] D2.05: Confirm-received instrumentation (pipelineConfirmed, undoConfirmUsed)
-- [x] D2.06: PIN/export/deletion instrumentation
-
----
-
-## UX-5: Visual Identity / Design System Foundation — COMPLETED [2026-06-05]
-
-### Completed
-- [x] UX-5.01: helm_colors.dart — ThemeExtension, 13 tokens, light+dark
-- [x] UX-5.02: helm_typography.dart — Inter/JetBrains Mono/Hind Siliguri, 18 styles
-- [x] UX-5.03: helm_spacing.dart — 8pt grid tokens + component dimensions
-- [x] UX-5.04: helm_motion.dart — timing tokens, ease-out only
-- [x] UX-5.05: app_theme.dart rebuilt — new tokens, legacy API preserved
-- [x] UX-5.06: HelmAmount widget — mono font, BDT/USD, lakh/crore
-- [x] UX-5.07: HelmLedgerRail widget — state rail with label
-- [x] UX-5.08: HelmTrustStrip widget — timestamp/source/audit strip
-- [x] UX-5.09: HelmToast widget — financial-safe snackbar
-- [x] UX-5.10: 5 card widgets — HeroZone, LedgerCard, AuditCard, SourceCard, CautionCard
-- [x] UX-5.11: number_formatter.dart — BDT lakh/crore, USD Western
-- [x] UX-5.12: dart analyze 0/0/0 verified
-
----
-
-- [x] UX Canon Extraction & Implementation Planning Sprint (2026-06-05)
-  - 10 source docs processed, 12 extracted docs, 1 canonical spec, 3 planning docs, 81 tasks defined
-- [x] Phase 0: Foundation
-- [x] Phase 1: Transaction data layer
-- [x] Phase 2: Add transaction UI
-- [x] Phase 3: Dashboard summary/list
-- [x] Phase 3.5: Stabilization & UX polish
-- [x] Phase 4: Filtering/date grouping
-- [x] Phase 5: Edit transaction
-- [x] Phase 6: UX hardening
-- [x] Agentic Engineering OS documentation
-- [x] Research-to-spec refinement (2026-05-22)
-- [x] Phase 7 spec finalized (2026-05-22)
-- [x] Income Pipeline MVP spec created (2026-05-22)
-- [x] Safe-to-Spend Model spec created — hypothesis stage (2026-05-22)
-- [x] Virtual Wallets spec created — future phase (2026-05-22)
-- [x] Subscription Leakage Radar spec created — Phase 9 candidate (2026-05-22)
-- [x] Phase 7a — Income Data Layer (2026-05-22)
-- [x] Phase 7b — Income Entry UI (2026-05-22)
-- [x] Phase 7c — Income List & Filtering (2026-05-22)
-- [x] Phase 7d — Dashboard Integration (2026-05-22)
-- [x] Phase 7e — Status Transitions & UX Hardening (2026-05-22)
-- [x] Phase 7f — Storage Abstraction & Domain Cleanup (2026-05-23)
-- [x] Phase 8a — Formula & Data Contract: formula locked, 10 ECs defined, data contract finalized (2026-05-23)
-- [x] Phase 8b — Calculation Engine: pure Dart logic, models, Hive data layer, providers, tests (2026-05-23)
-- [x] Phase 8c — Settings Screen: tax rate slider, anxiety buffer input, fixed costs CRUD (2026-05-23)
-- [x] Phase 8d — Dashboard Hero Number: `SafeToSpendHeroCard`, breakdown on tap, Horizon Number (2026-05-23)
-- [x] Phase 8e — UX Hardening: rawSafeToSpend state detection fix, slider assertion fix, buffer validation, deduction color polish, USD exclusion row, reserve-mode breakdown note (2026-05-23)
-- [x] Phase 8f — Real Device QA + Validation Prep: QA checklist, scenario matrix, founder validation script, user interview questions, validation metrics (2026-05-23)
-- [x] Pre-Flight Deep QA Validation Sprint: Adversarial audit, bug fixes for Dashboard Income mismatch, and AddTransaction strict expense enforcement (2026-05-23)
-- [x] Phase 9a — Cognitive Persona Simulation QA (2026-05-23)
-- [x] Phase 9b — Hypothesis-Based Validation Sprint (2026-05-23)
-- [x] Phase 1 — Behavioral Foundation (2026-06-13): 7 groups, 26 new tests, 15 files changed
+> Completed sprint archive removed. See `docs/tracking/CURRENT_SPRINT.md` for full sprint history records.

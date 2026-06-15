@@ -5,34 +5,6 @@
 
 ---
 
-## Documentation Operating Purpose
-
-**Core principle: Documentation is not archive. Documentation is the active operating memory of the product.**
-
-Every agent must use docs to:
-1. Understand product identity
-2. Verify current sprint
-3. Prevent scope creep
-4. Preserve architecture decisions
-5. Avoid repeating past mistakes
-6. Convert research into product decisions
-7. Convert specs into implementation boundaries
-8. Update state after every meaningful change
-
-### Documentation Usage Rules
-1. No implementation may begin until relevant docs are read.
-2. Every feature must reference a spec or create one first.
-3. Every major architectural/product decision must update `docs/tracking/DECISION_LOG.md`.
-4. Every important mistake or discovery must update `docs/tracking/LESSONS.md`.
-5. Every completed task must update `docs/tracking/TASKS.md` or `docs/tracking/CURRENT_SPRINT.md`.
-6. Research docs must influence specs, not sit unused.
-7. Specs must influence implementation, not sit unused.
-8. `docs/core/ROADMAP.md` must reflect major direction changes.
-9. `docs/tracking/PROJECT_STATE.md` must be updated when stable/frozen systems change.
-10. Agents must explicitly report which docs they used.
-
----
-
 ## Pre-Flight Checklist
 
 Before implementing **any** feature, every agent must:
@@ -109,30 +81,10 @@ List of new files with purpose.
 ## 3. Files Modified
 List of modified files with description of changes.
 
-## 4. Data Flow
-How data moves through the new/changed code.
-
-## 5. State Flow
-How state is managed (providers, notifiers).
-
-## 6. UX Impact
-What the user sees differently.
-
-## 7. Analyzer Result
+## 4. Analyzer Result
 Output of dart analyze.
 
-## 8. Documentation Used
-- List docs read
-- Explain how docs influenced the implementation
-
-## 9. Documentation Updated
-- List docs updated
-- Explain why
-
-## 10. Documentation Gaps Found
-- Mention missing/outdated docs if found
-
-## 11. Suggested Git Commit Message
+## 5. Suggested Git Commit Message
 Ready-to-use commit message.
 ```
 
