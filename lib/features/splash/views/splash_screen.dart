@@ -18,6 +18,8 @@ import 'package:go_router/go_router.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/security/root_check.dart';
 import 'package:helm/core/security/root_check_provider.dart';
+import 'package:helm/core/security/signature_verifier.dart';
+import 'package:helm/core/security/signature_verifier_provider.dart';
 import 'package:helm/core/security/views/compromised_device_screen.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -61,6 +63,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     if (!mounted) return;
 
     if (result == RootCheckResult.compromised) {
+      setState(() => _isCompromised = true);
+      return;
+    }
+
+    // Verify APK signature integrity — block if the APK has been repackaged.
+    final signatureResult =
+        await ref.read(signatureVerifierProvider.future);
+
+    if (!mounted) return;
+
+    if (signatureResult == SignatureVerificationResult.tampered) {
       setState(() => _isCompromised = true);
       return;
     }

@@ -1,5 +1,7 @@
 package co.helm.finance
 
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.view.WindowManager
@@ -7,10 +9,12 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.io.File
+import java.security.MessageDigest
 
 class MainActivity : FlutterActivity() {
     companion object {
         private const val BACKUP_CHANNEL = "co.helm.finance/backup"
+        private const val SIGNATURE_CHANNEL = "co.helm.finance/signature"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +28,8 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+
+        // Backup channel (existing)
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
             BACKUP_CHANNEL,
@@ -39,6 +45,19 @@ class MainActivity : FlutterActivity() {
                 else -> result.notImplemented()
             }
         }
+
+        // Signature verification channel (anti-tamper)
+        MethodChannel(
+            flutterEngine.dartExecutor.binaryMessenger,
+            SIGNATURE_CHANNEL,
+        ).setMethodCallHandler { call, result ->
+            when (call.method) {
+                "getApkSignatureHash" -> {
+                    result.success(getSignatureHash())
+                }
+                else -> result.notImplemented()
+            }
+        }
     }
 
     private fun excludeFromBackup(path: String) {
@@ -48,7 +67,7 @@ class MainActivity : FlutterActivity() {
             file.setReadable(true)
         }
         // Android 11+ (API 30): use the StorageManager exclusion flag.
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getSystemService(android.content.Context.STORAGE_SERVICE)
                 ?.let { it as? android.os.storage.StorageManager }
                 ?.let { storageManager ->
@@ -63,12 +82,47 @@ class MainActivity : FlutterActivity() {
         // Block Android M+ (API 23) automated backup for this directory by writing
         // the no-backup marker used by BackupAgent. This is a defense-in-depth
         // measure alongside AndroidManifest allowBackup="false".
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             try {
                 File(file, ".nomedia").createNewFile()
             } catch (e: Exception) {
                 android.util.Log.w("Helm", "Failed to write .nomedia marker", e)
             }
+        }
+    }
+
+    /**
+     * Returns the SHA-256 hex digest of the APK signing certificate.
+     * If the APK is re-signed with a different keystore, the hash will change.
+     */
+    private fun getSignatureHash(): String? {
+        return try {
+            val pm = packageManager
+            val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                pm.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            } else {
+                @Suppress("DEPRECATION")
+                pm.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            } ?: return null
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val signatures = packageInfo.signingInfo ?: return null
+                val certs = if (signatures.hasMultipleSigners()) {
+                    signatures.signingCertificateHistory
+                } else {
+                    signatures.apkContentsSigners
+                } ?: return null
+                val digest = MessageDigest.getInstance("SHA-256").digest(certs[0].toByteArray())
+                digest.joinToString("") { "%02x".format(it) }
+            } else {
+                @Suppress("DEPRECATION")
+                val sig = packageInfo.signatures?.get(0) ?: return null
+                val digest = MessageDigest.getInstance("SHA-256").digest(sig.toByteArray())
+                digest.joinToString("") { "%02x".format(it) }
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("Helm", "Signature hash retrieval failed", e)
+            null
         }
     }
 }

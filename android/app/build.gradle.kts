@@ -35,6 +35,11 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        // Only bundle native code for arm64 (modern devices 2015+).
+        ndk {
+            abiFilters.addAll(listOf("arm64-v8a"))
+        }
     }
 
     signingConfigs {
@@ -57,8 +62,8 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             // In addition to R8/ProGuard, build release APKs with:
-            //   flutter build apk --release --obfuscate --split-debug-info=symbols
-            // This enables Dart code obfuscation (H-31).
+            //   flutter build apk --release --obfuscate --split-debug-info=symbols --tree-shake-icons
+            // This enables Dart code obfuscation (H-31) and strips unused Material icons.
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",

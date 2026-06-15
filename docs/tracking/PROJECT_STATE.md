@@ -25,9 +25,10 @@
 - notification system (June 2026: Phase 3 complete — push notifications via flutter_local_notifications, nudge evaluator engine, Hive log persistence, notification center UI with badge, effectiveness tracking, dashboard session loop)
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
 - beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Helm", splash #FAFAF6, iOS display name "Helm", 96 Bangla ARB keys authored)
+- branded app icon (June 2026: VISR-029 ledger-rail + BDT mark, deep teal/warm-white master source, Android adaptive + Android/iOS/macOS/web raster sets)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 - **security hardening S1-W5 complete** (June 2026: Waves 4-6 continuation — state-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening; `dart analyze` 0 issues, 282 tests pass)
-- **S1 task mapping** (June 2026: 68/97 adversarial-audit tasks verified done in source/tests; 29 pending, with highest remaining risks documented in `docs/tracking/TASKS.md`)
+- **release APK optimized** (June 2026: APK shrunk 57→20.8MB via `--tree-shake-icons` + arm64-only target; APK signature verification added; SSL pinning infrastructure created; KGP deprecation warning acknowledged as unfixable without Flutter SDK upgrade; `dart analyze` 0 warnings/errors, build clean)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -48,7 +49,7 @@
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
 - A5.3 ⏳ — blocked on A5.2
 - A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33)
-- A5.5 ✅ — splash #FAFAF6, iOS name "Helm"; icons still default (needs designer)
+- A5.5 ✅ — splash #FAFAF6, iOS name "Helm", branded app icons installed across Android/iOS/macOS/web
 - Core S2S engine + dashboard + pipeline: production-grade
 - **Security posture**: HIGH — at-rest Hive encryption enabled, root/jailbreak detection wired, PIN KDF hardened, input sanitized, audit log tamper-evident, export CSV sanitized; remaining work is platform signing/obfuscation and release build verification
 - Distance to closed beta: Security hardening completion + A5 APK build + device test

@@ -5,4 +5,19 @@
             <certificates src="system"/>
         </trust-anchors>
     </base-config>
+
+    <!--
+    TODO: Add pin-set for backend host(s) when deployed.
+    Example:
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">api.helmbd.com</domain>
+        <pin-set expiration="2027-12-31">
+            <pin digest="SHA-256">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</pin>
+            <pin digest="SHA-256">BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=</pin>
+        </pin-set>
+        <trust-anchors>
+            <certificates src="system"/>
+        </trust-anchors>
+    </domain-config>
+    -->
 </network-security-config>
