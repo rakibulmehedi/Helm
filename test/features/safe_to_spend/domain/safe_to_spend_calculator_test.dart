@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
+import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/sts_settings.dart';
 import 'package:helm/features/safe_to_spend/domain/safe_to_spend_calculator.dart';
 import 'package:helm/features/transactions/domain/entities/transaction_entity.dart';
@@ -710,6 +711,64 @@ void main() {
       expect(result.liquidCash, 15600.0);
       expect(result.safeToSpend, 15600.0);
       expect(result.excludedUsdIncome, 0.0); // i3 skipped before exclusion tracking
+    });
+
+    test('M-7: lowercase currency codes are counted', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 10000, currency: 'bdt', status: IncomeStatus.received),
+          createIncome(id: 'i2', amount: 100, currency: 'usd', status: IncomeStatus.received, fxRate: 95.0),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 19500.0); // 10000 + 9500
+      expect(result.excludedUsdIncome, 0.0);
+    });
+
+    test('M-8: USD income is excluded when fxRate is zero', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 100, currency: 'USD', status: IncomeStatus.received, fxRate: 0.0),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.excludedUsdIncome, 100.0);
+      expect(result.excludedUsdEntryCount, 1);
+    });
+
+    test('M-8: USD income is excluded when fxRate is negative', () {
+      final result = SafeToSpendCalculator.calculate(
+        incomeEntries: [
+          createIncome(id: 'i1', amount: 100, currency: 'USD', status: IncomeStatus.received, fxRate: -1.0),
+        ],
+        transactions: [],
+        settings: const StsSettings(taxRate: 0.0, bufferPercent: 0.0),
+        fixedCosts: [],
+        now: now,
+      );
+
+      expect(result.totalReceivedIncomeBdt, 0.0);
+      expect(result.excludedUsdIncome, 100.0);
+      expect(result.excludedUsdEntryCount, 1);
+    });
+  });
+
+  group('SafeToSpendResult.failure', () {
+    test('failure result carries error and zero numeric fields', () {
+      final result = SafeToSpendResult.failure('OverflowError');
+      expect(result.error, 'OverflowError');
+      expect(result.safeToSpend, 0.0);
+      expect(result.rawSafeToSpend, 0.0);
+      expect(result.liquidCash, 0.0);
     });
   });
 }

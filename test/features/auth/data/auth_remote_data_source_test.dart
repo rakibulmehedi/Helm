@@ -2,6 +2,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/features/auth/data/datasources/auth_remote_data_source.dart';
+import 'package:helm/features/auth/data/datasources/used_magic_link_token_store.dart';
 
 void main() {
   group('AuthRemoteDataSource — sendMagicLink', () {
@@ -114,6 +115,62 @@ void main() {
       final ds = AuthRemoteDataSource();
       final token = ds.getIssuedTokenForEmail('no_email@example.com');
       expect(token, isNull);
+    });
+  });
+
+  group('AuthRemoteDataSource — token single-use across instances', () {
+    late AuthRemoteDataSource ds;
+
+    setUp(() {
+      ds = AuthRemoteDataSource(
+        usedTokenStore: InMemoryUsedMagicLinkTokenStore(),
+      );
+    });
+
+    test('second verify from new data source returns null after first use',
+        () async {
+      await ds.sendMagicLink('freelancer@example.com');
+      final token = ds.getIssuedTokenForEmail('freelancer@example.com')!;
+
+      final first = await ds.verifyMagicLink(token);
+      expect(first, isNotNull);
+
+      final ds2 = AuthRemoteDataSource(
+        usedTokenStore: ds.usedTokenStore,
+      );
+      final second = await ds2.verifyMagicLink(token);
+      expect(second, isNull);
+    });
+  });
+
+  group('AuthRemoteDataSource — concurrent calls', () {
+    test('concurrent verifyMagicLink for same token returns only one session',
+        () async {
+      final ds = AuthRemoteDataSource(
+        usedTokenStore: InMemoryUsedMagicLinkTokenStore(),
+      );
+      await ds.sendMagicLink('freelancer@example.com');
+      final token = ds.getIssuedTokenForEmail('freelancer@example.com')!;
+
+      final results = await Future.wait([
+        ds.verifyMagicLink(token),
+        ds.verifyMagicLink(token),
+      ]);
+
+      final successful = results.where((r) => r != null).length;
+      expect(successful, 1);
+    });
+
+    test('concurrent sendMagicLink for same email is rate limited',
+        () async {
+      final ds = AuthRemoteDataSource();
+      final results = await Future.wait([
+        ds.sendMagicLink('freelancer@example.com'),
+        ds.sendMagicLink('freelancer@example.com'),
+      ]);
+
+      expect(results.where((r) => r).length, 1);
+      expect(results.where((r) => !r).length, 1);
     });
   });
 }
