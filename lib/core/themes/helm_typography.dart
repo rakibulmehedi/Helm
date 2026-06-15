@@ -7,9 +7,9 @@
 //   - Financial numerals: JetBrains Mono
 //   - UI text (Latin): Inter
 //   - Bangla text: Hind Siliguri
+//   - All fonts are bundled as assets — no runtime downloads.
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'helm_colors.dart';
 
@@ -68,61 +68,71 @@ class HelmTypography extends ThemeExtension<HelmTypography> {
 
     return HelmTypography(
       // --- Latin UI (Inter) ---
-      displayHero: GoogleFonts.inter(
+      displayHero: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 64,
         fontWeight: FontWeight.w600,
         height: 1.05,
         color: ink,
       ),
-      displayLarge: GoogleFonts.inter(
+      displayLarge: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 40,
         fontWeight: FontWeight.w600,
         height: 1.10,
         color: ink,
       ),
-      headingLg: GoogleFonts.inter(
+      headingLg: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 22,
         fontWeight: FontWeight.w600,
         height: 1.25,
         color: ink,
       ),
-      headingMd: GoogleFonts.inter(
+      headingMd: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 18,
         fontWeight: FontWeight.w600,
         height: 1.30,
         color: ink,
       ),
-      headingSm: GoogleFonts.inter(
+      headingSm: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.35,
         color: ink,
       ),
-      bodyLg: GoogleFonts.inter(
+      bodyLg: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 16,
         fontWeight: FontWeight.w400,
         height: 1.50,
         color: ink,
       ),
-      bodyMd: GoogleFonts.inter(
+      bodyMd: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 14,
         fontWeight: FontWeight.w400,
         height: 1.50,
         color: ink,
       ),
-      bodySm: GoogleFonts.inter(
+      bodySm: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 13,
         fontWeight: FontWeight.w400,
         height: 1.45,
         color: ink,
       ),
-      labelMd: GoogleFonts.inter(
+      labelMd: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.30,
         color: ink,
       ),
-      labelSm: GoogleFonts.inter(
+      labelSm: TextStyle(
+        fontFamily: 'Inter',
         fontSize: 11,
         fontWeight: FontWeight.w500,
         height: 1.25,
@@ -130,25 +140,29 @@ class HelmTypography extends ThemeExtension<HelmTypography> {
       ),
 
       // --- Monospace financial (JetBrains Mono) ---
-      monoFinancialSm: GoogleFonts.jetBrainsMono(
+      monoFinancialSm: TextStyle(
+        fontFamily: 'JetBrainsMono',
         fontSize: 16,
         fontWeight: FontWeight.w500,
         height: 1.40,
         color: ink,
       ),
-      monoFinancialMd: GoogleFonts.jetBrainsMono(
+      monoFinancialMd: TextStyle(
+        fontFamily: 'JetBrainsMono',
         fontSize: 24,
         fontWeight: FontWeight.w500,
         height: 1.30,
         color: ink,
       ),
-      monoFinancialLg: GoogleFonts.jetBrainsMono(
+      monoFinancialLg: TextStyle(
+        fontFamily: 'JetBrainsMono',
         fontSize: 40,
         fontWeight: FontWeight.w600,
         height: 1.10,
         color: ink,
       ),
-      monoHero: GoogleFonts.jetBrainsMono(
+      monoHero: TextStyle(
+        fontFamily: 'JetBrainsMono',
         fontSize: 64,
         fontWeight: FontWeight.w600,
         height: 1.05,
@@ -156,25 +170,29 @@ class HelmTypography extends ThemeExtension<HelmTypography> {
       ),
 
       // --- Bangla locale variants (Hind Siliguri) ---
-      bodyLgBn: GoogleFonts.hindSiliguri(
+      bodyLgBn: TextStyle(
+        fontFamily: 'HindSiliguri',
         fontSize: 16,
         fontWeight: FontWeight.w400,
         height: 1.58,
         color: ink,
       ),
-      bodyMdBn: GoogleFonts.hindSiliguri(
+      bodyMdBn: TextStyle(
+        fontFamily: 'HindSiliguri',
         fontSize: 14,
         fontWeight: FontWeight.w400,
         height: 1.58,
         color: ink,
       ),
-      bodySmBn: GoogleFonts.hindSiliguri(
+      bodySmBn: TextStyle(
+        fontFamily: 'HindSiliguri',
         fontSize: 13,
         fontWeight: FontWeight.w400,
         height: 1.52,
         color: ink,
       ),
-      labelMdBn: GoogleFonts.hindSiliguri(
+      labelMdBn: TextStyle(
+        fontFamily: 'HindSiliguri',
         fontSize: 12,
         fontWeight: FontWeight.w500,
         height: 1.38,

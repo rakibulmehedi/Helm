@@ -8,7 +8,6 @@
 // AppThemeData delegates to AppTheme internally.
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_language.dart';
 import 'colors.dart'; // exports AppColors (legacy) + HelmColors (via re-export)
@@ -175,15 +174,11 @@ TextStyle getFontStyle(
   FontWeight weight,
   Color color,
 ) {
-  return lang == AppLanguage.bangla
-      ? GoogleFonts.hindSiliguri(
-          fontSize: size,
-          fontWeight: weight,
-          color: color,
-        )
-      : GoogleFonts.inter(
-          fontSize: size,
-          fontWeight: weight,
-          color: color,
-        );
+  final family = lang == AppLanguage.bangla ? 'HindSiliguri' : 'Inter';
+  return TextStyle(
+    fontFamily: family,
+    fontSize: size,
+    fontWeight: weight,
+    color: color,
+  );
 }

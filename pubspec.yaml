@@ -19,11 +19,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
-  # Pinned: runtime font download is a known concern (C-16). Removal is
-  # blocked because Inter, JetBrains Mono, and Hind Siliguri are loaded via
-  # GoogleFonts at runtime in lib/core/themes. Bundling these fonts requires
-  # asset files and package approval; pinning mitigates unexpected updates.
-  google_fonts: 8.1.0
   go_router: ^17.3.0
   crypto: 3.0.3
   share_plus: ^13.1.0
@@ -47,3 +42,25 @@ flutter:
   uses-material-design: true
 
   generate: true
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/JetBrainsMono-SemiBold.ttf
+          weight: 600
+    - family: HindSiliguri
+      fonts:
+        - asset: assets/fonts/HindSiliguri-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/HindSiliguri-Medium.ttf
+          weight: 500
