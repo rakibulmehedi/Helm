@@ -1,4 +1,12 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk
+        tools:overrideLibrary="com.dexterous.flutterlocalnotifications,
+                               io.flutter.plugins.localauth,
+                               io.flutter.plugins.sharedpreferences,
+                               io.flutter.embedding.engine.plugins.lifecycle" />
+
     <application
         android:label="Helm"
         android:name="${applicationName}"
