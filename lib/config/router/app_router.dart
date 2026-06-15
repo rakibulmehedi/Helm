@@ -288,11 +288,23 @@ const Set<String> _publicRoutes = {
 ///
 /// This redirect is intentionally **fail-closed**:
 ///   - Public routes are whitelisted explicitly.
-///   - All other routes require onboarding complete + Magic Link complete +
+///   - All other routes require Magic Link complete → onboarding complete →
 ///     PIN set up + an active authenticated session.
 ///   - If auth state cannot be determined, the user is redirected to PIN entry.
 String? _globalRedirect(BuildContext context, GoRouterState state) {
   final String currentPath = state.matchedLocation;
+
+  // ── Magic Link gate ───────────────────────────────────────────────────────
+  // Identity verification must run before any user data collection.
+  final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
+  if (!magicLinkDone && currentPath != RouteNames.magicLink) {
+    return RouteNames.magicLink;
+  }
+  if (magicLinkDone && currentPath == RouteNames.magicLink) {
+    // Identity already verified; don't let the user re-enter the magic-link
+    // flow and potentially confuse the auth state.
+    return RouteNames.home;
+  }
 
   // ── Onboarding gate ───────────────────────────────────────────────────────
   final bool onboardingDone = SharedPrefServices.getOnboardingCompleted();
@@ -310,17 +322,6 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   if (currentPath == RouteNames.splash ||
       currentPath == RouteNames.welcome ||
       currentPath == RouteNames.onboarding) {
-    return RouteNames.home;
-  }
-
-  // ── Magic Link gate ───────────────────────────────────────────────────────
-  final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
-  if (!magicLinkDone && currentPath != RouteNames.magicLink) {
-    return RouteNames.magicLink;
-  }
-  if (magicLinkDone && currentPath == RouteNames.magicLink) {
-    // Identity already verified; don't let the user re-enter the magic-link
-    // flow and potentially confuse the auth state.
     return RouteNames.home;
   }
 
