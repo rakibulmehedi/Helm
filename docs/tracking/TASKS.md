@@ -19,7 +19,7 @@
 - [x] Write canonical design spec: `docs/superpowers/specs/2026-06-16-helm-signal-deck-design.md`.
 - [x] Review and approve written Signal Deck spec before implementation planning.
 - [x] Create phased Signal Deck implementation plan: `docs/superpowers/plans/2026-06-16-helm-signal-deck-implementation.md`.
-- [ ] Implement Signal Deck UI slice with TDD.
+- [x] Implement Signal Deck UI slice with TDD.
 
 > Note: Dispatch file `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` is referenced but does not exist. Use `docs/tracking/S1_CODEBASE_TASK_MAPPING.md` for the code-evidence-based status of each S1 task.
 

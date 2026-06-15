@@ -2,8 +2,8 @@
 //
 // UX-1.08 — Dashboard Cockpit Redesign.
 //
-// Replaces the generic expense-tracker layout (income/expense chips,
-// recent transactions list) with the doctrine-aligned Reality Stack.
+// Replaces the generic expense-tracker layout with the Signal Deck:
+// one dominant S2S instrument, Signal Horizon, and one-action Decision Deck.
 //
 // Violations removed:
 //   - Income / Expense summary chip row (DASH-004)
@@ -12,13 +12,10 @@
 //   - Dev reset button in production (UX-1.11)
 //
 // Added:
-//   - HelmRealityStack with 4 named tiers (UX-1.01)
-//   - S2sHeroBlock: SAFE-TO-SPEND cockpit (UX-1.03)
-//   - CommittedSection: fixed-cost pressure (UX-1.04)
-//   - ReserveSection: anxiety buffer (UX-1.05)
-//   - NotCountedSection: pipeline hope tier (UX-1.06)
+//   - HelmSignalHero: dominant Safe-to-Spend signal
+//   - HelmSignalHorizon: trusted-present/workflow boundary
+//   - HelmDecisionDeck: one next event, one action
 //   - HelmCalculationTrace on hero tap (UX-1.09)
-//   - FAB "Add Pipeline Entry" → addIncome route (UX-1.10)
 //   - kDebugMode gate on dev reset button (UX-1.11)
 // D2.03 — analytics: stsViewed + dailyActiveSession on initState,
 //          calculationBreakdownOpened on onTapTrace.
@@ -35,17 +32,16 @@ import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
-import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_signal_theme.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/widgets/helm_calculation_trace.dart';
-import 'package:helm/core/widgets/helm_reality_stack.dart';
-import 'package:helm/core/widgets/next_best_action_card.dart';
+import 'package:helm/core/widgets/signal/helm_decision_deck.dart';
+import 'package:helm/core/widgets/signal/helm_flow_route.dart';
+import 'package:helm/core/widgets/signal/helm_signal_hero.dart';
+import 'package:helm/core/widgets/signal/helm_signal_horizon.dart';
 import 'package:helm/features/dashboard/domain/affirmation.dart';
-import 'package:helm/features/dashboard/presentation/widgets/committed_section.dart';
-import 'package:helm/features/dashboard/presentation/widgets/not_counted_section.dart';
-import 'package:helm/features/dashboard/presentation/widgets/reserve_section.dart';
-import 'package:helm/features/dashboard/presentation/widgets/s2s_hero_block.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
@@ -83,16 +79,17 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       analytics.trackEvent(
         TransactionalEvents.timeToS2sVisible,
         properties: {
-          EventProperties.durationMs:
-              _s2sStopwatch.elapsedMilliseconds.toString(),
+          EventProperties.durationMs: _s2sStopwatch.elapsedMilliseconds
+              .toString(),
         },
       );
       analytics.trackEvent(TransactionalEvents.stsViewed);
       analytics.trackEvent(
         BoundaryEvents.dailyActiveSession,
         properties: {
-          EventProperties.sessionDate:
-              DateTime.now().toIso8601String().substring(0, 10),
+          EventProperties.sessionDate: DateTime.now()
+              .toIso8601String()
+              .substring(0, 10),
         },
       );
 
@@ -122,9 +119,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     final incomeEntries = ref.read(incomeNotifierProvider);
     final now = DateTime.now();
     final overdueCount = incomeEntries
-        .where((e) =>
-            e.status == IncomeStatus.expected &&
-            e.expectedDate.isBefore(now))
+        .where(
+          (e) =>
+              e.status == IncomeStatus.expected && e.expectedDate.isBefore(now),
+        )
         .length;
     final sessionCount = SharedPrefServices.getSessionCount();
     SharedPrefServices.incrementSessionCount();
@@ -144,9 +142,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   ) {
     final now = DateTime.now();
     final overdueCount = incomeEntries
-        .where((e) =>
-            e.status == IncomeStatus.expected &&
-            e.expectedDate.isBefore(now))
+        .where(
+          (e) =>
+              e.status == IncomeStatus.expected && e.expectedDate.isBefore(now),
+        )
         .length;
     final totalEntries = incomeEntries.length;
 
@@ -160,21 +159,24 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     };
 
     // Find oldest overdue entry
-    final overdueEntries = incomeEntries.where((e) =>
-        e.status == IncomeStatus.expected &&
-        e.expectedDate.isBefore(now));
-    final String? oldestOverdueId =
-        overdueEntries.isNotEmpty ? overdueEntries.reduce(
-          (a, b) => a.expectedDate.isBefore(b.expectedDate) ? a : b,
-        ).id : null;
+    final overdueEntries = incomeEntries.where(
+      (e) => e.status == IncomeStatus.expected && e.expectedDate.isBefore(now),
+    );
+    final String? oldestOverdueId = overdueEntries.isNotEmpty
+        ? overdueEntries
+              .reduce((a, b) => a.expectedDate.isBefore(b.expectedDate) ? a : b)
+              .id
+        : null;
 
     final sessionService = ref.read(nudgeSessionServiceProvider);
-    unawaited(sessionService.evaluateAndLog(
-      overdueCount: overdueCount,
-      totalEntries: totalEntries,
-      s2sState: s2sState,
-      oldestOverdueEntryId: oldestOverdueId,
-    ));
+    unawaited(
+      sessionService.evaluateAndLog(
+        overdueCount: overdueCount,
+        totalEntries: totalEntries,
+        s2sState: s2sState,
+        oldestOverdueEntryId: oldestOverdueId,
+      ),
+    );
   }
 
   void _dismissStsHint() {
@@ -184,26 +186,39 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
     final typography = context.textStyles;
     final stsResult = ref.watch(safeToSpendProvider);
     final incomeEntries = ref.watch(incomeNotifierProvider);
     final now = DateTime.now();
     final overdueCount = incomeEntries
-        .where((e) =>
-            e.status == IncomeStatus.expected &&
-            e.expectedDate.isBefore(now))
+        .where(
+          (e) =>
+              e.status == IncomeStatus.expected && e.expectedDate.isBefore(now),
+        )
         .length;
 
+    final signalState = _signalState(stsResult);
+    final deck = _buildDecisionDeckAction(
+      stsResult,
+      overdueCount,
+      incomeEntries.isEmpty,
+    );
+
     return Scaffold(
-      backgroundColor: colors.canvas,
+      backgroundColor: HelmSignalTheme.signalCanvas,
       appBar: AppBar(
-        title: Text('Helm', style: typography.headingMd),
+        title: Text(
+          'Helm',
+          style: typography.headingMd.copyWith(
+            color: HelmSignalTheme.signalInkPrimary,
+          ),
+        ),
         centerTitle: false,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
+        iconTheme: const IconThemeData(color: HelmSignalTheme.signalInkPrimary),
         actions: [
           // UX-1.11 — dev reset gated to debug builds only.
           if (kDebugMode)
@@ -216,14 +231,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               },
             ),
         ],
-      ),
-      // UX-1.10 — FAB: "Add Pipeline Entry", not "Add Transaction".
-      floatingActionButton: FloatingActionButton(
-        heroTag: 'addPipelineEntryFab',
-        backgroundColor: colors.interactive,
-        onPressed: () => context.push(RouteNames.addIncome),
-        tooltip: 'Add income entry',
-        child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -245,69 +252,72 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                     onTap: _dismissStsHint,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 12),
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
                       decoration: BoxDecoration(
-                        color: colors.interactive.withValues(alpha: 0.08),
+                        color: HelmSignalTheme.signalGlass(context),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                            color: colors.interactive.withValues(alpha: 0.2)),
+                          color: HelmSignalTheme.signalBorder(context),
+                        ),
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.touch_app_rounded,
-                              size: 18, color: colors.interactive),
+                          const Icon(
+                            Icons.touch_app_rounded,
+                            size: 18,
+                            color: HelmSignalTheme.signalInteractive,
+                          ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
                               'Tap the number to see the math',
-                              style: typography.bodySm
-                                  .copyWith(color: colors.interactive),
+                              style: typography.bodySm.copyWith(
+                                color: HelmSignalTheme.signalInteractive,
+                              ),
                             ),
                           ),
-                          Icon(Icons.close_rounded,
-                              size: 16, color: colors.inkTertiary),
+                          const Icon(
+                            Icons.close_rounded,
+                            size: 16,
+                            color: HelmSignalTheme.signalInkMuted,
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
-              HelmRealityStack(
-            // Tier 1 — Hero: dominant S2S answer.
-            heroTier: S2sHeroBlock(
-              result: stsResult,
-              updatedAt: DateTime.now(),
-              affirmation: _affirmation,
-              // UX-1.09 — tap hero opens calculation breakdown.
-              // D2.03 — fire calculationBreakdownOpened before showing trace.
-              onTapTrace: () {
-                ref
-                    .read(analyticsProvider)
-                    .trackEvent(TransactionalEvents.calculationBreakdownOpened);
-                HelmCalculationTrace.show(context, stsResult);
-              },
-            ),
-            // Tier 2 — Pressure: committed + reserve stacked.
-            pressureTier: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CommittedSection(
-                  result: stsResult,
-                  onSetupFixedCosts: () =>
-                      context.push(RouteNames.stsSettings),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: HelmSpacing.screenEdge,
                 ),
-                const SizedBox(height: HelmSpacing.s4),
-                ReserveSection(result: stsResult),
-              ],
-            ),
-            // Tier 3 — Maintenance: Next-Best-Action Card
-            maintenanceTier: _buildNextBestActionCard(context, stsResult, overdueCount, incomeEntries.isEmpty),
-            // Tier 4 — Hope: pipeline money not yet counted.
-            hopeTier: NotCountedSection(
-              result: stsResult,
-              onAddPipelineEntry: () => context.push(RouteNames.addIncome),
-            ),
-          ),
+                child: Column(
+                  children: [
+                    HelmSignalHero(
+                      safeToSpend: stsResult.safeToSpend,
+                      state: signalState,
+                      runwayLabel: _affirmation ?? _runwayLabel(stsResult),
+                      committedSignal:
+                          'COMMITTED ${_compactBdt(stsResult.fixedCostsDue)}',
+                      heldSignal:
+                          'HELD ${_compactBdt(stsResult.anxietyBuffer)}',
+                      pendingSignal:
+                          'PENDING ${_compactBdt(stsResult.pendingIncome + stsResult.expectedIncome)}',
+                      onTapTrace: () => _openCalculationTrace(stsResult),
+                    ),
+                    HelmSignalHorizon(state: signalState),
+                    HelmDecisionDeck(
+                      eventLabel: deck.eventLabel,
+                      eventTitle: deck.eventTitle,
+                      actionLabel: deck.actionLabel,
+                      flowStage: deck.flowStage,
+                      onTrace: () => _openCalculationTrace(stsResult),
+                      onAction: () => context.push(deck.routePath),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -315,26 +325,91 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     );
   }
 
-  Widget _buildNextBestActionCard(
-    BuildContext context,
+  void _openCalculationTrace(SafeToSpendResult stsResult) {
+    ref
+        .read(analyticsProvider)
+        .trackEvent(TransactionalEvents.calculationBreakdownOpened);
+    HelmCalculationTrace.show(context, stsResult);
+  }
+
+  SignalDeckState _signalState(SafeToSpendResult result) {
+    if (result.rawSafeToSpend > 0) return SignalDeckState.safe;
+    if (result.rawSafeToSpend > -result.anxietyBuffer) {
+      return SignalDeckState.tight;
+    }
+    return SignalDeckState.atRisk;
+  }
+
+  String _runwayLabel(SafeToSpendResult result) {
+    if (result.error != null) return 'Calculation needs review';
+    if (result.rawSafeToSpend <= -result.anxietyBuffer) {
+      return 'Review commitments before spending';
+    }
+    if (result.rawSafeToSpend <= 0) return 'Buffer pressure detected';
+    return 'Current commitments covered';
+  }
+
+  String _compactBdt(double amount) {
+    return NumberFormatter.formatBDTCompact(amount).replaceFirst('tk ', '৳');
+  }
+
+  _SignalDeckAction _buildDecisionDeckAction(
     SafeToSpendResult stsResult,
     int overdueCount,
     bool isPipelineEmpty,
   ) {
-    final ActionVariant variant;
     if (isPipelineEmpty) {
-      variant = ActionVariant.setup;
-    } else if (overdueCount > 0) {
-      variant = ActionVariant.overdue;
-    } else if (stsResult.rawSafeToSpend <= 0) {
-      variant = ActionVariant.atRisk;
-    } else {
-      variant = ActionVariant.relief;
+      return const _SignalDeckAction(
+        eventLabel: 'NEXT STEP',
+        eventTitle: 'Add your first expected payment',
+        actionLabel: 'ADD PAYMENT',
+        routePath: RouteNames.addIncome,
+        flowStage: SignalFlowStage.expected,
+      );
+    }
+    if (overdueCount > 0) {
+      return _SignalDeckAction(
+        eventLabel: 'NEEDS ATTENTION',
+        eventTitle: overdueCount == 1
+            ? '1 payment overdue'
+            : '$overdueCount payments overdue',
+        actionLabel: 'REVIEW FLOW',
+        routePath: RouteNames.pipeline,
+        flowStage: SignalFlowStage.transit,
+      );
+    }
+    if (stsResult.rawSafeToSpend <= 0) {
+      return const _SignalDeckAction(
+        eventLabel: 'RESERVE MODE',
+        eventTitle: 'Safe-to-Spend needs review',
+        actionLabel: 'REVIEW COMMITMENTS',
+        routePath: RouteNames.stsSettings,
+        flowStage: SignalFlowStage.usable,
+      );
     }
 
-    return NextBestActionCard(
-      variant: variant,
-      count: overdueCount,
+    return const _SignalDeckAction(
+      eventLabel: 'NEXT EVENT',
+      eventTitle: 'Pipeline up to date',
+      actionLabel: 'REVIEW FLOW',
+      routePath: RouteNames.pipeline,
+      flowStage: SignalFlowStage.usable,
     );
   }
+}
+
+class _SignalDeckAction {
+  const _SignalDeckAction({
+    required this.eventLabel,
+    required this.eventTitle,
+    required this.actionLabel,
+    required this.routePath,
+    required this.flowStage,
+  });
+
+  final String eventLabel;
+  final String eventTitle;
+  final String actionLabel;
+  final String routePath;
+  final SignalFlowStage flowStage;
 }
