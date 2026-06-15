@@ -50,6 +50,36 @@ void main() {
       expect(find.byType(TweenAnimationBuilder<double>), findsNothing);
     });
 
+    testWidgets('shows dash instead of trusted zero when amount unavailable', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+
+      await tester.pumpWidget(
+        _wrap(
+          HelmSignalHero(
+            safeToSpend: 0,
+            state: SignalDeckState.tight,
+            runwayLabel: 'Calculation needs review',
+            committedSignal: 'COMMITTED ৳0',
+            heldSignal: 'HELD ৳0',
+            pendingSignal: 'PENDING ৳0',
+            showUnavailable: true,
+            onTapTrace: () {},
+          ),
+        ),
+      );
+
+      expect(find.text('—'), findsOneWidget);
+      expect(find.text('৳0'), findsNothing);
+      expect(
+        tester.getSemantics(find.byType(HelmSignalHero)).label,
+        startsWith('Safe to spend now unavailable'),
+      );
+
+      handle.dispose();
+    });
+
     testWidgets('starts semantics with safe-to-spend summary', (tester) async {
       final handle = tester.ensureSemantics();
 

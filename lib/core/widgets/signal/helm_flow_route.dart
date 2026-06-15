@@ -18,8 +18,10 @@ class HelmFlowRoute extends StatelessWidget {
       label:
           'Money route: Expected to Transit to Usable. Current stage: $current',
       excludeSemantics: true,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        runSpacing: HelmSpacing.s2,
         children: [
           _StagePill(
             label: 'EXPECTED',
@@ -91,8 +93,9 @@ class _RouteConnector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 18,
+      width: 12,
       height: 1,
+      margin: const EdgeInsets.symmetric(horizontal: HelmSpacing.s1),
       color: HelmSignalTheme.signalBorder(context),
     );
   }

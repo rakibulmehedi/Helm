@@ -43,5 +43,29 @@ void main() {
 
       handle.dispose();
     });
+
+    testWidgets('does not overflow at 320dp width with large text', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark,
+          home: Scaffold(
+            body: MediaQuery(
+              data: const MediaQueryData(
+                size: Size(320, 640),
+                textScaler: TextScaler.linear(1.6),
+              ),
+              child: const SizedBox(
+                width: 240,
+                child: HelmFlowRoute(activeStage: SignalFlowStage.transit),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+    });
   });
 }

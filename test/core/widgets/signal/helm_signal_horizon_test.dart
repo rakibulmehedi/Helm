@@ -54,5 +54,31 @@ void main() {
 
       expect(tester.hasRunningAnimations, isFalse);
     });
+
+    testWidgets('starts pulse when animatePulse changes after first build', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        _wrap(const HelmSignalHorizon(state: SignalDeckState.safe)),
+      );
+
+      await tester.pumpWidget(
+        _wrap(
+          const HelmSignalHorizon(
+            state: SignalDeckState.safe,
+            animatePulse: true,
+          ),
+        ),
+      );
+      await tester.pump(const Duration(milliseconds: 90));
+
+      final line = tester.widget<Container>(
+        find.byKey(const Key('signal_horizon_line')),
+      );
+      final decoration = line.decoration! as BoxDecoration;
+      final shadow = decoration.boxShadow!.single;
+
+      expect(shadow.blurRadius, greaterThan(12));
+    });
   });
 }

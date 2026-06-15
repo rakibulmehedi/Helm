@@ -39,11 +39,7 @@ class _HelmSignalHorizonState extends State<HelmSignalHorizon>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final disableAnimations = MediaQuery.of(context).disableAnimations;
-    if (widget.animatePulse && !disableAnimations && !_pulseStarted) {
-      _pulseStarted = true;
-      _controller.forward();
-    }
+    _startPulseIfNeeded();
   }
 
   @override
@@ -53,6 +49,15 @@ class _HelmSignalHorizonState extends State<HelmSignalHorizon>
         oldWidget.state != widget.state) {
       _pulseStarted = false;
       _controller.reset();
+      _startPulseIfNeeded();
+    }
+  }
+
+  void _startPulseIfNeeded() {
+    final disableAnimations = MediaQuery.of(context).disableAnimations;
+    if (widget.animatePulse && !disableAnimations && !_pulseStarted) {
+      _pulseStarted = true;
+      _controller.forward();
     }
   }
 

@@ -14,6 +14,7 @@ class HelmSignalHero extends StatelessWidget {
     required this.heldSignal,
     required this.pendingSignal,
     required this.onTapTrace,
+    this.showUnavailable = false,
     super.key,
   });
 
@@ -24,6 +25,7 @@ class HelmSignalHero extends StatelessWidget {
   final String heldSignal;
   final String pendingSignal;
   final VoidCallback onTapTrace;
+  final bool showUnavailable;
 
   static final NumberFormat _bdtFormatter = NumberFormat('#,##0', 'en_US');
 
@@ -34,12 +36,15 @@ class HelmSignalHero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final amount = '৳${_bdtFormatter.format(safeToSpend.round())}';
+    final amount = showUnavailable
+        ? '—'
+        : '৳${_bdtFormatter.format(safeToSpend.round())}';
+    final semanticAmount = showUnavailable ? 'unavailable' : amount;
     final stateLabel = HelmSignalTheme.stateLabel(state);
 
     return Semantics(
       label:
-          'Safe to spend now $amount. State: $stateLabel. $runwayLabel. '
+          'Safe to spend now $semanticAmount. State: $stateLabel. $runwayLabel. '
           '$committedSignal. $heldSignal. $pendingSignal.',
       button: true,
       child: GestureDetector(

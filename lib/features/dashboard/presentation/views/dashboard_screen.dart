@@ -298,12 +298,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       safeToSpend: stsResult.safeToSpend,
                       state: signalState,
                       runwayLabel: _affirmation ?? _runwayLabel(stsResult),
+                      showUnavailable: _showUnavailableAmount(stsResult),
                       committedSignal:
                           'COMMITTED ${_compactBdt(stsResult.fixedCostsDue)}',
                       heldSignal:
                           'HELD ${_compactBdt(stsResult.anxietyBuffer)}',
                       pendingSignal:
-                          'PENDING ${_compactBdt(stsResult.pendingIncome + stsResult.expectedIncome)}',
+                          'PENDING ${_compactBdt(stsResult.pendingIncome)}',
                       onTapTrace: () => _openCalculationTrace(stsResult),
                     ),
                     HelmSignalHorizon(state: signalState),
@@ -347,6 +348,11 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     }
     if (result.rawSafeToSpend <= 0) return 'Buffer pressure detected';
     return 'Current commitments covered';
+  }
+
+  bool _showUnavailableAmount(SafeToSpendResult result) {
+    return result.error != null ||
+        (result.safeToSpend == 0 && result.totalReceivedIncomeBdt == 0);
   }
 
   String _compactBdt(double amount) {
