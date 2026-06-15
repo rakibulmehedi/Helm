@@ -47,12 +47,19 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
     // Clear least-sensitive boxes first; auth_box is last so a crash mid-wipe
     // leaves the identity/PIN gate intact where possible.
     final boxNames = [
+      // Tier 1 — non-sensitive operational data (safe to lose mid-wipe)
       AppBoxNames.transactions,
       AppBoxNames.incomeBox,
       AppBoxNames.fixedCostsBox,
       AppBoxNames.categories,
+      AppBoxNames.analyticsEventsBox,
+      AppBoxNames.nudgePreferencesBox,
+      AppBoxNames.nudgeLogBox,
+      AppBoxNames.sessionBox,
+      // Tier 2 — audit integrity (should survive as long as possible)
       AppBoxNames.auditEventsBox,
       AppBoxNames.auditChainBox,
+      // Tier 3 — identity/PIN gate (last, so crash mid-wipe keeps gate intact)
       AppBoxNames.authBox,
     ];
 
