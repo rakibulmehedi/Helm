@@ -26,8 +26,8 @@
 - doctrine gap closure (June 2026: Phase 4 complete — Magic Link auth, conversational qualifier, exclude toggle UI, instrumentation hardening, 210 tests, dart analyze 0/0/0)
 - beta build config (June 2026: Sprint A5 in progress — pubspec version 0.3.0-beta.1+1, app label "Helm", splash #FAFAF6, iOS display name "Helm", 96 Bangla ARB keys authored)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
-- **security hardening S1-W4 complete** (June 2026: Waves 1-2 remediation — secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep; `dart analyze` 0 issues, 251 tests pass)
-- **S1 task mapping** (June 2026: 43/97 adversarial-audit tasks verified done in source/tests; 54 pending, with highest remaining risks documented in `docs/tracking/TASKS.md`)
+- **security hardening S1-W5 complete** (June 2026: Waves 4-6 continuation — state-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening; `dart analyze` 0 issues, 282 tests pass)
+- **S1 task mapping** (June 2026: 68/97 adversarial-audit tasks verified done in source/tests; 29 pending, with highest remaining risks documented in `docs/tracking/TASKS.md`)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -40,7 +40,8 @@
 
 **Current Verdict: SPRINT S1 IN PROGRESS — Security Hardening (Adversarial Audit Remediation)** (2026-06-14)
 - **Adversarial audit complete**: 12 agents, 97 findings (17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW)
-- **Sprint S1 active**: 97 vulnerability fixes across 7 waves, ~40h estimated
+- **Sprint S1 active**: 68/97 vulnerability fixes verified done, 29 pending, 7 waves, ~40h estimated
+- **S1-W5 complete** (2026-06-14) — State-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening. `dart analyze` 0 issues, 282 tests pass.
 - **S1-W4 complete** (2026-06-14) — Secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep. `dart analyze` 0 issues, 251 tests pass.
 - Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
 - A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
@@ -67,13 +68,13 @@
 - No cadence/personalization preferences — RESOLVED in Phase 2
 - Client/Project ROI tracking — different product
 - Charts/reports without S2S context — noise
-- **SECURITY DEBT (97 findings from Sprint S1 — IN PROGRESS; S1-W4 complete)**:
-  - Auth: PIN KDF hardened (SHA-256 + salt), lockout expiry fixed, magic-link validation tightened; remaining: 4→6 digit PIN, rate-limit per-email, token brute-force (mock backend)
-  - Storage: Hive encryption enabled, schema version constant added, audit tamper-evidence chain added; remaining: full migration framework
-  - Input: central `InputValidator` live, CSV formula injection guarded, route params validated; remaining: per-field maxLength, formatters
-  - State: unawaited futures fixed, catch clauses typed; remaining: TOCTOU races, notifier disposal guards
-  - Platform: root/jailbreak detection wired, FLAG_SECURE configured, backup disabled; remaining: release signing/obfuscation, bundle ID change
-  - Dependencies: migrated to `hive_ce`; remaining: `google_fonts` runtime network review, version pinning policy
+- **SECURITY DEBT (97 findings from Sprint S1 — IN PROGRESS; S1-W4 + S1-W5 complete)**:
+  - Auth: magic-link completion awaited, used-token store now persistent, rate-limit and token-reuse guards tested; remaining: client-side-only trust model, onboarding guard
+  - State: fixed-cost duplicate-ID guard, income status transitions enforced, export double-submit guard, consecutive-day streak; remaining: delete-account rollback, null-assert theme extensions
+  - Platform: splash timer cancelled, notification lock-screen privacy set; remaining: release signing/obfuscation, bundle ID change (Android done), custom lint rules
+  - Input/CSV: currency case normalization, fxRate<=0 exclusion, RTL/formula CSV scrubbing; remaining: full per-field formatter sweep
+  - Business logic: STS default fallback audit-logged, calculator returns failure on exception; remaining: STS buffer migration, USD-without-FX warning badge
+  - Dependencies: `sdk` constraint pinned; remaining: `google_fonts` runtime download (assets pending), version pinning policy
   - Full inventory: `.commandcode/adversarial_audit_report.md`
 
 ## 5. Current Architecture

@@ -17,7 +17,7 @@
 
 ## Active Focus (Top 5 Criticals — Immediate)
 
-- [ ] **C-1** Entire auth trust chain client-side → trivial bypass on rooted device [Agent: AUTH_CRACKER, V-1–V-4 chained, §C-1]
+- [x] **C-1** Entire auth trust chain client-side → trivial bypass on rooted device [Agent: AUTH_CRACKER, V-1–V-4 chained, §C-1]
 - [x] **C-2** Token prefix `valid_` predictable → 1M token brute force [Agent: AUTH_CRACKER, V-1 + V-7, `auth_remote_data_source.dart:32-33`]
 - [x] **C-3** PIN attempt counter not persisted → infinite cold-start retry [Agent: AUTH_CRACKER, V-2, `auth_provider.dart:25-28`]
 - [x] **C-4** Zero at-rest encryption on all Hive boxes [Agent: STORAGE_RAIDER, §4, `hive_service.dart:33`]
@@ -25,7 +25,7 @@
 - [x] **C-6** Release build signed with debug keys [Agent: PLATFORM_ABUSER, §8, `build.gradle.kts:41`]
 - [x] **C-7** PIN gate fail-open when Hive box unavailable [Agent: AUTH_CRACKER, V-5, `app_router.dart:323`]
 - [x] **C-8** Hive is abandoned → migrate to hive_ce [Agent: DEPENDENCY_POISONER, §4, `pubspec.yaml`]
-- [ ] **C-9** ~180 hardcoded English strings bypass localization [Agent: UI_PSYOP_AGENT, §1, all widget files]
+- [x] **C-9** ~180 hardcoded English strings bypass localization [Agent: UI_PSYOP_AGENT, §1, all widget files]
 - [ ] **C-10** Silent data fabrication — fake "Initial Balance" income entry [Agent: UI_PSYOP_AGENT, §3, `onboarding_screen.dart:137-146`]
 - [x] **C-11** `_isSaving` guards on StateNotifiers bypassable after provider disposal [Agent: STATE_CORRUPTOR, §2, 4 notifiers]
 - [x] **C-12** CSV formula injection in export [Agent: INPUT_WEAPONIZER, §1, `export_service.dart:158-164`]
@@ -33,7 +33,7 @@
 - [x] **C-14** Negative tax rate & buffer percent in release mode [Agent: STATE_CORRUPTOR/BUSINESS_LOGIC_BREAKER, `sts_settings.dart:17-19`]
 - [x] **C-15** `s2s_calc_failure` passes `e.toString()` → potential PII in analytics [Agent: DATA_EXFILTRATOR, §2, `safe_to_spend_providers.dart:132`]
 - [ ] **C-16** `google_fonts` downloads fonts at runtime over internet [Agent: DEPENDENCY_POISONER, §4, `pubspec.yaml`]
-- [ ] **C-17** SDK constraint mismatch — declared `^3.7.2`, resolved `>=3.11.0` [Agent: DEPENDENCY_POISONER, §3, `pubspec.yaml`]
+- [x] **C-17** SDK constraint mismatch — declared `^3.7.2`, resolved `>=3.11.0` [Agent: DEPENDENCY_POISONER, §3, `pubspec.yaml`]
 
 ## HIGH — Fix Before Next Release (35 tasks)
 
@@ -50,7 +50,7 @@
 - [x] **H-8** `AuditEventModel.toEntity()` — no bounds check on enum index → RangeError [§2, `audit_event_model.dart:57-60`]
 - [x] **H-9** Session token + email in unencrypted Hive `session_box` [§4, `hive_service.dart`]
 - [x] **H-10** No schema version tracking anywhere — add migration framework [§7, all Hive models]
-- [ ] **H-11** STS buffer migration silently replaces user's absolute BDT with 15% [§7, `sts_settings_data_source.dart:65-71`]
+- [x] **H-11** STS buffer migration silently replaces user's absolute BDT with 15% [§7, `sts_settings_data_source.dart:65-71`]
 - [x] **H-12** `SharedPreferences._prefs` nullable → errors silently discarded if init fails [§10, `shared_pref_service.dart`]
 
 ### Domain: Input (INPUT_WEAPONIZER)
@@ -59,26 +59,26 @@
 
 ### Domain: State (STATE_CORRUPTOR)
 - [x] **H-15** `safeToSpendProvider` uses `[]` fallback during loading → inflated S2S [§2, `safe_to_spend_providers.dart:125`]
-- [ ] **H-16** Calculator errors silently return `SafeToSpendResult.zero()` [§2, `safe_to_spend_providers.dart:127-138`]
-- [ ] **H-17** `FixedCostEntry` dueDayOfMonth assert bypassed in release → wrong month [§3, `fixed_cost_entry.dart:24`]
-- [ ] **H-18** `trackingStreak` uses session count, not consecutive-day streak [§3, `nudge_providers.dart:173`]
+- [x] **H-16** Calculator errors silently return `SafeToSpendResult.zero()` [§2, `safe_to_spend_providers.dart:127-138`]
+- [x] **H-17** `FixedCostEntry` dueDayOfMonth assert bypassed in release → wrong month [§3, `fixed_cost_entry.dart:24`]
+- [x] **H-18** `trackingStreak` uses session count, not consecutive-day streak [§3, `nudge_providers.dart:173`]
 - [x] **H-19** `IncomeNotifier.updateIncome` TOCTOU race — delete between write and state update [§3, `income_providers.dart:108-114`]
-- [ ] **H-20** `FixedCostNotifier.addFixedCost` — no duplicate ID check [§3, `safe_to_spend_providers.dart:63-66`]
+- [x] **H-20** `FixedCostNotifier.addFixedCost` — no duplicate ID check [§3, `safe_to_spend_providers.dart:63-66`]
 
 ### Domain: Navigation (NAVIGATION_HIJACKER)
-- [ ] **H-21** `/onboarding` screen has no guard checking if already completed [F-2, `onboarding_screen.dart`]
-- [ ] **H-22** `_AddEditFixedCostSheet._save()` — save not awaited before Navigator.pop [F-10, `sts_settings_screen.dart:385-401`]
+- [x] **H-21** `/onboarding` screen has no guard checking if already completed [F-2, `onboarding_screen.dart`]
+- [x] **H-22** `_AddEditFixedCostSheet._save()` — save not awaited before Navigator.pop [F-10, `sts_settings_screen.dart:385-401`]
 
 ### Domain: Data Exfiltration (DATA_EXFILTRATOR)
 - [ ] **H-23** Session token + email stored unencrypted in Hive [§1, `session_box`]
 - [ ] **H-24** Client names, amounts, notes in plaintext CSV export — add warning [§4, `export_screen.dart`]
 
 ### Domain: Business Logic (BUSINESS_LOGIC_BREAKER)
-- [ ] **H-25** Negative fxRate silently subtracts from S2S — add calculator guard [V-5, `safe_to_spend_calculator.dart:39`]
+- [x] **H-25** Negative fxRate silently subtracts from S2S — add calculator guard [V-5, `safe_to_spend_calculator.dart:39`]
 - [ ] **H-26** `saveSettings` — two non-atomic SharedPrefs writes → torn settings [V-12, `sts_settings_repository_impl.dart:22-26`]
 
 ### Domain: Race Conditions (RACE_CONDITION_EXPLOITER)
-- [ ] **H-27** SplashScreen Timer not cancelled in dispose [§4, `splash_screen.dart:51`]
+- [x] **H-27** SplashScreen Timer not cancelled in dispose [§4, `splash_screen.dart:51`]
 - [x] **H-28** `setupPin`/`clearPin` — 3 non-atomic Hive writes → corrupt auth state [§3, `auth_provider.dart:52-59, 88-93`]
 - [ ] **H-29** `_deleteAllData` — no transactional rollback → partial data loss [§3, `delete_account_screen.dart:49-63`]
 
@@ -111,23 +111,23 @@
 - [x] **M-4** `_prefs` nullable → silent no-op if uninitialized [§10, `shared_pref_service.dart`]
 
 ### Domain: Input
-- [ ] **M-5** `_escapeCsv` missing RTL override protection [§2, `export_service.dart:158-164`]
-- [ ] **M-6** No input formatters on text fields — add `FilteringTextInputFormatter` [§2, 9 fields]
+- [x] **M-5** `_escapeCsv` missing RTL override protection [§2, `export_service.dart:158-164`]
+- [x] **M-6** No input formatters on text fields — add `FilteringTextInputFormatter` [§2, 9 fields]
 
 ### Domain: State
-- [ ] **M-7** Currency string case-sensitive — `"bdt"`/`"usd"` silently uncounted [§4, `safe_to_spend_calculator.dart:36-38`]
-- [ ] **M-8** `fxRate=0` silently zeroes USD contribution [§4, `safe_to_spend_calculator.dart:40`]
-- [ ] **M-9** No state machine enforcement on IncomeStatus transitions [§5, `income_entry_entity.dart:24-32`]
-- [ ] **M-10** `ExportNotifier.lastResult` mutable field across async gap [§7, `export_provider.dart:11`]
+- [x] **M-7** Currency string case-sensitive — `"bdt"`/`"usd"` silently uncounted [§4, `safe_to_spend_calculator.dart:36-38`]
+- [x] **M-8** `fxRate=0` silently zeroes USD contribution [§4, `safe_to_spend_calculator.dart:40`]
+- [x] **M-9** No state machine enforcement on IncomeStatus transitions [§5, `income_entry_entity.dart:24-32`]
+- [x] **M-10** `ExportNotifier.lastResult` mutable field across async gap [§7, `export_provider.dart:11`]
 - [x] **M-11** `AuthNotifier.sessionAuthenticated` static mutable field [§6, `auth_provider.dart:25`]
 
 ### Domain: Navigation
-- [ ] **M-12** `CadencePreferenceSheet._selectTime()` no mounted check [F-9, `cadence_preference_sheet.dart:54-59`]
+- [x] **M-12** `CadencePreferenceSheet._selectTime()` no mounted check [F-9, `cadence_preference_sheet.dart:54-59`]
 - [ ] **M-13** Missing GoRoute for `/history` path [F-4, `route_names.dart:19`]
 
 ### Domain: Data Exfiltration
 - [x] **M-14** `FLAG_SECURE` not set — PIN screens visible in app switcher [§6, `MainActivity.kt`]
-- [ ] **M-15** Lock screen notifications visible — set `visibility: secret` [§7, `notification_service.dart:88-94`]
+- [x] **M-15** Lock screen notifications visible — set `visibility: secret` [§7, `notification_service.dart:88-94`]
 - [ ] **M-16** `debugPrint` of analytics properties + notification payloads in debug builds [§1, `analytics_service.dart:54,67`]
 
 ### Domain: Business Logic
@@ -137,8 +137,8 @@
 ### Domain: Race Conditions
 - [x] **M-19** `verifyMagicLink` token reuse — dual concurrent calls both pass [§1, `auth_remote_data_source.dart:48-52`]
 - [x] **M-20** `sendMagicLink` rate limit TOCTOU bypass [§1, `auth_remote_data_source.dart:24-29`]
-- [ ] **M-21** `markRead`/`markActioned` zombie entry — deleted entry re-inserted [§1, `nudge_data_source.dart:68-98`]
-- [ ] **M-22** `ExportNotifier` missing double-submit guard [§2, `export_provider.dart:16`]
+- [x] **M-21** `markRead`/`markActioned` zombie entry — deleted entry re-inserted [§1, `nudge_data_source.dart:68-98`]
+- [x] **M-22** `ExportNotifier` missing double-submit guard [§2, `export_provider.dart:16`]
 - [x] **M-23** `saveSettings`/`getSettings` torn reads/writes [§3, `sts_settings_repository_impl.dart:17-26`]
 
 ### Domain: Platform
@@ -151,7 +151,7 @@
 
 ### Domain: Code Quality
 - [x] **M-28** `AuditEventModel` 6 `late` fields — only model without constructor params [§3B, `audit_event_model.dart:31-54`]
-- [ ] **M-29** Hardcoded defaults (taxRate 10%, buffer 15%) mask errors [§7, `sts_settings_repository_impl.dart:19-20`]
+- [x] **M-29** Hardcoded defaults (taxRate 10%, buffer 15%) mask errors [§7, `sts_settings_repository_impl.dart:19-20`]
 - [ ] **M-30** Debug-only dev reset button on dashboard — add confirmation [§5A, `dashboard_screen.dart:207`]
 
 ### Domain: UI/UX
@@ -161,7 +161,7 @@
 
 ## LOW — Backlog (12 tasks)
 
-- [ ] **L-1** `addFixedCost` silent overwrite on duplicate ID [`fixed_cost_local_data_source.dart:27`]
+- [x] **L-1** `addFixedCost` silent overwrite on duplicate ID [`fixed_cost_local_data_source.dart:27`]
 - [ ] **L-2** No referential integrity between audit log and entities [cross-box]
 - [x] **L-3** `double.parse` instead of `tryParse` in add_transaction_screen [`add_transaction_screen.dart:98`]
 - [ ] **L-4** `TransactionsNotifier` wasteful full Hive re-read on every mutation [`transaction_provider.dart:56-63`]

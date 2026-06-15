@@ -2,9 +2,7 @@
 
 ## Scope
 
-Helm is an offline-first, local-storage-only mobile application. It does not transmit user financial data to any server. There is no backend, no authentication service, and no cloud storage in the current MVP.
-
-All data is stored locally on the user's device using Hive.
+Helm is an offline-first mobile application. User financial data is stored locally on the device using Hive CE with AES encryption backed by the platform keystore. The current beta does not transmit financial data to any Helm-owned backend.
 
 ## Reporting a Vulnerability
 
@@ -22,15 +20,15 @@ You will receive a response within 72 hours.
 
 ## Known Scope Limitations
 
-- No encryption at rest (Hive stores data in plaintext on device; relies on OS-level device security)
-- No PIN/biometric lock on the app (planned for future phase)
-- No network transmission of financial data
+- **Client-side Magic Link mock**: The Magic Link authentication flow in the current build is a client-side mock (`AuthRemoteDataSource`). Tokens are generated and verified locally; an attacker with root access to the device can inspect or tamper with this state. Before production, Magic Link verification MUST be moved to a backend service that issues single-use tokens and validates them server-side.
+- PIN/biometric lock is implemented locally but is not a substitute for OS-level device security.
+- No network transmission of financial data in the current build.
 
 ## Out of Scope
 
 - Vulnerabilities in third-party Flutter packages (report to the package maintainer)
-- Jailbreak/root device attacks (out of scope for MVP)
 - Social engineering
+- Compromised-device attacks that bypass OS sandboxing when the device is unlocked
 
 ## Supported Versions
 

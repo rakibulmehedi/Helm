@@ -22,7 +22,7 @@ Helm is on a 6-phase journey from current state (Behavioral 62/100, UI/UX 78/100
 ## 1. Active Sprint
 
 **Sprint S1 — Security Hardening (Adversarial Audit Remediation):**
-Status: **🔄 IN PROGRESS** — 2026-06-14. 97 vulnerability tasks across 7 waves. Depends on: Phase 4 complete (✅).
+Status: **🔄 IN PROGRESS** — 2026-06-14. 68/97 vulnerability tasks verified done; 29 pending. Depends on: Phase 4 complete (✅).
 
 > **Audit:** `.commandcode/adversarial_audit_report.md` — 12-agent parallel adversarial audit
 > **Tasks:** `docs/tracking/TASKS.md` § Sprint S1 — 17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW
@@ -67,10 +67,28 @@ Status: **🔄 IN PROGRESS** — 2026-06-14. 97 vulnerability tasks across 7 wav
 - **4B — Input Validation & Sanitization**: central `InputValidator` (amount caps, currency whitelist, email normalization, ID validation, DateTime parsing, text sanitization); CSV export sanitized and clamped; `TransactionModel`/`IncomeModel` deserialization hardened; route parameters validated; magic-link email/token validation tightened; nudge actionRoute whitelisted.
 - **4G — Audit Log Hardening**: audit schema version constant, unique event ids via `IdGenerator`, `previousValue` populated for updates/deletes, SHA-256 tamper-evidence chain via `AuditChainService`, 90-day retention pruning, exported-event emission, schema version in CSV export, audit chain box cleared on account deletion.
 - **4F — Lint Final Sweep**: all non-test `dart analyze` infos resolved (catch clauses, unawaited futures, deprecated `withOpacity`/`Share`), test helper packages added to dev dependencies, test quote style fixed.
-- **Codebase mapping**: 43/97 S1 tasks verified done in source/tests; 54 still pending. Key remaining risks: client-side-only auth trust model, Magic Link token replay/races, fixed-cost duplicate-ID overwrite, several mounted-check/race gaps, notification lock-screen visibility, Android Dart obfuscation build config, RTL override scrubbing.
+- **Codebase mapping**: 68/97 S1 tasks verified done in source/tests; 29 still pending. Key remaining risks: client-side-only auth trust model, onboarding guard, google_fonts runtime download, STS buffer migration, null-assert theme extensions, custom lint rules, several UI/UX consistency issues.
 - **Quality gates**: `dart analyze` 0 issues, `flutter test` 251/251 pass, no new runtime dependencies.
 
 ---
+
+### S1-W5 — Implementation Record (2026-06-14)
+
+**Agent:** Claude Code. **Focus:** Security Wave 4/5/6 continuation (state, navigation, business logic, platform, input).
+- **H-1 / H-4 / M-19 / M-20 — Magic Link trust layer**: `setMagicLinkAuthCompleted` awaited; `UsedMagicLinkTokenStore` persists consumed tokens to encrypted Hive; token reuse and rate-limit race guards tested.
+- **H-16 / H-25 / M-7 / M-8 — Safe-to-spend hardening**: `SafeToSpendResult.failure()` replaces silent zero; currency codes normalized to uppercase; `fxRate <= 0` excludes USD entries; new tests added.
+- **H-17 / H-20 / L-1 — Fixed-cost integrity**: `FixedCostEntry` constructor throws `ArgumentError` on invalid `dueDayOfMonth` (no release assert bypass); repository rejects duplicate IDs; audit events emitted on create/update/delete.
+- **H-18 — Tracking streak**: `SharedPrefServices.incrementTrackingStreak()` now counts consecutive calendar days and resets after a gap.
+- **H-22 / M-12 — Navigation/race guards**: `_AddEditFixedCostSheet._save()` awaits async write before `Navigator.pop`; `CadencePreferenceSheet._selectTime()` checks `mounted` after `showTimePicker`.
+- **H-27 — Splash timer**: `SplashScreen` stores its `Timer` and cancels it in `dispose`.
+- **M-9 — Income state machine**: `IncomeStatus.canTransition()` enforces `expected/pending → received` and forbids `received → expected/pending`; `IncomeNotifier` rejects illegal transitions.
+- **M-10 / M-22 — Export double-submit**: `ExportNotifier` now uses an immutable `ExportStatus` enum and returns early if already exporting.
+- **M-15 — Notification lock-screen visibility**: `AndroidNotificationDetails` and `DarwinNotificationDetails` set `visibility: secret` / `presentBanner: false` so previews do not leak on lock screen.
+- **M-21 — Nudge zombie-entry**: `markRead` / `markActioned` rebuild state from repository after update so a deleted entry is not re-inserted.
+- **M-29 — STS defaults audit**: `StsSettingsRepositoryImpl.getSettings()` logs an audit event when falling back to hardcoded defaults.
+- **C-17 — SDK constraint**: `pubspec.yaml` pinned to `sdk: ^3.11.0` to eliminate declared/resolved mismatch.
+- **Tracking docs**: `TASKS.md` and `S1_CODEBASE_TASK_MAPPING.md` updated to 68 done / 29 pending; new test files mapped to tasks.
+- **Quality gates**: `dart analyze` 0 issues, `flutter test` 282/282 pass.
 
 ## 0. Master Plan Context — Updated (2026-06-14)
 
