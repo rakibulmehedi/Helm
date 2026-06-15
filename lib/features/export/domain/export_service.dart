@@ -14,6 +14,7 @@ import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/features/audit_log/core/audit_log_constants.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
 import 'package:helm/features/audit_log/data/models/audit_event_model.dart';
+import 'package:helm/features/audit_log/data/services/audit_chain_service.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/income/data/models/income_model.dart';
 import 'package:helm/features/safe_to_spend/data/models/fixed_cost_model.dart';
@@ -125,11 +126,14 @@ class ExportService {
       ];
       final auditModels =
           _readBox<AuditEventModel>(AppBoxNames.auditEventsBox);
+      final chainService = AuditChainService();
       final auditRows = [
         'id,timestamp,eventType,entityType,entityId,previousValue,'
-            'newValue,description,schemaVersion',
-        ...auditModels.map(
-          (m) => _row([
+            'newValue,description,schemaVersion,previousHash,currentHash',
+        ...await Future.wait(auditModels.map((m) async {
+          final currentHash = await chainService.hashFor(m.id) ?? '';
+          final previousHash = await chainService.previousHashFor(m.id);
+          return _row([
             InputValidator.sanitizeText(m.id),
             m.timestamp.toIso8601String(),
             m.eventTypeIndex < eventTypeNames.length
@@ -143,8 +147,10 @@ class ExportService {
             InputValidator.sanitizeText(m.newValue),
             InputValidator.sanitizeText(m.description),
             kAuditSchemaVersion.toString(),
-          ]),
-        ),
+            previousHash,
+            currentHash,
+          ]);
+        })),
       ];
 
       // ── Write files ───────────────────────────────────────────────────────────

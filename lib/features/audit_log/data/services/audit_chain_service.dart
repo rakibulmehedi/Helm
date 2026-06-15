@@ -29,6 +29,7 @@ class AuditChainService {
   }
 
   /// Computes the chain hash for [event] and stores it keyed by event id.
+  /// Also stores the previous hash under a companion key for later retrieval.
   /// Returns the hash string or null if the chain box cannot be opened.
   Future<String?> appendAndHash(AuditEvent event) async {
     try {
@@ -37,6 +38,7 @@ class AuditChainService {
       final payload = _canonicalPayload(event, previousHash);
       final hash = sha256.convert(utf8.encode(payload)).toString();
       await box.put(event.id, hash);
+      await box.put('${event.id}_prev', previousHash);
       await box.put(_lastHashKey, hash);
       return hash;
     } on Exception catch (_) {
@@ -51,6 +53,17 @@ class AuditChainService {
       return box.get(eventId);
     } on Exception catch (_) {
       return null;
+    }
+  }
+
+  /// Returns the previous hash that was chained into [eventId]'s hash.
+  /// Returns empty string for genesis events (first in chain) or unknown IDs.
+  Future<String> previousHashFor(String eventId) async {
+    try {
+      final box = await _chainBox;
+      return box.get('${eventId}_prev', defaultValue: '') as String;
+    } on Exception catch (_) {
+      return '';
     }
   }
 
