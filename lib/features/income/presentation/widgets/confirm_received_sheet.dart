@@ -10,6 +10,8 @@
 //   - Guard all post-async with mounted check
 //   - Use withValues(alpha: x) not withOpacity(x)
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,9 +67,11 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
   bool get _isUsd => widget.entry.currency == 'USD';
 
-  double? get _parsedAmount => InputValidator.parseAmount(_amountController.text);
+  double? get _parsedAmount =>
+      InputValidator.parseAmount(_amountController.text);
 
-  double? get _parsedFxRate => InputValidator.parseAmount(_fxRateController.text);
+  double? get _parsedFxRate =>
+      InputValidator.parseAmount(_fxRateController.text);
 
   double? get _bdtEstimate {
     final amount = _parsedAmount;
@@ -95,7 +99,6 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
   }
 
   Future<void> _onConfirm() async {
-    await HapticFeedback.mediumImpact();
     // Clear any previous inline FX error
     setState(() => _fxRateError = null);
 
@@ -126,22 +129,33 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
     final notifier = ref.read(incomeNotifierProvider.notifier);
     await notifier.updateIncome(updatedEntry);
+    await HapticFeedback.mediumImpact();
+    unawaited(
+      Future<void>.delayed(
+        const Duration(milliseconds: 220),
+        HapticFeedback.lightImpact,
+      ),
+    );
     // D2.04 — Beta instrumentation: pipeline confirmed (Pending → Received)
-    ref.read(analyticsProvider).trackEvent(
-      TransactionalEvents.pipelineConfirmed,
-      properties: {
-        EventProperties.fromState: 'pending',
-        EventProperties.toState: 'received',
-      },
-    );
+    ref
+        .read(analyticsProvider)
+        .trackEvent(
+          TransactionalEvents.pipelineConfirmed,
+          properties: {
+            EventProperties.fromState: 'pending',
+            EventProperties.toState: 'received',
+          },
+        );
     // P1.4: pipeline_state_changed boundary event
-    ref.read(analyticsProvider).trackEvent(
-      BoundaryEvents.pipelineStateChanged,
-      properties: {
-        EventProperties.fromState: 'pending',
-        EventProperties.toState: 'received',
-      },
-    );
+    ref
+        .read(analyticsProvider)
+        .trackEvent(
+          BoundaryEvents.pipelineStateChanged,
+          properties: {
+            EventProperties.fromState: 'pending',
+            EventProperties.toState: 'received',
+          },
+        );
 
     // P4.2: notification_resulted_in_update — within 30min of notification open
     final lastNotificationOpen =
@@ -149,10 +163,14 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
     if (lastNotificationOpen != null) {
       final sinceOpen = DateTime.now().difference(lastNotificationOpen);
       if (sinceOpen.inMinutes <= 30) {
-        ref.read(analyticsProvider).trackEvent(
-          TransactionalEvents.notificationResultedInUpdate,
-          properties: {'minutes_since_open': sinceOpen.inMinutes.toString()},
-        );
+        ref
+            .read(analyticsProvider)
+            .trackEvent(
+              TransactionalEvents.notificationResultedInUpdate,
+              properties: {
+                'minutes_since_open': sinceOpen.inMinutes.toString(),
+              },
+            );
       }
     }
 
@@ -181,9 +199,9 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
           textColor: surfaceColor,
           onPressed: () async {
             // D2.04 — Beta instrumentation: undo after confirm
-            ref.read(analyticsProvider).trackEvent(
-              TransactionalEvents.undoConfirmUsed,
-            );
+            ref
+                .read(analyticsProvider)
+                .trackEvent(TransactionalEvents.undoConfirmUsed);
             await notifier.updateIncome(originalEntry);
           },
         ),
