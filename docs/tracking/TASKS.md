@@ -284,7 +284,7 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [~] A5.2 Build release APK — build config fixed (version 0.3.0-beta.1+1, label "Helm"); needs keystore + `flutter build apk --release` (human action) ⏳
 - [ ] A5.3 Test on Samsung Galaxy A14 (or equivalent) — blocked on A5.2 APK build
 - [x] A5.4 Verify Android minSdkVersion compatibility — minSdk 21, Galaxy A14 API 33, fully compatible ✅
-- [x] A5.5 Verify app icon and branded splash — audited; splash color set to #FAFAF6, iOS name "Helm"; icons still default Flutter (needs designer + package approval) ✅
+- [x] A5.5 Verify app icon and branded splash — splash #FAFAF6, iOS name "Helm", VISR-029 branded icon installed across Android/iOS/macOS/web; no package added ✅
 
 ## VCI — Version Control Infrastructure — PENDING (runs before beta APK)
 

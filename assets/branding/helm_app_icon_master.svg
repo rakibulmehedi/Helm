@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" fill="#255E5B"/>
+
+  <!-- Ledger rail -->
+  <g fill="none" stroke="#FAFAF6" stroke-linecap="round">
+    <path d="M238 374H786" stroke-width="54"/>
+    <path d="M238 650H786" stroke-width="54"/>
+    <path d="M438 282V742" stroke-width="54"/>
+  </g>
+
+  <!-- Settlement marker -->
+  <circle cx="438" cy="512" r="58" fill="#255E5B" stroke="#FAFAF6" stroke-width="40"/>
+
+  <!-- BDT grounding mark -->
+  <g fill="none" stroke="#FAFAF6" stroke-linecap="round" stroke-linejoin="round" stroke-width="34">
+    <path d="M616 474H752"/>
+    <path d="M616 534H722"/>
+    <path d="M650 474V610"/>
+    <path d="M650 536C650 596 704 612 748 584"/>
+  </g>
+</svg>
