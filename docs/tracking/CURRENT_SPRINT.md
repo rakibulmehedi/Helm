@@ -130,7 +130,7 @@ Status: **🔲 PENDING** — Runs BEFORE beta APK distribution. Depends on: S1 +
 
 ## 2. Current Priority
 
-- **Sprint S1 (ACTIVE)** — Security Hardening: 97 vulnerability fixes from adversarial audit. Wave 1 in progress.
+- **Sprint S1-W6 (ACTIVE)** — QA Pre-Release Fixes: 9 findings from 2026-06-15 QA gate execution. Dispatch: `docs/planning/QA_FIX_DISPATCH.md`.
 - **Sprint A5 (PARALLEL)** — Bangla + Release Build. A5.2 needs human keystore. A5.3 blocked on A5.2.
 - **Sprint VCI (AFTER S1+A5)** — Version Control Infrastructure. Branch model, hotfix protocol, tagging.
 - **Phase 5 (BLOCKED)** — V1 Features. Gated on: S1 exit + beta thresholds cleared + security review pass.

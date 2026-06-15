@@ -39,26 +39,24 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: SPRINT S1 IN PROGRESS — Security Hardening (Adversarial Audit Remediation)** (2026-06-14)
-- **Adversarial audit complete**: 12 agents, 97 findings (17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW)
-- **Sprint S1 active**: 68/97 vulnerability fixes verified done, 29 pending, 7 waves, ~40h estimated
+**Current Verdict: S1-W6 — QA PRE-RELEASE FIXES (2026-06-15)**
+- **QA Gate Execution**: 10 gates run against release APK on physical device. 6 failed, 3 conditional pass, 1 pass. **Release Verdict: NO GO.** 9 findings (2 BLOCKER, 4 HIGH, 2 MEDIUM, 1 LOW).
+- **Fix Dispatch**: `docs/planning/QA_FIX_DISPATCH.md` — 9 fixes across 12 files + 7 font assets. Execution order: BLOCKERs → HIGHs → MEDIUM/LOW.
 - **S1-W5 complete** (2026-06-14) — State-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening. `dart analyze` 0 issues, 282 tests pass.
 - **S1-W4 complete** (2026-06-14) — Secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep. `dart analyze` 0 issues, 251 tests pass.
+- **Adversarial audit**: 97 findings total. 3 new findings surfaced by QA gates (API 21→24 regression, account deletion incomplete, audit CSV chain hashes missing).
 - Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
 - A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
 - A5.3 ⏳ — blocked on A5.2
-- A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33)
+- A5.4 ✅ — minSdk 21 compatible with Galaxy A14 (API 33) — **REGRESSION: current APK resolves to API 24. Fix in QA_FIX_DISPATCH Fix 1.**
 - A5.5 ✅ — splash #FAFAF6, iOS name "Helm", branded app icons installed across Android/iOS/macOS/web
 - Core S2S engine + dashboard + pipeline: production-grade
-- **Security posture**: HIGH — at-rest Hive encryption enabled, root/jailbreak detection wired, PIN KDF hardened, input sanitized, audit log tamper-evident, export CSV sanitized; remaining work is platform signing/obfuscation and release build verification
-- Distance to closed beta: Security hardening completion + A5 APK build + device test
-- Distance to 100% maturity: ~85h (master plan) + ~25h (remaining security sprint) = ~110h
+- **Distance to closed beta**: 9 fixes (est. ~6h) + A5 APK build + device re-test
 - **Master plan**: `docs/planning/100_PERCENT_MASTER_PLAN.md` (adopted 2026-06-12)
 - **Security audit**: `.commandcode/adversarial_audit_report.md` (2026-06-14)
-- **Agent assets**: 10 agent definitions in `.claude/agents/` (all general-purpose, no codebase hardcoding)
+- **QA fix dispatch**: `docs/planning/QA_FIX_DISPATCH.md` (2026-06-15)
 - See `docs/beta/INTERNAL_ALPHA_MATURITY_AUDIT.md` for full report
-- See `docs/planning/100_PERCENT_MASTER_PLAN.md` for complete 6-phase roadmap
 
 ## 4. Known Technical Debt
 - categories currently placeholder string labels

@@ -14,16 +14,18 @@
 > Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 33/35
 > TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md` + `TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md`
 
-### Phase 0 — Beta Launch Readiness (🔲 PENDING)
+### Phase 0 — Beta Launch Readiness (🔄 IN PROGRESS)
 - Sprint A5: Bangla strings + Release APK + Device testing (parallel with S1)
-- Effort: ~4 hours
-- Gate: Release APK runs on reference device. Bangla authored.
+- Sprint S1-W6: QA Pre-Release Fixes (9 findings from 10-gate QA execution on 2026-06-15)
+- Effort: ~10 hours total (A5 ~4h + S1-W6 ~6h)
+- Gate: Release APK signs with release keystore. All 9 QA findings resolved. APK runs on reference device. Bangla authored.
 
 ### Sprint S1 — Security Hardening (🔄 ACTIVE) [2026-06-14]
 - 12-agent adversarial audit: 97 findings across 12 security domains
 - 7 waves: Critical Auth/Storage → Navigation/Data → High Auth/Storage/Input → High State/Nav/Race → High Platform/Code → All Medium → All Low + Re-Audit
-- Effort: ~40 hours
-- Gate: 52/97 critical+high resolved. Hive encrypted. Release signing. FLAG_SECURE. Bundle ID. CSV guard. Re-audit ≤10 LOW.
+- **S1-W6**: QA Pre-Release Fixes — 9 findings (2 BLOCKER, 4 HIGH, 2 MEDIUM, 1 LOW). Dispatch: `docs/planning/QA_FIX_DISPATCH.md`
+- Effort: ~46 hours (base ~40h + S1-W6 ~6h)
+- Gate: 52/97 critical+high resolved. Hive encrypted. Release signing. FLAG_SECURE. Bundle ID. CSV guard. QA re-run clean. Re-audit ≤10 LOW.
 - Trust Layer target: 23→33/35
 
 ### Phase 1 — Behavioral Foundation (✅ COMPLETE) [2026-06-13]
