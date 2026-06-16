@@ -222,6 +222,7 @@
 **Helm Signal Deck UI slice** ✅ [2026-06-16] — `dart analyze` 0 issues, `flutter test` 307/307 pass, merged to `main` in `6773be4`
 - Signal Hero, Signal Horizon, Decision Deck, Flow route, calculation trace sheet, dashboard home, shell nav, confirm haptics
 - Reviewer fixes: unavailable amount dash fallback, pending label correction, pulse restart on update, 320dp overflow fix
+- Responsiveness patch: compact LayoutBuilder sizing on Signal Hero + Decision Deck for 320dp / large text
 - Docs updated: `CURRENT_SPRINT.md`, `PROJECT_STATE.md`, `ROADMAP.md`
 
 **Phase 2 — Analytics Infrastructure** ✅ [2026-06-12] — 34 tests, dart analyze 0/0/0, 4 groups done

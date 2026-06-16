@@ -125,5 +125,37 @@ void main() {
       );
       expect(events, contains('trace'));
     });
+
+    testWidgets('fits 320dp width with large text scale', (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark,
+          home: MediaQuery(
+            data: const MediaQueryData(
+              size: Size(320, 640),
+              textScaler: TextScaler.linear(1.6),
+            ),
+            child: Scaffold(
+              body: Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: 272,
+                  child: HelmDecisionDeck(
+                    eventLabel: 'NEXT EVENT',
+                    eventTitle: 'Client payment expected tomorrow',
+                    actionLabel: 'REVIEW COMMITMENTS',
+                    onAction: () {},
+                    onTrace: () {},
+                    flowStage: SignalFlowStage.expected,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.takeException(), isNull);
+    });
   });
 }

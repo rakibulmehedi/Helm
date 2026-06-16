@@ -47,90 +47,108 @@ class HelmSignalHero extends StatelessWidget {
           'Safe to spend now $semanticAmount. State: $stateLabel. $runwayLabel. '
           '$committedSignal. $heldSignal. $pendingSignal.',
       button: true,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: _handleTap,
-        child: Container(
-          padding: const EdgeInsets.all(HelmSpacing.s6),
-          decoration: BoxDecoration(
-            color: HelmSignalTheme.signalCanvas,
-            borderRadius: BorderRadius.circular(32),
-            border: Border.all(color: HelmSignalTheme.signalBorder(context)),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned.fill(
-                child: ExcludeSemantics(
-                  child: CustomPaint(
-                    painter: _OrbitalSignalPainter(
-                      color: HelmSignalTheme.stateColor(state),
-                    ),
-                  ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final compact = constraints.maxWidth < 360;
+          final padding = compact ? HelmSpacing.s5 : HelmSpacing.s6;
+          final titleSize = compact ? 10.5 : 11.0;
+          final amountSize = compact ? 44.0 : 56.0;
+          final stateSize = compact ? 14.0 : 15.0;
+          final runwaySize = compact ? 12.0 : 13.0;
+
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: _handleTap,
+            child: Container(
+              padding: EdgeInsets.all(padding),
+              decoration: BoxDecoration(
+                color: HelmSignalTheme.signalCanvas,
+                borderRadius: BorderRadius.circular(32),
+                border: Border.all(
+                  color: HelmSignalTheme.signalBorder(context),
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  const Text(
-                    'SAFE TO SPEND NOW',
-                    style: TextStyle(
-                      color: HelmSignalTheme.signalInkSecondary,
-                      fontFamily: 'Inter',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      height: 1.25,
+                  Positioned.fill(
+                    child: ExcludeSemantics(
+                      child: CustomPaint(
+                        painter: _OrbitalSignalPainter(
+                          color: HelmSignalTheme.stateColor(state),
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: HelmSpacing.s3),
-                  Text(
-                    amount,
-                    style: const TextStyle(
-                      color: HelmSignalTheme.signalInkPrimary,
-                      fontFamily: 'JetBrainsMono',
-                      fontSize: 56,
-                      fontWeight: FontWeight.w600,
-                      height: 1.05,
-                    ),
-                  ),
-                  const SizedBox(height: HelmSpacing.s3),
-                  Text(
-                    stateLabel,
-                    style: const TextStyle(
-                      color: HelmSignalTheme.signalInkSecondary,
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      height: 1.35,
-                    ),
-                  ),
-                  const SizedBox(height: HelmSpacing.s1),
-                  Text(
-                    runwayLabel,
-                    style: const TextStyle(
-                      color: HelmSignalTheme.signalInkMuted,
-                      fontFamily: 'Inter',
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      height: 1.35,
-                    ),
-                  ),
-                  const SizedBox(height: HelmSpacing.s6),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: HelmSpacing.s3,
-                    runSpacing: HelmSpacing.s2,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      _SignalChip(label: committedSignal),
-                      _SignalChip(label: heldSignal),
-                      _SignalChip(label: pendingSignal),
+                      Text(
+                        'SAFE TO SPEND NOW',
+                        style: TextStyle(
+                          color: HelmSignalTheme.signalInkSecondary,
+                          fontFamily: 'Inter',
+                          fontSize: titleSize,
+                          fontWeight: FontWeight.w600,
+                          height: 1.25,
+                        ),
+                      ),
+                      const SizedBox(height: HelmSpacing.s3),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          amount,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: HelmSignalTheme.signalInkPrimary,
+                            fontFamily: 'JetBrainsMono',
+                            fontSize: amountSize,
+                            fontWeight: FontWeight.w600,
+                            height: 1.05,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: HelmSpacing.s3),
+                      Text(
+                        stateLabel,
+                        style: TextStyle(
+                          color: HelmSignalTheme.signalInkSecondary,
+                          fontFamily: 'Inter',
+                          fontSize: stateSize,
+                          fontWeight: FontWeight.w500,
+                          height: 1.35,
+                        ),
+                      ),
+                      const SizedBox(height: HelmSpacing.s1),
+                      Text(
+                        runwayLabel,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: HelmSignalTheme.signalInkMuted,
+                          fontFamily: 'Inter',
+                          fontSize: runwaySize,
+                          fontWeight: FontWeight.w500,
+                          height: 1.35,
+                        ),
+                      ),
+                      const SizedBox(height: HelmSpacing.s6),
+                      Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: HelmSpacing.s3,
+                        runSpacing: HelmSpacing.s2,
+                        children: [
+                          _SignalChip(label: committedSignal),
+                          _SignalChip(label: heldSignal),
+                          _SignalChip(label: pendingSignal),
+                        ],
+                      ),
                     ],
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
