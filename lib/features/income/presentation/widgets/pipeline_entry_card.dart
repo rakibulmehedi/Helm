@@ -19,6 +19,7 @@ import 'package:helm/core/widgets/helm_money_source_label.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
 import 'package:helm/features/income/presentation/widgets/confirm_received_sheet.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class PipelineEntryCard extends ConsumerWidget {
   final IncomeEntryEntity entry;
@@ -52,15 +53,15 @@ class PipelineEntryCard extends ConsumerWidget {
     }
   }
 
-  String _badgeLabel(IncomeEntryEntity e) {
-    if (_isOverdue(e)) return 'Overdue';
+  String _badgeLabel(IncomeEntryEntity e, AppLocalizations l10n) {
+    if (_isOverdue(e)) return l10n.pipelineOverdue;
     switch (e.status) {
       case IncomeStatus.expected:
-        return 'Expected';
+        return l10n.expected;
       case IncomeStatus.pending:
-        return 'Pending';
+        return l10n.pending;
       case IncomeStatus.received:
-        return 'Received';
+        return l10n.received;
     }
   }
 
@@ -82,13 +83,13 @@ class PipelineEntryCard extends ConsumerWidget {
   // Date label
   // ---------------------------------------------------------------------------
 
-  Widget _dateLabel(IncomeEntryEntity e, HelmColors colors, TextStyle base) {
+  Widget _dateLabel(IncomeEntryEntity e, HelmColors colors, TextStyle base, AppLocalizations l10n) {
     if (_isOverdue(e)) {
       final days = DateTime.now()
           .difference(e.expectedDate)
           .inDays;
       return Text(
-        '$days day${days == 1 ? '' : 's'} overdue',
+        l10n.daysOverdue(days),
         style: base.copyWith(color: colors.stateAtRisk),
       );
     }
@@ -103,10 +104,10 @@ class PipelineEntryCard extends ConsumerWidget {
     final diff = date.difference(today).inDays;
 
     if (diff == 0) {
-      return Text('today', style: base.copyWith(color: colors.stateSafe));
+      return Text(l10n.dateToday, style: base.copyWith(color: colors.stateSafe));
     }
     if (diff == 1) {
-      return Text('tomorrow', style: base);
+      return Text(l10n.dateTomorrow, style: base);
     }
     return Text(DateFormat('d MMM').format(e.expectedDate), style: base);
   }
@@ -141,7 +142,7 @@ class PipelineEntryCard extends ConsumerWidget {
                 size: HelmSpacing.iconMd,
               ),
               title: Text(
-                'Duplicate as next month',
+                context.l10n.duplicateAsNextMonth,
                 style: sheetCtx.textStyles.bodyMd.copyWith(
                   color: sheetCtx.colors.inkPrimary,
                 ),
@@ -186,6 +187,7 @@ class PipelineEntryCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
     final rail = _railColor(entry, colors);
 
     final card = GestureDetector(
@@ -230,7 +232,7 @@ class PipelineEntryCard extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           _StateBadge(
-                            label: _badgeLabel(entry),
+                            label: _badgeLabel(entry, l10n),
                             color: rail,
                           ),
                           const Spacer(),
@@ -263,6 +265,7 @@ class PipelineEntryCard extends ConsumerWidget {
                             entry,
                             colors,
                             typo.bodySm.copyWith(color: colors.inkSecondary),
+                            l10n,
                           ),
                         ],
                       ),
@@ -277,7 +280,7 @@ class PipelineEntryCard extends ConsumerWidget {
                       if (entry.excludeFromCalculation) ...[
                         const SizedBox(height: HelmSpacing.s1),
                         Text(
-                          'Not counted yet',
+                          l10n.notCountedTitle,
                           style: typo.labelSm.copyWith(
                             color: colors.inkTertiary,
                           ),
@@ -336,7 +339,7 @@ class _SwipeBackground extends StatelessWidget {
           ),
           const SizedBox(width: HelmSpacing.s2),
           Text(
-            'Confirm received',
+            context.l10n.swipeConfirmReceived,
             style: context.textStyles.labelMd.copyWith(color: colors.stateSafe),
           ),
         ],

@@ -22,6 +22,7 @@ import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
 import 'package:helm/features/income/presentation/widgets/pipeline_entry_card.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class PipelineScreen extends ConsumerWidget {
   const PipelineScreen({super.key});
@@ -30,6 +31,7 @@ class PipelineScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
     final entries = ref.watch(incomeNotifierProvider);
 
     final now = DateTime.now();
@@ -80,7 +82,7 @@ class PipelineScreen extends ConsumerWidget {
         elevation: 0,
         scrolledUnderElevation: 0,
         title: Text(
-          'Pipeline',
+          l10n.pipelineTitle,
           style: typo.headingSm.copyWith(color: colors.inkPrimary),
         ),
         centerTitle: false,
@@ -97,7 +99,7 @@ class PipelineScreen extends ConsumerWidget {
               children: [
                 if (needsDecision.isNotEmpty) ...[
                   _SectionHeader(
-                    label: 'Needs decision',
+                    label: l10n.pipelineNeedsDecision,
                     count: needsDecision.length,
                     total: _sum(needsDecision),
                     color: colors.stateAtRisk,
@@ -114,7 +116,7 @@ class PipelineScreen extends ConsumerWidget {
                 ],
                 if (overdue.isNotEmpty) ...[
                   _SectionHeader(
-                    label: 'Overdue — needs attention',
+                    label: l10n.pipelineOverdueAttention,
                     count: overdue.length,
                     total: _sum(overdue),
                     color: colors.stateAtRisk,
@@ -131,7 +133,7 @@ class PipelineScreen extends ConsumerWidget {
                 ],
                 if (pending.isNotEmpty) ...[
                   _SectionHeader(
-                    label: 'Pending',
+                    label: l10n.pending,
                     count: pending.length,
                     total: _sum(pending),
                     color: colors.stateTight,
@@ -148,7 +150,7 @@ class PipelineScreen extends ConsumerWidget {
                 ],
                 if (expected.isNotEmpty) ...[
                   _SectionHeader(
-                    label: 'Expected',
+                    label: l10n.expected,
                     count: expected.length,
                     total: _sum(expected),
                     color: colors.stateHope,
@@ -252,7 +254,7 @@ class _ReceivedSectionState extends State<_ReceivedSection> {
                     width: 3, height: 14, color: widget.colors.stateSafe),
                 const SizedBox(width: HelmSpacing.s2),
                 Text(
-                  'Received',
+                  context.l10n.received,
                   style: widget.typo.labelMd
                       .copyWith(color: widget.colors.stateSafe),
                 ),
@@ -304,7 +306,7 @@ class _PipelineFab extends ConsumerWidget {
         backgroundColor: colors.interactive,
         icon: Icon(Icons.add, color: colors.surface),
         label: Text(
-          'Expected',
+          context.l10n.expected,
           style: typo.labelMd.copyWith(color: colors.surface),
         ),
       );
@@ -336,7 +338,7 @@ class _EmptyPipelineView extends StatelessWidget {
             Icon(Icons.inbox_outlined, size: 48, color: colors.inkTertiary),
             const SizedBox(height: HelmSpacing.s3),
             Text(
-              'Add an expected payment when you invoice or expect money.',
+              context.l10n.notCountedEmpty,
               style: typo.bodyMd.copyWith(color: colors.inkSecondary),
               textAlign: TextAlign.center,
             ),

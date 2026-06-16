@@ -474,5 +474,154 @@
   "@changeHistory": { "description": "STS settings: audit log list item" },
 
   "deleteAllData": "Delete all data",
-  "@deleteAllData": { "description": "STS settings: delete all data list item" }
+  "@deleteAllData": { "description": "STS settings: delete all data list item" },
+
+  "nbaOverdueTitle": "{count, plural, =1{1 payment overdue} other{{count} payments overdue}}",
+  "@nbaOverdueTitle": {
+    "description": "NBA card: overdue payments title",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "nbaOverdueDescription": "Update status of overdue pipeline payments.",
+  "@nbaOverdueDescription": { "description": "NBA card: overdue description" },
+
+  "nbaOverdueAction": "Review",
+  "@nbaOverdueAction": { "description": "NBA card: overdue CTA" },
+
+  "nbaAtRiskTitle": "Safe-to-spend is tight",
+  "@nbaAtRiskTitle": { "description": "NBA card: at-risk title" },
+
+  "nbaAtRiskDescription": "Review your fixed monthly costs to release pressure.",
+  "@nbaAtRiskDescription": { "description": "NBA card: at-risk description" },
+
+  "nbaAtRiskAction": "Review fixed costs",
+  "@nbaAtRiskAction": { "description": "NBA card: at-risk CTA" },
+
+  "nbaReliefTitle": "Pipeline up to date",
+  "@nbaReliefTitle": { "description": "NBA card: relief title" },
+
+  "nbaReliefDescription": "All payments are on schedule and tracked.",
+  "@nbaReliefDescription": { "description": "NBA card: relief description" },
+
+  "nbaSetupTitle": "Add your first expected payment",
+  "@nbaSetupTitle": { "description": "NBA card: setup title" },
+
+  "nbaSetupDescription": "Track upcoming income to compute Safe-to-Spend.",
+  "@nbaSetupDescription": { "description": "NBA card: setup description" },
+
+  "nbaSetupAction": "Add payment",
+  "@nbaSetupAction": { "description": "NBA card: setup CTA" },
+
+  "calcTraceTitle": "How we calculated this",
+  "@calcTraceTitle": { "description": "Calculation trace sheet title" },
+
+  "calcTraceSubtitle": "Tap any line to learn more",
+  "@calcTraceSubtitle": { "description": "Calculation trace sheet subtitle" },
+
+  "calcTraceReceivedIncome": "+ Received income",
+  "@calcTraceReceivedIncome": { "description": "Calc trace: received income line" },
+
+  "calcTraceCashOut": "− Cash out",
+  "@calcTraceCashOut": { "description": "Calc trace: cash out line" },
+
+  "calcTraceLiquidBdt": "= Liquid BDT",
+  "@calcTraceLiquidBdt": { "description": "Calc trace: liquid BDT result line" },
+
+  "calcTraceTaxReserve": "− Tax reserve (hold)",
+  "@calcTraceTaxReserve": { "description": "Calc trace: tax reserve deduction" },
+
+  "calcTraceFixedCosts": "− Fixed costs due",
+  "@calcTraceFixedCosts": { "description": "Calc trace: fixed costs deduction" },
+
+  "calcTraceSafetyBuffer": "− Safety buffer",
+  "@calcTraceSafetyBuffer": { "description": "Calc trace: safety buffer deduction" },
+
+  "calcTraceSafeToSpend": "= Safe-to-Spend",
+  "@calcTraceSafeToSpend": { "description": "Calc trace: final safe-to-spend result" },
+
+  "trustStripTapToAudit": "Tap to audit",
+  "@trustStripTapToAudit": { "description": "Trust strip: audit tap affordance" },
+
+  "trustStripUpdatedJustNow": "Updated just now",
+  "@trustStripUpdatedJustNow": { "description": "Trust strip: updated moments ago" },
+
+  "trustStripUpdatedMinAgo": "{count, plural, =1{Updated 1 min ago} other{Updated {count} mins ago}}",
+  "@trustStripUpdatedMinAgo": {
+    "description": "Trust strip: updated N minutes ago",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "trustStripUpdatedAt": "Updated {time}",
+  "@trustStripUpdatedAt": {
+    "description": "Trust strip: updated at specific time",
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+
+  "pipelineOverdue": "Overdue",
+  "@pipelineOverdue": { "description": "Pipeline badge label: overdue status" },
+
+  "daysOverdue": "{count, plural, =1{1 day overdue} other{{count} days overdue}}",
+  "@daysOverdue": {
+    "description": "Pipeline card: days overdue relative date",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "dateToday": "today",
+  "@dateToday": { "description": "Pipeline card: relative date for today" },
+
+  "dateTomorrow": "tomorrow",
+  "@dateTomorrow": { "description": "Pipeline card: relative date for tomorrow" },
+
+  "duplicateAsNextMonth": "Duplicate as next month",
+  "@duplicateAsNextMonth": { "description": "Pipeline card long-press action" },
+
+  "swipeConfirmReceived": "Confirm received",
+  "@swipeConfirmReceived": { "description": "Pipeline card: swipe hint text" },
+
+  "pipelineTitle": "Pipeline",
+  "@pipelineTitle": { "description": "Pipeline screen: app bar title" },
+
+  "pipelineNeedsDecision": "Needs decision",
+  "@pipelineNeedsDecision": { "description": "Pipeline screen: section header for items needing decision" },
+
+  "pipelineOverdueAttention": "Overdue — needs attention",
+  "@pipelineOverdueAttention": { "description": "Pipeline screen: section header for overdue items" },
+
+  "incomeEntryCount": "{count, plural, =1{1 entry} other{{count} entries}}",
+  "@incomeEntryCount": {
+    "description": "Income list: entry count subtitle",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "incomeByDate": "By {date}",
+  "@incomeByDate": {
+    "description": "Income list card: expected by date",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "incomeReceivedDate": "Received {date}",
+  "@incomeReceivedDate": {
+    "description": "Income list card: received on date",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "fxRateInvalid": "Enter a valid positive rate",
+  "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },
+
+  "projectNameRecommended": "Project Name (recommended)",
+  "@projectNameRecommended": { "description": "Income form: project name label when optional" }
 }

@@ -331,5 +331,154 @@
   "@changeHistory": { "description": "STS settings: audit log list item" },
 
   "deleteAllData": "সব ডেটা মুছে ফেলুন",
-  "@deleteAllData": { "description": "STS settings: delete all data list item" }
+  "@deleteAllData": { "description": "STS settings: delete all data list item" },
+
+  "nbaOverdueTitle": "{count}টি পেমেন্ট ওভারডিউ",
+  "@nbaOverdueTitle": {
+    "description": "NBA card: overdue payments title",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "nbaOverdueDescription": "ওভারডিউ পাইপলাইন পেমেন্টের স্ট্যাটাস আপডেট করুন।",
+  "@nbaOverdueDescription": { "description": "NBA card: overdue description" },
+
+  "nbaOverdueAction": "রিভিউ করুন",
+  "@nbaOverdueAction": { "description": "NBA card: overdue CTA" },
+
+  "nbaAtRiskTitle": "নিরাপদ ব্যয়সীমা কম",
+  "@nbaAtRiskTitle": { "description": "NBA card: at-risk title" },
+
+  "nbaAtRiskDescription": "চাপ কমাতে নির্দিষ্ট মাসিক খরচ রিভিউ করুন।",
+  "@nbaAtRiskDescription": { "description": "NBA card: at-risk description" },
+
+  "nbaAtRiskAction": "নির্দিষ্ট খরচ রিভিউ",
+  "@nbaAtRiskAction": { "description": "NBA card: at-risk CTA" },
+
+  "nbaReliefTitle": "পাইপলাইন আপ টু ডেট",
+  "@nbaReliefTitle": { "description": "NBA card: relief title" },
+
+  "nbaReliefDescription": "সব পেমেন্ট সময়মতো এবং ট্র্যাক করা আছে।",
+  "@nbaReliefDescription": { "description": "NBA card: relief description" },
+
+  "nbaSetupTitle": "প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন",
+  "@nbaSetupTitle": { "description": "NBA card: setup title" },
+
+  "nbaSetupDescription": "নিরাপদ ব্যয়সীমা হিসাব করতে আসন্ন আয় ট্র্যাক করুন।",
+  "@nbaSetupDescription": { "description": "NBA card: setup description" },
+
+  "nbaSetupAction": "পেমেন্ট যোগ করুন",
+  "@nbaSetupAction": { "description": "NBA card: setup CTA" },
+
+  "calcTraceTitle": "হিসাবটি যেভাবে করা হয়েছে",
+  "@calcTraceTitle": { "description": "Calculation trace sheet title" },
+
+  "calcTraceSubtitle": "বিস্তারিত জানতে যেকোনো লাইনে ট্যাপ করুন",
+  "@calcTraceSubtitle": { "description": "Calculation trace sheet subtitle" },
+
+  "calcTraceReceivedIncome": "+ প্রাপ্ত আয়",
+  "@calcTraceReceivedIncome": { "description": "Calc trace: received income line" },
+
+  "calcTraceCashOut": "− ক্যাশ আউট",
+  "@calcTraceCashOut": { "description": "Calc trace: cash out line" },
+
+  "calcTraceLiquidBdt": "= লিকুইড BDT",
+  "@calcTraceLiquidBdt": { "description": "Calc trace: liquid BDT result line" },
+
+  "calcTraceTaxReserve": "− ট্যাক্স রিজার্ভ (হোল্ড)",
+  "@calcTraceTaxReserve": { "description": "Calc trace: tax reserve deduction" },
+
+  "calcTraceFixedCosts": "− দেয় নির্দিষ্ট খরচ",
+  "@calcTraceFixedCosts": { "description": "Calc trace: fixed costs deduction" },
+
+  "calcTraceSafetyBuffer": "− সেফটি বাফার",
+  "@calcTraceSafetyBuffer": { "description": "Calc trace: safety buffer deduction" },
+
+  "calcTraceSafeToSpend": "= নিরাপদ ব্যয়সীমা",
+  "@calcTraceSafeToSpend": { "description": "Calc trace: final safe-to-spend result" },
+
+  "trustStripTapToAudit": "অডিট করতে ট্যাপ করুন",
+  "@trustStripTapToAudit": { "description": "Trust strip: audit tap affordance" },
+
+  "trustStripUpdatedJustNow": "এইমাত্র আপডেট হয়েছে",
+  "@trustStripUpdatedJustNow": { "description": "Trust strip: updated moments ago" },
+
+  "trustStripUpdatedMinAgo": "{count} মিনিট আগে আপডেট হয়েছে",
+  "@trustStripUpdatedMinAgo": {
+    "description": "Trust strip: updated N minutes ago",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "trustStripUpdatedAt": "{time}-এ আপডেট হয়েছে",
+  "@trustStripUpdatedAt": {
+    "description": "Trust strip: updated at specific time",
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+
+  "pipelineOverdue": "ওভারডিউ",
+  "@pipelineOverdue": { "description": "Pipeline badge label: overdue status" },
+
+  "daysOverdue": "{count, plural, =1{১ দিন ওভারডিউ} other{{count} দিন ওভারডিউ}}",
+  "@daysOverdue": {
+    "description": "Pipeline card: days overdue relative date",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "dateToday": "আজ",
+  "@dateToday": { "description": "Pipeline card: relative date for today" },
+
+  "dateTomorrow": "আগামীকাল",
+  "@dateTomorrow": { "description": "Pipeline card: relative date for tomorrow" },
+
+  "duplicateAsNextMonth": "পরের মাসের জন্য ডুপ্লিকেট করুন",
+  "@duplicateAsNextMonth": { "description": "Pipeline card long-press action" },
+
+  "swipeConfirmReceived": "রিসিভ নিশ্চিত করুন",
+  "@swipeConfirmReceived": { "description": "Pipeline card: swipe hint text" },
+
+  "pipelineTitle": "পাইপলাইন",
+  "@pipelineTitle": { "description": "Pipeline screen: app bar title" },
+
+  "pipelineNeedsDecision": "সিদ্ধান্ত প্রয়োজন",
+  "@pipelineNeedsDecision": { "description": "Pipeline screen: section header for items needing decision" },
+
+  "pipelineOverdueAttention": "ওভারডিউ — মনোযোগ প্রয়োজন",
+  "@pipelineOverdueAttention": { "description": "Pipeline screen: section header for overdue items" },
+
+  "incomeEntryCount": "{count, plural, =1{১টি এন্ট্রি} other{{count}টি এন্ট্রি}}",
+  "@incomeEntryCount": {
+    "description": "Income list: entry count subtitle",
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "incomeByDate": "{date} এর মধ্যে",
+  "@incomeByDate": {
+    "description": "Income list card: expected by date",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "incomeReceivedDate": "{date} তারিখে রিসিভ হয়েছে",
+  "@incomeReceivedDate": {
+    "description": "Income list card: received on date",
+    "placeholders": {
+      "date": { "type": "String" }
+    }
+  },
+
+  "fxRateInvalid": "একটি বৈধ পজিটিভ রেট দিন",
+  "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },
+
+  "projectNameRecommended": "প্রজেক্টের নাম (প্রস্তাবিত)",
+  "@projectNameRecommended": { "description": "Income form: project name label when optional" }
 }

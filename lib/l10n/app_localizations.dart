@@ -1015,6 +1015,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete all data'**
   String get deleteAllData;
+
+  /// NBA card: overdue payments title
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 payment overdue} other{{count} payments overdue}}'**
+  String nbaOverdueTitle(int count);
+
+  /// NBA card: overdue description
+  ///
+  /// In en, this message translates to:
+  /// **'Update status of overdue pipeline payments.'**
+  String get nbaOverdueDescription;
+
+  /// NBA card: overdue CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get nbaOverdueAction;
+
+  /// NBA card: at-risk title
+  ///
+  /// In en, this message translates to:
+  /// **'Safe-to-spend is tight'**
+  String get nbaAtRiskTitle;
+
+  /// NBA card: at-risk description
+  ///
+  /// In en, this message translates to:
+  /// **'Review your fixed monthly costs to release pressure.'**
+  String get nbaAtRiskDescription;
+
+  /// NBA card: at-risk CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Review fixed costs'**
+  String get nbaAtRiskAction;
+
+  /// NBA card: relief title
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline up to date'**
+  String get nbaReliefTitle;
+
+  /// NBA card: relief description
+  ///
+  /// In en, this message translates to:
+  /// **'All payments are on schedule and tracked.'**
+  String get nbaReliefDescription;
+
+  /// NBA card: setup title
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first expected payment'**
+  String get nbaSetupTitle;
+
+  /// NBA card: setup description
+  ///
+  /// In en, this message translates to:
+  /// **'Track upcoming income to compute Safe-to-Spend.'**
+  String get nbaSetupDescription;
+
+  /// NBA card: setup CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Add payment'**
+  String get nbaSetupAction;
+
+  /// Calculation trace sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'How we calculated this'**
+  String get calcTraceTitle;
+
+  /// Calculation trace sheet subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any line to learn more'**
+  String get calcTraceSubtitle;
+
+  /// Calc trace: received income line
+  ///
+  /// In en, this message translates to:
+  /// **'+ Received income'**
+  String get calcTraceReceivedIncome;
+
+  /// Calc trace: cash out line
+  ///
+  /// In en, this message translates to:
+  /// **'− Cash out'**
+  String get calcTraceCashOut;
+
+  /// Calc trace: liquid BDT result line
+  ///
+  /// In en, this message translates to:
+  /// **'= Liquid BDT'**
+  String get calcTraceLiquidBdt;
+
+  /// Calc trace: tax reserve deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Tax reserve (hold)'**
+  String get calcTraceTaxReserve;
+
+  /// Calc trace: fixed costs deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Fixed costs due'**
+  String get calcTraceFixedCosts;
+
+  /// Calc trace: safety buffer deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Safety buffer'**
+  String get calcTraceSafetyBuffer;
+
+  /// Calc trace: final safe-to-spend result
+  ///
+  /// In en, this message translates to:
+  /// **'= Safe-to-Spend'**
+  String get calcTraceSafeToSpend;
+
+  /// Trust strip: audit tap affordance
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to audit'**
+  String get trustStripTapToAudit;
+
+  /// Trust strip: updated moments ago
+  ///
+  /// In en, this message translates to:
+  /// **'Updated just now'**
+  String get trustStripUpdatedJustNow;
+
+  /// Trust strip: updated N minutes ago
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Updated 1 min ago} other{Updated {count} mins ago}}'**
+  String trustStripUpdatedMinAgo(int count);
+
+  /// Trust strip: updated at specific time
+  ///
+  /// In en, this message translates to:
+  /// **'Updated {time}'**
+  String trustStripUpdatedAt(String time);
+
+  /// Pipeline badge label: overdue status
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get pipelineOverdue;
+
+  /// Pipeline card: days overdue relative date
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day overdue} other{{count} days overdue}}'**
+  String daysOverdue(int count);
+
+  /// Pipeline card: relative date for today
+  ///
+  /// In en, this message translates to:
+  /// **'today'**
+  String get dateToday;
+
+  /// Pipeline card: relative date for tomorrow
+  ///
+  /// In en, this message translates to:
+  /// **'tomorrow'**
+  String get dateTomorrow;
+
+  /// Pipeline card long-press action
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate as next month'**
+  String get duplicateAsNextMonth;
+
+  /// Pipeline card: swipe hint text
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm received'**
+  String get swipeConfirmReceived;
+
+  /// Pipeline screen: app bar title
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline'**
+  String get pipelineTitle;
+
+  /// Pipeline screen: section header for items needing decision
+  ///
+  /// In en, this message translates to:
+  /// **'Needs decision'**
+  String get pipelineNeedsDecision;
+
+  /// Pipeline screen: section header for overdue items
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue — needs attention'**
+  String get pipelineOverdueAttention;
+
+  /// Income list: entry count subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
+  String incomeEntryCount(int count);
+
+  /// Income list card: expected by date
+  ///
+  /// In en, this message translates to:
+  /// **'By {date}'**
+  String incomeByDate(String date);
+
+  /// Income list card: received on date
+  ///
+  /// In en, this message translates to:
+  /// **'Received {date}'**
+  String incomeReceivedDate(String date);
+
+  /// Validation: FX rate must be positive number
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid positive rate'**
+  String get fxRateInvalid;
+
+  /// Income form: project name label when optional
+  ///
+  /// In en, this message translates to:
+  /// **'Project Name (recommended)'**
+  String get projectNameRecommended;
 }
 
 class _AppLocalizationsDelegate

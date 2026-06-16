@@ -497,4 +497,147 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get deleteAllData => 'সব ডেটা মুছে ফেলুন';
+
+  @override
+  String nbaOverdueTitle(int count) {
+    return '$countটি পেমেন্ট ওভারডিউ';
+  }
+
+  @override
+  String get nbaOverdueDescription =>
+      'ওভারডিউ পাইপলাইন পেমেন্টের স্ট্যাটাস আপডেট করুন।';
+
+  @override
+  String get nbaOverdueAction => 'রিভিউ করুন';
+
+  @override
+  String get nbaAtRiskTitle => 'নিরাপদ ব্যয়সীমা কম';
+
+  @override
+  String get nbaAtRiskDescription =>
+      'চাপ কমাতে নির্দিষ্ট মাসিক খরচ রিভিউ করুন।';
+
+  @override
+  String get nbaAtRiskAction => 'নির্দিষ্ট খরচ রিভিউ';
+
+  @override
+  String get nbaReliefTitle => 'পাইপলাইন আপ টু ডেট';
+
+  @override
+  String get nbaReliefDescription => 'সব পেমেন্ট সময়মতো এবং ট্র্যাক করা আছে।';
+
+  @override
+  String get nbaSetupTitle => 'প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন';
+
+  @override
+  String get nbaSetupDescription =>
+      'নিরাপদ ব্যয়সীমা হিসাব করতে আসন্ন আয় ট্র্যাক করুন।';
+
+  @override
+  String get nbaSetupAction => 'পেমেন্ট যোগ করুন';
+
+  @override
+  String get calcTraceTitle => 'হিসাবটি যেভাবে করা হয়েছে';
+
+  @override
+  String get calcTraceSubtitle => 'বিস্তারিত জানতে যেকোনো লাইনে ট্যাপ করুন';
+
+  @override
+  String get calcTraceReceivedIncome => '+ প্রাপ্ত আয়';
+
+  @override
+  String get calcTraceCashOut => '− ক্যাশ আউট';
+
+  @override
+  String get calcTraceLiquidBdt => '= লিকুইড BDT';
+
+  @override
+  String get calcTraceTaxReserve => '− ট্যাক্স রিজার্ভ (হোল্ড)';
+
+  @override
+  String get calcTraceFixedCosts => '− দেয় নির্দিষ্ট খরচ';
+
+  @override
+  String get calcTraceSafetyBuffer => '− সেফটি বাফার';
+
+  @override
+  String get calcTraceSafeToSpend => '= নিরাপদ ব্যয়সীমা';
+
+  @override
+  String get trustStripTapToAudit => 'অডিট করতে ট্যাপ করুন';
+
+  @override
+  String get trustStripUpdatedJustNow => 'এইমাত্র আপডেট হয়েছে';
+
+  @override
+  String trustStripUpdatedMinAgo(int count) {
+    return '$count মিনিট আগে আপডেট হয়েছে';
+  }
+
+  @override
+  String trustStripUpdatedAt(String time) {
+    return '$time-এ আপডেট হয়েছে';
+  }
+
+  @override
+  String get pipelineOverdue => 'ওভারডিউ';
+
+  @override
+  String daysOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count দিন ওভারডিউ',
+      one: '১ দিন ওভারডিউ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dateToday => 'আজ';
+
+  @override
+  String get dateTomorrow => 'আগামীকাল';
+
+  @override
+  String get duplicateAsNextMonth => 'পরের মাসের জন্য ডুপ্লিকেট করুন';
+
+  @override
+  String get swipeConfirmReceived => 'রিসিভ নিশ্চিত করুন';
+
+  @override
+  String get pipelineTitle => 'পাইপলাইন';
+
+  @override
+  String get pipelineNeedsDecision => 'সিদ্ধান্ত প্রয়োজন';
+
+  @override
+  String get pipelineOverdueAttention => 'ওভারডিউ — মনোযোগ প্রয়োজন';
+
+  @override
+  String incomeEntryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি এন্ট্রি',
+      one: '১টি এন্ট্রি',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String incomeByDate(String date) {
+    return '$date এর মধ্যে';
+  }
+
+  @override
+  String incomeReceivedDate(String date) {
+    return '$date তারিখে রিসিভ হয়েছে';
+  }
+
+  @override
+  String get fxRateInvalid => 'একটি বৈধ পজিটিভ রেট দিন';
+
+  @override
+  String get projectNameRecommended => 'প্রজেক্টের নাম (প্রস্তাবিত)';
 }

@@ -25,6 +25,7 @@ import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class ConfirmReceivedSheet extends ConsumerStatefulWidget {
   final IncomeEntryEntity entry;
@@ -109,7 +110,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
     // For USD entries: fxRate is required
     if (_isUsd && _parsedFxRate == null) {
-      setState(() => _fxRateError = 'FX rate required');
+      setState(() => _fxRateError = context.l10n.fxRateRequired);
       return;
     }
 
@@ -177,7 +178,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
         backgroundColor: safeColor,
         behavior: SnackBarBehavior.floating,
         action: SnackBarAction(
-          label: 'Undo',
+          label: context.l10n.undo,
           textColor: surfaceColor,
           onPressed: () async {
             // D2.04 — Beta instrumentation: undo after confirm
@@ -209,6 +210,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final type = context.textStyles;
+    final l10n = context.l10n;
     final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
     return Padding(
@@ -257,7 +259,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
                 // ── 4. Amount received field ──────────────────────────────────
                 Text(
-                  'Amount received',
+                  l10n.amountReceived,
                   style: type.labelMd.copyWith(color: colors.inkSecondary),
                 ),
                 const SizedBox(height: HelmSpacing.s2),
@@ -320,7 +322,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   ),
                   validator: (value) {
                     if (InputValidator.parseAmount(value) == null) {
-                      return 'Enter a valid amount';
+                      return l10n.enterValidAmount;
                     }
                     return null;
                   },
@@ -331,7 +333,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                 if (_isUsd) ...[
                   const SizedBox(height: HelmSpacing.s4),
                   Text(
-                    'FX rate (BDT per USD)',
+                    l10n.fxRateBdtPerUsd,
                     style: type.labelMd.copyWith(color: colors.inkSecondary),
                   ),
                   const SizedBox(height: HelmSpacing.s2),
@@ -416,7 +418,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                 // ── 6. Date received row ──────────────────────────────────────
                 const SizedBox(height: HelmSpacing.s4),
                 Text(
-                  'Date received',
+                  l10n.dateReceived,
                   style: type.labelMd.copyWith(color: colors.inkSecondary),
                 ),
                 const SizedBox(height: HelmSpacing.s2),
@@ -459,7 +461,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
 
                 // ── 8. Confirm button ─────────────────────────────────────────
                 AppButton(
-                  label: 'Confirm \u2014 adds to liquid',
+                  label: l10n.confirmReceived,
                   onPressed: _isSubmitting ? null : _onConfirm,
                   isLoading: _isSubmitting,
                   isEnabled: !_isSubmitting,
@@ -472,7 +474,7 @@ class _ConfirmReceivedSheetState extends ConsumerState<ConfirmReceivedSheet> {
                   child: TextButton(
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
-                      'Not yet',
+                      l10n.notYet,
                       style: type.bodyMd.copyWith(color: colors.inkSecondary),
                     ),
                   ),

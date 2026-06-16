@@ -498,4 +498,160 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAllData => 'Delete all data';
+
+  @override
+  String nbaOverdueTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments overdue',
+      one: '1 payment overdue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get nbaOverdueDescription =>
+      'Update status of overdue pipeline payments.';
+
+  @override
+  String get nbaOverdueAction => 'Review';
+
+  @override
+  String get nbaAtRiskTitle => 'Safe-to-spend is tight';
+
+  @override
+  String get nbaAtRiskDescription =>
+      'Review your fixed monthly costs to release pressure.';
+
+  @override
+  String get nbaAtRiskAction => 'Review fixed costs';
+
+  @override
+  String get nbaReliefTitle => 'Pipeline up to date';
+
+  @override
+  String get nbaReliefDescription =>
+      'All payments are on schedule and tracked.';
+
+  @override
+  String get nbaSetupTitle => 'Add your first expected payment';
+
+  @override
+  String get nbaSetupDescription =>
+      'Track upcoming income to compute Safe-to-Spend.';
+
+  @override
+  String get nbaSetupAction => 'Add payment';
+
+  @override
+  String get calcTraceTitle => 'How we calculated this';
+
+  @override
+  String get calcTraceSubtitle => 'Tap any line to learn more';
+
+  @override
+  String get calcTraceReceivedIncome => '+ Received income';
+
+  @override
+  String get calcTraceCashOut => '− Cash out';
+
+  @override
+  String get calcTraceLiquidBdt => '= Liquid BDT';
+
+  @override
+  String get calcTraceTaxReserve => '− Tax reserve (hold)';
+
+  @override
+  String get calcTraceFixedCosts => '− Fixed costs due';
+
+  @override
+  String get calcTraceSafetyBuffer => '− Safety buffer';
+
+  @override
+  String get calcTraceSafeToSpend => '= Safe-to-Spend';
+
+  @override
+  String get trustStripTapToAudit => 'Tap to audit';
+
+  @override
+  String get trustStripUpdatedJustNow => 'Updated just now';
+
+  @override
+  String trustStripUpdatedMinAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Updated $count mins ago',
+      one: 'Updated 1 min ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String trustStripUpdatedAt(String time) {
+    return 'Updated $time';
+  }
+
+  @override
+  String get pipelineOverdue => 'Overdue';
+
+  @override
+  String daysOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days overdue',
+      one: '1 day overdue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dateToday => 'today';
+
+  @override
+  String get dateTomorrow => 'tomorrow';
+
+  @override
+  String get duplicateAsNextMonth => 'Duplicate as next month';
+
+  @override
+  String get swipeConfirmReceived => 'Confirm received';
+
+  @override
+  String get pipelineTitle => 'Pipeline';
+
+  @override
+  String get pipelineNeedsDecision => 'Needs decision';
+
+  @override
+  String get pipelineOverdueAttention => 'Overdue — needs attention';
+
+  @override
+  String incomeEntryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count entries',
+      one: '1 entry',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String incomeByDate(String date) {
+    return 'By $date';
+  }
+
+  @override
+  String incomeReceivedDate(String date) {
+    return 'Received $date';
+  }
+
+  @override
+  String get fxRateInvalid => 'Enter a valid positive rate';
+
+  @override
+  String get projectNameRecommended => 'Project Name (recommended)';
 }

@@ -29,6 +29,7 @@ import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/utils/responsive_utils.dart';
 
 // ── Filter enum ───────────────────────────────────────────────────────────────
@@ -36,16 +37,16 @@ import 'package:helm/utils/responsive_utils.dart';
 enum IncomeFilter { all, expected, pending, received }
 
 extension IncomeFilterLabel on IncomeFilter {
-  String get label {
+  String label(AppLocalizations l10n) {
     switch (this) {
       case IncomeFilter.all:
-        return 'All';
+        return l10n.filterAll;
       case IncomeFilter.expected:
-        return 'Expected';
+        return l10n.expected;
       case IncomeFilter.pending:
-        return 'Pending';
+        return l10n.pending;
       case IncomeFilter.received:
-        return 'Received';
+        return l10n.received;
     }
   }
 }
@@ -87,6 +88,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
     await ref.read(incomeNotifierProvider.notifier).deleteIncome(entry.id);
     if (!mounted) return;
 
+    final l10n = context.l10n;
     final formatter = NumberFormat('#,##0.00', 'en_US');
     final amountText = '${entry.currency} ${formatter.format(entry.amount)}';
 
@@ -95,7 +97,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
       message: '${entry.clientName} — $amountText deleted',
       type: ToastType.warning,
       duration: const Duration(seconds: 4),
-      actionLabel: 'Undo',
+      actionLabel: l10n.undo,
       onAction: () {
         ref.read(incomeNotifierProvider.notifier).addIncome(entry);
       },
@@ -132,6 +134,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
     final theme = Theme.of(context);
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
     final allEntries = ref.watch(incomeNotifierProvider);
     final displayed = _applyFilter(allEntries);
 
@@ -139,7 +142,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
       backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
-          'Income Pipeline',
+          l10n.incomePipeline,
           style: typo.headingMd.copyWith(fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -151,7 +154,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'addIncomeFab',
         backgroundColor: colors.interactive,
-        tooltip: 'Add income entry',
+        tooltip: l10n.addPipelineEntry,
         onPressed: () => context.push(RouteNames.addIncome),
         child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
@@ -174,7 +177,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
                     return Padding(
                       padding: const EdgeInsets.only(right: 8),
                       child: _IncomeFilterChip(
-                        label: f.label,
+                        label: f.label(l10n),
                         isSelected: _filter == f,
                         onTap: () => setState(() => _filter = f),
                       ),
@@ -193,7 +196,7 @@ class _IncomeListScreenState extends ConsumerState<IncomeListScreen> {
                   horizontal: ResponsiveUtilities.width(context, 0.06),
                 ),
                 child: Text(
-                  '${displayed.length} ${displayed.length == 1 ? 'entry' : 'entries'}',
+                  l10n.incomeEntryCount(displayed.length),
                   style: typo.labelMd.copyWith(color: colors.inkSecondary),
                 ),
               ),
@@ -363,9 +366,10 @@ class _IncomeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     final statusColor = _statusColor(entry.status, colors);
-    final statusLabel = _statusLabel(entry.status);
+    final statusLabel = _statusLabel(entry.status, l10n);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -484,7 +488,7 @@ class _IncomeCard extends StatelessWidget {
                                 Icon(Icons.visibility_off_rounded,
                                     size: 12, color: colors.stateAtRisk),
                                 const SizedBox(width: 4),
-                                Text('Excluded',
+                                Text(l10n.excluded,
                                     style: typo.labelSm.copyWith(
                                         color: colors.stateAtRisk,
                                         fontWeight: FontWeight.w600)),
@@ -510,7 +514,7 @@ class _IncomeCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'By ${_dateFormatter.format(entry.expectedDate)}',
+                        l10n.incomeByDate(_dateFormatter.format(entry.expectedDate)),
                         style: typo.labelSm.copyWith(
                           color: colors.inkSecondary,
                         ),
@@ -531,7 +535,7 @@ class _IncomeCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          'Received ${_dateFormatter.format(entry.receivedDate!)}',
+                          l10n.incomeReceivedDate(_dateFormatter.format(entry.receivedDate!)),
                           style: typo.labelSm.copyWith(
                             color: colors.stateSafe,
                           ),
@@ -583,14 +587,14 @@ class _IncomeCard extends StatelessWidget {
     }
   }
 
-  String _statusLabel(IncomeStatus status) {
+  String _statusLabel(IncomeStatus status, AppLocalizations l10n) {
     switch (status) {
       case IncomeStatus.expected:
-        return 'Expected';
+        return l10n.expected;
       case IncomeStatus.pending:
-        return 'Pending';
+        return l10n.pending;
       case IncomeStatus.received:
-        return 'Received';
+        return l10n.received;
     }
   }
 
@@ -615,6 +619,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -636,7 +641,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Track your income pipeline',
+              l10n.trackIncomePipeline,
               style: typo.headingMd.copyWith(
                 color: colors.inkPrimary,
               ),
@@ -644,7 +649,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Add your first expected payment to see\nwhen money is coming in.',
+              l10n.addFirstExpectedPayment,
               style: typo.bodyMd.copyWith(
                 color: colors.inkSecondary,
               ),
@@ -656,7 +661,7 @@ class _FirstTimeEmptyState extends StatelessWidget {
                 horizontal: ResponsiveUtilities.width(context, 0.1),
               ),
               child: AppButton(
-                label: 'Add Income',
+                label: l10n.addIncome,
                 onPressed: () => context.push(RouteNames.addIncome),
               ),
             ),
@@ -676,6 +681,7 @@ class _FilterEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
     return Center(
       child: Padding(
         padding: ResponsiveUtilities.symmetricPadding(context),
@@ -689,7 +695,7 @@ class _FilterEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              _emptyTitle(filter),
+              _emptyTitle(filter, l10n),
               style: typo.headingSm.copyWith(
                 color: colors.inkPrimary,
               ),
@@ -697,7 +703,7 @@ class _FilterEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              _emptySubtitle(filter),
+              _emptySubtitle(filter, l10n),
               style: typo.bodySm.copyWith(
                 color: colors.inkSecondary,
               ),
@@ -722,29 +728,29 @@ class _FilterEmptyState extends StatelessWidget {
     }
   }
 
-  String _emptyTitle(IncomeFilter f) {
+  String _emptyTitle(IncomeFilter f, AppLocalizations l10n) {
     switch (f) {
       case IncomeFilter.expected:
-        return 'No expected payments';
+        return l10n.noExpectedPayments;
       case IncomeFilter.pending:
-        return 'No payments in transit';
+        return l10n.noPaymentsInTransit;
       case IncomeFilter.received:
-        return 'No received payments yet';
+        return l10n.noReceivedPaymentsYet;
       case IncomeFilter.all:
-        return 'Nothing here';
+        return l10n.nothingHere;
     }
   }
 
-  String _emptySubtitle(IncomeFilter f) {
+  String _emptySubtitle(IncomeFilter f, AppLocalizations l10n) {
     switch (f) {
       case IncomeFilter.expected:
-        return 'Add one when you start a new project.';
+        return l10n.addOneForNewProject;
       case IncomeFilter.pending:
-        return 'No payments in transit right now.';
+        return l10n.noPaymentsInTransitNow;
       case IncomeFilter.received:
-        return 'No payments received this month yet.';
+        return l10n.noPaymentsReceivedThisMonth;
       case IncomeFilter.all:
-        return 'Use the + button to add an income entry.';
+        return l10n.useButtonToAdd;
     }
   }
 }
