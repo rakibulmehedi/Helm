@@ -47,28 +47,42 @@ class _HelmShimmerState extends State<HelmShimmer>
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final disableAnimations = MediaQuery.disableAnimationsOf(context);
 
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Container(
-          width: widget.width,
-          height: widget.height,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.borderRadius),
-            gradient: LinearGradient(
-              begin: Alignment(-1.0 + _animation.value, 0),
-              end: Alignment(_animation.value, 0),
-              colors: [
-                colors.hairline,
-                colors.hairline.withValues(alpha: 0.4),
-                colors.hairline,
-              ],
-              stops: const [0.0, 0.5, 1.0],
+    return Semantics(
+      label: 'Loading',
+      excludeSemantics: true,
+      child: disableAnimations
+          ? Container(
+              width: widget.width,
+              height: widget.height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(widget.borderRadius),
+                color: colors.hairline,
+              ),
+            )
+          : AnimatedBuilder(
+              animation: _animation,
+              builder: (context, child) {
+                return Container(
+                  width: widget.width,
+                  height: widget.height,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(widget.borderRadius),
+                    gradient: LinearGradient(
+                      begin: Alignment(-1.0 + _animation.value, 0),
+                      end: Alignment(_animation.value, 0),
+                      colors: [
+                        colors.hairline,
+                        colors.hairline.withValues(alpha: 0.4),
+                        colors.hairline,
+                      ],
+                      stops: const [0.0, 0.5, 1.0],
+                    ),
+                  ),
+                );
+              },
             ),
-          ),
-        );
-      },
     );
   }
 }

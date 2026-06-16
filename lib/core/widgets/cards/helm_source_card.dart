@@ -157,20 +157,32 @@ class HelmSourceCard extends StatelessWidget {
       child: cardContent,
     );
 
+    final semanticsLabel =
+        '${_sourceLabel(source)}, ${_statusLabel(status)}'
+        '${amountBDT != null ? ', ${NumberFormatter.formatBDT(amountBDT!)}' : ''}';
+
     if (onTap != null) {
-      return Material(
-        color: Colors.transparent,
-        borderRadius: borderRadius,
-        child: InkWell(
-          onTap: onTap,
+      return Semantics(
+        label: semanticsLabel,
+        button: true,
+        child: Material(
+          color: Colors.transparent,
           borderRadius: borderRadius,
-          splashColor: colors.interactive.withValues(alpha: 0.06),
-          highlightColor: colors.interactive.withValues(alpha: 0.04),
-          child: decorated,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: borderRadius,
+            splashColor: colors.interactive.withValues(alpha: 0.06),
+            highlightColor: colors.interactive.withValues(alpha: 0.04),
+            child: decorated,
+          ),
         ),
       );
     }
 
-    return decorated;
+    return Semantics(
+      label: semanticsLabel,
+      button: false,
+      child: decorated,
+    );
   }
 }
