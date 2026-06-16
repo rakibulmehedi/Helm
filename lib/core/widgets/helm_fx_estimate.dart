@@ -2,10 +2,10 @@
 // UX-3 — Core Display Widget: Dual-currency FX estimate row.
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../themes/helm_colors.dart';
 import '../themes/helm_typography.dart';
+import '../utils/number_formatter.dart';
 
 class HelmFxEstimate extends StatelessWidget {
   const HelmFxEstimate({
@@ -27,10 +27,9 @@ class HelmFxEstimate extends StatelessWidget {
     final String bdtText;
     if (fxRate != null) {
       final bdt = usdAmount * fxRate!;
-      final bdtFormatted =
-          NumberFormat('#,##0', 'en_US').format(bdt.round());
+      final bdtFormatted = NumberFormatter.formatBDT(bdt);
       final rateFormatted = fxRate!.toStringAsFixed(1);
-      bdtText = '~৳$bdtFormatted at $rateFormatted';
+      bdtText = '~$bdtFormatted at $rateFormatted';
     } else {
       bdtText = 'FX rate not set';
     }

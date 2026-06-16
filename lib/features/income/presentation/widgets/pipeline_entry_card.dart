@@ -14,6 +14,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/utils/id_generator.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/widgets/helm_money_source_label.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
@@ -69,8 +70,10 @@ class PipelineEntryCard extends ConsumerWidget {
 
   String _formatAmount(IncomeEntryEntity e) {
     if (e.currency == 'BDT') {
-      final fmt = NumberFormat('#,##0', 'en_US');
-      return '৳ ${fmt.format(e.amount)}';
+      return NumberFormatter.formatBDT(e.amount);
+    }
+    if (e.currency == 'USD') {
+      return NumberFormatter.formatUSD(e.amount);
     }
     return '${e.currency} ${e.amount.toStringAsFixed(2)}';
   }
