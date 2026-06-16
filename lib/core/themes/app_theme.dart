@@ -1,16 +1,11 @@
 // lib/core/themes/app_theme.dart
 // UX-5.05 — Rebuilt using Helm design token foundation.
 //
-// Preserves AppThemeData.lightTheme / AppThemeData.darkTheme signatures
-// so main.dart continues to compile without modification.
-//
-// New AppTheme.light / AppTheme.dark static getters are the forward-looking API.
-// AppThemeData delegates to AppTheme internally.
+// AppTheme.light / AppTheme.dark are the canonical theme accessors.
 
 import 'package:flutter/material.dart';
 
-import '../constants/app_language.dart';
-import 'colors.dart'; // exports AppColors (legacy) + HelmColors (via re-export)
+import 'helm_colors.dart';
 import 'helm_motion.dart';
 import 'helm_spacing.dart';
 import 'helm_typography.dart';
@@ -149,36 +144,3 @@ class AppTheme {
   }
 }
 
-// ---------------------------------------------------------------------------
-// AppThemeData — legacy API preserved for main.dart backward compatibility.
-// Delegates to AppTheme._buildTheme internally; lang param kept for signature
-// compatibility but typography is now handled via HelmTypography extension.
-// TODO: Remove lang parameter after all callers migrate to context.textStyles.
-// ---------------------------------------------------------------------------
-class AppThemeData {
-  static ThemeData lightTheme(BuildContext context, AppLanguage lang) =>
-      AppTheme.light;
-
-  static ThemeData darkTheme(BuildContext context, AppLanguage lang) =>
-      AppTheme.dark;
-}
-
-// ---------------------------------------------------------------------------
-// getFontStyle — retained for backward compatibility with feature files
-// that have not yet migrated to HelmTypography.
-// TODO: Remove after all feature files migrate to context.textStyles.*
-// ---------------------------------------------------------------------------
-TextStyle getFontStyle(
-  AppLanguage lang,
-  double size,
-  FontWeight weight,
-  Color color,
-) {
-  final family = lang == AppLanguage.bangla ? 'HindSiliguri' : 'Inter';
-  return TextStyle(
-    fontFamily: family,
-    fontSize: size,
-    fontWeight: weight,
-    color: color,
-  );
-}

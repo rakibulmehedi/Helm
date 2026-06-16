@@ -45,8 +45,8 @@ class MyApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         // ── Theme ────────────────────────────────────────────────────────────
-        theme: AppThemeData.lightTheme(context, lang),
-        darkTheme: AppThemeData.darkTheme(context, lang),
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
         themeMode: ThemeMode.system,
         // ── Router ───────────────────────────────────────────────────────────
         routerConfig: appRouter,
