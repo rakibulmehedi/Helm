@@ -15,6 +15,7 @@ import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class PinSetupScreen extends ConsumerStatefulWidget {
   const PinSetupScreen({super.key});
@@ -64,7 +65,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
         _finishSetup(_currentInput);
       } else {
         setState(() {
-          _errorMessage = "PINs don't match. Try again.";
+          _errorMessage = context.l10n.pinMismatchError;
           _currentInput = '';
           _firstPin = '';
           _isConfirmStep = false;
@@ -94,7 +95,7 @@ class _PinSetupScreenState extends ConsumerState<PinSetupScreen> {
           children: [
             const Spacer(),
             _PinHeader(
-              title: _isConfirmStep ? 'Confirm your PIN' : 'Create your PIN',
+              title: _isConfirmStep ? context.l10n.pinConfirmTitle : context.l10n.pinCreateTitle,
               errorMessage: _errorMessage,
               colors: colors,
             ),

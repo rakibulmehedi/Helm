@@ -18,6 +18,7 @@ import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/utils/responsive_utils.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 import '../../domain/entities/transaction_entity.dart';
 import '../../domain/entities/transaction_type.dart';
@@ -99,7 +100,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         setState(() => _isSaving = false);
         HelmToast.show(
           context,
-          message: 'Enter a valid amount greater than 0',
+          message: context.l10n.enterValidAmountGreaterThanZero,
           type: ToastType.error,
         );
         return;
@@ -127,8 +128,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       HelmToast.show(
         context,
         message: widget.transactionId != null
-            ? 'Transaction updated successfully'
-            : 'Transaction saved successfully',
+            ? context.l10n.transactionUpdated
+            : context.l10n.transactionSaved,
         type: ToastType.success,
       );
       context.pop();
@@ -137,7 +138,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       setState(() => _isSaving = false);
       HelmToast.show(
         context,
-        message: 'Could not save payment. Try again.',
+        message: context.l10n.transactionSaveError,
         type: ToastType.error,
       );
     }
@@ -151,13 +152,15 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
 
+    final l10n = context.l10n;
+
     // ── Missing transaction error state ──────────────────────────────────────
     if (_transactionNotFound) {
       return Scaffold(
         backgroundColor: colors.canvas,
         appBar: AppBar(
           title: Text(
-            'Edit Transaction',
+            l10n.editTransaction,
             style: typo.headingMd,
           ),
           centerTitle: true,
@@ -180,14 +183,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Transaction not found',
+                    l10n.transactionNotFound,
                     style: typo.headingMd.copyWith(
                       color: colors.inkPrimary,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'This payment may have been deleted.',
+                    l10n.transactionMayBeDeleted,
                     style: typo.bodyMd.copyWith(
                       color: colors.inkSecondary,
                     ),
@@ -195,7 +198,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   ),
                   const SizedBox(height: 24),
                   AppButton(
-                    label: 'Go Back',
+                    label: l10n.goBack,
                     onPressed: () => context.pop(),
                   ),
                 ],
@@ -210,7 +213,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
-          widget.transactionId != null ? 'Edit cash out' : 'Record cash out',
+          widget.transactionId != null ? l10n.editCashOut : l10n.recordCashOut,
           style: typo.headingMd,
         ),
         centerTitle: true,
@@ -228,7 +231,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Title ────────────────────────────────────────────────────
-                _FieldLabel('Title'),
+                _FieldLabel(l10n.transactionTitle),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _titleController,
@@ -238,12 +241,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     SanitizingTextInputFormatter(),
                   ],
                   decoration: _inputDecoration(
-                    hint: 'e.g. Lunch, Uber, Salary',
+                    hint: l10n.transactionTitleHint,
                     colors: colors,
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
-                      return 'Title is required';
+                      return l10n.titleRequired;
                     }
                     return null;
                   },
@@ -252,7 +255,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Amount ───────────────────────────────────────────────────
-                _FieldLabel('Amount'),
+                _FieldLabel(l10n.amount),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _amountController,
@@ -269,7 +272,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   ),
                   validator: (v) {
                     if (InputValidator.parseAmount(v) == null) {
-                      return 'Enter a valid amount greater than 0';
+                      return l10n.enterValidAmountGreaterThanZero;
                     }
                     return null;
                   },
@@ -278,7 +281,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Date picker ──────────────────────────────────────────────
-                _FieldLabel('Date'),
+                _FieldLabel(l10n.date),
                 const SizedBox(height: 8),
                 InkWell(
                   borderRadius: BorderRadius.circular(12),
@@ -314,7 +317,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 const SizedBox(height: 20),
 
                 // ── Note (optional) ──────────────────────────────────────────
-                _FieldLabel('Note (optional)'),
+                _FieldLabel(l10n.noteOptional),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
@@ -325,7 +328,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     SanitizingTextInputFormatter(),
                   ],
                   decoration: _inputDecoration(
-                    hint: 'Add a note…',
+                    hint: l10n.addNoteHint,
                     colors: colors,
                   ),
                 ),
@@ -335,8 +338,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 // ── Submit button ────────────────────────────────────────────
                 AppButton(
                   label: widget.transactionId != null
-                      ? 'Update Transaction'
-                      : 'Save Transaction',
+                      ? l10n.updateTransaction
+                      : l10n.saveTransaction,
                   isLoading: _isSaving,
                   isEnabled: !_isSaving,
                   onPressed: _submit,

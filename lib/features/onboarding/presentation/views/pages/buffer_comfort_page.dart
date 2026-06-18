@@ -5,6 +5,7 @@ import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 // Slider anchor points
 const List<int> _anchors = [5, 15, 25, 30];
@@ -127,6 +128,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     final s2sColor =
         _s2sPreview >= 0 ? colors.stateSafe : colors.stateAtRisk;
@@ -155,13 +157,13 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                 children: [
                   const SizedBox(height: HelmSpacing.s10),
                   Text(
-                    'Set your safety buffer',
+                    l10n.bufferTitle,
                     style:
                         typo.headingLg.copyWith(color: colors.inkPrimary),
                   ),
                   const SizedBox(height: HelmSpacing.s2),
                   Text(
-                    'This is not locked money. It is a safety margin inside the calculation.',
+                    l10n.bufferSubtext,
                     style:
                         typo.bodyLg.copyWith(color: colors.inkSecondary),
                   ),
@@ -182,8 +184,8 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                           trackHeight: HelmSpacing.progressBarHeightOnboarding,
                         ),
                         child: Semantics(
-                          label: 'Safety buffer slider: $_bufferPercent%',
-                          value: '$_bufferPercent percent',
+                          label: l10n.bufferSliderSemantics(_bufferPercent),
+                          value: l10n.bufferSliderValue(_bufferPercent),
                           child: Slider(
                             value: _sliderValue,
                             min: 0,
@@ -251,8 +253,8 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                   // Live BDT preview card
                   Semantics(
                     label: _s2sPreview >= 0
-                        ? 'Safe to spend preview: $_bufferPercent% buffer of total'
-                        : 'Safe to spend preview shows negative balance',
+                        ? l10n.bufferS2sPreviewPositive(_bufferPercent)
+                        : l10n.bufferS2sPreviewNegative,
                     child: Container(
                       padding: const EdgeInsets.all(HelmSpacing.s4),
                       decoration: BoxDecoration(
@@ -269,7 +271,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                                 MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Safety buffer',
+                                l10n.safetyBufferTitle,
                                 style: typo.bodyMd.copyWith(
                                     color: colors.inkSecondary),
                               ),
@@ -288,7 +290,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                                 MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Safe-to-Spend',
+                                l10n.bufferSafeToSpendLabel,
                                 style: typo.bodySm.copyWith(
                                     color: colors.inkSecondary),
                               ),
@@ -311,7 +313,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                                 const SizedBox(width: HelmSpacing.s1),
                                 Expanded(
                                   child: Text(
-                                    'Your costs exceed liquid balance. Adjust buffer or add expected income.',
+                                    l10n.bufferCostsExceedBalance,
                                     style: typo.labelSm.copyWith(
                                       color: colors.stateAtRisk,
                                     ),
@@ -327,7 +329,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
 
                   const Spacer(),
                   AppButton(
-                    label: 'Save — finish Safe-to-Spend setup',
+                    label: l10n.saveBuffer,
                     onPressed: () {
                       HapticFeedback.mediumImpact();
                       widget.onContinue(_bufferPercent);

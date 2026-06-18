@@ -318,12 +318,6 @@
   "editFixedCost": "ফিক্সড খরচ সম্পাদনা করুন",
   "@editFixedCost": { "description": "STS settings: edit fixed cost sheet title" },
 
-  "notificationPreferences": "নোটিফিকেশন পছন্দসমূহ",
-  "@notificationPreferences": { "description": "STS settings: notification preferences list item" },
-
-  "notifications": "নোটিফিকেশন",
-  "@notifications": { "description": "STS settings: notifications list item" },
-
   "exportMyData": "আমার ডেটা এক্সপোর্ট করুন",
   "@exportMyData": { "description": "STS settings: export data list item" },
 
@@ -480,5 +474,495 @@
   "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },
 
   "projectNameRecommended": "প্রজেক্টের নাম (প্রস্তাবিত)",
-  "@projectNameRecommended": { "description": "Income form: project name label when optional" }
+  "@projectNameRecommended": { "description": "Income form: project name label when optional" },
+
+  "pinCreateTitle": "আপনার PIN তৈরি করুন",
+  "@pinCreateTitle": { "description": "PIN setup: create step heading" },
+
+  "pinConfirmTitle": "আপনার PIN নিশ্চিত করুন",
+  "@pinConfirmTitle": { "description": "PIN setup: confirm step heading" },
+
+  "pinMismatchError": "PIN মিলছে না। আবার চেষ্টা করুন।",
+  "@pinMismatchError": { "description": "PIN setup: mismatch error message" },
+
+  "pinEnterTitle": "আপনার PIN দিন",
+  "@pinEnterTitle": { "description": "PIN entry: unlock heading" },
+
+  "pinIncorrectAttempts": "{remaining, plural, =1{ভুল PIN — ১টি চেষ্টা বাকি} other{ভুল PIN — {remaining}টি চেষ্টা বাকি}}",
+  "@pinIncorrectAttempts": {
+    "description": "PIN entry: incorrect PIN with remaining attempts",
+    "placeholders": {
+      "remaining": { "type": "int" }
+    }
+  },
+
+  "pinTooManyAttempts": "অনেকবার চেষ্টা হয়ে গেছে। পরে আবার চেষ্টা করুন।",
+  "@pinTooManyAttempts": { "description": "PIN entry: lockout message" },
+
+  "pinTryAgain": "আবার চেষ্টা করুন।",
+  "@pinTryAgain": { "description": "PIN entry: lockout expired prompt" },
+
+  "pinLockedCountdown": "লক আছে। {minutes}মি {seconds}সে পর চেষ্টা করুন",
+  "@pinLockedCountdown": {
+    "description": "PIN entry: lockout countdown timer",
+    "placeholders": {
+      "minutes": { "type": "String" },
+      "seconds": { "type": "String" }
+    }
+  },
+
+  "onboardingStepOf": "অনবোর্ডিং ধাপ {step} এর মধ্যে {total}",
+  "@onboardingStepOf": {
+    "description": "Semantics label for onboarding step progress",
+    "placeholders": {
+      "step": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "liquidBalanceInputSemantics": "বর্তমান লিকুইড ব্যালেন্স ইনপুট",
+  "@liquidBalanceInputSemantics": { "description": "Semantics label for liquid balance text field" },
+
+  "liquidBalanceRoughEstimate": "একটা আনুমানিক সংখ্যাই যথেষ্ট — পরে আপডেট করা যাবে।",
+  "@liquidBalanceRoughEstimate": { "description": "Error hint below liquid balance field" },
+
+  "saveLiquidBalance": "সংরক্ষণ — নিরাপদ ব্যয়সীমা আপডেট হবে",
+  "@saveLiquidBalance": { "description": "Liquid balance page primary CTA button" },
+
+  "incomePatternQuestion": "আপনার আয় সাধারণত কীভাবে আসে?",
+  "@incomePatternQuestion": { "description": "Income pattern page heading" },
+
+  "incomePatternSubtext": "আপনার বেশিরভাগ উপার্জনের সাথে মানানসই প্যাটার্ন বেছে নিন।",
+  "@incomePatternSubtext": { "description": "Income pattern page supporting text" },
+
+  "incomePatternMarketplaceTitle": "Marketplace escrow",
+  "@incomePatternMarketplaceTitle": { "description": "Income pattern card: marketplace title" },
+
+  "incomePatternMarketplacePlatform": "Upwork, Fiverr, Payoneer",
+  "@incomePatternMarketplacePlatform": { "description": "Income pattern card: marketplace platform list" },
+
+  "incomePatternMarketplaceSubtitle": "মাইলস্টোন বা কাজ শেষ না হওয়া পর্যন্ত পেমেন্ট আটকে থাকে",
+  "@incomePatternMarketplaceSubtitle": { "description": "Income pattern card: marketplace subtitle" },
+
+  "incomePatternDirectTitle": "সরাসরি ক্লায়েন্ট",
+  "@incomePatternDirectTitle": { "description": "Income pattern card: direct client title" },
+
+  "incomePatternDirectPlatform": "আপনি সরাসরি ক্লায়েন্টকে ইনভয়েস করেন",
+  "@incomePatternDirectPlatform": { "description": "Income pattern card: direct client platform" },
+
+  "incomePatternDirectSubtitle": "প্রতিটি ক্লায়েন্টের সাথে পেমেন্টের শর্ত নির্ধারিত",
+  "@incomePatternDirectSubtitle": { "description": "Income pattern card: direct client subtitle" },
+
+  "incomePatternRetainerTitle": "রিটেইনার / পুনরাবৃত্তি",
+  "@incomePatternRetainerTitle": { "description": "Income pattern card: retainer title" },
+
+  "incomePatternRetainerPlatform": "একই ক্লায়েন্ট, প্রতি মাসে একই পরিমাণ",
+  "@incomePatternRetainerPlatform": { "description": "Income pattern card: retainer platform" },
+
+  "incomePatternRetainerSubtitle": "পূর্বানুমানযোগ্য মাসিক আয়",
+  "@incomePatternRetainerSubtitle": { "description": "Income pattern card: retainer subtitle" },
+
+  "incomePatternSelectError": "চালিয়ে যেতে একটি আয়ের প্যাটার্ন নির্বাচন করুন।",
+  "@incomePatternSelectError": { "description": "Income pattern page: validation error when none selected" },
+
+  "saveIncomePattern": "সংরক্ষণ — আয়ের প্যাটার্ন সেট হবে",
+  "@saveIncomePattern": { "description": "Income pattern page primary CTA button" },
+
+  "bufferTitle": "আপনার সেফটি বাফার সেট করুন",
+  "@bufferTitle": { "description": "Buffer comfort page heading" },
+
+  "bufferSubtext": "এটা লক করা টাকা নয়। এটা হিসাবের ভেতরে একটি নিরাপত্তা মার্জিন।",
+  "@bufferSubtext": { "description": "Buffer comfort page supporting text" },
+
+  "bufferSliderSemantics": "সেফটি বাফার স্লাইডার: {percent}%",
+  "@bufferSliderSemantics": {
+    "description": "Semantics label for buffer slider",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferSliderValue": "{percent} শতাংশ",
+  "@bufferSliderValue": {
+    "description": "Semantics value for buffer slider",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferS2sPreviewPositive": "নিরাপদ ব্যয়সীমা প্রিভিউ: মোটের {percent}% বাফার",
+  "@bufferS2sPreviewPositive": {
+    "description": "Semantics label for S2S preview card when positive",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferS2sPreviewNegative": "নিরাপদ ব্যয়সীমা প্রিভিউতে নেতিবাচক ব্যালেন্স দেখাচ্ছে",
+  "@bufferS2sPreviewNegative": { "description": "Semantics label for S2S preview card when negative" },
+
+  "bufferSafeToSpendLabel": "নিরাপদ ব্যয়সীমা",
+  "@bufferSafeToSpendLabel": { "description": "Safe-to-Spend label in buffer preview card" },
+
+  "bufferCostsExceedBalance": "আপনার খরচ লিকুইড ব্যালেন্স ছাড়িয়ে গেছে। বাফার কমান বা প্রত্যাশিত আয় যোগ করুন।",
+  "@bufferCostsExceedBalance": { "description": "Warning shown in buffer card when S2S is negative" },
+
+  "saveBuffer": "সংরক্ষণ — নিরাপদ ব্যয়সীমা সেটআপ শেষ",
+  "@saveBuffer": { "description": "Buffer comfort page primary CTA button" },
+
+  "fixedCostsDueDayTooltip": "Due day হলো মাসের যে দিন এই খরচটা সাধারণত দেওয়া হয় (বিলিং সাইকেল মেলাতে ১-২৮)",
+  "@fixedCostsDueDayTooltip": { "description": "Tooltip for the due day dropdown in fixed costs" },
+
+  "fixedCostsDueDay": "due day",
+  "@fixedCostsDueDay": { "description": "Label next to due day dropdown in fixed costs row" },
+
+  "fixedCostsAmountHint": "পরিমাণ",
+  "@fixedCostsAmountHint": { "description": "Hint text for amount field in fixed cost row" },
+
+  "fixedCostsCategorySemantics": "{label}, {state}",
+  "@fixedCostsCategorySemantics": {
+    "description": "Semantics label for fixed cost category checkbox",
+    "placeholders": {
+      "label": { "type": "String" },
+      "state": { "type": "String" }
+    }
+  },
+
+  "fixedCostsCategorySelected": "নির্বাচিত",
+  "@fixedCostsCategorySelected": { "description": "State text for selected fixed cost category" },
+
+  "fixedCostsCategoryNotSelected": "নির্বাচিত নয়",
+  "@fixedCostsCategoryNotSelected": { "description": "State text for unselected fixed cost category" },
+
+  "continueButton": "চালিয়ে যান",
+  "@continueButton": { "description": "Generic continue button label" },
+
+  "fixedCostsCategoryRentHousing": "ভাড়া / বাড়ি",
+  "@fixedCostsCategoryRentHousing": { "description": "Fixed costs category: rent or housing" },
+
+  "fixedCostsCategoryInternet": "ইন্টারনেট",
+  "@fixedCostsCategoryInternet": { "description": "Fixed costs category: internet" },
+
+  "fixedCostsCategoryMobilePhone": "মোবাইল / ফোন",
+  "@fixedCostsCategoryMobilePhone": { "description": "Fixed costs category: mobile or phone" },
+
+  "fixedCostsCategorySubscriptions": "সাবস্ক্রিপশন",
+  "@fixedCostsCategorySubscriptions": { "description": "Fixed costs category: subscriptions" },
+
+  "fixedCostsCategoryFamilySupport": "পরিবার সহায়তা / বাবা-মা",
+  "@fixedCostsCategoryFamilySupport": { "description": "Fixed costs category: family support or parents" },
+
+  "fixedCostsCategoryLoanEmi": "ঋণের EMI",
+  "@fixedCostsCategoryLoanEmi": { "description": "Fixed costs category: loan EMI" },
+
+  "fixedCostsCategoryOther": "অন্যান্য নির্দিষ্ট খরচ",
+  "@fixedCostsCategoryOther": { "description": "Fixed costs category: other" },
+
+  "pipelineClientNameSemantics": "ক্লায়েন্ট বা সোর্সের নাম ইনপুট",
+  "@pipelineClientNameSemantics": { "description": "Semantics label for client name field in first pipeline page" },
+
+  "pipelineAmountSemantics": "{currency}-তে পরিমাণ ইনপুট",
+  "@pipelineAmountSemantics": {
+    "description": "Semantics label for amount field in first pipeline page",
+    "placeholders": {
+      "currency": { "type": "String" }
+    }
+  },
+
+  "pipelineCurrencySemantics": "কারেন্সি নির্বাচন",
+  "@pipelineCurrencySemantics": { "description": "Semantics label for currency dropdown in first pipeline page" },
+
+  "pipelineEntryNoteSemantics": "তথ্য: এটা প্রত্যাশিত হিসেবে রাখা হবে। পরে স্ট্যাটাস পরিবর্তন করতে পারবেন।",
+  "@pipelineEntryNoteSemantics": { "description": "Semantics label for pipeline entry info note" },
+
+  "pipelineSkipSemantics": "পাইপলাইন এন্ট্রি বাদ দিয়ে হোমে যান",
+  "@pipelineSkipSemantics": { "description": "Semantics label for skip button in first pipeline page" },
+
+  "pipelineAddAndContinue": "যোগ করুন এবং চালিয়ে যান",
+  "@pipelineAddAndContinue": { "description": "First pipeline page: submit button label" },
+
+  "pipelineAdding": "যোগ হচ্ছে...",
+  "@pipelineAdding": { "description": "First pipeline page: loading state for submit button" },
+
+  "pipelineAmountMustBePositive": "০-এর বেশি হতে হবে",
+  "@pipelineAmountMustBePositive": { "description": "Validation error for pipeline amount field" },
+
+  "auditLogLoadError": "ইতিহাস লোড করা যায়নি।",
+  "@auditLogLoadError": { "description": "Audit log: error state message" },
+
+  "auditLogEmpty": "এখনো কোনো পরিবর্তন রেকর্ড হয়নি।",
+  "@auditLogEmpty": { "description": "Audit log: empty state message" },
+
+  "auditEntityIncome": "আয়",
+  "@auditEntityIncome": { "description": "Audit log: entity label for income" },
+
+  "auditEntityTransaction": "লেনদেন",
+  "@auditEntityTransaction": { "description": "Audit log: entity label for transaction" },
+
+  "auditEntitySettings": "সেটিংস",
+  "@auditEntitySettings": { "description": "Audit log: entity label for settings" },
+
+  "auditEntityFixedCost": "ফিক্সড খরচ",
+  "@auditEntityFixedCost": { "description": "Audit log: entity label for fixed cost" },
+
+  "auditEntityRecord": "রেকর্ড",
+  "@auditEntityRecord": { "description": "Audit log: entity label for unknown record" },
+
+  "auditEventAdded": "{entity} যোগ হয়েছে",
+  "@auditEventAdded": {
+    "description": "Audit log: entity was created",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventUpdated": "{entity} আপডেট হয়েছে",
+  "@auditEventUpdated": {
+    "description": "Audit log: entity was updated",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventDeleted": "{entity} মুছে ফেলা হয়েছে",
+  "@auditEventDeleted": {
+    "description": "Audit log: entity was deleted",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventConfirmed": "{entity} নিশ্চিত হয়েছে",
+  "@auditEventConfirmed": {
+    "description": "Audit log: entity was confirmed",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventExported": "{entity} এক্সপোর্ট হয়েছে",
+  "@auditEventExported": {
+    "description": "Audit log: entity was exported",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventChanged": "{entity} পরিবর্তিত হয়েছে",
+  "@auditEventChanged": {
+    "description": "Audit log: entity had an unknown change",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "deleteCannotBeUndone": "এটা পূর্বাবস্থায় ফেরানো যাবে না",
+  "@deleteCannotBeUndone": { "description": "Delete account: warning heading" },
+
+  "deleteWarningBody": "আপনার ডেটা মুছে ফেললে এই ডিভাইস থেকে সব আয়ের এন্ট্রি, লেনদেন, সেটিংস এবং পরিবর্তনের ইতিহাস চিরতরে মুছে যাবে। এই ডেটা পুনরুদ্ধার করার কোনো উপায় নেই।",
+  "@deleteWarningBody": { "description": "Delete account: warning body text" },
+
+  "deleteWhatWillBeDeleted": "যা মুছে যাবে",
+  "@deleteWhatWillBeDeleted": { "description": "Delete account: section heading for deletion list" },
+
+  "deleteItemAllIncomeEntries": "সব আয়ের এন্ট্রি",
+  "@deleteItemAllIncomeEntries": { "description": "Delete account: deletion list item — income entries" },
+
+  "deleteItemAllTransactions": "সব লেনদেন",
+  "@deleteItemAllTransactions": { "description": "Delete account: deletion list item — transactions" },
+
+  "deleteItemAllFixedCosts": "সব ফিক্সড খরচ",
+  "@deleteItemAllFixedCosts": { "description": "Delete account: deletion list item — fixed costs" },
+
+  "deleteItemYourSettings": "আপনার সেটিংস",
+  "@deleteItemYourSettings": { "description": "Delete account: deletion list item — settings" },
+
+  "deleteContinue": "মুছতে এগিয়ে যান",
+  "@deleteContinue": { "description": "Delete account: destructive action button label" },
+
+  "deletePinConfirmTitle": "নিশ্চিত করতে PIN দিন",
+  "@deletePinConfirmTitle": { "description": "Delete account: PIN dialog heading" },
+
+  "deleteIncorrectPin": "ভুল PIN",
+  "@deleteIncorrectPin": { "description": "Delete account: wrong PIN error message" },
+
+  "deleteLockoutMessage": "অনেকবার চেষ্টা হয়ে গেছে। {minutes} মিনিট পরে আবার চেষ্টা করুন।",
+  "@deleteLockoutMessage": {
+    "description": "Delete account: lockout message with time remaining",
+    "placeholders": {
+      "minutes": { "type": "String" }
+    }
+  },
+
+  "deleteTypeConfirmTitle": "নিশ্চিত করতে \"DELETE\" টাইপ করুন",
+  "@deleteTypeConfirmTitle": { "description": "Delete account: type-DELETE dialog heading" },
+
+  "deleteConfirmHint": "DELETE",
+  "@deleteConfirmHint": { "description": "Delete account: text field hint in type-DELETE dialog" },
+
+  "exportDataBelongsToYou": "আপনার ডেটা আপনার",
+  "@exportDataBelongsToYou": { "description": "Export screen: section heading" },
+
+  "exportDescription": "আপনার সব হেল্ম ডেটা CSV ফাইল হিসেবে এক্সপোর্ট করুন। যেকোনো স্প্রেডশিট অ্যাপে খুলুন — Excel, Google Sheets বা Numbers।",
+  "@exportDescription": { "description": "Export screen: description paragraph" },
+
+  "exportWarning": "এক্সপোর্ট করা ফাইলগুলো এনক্রিপ্টেড নয় এবং ক্লায়েন্টের নাম ও পরিমাণসহ সংবেদনশীল তথ্য থাকতে পারে। শুধুমাত্র বিশ্বস্ত মাধ্যমে শেয়ার করুন এবং কাজ শেষে ডিভাইস থেকে ফাইলগুলো মুছে দিন।",
+  "@exportWarning": { "description": "Export screen: security warning paragraph" },
+
+  "exportWhatWillBeExported": "যা এক্সপোর্ট হবে",
+  "@exportWhatWillBeExported": { "description": "Export screen: section heading for export list" },
+
+  "exportItemIncomeEntries": "আয়ের এন্ট্রি",
+  "@exportItemIncomeEntries": { "description": "Export screen: export list item — income entries" },
+
+  "exportItemTransactions": "লেনদেন",
+  "@exportItemTransactions": { "description": "Export screen: export list item — transactions" },
+
+  "exportItemFixedCosts": "ফিক্সড খরচ",
+  "@exportItemFixedCosts": { "description": "Export screen: export list item — fixed costs" },
+
+  "exportItemSettings": "সেটিংস",
+  "@exportItemSettings": { "description": "Export screen: export list item — settings" },
+
+  "exportAllData": "সব ডেটা এক্সপোর্ট করুন",
+  "@exportAllData": { "description": "Export screen: primary export button label" },
+
+  "exportFailed": "এক্সপোর্ট ব্যর্থ: {error}",
+  "@exportFailed": {
+    "description": "Export screen: error toast message",
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportShareSubject": "হেল্ম ডেটা এক্সপোর্ট",
+  "@exportShareSubject": { "description": "Export screen: share sheet subject line" },
+
+  "taxRateSemantics": "ট্যাক্স রেট: {percent}%",
+  "@taxRateSemantics": {
+    "description": "STS settings: semantics label for tax rate slider",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "safetyBufferSemantics": "সেফটি বাফার: {percent}%",
+  "@safetyBufferSemantics": {
+    "description": "STS settings: semantics label for safety buffer slider",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "itemDeleted": "{label} মুছে ফেলা হয়েছে",
+  "@itemDeleted": {
+    "description": "STS settings: toast shown after dismissing a fixed cost",
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+
+  "dueDay": "দেয়: {day} তারিখ",
+  "@dueDay": {
+    "description": "STS settings: fixed cost list tile subtitle",
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+
+  "fixedCostLabelHint": "লেবেল (যেমন: ইন্টারনেট, ভাড়া)",
+  "@fixedCostLabelHint": { "description": "STS settings: fixed cost label field hint" },
+
+  "fixedCostLabelRequired": "লেবেল দেওয়া আবশ্যক",
+  "@fixedCostLabelRequired": { "description": "STS settings: validation error for empty label" },
+
+  "amountMustBePositive": "০-এর বেশি হতে হবে",
+  "@amountMustBePositive": { "description": "STS settings: validation error for non-positive amount" },
+
+  "dueDayLabel": "দেয় তারিখ",
+  "@dueDayLabel": { "description": "STS settings: due day field label" },
+
+  "dueDayHint": "১-২৮",
+  "@dueDayHint": { "description": "STS settings: due day field hint text" },
+
+  "dueDayValidation": "শুধুমাত্র ১-২৮",
+  "@dueDayValidation": { "description": "STS settings: validation error for out-of-range due day" },
+
+  "preferredCheckInTime": "পছন্দের চেক-ইন সময়",
+  "@preferredCheckInTime": { "description": "Cadence sheet: time picker section label" },
+
+  "alertChannels": "অ্যালার্ট চ্যানেল",
+  "@alertChannels": { "description": "Cadence sheet: channels section label" },
+
+  "pushNotifications": "পুশ নোটিফিকেশন",
+  "@pushNotifications": { "description": "Cadence sheet: push notifications switch title" },
+
+  "pushNotificationsSubtitle": "প্রত্যাশিত তারিখে অ্যালার্ট পান",
+  "@pushNotificationsSubtitle": { "description": "Cadence sheet: push notifications switch subtitle" },
+
+  "inAppNotificationBanner": "ইন-অ্যাপ নোটিফিকেশন ব্যানার",
+  "@inAppNotificationBanner": { "description": "Cadence sheet: in-app banner switch title" },
+
+  "inAppNotificationSubtitle": "ড্যাশবোর্ডে বিল সতর্কতা দেখান",
+  "@inAppNotificationSubtitle": { "description": "Cadence sheet: in-app banner switch subtitle" },
+
+  "quietAffirmations": "নিরব নিশ্চিতি",
+  "@quietAffirmations": { "description": "Cadence sheet: quiet affirmations switch title" },
+
+  "quietAffirmationsSubtitle": "হিরো ব্লকে শান্ত নিশ্চিতকরণ স্ট্যাটাস দেখান",
+  "@quietAffirmationsSubtitle": { "description": "Cadence sheet: quiet affirmations switch subtitle" },
+
+  "savePreferences": "পছন্দ সংরক্ষণ করুন",
+  "@savePreferences": { "description": "Cadence sheet: save button label" },
+
+  "editTransaction": "লেনদেন সম্পাদনা করুন",
+  "@editTransaction": { "description": "Transaction screen: app bar title in edit mode (not found)" },
+
+  "transactionNotFound": "লেনদেন পাওয়া যায়নি",
+  "@transactionNotFound": { "description": "Transaction screen: error heading when transaction is missing" },
+
+  "transactionMayBeDeleted": "এই পেমেন্টটি মুছে ফেলা হয়ে থাকতে পারে।",
+  "@transactionMayBeDeleted": { "description": "Transaction screen: error body when transaction is missing" },
+
+  "editCashOut": "ক্যাশ আউট সম্পাদনা করুন",
+  "@editCashOut": { "description": "Transaction screen: app bar title in edit mode" },
+
+  "recordCashOut": "ক্যাশ আউট রেকর্ড করুন",
+  "@recordCashOut": { "description": "Transaction screen: app bar title in add mode" },
+
+  "transactionTitle": "শিরোনাম",
+  "@transactionTitle": { "description": "Transaction screen: title field label" },
+
+  "transactionTitleHint": "যেমন: দুপুরের খাবার, Uber, বেতন",
+  "@transactionTitleHint": { "description": "Transaction screen: title field hint" },
+
+  "titleRequired": "শিরোনাম দেওয়া আবশ্যক",
+  "@titleRequired": { "description": "Transaction screen: validation error for empty title" },
+
+  "enterValidAmountGreaterThanZero": "০-এর বেশি একটি সঠিক পরিমাণ দিন",
+  "@enterValidAmountGreaterThanZero": { "description": "Transaction screen: validation error for invalid amount" },
+
+  "date": "তারিখ",
+  "@date": { "description": "Transaction screen: date field label" },
+
+  "noteOptional": "নোট (ঐচ্ছিক)",
+  "@noteOptional": { "description": "Transaction screen: note field label" },
+
+  "addNoteHint": "একটি নোট লিখুন…",
+  "@addNoteHint": { "description": "Transaction screen: note field hint" },
+
+  "updateTransaction": "লেনদেন আপডেট করুন",
+  "@updateTransaction": { "description": "Transaction screen: submit button label in edit mode" },
+
+  "saveTransaction": "লেনদেন সংরক্ষণ করুন",
+  "@saveTransaction": { "description": "Transaction screen: submit button label in add mode" },
+
+  "transactionUpdated": "লেনদেন সফলভাবে আপডেট হয়েছে",
+  "@transactionUpdated": { "description": "Transaction screen: success toast in edit mode" },
+
+  "transactionSaved": "লেনদেন সফলভাবে সংরক্ষিত হয়েছে",
+  "@transactionSaved": { "description": "Transaction screen: success toast in add mode" },
+
+  "transactionSaveError": "পেমেন্ট সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
+  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" }
 }

@@ -26,6 +26,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class DeleteAccountScreen extends ConsumerStatefulWidget {
   const DeleteAccountScreen({super.key});
@@ -120,6 +121,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final colors = context.colors;
     final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
@@ -129,7 +131,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
       appBar: AppBar(
         backgroundColor: colors.canvas,
         elevation: 0,
-        title: Text('Delete all data', style: typography.headingSm),
+        title: Text(l10n.deleteAllData, style: typography.headingSm),
         leading: BackButton(color: colors.inkPrimary),
       ),
       body: SafeArea(
@@ -157,16 +159,13 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'This cannot be undone',
+                            l10n.deleteCannotBeUndone,
                             style: typography.headingSm
                                 .copyWith(color: atRisk),
                           ),
                           const SizedBox(height: HelmSpacing.s1),
                           Text(
-                            'Deleting your data will permanently remove all your'
-                            ' income entries, transactions, settings, and change'
-                            ' history from this device. There is no way to'
-                            ' recover this data.',
+                            l10n.deleteWarningBody,
                             style: typography.bodyMd
                                 .copyWith(color: colors.inkSecondary),
                           ),
@@ -181,12 +180,12 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
 
               // What will be deleted
               Text(
-                'What will be deleted',
+                l10n.deleteWhatWillBeDeleted,
                 style: typography.headingSm
                     .copyWith(color: colors.inkPrimary),
               ),
               const SizedBox(height: HelmSpacing.s3),
-              ..._deletionItems(colors, typography),
+              ..._deletionItems(context, colors, typography),
 
               const Spacer(),
 
@@ -211,7 +210,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
                           color: colors.surface,
                         ),
                       )
-                    : const Text('Continue to delete'),
+                    : Text(l10n.deleteContinue),
               ),
 
               const SizedBox(height: HelmSpacing.s2),
@@ -220,7 +219,7 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
               TextButton(
                 onPressed: () => context.pop(),
                 child: Text(
-                  'Cancel',
+                  l10n.cancel,
                   style: typography.bodyMd
                       .copyWith(color: colors.inkTertiary),
                 ),
@@ -235,15 +234,17 @@ class _DeleteAccountScreenState extends ConsumerState<DeleteAccountScreen> {
   }
 
   List<Widget> _deletionItems(
+    BuildContext context,
     HelmColors colors,
     HelmTypography typography,
   ) {
-    const items = [
-      'All income entries',
-      'All transactions',
-      'All fixed costs',
-      'Your settings',
-      'Change history',
+    final l10n = context.l10n;
+    final items = [
+      l10n.deleteItemAllIncomeEntries,
+      l10n.deleteItemAllTransactions,
+      l10n.deleteItemAllFixedCosts,
+      l10n.deleteItemYourSettings,
+      l10n.changeHistory,
     ];
     return items
         .map(
@@ -324,14 +325,18 @@ class _PinConfirmDialogState extends ConsumerState<_PinConfirmDialog> {
       _wrongPin = true;
       if (authState.isLockedOut && authState.lockoutUntil != null) {
         final remaining = authState.lockoutUntil!.difference(DateTime.now());
-        _lockoutMessage =
-            'Too many attempts. Try again in ${remaining.inMinutes + 1}m.';
+        if (mounted) {
+          _lockoutMessage = context.l10n.deleteLockoutMessage(
+            '${remaining.inMinutes + 1}',
+          );
+        }
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final colors = context.colors;
     final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
@@ -347,7 +352,7 @@ class _PinConfirmDialogState extends ConsumerState<_PinConfirmDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Enter your PIN to confirm',
+              l10n.deletePinConfirmTitle,
               style: typography.headingSm.copyWith(color: colors.inkPrimary),
               textAlign: TextAlign.center,
             ),
@@ -378,7 +383,7 @@ class _PinConfirmDialogState extends ConsumerState<_PinConfirmDialog> {
             if (_wrongPin) ...[
               const SizedBox(height: HelmSpacing.s2),
               Text(
-                _lockoutMessage ?? 'Incorrect PIN',
+                _lockoutMessage ?? l10n.deleteIncorrectPin,
                 style: typography.bodySm.copyWith(color: atRisk),
                 textAlign: TextAlign.center,
               ),
@@ -394,7 +399,7 @@ class _PinConfirmDialogState extends ConsumerState<_PinConfirmDialog> {
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
-                'Cancel',
+                l10n.cancel,
                 style: typography.bodyMd
                     .copyWith(color: colors.inkTertiary),
               ),
@@ -438,6 +443,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final colors = context.colors;
     final typography = context.textStyles;
     final atRisk = colors.stateAtRisk;
@@ -453,7 +459,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Type "DELETE" to confirm',
+              l10n.deleteTypeConfirmTitle,
               style: typography.headingSm.copyWith(color: colors.inkPrimary),
               textAlign: TextAlign.center,
             ),
@@ -463,7 +469,7 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
               autofocus: true,
               textCapitalization: TextCapitalization.characters,
               decoration: InputDecoration(
-                hintText: 'DELETE',
+                hintText: l10n.deleteConfirmHint,
                 border: OutlineInputBorder(
                   borderRadius:
                       BorderRadius.circular(HelmSpacing.cardRadius),
@@ -489,14 +495,14 @@ class _TypeDeleteDialogState extends State<_TypeDeleteDialog> {
                 ),
                 onPressed:
                     _valid ? () => Navigator.of(context).pop(true) : null,
-                child: const Text('Delete all data'),
+                child: Text(l10n.deleteAllData),
               ),
             ),
             const SizedBox(height: HelmSpacing.s2),
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
-                'Cancel',
+                l10n.cancel,
                 style: typography.bodyMd
                     .copyWith(color: colors.inkTertiary),
               ),

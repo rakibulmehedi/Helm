@@ -1,14 +1,24 @@
 // test/core/widgets/next_best_action_card_test.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/core/widgets/next_best_action_card.dart';
+import 'package:helm/l10n/app_localizations.dart';
 
 void main() {
   Widget buildTestableWidget(Widget child) {
     return MaterialApp(
       theme: AppTheme.light,
+      locale: const Locale('en'),
+      supportedLocales: const [Locale('en'), Locale('bn')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       home: Scaffold(
         body: child,
       ),

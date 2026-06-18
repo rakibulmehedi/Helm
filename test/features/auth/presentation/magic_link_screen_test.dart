@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive_ce.dart';
@@ -10,6 +11,7 @@ import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/features/auth/data/models/session_model.dart';
 import 'package:helm/features/auth/presentation/views/magic_link_screen.dart';
+import 'package:helm/l10n/app_localizations.dart';
 
 void main() {
   late Directory tempDir;
@@ -33,6 +35,14 @@ void main() {
       return ProviderScope(
         child: MaterialApp(
           theme: AppTheme.light,
+          locale: const Locale('en'),
+          supportedLocales: const [Locale('en'), Locale('bn')],
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           home: MagicLinkScreen(
             onAuthenticated: onAuthenticated ?? () {},
           ),

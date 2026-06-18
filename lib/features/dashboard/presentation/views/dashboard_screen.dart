@@ -46,6 +46,7 @@ import 'package:helm/features/dashboard/presentation/widgets/committed_section.d
 import 'package:helm/features/dashboard/presentation/widgets/not_counted_section.dart';
 import 'package:helm/features/dashboard/presentation/widgets/reserve_section.dart';
 import 'package:helm/features/dashboard/presentation/widgets/s2s_hero_block.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
@@ -198,7 +199,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(
-        title: Text('Helm', style: typography.headingMd),
+        title: Text(context.l10n.appName, style: typography.headingMd),
         centerTitle: false,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
@@ -208,7 +209,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           // UX-1.11 — dev reset gated to debug builds only.
           if (kDebugMode)
             IconButton(
-              tooltip: 'Reset onboarding (dev only)',
+              tooltip: context.l10n.devResetOnboarding,
               icon: const Icon(Icons.refresh_rounded, size: 20),
               onPressed: () async {
                 await SharedPrefServices.setOnboardingCompleted(false);
@@ -222,7 +223,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         heroTag: 'addPipelineEntryFab',
         backgroundColor: colors.interactive,
         onPressed: () => context.push(RouteNames.addIncome),
-        tooltip: 'Add income entry',
+        tooltip: context.l10n.addPipelineEntry,
         child: Icon(Icons.add_rounded, color: colors.surface, size: 28),
       ),
       body: SafeArea(
@@ -259,7 +260,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Tap the number to see the math',
+                              context.l10n.tapToSeeMath,
                               style: typography.bodySm
                                   .copyWith(color: colors.interactive),
                             ),

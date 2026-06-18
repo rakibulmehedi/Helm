@@ -14,6 +14,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Not counted yet" pipeline section.
@@ -48,14 +49,14 @@ class NotCountedSection extends StatelessWidget {
       children: [
         // Section header — inkSecondary (lower prominence vs S2S hero).
         Text(
-          'Not counted yet',
+          context.l10n.notCountedTitle,
           style: typography.headingSm.copyWith(color: colors.inkSecondary),
         ),
         const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
-          'Not counted yet — expected payments',
+          context.l10n.notCountedSubtitle,
           style: typography.bodySm.copyWith(color: colors.inkTertiary),
         ),
 
@@ -63,7 +64,7 @@ class NotCountedSection extends StatelessWidget {
 
         if (_isEmpty) ...[
           Text(
-            'Add an expected payment when you invoice or expect money.',
+            context.l10n.notCountedEmpty,
             style: typography.bodySm.copyWith(color: colors.inkTertiary),
           ),
           if (onAddPipelineEntry != null) ...[
@@ -71,7 +72,7 @@ class NotCountedSection extends StatelessWidget {
             GestureDetector(
               onTap: onAddPipelineEntry,
               child: Text(
-                'Add expected payment \u2192',
+                context.l10n.addExpectedPaymentLink,
                 style: typography.bodySm.copyWith(color: colors.interactive),
               ),
             ),
@@ -80,7 +81,7 @@ class NotCountedSection extends StatelessWidget {
           // Pending income row
           if (result.pendingIncome > 0) ...[
             Text(
-              'Pending',
+              context.l10n.pending,
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: HelmSpacing.s1),
@@ -95,7 +96,7 @@ class NotCountedSection extends StatelessWidget {
           // Expected income row
           if (result.expectedIncome > 0) ...[
             Text(
-              'Expected',
+              context.l10n.expected,
               style: typography.labelSm.copyWith(color: colors.inkSecondary),
             ),
             const SizedBox(height: HelmSpacing.s1),
@@ -116,7 +117,7 @@ class NotCountedSection extends StatelessWidget {
             ),
             const SizedBox(height: HelmSpacing.s3),
             Text(
-              'If all counted:',
+              context.l10n.ifAllCounted,
               style: typography.bodySm.copyWith(color: colors.inkTertiary),
             ),
             const SizedBox(height: HelmSpacing.s1),

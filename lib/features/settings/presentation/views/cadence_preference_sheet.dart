@@ -10,6 +10,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class CadencePreferenceSheet extends ConsumerStatefulWidget {
   const CadencePreferenceSheet({super.key});
@@ -70,7 +71,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
     if (mounted) {
       HelmToast.show(
         context,
-        message: 'Notification preferences saved',
+        message: context.l10n.notificationPrefsSaved,
         type: ToastType.success,
       );
       Navigator.pop(context);
@@ -79,6 +80,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final colors = context.colors;
     final typography = context.textStyles;
 
@@ -102,7 +104,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Notification Preferences',
+                  l10n.notificationPreferences,
                   style: typography.headingMd.copyWith(color: colors.inkPrimary),
                 ),
                 IconButton(
@@ -112,10 +114,10 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
               ],
             ),
             const SizedBox(height: 16),
-  
+
             // ── Cadence Selection ──────────────────────────────────────────────
             Text(
-              'Check-in Frequency',
+              l10n.checkInFrequency,
               style: typography.bodyLg.copyWith(fontWeight: FontWeight.bold, color: colors.inkPrimary),
             ),
             const SizedBox(height: 8),
@@ -155,7 +157,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
             // ── Check-in Time ──────────────────────────────────────────────────
             if (_cadence == Cadence.daily) ...[
               Text(
-                'Preferred Check-in Time',
+                l10n.preferredCheckInTime,
                 style: typography.bodyLg.copyWith(fontWeight: FontWeight.bold, color: colors.inkPrimary),
               ),
               const SizedBox(height: 8),
@@ -186,7 +188,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
   
             // ── Channels ───────────────────────────────────────────────────────
             Text(
-              'Alert Channels',
+              l10n.alertChannels,
               style: typography.bodyLg.copyWith(fontWeight: FontWeight.bold, color: colors.inkPrimary),
             ),
             const SizedBox(height: 8),
@@ -204,11 +206,11 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
                     SwitchListTile(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                       title: Text(
-                        'Push notifications',
+                        l10n.pushNotifications,
                         style: typography.bodySm.copyWith(fontWeight: FontWeight.w600, color: colors.inkPrimary),
                       ),
                       subtitle: Text(
-                        'Receive alerts on expected dates',
+                        l10n.pushNotificationsSubtitle,
                         style: typography.labelMd.copyWith(color: colors.inkSecondary),
                       ),
                       value: _pushEnabled,
@@ -219,11 +221,11 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
                     SwitchListTile(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                       title: Text(
-                        'In-app notification banner',
+                        l10n.inAppNotificationBanner,
                         style: typography.bodySm.copyWith(fontWeight: FontWeight.w600, color: colors.inkPrimary),
                       ),
                       subtitle: Text(
-                        'Show bill warning hints in dashboard',
+                        l10n.inAppNotificationSubtitle,
                         style: typography.labelMd.copyWith(color: colors.inkSecondary),
                       ),
                       value: _inAppEnabled,
@@ -234,11 +236,11 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
                     SwitchListTile(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                       title: Text(
-                        'Quiet affirmations',
+                        l10n.quietAffirmations,
                         style: typography.bodySm.copyWith(fontWeight: FontWeight.w600, color: colors.inkPrimary),
                       ),
                       subtitle: Text(
-                        'Display calm confirmation status on hero block',
+                        l10n.quietAffirmationsSubtitle,
                         style: typography.labelMd.copyWith(color: colors.inkSecondary),
                       ),
                       value: _quietAffirmationsEnabled,
@@ -250,10 +252,10 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
               ),
             ),
             const SizedBox(height: 24),
-  
+
             // ── Save Button ────────────────────────────────────────────────────
             AppButton(
-              label: 'Save Preferences',
+              label: l10n.savePreferences,
               onPressed: _save,
             ),
           ],

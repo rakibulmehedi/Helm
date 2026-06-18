@@ -7,6 +7,7 @@ import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/onboarding/domain/onboarding_draft.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class FixedCostsPage extends StatefulWidget {
   final List<FixedCostDraftItem> initialCosts;
@@ -23,10 +24,33 @@ class FixedCostsPage extends StatefulWidget {
 }
 
 class _FixedCostCategory {
+  /// English label — used as data key for persistence and matching.
   final String label;
   final int defaultDay;
 
   const _FixedCostCategory(this.label, this.defaultDay);
+
+  /// Returns the localized display label for this category.
+  String localizedLabel(AppLocalizations l10n) {
+    switch (label) {
+      case 'Rent / Housing':
+        return l10n.fixedCostsCategoryRentHousing;
+      case 'Internet':
+        return l10n.fixedCostsCategoryInternet;
+      case 'Mobile / Phone':
+        return l10n.fixedCostsCategoryMobilePhone;
+      case 'Subscriptions':
+        return l10n.fixedCostsCategorySubscriptions;
+      case 'Family support / Parents':
+        return l10n.fixedCostsCategoryFamilySupport;
+      case 'Loan EMI':
+        return l10n.fixedCostsCategoryLoanEmi;
+      case 'Other fixed cost':
+        return l10n.fixedCostsCategoryOther;
+      default:
+        return label;
+    }
+  }
 }
 
 class _FixedCostsPageState extends State<FixedCostsPage> {
@@ -106,6 +130,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return SafeArea(
       child: Column(
@@ -129,7 +154,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'What are your fixed monthly costs?',
+                  l10n.fixedCostsQuestion,
                   style: typo.headingLg.copyWith(color: colors.inkPrimary),
                 ),
                 const SizedBox(height: HelmSpacing.s2),
@@ -137,12 +162,12 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Monthly costs due in the next 30 days. Tap any that apply.',
+                        l10n.fixedCostsSubtext,
                         style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                       ),
                     ),
                     Tooltip(
-                      message: 'Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)',
+                      message: l10n.fixedCostsDueDayTooltip,
                       child: Icon(
                         Icons.help_outline_rounded,
                         size: HelmSpacing.iconMd,
@@ -169,6 +194,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                 checked: _checked[i],
                 amountController: _amountControllers[i],
                 day: _days[i],
+                l10n: l10n,
                 onCheckedChanged: (val) {
                   HapticFeedback.selectionClick();
                   setState(() {
@@ -217,13 +243,13 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            'No fixed monthly costs selected.',
+                            l10n.fixedCostsNoneSelected,
                             style:
                                 typo.headingSm.copyWith(color: colors.inkPrimary),
                           ),
                           const SizedBox(height: HelmSpacing.s1),
                           Text(
-                            'Fixed costs reduce Safe-to-Spend. You can add them in Settings later.',
+                            l10n.fixedCostsNoneExplainer,
                             style:
                                 typo.bodyMd.copyWith(color: colors.inkSecondary),
                           ),
@@ -232,7 +258,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                             children: [
                               Expanded(
                                 child: AppButton(
-                                  label: 'Skip for now',
+                                  label: l10n.skipForNow,
                                   onPressed: () => widget.onContinue([]),
                                   isEnabled: true,
                                   type: AppButtonType.secondary,
@@ -241,7 +267,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
                               const SizedBox(width: HelmSpacing.s2),
                               Expanded(
                                 child: AppButton(
-                                  label: 'Let me add some',
+                                  label: l10n.letMeAddSome,
                                   onPressed: () =>
                                       setState(() => _showZeroStateReask = false),
                                   isEnabled: true,
@@ -264,7 +290,7 @@ class _FixedCostsPageState extends State<FixedCostsPage> {
               HelmSpacing.s4,
             ),
             child: AppButton(
-              label: 'Continue',
+              label: l10n.continueButton,
               onPressed: _onContinueTap,
               isEnabled: true,
             ),
@@ -280,6 +306,7 @@ class _CategoryRow extends StatelessWidget {
   final bool checked;
   final TextEditingController amountController;
   final int day;
+  final AppLocalizations l10n;
   final void Function(bool) onCheckedChanged;
   final void Function(int) onDayChanged;
 
@@ -288,6 +315,7 @@ class _CategoryRow extends StatelessWidget {
     required this.checked,
     required this.amountController,
     required this.day,
+    required this.l10n,
     required this.onCheckedChanged,
     required this.onDayChanged,
   });
@@ -308,7 +336,10 @@ class _CategoryRow extends StatelessWidget {
             child: Row(
               children: [
                 Semantics(
-                  label: '${category.label}, ${checked ? 'selected' : 'not selected'}',
+                  label: l10n.fixedCostsCategorySemantics(
+                    category.localizedLabel(l10n),
+                    checked ? l10n.fixedCostsCategorySelected : l10n.fixedCostsCategoryNotSelected,
+                  ),
                   button: true,
                   child: AnimatedContainer(
                     duration: HelmMotion.base,
@@ -332,7 +363,7 @@ class _CategoryRow extends StatelessWidget {
                 const SizedBox(width: HelmSpacing.s3),
                 Expanded(
                   child: Text(
-                    category.label,
+                    category.localizedLabel(l10n),
                     style: typo.bodyLg.copyWith(
                       color: checked
                           ? colors.inkPrimary
@@ -371,7 +402,7 @@ class _CategoryRow extends StatelessWidget {
                         style: typo.bodyMd
                             .copyWith(color: colors.inkPrimary),
                         decoration: InputDecoration(
-                          hintText: 'amount',
+                          hintText: l10n.fixedCostsAmountHint,
                           hintStyle: typo.bodyMd
                               .copyWith(color: colors.inkTertiary),
                           isDense: true,
@@ -393,7 +424,7 @@ class _CategoryRow extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: HelmSpacing.s3),
-                    Text('due day',
+                    Text(l10n.fixedCostsDueDay,
                         style: typo.labelMd
                             .copyWith(color: colors.inkTertiary)),
                     const SizedBox(width: HelmSpacing.s2),

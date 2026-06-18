@@ -63,7 +63,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Semantics(
-                    label: 'Tax rate: ${(settings.taxRate * 100).round()}%',
+                    label: loc.taxRateSemantics('${(settings.taxRate * 100).round()}'),
                     child: Slider(
                       value: settings.taxRate,
                       min: 0.0,
@@ -129,7 +129,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 ),
                 Expanded(
                   child: Semantics(
-                    label: 'Safety buffer: ${settings.bufferPercent.round()}%',
+                    label: loc.safetyBufferSemantics('${settings.bufferPercent.round()}'),
                     child: Slider(
                       value: settings.bufferPercent.clamp(5.0, 30.0),
                       min: 5.0,
@@ -215,9 +215,9 @@ class StsSettingsScreen extends ConsumerWidget {
                           .deleteFixedCost(cost.id);
                       HelmToast.show(
                         context,
-                        message: '${cost.label} deleted',
+                        message: loc.itemDeleted(cost.label),
                         type: ToastType.warning,
-                        actionLabel: 'UNDO',
+                        actionLabel: loc.undo,
                         onAction: () {
                           ref
                               .read(fixedCostNotifierProvider.notifier)
@@ -231,7 +231,7 @@ class StsSettingsScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       title: Text(cost.label),
-                      subtitle: Text('Due: Day ${cost.dueDayOfMonth}'),
+                      subtitle: Text(loc.dueDay('${cost.dueDayOfMonth}')),
                       trailing: Text(
                         '৳ ${cost.amount.toStringAsFixed(0)}',
                         style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
@@ -415,6 +415,7 @@ class _AddEditFixedCostSheetState
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
     final typo = context.textStyles;
 
     return Padding(
@@ -431,9 +432,7 @@ class _AddEditFixedCostSheetState
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.entry == null
-                  ? AppLocalizations.of(context)!.addFixedCost
-                  : AppLocalizations.of(context)!.editFixedCost,
+              widget.entry == null ? loc.addFixedCost : loc.editFixedCost,
               style: typo.headingMd,
             ),
             const SizedBox(height: 16),
@@ -441,13 +440,13 @@ class _AddEditFixedCostSheetState
               controller: _labelController,
               maxLength: 100,
               decoration: InputDecoration(
-                labelText: 'Label (e.g. Internet, Rent)',
+                labelText: loc.fixedCostLabelHint,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12)),
               ),
               validator: (val) {
                 if (val == null || val.trim().isEmpty) {
-                  return 'Label is required';
+                  return loc.fixedCostLabelRequired;
                 }
                 return null;
               },
@@ -466,14 +465,14 @@ class _AddEditFixedCostSheetState
                           RegExp(r'^\d+\.?\d*'))
                     ],
                     decoration: InputDecoration(
-                      labelText: 'Amount',
+                      labelText: loc.amount,
                       prefixText: '৳ ',
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
                       if (InputValidator.parseAmount(val) == null) {
-                        return 'Must be > 0';
+                        return loc.amountMustBePositive;
                       }
                       return null;
                     },
@@ -488,14 +487,14 @@ class _AddEditFixedCostSheetState
                       FilteringTextInputFormatter.digitsOnly
                     ],
                     decoration: InputDecoration(
-                      labelText: 'Due Day',
-                      hintText: '1-28',
+                      labelText: loc.dueDayLabel,
+                      hintText: loc.dueDayHint,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
                     ),
                     validator: (val) {
                       if (InputValidator.parseIntInRange(val, min: 1, max: 28) == null) {
-                        return '1-28 only';
+                        return loc.dueDayValidation;
                       }
                       return null;
                     },
@@ -507,7 +506,7 @@ class _AddEditFixedCostSheetState
             SizedBox(
               width: double.infinity,
               child: AppButton(
-                label: AppLocalizations.of(context)!.saveFixedCost,
+                label: loc.saveFixedCost,
                 onPressed: _save,
               ),
             ),

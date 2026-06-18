@@ -461,12 +461,6 @@
   "editFixedCost": "Edit Fixed Cost",
   "@editFixedCost": { "description": "STS settings: edit fixed cost sheet title" },
 
-  "notificationPreferences": "Notification preferences",
-  "@notificationPreferences": { "description": "STS settings: notification preferences list item" },
-
-  "notifications": "Notifications",
-  "@notifications": { "description": "STS settings: notifications list item" },
-
   "exportMyData": "Export my data",
   "@exportMyData": { "description": "STS settings: export data list item" },
 
@@ -623,5 +617,495 @@
   "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },
 
   "projectNameRecommended": "Project Name (recommended)",
-  "@projectNameRecommended": { "description": "Income form: project name label when optional" }
+  "@projectNameRecommended": { "description": "Income form: project name label when optional" },
+
+  "pinCreateTitle": "Create your PIN",
+  "@pinCreateTitle": { "description": "PIN setup: create step heading" },
+
+  "pinConfirmTitle": "Confirm your PIN",
+  "@pinConfirmTitle": { "description": "PIN setup: confirm step heading" },
+
+  "pinMismatchError": "PINs don't match. Try again.",
+  "@pinMismatchError": { "description": "PIN setup: mismatch error message" },
+
+  "pinEnterTitle": "Enter your PIN",
+  "@pinEnterTitle": { "description": "PIN entry: unlock heading" },
+
+  "pinIncorrectAttempts": "{remaining, plural, =1{Incorrect PIN — 1 attempt remaining} other{Incorrect PIN — {remaining} attempts remaining}}",
+  "@pinIncorrectAttempts": {
+    "description": "PIN entry: incorrect PIN with remaining attempts",
+    "placeholders": {
+      "remaining": { "type": "int" }
+    }
+  },
+
+  "pinTooManyAttempts": "Too many attempts. Try again later.",
+  "@pinTooManyAttempts": { "description": "PIN entry: lockout message" },
+
+  "pinTryAgain": "Try again.",
+  "@pinTryAgain": { "description": "PIN entry: lockout expired prompt" },
+
+  "pinLockedCountdown": "Locked. Try again in {minutes}m {seconds}s",
+  "@pinLockedCountdown": {
+    "description": "PIN entry: lockout countdown timer",
+    "placeholders": {
+      "minutes": { "type": "String" },
+      "seconds": { "type": "String" }
+    }
+  },
+
+  "onboardingStepOf": "Onboarding step {step} of {total}",
+  "@onboardingStepOf": {
+    "description": "Semantics label for onboarding step progress",
+    "placeholders": {
+      "step": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "liquidBalanceInputSemantics": "Current liquid balance input",
+  "@liquidBalanceInputSemantics": { "description": "Semantics label for liquid balance text field" },
+
+  "liquidBalanceRoughEstimate": "A rough estimate is fine — you can update it later.",
+  "@liquidBalanceRoughEstimate": { "description": "Error hint below liquid balance field" },
+
+  "saveLiquidBalance": "Save — updates Safe-to-Spend",
+  "@saveLiquidBalance": { "description": "Liquid balance page primary CTA button" },
+
+  "incomePatternQuestion": "How does your income usually arrive?",
+  "@incomePatternQuestion": { "description": "Income pattern page heading" },
+
+  "incomePatternSubtext": "Pick the pattern that fits most of your earnings.",
+  "@incomePatternSubtext": { "description": "Income pattern page supporting text" },
+
+  "incomePatternMarketplaceTitle": "Marketplace escrow",
+  "@incomePatternMarketplaceTitle": { "description": "Income pattern card: marketplace title" },
+
+  "incomePatternMarketplacePlatform": "Upwork, Fiverr, Payoneer",
+  "@incomePatternMarketplacePlatform": { "description": "Income pattern card: marketplace platform list" },
+
+  "incomePatternMarketplaceSubtitle": "Payment held until milestone or job completion",
+  "@incomePatternMarketplaceSubtitle": { "description": "Income pattern card: marketplace subtitle" },
+
+  "incomePatternDirectTitle": "Direct client",
+  "@incomePatternDirectTitle": { "description": "Income pattern card: direct client title" },
+
+  "incomePatternDirectPlatform": "You invoice clients directly",
+  "@incomePatternDirectPlatform": { "description": "Income pattern card: direct client platform" },
+
+  "incomePatternDirectSubtitle": "Payment terms agreed with each client",
+  "@incomePatternDirectSubtitle": { "description": "Income pattern card: direct client subtitle" },
+
+  "incomePatternRetainerTitle": "Retainer / Recurring",
+  "@incomePatternRetainerTitle": { "description": "Income pattern card: retainer title" },
+
+  "incomePatternRetainerPlatform": "Same client, same amount each month",
+  "@incomePatternRetainerPlatform": { "description": "Income pattern card: retainer platform" },
+
+  "incomePatternRetainerSubtitle": "Predictable monthly income",
+  "@incomePatternRetainerSubtitle": { "description": "Income pattern card: retainer subtitle" },
+
+  "incomePatternSelectError": "Please select an income pattern to continue.",
+  "@incomePatternSelectError": { "description": "Income pattern page: validation error when none selected" },
+
+  "saveIncomePattern": "Save — sets income pattern",
+  "@saveIncomePattern": { "description": "Income pattern page primary CTA button" },
+
+  "bufferTitle": "Set your safety buffer",
+  "@bufferTitle": { "description": "Buffer comfort page heading" },
+
+  "bufferSubtext": "This is not locked money. It is a safety margin inside the calculation.",
+  "@bufferSubtext": { "description": "Buffer comfort page supporting text" },
+
+  "bufferSliderSemantics": "Safety buffer slider: {percent}%",
+  "@bufferSliderSemantics": {
+    "description": "Semantics label for buffer slider",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferSliderValue": "{percent} percent",
+  "@bufferSliderValue": {
+    "description": "Semantics value for buffer slider",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferS2sPreviewPositive": "Safe to spend preview: {percent}% buffer of total",
+  "@bufferS2sPreviewPositive": {
+    "description": "Semantics label for S2S preview card when positive",
+    "placeholders": {
+      "percent": { "type": "int" }
+    }
+  },
+
+  "bufferS2sPreviewNegative": "Safe to spend preview shows negative balance",
+  "@bufferS2sPreviewNegative": { "description": "Semantics label for S2S preview card when negative" },
+
+  "bufferSafeToSpendLabel": "Safe-to-Spend",
+  "@bufferSafeToSpendLabel": { "description": "Safe-to-Spend label in buffer preview card" },
+
+  "bufferCostsExceedBalance": "Your costs exceed liquid balance. Adjust buffer or add expected income.",
+  "@bufferCostsExceedBalance": { "description": "Warning shown in buffer card when S2S is negative" },
+
+  "saveBuffer": "Save — finish Safe-to-Spend setup",
+  "@saveBuffer": { "description": "Buffer comfort page primary CTA button" },
+
+  "fixedCostsDueDayTooltip": "Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)",
+  "@fixedCostsDueDayTooltip": { "description": "Tooltip for the due day dropdown in fixed costs" },
+
+  "fixedCostsDueDay": "due day",
+  "@fixedCostsDueDay": { "description": "Label next to due day dropdown in fixed costs row" },
+
+  "fixedCostsAmountHint": "amount",
+  "@fixedCostsAmountHint": { "description": "Hint text for amount field in fixed cost row" },
+
+  "fixedCostsCategorySemantics": "{label}, {state}",
+  "@fixedCostsCategorySemantics": {
+    "description": "Semantics label for fixed cost category checkbox",
+    "placeholders": {
+      "label": { "type": "String" },
+      "state": { "type": "String" }
+    }
+  },
+
+  "fixedCostsCategorySelected": "selected",
+  "@fixedCostsCategorySelected": { "description": "State text for selected fixed cost category" },
+
+  "fixedCostsCategoryNotSelected": "not selected",
+  "@fixedCostsCategoryNotSelected": { "description": "State text for unselected fixed cost category" },
+
+  "continueButton": "Continue",
+  "@continueButton": { "description": "Generic continue button label" },
+
+  "fixedCostsCategoryRentHousing": "Rent / Housing",
+  "@fixedCostsCategoryRentHousing": { "description": "Fixed costs category: rent or housing" },
+
+  "fixedCostsCategoryInternet": "Internet",
+  "@fixedCostsCategoryInternet": { "description": "Fixed costs category: internet" },
+
+  "fixedCostsCategoryMobilePhone": "Mobile / Phone",
+  "@fixedCostsCategoryMobilePhone": { "description": "Fixed costs category: mobile or phone" },
+
+  "fixedCostsCategorySubscriptions": "Subscriptions",
+  "@fixedCostsCategorySubscriptions": { "description": "Fixed costs category: subscriptions" },
+
+  "fixedCostsCategoryFamilySupport": "Family support / Parents",
+  "@fixedCostsCategoryFamilySupport": { "description": "Fixed costs category: family support or parents" },
+
+  "fixedCostsCategoryLoanEmi": "Loan EMI",
+  "@fixedCostsCategoryLoanEmi": { "description": "Fixed costs category: loan EMI" },
+
+  "fixedCostsCategoryOther": "Other fixed cost",
+  "@fixedCostsCategoryOther": { "description": "Fixed costs category: other" },
+
+  "pipelineClientNameSemantics": "Client or source name input",
+  "@pipelineClientNameSemantics": { "description": "Semantics label for client name field in first pipeline page" },
+
+  "pipelineAmountSemantics": "Amount input in {currency}",
+  "@pipelineAmountSemantics": {
+    "description": "Semantics label for amount field in first pipeline page",
+    "placeholders": {
+      "currency": { "type": "String" }
+    }
+  },
+
+  "pipelineCurrencySemantics": "Currency selector",
+  "@pipelineCurrencySemantics": { "description": "Semantics label for currency dropdown in first pipeline page" },
+
+  "pipelineEntryNoteSemantics": "Information: This will be marked as Expected. You can update the status later.",
+  "@pipelineEntryNoteSemantics": { "description": "Semantics label for pipeline entry info note" },
+
+  "pipelineSkipSemantics": "Skip adding pipeline entry and continue to home",
+  "@pipelineSkipSemantics": { "description": "Semantics label for skip button in first pipeline page" },
+
+  "pipelineAddAndContinue": "Add and continue",
+  "@pipelineAddAndContinue": { "description": "First pipeline page: submit button label" },
+
+  "pipelineAdding": "Adding...",
+  "@pipelineAdding": { "description": "First pipeline page: loading state for submit button" },
+
+  "pipelineAmountMustBePositive": "Must be > 0",
+  "@pipelineAmountMustBePositive": { "description": "Validation error for pipeline amount field" },
+
+  "auditLogLoadError": "Unable to load history.",
+  "@auditLogLoadError": { "description": "Audit log: error state message" },
+
+  "auditLogEmpty": "No changes recorded yet.",
+  "@auditLogEmpty": { "description": "Audit log: empty state message" },
+
+  "auditEntityIncome": "Income",
+  "@auditEntityIncome": { "description": "Audit log: entity label for income" },
+
+  "auditEntityTransaction": "Transaction",
+  "@auditEntityTransaction": { "description": "Audit log: entity label for transaction" },
+
+  "auditEntitySettings": "Settings",
+  "@auditEntitySettings": { "description": "Audit log: entity label for settings" },
+
+  "auditEntityFixedCost": "Fixed cost",
+  "@auditEntityFixedCost": { "description": "Audit log: entity label for fixed cost" },
+
+  "auditEntityRecord": "Record",
+  "@auditEntityRecord": { "description": "Audit log: entity label for unknown record" },
+
+  "auditEventAdded": "{entity} added",
+  "@auditEventAdded": {
+    "description": "Audit log: entity was created",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventUpdated": "{entity} updated",
+  "@auditEventUpdated": {
+    "description": "Audit log: entity was updated",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventDeleted": "{entity} deleted",
+  "@auditEventDeleted": {
+    "description": "Audit log: entity was deleted",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventConfirmed": "{entity} confirmed",
+  "@auditEventConfirmed": {
+    "description": "Audit log: entity was confirmed",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventExported": "{entity} exported",
+  "@auditEventExported": {
+    "description": "Audit log: entity was exported",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "auditEventChanged": "{entity} changed",
+  "@auditEventChanged": {
+    "description": "Audit log: entity had an unknown change",
+    "placeholders": {
+      "entity": { "type": "String" }
+    }
+  },
+
+  "deleteCannotBeUndone": "This cannot be undone",
+  "@deleteCannotBeUndone": { "description": "Delete account: warning heading" },
+
+  "deleteWarningBody": "Deleting your data will permanently remove all your income entries, transactions, settings, and change history from this device. There is no way to recover this data.",
+  "@deleteWarningBody": { "description": "Delete account: warning body text" },
+
+  "deleteWhatWillBeDeleted": "What will be deleted",
+  "@deleteWhatWillBeDeleted": { "description": "Delete account: section heading for deletion list" },
+
+  "deleteItemAllIncomeEntries": "All income entries",
+  "@deleteItemAllIncomeEntries": { "description": "Delete account: deletion list item — income entries" },
+
+  "deleteItemAllTransactions": "All transactions",
+  "@deleteItemAllTransactions": { "description": "Delete account: deletion list item — transactions" },
+
+  "deleteItemAllFixedCosts": "All fixed costs",
+  "@deleteItemAllFixedCosts": { "description": "Delete account: deletion list item — fixed costs" },
+
+  "deleteItemYourSettings": "Your settings",
+  "@deleteItemYourSettings": { "description": "Delete account: deletion list item — settings" },
+
+  "deleteContinue": "Continue to delete",
+  "@deleteContinue": { "description": "Delete account: destructive action button label" },
+
+  "deletePinConfirmTitle": "Enter your PIN to confirm",
+  "@deletePinConfirmTitle": { "description": "Delete account: PIN dialog heading" },
+
+  "deleteIncorrectPin": "Incorrect PIN",
+  "@deleteIncorrectPin": { "description": "Delete account: wrong PIN error message" },
+
+  "deleteLockoutMessage": "Too many attempts. Try again in {minutes}m.",
+  "@deleteLockoutMessage": {
+    "description": "Delete account: lockout message with time remaining",
+    "placeholders": {
+      "minutes": { "type": "String" }
+    }
+  },
+
+  "deleteTypeConfirmTitle": "Type \"DELETE\" to confirm",
+  "@deleteTypeConfirmTitle": { "description": "Delete account: type-DELETE dialog heading" },
+
+  "deleteConfirmHint": "DELETE",
+  "@deleteConfirmHint": { "description": "Delete account: text field hint in type-DELETE dialog" },
+
+  "exportDataBelongsToYou": "Your data belongs to you",
+  "@exportDataBelongsToYou": { "description": "Export screen: section heading" },
+
+  "exportDescription": "Export all your Helm data as CSV files. Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.",
+  "@exportDescription": { "description": "Export screen: description paragraph" },
+
+  "exportWarning": "Exported files are not encrypted and may contain sensitive information such as client names and amounts. Only share them through trusted channels and delete the files from your device when you are done.",
+  "@exportWarning": { "description": "Export screen: security warning paragraph" },
+
+  "exportWhatWillBeExported": "What will be exported",
+  "@exportWhatWillBeExported": { "description": "Export screen: section heading for export list" },
+
+  "exportItemIncomeEntries": "Income entries",
+  "@exportItemIncomeEntries": { "description": "Export screen: export list item — income entries" },
+
+  "exportItemTransactions": "Transactions",
+  "@exportItemTransactions": { "description": "Export screen: export list item — transactions" },
+
+  "exportItemFixedCosts": "Fixed costs",
+  "@exportItemFixedCosts": { "description": "Export screen: export list item — fixed costs" },
+
+  "exportItemSettings": "Settings",
+  "@exportItemSettings": { "description": "Export screen: export list item — settings" },
+
+  "exportAllData": "Export all data",
+  "@exportAllData": { "description": "Export screen: primary export button label" },
+
+  "exportFailed": "Export failed: {error}",
+  "@exportFailed": {
+    "description": "Export screen: error toast message",
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+
+  "exportShareSubject": "Helm data export",
+  "@exportShareSubject": { "description": "Export screen: share sheet subject line" },
+
+  "taxRateSemantics": "Tax rate: {percent}%",
+  "@taxRateSemantics": {
+    "description": "STS settings: semantics label for tax rate slider",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "safetyBufferSemantics": "Safety buffer: {percent}%",
+  "@safetyBufferSemantics": {
+    "description": "STS settings: semantics label for safety buffer slider",
+    "placeholders": {
+      "percent": { "type": "String" }
+    }
+  },
+
+  "itemDeleted": "{label} deleted",
+  "@itemDeleted": {
+    "description": "STS settings: toast shown after dismissing a fixed cost",
+    "placeholders": {
+      "label": { "type": "String" }
+    }
+  },
+
+  "dueDay": "Due: Day {day}",
+  "@dueDay": {
+    "description": "STS settings: fixed cost list tile subtitle",
+    "placeholders": {
+      "day": { "type": "String" }
+    }
+  },
+
+  "fixedCostLabelHint": "Label (e.g. Internet, Rent)",
+  "@fixedCostLabelHint": { "description": "STS settings: fixed cost label field hint" },
+
+  "fixedCostLabelRequired": "Label is required",
+  "@fixedCostLabelRequired": { "description": "STS settings: validation error for empty label" },
+
+  "amountMustBePositive": "Must be > 0",
+  "@amountMustBePositive": { "description": "STS settings: validation error for non-positive amount" },
+
+  "dueDayLabel": "Due Day",
+  "@dueDayLabel": { "description": "STS settings: due day field label" },
+
+  "dueDayHint": "1-28",
+  "@dueDayHint": { "description": "STS settings: due day field hint text" },
+
+  "dueDayValidation": "1-28 only",
+  "@dueDayValidation": { "description": "STS settings: validation error for out-of-range due day" },
+
+  "preferredCheckInTime": "Preferred Check-in Time",
+  "@preferredCheckInTime": { "description": "Cadence sheet: time picker section label" },
+
+  "alertChannels": "Alert Channels",
+  "@alertChannels": { "description": "Cadence sheet: channels section label" },
+
+  "pushNotifications": "Push notifications",
+  "@pushNotifications": { "description": "Cadence sheet: push notifications switch title" },
+
+  "pushNotificationsSubtitle": "Receive alerts on expected dates",
+  "@pushNotificationsSubtitle": { "description": "Cadence sheet: push notifications switch subtitle" },
+
+  "inAppNotificationBanner": "In-app notification banner",
+  "@inAppNotificationBanner": { "description": "Cadence sheet: in-app banner switch title" },
+
+  "inAppNotificationSubtitle": "Show bill warning hints in dashboard",
+  "@inAppNotificationSubtitle": { "description": "Cadence sheet: in-app banner switch subtitle" },
+
+  "quietAffirmations": "Quiet affirmations",
+  "@quietAffirmations": { "description": "Cadence sheet: quiet affirmations switch title" },
+
+  "quietAffirmationsSubtitle": "Display calm confirmation status on hero block",
+  "@quietAffirmationsSubtitle": { "description": "Cadence sheet: quiet affirmations switch subtitle" },
+
+  "savePreferences": "Save Preferences",
+  "@savePreferences": { "description": "Cadence sheet: save button label" },
+
+  "editTransaction": "Edit Transaction",
+  "@editTransaction": { "description": "Transaction screen: app bar title in edit mode (not found)" },
+
+  "transactionNotFound": "Transaction not found",
+  "@transactionNotFound": { "description": "Transaction screen: error heading when transaction is missing" },
+
+  "transactionMayBeDeleted": "This payment may have been deleted.",
+  "@transactionMayBeDeleted": { "description": "Transaction screen: error body when transaction is missing" },
+
+  "editCashOut": "Edit cash out",
+  "@editCashOut": { "description": "Transaction screen: app bar title in edit mode" },
+
+  "recordCashOut": "Record cash out",
+  "@recordCashOut": { "description": "Transaction screen: app bar title in add mode" },
+
+  "transactionTitle": "Title",
+  "@transactionTitle": { "description": "Transaction screen: title field label" },
+
+  "transactionTitleHint": "e.g. Lunch, Uber, Salary",
+  "@transactionTitleHint": { "description": "Transaction screen: title field hint" },
+
+  "titleRequired": "Title is required",
+  "@titleRequired": { "description": "Transaction screen: validation error for empty title" },
+
+  "enterValidAmountGreaterThanZero": "Enter a valid amount greater than 0",
+  "@enterValidAmountGreaterThanZero": { "description": "Transaction screen: validation error for invalid amount" },
+
+  "date": "Date",
+  "@date": { "description": "Transaction screen: date field label" },
+
+  "noteOptional": "Note (optional)",
+  "@noteOptional": { "description": "Transaction screen: note field label" },
+
+  "addNoteHint": "Add a note…",
+  "@addNoteHint": { "description": "Transaction screen: note field hint" },
+
+  "updateTransaction": "Update Transaction",
+  "@updateTransaction": { "description": "Transaction screen: submit button label in edit mode" },
+
+  "saveTransaction": "Save Transaction",
+  "@saveTransaction": { "description": "Transaction screen: submit button label in add mode" },
+
+  "transactionUpdated": "Transaction updated successfully",
+  "@transactionUpdated": { "description": "Transaction screen: success toast in edit mode" },
+
+  "transactionSaved": "Transaction saved successfully",
+  "@transactionSaved": { "description": "Transaction screen: success toast in add mode" },
+
+  "transactionSaveError": "Could not save payment. Try again.",
+  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" }
 }

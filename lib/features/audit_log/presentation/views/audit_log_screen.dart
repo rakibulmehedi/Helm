@@ -11,6 +11,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 import 'package:helm/features/audit_log/presentation/providers/audit_providers.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class AuditLogScreen extends ConsumerWidget {
   const AuditLogScreen({super.key});
@@ -18,17 +19,18 @@ class AuditLogScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final eventsAsync = ref.watch(auditEventsProvider);
+    final l10n = context.l10n;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Change history'),
+        title: Text(l10n.changeHistory),
         elevation: 0,
       ),
       body: eventsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => Center(
           child: Text(
-            'Unable to load history.',
+            l10n.auditLogLoadError,
             style: TextStyle(
               color: Theme.of(context).colorScheme.error,
             ),
@@ -36,8 +38,8 @@ class AuditLogScreen extends ConsumerWidget {
         ),
         data: (events) {
           if (events.isEmpty) {
-            return const Center(
-              child: Text('No changes recorded yet.'),
+            return Center(
+              child: Text(l10n.auditLogEmpty),
             );
           }
           return ListView.separated(
@@ -64,13 +66,14 @@ class _AuditEventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return ListTile(
       leading: Icon(
         _iconFor(event.eventType),
         color: _colorFor(context, event.eventType),
       ),
       title: Text(
-        _titleFor(event),
+        _titleFor(event, l10n),
         style: const TextStyle(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(
@@ -117,36 +120,36 @@ class _AuditEventTile extends StatelessWidget {
     }
   }
 
-  String _titleFor(AuditEvent event) {
-    final entityLabel = _entityLabel(event.entityType);
+  String _titleFor(AuditEvent event, AppLocalizations l10n) {
+    final entityLabel = _entityLabel(event.entityType, l10n);
     switch (event.eventType) {
       case AuditEventType.created:
-        return '$entityLabel added';
+        return l10n.auditEventAdded(entityLabel);
       case AuditEventType.updated:
-        return '$entityLabel updated';
+        return l10n.auditEventUpdated(entityLabel);
       case AuditEventType.deleted:
-        return '$entityLabel deleted';
+        return l10n.auditEventDeleted(entityLabel);
       case AuditEventType.confirmed:
-        return '$entityLabel confirmed';
+        return l10n.auditEventConfirmed(entityLabel);
       case AuditEventType.exported:
-        return '$entityLabel exported';
+        return l10n.auditEventExported(entityLabel);
       case AuditEventType.unknown:
-        return '$entityLabel changed';
+        return l10n.auditEventChanged(entityLabel);
     }
   }
 
-  String _entityLabel(AuditEntityType type) {
+  String _entityLabel(AuditEntityType type, AppLocalizations l10n) {
     switch (type) {
       case AuditEntityType.income:
-        return 'Income';
+        return l10n.auditEntityIncome;
       case AuditEntityType.transaction:
-        return 'Transaction';
+        return l10n.auditEntityTransaction;
       case AuditEntityType.stsSettings:
-        return 'Settings';
+        return l10n.auditEntitySettings;
       case AuditEntityType.fixedCost:
-        return 'Fixed cost';
+        return l10n.auditEntityFixedCost;
       case AuditEntityType.unknown:
-        return 'Record';
+        return l10n.auditEntityRecord;
     }
   }
 

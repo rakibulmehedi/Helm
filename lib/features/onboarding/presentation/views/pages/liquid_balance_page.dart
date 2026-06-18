@@ -15,6 +15,7 @@ import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class LiquidBalancePage extends StatefulWidget {
   final double initialBalance;
@@ -79,8 +80,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
     final amount = InputValidator.parseAmount(raw);
     if (amount == null) {
       setState(
-        () => _error =
-            'Enter your current liquid BDT to calculate Safe-to-Spend.',
+        () => _error = context.l10n.liquidBalanceError,
       );
       HapticFeedback.heavyImpact();
       return;
@@ -111,6 +111,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -136,18 +137,18 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                   Semantics(
                     header: true,
                     child: Text(
-                      'Roughly how much do you have right now?',
+                      l10n.liquidBalanceQuestion,
                       style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     ),
                   ),
                   const SizedBox(height: HelmSpacing.s2),
                   Text(
-                    'bKash, bank, and cash — combined. A rough number is fine. You can refine it later.',
+                    l10n.liquidBalanceSubtext,
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                   ),
                   const SizedBox(height: HelmSpacing.s8),
                   Semantics(
-                    label: 'Current liquid balance input',
+                    label: l10n.liquidBalanceInputSemantics,
                     textField: true,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -232,7 +233,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                                 ),
                                 const SizedBox(height: HelmSpacing.s1),
                                 Text(
-                                  'A rough estimate is fine — you can update it later.',
+                                  l10n.liquidBalanceRoughEstimate,
                                   style: typo.labelSm.copyWith(
                                     color: colors.stateAtRisk.withValues(alpha: 0.8),
                                   ),
@@ -247,7 +248,7 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
 
                   const Spacer(),
                   AppButton(
-                    label: 'Save — updates Safe-to-Spend',
+                    label: l10n.saveLiquidBalance,
                     onPressed: _onContinue,
                     isEnabled: true,
                   ),
@@ -275,7 +276,7 @@ class _ProgressLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'Onboarding step 1 of 6',
+      label: context.l10n.onboardingStepOf(1, 6),
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(

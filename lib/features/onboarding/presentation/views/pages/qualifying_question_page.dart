@@ -7,6 +7,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class QualifyingQuestionPage extends StatefulWidget {
   final VoidCallback onQualified;
@@ -56,6 +57,7 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return GestureDetector(
       onTap: _onInteraction,
@@ -73,33 +75,33 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                 const Spacer(),
                 if (!_showDisqualify) ...[
                   Text(
-                    "Have you ever spent money thinking a\npayment cleared, then realized it hadn't?",
+                    l10n.qualifyingQuestion,
                     style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: HelmSpacing.s4),
                   Text(
-                    'If you earn in USD and spend in BDT — through\nUpwork, Fiverr, or Payoneer — this happens a lot.',
+                    l10n.qualifyingSubtext,
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: HelmSpacing.s6),
                   if (_showRephrase) ...[
                     Text(
-                      'আপনি কি কখনো টাকা খরচ করে ফেলেছেন ভেবে যে\nপেমেন্ট ক্লিয়ার হয়েছে, পরে দেখেছেন হয়নি?',
+                      l10n.qualifyingRephraseBn,
                       style: typo.bodyMd.copyWith(color: colors.inkTertiary),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: HelmSpacing.s4),
                   ],
                   Text(
-                    'Does that sound familiar?',
+                    l10n.doesThatSoundFamiliar,
                     style: typo.headingMd.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: HelmSpacing.s6),
                   AppButton(
-                    label: 'Yes, that happens to me',
+                    label: l10n.yesHappenedToMe,
                     onPressed: () {
                       _onInteraction();
                       widget.onQualified();
@@ -108,7 +110,7 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                   ),
                   const SizedBox(height: HelmSpacing.s2),
                   AppButton(
-                    label: 'No, I always know exactly what cleared',
+                    label: l10n.noAlwaysKnow,
                     onPressed: () {
                       _onInteraction();
                       setState(() => _showDisqualify = true);
@@ -118,19 +120,19 @@ class _QualifyingQuestionPageState extends State<QualifyingQuestionPage> {
                   ),
                 ] else ...[
                   Text(
-                    'Helm is built for USD-earning freelancers in Bangladesh.',
+                    l10n.disqualifyHeading,
                     style: typo.headingMd.copyWith(color: colors.inkPrimary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: HelmSpacing.s4),
                   Text(
-                    'Come back when you start billing internationally.',
+                    l10n.disqualifySubtext,
                     style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: HelmSpacing.s8),
                   AppButton(
-                    label: 'Close',
+                    label: l10n.close,
                     onPressed: widget.onDisqualified,
                     isEnabled: true,
                     type: AppButtonType.secondary,
