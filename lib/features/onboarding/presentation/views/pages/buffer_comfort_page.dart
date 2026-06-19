@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -276,7 +277,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                                     color: colors.inkSecondary),
                               ),
                               Text(
-                                '৳ ${_formatLakh(_bufferAmount)}',
+                                '${NumberFormatter.symbolForCode(NumberFormatter.defaultCurrencyCode)} ${_formatLakh(_bufferAmount)}',
                                 style: typo.monoFinancialMd.copyWith(
                                     color: colors.inkPrimary),
                               ),
@@ -295,7 +296,7 @@ class _BufferComfortPageState extends State<BufferComfortPage>
                                     color: colors.inkSecondary),
                               ),
                               Text(
-                                '৳ ${_formatLakh(_s2sPreview)}',
+                                '${NumberFormatter.symbolForCode(NumberFormatter.defaultCurrencyCode)} ${_formatLakh(_s2sPreview)}',
                                 style: typo.monoFinancialMd
                                     .copyWith(color: s2sColor),
                               ),

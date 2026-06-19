@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
@@ -268,7 +269,8 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   decoration: _inputDecoration(
                     hint: '0.00',
                     colors: colors,
-                    prefixText: '৳ ',
+                    prefixText: NumberFormatter.prefixForCode(
+                        NumberFormatter.defaultCurrencyCode),
                   ),
                   validator: (v) {
                     if (InputValidator.parseAmount(v) == null) {

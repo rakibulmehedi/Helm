@@ -15,6 +15,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -228,7 +229,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                   decoration: InputDecoration(
                                     labelText: l10n.amount,
                                     prefixText:
-                                        _currency == 'BDT' ? '৳ ' : '\$ ',
+                                        NumberFormatter.prefixForCode(_currency),
                                     labelStyle: typo.labelMd.copyWith(
                                       color: colors.inkSecondary,
                                     ),

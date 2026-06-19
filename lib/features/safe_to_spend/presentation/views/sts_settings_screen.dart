@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
@@ -233,7 +234,7 @@ class StsSettingsScreen extends ConsumerWidget {
                       title: Text(cost.label),
                       subtitle: Text(loc.dueDay('${cost.dueDayOfMonth}')),
                       trailing: Text(
-                        '৳ ${cost.amount.toStringAsFixed(0)}',
+                        '${NumberFormatter.symbolForCode(NumberFormatter.defaultCurrencyCode)} ${cost.amount.toStringAsFixed(0)}',
                         style: typo.bodyLg.copyWith(fontWeight: FontWeight.w600),
                       ),
                       onTap: () =>
@@ -466,7 +467,8 @@ class _AddEditFixedCostSheetState
                     ],
                     decoration: InputDecoration(
                       labelText: loc.amount,
-                      prefixText: '৳ ',
+                      prefixText: NumberFormatter.prefixForCode(
+                          NumberFormatter.defaultCurrencyCode),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12)),
                     ),

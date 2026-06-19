@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -154,7 +155,8 @@ class _LiquidBalancePageState extends State<LiquidBalancePage>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          '৳',
+                          NumberFormatter.symbolForCode(
+                              NumberFormatter.defaultCurrencyCode),
                           style: typo.monoFinancialLg
                               .copyWith(color: colors.inkSecondary),
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -387,7 +388,9 @@ class _CategoryRow extends StatelessWidget {
                 final inputWidth = constraints.maxWidth > 300 ? 140.0 : 100.0;
                 return Row(
                   children: [
-                    Text('৳',
+                    Text(
+                        NumberFormatter.symbolForCode(
+                            NumberFormatter.defaultCurrencyCode),
                         style: typo.bodyMd
                             .copyWith(color: colors.inkSecondary)),
                     const SizedBox(width: HelmSpacing.s1),

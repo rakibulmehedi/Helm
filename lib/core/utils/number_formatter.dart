@@ -15,6 +15,38 @@
 /// USD uses standard Western grouping with "$ " prefix.
 final class NumberFormatter {
   // ---------------------------------------------------------------------------
+  // Currency boundary — the ONLY place a country-specific symbol may live.
+  //
+  // UI components (input prefixes, inline labels) must resolve symbols through
+  // these helpers rather than hardcoding a glyph. Adding a new currency means
+  // extending [symbolForCode] here — not editing widgets. This keeps Helm's
+  // surfaces global-ready: country assumptions stay behind this boundary.
+  // ---------------------------------------------------------------------------
+
+  /// App default currency code. The single source of the BDT-first assumption.
+  static const String defaultCurrencyCode = 'BDT';
+
+  /// Bare currency symbol for a [currencyCode] (ISO-style: 'BDT', 'USD').
+  ///
+  /// Used for input affordances and inline amount labels. Unknown codes fall
+  /// back to the uppercased code itself so nothing renders as a country glyph
+  /// by accident.
+  static String symbolForCode(String currencyCode) {
+    switch (currencyCode.toUpperCase()) {
+      case 'USD':
+        return r'$';
+      case 'BDT':
+        return '৳';
+      default:
+        return currencyCode.toUpperCase();
+    }
+  }
+
+  /// Prefix form (`symbol + space`) for [TextField.prefixText] / [InputDecoration].
+  static String prefixForCode(String currencyCode) =>
+      '${symbolForCode(currencyCode)} ';
+
+  // ---------------------------------------------------------------------------
   // BDT — full form with lakh/crore grouping
   // ---------------------------------------------------------------------------
 
