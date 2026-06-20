@@ -192,4 +192,18 @@ class SharedPrefServices {
   static Future<void> setMagicLinkAuthCompleted(bool completed) async {
     await _instance.setBool(_magicLinkAuthCompletedKey, completed);
   }
+
+  // ── Guest mode ───────────────────────────────────────────────────────────
+  // True when user skipped identity verification via "Use as Guest".
+  // Guest users have access to all local data features but are blocked from
+  // identity-specific routes (audit log, account deletion).
+  static const String _guestModeKey = 'guest_mode';
+
+  static bool getGuestMode() {
+    return _instance.getBool(_guestModeKey) ?? false;
+  }
+
+  static Future<void> setGuestMode(bool isGuest) async {
+    await _instance.setBool(_guestModeKey, isGuest);
+  }
 }

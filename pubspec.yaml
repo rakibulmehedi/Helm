@@ -2,7 +2,7 @@ name: helm
 description: "Freelancer cashflow clarity for USD earners in Bangladesh."
 publish_to: 'none'
 
-version: 0.3.0-beta.1+1
+version: 0.4.0-beta.1+1
 
 environment:
   sdk: ^3.11.0
@@ -28,6 +28,7 @@ dependencies:
   local_auth: ^2.3.0
   jailbreak_root_detection: ^1.1.1
   http: ^1.6.0
+  supabase_flutter: ^2.15.0
 
 dev_dependencies:
   flutter_test:

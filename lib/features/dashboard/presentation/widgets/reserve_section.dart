@@ -10,6 +10,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Reserve protected" section: anxiety buffer kept for peace of mind.
@@ -34,14 +35,14 @@ class ReserveSection extends StatelessWidget {
       children: [
         // Section header
         Text(
-          'Safety buffer',
+          context.l10n.safetyBufferTitle,
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
         const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
-          'Not locked — a safety margin inside the calculation',
+          context.l10n.safetyBufferSubtitle,
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
@@ -49,7 +50,7 @@ class ReserveSection extends StatelessWidget {
 
         if (result.anxietyBuffer == 0)
           Text(
-            'No safety buffer set. Safe-to-Spend uses your full liquid BDT.',
+            context.l10n.safetyBufferEmpty,
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           )
         else

@@ -11,6 +11,7 @@ import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/cards/helm_ledger_card.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Shows the "Already committed" section: fixed costs due this month.
@@ -40,14 +41,14 @@ class CommittedSection extends StatelessWidget {
       children: [
         // Section header
         Text(
-          'Fixed costs',
+          context.l10n.fixedCostsSectionTitle,
           style: typography.headingSm.copyWith(color: colors.inkPrimary),
         ),
         const SizedBox(height: HelmSpacing.s1),
 
         // Sub-label
         Text(
-          'Monthly costs due in the next 30 days',
+          context.l10n.fixedCostsSectionSubtitle,
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
@@ -55,7 +56,7 @@ class CommittedSection extends StatelessWidget {
 
         if (result.fixedCostsDue == 0) ...[
           Text(
-            'No fixed costs added yet. Add them to improve Safe-to-Spend accuracy.',
+            context.l10n.fixedCostsEmpty,
             style: typography.bodyMd.copyWith(color: colors.inkTertiary),
           ),
           if (onSetupFixedCosts != null) ...[
@@ -63,7 +64,7 @@ class CommittedSection extends StatelessWidget {
             GestureDetector(
               onTap: onSetupFixedCosts,
               child: Text(
-                'Add fixed costs \u2192',
+                context.l10n.addFixedCostsLink,
                 style: typography.bodySm.copyWith(color: colors.interactive),
               ),
             ),

@@ -18,6 +18,7 @@ import 'package:helm/core/widgets/cards/helm_hero_zone.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
 import 'package:helm/core/widgets/helm_ledger_rail.dart';
 import 'package:helm/core/widgets/helm_trust_strip.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
 
 /// Derives the cashflow state from a [SafeToSpendResult].
@@ -105,7 +106,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
       children: [
         // DASH-011: label appears ABOVE the number.
         Text(
-          'SAFE-TO-SPEND',
+          context.l10n.safeToSpendLabel,
           style: typography.labelSm.copyWith(
             letterSpacing: 1.5,
             color: colors.inkSecondary,
@@ -133,7 +134,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
         const SizedBox(height: HelmSpacing.s1),
 
         Text(
-          'after fixed costs + safety buffer',
+          context.l10n.safeToSpendSubLabel,
           style: typography.bodySm.copyWith(color: colors.inkSecondary),
         ),
 
@@ -148,7 +149,7 @@ class _S2sHeroBlockState extends State<S2sHeroBlock>
 
         HelmTrustStrip(
           updatedAt: widget.updatedAt,
-          sourceLabel: 'Received only',
+          sourceLabel: context.l10n.receivedOnly,
           onTapAudit: widget.onTapTrace,
           affirmation: widget.affirmation,
         ),

@@ -55,37 +55,42 @@ class HelmCautionCard extends StatelessWidget {
       bottom: BorderSide(color: colors.divider, width: HelmSpacing.cardBorder),
     );
 
-    return ClipRRect(
-      borderRadius: borderRadius,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colors.surface,
-          borderRadius: borderRadius,
-          border: border,
-        ),
-        child: Padding(
-          // Extra s2 (8pt) on the left to visually clear the rail.
-          padding: const EdgeInsets.only(
-            left: HelmSpacing.s4 + HelmSpacing.s2,
-            right: HelmSpacing.s4,
-            top: HelmSpacing.s4,
-            bottom: HelmSpacing.s4,
+    return Semantics(
+      label: '${isCritical ? "Critical" : "Warning"} notice'
+          '${title != null ? ": $title" : ""}',
+      container: true,
+      child: ClipRRect(
+        borderRadius: borderRadius,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: borderRadius,
+            border: border,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (title != null) ...[
-                Text(
-                  title!,
-                  style: typography.headingSm.copyWith(
-                    color: colors.inkPrimary,
+          child: Padding(
+            // Extra s2 (8pt) on the left to visually clear the rail.
+            padding: const EdgeInsets.only(
+              left: HelmSpacing.s4 + HelmSpacing.s2,
+              right: HelmSpacing.s4,
+              top: HelmSpacing.s4,
+              bottom: HelmSpacing.s4,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (title != null) ...[
+                  Text(
+                    title!,
+                    style: typography.headingSm.copyWith(
+                      color: colors.inkPrimary,
+                    ),
                   ),
-                ),
-                const SizedBox(height: HelmSpacing.s3),
+                  const SizedBox(height: HelmSpacing.s3),
+                ],
+                child,
               ],
-              child,
-            ],
+            ),
           ),
         ),
       ),

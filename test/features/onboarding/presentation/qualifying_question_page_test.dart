@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/features/onboarding/presentation/views/pages/qualifying_question_page.dart';
+import 'package:helm/l10n/app_localizations.dart';
 
 void _noop() {}
 
@@ -11,6 +13,14 @@ void main() {
     Widget buildTestWidget() {
       return MaterialApp(
         theme: AppTheme.light,
+        locale: const Locale('en'),
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: QualifyingQuestionPage(
           onQualified: _noop,
           onDisqualified: _noop,
@@ -62,6 +72,14 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         theme: AppTheme.light,
+        locale: const Locale('en'),
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: QualifyingQuestionPage(
           onQualified: () => wasQualified = true,
           onDisqualified: () {},
@@ -79,6 +97,14 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
         theme: AppTheme.light,
+        locale: const Locale('en'),
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: QualifyingQuestionPage(
           onQualified: () {},
           onDisqualified: () => wasDisqualified = true,

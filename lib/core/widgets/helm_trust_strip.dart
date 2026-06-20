@@ -12,6 +12,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/number_formatter.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 /// Renders a single-line trust strip showing when data was last updated,
 /// optional source context, FX rate, and an audit tap affordance.
@@ -52,7 +53,8 @@ class HelmTrustStrip extends StatelessWidget {
     final colors = context.colors;
     final typography = context.textStyles;
 
-    final String fullLabel = _buildLabel();
+    final l10n = context.l10n;
+    final String fullLabel = _buildLabel(l10n);
     final TextStyle textStyle =
         typography.labelSm.copyWith(color: colors.inkSecondary);
 
@@ -103,8 +105,8 @@ class HelmTrustStrip extends StatelessWidget {
     return semanticChild;
   }
 
-  String _buildLabel() {
-    final List<String> segments = [_formatTime()];
+  String _buildLabel(AppLocalizations l10n) {
+    final List<String> segments = [_formatTime(l10n)];
 
     if (sourceLabel != null && sourceLabel!.isNotEmpty) {
       segments.add(sourceLabel!);
@@ -115,26 +117,25 @@ class HelmTrustStrip extends StatelessWidget {
     }
 
     if (onTapAudit != null) {
-      segments.add('Tap to audit');
+      segments.add(l10n.trustStripTapToAudit);
     }
 
     return segments.join(' \u00B7 '); // · middle dot
   }
 
-  String _formatTime() {
+  String _formatTime(AppLocalizations l10n) {
     final Duration diff = DateTime.now().difference(updatedAt);
 
     if (diff.inMinutes < 5) {
       final int minutes = diff.inMinutes;
       if (minutes <= 0) {
-        return 'Updated just now';
+        return l10n.trustStripUpdatedJustNow;
       }
-      final String plural = minutes == 1 ? '' : 's';
-      return 'Updated $minutes min$plural ago';
+      return l10n.trustStripUpdatedMinAgo(minutes);
     }
 
     // e.g., "Updated 11:42 PM"
     final String timeStr = DateFormat.jm().format(updatedAt);
-    return 'Updated $timeStr';
+    return l10n.trustStripUpdatedAt(timeStr);
   }
 }

@@ -612,3 +612,30 @@ Visual redesign must not change business logic, trust model, persistence, routin
 
 Status:
 Approved design merged to `main` on 2026-06-16 as commit `6773be4`. Implementation verified with `dart analyze` 0 issues and `flutter test` 307/307 pass.
+
+---
+
+## Decision 037 — NumberFormatter is the Single Currency Symbol Boundary
+
+Date: 2026-06-20
+
+Decision:
+`NumberFormatter` in `lib/core/utils/number_formatter.dart` is the single global-readiness boundary for currency symbols. All UI surfaces must resolve currency glyphs through `NumberFormatter.symbolForCode(code)` / `prefixForCode(code)` — never hardcode a glyph in a widget.
+
+Reason:
+Found 7 hardcoded `৳` glyphs across 6 screens. Country-specific symbols in widget code block multi-currency readiness (EUR/SGD/GBP needed for Experiment 16.1 variants). Centralizing to one switch makes currency expansion a 3-line edit in one file.
+
+Constraints:
+Only `number_formatter.dart` may define currency symbols. `defaultCurrencyCode = 'BDT'` is the single location of the BDT-first assumption for MVP.
+
+---
+
+## Decision 038 — Material System-Widget Sizing Exempt from HelmTypography Tokens
+
+Date: 2026-06-20
+
+Decision:
+Material system-widget sizing constraints are exempt from HelmTypography token requirements. Specifically, `TextStyle(fontSize: 10)` for Material `Badge` labels is a documented intentional exception, not a token violation.
+
+Reason:
+Material Badge uses 10pt by design. HelmTypography's smallest token (labelSm) is 11pt. Forcing labelSm breaks badge proportions. System-widget sizing contracts take precedence over Helm design tokens.

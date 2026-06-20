@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 
 enum SourceType { payoneer, wise, bank, bkash, nagad, upay, cash, manual }
 
@@ -110,7 +111,7 @@ class HelmSourceCard extends StatelessWidget {
               children: [
                 if (amountBDT != null)
                   Text(
-                    'tk ${_formatAmount(amountBDT!)}',
+                    NumberFormatter.formatBDT(amountBDT!),
                     style: typography.monoFinancialSm.copyWith(
                       color: colors.inkPrimary,
                     ),
@@ -120,7 +121,7 @@ class HelmSourceCard extends StatelessWidget {
                   if (amountBDT != null)
                     const SizedBox(height: HelmSpacing.s1),
                   Text(
-                    '\$${_formatAmount(amountUSD!)}',
+                    NumberFormatter.formatUSD(amountUSD!),
                     style: typography.monoFinancialSm.copyWith(
                       color: colors.inkTertiary,
                     ),
@@ -130,7 +131,7 @@ class HelmSourceCard extends StatelessWidget {
                 if (fxRate != null) ...[
                   const SizedBox(height: HelmSpacing.s1),
                   Text(
-                    '@ ${_formatAmount(fxRate!)}',
+                    '@ ${fxRate!.toStringAsFixed(2)}',
                     style: typography.labelSm.copyWith(
                       color: colors.inkTertiary,
                     ),
@@ -156,37 +157,32 @@ class HelmSourceCard extends StatelessWidget {
       child: cardContent,
     );
 
+    final semanticsLabel =
+        '${_sourceLabel(source)}, ${_statusLabel(status)}'
+        '${amountBDT != null ? ', ${NumberFormatter.formatBDT(amountBDT!)}' : ''}';
+
     if (onTap != null) {
-      return Material(
-        color: Colors.transparent,
-        borderRadius: borderRadius,
-        child: InkWell(
-          onTap: onTap,
+      return Semantics(
+        label: semanticsLabel,
+        button: true,
+        child: Material(
+          color: Colors.transparent,
           borderRadius: borderRadius,
-          splashColor: colors.interactive.withValues(alpha: 0.06),
-          highlightColor: colors.interactive.withValues(alpha: 0.04),
-          child: decorated,
+          child: InkWell(
+            onTap: onTap,
+            borderRadius: borderRadius,
+            splashColor: colors.interactive.withValues(alpha: 0.06),
+            highlightColor: colors.interactive.withValues(alpha: 0.04),
+            child: decorated,
+          ),
         ),
       );
     }
 
-    return decorated;
-  }
-
-  static String _formatAmount(double amount) {
-    // Format with comma thousands separator, 2 decimal places.
-    final formatted = amount.toStringAsFixed(2);
-    final parts = formatted.split('.');
-    final intPart = parts[0];
-    final decPart = parts[1];
-
-    final buffer = StringBuffer();
-    int count = 0;
-    for (int i = intPart.length - 1; i >= 0; i--) {
-      if (count > 0 && count % 3 == 0) buffer.write(',');
-      buffer.write(intPart[i]);
-      count++;
-    }
-    return '${buffer.toString().split('').reversed.join()}.$decPart';
+    return Semantics(
+      label: semanticsLabel,
+      button: false,
+      child: decorated,
+    );
   }
 }

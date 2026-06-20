@@ -10,6 +10,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 enum ActionVariant {
   overdue,
@@ -34,6 +35,7 @@ class NextBestActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.textStyles;
+    final l10n = context.l10n;
 
     Color stateColor;
     String title;
@@ -44,33 +46,33 @@ class NextBestActionCard extends StatelessWidget {
     switch (variant) {
       case ActionVariant.overdue:
         stateColor = colors.stateAtRisk;
-        title = count == 1 ? '1 payment overdue' : '$count payments overdue';
-        description = 'Update status of overdue pipeline payments.';
-        ctaLabel = 'Review';
+        title = l10n.nbaOverdueTitle(count);
+        description = l10n.nbaOverdueDescription;
+        ctaLabel = l10n.nbaOverdueAction;
         routePath = RouteNames.pipeline;
         break;
 
       case ActionVariant.atRisk:
         stateColor = colors.stateTight;
-        title = 'Safe-to-spend is tight';
-        description = 'Review your fixed monthly costs to release pressure.';
-        ctaLabel = 'Review fixed costs';
+        title = l10n.nbaAtRiskTitle;
+        description = l10n.nbaAtRiskDescription;
+        ctaLabel = l10n.nbaAtRiskAction;
         routePath = RouteNames.settings;
         break;
 
       case ActionVariant.relief:
         stateColor = colors.stateSafe;
-        title = 'Pipeline up to date';
-        description = 'All payments are on schedule and tracked.';
+        title = l10n.nbaReliefTitle;
+        description = l10n.nbaReliefDescription;
         ctaLabel = null;
         routePath = '';
         break;
 
       case ActionVariant.setup:
         stateColor = colors.interactive;
-        title = 'Add your first expected payment';
-        description = 'Track upcoming income to compute Safe-to-Spend.';
-        ctaLabel = 'Add payment';
+        title = l10n.nbaSetupTitle;
+        description = l10n.nbaSetupDescription;
+        ctaLabel = l10n.nbaSetupAction;
         routePath = RouteNames.addIncome;
         break;
     }

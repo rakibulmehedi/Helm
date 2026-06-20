@@ -42,6 +42,7 @@ import 'package:helm/core/widgets/signal/helm_flow_route.dart';
 import 'package:helm/core/widgets/signal/helm_signal_hero.dart';
 import 'package:helm/core/widgets/signal/helm_signal_horizon.dart';
 import 'package:helm/features/dashboard/domain/affirmation.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
@@ -208,7 +209,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       backgroundColor: HelmSignalTheme.signalCanvas,
       appBar: AppBar(
         title: Text(
-          'Helm',
+          context.l10n.appName,
           style: typography.headingMd.copyWith(
             color: HelmSignalTheme.signalInkPrimary,
           ),
@@ -223,7 +224,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           // UX-1.11 — dev reset gated to debug builds only.
           if (kDebugMode)
             IconButton(
-              tooltip: 'Reset onboarding (dev only)',
+              tooltip: context.l10n.devResetOnboarding,
               icon: const Icon(Icons.refresh_rounded, size: 20),
               onPressed: () async {
                 await SharedPrefServices.setOnboardingCompleted(false);
@@ -257,7 +258,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                       ),
                       decoration: BoxDecoration(
                         color: HelmSignalTheme.signalGlass(context),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                         border: Border.all(
                           color: HelmSignalTheme.signalBorder(context),
                         ),
@@ -272,7 +273,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Tap the number to see the math',
+                              context.l10n.tapToSeeMath,
                               style: typography.bodySm.copyWith(
                                 color: HelmSignalTheme.signalInteractive,
                               ),

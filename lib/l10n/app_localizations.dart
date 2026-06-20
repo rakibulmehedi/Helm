@@ -194,6 +194,12 @@ abstract class AppLocalizations {
   /// **'Please enter your email address'**
   String get errorEnterEmail;
 
+  /// Validation: email format invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get errorInvalidEmail;
+
   /// Rate-limited error message
   ///
   /// In en, this message translates to:
@@ -818,7 +824,7 @@ abstract class AppLocalizations {
   /// **'Enter a valid amount'**
   String get enterValidAmount;
 
-  /// STS settings: notifications list item
+  /// Notification center screen title
   ///
   /// In en, this message translates to:
   /// **'Notifications'**
@@ -878,10 +884,10 @@ abstract class AppLocalizations {
   /// **'Older'**
   String get dateGroupOlder;
 
-  /// STS settings: notification preferences list item
+  /// Cadence sheet title
   ///
   /// In en, this message translates to:
-  /// **'Notification preferences'**
+  /// **'Notification Preferences'**
   String get notificationPreferences;
 
   /// Cadence sheet: frequency section label
@@ -925,6 +931,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset onboarding (dev only)'**
   String get devResetOnboarding;
+
+  /// Magic link screen: skip identity verification and use app locally
+  ///
+  /// In en, this message translates to:
+  /// **'Use as Guest'**
+  String get useAsGuest;
 
   /// STS settings screen app bar title
   ///
@@ -1015,6 +1027,1008 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete all data'**
   String get deleteAllData;
+
+  /// NBA card: overdue payments title
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 payment overdue} other{{count} payments overdue}}'**
+  String nbaOverdueTitle(int count);
+
+  /// NBA card: overdue description
+  ///
+  /// In en, this message translates to:
+  /// **'Update status of overdue pipeline payments.'**
+  String get nbaOverdueDescription;
+
+  /// NBA card: overdue CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get nbaOverdueAction;
+
+  /// NBA card: at-risk title
+  ///
+  /// In en, this message translates to:
+  /// **'Safe-to-spend is tight'**
+  String get nbaAtRiskTitle;
+
+  /// NBA card: at-risk description
+  ///
+  /// In en, this message translates to:
+  /// **'Review your fixed monthly costs to release pressure.'**
+  String get nbaAtRiskDescription;
+
+  /// NBA card: at-risk CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Review fixed costs'**
+  String get nbaAtRiskAction;
+
+  /// NBA card: relief title
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline up to date'**
+  String get nbaReliefTitle;
+
+  /// NBA card: relief description
+  ///
+  /// In en, this message translates to:
+  /// **'All payments are on schedule and tracked.'**
+  String get nbaReliefDescription;
+
+  /// NBA card: setup title
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first expected payment'**
+  String get nbaSetupTitle;
+
+  /// NBA card: setup description
+  ///
+  /// In en, this message translates to:
+  /// **'Track upcoming income to compute Safe-to-Spend.'**
+  String get nbaSetupDescription;
+
+  /// NBA card: setup CTA
+  ///
+  /// In en, this message translates to:
+  /// **'Add payment'**
+  String get nbaSetupAction;
+
+  /// Calculation trace sheet title
+  ///
+  /// In en, this message translates to:
+  /// **'How we calculated this'**
+  String get calcTraceTitle;
+
+  /// Calculation trace sheet subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Tap any line to learn more'**
+  String get calcTraceSubtitle;
+
+  /// Calc trace: received income line
+  ///
+  /// In en, this message translates to:
+  /// **'+ Received income'**
+  String get calcTraceReceivedIncome;
+
+  /// Calc trace: cash out line
+  ///
+  /// In en, this message translates to:
+  /// **'− Cash out'**
+  String get calcTraceCashOut;
+
+  /// Calc trace: liquid BDT result line
+  ///
+  /// In en, this message translates to:
+  /// **'= Liquid BDT'**
+  String get calcTraceLiquidBdt;
+
+  /// Calc trace: tax reserve deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Tax reserve (hold)'**
+  String get calcTraceTaxReserve;
+
+  /// Calc trace: fixed costs deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Fixed costs due'**
+  String get calcTraceFixedCosts;
+
+  /// Calc trace: safety buffer deduction
+  ///
+  /// In en, this message translates to:
+  /// **'− Safety buffer'**
+  String get calcTraceSafetyBuffer;
+
+  /// Calc trace: final safe-to-spend result
+  ///
+  /// In en, this message translates to:
+  /// **'= Safe-to-Spend'**
+  String get calcTraceSafeToSpend;
+
+  /// Trust strip: audit tap affordance
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to audit'**
+  String get trustStripTapToAudit;
+
+  /// Trust strip: updated moments ago
+  ///
+  /// In en, this message translates to:
+  /// **'Updated just now'**
+  String get trustStripUpdatedJustNow;
+
+  /// Trust strip: updated N minutes ago
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Updated 1 min ago} other{Updated {count} mins ago}}'**
+  String trustStripUpdatedMinAgo(int count);
+
+  /// Trust strip: updated at specific time
+  ///
+  /// In en, this message translates to:
+  /// **'Updated {time}'**
+  String trustStripUpdatedAt(String time);
+
+  /// Pipeline badge label: overdue status
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get pipelineOverdue;
+
+  /// Pipeline card: days overdue relative date
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day overdue} other{{count} days overdue}}'**
+  String daysOverdue(int count);
+
+  /// Pipeline card: relative date for today
+  ///
+  /// In en, this message translates to:
+  /// **'today'**
+  String get dateToday;
+
+  /// Pipeline card: relative date for tomorrow
+  ///
+  /// In en, this message translates to:
+  /// **'tomorrow'**
+  String get dateTomorrow;
+
+  /// Pipeline card long-press action
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate as next month'**
+  String get duplicateAsNextMonth;
+
+  /// Pipeline card: swipe hint text
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm received'**
+  String get swipeConfirmReceived;
+
+  /// Pipeline screen: app bar title
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline'**
+  String get pipelineTitle;
+
+  /// Pipeline screen: section header for items needing decision
+  ///
+  /// In en, this message translates to:
+  /// **'Needs decision'**
+  String get pipelineNeedsDecision;
+
+  /// Pipeline screen: section header for overdue items
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue — needs attention'**
+  String get pipelineOverdueAttention;
+
+  /// Income list: entry count subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
+  String incomeEntryCount(int count);
+
+  /// Income list card: expected by date
+  ///
+  /// In en, this message translates to:
+  /// **'By {date}'**
+  String incomeByDate(String date);
+
+  /// Income list card: received on date
+  ///
+  /// In en, this message translates to:
+  /// **'Received {date}'**
+  String incomeReceivedDate(String date);
+
+  /// Validation: FX rate must be positive number
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid positive rate'**
+  String get fxRateInvalid;
+
+  /// Income form: project name label when optional
+  ///
+  /// In en, this message translates to:
+  /// **'Project Name (recommended)'**
+  String get projectNameRecommended;
+
+  /// PIN setup: create step heading
+  ///
+  /// In en, this message translates to:
+  /// **'Create your PIN'**
+  String get pinCreateTitle;
+
+  /// PIN setup: confirm step heading
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm your PIN'**
+  String get pinConfirmTitle;
+
+  /// PIN setup: mismatch error message
+  ///
+  /// In en, this message translates to:
+  /// **'PINs don\'t match. Try again.'**
+  String get pinMismatchError;
+
+  /// PIN entry: unlock heading
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN'**
+  String get pinEnterTitle;
+
+  /// PIN entry: incorrect PIN with remaining attempts
+  ///
+  /// In en, this message translates to:
+  /// **'{remaining, plural, =1{Incorrect PIN — 1 attempt remaining} other{Incorrect PIN — {remaining} attempts remaining}}'**
+  String pinIncorrectAttempts(int remaining);
+
+  /// PIN entry: lockout message
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Try again later.'**
+  String get pinTooManyAttempts;
+
+  /// PIN entry: lockout expired prompt
+  ///
+  /// In en, this message translates to:
+  /// **'Try again.'**
+  String get pinTryAgain;
+
+  /// PIN entry: lockout countdown timer
+  ///
+  /// In en, this message translates to:
+  /// **'Locked. Try again in {minutes}m {seconds}s'**
+  String pinLockedCountdown(String minutes, String seconds);
+
+  /// Semantics label for onboarding step progress
+  ///
+  /// In en, this message translates to:
+  /// **'Onboarding step {step} of {total}'**
+  String onboardingStepOf(int step, int total);
+
+  /// Semantics label for liquid balance text field
+  ///
+  /// In en, this message translates to:
+  /// **'Current liquid balance input'**
+  String get liquidBalanceInputSemantics;
+
+  /// Error hint below liquid balance field
+  ///
+  /// In en, this message translates to:
+  /// **'A rough estimate is fine — you can update it later.'**
+  String get liquidBalanceRoughEstimate;
+
+  /// Liquid balance page primary CTA button
+  ///
+  /// In en, this message translates to:
+  /// **'Save — updates Safe-to-Spend'**
+  String get saveLiquidBalance;
+
+  /// Income pattern page heading
+  ///
+  /// In en, this message translates to:
+  /// **'How does your income usually arrive?'**
+  String get incomePatternQuestion;
+
+  /// Income pattern page supporting text
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the pattern that fits most of your earnings.'**
+  String get incomePatternSubtext;
+
+  /// Income pattern card: marketplace title
+  ///
+  /// In en, this message translates to:
+  /// **'Marketplace escrow'**
+  String get incomePatternMarketplaceTitle;
+
+  /// Income pattern card: marketplace platform list
+  ///
+  /// In en, this message translates to:
+  /// **'Upwork, Fiverr, Payoneer'**
+  String get incomePatternMarketplacePlatform;
+
+  /// Income pattern card: marketplace subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Payment held until milestone or job completion'**
+  String get incomePatternMarketplaceSubtitle;
+
+  /// Income pattern card: direct client title
+  ///
+  /// In en, this message translates to:
+  /// **'Direct client'**
+  String get incomePatternDirectTitle;
+
+  /// Income pattern card: direct client platform
+  ///
+  /// In en, this message translates to:
+  /// **'You invoice clients directly'**
+  String get incomePatternDirectPlatform;
+
+  /// Income pattern card: direct client subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Payment terms agreed with each client'**
+  String get incomePatternDirectSubtitle;
+
+  /// Income pattern card: retainer title
+  ///
+  /// In en, this message translates to:
+  /// **'Retainer / Recurring'**
+  String get incomePatternRetainerTitle;
+
+  /// Income pattern card: retainer platform
+  ///
+  /// In en, this message translates to:
+  /// **'Same client, same amount each month'**
+  String get incomePatternRetainerPlatform;
+
+  /// Income pattern card: retainer subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Predictable monthly income'**
+  String get incomePatternRetainerSubtitle;
+
+  /// Income pattern page: validation error when none selected
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an income pattern to continue.'**
+  String get incomePatternSelectError;
+
+  /// Income pattern page primary CTA button
+  ///
+  /// In en, this message translates to:
+  /// **'Save — sets income pattern'**
+  String get saveIncomePattern;
+
+  /// Buffer comfort page heading
+  ///
+  /// In en, this message translates to:
+  /// **'Set your safety buffer'**
+  String get bufferTitle;
+
+  /// Buffer comfort page supporting text
+  ///
+  /// In en, this message translates to:
+  /// **'This is not locked money. It is a safety margin inside the calculation.'**
+  String get bufferSubtext;
+
+  /// Semantics label for buffer slider
+  ///
+  /// In en, this message translates to:
+  /// **'Safety buffer slider: {percent}%'**
+  String bufferSliderSemantics(int percent);
+
+  /// Semantics value for buffer slider
+  ///
+  /// In en, this message translates to:
+  /// **'{percent} percent'**
+  String bufferSliderValue(int percent);
+
+  /// Semantics label for S2S preview card when positive
+  ///
+  /// In en, this message translates to:
+  /// **'Safe to spend preview: {percent}% buffer of total'**
+  String bufferS2sPreviewPositive(int percent);
+
+  /// Semantics label for S2S preview card when negative
+  ///
+  /// In en, this message translates to:
+  /// **'Safe to spend preview shows negative balance'**
+  String get bufferS2sPreviewNegative;
+
+  /// Safe-to-Spend label in buffer preview card
+  ///
+  /// In en, this message translates to:
+  /// **'Safe-to-Spend'**
+  String get bufferSafeToSpendLabel;
+
+  /// Warning shown in buffer card when S2S is negative
+  ///
+  /// In en, this message translates to:
+  /// **'Your costs exceed liquid balance. Adjust buffer or add expected income.'**
+  String get bufferCostsExceedBalance;
+
+  /// Buffer comfort page primary CTA button
+  ///
+  /// In en, this message translates to:
+  /// **'Save — finish Safe-to-Spend setup'**
+  String get saveBuffer;
+
+  /// Tooltip for the due day dropdown in fixed costs
+  ///
+  /// In en, this message translates to:
+  /// **'Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)'**
+  String get fixedCostsDueDayTooltip;
+
+  /// Label next to due day dropdown in fixed costs row
+  ///
+  /// In en, this message translates to:
+  /// **'due day'**
+  String get fixedCostsDueDay;
+
+  /// Hint text for amount field in fixed cost row
+  ///
+  /// In en, this message translates to:
+  /// **'amount'**
+  String get fixedCostsAmountHint;
+
+  /// Semantics label for fixed cost category checkbox
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, {state}'**
+  String fixedCostsCategorySemantics(String label, String state);
+
+  /// State text for selected fixed cost category
+  ///
+  /// In en, this message translates to:
+  /// **'selected'**
+  String get fixedCostsCategorySelected;
+
+  /// State text for unselected fixed cost category
+  ///
+  /// In en, this message translates to:
+  /// **'not selected'**
+  String get fixedCostsCategoryNotSelected;
+
+  /// Generic continue button label
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// Fixed costs category: rent or housing
+  ///
+  /// In en, this message translates to:
+  /// **'Rent / Housing'**
+  String get fixedCostsCategoryRentHousing;
+
+  /// Fixed costs category: internet
+  ///
+  /// In en, this message translates to:
+  /// **'Internet'**
+  String get fixedCostsCategoryInternet;
+
+  /// Fixed costs category: mobile or phone
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile / Phone'**
+  String get fixedCostsCategoryMobilePhone;
+
+  /// Fixed costs category: subscriptions
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get fixedCostsCategorySubscriptions;
+
+  /// Fixed costs category: family support or parents
+  ///
+  /// In en, this message translates to:
+  /// **'Family support / Parents'**
+  String get fixedCostsCategoryFamilySupport;
+
+  /// Fixed costs category: loan EMI
+  ///
+  /// In en, this message translates to:
+  /// **'Loan EMI'**
+  String get fixedCostsCategoryLoanEmi;
+
+  /// Fixed costs category: other
+  ///
+  /// In en, this message translates to:
+  /// **'Other fixed cost'**
+  String get fixedCostsCategoryOther;
+
+  /// Semantics label for client name field in first pipeline page
+  ///
+  /// In en, this message translates to:
+  /// **'Client or source name input'**
+  String get pipelineClientNameSemantics;
+
+  /// Semantics label for amount field in first pipeline page
+  ///
+  /// In en, this message translates to:
+  /// **'Amount input in {currency}'**
+  String pipelineAmountSemantics(String currency);
+
+  /// Semantics label for currency dropdown in first pipeline page
+  ///
+  /// In en, this message translates to:
+  /// **'Currency selector'**
+  String get pipelineCurrencySemantics;
+
+  /// Semantics label for pipeline entry info note
+  ///
+  /// In en, this message translates to:
+  /// **'Information: This will be marked as Expected. You can update the status later.'**
+  String get pipelineEntryNoteSemantics;
+
+  /// Semantics label for skip button in first pipeline page
+  ///
+  /// In en, this message translates to:
+  /// **'Skip adding pipeline entry and continue to home'**
+  String get pipelineSkipSemantics;
+
+  /// First pipeline page: submit button label
+  ///
+  /// In en, this message translates to:
+  /// **'Add and continue'**
+  String get pipelineAddAndContinue;
+
+  /// First pipeline page: loading state for submit button
+  ///
+  /// In en, this message translates to:
+  /// **'Adding...'**
+  String get pipelineAdding;
+
+  /// Validation error for pipeline amount field
+  ///
+  /// In en, this message translates to:
+  /// **'Must be > 0'**
+  String get pipelineAmountMustBePositive;
+
+  /// Audit log: error state message
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to load history.'**
+  String get auditLogLoadError;
+
+  /// Audit log: empty state message
+  ///
+  /// In en, this message translates to:
+  /// **'No changes recorded yet.'**
+  String get auditLogEmpty;
+
+  /// Audit log: entity label for income
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get auditEntityIncome;
+
+  /// Audit log: entity label for transaction
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction'**
+  String get auditEntityTransaction;
+
+  /// Audit log: entity label for settings
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get auditEntitySettings;
+
+  /// Audit log: entity label for fixed cost
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed cost'**
+  String get auditEntityFixedCost;
+
+  /// Audit log: entity label for unknown record
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get auditEntityRecord;
+
+  /// Audit log: entity was created
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} added'**
+  String auditEventAdded(String entity);
+
+  /// Audit log: entity was updated
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} updated'**
+  String auditEventUpdated(String entity);
+
+  /// Audit log: entity was deleted
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} deleted'**
+  String auditEventDeleted(String entity);
+
+  /// Audit log: entity was confirmed
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} confirmed'**
+  String auditEventConfirmed(String entity);
+
+  /// Audit log: entity was exported
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} exported'**
+  String auditEventExported(String entity);
+
+  /// Audit log: entity had an unknown change
+  ///
+  /// In en, this message translates to:
+  /// **'{entity} changed'**
+  String auditEventChanged(String entity);
+
+  /// Delete account: warning heading
+  ///
+  /// In en, this message translates to:
+  /// **'This cannot be undone'**
+  String get deleteCannotBeUndone;
+
+  /// Delete account: warning body text
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting your data will permanently remove all your income entries, transactions, settings, and change history from this device. There is no way to recover this data.'**
+  String get deleteWarningBody;
+
+  /// Delete account: section heading for deletion list
+  ///
+  /// In en, this message translates to:
+  /// **'What will be deleted'**
+  String get deleteWhatWillBeDeleted;
+
+  /// Delete account: deletion list item — income entries
+  ///
+  /// In en, this message translates to:
+  /// **'All income entries'**
+  String get deleteItemAllIncomeEntries;
+
+  /// Delete account: deletion list item — transactions
+  ///
+  /// In en, this message translates to:
+  /// **'All transactions'**
+  String get deleteItemAllTransactions;
+
+  /// Delete account: deletion list item — fixed costs
+  ///
+  /// In en, this message translates to:
+  /// **'All fixed costs'**
+  String get deleteItemAllFixedCosts;
+
+  /// Delete account: deletion list item — settings
+  ///
+  /// In en, this message translates to:
+  /// **'Your settings'**
+  String get deleteItemYourSettings;
+
+  /// Delete account: destructive action button label
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to delete'**
+  String get deleteContinue;
+
+  /// Delete account: PIN dialog heading
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN to confirm'**
+  String get deletePinConfirmTitle;
+
+  /// Delete account: wrong PIN error message
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN'**
+  String get deleteIncorrectPin;
+
+  /// Delete account: lockout message with time remaining
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Try again in {minutes}m.'**
+  String deleteLockoutMessage(String minutes);
+
+  /// Delete account: type-DELETE dialog heading
+  ///
+  /// In en, this message translates to:
+  /// **'Type \"DELETE\" to confirm'**
+  String get deleteTypeConfirmTitle;
+
+  /// Delete account: text field hint in type-DELETE dialog
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get deleteConfirmHint;
+
+  /// Export screen: section heading
+  ///
+  /// In en, this message translates to:
+  /// **'Your data belongs to you'**
+  String get exportDataBelongsToYou;
+
+  /// Export screen: description paragraph
+  ///
+  /// In en, this message translates to:
+  /// **'Export all your Helm data as CSV files. Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.'**
+  String get exportDescription;
+
+  /// Export screen: security warning paragraph
+  ///
+  /// In en, this message translates to:
+  /// **'Exported files are not encrypted and may contain sensitive information such as client names and amounts. Only share them through trusted channels and delete the files from your device when you are done.'**
+  String get exportWarning;
+
+  /// Export screen: section heading for export list
+  ///
+  /// In en, this message translates to:
+  /// **'What will be exported'**
+  String get exportWhatWillBeExported;
+
+  /// Export screen: export list item — income entries
+  ///
+  /// In en, this message translates to:
+  /// **'Income entries'**
+  String get exportItemIncomeEntries;
+
+  /// Export screen: export list item — transactions
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get exportItemTransactions;
+
+  /// Export screen: export list item — fixed costs
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed costs'**
+  String get exportItemFixedCosts;
+
+  /// Export screen: export list item — settings
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get exportItemSettings;
+
+  /// Export screen: primary export button label
+  ///
+  /// In en, this message translates to:
+  /// **'Export all data'**
+  String get exportAllData;
+
+  /// Export screen: error toast message
+  ///
+  /// In en, this message translates to:
+  /// **'Export failed: {error}'**
+  String exportFailed(String error);
+
+  /// Export screen: share sheet subject line
+  ///
+  /// In en, this message translates to:
+  /// **'Helm data export'**
+  String get exportShareSubject;
+
+  /// STS settings: semantics label for tax rate slider
+  ///
+  /// In en, this message translates to:
+  /// **'Tax rate: {percent}%'**
+  String taxRateSemantics(String percent);
+
+  /// STS settings: semantics label for safety buffer slider
+  ///
+  /// In en, this message translates to:
+  /// **'Safety buffer: {percent}%'**
+  String safetyBufferSemantics(String percent);
+
+  /// STS settings: toast shown after dismissing a fixed cost
+  ///
+  /// In en, this message translates to:
+  /// **'{label} deleted'**
+  String itemDeleted(String label);
+
+  /// STS settings: fixed cost list tile subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Due: Day {day}'**
+  String dueDay(String day);
+
+  /// STS settings: fixed cost label field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Label (e.g. Internet, Rent)'**
+  String get fixedCostLabelHint;
+
+  /// STS settings: validation error for empty label
+  ///
+  /// In en, this message translates to:
+  /// **'Label is required'**
+  String get fixedCostLabelRequired;
+
+  /// STS settings: validation error for non-positive amount
+  ///
+  /// In en, this message translates to:
+  /// **'Must be > 0'**
+  String get amountMustBePositive;
+
+  /// STS settings: due day field label
+  ///
+  /// In en, this message translates to:
+  /// **'Due Day'**
+  String get dueDayLabel;
+
+  /// STS settings: due day field hint text
+  ///
+  /// In en, this message translates to:
+  /// **'1-28'**
+  String get dueDayHint;
+
+  /// STS settings: validation error for out-of-range due day
+  ///
+  /// In en, this message translates to:
+  /// **'1-28 only'**
+  String get dueDayValidation;
+
+  /// Cadence sheet: time picker section label
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred Check-in Time'**
+  String get preferredCheckInTime;
+
+  /// Cadence sheet: channels section label
+  ///
+  /// In en, this message translates to:
+  /// **'Alert Channels'**
+  String get alertChannels;
+
+  /// Cadence sheet: push notifications switch title
+  ///
+  /// In en, this message translates to:
+  /// **'Push notifications'**
+  String get pushNotifications;
+
+  /// Cadence sheet: push notifications switch subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Receive alerts on expected dates'**
+  String get pushNotificationsSubtitle;
+
+  /// Cadence sheet: in-app banner switch title
+  ///
+  /// In en, this message translates to:
+  /// **'In-app notification banner'**
+  String get inAppNotificationBanner;
+
+  /// Cadence sheet: in-app banner switch subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Show bill warning hints in dashboard'**
+  String get inAppNotificationSubtitle;
+
+  /// Cadence sheet: quiet affirmations switch title
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet affirmations'**
+  String get quietAffirmations;
+
+  /// Cadence sheet: quiet affirmations switch subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Display calm confirmation status on hero block'**
+  String get quietAffirmationsSubtitle;
+
+  /// Cadence sheet: save button label
+  ///
+  /// In en, this message translates to:
+  /// **'Save Preferences'**
+  String get savePreferences;
+
+  /// Transaction screen: app bar title in edit mode (not found)
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Transaction'**
+  String get editTransaction;
+
+  /// Transaction screen: error heading when transaction is missing
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction not found'**
+  String get transactionNotFound;
+
+  /// Transaction screen: error body when transaction is missing
+  ///
+  /// In en, this message translates to:
+  /// **'This payment may have been deleted.'**
+  String get transactionMayBeDeleted;
+
+  /// Transaction screen: app bar title in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cash out'**
+  String get editCashOut;
+
+  /// Transaction screen: app bar title in add mode
+  ///
+  /// In en, this message translates to:
+  /// **'Record cash out'**
+  String get recordCashOut;
+
+  /// Transaction screen: title field label
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get transactionTitle;
+
+  /// Transaction screen: title field hint
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Lunch, Uber, Salary'**
+  String get transactionTitleHint;
+
+  /// Transaction screen: validation error for empty title
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get titleRequired;
+
+  /// Transaction screen: validation error for invalid amount
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid amount greater than 0'**
+  String get enterValidAmountGreaterThanZero;
+
+  /// Transaction screen: date field label
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// Transaction screen: note field label
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get noteOptional;
+
+  /// Transaction screen: note field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Add a note…'**
+  String get addNoteHint;
+
+  /// Transaction screen: submit button label in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Update Transaction'**
+  String get updateTransaction;
+
+  /// Transaction screen: submit button label in add mode
+  ///
+  /// In en, this message translates to:
+  /// **'Save Transaction'**
+  String get saveTransaction;
+
+  /// Transaction screen: success toast in edit mode
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction updated successfully'**
+  String get transactionUpdated;
+
+  /// Transaction screen: success toast in add mode
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction saved successfully'**
+  String get transactionSaved;
+
+  /// Transaction screen: error toast on save failure
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save payment. Try again.'**
+  String get transactionSaveError;
 }
 
 class _AppLocalizationsDelegate

@@ -17,29 +17,34 @@ class OnboardingProgressLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final disableAnimations = MediaQuery.disableAnimationsOf(context);
+
+    Widget progressBar(double value) {
+      return SizedBox(
+        height: HelmSpacing.progressBarHeight,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
+          child: LinearProgressIndicator(
+            value: value,
+            backgroundColor: colors.hairline,
+            valueColor: AlwaysStoppedAnimation<Color>(colors.interactive),
+            minHeight: HelmSpacing.progressBarHeight,
+          ),
+        ),
+      );
+    }
 
     return Semantics(
       label: 'Onboarding progress: ${(progress * 100).round()}% complete',
       value: '${(progress * 100).round()}%',
-      child: TweenAnimationBuilder<double>(
-        duration: HelmMotion.base,
-        curve: HelmMotion.defaultCurve,
-        tween: Tween<double>(begin: 0, end: progress),
-        builder: (context, value, _) {
-          return SizedBox(
-            height: HelmSpacing.progressBarHeight,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(HelmSpacing.progressBarRadius),
-              child: LinearProgressIndicator(
-                value: value,
-                backgroundColor: colors.hairline,
-                valueColor: AlwaysStoppedAnimation<Color>(colors.interactive),
-                minHeight: HelmSpacing.progressBarHeight,
-              ),
+      child: disableAnimations
+          ? progressBar(progress)
+          : TweenAnimationBuilder<double>(
+              duration: HelmMotion.base,
+              curve: HelmMotion.defaultCurve,
+              tween: Tween<double>(begin: 0, end: progress),
+              builder: (context, value, _) => progressBar(value),
             ),
-          );
-        },
-      ),
     );
   }
 }

@@ -123,4 +123,44 @@ void main() {
       expect(NumberFormatter.parseBDT(formatted), original);
     });
   });
+
+  group('NumberFormatter.symbolForCode', () {
+    test('returns ৳ for BDT', () {
+      expect(NumberFormatter.symbolForCode('BDT'), equals('৳'));
+    });
+
+    test('returns \$ for USD', () {
+      expect(NumberFormatter.symbolForCode('USD'), equals(r'$'));
+    });
+
+    test('is case-insensitive for BDT', () {
+      expect(NumberFormatter.symbolForCode('bdt'), equals('৳'));
+    });
+
+    test('is case-insensitive for USD', () {
+      expect(NumberFormatter.symbolForCode('usd'), equals(r'$'));
+    });
+
+    test('falls back to uppercased code for unknown currency', () {
+      expect(NumberFormatter.symbolForCode('eur'), equals('EUR'));
+    });
+
+    test('defaultCurrencyCode is BDT', () {
+      expect(NumberFormatter.defaultCurrencyCode, equals('BDT'));
+    });
+  });
+
+  group('NumberFormatter.prefixForCode', () {
+    test('returns ৳ + space for BDT', () {
+      expect(NumberFormatter.prefixForCode('BDT'), equals('৳ '));
+    });
+
+    test('returns \$ + space for USD', () {
+      expect(NumberFormatter.prefixForCode('USD'), equals(r'$ '));
+    });
+
+    test('returns uppercased code + space for unknown currency', () {
+      expect(NumberFormatter.prefixForCode('jpy'), equals('JPY '));
+    });
+  });
 }

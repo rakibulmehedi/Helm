@@ -65,5 +65,17 @@ void main() {
       expect(HelmSignalTheme.floatingSheetShadow.offset.dy, equals(-8));
       expect(HelmSignalTheme.floatingSheetShadow.blurRadius, equals(32));
     });
+
+    test('stateColor returns correct color for each SignalDeckState', () {
+      expect(HelmSignalTheme.stateColor(SignalDeckState.safe), equals(HelmSignalTheme.safe));
+      expect(HelmSignalTheme.stateColor(SignalDeckState.tight), equals(HelmSignalTheme.tight));
+      expect(HelmSignalTheme.stateColor(SignalDeckState.atRisk), equals(HelmSignalTheme.atRisk));
+    });
+
+    test('stateLabel returns correct label for each SignalDeckState', () {
+      expect(HelmSignalTheme.stateLabel(SignalDeckState.safe), equals('Stable'));
+      expect(HelmSignalTheme.stateLabel(SignalDeckState.tight), equals('Tight'));
+      expect(HelmSignalTheme.stateLabel(SignalDeckState.atRisk), equals('At Risk'));
+    });
   });
 }

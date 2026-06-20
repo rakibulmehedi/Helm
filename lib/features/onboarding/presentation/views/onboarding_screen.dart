@@ -37,6 +37,7 @@ import 'package:helm/features/income/presentation/providers/income_providers.dar
 import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/safe_to_spend/presentation/providers/safe_to_spend_providers.dart';
 import 'package:helm/features/settings/presentation/views/cadence_preference_sheet.dart';
 
@@ -171,7 +172,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
           Expanded(
             child: Semantics(
-              label: 'Onboarding step ${_currentStep + 1} of 6',
+              label: context.l10n.onboardingStepOf(_currentStep + 1, 6),
               child: PageView(
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),

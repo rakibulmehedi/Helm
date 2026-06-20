@@ -15,6 +15,7 @@ import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/onboarding/domain/income_pattern.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class IncomePatternPage extends StatefulWidget {
   final IncomePattern initialPattern;
@@ -81,7 +82,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
 
   void _onContinue() {
     if (_selected == IncomePattern.none) {
-      setState(() => _error = 'Please select an income pattern to continue.');
+      setState(() => _error = context.l10n.incomePatternSelectError);
       HapticFeedback.heavyImpact();
       return;
     }
@@ -92,6 +93,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -112,7 +114,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                     const SizedBox(height: HelmSpacing.s10),
                     // Progress indicator — step 4
                     Semantics(
-                      label: 'Onboarding step 4 of 6',
+                      label: l10n.onboardingStepOf(4, 6),
                       child: _ProgressLine(
                         fraction: HelmSpacing.onboardingSteps[2],
                         colors: colors,
@@ -120,35 +122,35 @@ class _IncomePatternPageState extends State<IncomePatternPage>
                     ),
                     const SizedBox(height: HelmSpacing.s8),
                     Text(
-                      'How does your income usually arrive?',
+                      l10n.incomePatternQuestion,
                       style: typo.headingLg.copyWith(color: colors.inkPrimary),
                     ),
                     const SizedBox(height: HelmSpacing.s2),
                     Text(
-                      'Pick the pattern that fits most of your earnings.',
+                      l10n.incomePatternSubtext,
                       style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                     ),
                     const SizedBox(height: HelmSpacing.s6),
                     _PatternCard(
-                      title: 'Marketplace escrow',
-                      platform: 'Upwork, Fiverr, Payoneer',
-                      subtitle: 'Payment held until milestone or job completion',
+                      title: l10n.incomePatternMarketplaceTitle,
+                      platform: l10n.incomePatternMarketplacePlatform,
+                      subtitle: l10n.incomePatternMarketplaceSubtitle,
                       selected: _selected == IncomePattern.marketplace,
                       onTap: () => _onPatternSelected(IncomePattern.marketplace),
                     ),
                     const SizedBox(height: HelmSpacing.s3),
                     _PatternCard(
-                      title: 'Direct client',
-                      platform: 'You invoice clients directly',
-                      subtitle: 'Payment terms agreed with each client',
+                      title: l10n.incomePatternDirectTitle,
+                      platform: l10n.incomePatternDirectPlatform,
+                      subtitle: l10n.incomePatternDirectSubtitle,
                       selected: _selected == IncomePattern.direct,
                       onTap: () => _onPatternSelected(IncomePattern.direct),
                     ),
                     const SizedBox(height: HelmSpacing.s3),
                     _PatternCard(
-                      title: 'Retainer / Recurring',
-                      platform: 'Same client, same amount each month',
-                      subtitle: 'Predictable monthly income',
+                      title: l10n.incomePatternRetainerTitle,
+                      platform: l10n.incomePatternRetainerPlatform,
+                      subtitle: l10n.incomePatternRetainerSubtitle,
                       selected: _selected == IncomePattern.retainer,
                       onTap: () => _onPatternSelected(IncomePattern.retainer),
                     ),
@@ -189,7 +191,7 @@ class _IncomePatternPageState extends State<IncomePatternPage>
 
                     const Spacer(),
                     AppButton(
-                      label: 'Save — sets income pattern',
+                      label: l10n.saveIncomePattern,
                       onPressed: _onContinue,
                       isEnabled: true,
                     ),

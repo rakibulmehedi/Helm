@@ -4,6 +4,7 @@ import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/core/themes/helm_signal_theme.dart';
 import 'package:helm/core/widgets/helm_calculation_trace.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/l10n/app_localizations.dart';
 
 void main() {
   testWidgets('calculation trace uses Signal Deck spatial sheet styling', (
@@ -28,6 +29,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.dark,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(body: HelmCalculationTrace(result: result)),
       ),
     );

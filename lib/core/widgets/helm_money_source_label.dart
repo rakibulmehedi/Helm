@@ -19,17 +19,20 @@ class HelmMoneySourceLabel extends StatelessWidget {
     final colors = context.colors;
     final typography = context.textStyles;
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-      decoration: BoxDecoration(
-        color: colors.interactive.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(100),
-      ),
-      child: Text(
-        source,
-        style: typography.labelSm.copyWith(color: colors.interactive),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
+    return Semantics(
+      label: 'Payment source: $source',
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: colors.interactive.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(100),
+        ),
+        child: Text(
+          source,
+          style: typography.labelSm.copyWith(color: colors.interactive),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

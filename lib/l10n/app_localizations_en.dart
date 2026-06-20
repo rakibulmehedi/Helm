@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorEnterEmail => 'Please enter your email address';
 
   @override
+  String get errorInvalidEmail => 'Please enter a valid email address';
+
+  @override
   String get errorTooManyRequests =>
       'Too many requests. Please wait before requesting another link.';
 
@@ -426,7 +429,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dateGroupOlder => 'Older';
 
   @override
-  String get notificationPreferences => 'Notification preferences';
+  String get notificationPreferences => 'Notification Preferences';
 
   @override
   String get checkInFrequency => 'Check-in Frequency';
@@ -448,6 +451,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get devResetOnboarding => 'Reset onboarding (dev only)';
+
+  @override
+  String get useAsGuest => 'Use as Guest';
 
   @override
   String get safeToSpendSettingsTitle => 'Safe-to-Spend Settings';
@@ -498,4 +504,611 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deleteAllData => 'Delete all data';
+
+  @override
+  String nbaOverdueTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payments overdue',
+      one: '1 payment overdue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get nbaOverdueDescription =>
+      'Update status of overdue pipeline payments.';
+
+  @override
+  String get nbaOverdueAction => 'Review';
+
+  @override
+  String get nbaAtRiskTitle => 'Safe-to-spend is tight';
+
+  @override
+  String get nbaAtRiskDescription =>
+      'Review your fixed monthly costs to release pressure.';
+
+  @override
+  String get nbaAtRiskAction => 'Review fixed costs';
+
+  @override
+  String get nbaReliefTitle => 'Pipeline up to date';
+
+  @override
+  String get nbaReliefDescription =>
+      'All payments are on schedule and tracked.';
+
+  @override
+  String get nbaSetupTitle => 'Add your first expected payment';
+
+  @override
+  String get nbaSetupDescription =>
+      'Track upcoming income to compute Safe-to-Spend.';
+
+  @override
+  String get nbaSetupAction => 'Add payment';
+
+  @override
+  String get calcTraceTitle => 'How we calculated this';
+
+  @override
+  String get calcTraceSubtitle => 'Tap any line to learn more';
+
+  @override
+  String get calcTraceReceivedIncome => '+ Received income';
+
+  @override
+  String get calcTraceCashOut => '− Cash out';
+
+  @override
+  String get calcTraceLiquidBdt => '= Liquid BDT';
+
+  @override
+  String get calcTraceTaxReserve => '− Tax reserve (hold)';
+
+  @override
+  String get calcTraceFixedCosts => '− Fixed costs due';
+
+  @override
+  String get calcTraceSafetyBuffer => '− Safety buffer';
+
+  @override
+  String get calcTraceSafeToSpend => '= Safe-to-Spend';
+
+  @override
+  String get trustStripTapToAudit => 'Tap to audit';
+
+  @override
+  String get trustStripUpdatedJustNow => 'Updated just now';
+
+  @override
+  String trustStripUpdatedMinAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Updated $count mins ago',
+      one: 'Updated 1 min ago',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String trustStripUpdatedAt(String time) {
+    return 'Updated $time';
+  }
+
+  @override
+  String get pipelineOverdue => 'Overdue';
+
+  @override
+  String daysOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days overdue',
+      one: '1 day overdue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dateToday => 'today';
+
+  @override
+  String get dateTomorrow => 'tomorrow';
+
+  @override
+  String get duplicateAsNextMonth => 'Duplicate as next month';
+
+  @override
+  String get swipeConfirmReceived => 'Confirm received';
+
+  @override
+  String get pipelineTitle => 'Pipeline';
+
+  @override
+  String get pipelineNeedsDecision => 'Needs decision';
+
+  @override
+  String get pipelineOverdueAttention => 'Overdue — needs attention';
+
+  @override
+  String incomeEntryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count entries',
+      one: '1 entry',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String incomeByDate(String date) {
+    return 'By $date';
+  }
+
+  @override
+  String incomeReceivedDate(String date) {
+    return 'Received $date';
+  }
+
+  @override
+  String get fxRateInvalid => 'Enter a valid positive rate';
+
+  @override
+  String get projectNameRecommended => 'Project Name (recommended)';
+
+  @override
+  String get pinCreateTitle => 'Create your PIN';
+
+  @override
+  String get pinConfirmTitle => 'Confirm your PIN';
+
+  @override
+  String get pinMismatchError => 'PINs don\'t match. Try again.';
+
+  @override
+  String get pinEnterTitle => 'Enter your PIN';
+
+  @override
+  String pinIncorrectAttempts(int remaining) {
+    String _temp0 = intl.Intl.pluralLogic(
+      remaining,
+      locale: localeName,
+      other: 'Incorrect PIN — $remaining attempts remaining',
+      one: 'Incorrect PIN — 1 attempt remaining',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pinTooManyAttempts => 'Too many attempts. Try again later.';
+
+  @override
+  String get pinTryAgain => 'Try again.';
+
+  @override
+  String pinLockedCountdown(String minutes, String seconds) {
+    return 'Locked. Try again in ${minutes}m ${seconds}s';
+  }
+
+  @override
+  String onboardingStepOf(int step, int total) {
+    return 'Onboarding step $step of $total';
+  }
+
+  @override
+  String get liquidBalanceInputSemantics => 'Current liquid balance input';
+
+  @override
+  String get liquidBalanceRoughEstimate =>
+      'A rough estimate is fine — you can update it later.';
+
+  @override
+  String get saveLiquidBalance => 'Save — updates Safe-to-Spend';
+
+  @override
+  String get incomePatternQuestion => 'How does your income usually arrive?';
+
+  @override
+  String get incomePatternSubtext =>
+      'Pick the pattern that fits most of your earnings.';
+
+  @override
+  String get incomePatternMarketplaceTitle => 'Marketplace escrow';
+
+  @override
+  String get incomePatternMarketplacePlatform => 'Upwork, Fiverr, Payoneer';
+
+  @override
+  String get incomePatternMarketplaceSubtitle =>
+      'Payment held until milestone or job completion';
+
+  @override
+  String get incomePatternDirectTitle => 'Direct client';
+
+  @override
+  String get incomePatternDirectPlatform => 'You invoice clients directly';
+
+  @override
+  String get incomePatternDirectSubtitle =>
+      'Payment terms agreed with each client';
+
+  @override
+  String get incomePatternRetainerTitle => 'Retainer / Recurring';
+
+  @override
+  String get incomePatternRetainerPlatform =>
+      'Same client, same amount each month';
+
+  @override
+  String get incomePatternRetainerSubtitle => 'Predictable monthly income';
+
+  @override
+  String get incomePatternSelectError =>
+      'Please select an income pattern to continue.';
+
+  @override
+  String get saveIncomePattern => 'Save — sets income pattern';
+
+  @override
+  String get bufferTitle => 'Set your safety buffer';
+
+  @override
+  String get bufferSubtext =>
+      'This is not locked money. It is a safety margin inside the calculation.';
+
+  @override
+  String bufferSliderSemantics(int percent) {
+    return 'Safety buffer slider: $percent%';
+  }
+
+  @override
+  String bufferSliderValue(int percent) {
+    return '$percent percent';
+  }
+
+  @override
+  String bufferS2sPreviewPositive(int percent) {
+    return 'Safe to spend preview: $percent% buffer of total';
+  }
+
+  @override
+  String get bufferS2sPreviewNegative =>
+      'Safe to spend preview shows negative balance';
+
+  @override
+  String get bufferSafeToSpendLabel => 'Safe-to-Spend';
+
+  @override
+  String get bufferCostsExceedBalance =>
+      'Your costs exceed liquid balance. Adjust buffer or add expected income.';
+
+  @override
+  String get saveBuffer => 'Save — finish Safe-to-Spend setup';
+
+  @override
+  String get fixedCostsDueDayTooltip =>
+      'Due day is the day of month when this cost is usually paid (1-28 to align with billing cycles)';
+
+  @override
+  String get fixedCostsDueDay => 'due day';
+
+  @override
+  String get fixedCostsAmountHint => 'amount';
+
+  @override
+  String fixedCostsCategorySemantics(String label, String state) {
+    return '$label, $state';
+  }
+
+  @override
+  String get fixedCostsCategorySelected => 'selected';
+
+  @override
+  String get fixedCostsCategoryNotSelected => 'not selected';
+
+  @override
+  String get continueButton => 'Continue';
+
+  @override
+  String get fixedCostsCategoryRentHousing => 'Rent / Housing';
+
+  @override
+  String get fixedCostsCategoryInternet => 'Internet';
+
+  @override
+  String get fixedCostsCategoryMobilePhone => 'Mobile / Phone';
+
+  @override
+  String get fixedCostsCategorySubscriptions => 'Subscriptions';
+
+  @override
+  String get fixedCostsCategoryFamilySupport => 'Family support / Parents';
+
+  @override
+  String get fixedCostsCategoryLoanEmi => 'Loan EMI';
+
+  @override
+  String get fixedCostsCategoryOther => 'Other fixed cost';
+
+  @override
+  String get pipelineClientNameSemantics => 'Client or source name input';
+
+  @override
+  String pipelineAmountSemantics(String currency) {
+    return 'Amount input in $currency';
+  }
+
+  @override
+  String get pipelineCurrencySemantics => 'Currency selector';
+
+  @override
+  String get pipelineEntryNoteSemantics =>
+      'Information: This will be marked as Expected. You can update the status later.';
+
+  @override
+  String get pipelineSkipSemantics =>
+      'Skip adding pipeline entry and continue to home';
+
+  @override
+  String get pipelineAddAndContinue => 'Add and continue';
+
+  @override
+  String get pipelineAdding => 'Adding...';
+
+  @override
+  String get pipelineAmountMustBePositive => 'Must be > 0';
+
+  @override
+  String get auditLogLoadError => 'Unable to load history.';
+
+  @override
+  String get auditLogEmpty => 'No changes recorded yet.';
+
+  @override
+  String get auditEntityIncome => 'Income';
+
+  @override
+  String get auditEntityTransaction => 'Transaction';
+
+  @override
+  String get auditEntitySettings => 'Settings';
+
+  @override
+  String get auditEntityFixedCost => 'Fixed cost';
+
+  @override
+  String get auditEntityRecord => 'Record';
+
+  @override
+  String auditEventAdded(String entity) {
+    return '$entity added';
+  }
+
+  @override
+  String auditEventUpdated(String entity) {
+    return '$entity updated';
+  }
+
+  @override
+  String auditEventDeleted(String entity) {
+    return '$entity deleted';
+  }
+
+  @override
+  String auditEventConfirmed(String entity) {
+    return '$entity confirmed';
+  }
+
+  @override
+  String auditEventExported(String entity) {
+    return '$entity exported';
+  }
+
+  @override
+  String auditEventChanged(String entity) {
+    return '$entity changed';
+  }
+
+  @override
+  String get deleteCannotBeUndone => 'This cannot be undone';
+
+  @override
+  String get deleteWarningBody =>
+      'Deleting your data will permanently remove all your income entries, transactions, settings, and change history from this device. There is no way to recover this data.';
+
+  @override
+  String get deleteWhatWillBeDeleted => 'What will be deleted';
+
+  @override
+  String get deleteItemAllIncomeEntries => 'All income entries';
+
+  @override
+  String get deleteItemAllTransactions => 'All transactions';
+
+  @override
+  String get deleteItemAllFixedCosts => 'All fixed costs';
+
+  @override
+  String get deleteItemYourSettings => 'Your settings';
+
+  @override
+  String get deleteContinue => 'Continue to delete';
+
+  @override
+  String get deletePinConfirmTitle => 'Enter your PIN to confirm';
+
+  @override
+  String get deleteIncorrectPin => 'Incorrect PIN';
+
+  @override
+  String deleteLockoutMessage(String minutes) {
+    return 'Too many attempts. Try again in ${minutes}m.';
+  }
+
+  @override
+  String get deleteTypeConfirmTitle => 'Type \"DELETE\" to confirm';
+
+  @override
+  String get deleteConfirmHint => 'DELETE';
+
+  @override
+  String get exportDataBelongsToYou => 'Your data belongs to you';
+
+  @override
+  String get exportDescription =>
+      'Export all your Helm data as CSV files. Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.';
+
+  @override
+  String get exportWarning =>
+      'Exported files are not encrypted and may contain sensitive information such as client names and amounts. Only share them through trusted channels and delete the files from your device when you are done.';
+
+  @override
+  String get exportWhatWillBeExported => 'What will be exported';
+
+  @override
+  String get exportItemIncomeEntries => 'Income entries';
+
+  @override
+  String get exportItemTransactions => 'Transactions';
+
+  @override
+  String get exportItemFixedCosts => 'Fixed costs';
+
+  @override
+  String get exportItemSettings => 'Settings';
+
+  @override
+  String get exportAllData => 'Export all data';
+
+  @override
+  String exportFailed(String error) {
+    return 'Export failed: $error';
+  }
+
+  @override
+  String get exportShareSubject => 'Helm data export';
+
+  @override
+  String taxRateSemantics(String percent) {
+    return 'Tax rate: $percent%';
+  }
+
+  @override
+  String safetyBufferSemantics(String percent) {
+    return 'Safety buffer: $percent%';
+  }
+
+  @override
+  String itemDeleted(String label) {
+    return '$label deleted';
+  }
+
+  @override
+  String dueDay(String day) {
+    return 'Due: Day $day';
+  }
+
+  @override
+  String get fixedCostLabelHint => 'Label (e.g. Internet, Rent)';
+
+  @override
+  String get fixedCostLabelRequired => 'Label is required';
+
+  @override
+  String get amountMustBePositive => 'Must be > 0';
+
+  @override
+  String get dueDayLabel => 'Due Day';
+
+  @override
+  String get dueDayHint => '1-28';
+
+  @override
+  String get dueDayValidation => '1-28 only';
+
+  @override
+  String get preferredCheckInTime => 'Preferred Check-in Time';
+
+  @override
+  String get alertChannels => 'Alert Channels';
+
+  @override
+  String get pushNotifications => 'Push notifications';
+
+  @override
+  String get pushNotificationsSubtitle => 'Receive alerts on expected dates';
+
+  @override
+  String get inAppNotificationBanner => 'In-app notification banner';
+
+  @override
+  String get inAppNotificationSubtitle =>
+      'Show bill warning hints in dashboard';
+
+  @override
+  String get quietAffirmations => 'Quiet affirmations';
+
+  @override
+  String get quietAffirmationsSubtitle =>
+      'Display calm confirmation status on hero block';
+
+  @override
+  String get savePreferences => 'Save Preferences';
+
+  @override
+  String get editTransaction => 'Edit Transaction';
+
+  @override
+  String get transactionNotFound => 'Transaction not found';
+
+  @override
+  String get transactionMayBeDeleted => 'This payment may have been deleted.';
+
+  @override
+  String get editCashOut => 'Edit cash out';
+
+  @override
+  String get recordCashOut => 'Record cash out';
+
+  @override
+  String get transactionTitle => 'Title';
+
+  @override
+  String get transactionTitleHint => 'e.g. Lunch, Uber, Salary';
+
+  @override
+  String get titleRequired => 'Title is required';
+
+  @override
+  String get enterValidAmountGreaterThanZero =>
+      'Enter a valid amount greater than 0';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get noteOptional => 'Note (optional)';
+
+  @override
+  String get addNoteHint => 'Add a note…';
+
+  @override
+  String get updateTransaction => 'Update Transaction';
+
+  @override
+  String get saveTransaction => 'Save Transaction';
+
+  @override
+  String get transactionUpdated => 'Transaction updated successfully';
+
+  @override
+  String get transactionSaved => 'Transaction saved successfully';
+
+  @override
+  String get transactionSaveError => 'Could not save payment. Try again.';
 }

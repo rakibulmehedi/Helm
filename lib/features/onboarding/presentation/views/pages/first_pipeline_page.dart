@@ -15,11 +15,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 /// Data captured from the optional first pipeline entry.
 class PipelineDraftEntry {
@@ -110,6 +112,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return SafeArea(
       child: FadeTransition(
@@ -132,15 +135,14 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                         Semantics(
                           header: true,
                           child: Text(
-                            'Any money coming in soon?',
+                            l10n.firstPipelineQuestion,
                             style:
                                 typo.headingLg.copyWith(color: colors.inkPrimary),
                           ),
                         ),
                         const SizedBox(height: HelmSpacing.s2),
                         Text(
-                          'Adding expected income helps Safe-to-Spend show you '
-                          'the full picture from day one.',
+                          l10n.firstPipelineSubtext,
                           style:
                               typo.bodyLg.copyWith(color: colors.inkSecondary),
                         ),
@@ -148,7 +150,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
 
                         // Client name
                         Semantics(
-                          label: 'Client or source name input',
+                          label: l10n.pipelineClientNameSemantics,
                           textField: true,
                           child: TextFormField(
                             controller: _clientController,
@@ -157,8 +159,8 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                               SanitizingTextInputFormatter(),
                             ],
                             decoration: InputDecoration(
-                              labelText: 'Client or source',
-                              hintText: 'e.g. Upwork, Client X',
+                              labelText: l10n.clientOrSource,
+                              hintText: l10n.clientOrSourceHint,
                               labelStyle: typo.labelMd.copyWith(
                                 color: colors.inkSecondary,
                               ),
@@ -199,7 +201,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                             ),
                             validator: (val) {
                               if (val == null || val.trim().isEmpty) {
-                                return 'Who is this from?';
+                                return l10n.whoIsThisFrom;
                               }
                               return null;
                             },
@@ -209,7 +211,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
 
                         // Amount + currency
                         Semantics(
-                          label: 'Amount input in $_currency',
+                          label: l10n.pipelineAmountSemantics(_currency),
                           textField: true,
                           child: Row(
                             children: [
@@ -225,9 +227,9 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                         RegExp(r'^\d+\.?\d*')),
                                   ],
                                   decoration: InputDecoration(
-                                    labelText: 'Amount',
+                                    labelText: l10n.amount,
                                     prefixText:
-                                        _currency == 'BDT' ? '৳ ' : '\$ ',
+                                        NumberFormatter.prefixForCode(_currency),
                                     labelStyle: typo.labelMd.copyWith(
                                       color: colors.inkSecondary,
                                     ),
@@ -263,7 +265,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                   ),
                                   validator: (val) {
                                     if (InputValidator.parseAmount(val) == null) {
-                                      return 'Must be > 0';
+                                      return l10n.pipelineAmountMustBePositive;
                                     }
                                     return null;
                                   },
@@ -272,7 +274,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                               const SizedBox(width: HelmSpacing.s3),
                               Expanded(
                                 child: Semantics(
-                                  label: 'Currency selector',
+                                  label: l10n.pipelineCurrencySemantics,
                                   child: DropdownButtonFormField<String>(
                                     initialValue: _currency,
                                     decoration: InputDecoration(
@@ -304,7 +306,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
 
                         // Info note
                         Semantics(
-                          label: 'Information: This will be marked as Expected. You can update the status later.',
+                          label: l10n.pipelineEntryNoteSemantics,
                           child: Container(
                             padding: const EdgeInsets.all(HelmSpacing.s3),
                             decoration: BoxDecoration(
@@ -320,8 +322,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                                 const SizedBox(width: HelmSpacing.s2),
                                 Expanded(
                                   child: Text(
-                                    'This will be marked as "Expected". '
-                                    'You can update the status later.',
+                                    l10n.pipelineEntryNote,
                                     style: typo.bodySm
                                         .copyWith(color: colors.inkTertiary),
                                   ),
@@ -344,14 +345,14 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     AppButton(
-                      label: _isLoading ? 'Adding...' : 'Add and continue',
+                      label: _isLoading ? l10n.pipelineAdding : l10n.pipelineAddAndContinue,
                       onPressed: _isLoading ? null : _submit,
                       isEnabled: !_isLoading,
                       isLoading: _isLoading,
                     ),
                     const SizedBox(height: HelmSpacing.s2),
                     Semantics(
-                      label: 'Skip adding pipeline entry and continue to home',
+                      label: l10n.pipelineSkipSemantics,
                       button: true,
                       child: TextButton(
                         onPressed: () {
@@ -359,7 +360,7 @@ class _FirstPipelinePageState extends State<FirstPipelinePage>
                           widget.onSkip();
                         },
                         child: Text(
-                          'Skip for now',
+                          l10n.skipForNow,
                           style: typo.bodyMd.copyWith(color: colors.inkTertiary),
                         ),
                       ),

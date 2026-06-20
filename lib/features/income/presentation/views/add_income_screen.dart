@@ -16,6 +16,7 @@ import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
@@ -23,6 +24,7 @@ import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/utils/responsive_utils.dart';
 
 /// Currencies available for income entries.
@@ -140,7 +142,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
     if (_selectedStatus == IncomeStatus.received && _receivedDate == null) {
       HelmToast.show(
         context,
-        message: 'Please select a received date.',
+        message: context.l10n.pleaseSelectReceivedDate,
         type: ToastType.error,
       );
       return;
@@ -155,7 +157,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         setState(() => _isSaving = false);
         HelmToast.show(
           context,
-          message: 'Enter a valid amount greater than 0',
+          message: context.l10n.amountInvalid,
           type: ToastType.error,
         );
         return;
@@ -167,7 +169,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         setState(() => _isSaving = false);
         HelmToast.show(
           context,
-          message: 'Enter a valid FX rate greater than 0',
+          message: context.l10n.fxRateInvalid,
           type: ToastType.error,
         );
         return;
@@ -228,8 +230,8 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       HelmToast.show(
         context,
         message: widget.incomeId != null
-            ? 'Income updated successfully'
-            : 'Income saved successfully',
+            ? context.l10n.incomeUpdatedSuccess
+            : context.l10n.incomeSavedSuccess,
         type: ToastType.success,
       );
       context.pop();
@@ -238,7 +240,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       setState(() => _isSaving = false);
       HelmToast.show(
         context,
-        message: 'Failed to save income. Please try again.',
+        message: context.l10n.incomeFailedToSave,
         type: ToastType.error,
       );
     }
@@ -251,6 +253,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
     final theme = Theme.of(context);
     final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
+    final l10n = context.l10n;
     final isEditing = widget.incomeId != null;
 
     // ── Missing income error state ──────────────────────────────────────────
@@ -269,7 +272,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
         backgroundColor: colors.canvas,
         appBar: AppBar(
           title: Text(
-            isEditing ? 'Edit Income' : 'Add Income',
+            isEditing ? l10n.editIncome : l10n.addIncome,
             style: typo.headingMd,
           ),
           centerTitle: true,
@@ -289,19 +292,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // ── Client Name ──────────────────────────────────────────
-                _FieldLabel('Client Name'),
+                _FieldLabel(l10n.clientName),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _clientNameController,
                   maxLength: 100,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
-                    hint: 'e.g. Upwork, Client X',
+                    hint: l10n.clientNameHint,
                     colors: colors,
                   ),
                   validator: (v) {
                     if (v == null || v.trim().isEmpty) {
-                      return 'Client name is required';
+                      return l10n.clientNameRequired;
                     }
                     return null;
                   },
@@ -310,14 +313,14 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Project Name ─────────────────────────────────────────
-                _FieldLabel('Project Name (recommended)'),
+                _FieldLabel(l10n.projectNameRecommended),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _projectNameController,
                   maxLength: 100,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
-                    hint: 'e.g. Website Redesign',
+                    hint: l10n.projectNameHint,
                     colors: colors,
                   ),
                 ),
@@ -325,7 +328,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Amount + Currency row ─────────────────────────────────
-                _FieldLabel('Amount'),
+                _FieldLabel(l10n.amount),
                 const SizedBox(height: 8),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,7 +349,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                         ),
                         validator: (v) {
                           if (InputValidator.parseAmount(v) == null) {
-                            return 'Enter a valid amount greater than 0';
+                            return l10n.amountInvalid;
                           }
                           return null;
                         },
@@ -371,19 +374,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 // ── FX Rate (USD only) ───────────────────────────────────
                 if (_selectedCurrency == 'USD') ...[
                   const SizedBox(height: 20),
-                  _FieldLabel('FX Rate (BDT per USD)'),
+                  _FieldLabel(l10n.fxRateLabel),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: _fxRateController,
                     keyboardType: const TextInputType.numberWithOptions(
                         decimal: true),
                     decoration: _inputDecoration(
-                      hint: 'e.g. 110.5',
+                      hint: l10n.fxRateHint,
                       colors: colors,
                     ),
                     validator: (v) {
                       if (InputValidator.parseAmount(v) == null) {
-                        return 'Enter a valid positive rate';
+                        return l10n.fxRateInvalid;
                       }
                       return null;
                     },
@@ -393,7 +396,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Status selector ──────────────────────────────────────
-                _FieldLabel('Status'),
+                _FieldLabel(l10n.statusLabel),
                 const SizedBox(height: 10),
                 _StatusToggle(
                   selected: _selectedStatus,
@@ -409,7 +412,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Expected Date ────────────────────────────────────────
-                _FieldLabel('Expected Date'),
+                _FieldLabel(l10n.expectedDate),
                 const SizedBox(height: 8),
                 _DatePickerTile(
                   date: _expectedDate,
@@ -419,19 +422,19 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 // ── Received Date (only when received) ───────────────────
                 if (_selectedStatus == IncomeStatus.received) ...[
                   const SizedBox(height: 20),
-                  _FieldLabel('Received Date'),
+                  _FieldLabel(l10n.receivedDate),
                   const SizedBox(height: 8),
                   _DatePickerTile(
                     date: _receivedDate,
                     onTap: _pickReceivedDate,
-                    placeholder: 'Select received date',
+                    placeholder: l10n.selectReceivedDate,
                   ),
                 ],
 
                 const SizedBox(height: 20),
 
                 // ── Notes (optional) ─────────────────────────────────────
-                _FieldLabel('Notes (optional)'),
+                _FieldLabel(l10n.notesOptional),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _noteController,
@@ -439,7 +442,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   maxLines: 3,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: _inputDecoration(
-                    hint: 'Add a note…',
+                    hint: l10n.addANote,
                     colors: colors,
                   ),
                 ),
@@ -447,14 +450,14 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                 const SizedBox(height: 20),
 
                 // ── Payment Source (optional) ────────────────────────────
-                _FieldLabel('Payment Source (optional)'),
+                _FieldLabel(l10n.paymentSourceOptional),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _sourceLabelController,
                   maxLength: 100,
                   textCapitalization: TextCapitalization.words,
                   decoration: _inputDecoration(
-                    hint: 'e.g. Upwork, Fiverr, Direct client',
+                    hint: l10n.paymentSourceHint,
                     colors: colors,
                   ),
                 ),
@@ -467,21 +470,21 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: colors.surface,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                       border: Border.all(color: colors.divider),
                     ),
                     child: SwitchListTile(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 4),
                       title: Text(
-                        'Exclude from Safe-to-Spend',
+                        l10n.excludeFromSafeToSpend,
                         style: typo.bodySm.copyWith(
                               fontWeight: FontWeight.w600,
                               color: colors.inkPrimary,
                             ),
                       ),
                       subtitle: Text(
-                        "Use when this payment shouldn't affect your numbers",
+                        l10n.excludeFromSafeToSpendSubtitle,
                         style: typo.labelMd.copyWith(
                               color: colors.inkSecondary,
                             ),
@@ -498,7 +501,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
 
                 // ── Submit button ────────────────────────────────────────
                 AppButton(
-                  label: isEditing ? 'Update Income' : 'Save Income',
+                  label: isEditing ? l10n.updateIncome : l10n.saveIncome,
                   isLoading: _isSaving,
                   isEnabled: !_isSaving,
                   onPressed: _submit,
@@ -531,23 +534,23 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.interactive, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk, width: 1.5),
       ),
     );
@@ -589,17 +592,18 @@ class _StatusToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final l10n = context.l10n;
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(HelmSpacing.s1),
       child: Row(
         children: IncomeStatus.values.map((status) {
           final isActive = selected == status;
           final color = _statusColor(status, colors);
-          final label = _statusLabel(status);
+          final label = _statusLabel(status, l10n);
           return Expanded(
             child: GestureDetector(
               onTap: () => onChanged(status),
@@ -608,14 +612,13 @@ class _StatusToggle extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: isActive ? color : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   label,
-                  style: TextStyle(
+                  style: context.textStyles.bodySm.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
                     color: isActive
                         ? colors.surface
                         : colors.inkSecondary,
@@ -642,14 +645,14 @@ class _StatusToggle extends StatelessWidget {
     }
   }
 
-  String _statusLabel(IncomeStatus status) {
+  String _statusLabel(IncomeStatus status, AppLocalizations l10n) {
     switch (status) {
       case IncomeStatus.expected:
-        return 'Expected';
+        return l10n.expected;
       case IncomeStatus.pending:
-        return 'Pending';
+        return l10n.pending;
       case IncomeStatus.received:
-        return 'Received';
+        return l10n.received;
     }
   }
 }
@@ -670,9 +673,9 @@ class _CurrencySelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(HelmSpacing.s1),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: _currencies.map((currency) {
@@ -685,13 +688,12 @@ class _CurrencySelector extends StatelessWidget {
                   horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
                 color: isActive ? colors.interactive : Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
               ),
               child: Text(
                 currency,
-                style: TextStyle(
+                style: context.textStyles.bodySm.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
                   color: isActive
                       ? colors.surface
                       : colors.inkSecondary,
@@ -722,14 +724,14 @@ class _DatePickerTile extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: colors.surface,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           border: Border.all(color: colors.divider),
         ),
         child: Row(
@@ -743,9 +745,8 @@ class _DatePickerTile extends StatelessWidget {
             Text(
               date != null
                   ? DateFormat('dd MMM yyyy').format(date!)
-                  : (placeholder ?? 'Select date'),
-              style: TextStyle(
-                fontSize: 14,
+                  : (placeholder ?? context.l10n.selectDate),
+              style: context.textStyles.bodyMd.copyWith(
                 color: date != null
                     ? colors.inkPrimary
                     : colors.inkTertiary.withValues(alpha: 0.6),
@@ -767,11 +768,12 @@ class _IncomeNotFoundView extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     final typo = theme.extension<HelmTypography>() ?? HelmTypography.build(theme.extension<HelmColors>() ?? HelmColors.light);
+    final l10n = context.l10n;
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
-          'Edit Income',
+          l10n.editIncome,
           style: typo.headingMd,
         ),
         centerTitle: true,
@@ -794,14 +796,14 @@ class _IncomeNotFoundView extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Income entry not found',
+                  l10n.incomeEntryNotFound,
                   style: typo.headingMd.copyWith(
                     color: colors.inkPrimary,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'This income entry may have been deleted.',
+                  l10n.incomeEntryDeleted,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: colors.inkSecondary,
                   ),
@@ -809,7 +811,7 @@ class _IncomeNotFoundView extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 AppButton(
-                  label: 'Go Back',
+                  label: l10n.goBack,
                   onPressed: () => context.pop(),
                 ),
               ],

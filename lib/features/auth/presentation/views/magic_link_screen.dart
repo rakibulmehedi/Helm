@@ -11,14 +11,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/auth/presentation/providers/magic_link_provider.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 enum _MagicLinkStep { emailInput, verifying }
 
 class MagicLinkScreen extends ConsumerStatefulWidget {
-  final VoidCallback onAuthenticated;
-  final VoidCallback onGuest;
+  final Future<void> Function() onAuthenticated;
+  final Future<void> Function() onGuest;
 
   const MagicLinkScreen({
     super.key,
@@ -45,9 +47,14 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
   }
 
   Future<void> _sendMagicLink() async {
+    final l10n = context.l10n;
     final email = _emailCtrl.text.trim();
     if (email.isEmpty) {
-      setState(() => _error = 'Please enter your email address');
+      setState(() => _error = l10n.errorEnterEmail);
+      return;
+    }
+    if (InputValidator.normalizeEmail(email) == null) {
+      setState(() => _error = l10n.errorInvalidEmail);
       return;
     }
 
@@ -68,16 +75,17 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
       });
     } else {
       setState(() {
-        _error = 'Too many requests. Please wait before requesting another link.';
+        _error = l10n.errorTooManyRequests;
         _isLoading = false;
       });
     }
   }
 
   Future<void> _verifyToken() async {
+    final l10n = context.l10n;
     final token = _tokenCtrl.text.trim();
     if (token.isEmpty) {
-      setState(() => _error = 'Please enter the verification code or paste the link');
+      setState(() => _error = l10n.errorEnterCode);
       return;
     }
 
@@ -91,10 +99,10 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
     if (!mounted) return;
 
     if (session != null) {
-      widget.onAuthenticated();
+      await widget.onAuthenticated();
     } else {
       setState(() {
-        _error = 'Invalid or expired verification code. Request a new one.';
+        _error = l10n.errorInvalidCode;
         _isLoading = false;
       });
     }
@@ -104,6 +112,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -113,8 +122,8 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: _step == _MagicLinkStep.emailInput
-                  ? _buildEmailStep(colors, typo)
-                  : _buildVerifyStep(colors, typo),
+                  ? _buildEmailStep(colors, typo, l10n)
+                  : _buildVerifyStep(colors, typo, l10n),
             ),
           ),
         ),
@@ -122,19 +131,19 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
     );
   }
 
-  Widget _buildEmailStep(HelmColors colors, HelmTypography typo) {
+  Widget _buildEmailStep(HelmColors colors, HelmTypography typo, AppLocalizations l10n) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          'Sign in to Helm',
+          l10n.signInToHelm,
           style: typo.headingLg.copyWith(color: colors.inkPrimary),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: HelmSpacing.s2),
         Text(
-          "Enter your email — we'll send you a\nmagic link to sign in instantly.",
+          l10n.magicLinkSubtitle,
           style: typo.bodyLg.copyWith(color: colors.inkSecondary),
           textAlign: TextAlign.center,
         ),
@@ -145,7 +154,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
           textInputAction: TextInputAction.done,
           onSubmitted: (_) => _sendMagicLink(),
           decoration: InputDecoration(
-            hintText: 'you@example.com',
+            hintText: l10n.emailHint,
             hintStyle: typo.bodyMd.copyWith(color: colors.inkTertiary),
             filled: true,
             fillColor: colors.surface,
@@ -165,7 +174,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         ),
         const SizedBox(height: HelmSpacing.s4),
         AppButton(
-          label: _isLoading ? 'Sending...' : 'Send Magic Link',
+          label: _isLoading ? l10n.sending : l10n.sendMagicLink,
           onPressed: _isLoading ? null : _sendMagicLink,
           isEnabled: !_isLoading,
         ),
@@ -175,15 +184,15 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         ],
         const SizedBox(height: HelmSpacing.s4),
         AppButton(
-          label: 'Use as Guest',
-          onPressed: widget.onGuest,
+          label: l10n.useAsGuest,
+          onPressed: () => widget.onGuest(),
           type: AppButtonType.outline,
         ),
       ],
     );
   }
 
-  Widget _buildVerifyStep(HelmColors colors, HelmTypography typo) {
+  Widget _buildVerifyStep(HelmColors colors, HelmTypography typo, AppLocalizations l10n) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -191,13 +200,13 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         Icon(Icons.mark_email_unread_rounded, size: 48, color: colors.interactive),
         const SizedBox(height: HelmSpacing.s4),
         Text(
-          'Check your inbox',
+          l10n.checkYourInbox,
           style: typo.headingLg.copyWith(color: colors.inkPrimary),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: HelmSpacing.s2),
         Text(
-          'We sent a link to ${_emailCtrl.text.trim()}.\nEnter the code below, or tap the link in your email.',
+          l10n.magicLinkSentSubtitle(_emailCtrl.text.trim()),
           style: typo.bodyLg.copyWith(color: colors.inkSecondary),
           textAlign: TextAlign.center,
         ),
@@ -208,7 +217,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
           textInputAction: TextInputAction.done,
           onSubmitted: (_) => _verifyToken(),
           decoration: InputDecoration(
-            hintText: 'Paste verification code',
+            hintText: l10n.pasteVerificationCode,
             hintStyle: typo.bodyMd.copyWith(color: colors.inkTertiary),
             filled: true,
             fillColor: colors.surface,
@@ -228,7 +237,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         ),
         const SizedBox(height: HelmSpacing.s4),
         AppButton(
-          label: _isLoading ? 'Verifying...' : 'Verify & Sign In',
+          label: _isLoading ? l10n.verifying : l10n.verifyAndSignIn,
           onPressed: _isLoading ? null : _verifyToken,
           isEnabled: !_isLoading,
         ),
@@ -244,7 +253,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
               _error = '';
             });
           },
-          child: Text('← Use a different email', style: typo.labelSm.copyWith(color: colors.interactive)),
+          child: Text(l10n.useDifferentEmail, style: typo.labelSm.copyWith(color: colors.interactive)),
         ),
       ],
     );

@@ -386,3 +386,15 @@ Creating `lib/features/dashboard/domain/affirmation.dart` (a 40-line file with n
 **Bug**: Back button using `context.pop()` could fail in edge cases with GoRouter (navigation context invalid, route stack edge cases, iOS swipe conflicts).
 **Fix**: Wrapped AddIncomeScreen in `PopScope` with `canPop: true` and `onPopInvokedWithResult` fallback for robustness.
 **Lesson**: For modal routes and screens that need reliable back navigation, always wrap in `PopScope` rather than relying solely on `IconButton.context.pop()`.
+
+### 33. Currency glyphs hardcoded in widget code block global readiness
+**Bug**: 7 hardcoded `৳` symbols across 6 feature screens (add_transaction, sts_settings, buffer_comfort_page, first_pipeline_page, liquid_balance_page, fixed_costs_page). One file had already grown a `_currency == 'BDT' ? '৳' : '\$'` ternary.
+**Root Cause**: No explicit boundary rule for where currency symbols may live. Each screen author independently hardcoded the current default.
+**Fix**: Added `symbolForCode(code)`, `prefixForCode(code)`, `defaultCurrencyCode` to `NumberFormatter` as the single global-readiness firewall. All widget code now calls the boundary; only `number_formatter.dart` holds glyphs.
+**Lesson**: Any value that must change when targeting a new country/currency must live behind a single named boundary. Widgets that independently hold country assumptions become a multi-file migration every time scope expands.
+
+### 34. Material system-widget sizing contracts override design token requirements
+**Bug**: Found `TextStyle(fontSize: 10)` inside a Material `Badge` label — flagged as raw TextStyle violation.
+**Root Cause**: HelmTypography's smallest token (labelSm) is 11pt. Badge uses 10pt per Material spec. Naively replacing with labelSm would break badge proportions.
+**Fix**: Retained `TextStyle(fontSize: 10)` as a documented intentional exception. Added to violation-scan documentation: Material system-widget sizing is exempt from HelmTypography token requirements.
+**Lesson**: Design token systems apply to product UI. System widgets (Badge, Chip, Dialog) have their own sizing contracts from the framework. Know the difference before replacing a raw TextStyle — sometimes the raw value IS the correct value.

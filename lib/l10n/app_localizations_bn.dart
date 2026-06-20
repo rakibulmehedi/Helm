@@ -61,6 +61,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get errorEnterEmail => 'আপনার ইমেইল ঠিকানা দিন';
 
   @override
+  String get errorInvalidEmail => 'সঠিক ইমেইল ঠিকানা দিন';
+
+  @override
   String get errorTooManyRequests =>
       'অনেকবার চেষ্টা করা হয়েছে। একটু পরে আবার লিংক চান।';
 
@@ -425,7 +428,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get dateGroupOlder => 'আগের';
 
   @override
-  String get notificationPreferences => 'নোটিফিকেশন পছন্দসমূহ';
+  String get notificationPreferences => 'নোটিফিকেশন পছন্দ';
 
   @override
   String get checkInFrequency => 'চেক-ইন ফ্রিকোয়েন্সি';
@@ -447,6 +450,9 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get devResetOnboarding => 'অনবোর্ডিং রিসেট করুন (শুধু ডেভ)';
+
+  @override
+  String get useAsGuest => 'গেস্ট হিসেবে ব্যবহার করুন';
 
   @override
   String get safeToSpendSettingsTitle => 'নিরাপদ ব্যয়সীমা সেটিংস';
@@ -497,4 +503,600 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get deleteAllData => 'সব ডেটা মুছে ফেলুন';
+
+  @override
+  String nbaOverdueTitle(int count) {
+    return '$countটি পেমেন্ট ওভারডিউ';
+  }
+
+  @override
+  String get nbaOverdueDescription =>
+      'ওভারডিউ পাইপলাইন পেমেন্টের স্ট্যাটাস আপডেট করুন।';
+
+  @override
+  String get nbaOverdueAction => 'রিভিউ করুন';
+
+  @override
+  String get nbaAtRiskTitle => 'নিরাপদ ব্যয়সীমা কম';
+
+  @override
+  String get nbaAtRiskDescription =>
+      'চাপ কমাতে নির্দিষ্ট মাসিক খরচ রিভিউ করুন।';
+
+  @override
+  String get nbaAtRiskAction => 'নির্দিষ্ট খরচ রিভিউ';
+
+  @override
+  String get nbaReliefTitle => 'পাইপলাইন আপ টু ডেট';
+
+  @override
+  String get nbaReliefDescription => 'সব পেমেন্ট সময়মতো এবং ট্র্যাক করা আছে।';
+
+  @override
+  String get nbaSetupTitle => 'প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন';
+
+  @override
+  String get nbaSetupDescription =>
+      'নিরাপদ ব্যয়সীমা হিসাব করতে আসন্ন আয় ট্র্যাক করুন।';
+
+  @override
+  String get nbaSetupAction => 'পেমেন্ট যোগ করুন';
+
+  @override
+  String get calcTraceTitle => 'হিসাবটি যেভাবে করা হয়েছে';
+
+  @override
+  String get calcTraceSubtitle => 'বিস্তারিত জানতে যেকোনো লাইনে ট্যাপ করুন';
+
+  @override
+  String get calcTraceReceivedIncome => '+ প্রাপ্ত আয়';
+
+  @override
+  String get calcTraceCashOut => '− ক্যাশ আউট';
+
+  @override
+  String get calcTraceLiquidBdt => '= লিকুইড BDT';
+
+  @override
+  String get calcTraceTaxReserve => '− ট্যাক্স রিজার্ভ (হোল্ড)';
+
+  @override
+  String get calcTraceFixedCosts => '− দেয় নির্দিষ্ট খরচ';
+
+  @override
+  String get calcTraceSafetyBuffer => '− সেফটি বাফার';
+
+  @override
+  String get calcTraceSafeToSpend => '= নিরাপদ ব্যয়সীমা';
+
+  @override
+  String get trustStripTapToAudit => 'অডিট করতে ট্যাপ করুন';
+
+  @override
+  String get trustStripUpdatedJustNow => 'এইমাত্র আপডেট হয়েছে';
+
+  @override
+  String trustStripUpdatedMinAgo(int count) {
+    return '$count মিনিট আগে আপডেট হয়েছে';
+  }
+
+  @override
+  String trustStripUpdatedAt(String time) {
+    return '$time-এ আপডেট হয়েছে';
+  }
+
+  @override
+  String get pipelineOverdue => 'ওভারডিউ';
+
+  @override
+  String daysOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count দিন ওভারডিউ',
+      one: '১ দিন ওভারডিউ',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dateToday => 'আজ';
+
+  @override
+  String get dateTomorrow => 'আগামীকাল';
+
+  @override
+  String get duplicateAsNextMonth => 'পরের মাসের জন্য ডুপ্লিকেট করুন';
+
+  @override
+  String get swipeConfirmReceived => 'রিসিভ নিশ্চিত করুন';
+
+  @override
+  String get pipelineTitle => 'পাইপলাইন';
+
+  @override
+  String get pipelineNeedsDecision => 'সিদ্ধান্ত প্রয়োজন';
+
+  @override
+  String get pipelineOverdueAttention => 'ওভারডিউ — মনোযোগ প্রয়োজন';
+
+  @override
+  String incomeEntryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countটি এন্ট্রি',
+      one: '১টি এন্ট্রি',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String incomeByDate(String date) {
+    return '$date এর মধ্যে';
+  }
+
+  @override
+  String incomeReceivedDate(String date) {
+    return '$date তারিখে রিসিভ হয়েছে';
+  }
+
+  @override
+  String get fxRateInvalid => 'একটি বৈধ পজিটিভ রেট দিন';
+
+  @override
+  String get projectNameRecommended => 'প্রজেক্টের নাম (প্রস্তাবিত)';
+
+  @override
+  String get pinCreateTitle => 'আপনার PIN তৈরি করুন';
+
+  @override
+  String get pinConfirmTitle => 'আপনার PIN নিশ্চিত করুন';
+
+  @override
+  String get pinMismatchError => 'PIN মিলছে না। আবার চেষ্টা করুন।';
+
+  @override
+  String get pinEnterTitle => 'আপনার PIN দিন';
+
+  @override
+  String pinIncorrectAttempts(int remaining) {
+    String _temp0 = intl.Intl.pluralLogic(
+      remaining,
+      locale: localeName,
+      other: 'ভুল PIN — $remainingটি চেষ্টা বাকি',
+      one: 'ভুল PIN — ১টি চেষ্টা বাকি',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pinTooManyAttempts =>
+      'অনেকবার চেষ্টা হয়ে গেছে। পরে আবার চেষ্টা করুন।';
+
+  @override
+  String get pinTryAgain => 'আবার চেষ্টা করুন।';
+
+  @override
+  String pinLockedCountdown(String minutes, String seconds) {
+    return 'লক আছে। $minutesমি $secondsসে পর চেষ্টা করুন';
+  }
+
+  @override
+  String onboardingStepOf(int step, int total) {
+    return 'অনবোর্ডিং ধাপ $step এর মধ্যে $total';
+  }
+
+  @override
+  String get liquidBalanceInputSemantics => 'বর্তমান লিকুইড ব্যালেন্স ইনপুট';
+
+  @override
+  String get liquidBalanceRoughEstimate =>
+      'একটা আনুমানিক সংখ্যাই যথেষ্ট — পরে আপডেট করা যাবে।';
+
+  @override
+  String get saveLiquidBalance => 'সংরক্ষণ — নিরাপদ ব্যয়সীমা আপডেট হবে';
+
+  @override
+  String get incomePatternQuestion => 'আপনার আয় সাধারণত কীভাবে আসে?';
+
+  @override
+  String get incomePatternSubtext =>
+      'আপনার বেশিরভাগ উপার্জনের সাথে মানানসই প্যাটার্ন বেছে নিন।';
+
+  @override
+  String get incomePatternMarketplaceTitle => 'Marketplace escrow';
+
+  @override
+  String get incomePatternMarketplacePlatform => 'Upwork, Fiverr, Payoneer';
+
+  @override
+  String get incomePatternMarketplaceSubtitle =>
+      'মাইলস্টোন বা কাজ শেষ না হওয়া পর্যন্ত পেমেন্ট আটকে থাকে';
+
+  @override
+  String get incomePatternDirectTitle => 'সরাসরি ক্লায়েন্ট';
+
+  @override
+  String get incomePatternDirectPlatform =>
+      'আপনি সরাসরি ক্লায়েন্টকে ইনভয়েস করেন';
+
+  @override
+  String get incomePatternDirectSubtitle =>
+      'প্রতিটি ক্লায়েন্টের সাথে পেমেন্টের শর্ত নির্ধারিত';
+
+  @override
+  String get incomePatternRetainerTitle => 'রিটেইনার / পুনরাবৃত্তি';
+
+  @override
+  String get incomePatternRetainerPlatform =>
+      'একই ক্লায়েন্ট, প্রতি মাসে একই পরিমাণ';
+
+  @override
+  String get incomePatternRetainerSubtitle => 'পূর্বানুমানযোগ্য মাসিক আয়';
+
+  @override
+  String get incomePatternSelectError =>
+      'চালিয়ে যেতে একটি আয়ের প্যাটার্ন নির্বাচন করুন।';
+
+  @override
+  String get saveIncomePattern => 'সংরক্ষণ — আয়ের প্যাটার্ন সেট হবে';
+
+  @override
+  String get bufferTitle => 'আপনার সেফটি বাফার সেট করুন';
+
+  @override
+  String get bufferSubtext =>
+      'এটা লক করা টাকা নয়। এটা হিসাবের ভেতরে একটি নিরাপত্তা মার্জিন।';
+
+  @override
+  String bufferSliderSemantics(int percent) {
+    return 'সেফটি বাফার স্লাইডার: $percent%';
+  }
+
+  @override
+  String bufferSliderValue(int percent) {
+    return '$percent শতাংশ';
+  }
+
+  @override
+  String bufferS2sPreviewPositive(int percent) {
+    return 'নিরাপদ ব্যয়সীমা প্রিভিউ: মোটের $percent% বাফার';
+  }
+
+  @override
+  String get bufferS2sPreviewNegative =>
+      'নিরাপদ ব্যয়সীমা প্রিভিউতে নেতিবাচক ব্যালেন্স দেখাচ্ছে';
+
+  @override
+  String get bufferSafeToSpendLabel => 'নিরাপদ ব্যয়সীমা';
+
+  @override
+  String get bufferCostsExceedBalance =>
+      'আপনার খরচ লিকুইড ব্যালেন্স ছাড়িয়ে গেছে। বাফার কমান বা প্রত্যাশিত আয় যোগ করুন।';
+
+  @override
+  String get saveBuffer => 'সংরক্ষণ — নিরাপদ ব্যয়সীমা সেটআপ শেষ';
+
+  @override
+  String get fixedCostsDueDayTooltip =>
+      'Due day হলো মাসের যে দিন এই খরচটা সাধারণত দেওয়া হয় (বিলিং সাইকেল মেলাতে ১-২৮)';
+
+  @override
+  String get fixedCostsDueDay => 'due day';
+
+  @override
+  String get fixedCostsAmountHint => 'পরিমাণ';
+
+  @override
+  String fixedCostsCategorySemantics(String label, String state) {
+    return '$label, $state';
+  }
+
+  @override
+  String get fixedCostsCategorySelected => 'নির্বাচিত';
+
+  @override
+  String get fixedCostsCategoryNotSelected => 'নির্বাচিত নয়';
+
+  @override
+  String get continueButton => 'চালিয়ে যান';
+
+  @override
+  String get fixedCostsCategoryRentHousing => 'ভাড়া / বাড়ি';
+
+  @override
+  String get fixedCostsCategoryInternet => 'ইন্টারনেট';
+
+  @override
+  String get fixedCostsCategoryMobilePhone => 'মোবাইল / ফোন';
+
+  @override
+  String get fixedCostsCategorySubscriptions => 'সাবস্ক্রিপশন';
+
+  @override
+  String get fixedCostsCategoryFamilySupport => 'পরিবার সহায়তা / বাবা-মা';
+
+  @override
+  String get fixedCostsCategoryLoanEmi => 'ঋণের EMI';
+
+  @override
+  String get fixedCostsCategoryOther => 'অন্যান্য নির্দিষ্ট খরচ';
+
+  @override
+  String get pipelineClientNameSemantics => 'ক্লায়েন্ট বা সোর্সের নাম ইনপুট';
+
+  @override
+  String pipelineAmountSemantics(String currency) {
+    return '$currency-তে পরিমাণ ইনপুট';
+  }
+
+  @override
+  String get pipelineCurrencySemantics => 'কারেন্সি নির্বাচন';
+
+  @override
+  String get pipelineEntryNoteSemantics =>
+      'তথ্য: এটা প্রত্যাশিত হিসেবে রাখা হবে। পরে স্ট্যাটাস পরিবর্তন করতে পারবেন।';
+
+  @override
+  String get pipelineSkipSemantics => 'পাইপলাইন এন্ট্রি বাদ দিয়ে হোমে যান';
+
+  @override
+  String get pipelineAddAndContinue => 'যোগ করুন এবং চালিয়ে যান';
+
+  @override
+  String get pipelineAdding => 'যোগ হচ্ছে...';
+
+  @override
+  String get pipelineAmountMustBePositive => '০-এর বেশি হতে হবে';
+
+  @override
+  String get auditLogLoadError => 'ইতিহাস লোড করা যায়নি।';
+
+  @override
+  String get auditLogEmpty => 'এখনো কোনো পরিবর্তন রেকর্ড হয়নি।';
+
+  @override
+  String get auditEntityIncome => 'আয়';
+
+  @override
+  String get auditEntityTransaction => 'লেনদেন';
+
+  @override
+  String get auditEntitySettings => 'সেটিংস';
+
+  @override
+  String get auditEntityFixedCost => 'ফিক্সড খরচ';
+
+  @override
+  String get auditEntityRecord => 'রেকর্ড';
+
+  @override
+  String auditEventAdded(String entity) {
+    return '$entity যোগ হয়েছে';
+  }
+
+  @override
+  String auditEventUpdated(String entity) {
+    return '$entity আপডেট হয়েছে';
+  }
+
+  @override
+  String auditEventDeleted(String entity) {
+    return '$entity মুছে ফেলা হয়েছে';
+  }
+
+  @override
+  String auditEventConfirmed(String entity) {
+    return '$entity নিশ্চিত হয়েছে';
+  }
+
+  @override
+  String auditEventExported(String entity) {
+    return '$entity এক্সপোর্ট হয়েছে';
+  }
+
+  @override
+  String auditEventChanged(String entity) {
+    return '$entity পরিবর্তিত হয়েছে';
+  }
+
+  @override
+  String get deleteCannotBeUndone => 'এটা পূর্বাবস্থায় ফেরানো যাবে না';
+
+  @override
+  String get deleteWarningBody =>
+      'আপনার ডেটা মুছে ফেললে এই ডিভাইস থেকে সব আয়ের এন্ট্রি, লেনদেন, সেটিংস এবং পরিবর্তনের ইতিহাস চিরতরে মুছে যাবে। এই ডেটা পুনরুদ্ধার করার কোনো উপায় নেই।';
+
+  @override
+  String get deleteWhatWillBeDeleted => 'যা মুছে যাবে';
+
+  @override
+  String get deleteItemAllIncomeEntries => 'সব আয়ের এন্ট্রি';
+
+  @override
+  String get deleteItemAllTransactions => 'সব লেনদেন';
+
+  @override
+  String get deleteItemAllFixedCosts => 'সব ফিক্সড খরচ';
+
+  @override
+  String get deleteItemYourSettings => 'আপনার সেটিংস';
+
+  @override
+  String get deleteContinue => 'মুছতে এগিয়ে যান';
+
+  @override
+  String get deletePinConfirmTitle => 'নিশ্চিত করতে PIN দিন';
+
+  @override
+  String get deleteIncorrectPin => 'ভুল PIN';
+
+  @override
+  String deleteLockoutMessage(String minutes) {
+    return 'অনেকবার চেষ্টা হয়ে গেছে। $minutes মিনিট পরে আবার চেষ্টা করুন।';
+  }
+
+  @override
+  String get deleteTypeConfirmTitle => 'নিশ্চিত করতে \"DELETE\" টাইপ করুন';
+
+  @override
+  String get deleteConfirmHint => 'DELETE';
+
+  @override
+  String get exportDataBelongsToYou => 'আপনার ডেটা আপনার';
+
+  @override
+  String get exportDescription =>
+      'আপনার সব হেল্ম ডেটা CSV ফাইল হিসেবে এক্সপোর্ট করুন। যেকোনো স্প্রেডশিট অ্যাপে খুলুন — Excel, Google Sheets বা Numbers।';
+
+  @override
+  String get exportWarning =>
+      'এক্সপোর্ট করা ফাইলগুলো এনক্রিপ্টেড নয় এবং ক্লায়েন্টের নাম ও পরিমাণসহ সংবেদনশীল তথ্য থাকতে পারে। শুধুমাত্র বিশ্বস্ত মাধ্যমে শেয়ার করুন এবং কাজ শেষে ডিভাইস থেকে ফাইলগুলো মুছে দিন।';
+
+  @override
+  String get exportWhatWillBeExported => 'যা এক্সপোর্ট হবে';
+
+  @override
+  String get exportItemIncomeEntries => 'আয়ের এন্ট্রি';
+
+  @override
+  String get exportItemTransactions => 'লেনদেন';
+
+  @override
+  String get exportItemFixedCosts => 'ফিক্সড খরচ';
+
+  @override
+  String get exportItemSettings => 'সেটিংস';
+
+  @override
+  String get exportAllData => 'সব ডেটা এক্সপোর্ট করুন';
+
+  @override
+  String exportFailed(String error) {
+    return 'এক্সপোর্ট ব্যর্থ: $error';
+  }
+
+  @override
+  String get exportShareSubject => 'হেল্ম ডেটা এক্সপোর্ট';
+
+  @override
+  String taxRateSemantics(String percent) {
+    return 'ট্যাক্স রেট: $percent%';
+  }
+
+  @override
+  String safetyBufferSemantics(String percent) {
+    return 'সেফটি বাফার: $percent%';
+  }
+
+  @override
+  String itemDeleted(String label) {
+    return '$label মুছে ফেলা হয়েছে';
+  }
+
+  @override
+  String dueDay(String day) {
+    return 'দেয়: $day তারিখ';
+  }
+
+  @override
+  String get fixedCostLabelHint => 'লেবেল (যেমন: ইন্টারনেট, ভাড়া)';
+
+  @override
+  String get fixedCostLabelRequired => 'লেবেল দেওয়া আবশ্যক';
+
+  @override
+  String get amountMustBePositive => '০-এর বেশি হতে হবে';
+
+  @override
+  String get dueDayLabel => 'দেয় তারিখ';
+
+  @override
+  String get dueDayHint => '১-২৮';
+
+  @override
+  String get dueDayValidation => 'শুধুমাত্র ১-২৮';
+
+  @override
+  String get preferredCheckInTime => 'পছন্দের চেক-ইন সময়';
+
+  @override
+  String get alertChannels => 'অ্যালার্ট চ্যানেল';
+
+  @override
+  String get pushNotifications => 'পুশ নোটিফিকেশন';
+
+  @override
+  String get pushNotificationsSubtitle => 'প্রত্যাশিত তারিখে অ্যালার্ট পান';
+
+  @override
+  String get inAppNotificationBanner => 'ইন-অ্যাপ নোটিফিকেশন ব্যানার';
+
+  @override
+  String get inAppNotificationSubtitle => 'ড্যাশবোর্ডে বিল সতর্কতা দেখান';
+
+  @override
+  String get quietAffirmations => 'নিরব নিশ্চিতি';
+
+  @override
+  String get quietAffirmationsSubtitle =>
+      'হিরো ব্লকে শান্ত নিশ্চিতকরণ স্ট্যাটাস দেখান';
+
+  @override
+  String get savePreferences => 'পছন্দ সংরক্ষণ করুন';
+
+  @override
+  String get editTransaction => 'লেনদেন সম্পাদনা করুন';
+
+  @override
+  String get transactionNotFound => 'লেনদেন পাওয়া যায়নি';
+
+  @override
+  String get transactionMayBeDeleted =>
+      'এই পেমেন্টটি মুছে ফেলা হয়ে থাকতে পারে।';
+
+  @override
+  String get editCashOut => 'ক্যাশ আউট সম্পাদনা করুন';
+
+  @override
+  String get recordCashOut => 'ক্যাশ আউট রেকর্ড করুন';
+
+  @override
+  String get transactionTitle => 'শিরোনাম';
+
+  @override
+  String get transactionTitleHint => 'যেমন: দুপুরের খাবার, Uber, বেতন';
+
+  @override
+  String get titleRequired => 'শিরোনাম দেওয়া আবশ্যক';
+
+  @override
+  String get enterValidAmountGreaterThanZero =>
+      '০-এর বেশি একটি সঠিক পরিমাণ দিন';
+
+  @override
+  String get date => 'তারিখ';
+
+  @override
+  String get noteOptional => 'নোট (ঐচ্ছিক)';
+
+  @override
+  String get addNoteHint => 'একটি নোট লিখুন…';
+
+  @override
+  String get updateTransaction => 'লেনদেন আপডেট করুন';
+
+  @override
+  String get saveTransaction => 'লেনদেন সংরক্ষণ করুন';
+
+  @override
+  String get transactionUpdated => 'লেনদেন সফলভাবে আপডেট হয়েছে';
+
+  @override
+  String get transactionSaved => 'লেনদেন সফলভাবে সংরক্ষিত হয়েছে';
+
+  @override
+  String get transactionSaveError =>
+      'পেমেন্ট সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
 }

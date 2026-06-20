@@ -17,6 +17,7 @@ import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/auth/presentation/providers/auth_provider.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class PinEntryScreen extends ConsumerStatefulWidget {
   const PinEntryScreen({super.key});
@@ -118,24 +119,28 @@ class _PinEntryScreenState extends ConsumerState<PinEntryScreen> {
       TransactionalEvents.pinAuthFailed,
       properties: {EventProperties.remainingAttempts: remaining.clamp(0, _maxAttempts)},
     );
+    final l10n = context.l10n;
     setState(() {
       if (authState.isLockedOut && authState.lockoutUntil != null) {
         _startLockoutTimerIfNeeded();
-        _message = _lockoutCountdownText(authState.lockoutUntil!);
+        _message = _lockoutCountdownText(authState.lockoutUntil!, l10n);
       } else if (authState.failedAttempts >= _maxAttempts) {
-        _message = 'Too many attempts. Try again later.';
+        _message = l10n.pinTooManyAttempts;
       } else {
-        _message = 'Incorrect PIN — $remaining attempts remaining';
+        _message = l10n.pinIncorrectAttempts(remaining);
       }
     });
   }
 
-  String _lockoutCountdownText(DateTime lockoutUntil) {
+  String _lockoutCountdownText(DateTime lockoutUntil, AppLocalizations l10n) {
     final remaining = lockoutUntil.difference(DateTime.now());
-    if (remaining.isNegative) return 'Try again.';
+    if (remaining.isNegative) return l10n.pinTryAgain;
     final minutes = remaining.inMinutes;
     final seconds = remaining.inSeconds % 60;
-    return 'Locked. Try again in ${minutes}m ${seconds.toString().padLeft(2, '0')}s';
+    return l10n.pinLockedCountdown(
+      minutes.toString(),
+      seconds.toString().padLeft(2, '0'),
+    );
   }
 
   @override
@@ -199,7 +204,7 @@ class _PinEntryHeader extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Enter your PIN',
+          context.l10n.pinEnterTitle,
           style: context.textStyles.headingLg.copyWith(
             color: colors.inkPrimary,
           ),

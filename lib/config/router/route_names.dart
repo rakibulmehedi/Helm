@@ -15,7 +15,6 @@ abstract final class RouteNames {
   static const String home = '/home';
   static const String pipeline = '/pipeline';
   static const String trace = '/trace';
-  static const String history = '/history';
   static const String settings = '/settings';
 
   // ── transactions ────────────────────────────────────────────────────────────

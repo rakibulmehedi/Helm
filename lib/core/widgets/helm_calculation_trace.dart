@@ -14,6 +14,7 @@ import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/themes/helm_motion.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/safe_to_spend_result.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 // ---------------------------------------------------------------------------
 // Data model for a single trace line
@@ -66,12 +67,14 @@ class HelmCalculationTrace extends StatefulWidget {
 class _HelmCalculationTraceState extends State<HelmCalculationTrace>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final List<_TraceLine> _lines;
+  late final int _lineCount;
+  late List<_TraceLine> _lines;
 
   @override
   void initState() {
     super.initState();
-    _lines = _buildLines(widget.result);
+    _lineCount = _countLines(widget.result);
+    _lines = [];
 
     _controller = AnimationController(
       vsync: this,
@@ -83,6 +86,9 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    if (_lines.isEmpty) {
+      _lines = _buildLines(widget.result, context.l10n);
+    }
     final reduceMotion = MediaQuery.of(context).disableAnimations;
     if (reduceMotion) {
       _controller.value = 1.0;
@@ -97,44 +103,53 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
     super.dispose();
   }
 
+  // Count lines without labels (for animation timing in initState).
+  int _countLines(SafeToSpendResult r) {
+    int count = 4; // received, cashout, liquid, safe-to-spend always present
+    if (r.taxReserve > 0) count++;
+    if (r.fixedCostsDue > 0) count++;
+    if (r.anxietyBuffer > 0) count++;
+    return count;
+  }
+
   // Build ordered list of trace lines, omitting zero-value deductions.
-  List<_TraceLine> _buildLines(SafeToSpendResult r) {
+  List<_TraceLine> _buildLines(SafeToSpendResult r, AppLocalizations l10n) {
     final lines = <_TraceLine>[
       _TraceLine(
-        label: '+ Received income',
+        label: l10n.calcTraceReceivedIncome,
         amount: r.totalReceivedIncomeBdt,
         sign: _LineSign.positive,
       ),
       _TraceLine(
-        label: '− Cash out',
+        label: l10n.calcTraceCashOut,
         amount: r.totalExpenses,
         sign: _LineSign.negative,
       ),
       _TraceLine(
-        label: '= Liquid BDT',
+        label: l10n.calcTraceLiquidBdt,
         amount: r.liquidCash,
         sign: _LineSign.result,
       ),
       if (r.taxReserve > 0)
         _TraceLine(
-          label: '− Tax reserve (hold)',
+          label: l10n.calcTraceTaxReserve,
           amount: r.taxReserve,
           sign: _LineSign.negative,
         ),
       if (r.fixedCostsDue > 0)
         _TraceLine(
-          label: '− Fixed costs due',
+          label: l10n.calcTraceFixedCosts,
           amount: r.fixedCostsDue,
           sign: _LineSign.negative,
         ),
       if (r.anxietyBuffer > 0)
         _TraceLine(
-          label: '− Safety buffer',
+          label: l10n.calcTraceSafetyBuffer,
           amount: r.anxietyBuffer,
           sign: _LineSign.negative,
         ),
       _TraceLine(
-        label: '= Safe-to-Spend',
+        label: l10n.calcTraceSafeToSpend,
         amount: r.safeToSpend,
         sign: _LineSign.result,
         isFinal: true,
@@ -147,7 +162,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
   Animation<double> _fadeFor(int index) {
     final totalMs =
         HelmMotion.medium.inMilliseconds +
-        HelmMotion.drawerRowStagger.inMilliseconds * _lines.length;
+        HelmMotion.drawerRowStagger.inMilliseconds * _lineCount;
 
     final startMs = HelmMotion.drawerRowStagger.inMilliseconds * index;
     final endMs = startMs + HelmMotion.base.inMilliseconds;
@@ -214,14 +229,14 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'How we calculated this',
+                      context.l10n.calcTraceTitle,
                       style: typography.headingMd.copyWith(
                         color: HelmSignalTheme.signalInkPrimary,
                       ),
                     ),
                     const SizedBox(height: HelmSpacing.s1),
                     Text(
-                      'Tap any line to learn more',
+                      context.l10n.calcTraceSubtitle,
                       style: typography.labelSm.copyWith(
                         color: HelmSignalTheme.signalInkMuted,
                       ),

@@ -10,6 +10,7 @@ import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -18,6 +19,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typo = context.textStyles;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: colors.canvas,
@@ -29,19 +31,19 @@ class WelcomeScreen extends StatelessWidget {
             children: [
               const Spacer(),
               Text(
-                'Helm',
+                l10n.appName,
                 style: typo.headingLg.copyWith(color: colors.inkPrimary),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: HelmSpacing.s3),
               Text(
-                'How much BDT can you actually spend right now?',
+                l10n.appTagline,
                 style: typo.bodyLg.copyWith(color: colors.inkSecondary),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
               AppButton(
-                label: 'Continue — sets up your Safe-to-Spend',
+                label: l10n.continueSetupSafeToSpend,
                 onPressed: () => context.go(RouteNames.onboarding),
                 isEnabled: true,
               ),

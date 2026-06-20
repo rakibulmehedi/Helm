@@ -8,9 +8,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/export/presentation/providers/export_provider.dart';
+import 'package:helm/l10n/app_localization.dart';
 
 class ExportScreen extends ConsumerStatefulWidget {
   const ExportScreen({super.key});
@@ -22,6 +24,7 @@ class ExportScreen extends ConsumerStatefulWidget {
 class _ExportScreenState extends ConsumerState<ExportScreen> {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final colors = context.colors;
     final typo = context.textStyles;
     final status = ref.watch(exportProvider);
@@ -31,13 +34,15 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
       if (!mounted) return;
       if (next == ExportStatus.success) {
         final notifier = ref.read(exportProvider.notifier);
-        _shareFiles(notifier.lastResult?.filePaths ?? []);
+        _shareFiles(notifier.lastResult?.filePaths ?? [], l10n);
         notifier.reset();
       } else if (next == ExportStatus.error) {
         final notifier = ref.read(exportProvider.notifier);
         HelmToast.show(
           context,
-          message: 'Export failed: ${notifier.lastResult?.errorMessage ?? 'Unknown error'}',
+          message: l10n.exportFailed(
+            notifier.lastResult?.errorMessage ?? 'Unknown error',
+          ),
           type: ToastType.error,
         );
         notifier.reset();
@@ -46,33 +51,32 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Export my data'),
+        title: Text(l10n.exportMyData),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(HelmSpacing.screenEdge),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Your data belongs to you',
+              l10n.exportDataBelongsToYou,
               style: typo.headingLg.copyWith(
                 color: colors.inkPrimary,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Export all your Helm data as CSV files. '
-              'Open them in any spreadsheet app — Excel, Google Sheets, or Numbers.',
+              l10n.exportDescription,
               style: typo.bodyMd.copyWith(
                 color: colors.inkSecondary,
               ),
             ),
             const SizedBox(height: 16),
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(HelmSpacing.s3),
               decoration: BoxDecoration(
                 color: colors.stateAtRisk.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(HelmSpacing.s2),
                 border: Border.all(
                   color: colors.stateAtRisk.withValues(alpha: 0.24),
                 ),
@@ -85,10 +89,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      'Exported files are not encrypted and may contain '
-                      'sensitive information such as client names and amounts. '
-                      'Only share them through trusted channels and delete the '
-                      'files from your device when you are done.',
+                      l10n.exportWarning,
                       style: typo.bodySm.copyWith(
                         color: colors.inkSecondary,
                       ),
@@ -99,14 +100,14 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              'What will be exported',
+              l10n.exportWhatWillBeExported,
               style: typo.bodyLg.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colors.inkPrimary,
               ),
             ),
             const SizedBox(height: 8),
-            ..._exportItems(colors),
+            ..._exportItems(context, colors),
             const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
@@ -126,7 +127,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
                         height: 16,
                         child: CircularProgressIndicator(strokeWidth: 2),
                       )
-                    : const Text('Export all data'),
+                    : Text(l10n.exportAllData),
               ),
             ),
           ],
@@ -135,13 +136,14 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
     );
   }
 
-  List<Widget> _exportItems(HelmColors colors) {
-    const items = [
-      'Income entries',
-      'Transactions',
-      'Fixed costs',
-      'Settings',
-      'Change history',
+  List<Widget> _exportItems(BuildContext context, HelmColors colors) {
+    final l10n = context.l10n;
+    final items = [
+      l10n.exportItemIncomeEntries,
+      l10n.exportItemTransactions,
+      l10n.exportItemFixedCosts,
+      l10n.exportItemSettings,
+      l10n.changeHistory,
     ];
     return items
         .map(
@@ -168,12 +170,12 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         .toList();
   }
 
-  void _shareFiles(List<String> filePaths) {
+  void _shareFiles(List<String> filePaths, AppLocalizations l10n) {
     if (filePaths.isEmpty) return;
     SharePlus.instance.share(
       ShareParams(
         files: filePaths.map((p) => XFile(p)).toList(),
-        subject: 'Helm data export',
+        subject: l10n.exportShareSubject,
       ),
     );
   }

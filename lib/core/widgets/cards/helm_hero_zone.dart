@@ -25,15 +25,19 @@ class HelmHeroZone extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return Container(
-      padding: padding ??
-          const EdgeInsets.all(HelmSpacing.s5),
-      decoration: BoxDecoration(
-        color: colors.canvas,
-        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
-        // No visible border — this zone exists through spacing alone.
+    return Semantics(
+      label: 'Safe to spend summary',
+      container: true,
+      child: Container(
+        padding: padding ??
+            const EdgeInsets.all(HelmSpacing.s5),
+        decoration: BoxDecoration(
+          color: colors.canvas,
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
+          // No visible border — this zone exists through spacing alone.
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }
