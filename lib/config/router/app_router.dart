@@ -149,10 +149,21 @@ final GoRouter appRouter = GoRouter(
         return MagicLinkScreen(
           onAuthenticated: () async {
             await SharedPrefServices.setMagicLinkAuthCompleted(true);
+            // Cross-validate: mirror flag into Hive authBox so the magic-link
+            // gate can confirm the flag was not set by spoofing SharedPrefs.
+            if (Hive.isBoxOpen(AppBoxNames.authBox)) {
+              Hive.box<dynamic>(AppBoxNames.authBox).put('magic_link_verified', true);
+            }
             if (context.mounted) context.go(RouteNames.home);
           },
           onGuest: () async {
             await SharedPrefServices.setMagicLinkAuthCompleted(true);
+            await SharedPrefServices.setGuestMode(true);
+            if (Hive.isBoxOpen(AppBoxNames.authBox)) {
+              final box = Hive.box<dynamic>(AppBoxNames.authBox);
+              box.put('magic_link_verified', true);
+              box.put('guest_mode', true);
+            }
             if (context.mounted) context.go(RouteNames.home);
           },
         );
@@ -294,6 +305,14 @@ const Set<String> _publicRoutes = {
   RouteNames.pinEntry,
 };
 
+/// Routes that require an email-verified identity (not available to guests).
+/// Guests verified via PIN but skipped magic-link identity verification.
+const Set<String> _identityRoutes = {
+  RouteNames.auditLog,
+  RouteNames.trace,
+  RouteNames.deleteAccount,
+};
+
 /// Called before every navigation. Returns null to allow, or a path to redirect.
 ///
 /// This redirect is intentionally **fail-closed**:
@@ -305,12 +324,24 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   final String currentPath = state.matchedLocation;
 
   // ── Magic Link gate ───────────────────────────────────────────────────────
-  // Identity verification must run before any user data collection.
+  // Identity verification (or explicit guest opt-in) must complete before
+  // the app allows data entry. The SharedPrefs flag is cross-validated
+  // against the Hive authBox to resist spoofing via SharedPrefs backup-restore.
   final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
   if (!magicLinkDone) {
     // Not verified yet — send to magic-link, or stay there (early return
     // prevents the onboarding gate below from redirecting away from /magic-link).
     return currentPath == RouteNames.magicLink ? null : RouteNames.magicLink;
+  }
+  // Cross-validate: if the Hive box is open and lacks the mirrored flag,
+  // the SharedPrefs flag may have been spoofed — re-run verification.
+  // If the box is not open (startup race before Hive init), allow through.
+  if (Hive.isBoxOpen(AppBoxNames.authBox)) {
+    final box = Hive.box<dynamic>(AppBoxNames.authBox);
+    final bool hiveVerified = box.get('magic_link_verified', defaultValue: false) as bool;
+    if (!hiveVerified) {
+      return currentPath == RouteNames.magicLink ? null : RouteNames.magicLink;
+    }
   }
   // Identity verified — don't allow re-entry into the magic-link flow.
   if (currentPath == RouteNames.magicLink) return RouteNames.home;
@@ -355,6 +386,12 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   // PIN is set up but session not authenticated — force PIN entry.
   if (!isSessionAuthenticated) {
     return RouteNames.pinEntry;
+  }
+
+  // ── Guest route restrictions ──────────────────────────────────────────────
+  // Guests skipped email identity verification — block identity-specific routes.
+  if (SharedPrefServices.getGuestMode() && _identityRoutes.contains(currentPath)) {
+    return RouteNames.home;
   }
 
   return null;
