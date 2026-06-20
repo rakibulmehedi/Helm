@@ -7,6 +7,34 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [0.4.0-beta.1] — 2026-06-20
+
+### Added
+- Guest mode: users can skip magic-link identity verification and use the app locally; identity-specific routes (audit log, trace, delete account) are blocked for guests
+- `errorInvalidEmail` localization key in en/bn (324/324 ARB keys); magic-link screen now shows a distinct error for malformed email addresses rather than reusing the rate-limit message
+- Hive cross-validation for magic-link flag: spoofing SharedPrefs via ADB backup no longer bypasses the identity gate
+
+### Fixed
+- **CRITICAL**: base64url token regex now accepts `-` and `_`; prior regex rejected all real Supabase OTP tokens containing those characters, breaking production auth
+- Negative amounts (`formatBDT`, `formatUSD`) no longer render as `-,36,000.00`; sign is stripped before grouping and restored after
+- `box.get() as bool` crash vector replaced with `== true`; tampered Hive values no longer throw `TypeError` inside `_globalRedirect`
+- `logout()` now clears `magic_link_verified` from Hive and `guest_mode` from SharedPrefs; stale identity state no longer persists across sessions
+- `onAuthenticated` / `onGuest` callbacks typed as `Future<void> Function()`; auth writes are now awaited before navigation, eliminating silent write failures
+- Dead `guest_mode` Hive write removed from onGuest callback; guest mode is intentionally SharedPrefs-backed
+
+### Changed
+- Complete UI/UX migration to HelmSpacing, HelmTypography, and HelmColors design tokens across all screens (58 hardcoded radius/spacing values replaced)
+- Currency symbols centralized behind `NumberFormatter.symbolForCode` boundary (7 files)
+- GoRouter magic-link→onboarding redirect loop fixed: early `null` return prevents gate stacking
+- `_identityRoutes` constant introduced for declarative guest route restriction
+
+### Internal
+- 19 commits since v0.3.0-beta.1
+- 365/365 tests pass; 0 errors / 0 warnings / 0 infos — dart analyze clean
+- Dual-model adversarial review (Claude + Codex) completed before merge
+
+---
+
 ## [Unreleased]
 
 ### Next

@@ -2,33 +2,7 @@
 
 ## Security
 
-### P0: Guest mode security scope — document intent or add flag
-
-**What:** `onGuest` callback in `app_router.dart:154` sets `magicLinkAuthCompleted=true` and navigates to home, bypassing identity verification. User still hits PIN gate, but the magic-link trust layer is skipped by design.
-
-**Why:** The magic-link gate comment says "Identity verification must run before any user data collection." Guest mode contradicts this. Either the comment is wrong, or guest mode needs a separate flag (`guestMode=true`) so sensitive routes can restrict guest access.
-
-**Context:** Discovered during `/ship` pre-landing review on branch `feat/ui-ux-migration`. The `onGuest` callback was added in the Signal Deck merge from `main`. Decision needed: (A) guest = full local access, PIN-protected only — document this as intentional; (B) guest = restricted access (no export, no audit log, no delete account) — add `guestMode` flag and route guards.
-
-**Effort:** S  
-**Priority:** P0  
-**Depends on:** Founder decision on guest mode scope
-
----
-
-### P1: `magicLinkAuthCompleted` in plaintext SharedPreferences
-
-**What:** The magic-link gate relies on a plaintext `SharedPreferences` boolean. A local attacker with device access or backup restore can set this flag without completing verification.
-
-**Why:** For a trust-layer that the architecture treats as mandatory ("identity verification must run before any user data collection"), a spoofable plaintext flag provides weak enforcement.
-
-**Context:** For a local-first app where all user data is on-device, the threat model may make this acceptable (attacker with device access already has data). If the magic-link gate is purely UX friction rather than a security boundary, document this. If it is a security boundary, move to `flutter_secure_storage` or cross-validate against a Hive session token.
-
-**Effort:** M  
-**Priority:** P1  
-**Depends on:** Guest mode scope decision above
-
----
+_No open security items._
 
 ## Testing
 
@@ -71,6 +45,18 @@
 **Effort:** S  
 **Priority:** P2  
 **Depends on:** None
+
+### P1: logout() path needs integration test for Hive + SharedPrefs cleanup
+
+**What:** `logout()` in `auth_provider.dart` now clears 4 values (session token, `magic_link_verified`, magic-link flag, `guest_mode`). There is no test verifying all 4 are cleared.
+
+**Why:** A partial clear leaves the user in a split-identity state (Hive says verified, SharedPrefs says not, or vice versa). The cross-validation gate would then loop to magic-link on every cold start.
+
+**Effort:** S  
+**Priority:** P1  
+**Depends on:** None
+
+---
 
 ## Completed
 
