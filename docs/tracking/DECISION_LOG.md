@@ -639,3 +639,19 @@ Material system-widget sizing constraints are exempt from HelmTypography token r
 
 Reason:
 Material Badge uses 10pt by design. HelmTypography's smallest token (labelSm) is 11pt. Forcing labelSm breaks badge proportions. System-widget sizing contracts take precedence over Helm design tokens.
+
+---
+
+## Decision 039 — Paper Ledger Visual Direction (2026-06-21)
+
+**Supersedes:** Decision 036 (Signal Deck).
+
+**Decision:** Adopt Paper Ledger — warm paper (`#F3ECE0`) / warm espresso (`#1E1813`) dual mode, terracotta (`#C2603F`) accent, Fraunces display + Inter UI + JetBrains Mono money + Hind Siliguri Bangla. Latin numerals for all money.
+
+**Why:** "calm & human" product feeling target; terracotta owns no state meaning so it never collides with semantic state colors; warm espresso preserves human feeling at night. stateSafe darkened from #5E7C63 → #567059, stateTight from #9A7B2F → #7A6024 for WCAG AA on warm paper canvas.
+
+**Scope:** Visual only — no business-logic, persistence, or routing-guard changes. Bottom nav expanded to 4 tabs (Home/Pipeline/History/Settings) — founder-approved exception.
+
+**Signal Deck code removed**, not hidden. 10 files deleted (5 lib + 5 test).
+
+**Spec:** `docs/superpowers/plans/2026-06-21-paper-ledger-redesign.md`
