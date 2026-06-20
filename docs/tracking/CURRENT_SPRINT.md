@@ -136,6 +136,14 @@ Status: **🔲 PENDING** — Runs BEFORE beta APK distribution. Depends on: S1 +
 - **Phase 5 (BLOCKED)** — V1 Features. Gated on: S1 exit + beta thresholds cleared + security review pass.
 - **Phase 6 (BLOCKED)** — V2 Features. Gated on: V1 stable + legal L5 + pricing validation.
 
+**UI/UX Migration — COMPLETE (branch: feat/ui-ux-migration, 2026-06-20):**
+All P1–P6 phases done. 325/325 tests pass. dart analyze 0/0/0. Golden tests: 1 (dashboard).
+- P6a ✅ Currency symbol centralization — `NumberFormatter.symbolForCode/prefixForCode/defaultCurrencyCode`; 7 hardcoded `৳` across 6 files eliminated (commit `7abc03d`)
+- P6b ✅ Typography token purity — 5 raw `TextStyle(...)` usages replaced with `HelmTypography` tokens in audit_log, sts_settings, add_income (commit `2add3fc`)
+- Non-blocking tech debt filed as chore: 58 `BorderRadius.circular(N)` + 8 `EdgeInsets.all(N)` use correct values but not token constant names
+- Strategic docs committed (founder-review only; prototype/pilot unauthorized until ratification): `docs/strategy/HELM_GLOBAL_PRODUCT_EXPERIENCE_AND_UI_MIGRATION_BLUEPRINT.md`, `docs/validation/EXPERIMENT_16_1_TEMPORAL_S2S_PROTOCOL.md`
+- **Next authorized work:** golden test expansion OR token reference constant cleanup OR Experiment 16.1 prototype (when founder authorizes)
+
 ## 3. Sprint Status
 
 All UX Canon sprints (1-8), Alpha sprints (A1-A4), and Phases 1-4 COMPLETE. See `docs/tracking/TASKS.md` for full task inventory.
@@ -145,7 +153,8 @@ All UX Canon sprints (1-8), Alpha sprints (A1-A4), and Phases 1-4 COMPLETE. See 
 | UX Canon (8 sprints) | COMPLETE | 81 tasks, design system ~90% |
 | A1-A4 | COMPLETE | All blockers resolved, 78 tests |
 | Phase 1-4 (Behavioral→Doctrine) | COMPLETE | 210 tests, B:90, U:93 |
-| S1 Security | IN PROGRESS | 251 tests, W4 done |
+| S1 Security | IN PROGRESS | 325 tests, W4–W5 done |
+| UI/UX Migration (P1–P6) | COMPLETE | 325 tests, 0/0/0, P6a+P6b done |
 | A5 Bangla+Build | PENDING | Needs human keystore |
 | VCI | PENDING | After S1+A5 |
 | Phase 5-6 | BLOCKED | Beta gates + legal |

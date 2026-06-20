@@ -194,7 +194,7 @@
 
 ## Sprint S1 Exit Gates
 - [ ] `dart analyze` 0/0/0
-- [ ] All 210+ existing tests pass (no regression)
+- [ ] All 325+ existing tests pass (no regression)
 - [ ] New security tests: ~40 (auth brute-force, CSV injection, type confusion, race)
 - [ ] Hive encryption enabled with platform keystore
 - [ ] Android release signing configured (human)
@@ -208,6 +208,11 @@
 ---
 
 ## Recently Completed
+
+**UI/UX Migration — P6 Final Coherence** ✅ [2026-06-20] — `dart analyze` 0/0/0, 325/325 tests pass (branch: `feat/ui-ux-migration`)
+- [x] P6a: Currency symbol centralization (`NumberFormatter.symbolForCode/prefixForCode/defaultCurrencyCode`) — 7 hardcoded `৳` across 6 files eliminated (commit `7abc03d`)
+- [x] P6b: Typography token purity (3 screens) — 5 raw `TextStyle(...)` replaced with `HelmTypography` tokens in audit_log, sts_settings, add_income (commit `2add3fc`)
+- Prior phases P1–P5c complete: deprecated API removal, HelmLocaleText + ARB infra (320 keys), Dashboard Reality Stack, income/pipeline localization, settings/onboarding/auth/transaction/export screen migration, full 320/320 en/bn localization pass
 
 **Sprint S1-W4 — Security Hardening (6 phases)** ✅ [2026-06-14] — `dart analyze` 0 issues, 251/251 tests pass
 - 4A Secret Hygiene: `.gitignore`, release workflow email, agent docs
@@ -401,6 +406,9 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [ ] Multi-currency conversion (V1)
 - [ ] Supabase sync (V1+)
 - [ ] Push notifications (V1 transactional only)
+- [ ] CHORE: Token reference cleanup — 58 `BorderRadius.circular(N)` + 8 `EdgeInsets.all(N)` use correct pixel values but not token constant names (non-blocking)
+- [ ] CHORE: Expand golden tests to onboarding, income form, STS settings (currently 1 screen — dashboard only)
+- [ ] FUTURE: Extend `NumberFormatter.symbolForCode` with EUR/SGD/GBP before Experiment 16.1 prototypes (requires founder ratification)
 
 ## Killed (Per Doctrine)
 

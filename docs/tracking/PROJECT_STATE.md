@@ -29,6 +29,9 @@
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 - **security hardening S1-W5 complete** (June 2026: Waves 4-6 continuation — state-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening; `dart analyze` 0 issues, 282 tests pass)
 - **release APK optimized** (June 2026: APK shrunk 57→20.8MB via `--tree-shake-icons` + arm64-only target; APK signature verification added; SSL pinning infrastructure created; KGP deprecation warning acknowledged as unfixable without Flutter SDK upgrade; `dart analyze` 0 warnings/errors, build clean)
+- **UI/UX migration complete** (2026-06-20, branch `feat/ui-ux-migration`: all deprecated Flutter APIs removed (`withOpacity` → `withValues`, legacy ThemeExtension patterns); HelmColors ThemeExtension, HelmSpacing, HelmTypography token system fully operational; HelmAmount widget, HelmCalculationTrace, NumberFormatter (lakh/crore BDT + USD); currency symbol boundary (`symbolForCode`/`prefixForCode`/`defaultCurrencyCode`); 5 remaining raw TextStyle usages replaced with HelmTypography tokens; Reality Stack dashboard with S2S hero, 4 tiers, calculation trace, analytics; 19 GoRoute declarations, 21 route-name constants; en/bn 320/320 ARB keys, parity complete; `dart analyze` 0/0/0, 325 tests pass)
+- **global product blueprint committed** (2026-06-20, commit `74cfb11`: 28-section synthesis, decision-grade — prototype/pilot work NOT authorized pending founder ratification)
+- **Experiment 16.1 falsification protocol committed** (2026-06-20, commit `3081bfd`: 3-variant temporal S2S protocol, n=12 cohort — awaiting founder authorization before prototype phase begins)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
@@ -39,8 +42,11 @@
 
 ## 3. Readiness Status
 
-**Current Verdict: S1-W6 — QA PRE-RELEASE FIXES (2026-06-15)**
-- **QA Gate Execution**: 10 gates run against release APK on physical device. 6 failed, 3 conditional pass, 1 pass. **Release Verdict: NO GO.** 9 findings (2 BLOCKER, 4 HIGH, 2 MEDIUM, 1 LOW).
+**Current Verdict: UI/UX MIGRATION COMPLETE (2026-06-20)**
+- **UI/UX migration phases P1–P6 complete** — all deprecated APIs removed, design-system token system (HelmColors, HelmSpacing, HelmTypography) fully operational, currency boundary and typography token purity achieved. `dart analyze` 0/0/0, 325/325 tests pass.
+- **Remaining tech debt (non-blocking, documented)**: 58 `BorderRadius.circular(N)` and 8 `EdgeInsets.all(N)` use correct pixel values but reference raw literals instead of token constants. No behavior impact.
+- **Localization**: en/bn 320/320 ARB keys, full parity — zero gap.
+- **QA Gate Execution** (prior, 2026-06-15): 10 gates run against release APK on physical device. 6 failed, 3 conditional pass, 1 pass. **Release Verdict: NO GO.** 9 findings (2 BLOCKER, 4 HIGH, 2 MEDIUM, 1 LOW).
 - **Fix Dispatch**: `docs/planning/QA_FIX_DISPATCH.md` — 9 fixes across 12 files + 7 font assets. Execution order: BLOCKERs → HIGHs → MEDIUM/LOW.
 - **S1-W5 complete** (2026-06-14) — State-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening. `dart analyze` 0 issues, 282 tests pass.
 - **S1-W4 complete** (2026-06-14) — Secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep. `dart analyze` 0 issues, 251 tests pass.
@@ -97,6 +103,7 @@ All phases through S1-W4 complete. See CURRENT_SPRINT.md for detailed sprint rec
 | A1–A4 (Alpha) | ✅ DONE | All blockers resolved, 104 tests |
 | Phase 1–4 (Behavioral/Auth) | ✅ DONE | 210 tests, 0/0/0 analyze |
 | S1-W4 (Security) | ✅ DONE | 251 tests, platform/crypto/input hardened |
+| UI/UX Migration P1–P6 | ✅ DONE | 325 tests, 0/0/0 analyze, 320/320 ARB keys |
 
 ## 5b. D1 Trust Layer — COMPLETE (2026-06-06)
 

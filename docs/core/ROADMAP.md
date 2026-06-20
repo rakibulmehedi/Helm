@@ -10,9 +10,28 @@
 > Reference: `docs/planning/100_PERCENT_MASTER_PLAN.md` — canonical 6-phase plan
 > Reference: `docs/planning/COMPREHENSIVE_IMPLEMENTATION_PLAN.md` — execution plan with VCI infra, risk register, dependency graph
 > **Security Audit:** `.commandcode/adversarial_audit_report.md` — 97 findings (17 CRITICAL, 35 HIGH, 33 MEDIUM, 12 LOW)
-> Status: **Sprint S1 (Security Hardening) ACTIVE. Phases 1-4 complete. A5 parallel.**
+> Status: **UI/UX Migration (P1–P6) COMPLETE (2026-06-20). Sprint S1 security hardening prior. Phases 1-4 complete. A5 parallel.**
 > Target: Behavioral 90/100, UI/UX 93/100, Trust Layer 33/35
 > TDD Dispatch: per-phase plans in `docs/planning/TDD_DISPATCH_PHASE_*.md` + `TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md`
+
+### UI/UX Migration — P1–P6 (✅ COMPLETE) [2026-06-20, branch `feat/ui-ux-migration`]
+- All deprecated Flutter APIs removed (`withOpacity` → `withValues`, legacy ThemeExtension patterns)
+- HelmColors ThemeExtension, HelmSpacing, HelmTypography token system fully operational
+- HelmAmount widget, HelmCalculationTrace, NumberFormatter (lakh/crore BDT + USD formatting)
+- Currency symbol boundary: `NumberFormatter.symbolForCode` / `prefixForCode` / `defaultCurrencyCode` (commit `7abc03d`)
+- Typography token purity: 5 remaining raw TextStyle usages replaced with HelmTypography tokens (commit `2add3fc`)
+- Reality Stack dashboard: S2S hero, 4 tiers, calculation trace, analytics wired
+- 19 GoRoute declarations, 21 route-name constants; en/bn 320/320 ARB keys, parity complete
+- **Remaining tech debt (non-blocking)**: 58 `BorderRadius.circular(N)` + 8 `EdgeInsets.all(N)` use correct pixel values but not token constant references — documented, not blocking release
+- Result: `dart analyze` 0/0/0, 325/325 tests pass
+
+### Global Product Blueprint (committed `74cfb11`, 2026-06-20)
+- 28-section synthesis document — decision-grade strategic parent of Experiment 16.1
+- **Status: committed, NOT authorized for prototype/pilot work until founder ratification**
+
+### Experiment 16.1 Falsification Protocol (committed `3081bfd`, 2026-06-20)
+- 3-variant temporal S2S falsification protocol, n=12 cohort design
+- **Status: protocol ready, awaiting founder authorization to begin prototype phase**
 
 ### Phase 0 — Beta Launch Readiness (🔄 IN PROGRESS)
 - Sprint A5: Bangla strings + Release APK + Device testing (parallel with S1)
