@@ -15,11 +15,11 @@ GoRouter _buildRouter() => GoRouter(
       routes: [
         GoRoute(
           path: '/',
-          builder: (_, __) => const WelcomeScreen(),
+          builder: (_, _) => const WelcomeScreen(),
         ),
         GoRoute(
           path: '/onboarding',
-          builder: (_, __) => const Scaffold(body: SizedBox.shrink()),
+          builder: (_, _) => const Scaffold(body: SizedBox.shrink()),
         ),
       ],
     );
