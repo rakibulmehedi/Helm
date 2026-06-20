@@ -3,6 +3,12 @@
 // Golden tests for Helm dashboard UI widgets.
 // Run with: fvm flutter test test/golden/dashboard_golden_test.dart --update-goldens
 // Verify with: fvm flutter test test/golden/dashboard_golden_test.dart
+//
+// Tagged 'golden' so CI can exclude them (macOS baselines differ from Linux rendering):
+//   flutter test --exclude-tags golden
+
+@Tags(['golden'])
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

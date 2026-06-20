@@ -32,4 +32,4 @@ jobs:
         run: dart analyze
 
       - name: Test
-        run: flutter test
+        run: flutter test --exclude-tags golden
