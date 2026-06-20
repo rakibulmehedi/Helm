@@ -8,6 +8,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_signal_theme.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/themes/helm_motion.dart';
@@ -60,8 +61,7 @@ class HelmCalculationTrace extends StatefulWidget {
   }
 
   @override
-  State<HelmCalculationTrace> createState() =>
-      _HelmCalculationTraceState();
+  State<HelmCalculationTrace> createState() => _HelmCalculationTraceState();
 }
 
 class _HelmCalculationTraceState extends State<HelmCalculationTrace>
@@ -79,8 +79,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
     _controller = AnimationController(
       vsync: this,
       // Total duration covers all staggered items.
-      duration: HelmMotion.medium +
-          HelmMotion.drawerRowStagger * _lineCount,
+      duration: HelmMotion.medium + HelmMotion.drawerRowStagger * _lines.length,
     );
   }
 
@@ -165,8 +164,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
         HelmMotion.medium.inMilliseconds +
         HelmMotion.drawerRowStagger.inMilliseconds * _lineCount;
 
-    final startMs =
-        HelmMotion.drawerRowStagger.inMilliseconds * index;
+    final startMs = HelmMotion.drawerRowStagger.inMilliseconds * index;
     final endMs = startMs + HelmMotion.base.inMilliseconds;
 
     final startT = totalMs > 0 ? startMs / totalMs : 0.0;
@@ -193,11 +191,13 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
       minChildSize: 0.3,
       builder: (context, scrollController) {
         return Container(
-          decoration: BoxDecoration(
-            color: colors.surface,
-            borderRadius: const BorderRadius.vertical(
+          key: const Key('signal_trace_sheet'),
+          decoration: const BoxDecoration(
+            color: HelmSignalTheme.signalDeck,
+            borderRadius: BorderRadius.vertical(
               top: Radius.circular(HelmSpacing.sheetTopRadius),
             ),
+            boxShadow: [HelmSignalTheme.floatingSheetShadow],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -210,7 +210,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: colors.inkTertiary,
+                      color: HelmSignalTheme.signalInkMuted,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -230,13 +230,15 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
                   children: [
                     Text(
                       context.l10n.calcTraceTitle,
-                      style: typography.headingMd,
+                      style: typography.headingMd.copyWith(
+                        color: HelmSignalTheme.signalInkPrimary,
+                      ),
                     ),
                     const SizedBox(height: HelmSpacing.s1),
                     Text(
                       context.l10n.calcTraceSubtitle,
                       style: typography.labelSm.copyWith(
-                        color: colors.inkTertiary,
+                        color: HelmSignalTheme.signalInkMuted,
                       ),
                     ),
                   ],
@@ -245,10 +247,11 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
 
               // Divider below header
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: HelmSpacing.s4,
+                padding: const EdgeInsets.symmetric(horizontal: HelmSpacing.s4),
+                child: Divider(
+                  color: HelmSignalTheme.signalInkMuted,
+                  height: HelmSpacing.s4,
                 ),
-                child: Divider(color: colors.hairline, height: HelmSpacing.s4),
               ),
 
               // Scrollable line items
@@ -308,13 +311,25 @@ class _TraceLineRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFinal = line.isFinal;
+    final amountTheme = Theme.of(context).copyWith(
+      extensions: <ThemeExtension<dynamic>>[
+        colors.copyWith(
+          inkPrimary: HelmSignalTheme.signalInkPrimary,
+          inkTertiary: HelmSignalTheme.signalInkMuted,
+        ),
+        typography,
+      ],
+    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // Divider above final row
         if (isFinal)
-          Divider(color: colors.divider, height: HelmSpacing.s4),
+          const Divider(
+            color: HelmSignalTheme.signalGlow,
+            height: HelmSpacing.s4,
+          ),
 
         Padding(
           padding: EdgeInsets.symmetric(
@@ -328,16 +343,23 @@ class _TraceLineRow extends StatelessWidget {
                 child: Text(
                   line.label,
                   style: isFinal
-                      ? typography.headingSm
-                      : typography.bodyMd.copyWith(color: colors.inkSecondary),
+                      ? typography.headingSm.copyWith(
+                          color: HelmSignalTheme.signalInkPrimary,
+                        )
+                      : typography.bodyMd.copyWith(
+                          color: HelmSignalTheme.signalInkSecondary,
+                        ),
                 ),
               ),
 
               // Amount
-              HelmAmount(
-                amount: line.amount,
-                size: isFinal ? AmountSize.lg : AmountSize.md,
-                semanticLabel: '${line.label}: ${line.amount}',
+              Theme(
+                data: amountTheme,
+                child: HelmAmount(
+                  amount: line.amount,
+                  size: isFinal ? AmountSize.lg : AmountSize.md,
+                  semanticLabel: '${line.label}: ${line.amount}',
+                ),
               ),
             ],
           ),

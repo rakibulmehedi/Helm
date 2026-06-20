@@ -7,7 +7,7 @@
 //   - If onboarding IS completed     → redirect / and /welcome to /home
 //
 // Shell structure (UX-1.07):
-//   ShellRoute wraps the 4 main tabs (Home, Pipeline, History, Settings).
+//   ShellRoute wraps the 3 primary tabs (Signal, Flow, Trace).
 //   Splash, Welcome, Onboarding, and modal routes live outside the shell.
 //
 // All route paths live in RouteNames — never duplicate strings here.
@@ -67,10 +67,8 @@ final GoRouter appRouter = GoRouter(
 
     // ── Shell: 4-tab main app (UX-1.07) ──────────────────────────────────────
     ShellRoute(
-      builder: (context, state, child) => _AppShell(
-        location: state.matchedLocation,
-        child: child,
-      ),
+      builder: (context, state, child) =>
+          _AppShell(location: state.matchedLocation, child: child),
       routes: [
         GoRoute(
           path: RouteNames.home,
@@ -81,6 +79,11 @@ final GoRouter appRouter = GoRouter(
           path: RouteNames.pipeline,
           name: 'pipeline',
           builder: (context, state) => const PipelineScreen(),
+        ),
+        GoRoute(
+          path: RouteNames.trace,
+          name: 'trace',
+          builder: (context, state) => const AuditLogScreen(),
         ),
         GoRoute(
           path: RouteNames.settings,
@@ -112,8 +115,9 @@ final GoRouter appRouter = GoRouter(
         final extra = state.extra;
         final filter = extra is String ? extra.trim().toLowerCase() : null;
         const validFilters = {'all', 'expected', 'pending', 'received'};
-        final safeFilter =
-            filter != null && validFilters.contains(filter) ? filter : null;
+        final safeFilter = filter != null && validFilters.contains(filter)
+            ? filter
+            : null;
         return IncomeListScreen(initialFilter: safeFilter);
       },
     ),
@@ -144,6 +148,10 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         return MagicLinkScreen(
           onAuthenticated: () async {
+            await SharedPrefServices.setMagicLinkAuthCompleted(true);
+            if (context.mounted) context.go(RouteNames.home);
+          },
+          onGuest: () async {
             await SharedPrefServices.setMagicLinkAuthCompleted(true);
             if (context.mounted) context.go(RouteNames.home);
           },
@@ -211,21 +219,21 @@ class _TabItem {
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: Icons.home_rounded,
-    label: 'Home',
-    tooltip: 'Dashboard',
+    icon: Icons.radar_rounded,
+    label: 'Signal',
+    tooltip: 'Safe-to-Spend signal',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: Icons.inbox_rounded,
-    label: 'Pipeline',
-    tooltip: 'Income pipeline',
+    icon: Icons.route_rounded,
+    label: 'Flow',
+    tooltip: 'Income flow',
   ),
   _TabItem(
-    path: RouteNames.settings,
-    icon: Icons.settings_rounded,
-    label: 'Settings',
-    tooltip: 'Settings and preferences',
+    path: RouteNames.trace,
+    icon: Icons.receipt_long_rounded,
+    label: 'Trace',
+    tooltip: 'Calculation trace and audit log',
   ),
 ];
 
@@ -258,11 +266,13 @@ class _AppShell extends StatelessWidget {
         unselectedLabelStyle: typography.labelSm,
         elevation: 0,
         items: _tabs
-            .map((t) => BottomNavigationBarItem(
-                  icon: Icon(t.icon),
-                  label: t.label,
-                  tooltip: t.tooltip,
-                ))
+            .map(
+              (t) => BottomNavigationBarItem(
+                icon: Icon(t.icon),
+                label: t.label,
+                tooltip: t.tooltip,
+              ),
+            )
             .toList(),
       ),
     );

@@ -610,6 +610,9 @@ Existing card and ledger layouts were judged insufficiently futuristic and struc
 Constraints:
 Visual redesign must not change business logic, trust model, persistence, routing, or state management. No new package may be added without Chief Architect approval. See `docs/superpowers/specs/2026-06-16-helm-signal-deck-design.md`.
 
+Status:
+Approved design merged to `main` on 2026-06-16 as commit `6773be4`. Implementation verified with `dart analyze` 0 issues and `flutter test` 307/307 pass.
+
 ---
 
 ## Decision 037 — NumberFormatter is the Single Currency Symbol Boundary

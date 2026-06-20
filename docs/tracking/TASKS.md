@@ -19,7 +19,7 @@
 - [x] Write canonical design spec: `docs/superpowers/specs/2026-06-16-helm-signal-deck-design.md`.
 - [x] Review and approve written Signal Deck spec before implementation planning.
 - [x] Create phased Signal Deck implementation plan: `docs/superpowers/plans/2026-06-16-helm-signal-deck-implementation.md`.
-- [ ] Implement Signal Deck UI slice with TDD.
+- [x] Implement Signal Deck UI slice with TDD.
 
 > Note: Dispatch file `docs/planning/TDD_DISPATCH_SPRINT_S1_SECURITY_HARDENING.md` is referenced but does not exist. Use `docs/tracking/S1_CODEBASE_TASK_MAPPING.md` for the code-evidence-based status of each S1 task.
 
@@ -223,6 +223,12 @@
 - 4G Audit Log Hardening: schema version, unique ids, previousValue, SHA-256 chain hash, retention, exported event, CSV schema column
 - 4F Lint Final Sweep: catch clauses, unawaited futures, deprecated APIs, test helper deps
 - Operational docs updated: `CURRENT_SPRINT.md`, `PROJECT_STATE.md`
+
+**Helm Signal Deck UI slice** ✅ [2026-06-16] — `dart analyze` 0 issues, `flutter test` 307/307 pass, merged to `main` in `6773be4`
+- Signal Hero, Signal Horizon, Decision Deck, Flow route, calculation trace sheet, dashboard home, shell nav, confirm haptics
+- Reviewer fixes: unavailable amount dash fallback, pending label correction, pulse restart on update, 320dp overflow fix
+- Responsiveness patch: compact LayoutBuilder sizing on Signal Hero + Decision Deck for 320dp / large text
+- Docs updated: `CURRENT_SPRINT.md`, `PROJECT_STATE.md`, `ROADMAP.md`
 
 **Phase 2 — Analytics Infrastructure** ✅ [2026-06-12] — 34 tests, dart analyze 0/0/0, 4 groups done
 - Group 2A — Hive event persistence + repository + dual-write + session dedup + event registry

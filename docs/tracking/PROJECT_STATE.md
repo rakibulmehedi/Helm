@@ -28,6 +28,7 @@
 - branded app icon (June 2026: VISR-029 ledger-rail + BDT mark, deep teal/warm-white master source, Android adaptive + Android/iOS/macOS/web raster sets)
 - UX gap improvements phase 2 (June 2026: 13 UX improvements across 11 files — haptics, floating tooltip, page entry animations, semantics, zero-state reask animation, responsive layout, error iconography, empty states, shimmer skeleton system, IncomePattern.none enum + onboarding skip button (temp — remove before release))
 - **security hardening S1-W5 complete** (June 2026: Waves 4-6 continuation — state-machine enforcement, fixed-cost integrity, consecutive-day streak, navigation/race guards, notification lock-screen privacy, export double-submit, SDK constraint pinned, calculator/STS hardening; `dart analyze` 0 issues, 282 tests pass)
+- **Signal Deck UI shell merged** (June 2026: Signal Hero, Signal Horizon, Decision Deck, Flow route, calculation trace sheet, dashboard home, shell nav, confirm haptics; `dart analyze` 0 issues, `flutter test` 307/307 pass)
 - **release APK optimized** (June 2026: APK shrunk 57→20.8MB via `--tree-shake-icons` + arm64-only target; APK signature verification added; SSL pinning infrastructure created; KGP deprecation warning acknowledged as unfixable without Flutter SDK upgrade; `dart analyze` 0 warnings/errors, build clean)
 - **UI/UX migration complete** (2026-06-20, branch `feat/ui-ux-migration`: all deprecated Flutter APIs removed (`withOpacity` → `withValues`, legacy ThemeExtension patterns); HelmColors ThemeExtension, HelmSpacing, HelmTypography token system fully operational; HelmAmount widget, HelmCalculationTrace, NumberFormatter (lakh/crore BDT + USD); currency symbol boundary (`symbolForCode`/`prefixForCode`/`defaultCurrencyCode`); 5 remaining raw TextStyle usages replaced with HelmTypography tokens; Reality Stack dashboard with S2S hero, 4 tiers, calculation trace, analytics; 19 GoRoute declarations, 21 route-name constants; en/bn 320/320 ARB keys, parity complete; `dart analyze` 0/0/0, 325 tests pass)
 - **global product blueprint committed** (2026-06-20, commit `74cfb11`: 28-section synthesis, decision-grade — prototype/pilot work NOT authorized pending founder ratification)
@@ -52,6 +53,7 @@
 - **S1-W4 complete** (2026-06-14) — Secret hygiene, platform hardening, trust-layer bugs, crypto/storage, input validation/sanitization, audit log hardening, lint sweep. `dart analyze` 0 issues, 251 tests pass.
 - **Adversarial audit**: 97 findings total. 3 new findings surfaced by QA gates (API 21→24 regression, account deletion incomplete, audit CSV chain hashes missing).
 - Phase 4 complete (2026-06-13) — Magic Link auth, instrumentation hardening, 210 tests
+- Signal Deck UI slice complete (2026-06-16) — premium spatial editorial shell merged, verified, and documented
 - A5.1 ✅ — 96 Bangla ARB keys authored (native, not machine-translated)
 - A5.2 ⏳ — build config fixed; needs keystore + actual flutter build apk --release (human)
 - A5.3 ⏳ — blocked on A5.2

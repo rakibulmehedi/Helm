@@ -36,6 +36,7 @@
 ### Phase 0 — Beta Launch Readiness (🔄 IN PROGRESS)
 - Sprint A5: Bangla strings + Release APK + Device testing (parallel with S1)
 - Sprint S1-W6: QA Pre-Release Fixes (9 findings from 10-gate QA execution on 2026-06-15)
+- Helm Signal Deck UI slice merged 2026-06-16: Signal Hero, Signal Horizon, Decision Deck, Flow/Trace shell
 - Effort: ~10 hours total (A5 ~4h + S1-W6 ~6h)
 - Gate: Release APK signs with release keystore. All 9 QA findings resolved. APK runs on reference device. Bangla authored.
 

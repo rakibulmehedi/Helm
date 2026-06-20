@@ -55,6 +55,7 @@ Status: **🔄 IN PROGRESS** — 2026-06-14. 68/97 vulnerability tasks verified 
 
 **Parallel with Sprint S1:**
 - A5 (Bangla + Release Build) — A5.1 ✅, A5.2 ⏳ (human keystore), A5.3 ⏳ (blocked on A5.2)
+- Helm Signal Deck UI slice merged to `main` on 2026-06-16; docs and tests updated.
 - VCI (Version Control Infrastructure) — PENDING (runs before beta APK distribution)
 
 ### S1-W4 — Implementation Record (2026-06-14)
