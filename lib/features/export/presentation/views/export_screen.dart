@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/export/presentation/providers/export_provider.dart';
@@ -53,7 +54,7 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
         title: Text(l10n.exportMyData),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(HelmSpacing.screenEdge),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -72,10 +73,10 @@ class _ExportScreenState extends ConsumerState<ExportScreen> {
             ),
             const SizedBox(height: 16),
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(HelmSpacing.s3),
               decoration: BoxDecoration(
                 color: colors.stateAtRisk.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(HelmSpacing.s2),
                 border: Border.all(
                   color: colors.stateAtRisk.withValues(alpha: 0.24),
                 ),

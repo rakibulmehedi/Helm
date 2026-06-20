@@ -249,7 +249,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(
                         color: colors.interactive.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                         border: Border.all(
                             color: colors.interactive.withValues(alpha: 0.2)),
                       ),

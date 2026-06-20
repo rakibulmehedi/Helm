@@ -245,7 +245,7 @@ class _ReceivedSectionState extends State<_ReceivedSection> {
       children: [
         InkWell(
           onTap: () => setState(() => _expanded = !_expanded),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(HelmSpacing.s1),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: HelmSpacing.s1),
             child: Row(

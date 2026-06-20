@@ -560,7 +560,7 @@ class _Keypad extends StatelessWidget {
                 style: TextButton.styleFrom(
                   foregroundColor: colors.inkPrimary,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                    borderRadius: BorderRadius.circular(HelmSpacing.s2),
                   ),
                 ),
                 onPressed: () => onDigit(key),

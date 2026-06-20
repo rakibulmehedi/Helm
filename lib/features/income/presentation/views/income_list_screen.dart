@@ -24,6 +24,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
@@ -397,7 +398,7 @@ class _IncomeCard extends StatelessWidget {
                 height: 44,
                 decoration: BoxDecoration(
                   color: statusColor.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                 ),
                 child: Icon(
                   _statusIcon(entry.status),
@@ -480,7 +481,7 @@ class _IncomeCard extends StatelessWidget {
                                 horizontal: 8, vertical: 2),
                             decoration: BoxDecoration(
                               color: colors.stateAtRisk.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(HelmSpacing.s2),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
@@ -557,7 +558,7 @@ class _IncomeCard extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
               decoration: BoxDecoration(
                 color: colors.canvas.withValues(alpha: 0.5),
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(HelmSpacing.s2),
               ),
               child: Text(
                 entry.notes!,

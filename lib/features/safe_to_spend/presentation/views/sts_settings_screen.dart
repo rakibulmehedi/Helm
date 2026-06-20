@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
 import 'package:helm/features/safe_to_spend/domain/entities/fixed_cost_entry.dart';
@@ -36,7 +37,7 @@ class StsSettingsScreen extends ConsumerWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(HelmSpacing.screenEdge),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -180,10 +181,10 @@ class StsSettingsScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             if (fixedCosts.isEmpty)
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(HelmSpacing.s4),
                 decoration: BoxDecoration(
                   color: Theme.of(context).cardColor,
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                 ),
                 child: Center(
                   child: Text(
@@ -229,7 +230,7 @@ class StsSettingsScreen extends ConsumerWidget {
                     child: ListTile(
                       tileColor: Theme.of(context).cardColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                       ),
                       title: Text(cost.label),
                       subtitle: Text(loc.dueDay('${cost.dueDayOfMonth}')),
@@ -253,7 +254,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                   ),
                 ),
               ),
@@ -443,7 +444,7 @@ class _AddEditFixedCostSheetState
               decoration: InputDecoration(
                 labelText: loc.fixedCostLabelHint,
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(HelmSpacing.cardRadius)),
               ),
               validator: (val) {
                 if (val == null || val.trim().isEmpty) {
@@ -470,7 +471,7 @@ class _AddEditFixedCostSheetState
                       prefixText: NumberFormatter.prefixForCode(
                           NumberFormatter.defaultCurrencyCode),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius)),
                     ),
                     validator: (val) {
                       if (InputValidator.parseAmount(val) == null) {
@@ -492,7 +493,7 @@ class _AddEditFixedCostSheetState
                       labelText: loc.dueDayLabel,
                       hintText: loc.dueDayHint,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius)),
                     ),
                     validator: (val) {
                       if (InputValidator.parseIntInRange(val, min: 1, max: 28) == null) {

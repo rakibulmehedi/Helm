@@ -20,6 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/income/domain/entities/income_entry_entity.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
@@ -205,7 +206,7 @@ class IncomePipelineSummary extends ConsumerWidget {
   }) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(HelmSpacing.s4),
       decoration: BoxDecoration(
         color: colors.surface,
         borderRadius: BorderRadius.circular(14),
@@ -251,7 +252,7 @@ class _StatusRow extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(HelmSpacing.s2),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(

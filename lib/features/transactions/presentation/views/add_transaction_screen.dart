@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
@@ -286,7 +287,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 _FieldLabel(l10n.date),
                 const SizedBox(height: 8),
                 InkWell(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                   onTap: _pickDate,
                   child: Container(
                     width: double.infinity,
@@ -294,7 +295,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                         horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
                       color: colors.surface,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                       border: Border.all(color: colors.divider),
                     ),
                     child: Row(
@@ -374,23 +375,23 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.interactive, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk, width: 1.5),
       ),
     );

@@ -16,6 +16,7 @@ import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/id_generator.dart';
 import 'package:helm/core/utils/input_validator.dart';
@@ -469,7 +470,7 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                       color: colors.surface,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                       border: Border.all(color: colors.divider),
                     ),
                     child: SwitchListTile(
@@ -533,23 +534,23 @@ class _AddIncomeScreenState extends ConsumerState<AddIncomeScreen> {
       contentPadding:
           const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.divider),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.interactive, width: 1.5),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
         borderSide: BorderSide(color: colors.stateAtRisk, width: 1.5),
       ),
     );
@@ -595,9 +596,9 @@ class _StatusToggle extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(HelmSpacing.s1),
       child: Row(
         children: IncomeStatus.values.map((status) {
           final isActive = selected == status;
@@ -611,7 +612,7 @@ class _StatusToggle extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
                   color: isActive ? color : Colors.transparent,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -672,9 +673,9 @@ class _CurrencySelector extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.hairline,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       ),
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(HelmSpacing.s1),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: _currencies.map((currency) {
@@ -687,7 +688,7 @@ class _CurrencySelector extends StatelessWidget {
                   horizontal: 14, vertical: 12),
               decoration: BoxDecoration(
                 color: isActive ? colors.interactive : Colors.transparent,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
               ),
               child: Text(
                 currency,
@@ -723,14 +724,14 @@ class _DatePickerTile extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.extension<HelmColors>() ?? HelmColors.light;
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
+      borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
       onTap: onTap,
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         decoration: BoxDecoration(
           color: colors.surface,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
           border: Border.all(color: colors.divider),
         ),
         child: Row(

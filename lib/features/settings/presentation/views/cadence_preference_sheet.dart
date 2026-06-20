@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/domain/nudge_preferences_entity.dart';
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/core/widgets/helm_toast.dart';
@@ -135,7 +136,7 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
                           width: isSelected ? 2.0 : 1.0,
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 12),
                       ),
@@ -163,12 +164,12 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
               const SizedBox(height: 8),
               InkWell(
                 onTap: _selectTime,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
                     color: colors.surface,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(HelmSpacing.buttonRadius),
                     border: Border.all(color: colors.divider),
                   ),
                   child: Row(
@@ -195,11 +196,11 @@ class _CadencePreferenceSheetState extends ConsumerState<CadencePreferenceSheet>
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: colors.divider),
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
               ),
               child: Material(
                 color: colors.surface,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
                 clipBehavior: Clip.antiAlias,
                 child: Column(
                   children: [
