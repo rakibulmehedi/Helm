@@ -616,9 +616,8 @@ class _StatusToggle extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   label,
-                  style: TextStyle(
+                  style: context.textStyles.bodySm.copyWith(
                     fontWeight: FontWeight.w600,
-                    fontSize: 13,
                     color: isActive
                         ? colors.surface
                         : colors.inkSecondary,
@@ -692,9 +691,8 @@ class _CurrencySelector extends StatelessWidget {
               ),
               child: Text(
                 currency,
-                style: TextStyle(
+                style: context.textStyles.bodySm.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: 13,
                   color: isActive
                       ? colors.surface
                       : colors.inkSecondary,
@@ -747,8 +745,7 @@ class _DatePickerTile extends StatelessWidget {
               date != null
                   ? DateFormat('dd MMM yyyy').format(date!)
                   : (placeholder ?? context.l10n.selectDate),
-              style: TextStyle(
-                fontSize: 14,
+              style: context.textStyles.bodyMd.copyWith(
                 color: date != null
                     ? colors.inkPrimary
                     : colors.inkTertiary.withValues(alpha: 0.6),

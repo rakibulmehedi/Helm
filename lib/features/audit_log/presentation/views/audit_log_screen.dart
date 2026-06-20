@@ -31,8 +31,8 @@ class AuditLogScreen extends ConsumerWidget {
         error: (err, _) => Center(
           child: Text(
             l10n.auditLogLoadError,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.error,
+            style: context.textStyles.bodyMd.copyWith(
+              color: context.colors.stateAtRisk,
             ),
           ),
         ),
@@ -74,7 +74,7 @@ class _AuditEventTile extends StatelessWidget {
       ),
       title: Text(
         _titleFor(event, l10n),
-        style: const TextStyle(fontWeight: FontWeight.w500),
+        style: context.textStyles.bodyMd.copyWith(fontWeight: FontWeight.w500),
       ),
       subtitle: Text(
         _formatTimestamp(event.timestamp),

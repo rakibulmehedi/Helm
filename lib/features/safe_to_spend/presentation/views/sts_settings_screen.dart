@@ -188,7 +188,7 @@ class StsSettingsScreen extends ConsumerWidget {
                 child: Center(
                   child: Text(
                     loc.noFixedCostsYet,
-                    style: TextStyle(color: colors.inkSecondary),
+                    style: typo.bodyMd.copyWith(color: colors.inkSecondary),
                   ),
                 ),
               )
@@ -310,7 +310,7 @@ class StsSettingsScreen extends ConsumerWidget {
               ),
               title: Text(
                 loc.deleteAllData,
-                style: TextStyle(color: colors.stateAtRisk),
+                style: typo.bodyMd.copyWith(color: colors.stateAtRisk),
               ),
               trailing: Icon(
                 Icons.chevron_right,
