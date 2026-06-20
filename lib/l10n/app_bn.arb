@@ -277,6 +277,9 @@
 
   "devResetOnboarding": "অনবোর্ডিং রিসেট করুন (শুধু ডেভ)",
 
+  "useAsGuest": "গেস্ট হিসেবে ব্যবহার করুন",
+  "@useAsGuest": { "description": "Magic link screen: skip identity verification and use app locally" },
+
   "safeToSpendSettingsTitle": "নিরাপদ ব্যয়সীমা সেটিংস",
   "@safeToSpendSettingsTitle": { "description": "STS settings screen app bar title" },
 

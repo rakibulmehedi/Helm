@@ -179,7 +179,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         ],
         const SizedBox(height: HelmSpacing.s4),
         AppButton(
-          label: 'Use as Guest',
+          label: l10n.useAsGuest,
           onPressed: widget.onGuest,
           type: AppButtonType.outline,
         ),

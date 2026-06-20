@@ -420,6 +420,9 @@
   "devResetOnboarding": "Reset onboarding (dev only)",
   "@devResetOnboarding": { "description": "Dev-only reset tooltip on dashboard" },
 
+  "useAsGuest": "Use as Guest",
+  "@useAsGuest": { "description": "Magic link screen: skip identity verification and use app locally" },
+
   "safeToSpendSettingsTitle": "Safe-to-Spend Settings",
   "@safeToSpendSettingsTitle": { "description": "STS settings screen app bar title" },
 

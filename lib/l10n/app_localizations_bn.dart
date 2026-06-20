@@ -449,6 +449,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get devResetOnboarding => 'অনবোর্ডিং রিসেট করুন (শুধু ডেভ)';
 
   @override
+  String get useAsGuest => 'গেস্ট হিসেবে ব্যবহার করুন';
+
+  @override
   String get safeToSpendSettingsTitle => 'নিরাপদ ব্যয়সীমা সেটিংস';
 
   @override

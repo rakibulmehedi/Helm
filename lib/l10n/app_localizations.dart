@@ -926,6 +926,12 @@ abstract class AppLocalizations {
   /// **'Reset onboarding (dev only)'**
   String get devResetOnboarding;
 
+  /// Magic link screen: skip identity verification and use app locally
+  ///
+  /// In en, this message translates to:
+  /// **'Use as Guest'**
+  String get useAsGuest;
+
   /// STS settings screen app bar title
   ///
   /// In en, this message translates to:

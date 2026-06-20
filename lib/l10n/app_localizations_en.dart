@@ -450,6 +450,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get devResetOnboarding => 'Reset onboarding (dev only)';
 
   @override
+  String get useAsGuest => 'Use as Guest';
+
+  @override
   String get safeToSpendSettingsTitle => 'Safe-to-Spend Settings';
 
   @override
