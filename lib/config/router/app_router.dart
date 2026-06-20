@@ -297,14 +297,13 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   // ── Magic Link gate ───────────────────────────────────────────────────────
   // Identity verification must run before any user data collection.
   final bool magicLinkDone = SharedPrefServices.getMagicLinkAuthCompleted();
-  if (!magicLinkDone && currentPath != RouteNames.magicLink) {
-    return RouteNames.magicLink;
+  if (!magicLinkDone) {
+    // Not verified yet — send to magic-link, or stay there (early return
+    // prevents the onboarding gate below from redirecting away from /magic-link).
+    return currentPath == RouteNames.magicLink ? null : RouteNames.magicLink;
   }
-  if (magicLinkDone && currentPath == RouteNames.magicLink) {
-    // Identity already verified; don't let the user re-enter the magic-link
-    // flow and potentially confuse the auth state.
-    return RouteNames.home;
-  }
+  // Identity verified — don't allow re-entry into the magic-link flow.
+  if (currentPath == RouteNames.magicLink) return RouteNames.home;
 
   // ── Onboarding gate ───────────────────────────────────────────────────────
   final bool onboardingDone = SharedPrefServices.getOnboardingCompleted();
