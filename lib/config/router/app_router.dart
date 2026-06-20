@@ -228,23 +228,33 @@ class _TabItem {
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: Icons.radar_rounded,
-    label: 'Signal',
-    tooltip: 'Safe-to-Spend signal',
+    icon: Icons.home_rounded,
+    label: 'Home',
+    tooltip: 'Safe-to-Spend',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: Icons.route_rounded,
-    label: 'Flow',
-    tooltip: 'Income flow',
+    icon: Icons.account_balance_wallet_rounded,
+    label: 'Pipeline',
+    tooltip: 'Income pipeline',
   ),
   _TabItem(
     path: RouteNames.trace,
     icon: Icons.receipt_long_rounded,
-    label: 'Trace',
-    tooltip: 'Calculation trace and audit log',
+    label: 'History',
+    tooltip: 'History and audit trail',
+  ),
+  _TabItem(
+    path: RouteNames.settings,
+    icon: Icons.settings_rounded,
+    label: 'Settings',
+    tooltip: 'Settings',
   ),
 ];
+
+/// Test-only accessor for the bottom-nav tab labels.
+List<String> get debugAppShellTabLabels =>
+    _tabs.map((t) => t.label).toList(growable: false);
 
 class _AppShell extends StatelessWidget {
   final String location;
