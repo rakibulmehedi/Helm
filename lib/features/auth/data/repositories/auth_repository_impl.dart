@@ -89,9 +89,9 @@ class AuthRepositoryImpl implements AuthRepository {
   // ── Helpers ─────────────────────────────────────────────────────────────
 
   bool _isValidToken(String token) {
-    // Match the mock datasource's 32-character cryptographically random token.
-    // Production backends may use longer base64url tokens.
+    // Supabase magic-link tokens are base64url-encoded and include - and _.
+    // Minimum 32 chars; real OTP tokens are typically 64+ chars.
     if (token.length < 32) return false;
-    return RegExp(r'^[A-Za-z0-9]+$').hasMatch(token);
+    return RegExp(r'^[A-Za-z0-9\-_]+$').hasMatch(token);
   }
 }

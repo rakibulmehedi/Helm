@@ -54,6 +54,9 @@
   "errorEnterEmail": "Please enter your email address",
   "@errorEnterEmail": { "description": "Validation: email empty" },
 
+  "errorInvalidEmail": "Please enter a valid email address",
+  "@errorInvalidEmail": { "description": "Validation: email format invalid" },
+
   "errorTooManyRequests": "Too many requests. Please wait before requesting another link.",
   "@errorTooManyRequests": { "description": "Rate-limited error message" },
 

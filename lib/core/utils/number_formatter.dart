@@ -175,13 +175,13 @@ final class NumberFormatter {
   ///   - 1,00,000–99,99,999: lakh grouping (e.g., "1,00,000")
   ///   - >= 1,00,00,000: crore grouping (e.g., "1,00,00,000")
   static String _applyBDTGrouping(String digits) {
-    if (digits.length <= 3) return digits;
+    final bool negative = digits.startsWith('-');
+    final String abs = negative ? digits.substring(1) : digits;
+    if (abs.length <= 3) return negative ? '-$abs' : abs;
 
-    // The rightmost 3 digits are always a group
-    final String last3 = digits.substring(digits.length - 3);
-    String remaining = digits.substring(0, digits.length - 3);
+    final String last3 = abs.substring(abs.length - 3);
+    String remaining = abs.substring(0, abs.length - 3);
 
-    // Remaining digits are grouped in pairs from the right
     final List<String> groups = [];
     while (remaining.length > 2) {
       groups.insert(0, remaining.substring(remaining.length - 2));
@@ -191,7 +191,8 @@ final class NumberFormatter {
       groups.insert(0, remaining);
     }
 
-    return '${groups.join(',')},$last3';
+    final String grouped = '${groups.join(',')},$last3';
+    return negative ? '-$grouped' : grouped;
   }
 
   /// Formats [amount] using Western 3-digit grouping.
@@ -211,10 +212,12 @@ final class NumberFormatter {
 
   /// Applies Western 3-digit comma grouping to an integer string.
   static String _applyWesternGrouping(String digits) {
-    if (digits.length <= 3) return digits;
+    final bool negative = digits.startsWith('-');
+    final String abs = negative ? digits.substring(1) : digits;
+    if (abs.length <= 3) return negative ? '-$abs' : abs;
 
     final List<String> groups = [];
-    String remaining = digits;
+    String remaining = abs;
     while (remaining.length > 3) {
       groups.insert(0, remaining.substring(remaining.length - 3));
       remaining = remaining.substring(0, remaining.length - 3);
@@ -222,6 +225,7 @@ final class NumberFormatter {
     if (remaining.isNotEmpty) {
       groups.insert(0, remaining);
     }
-    return groups.join(',');
+    final String grouped = groups.join(',');
+    return negative ? '-$grouped' : grouped;
   }
 }

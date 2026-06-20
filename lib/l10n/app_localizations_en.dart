@@ -61,6 +61,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorEnterEmail => 'Please enter your email address';
 
   @override
+  String get errorInvalidEmail => 'Please enter a valid email address';
+
+  @override
   String get errorTooManyRequests =>
       'Too many requests. Please wait before requesting another link.';
 

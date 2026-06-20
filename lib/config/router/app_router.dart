@@ -152,7 +152,7 @@ final GoRouter appRouter = GoRouter(
             // Cross-validate: mirror flag into Hive authBox so the magic-link
             // gate can confirm the flag was not set by spoofing SharedPrefs.
             if (Hive.isBoxOpen(AppBoxNames.authBox)) {
-              Hive.box<dynamic>(AppBoxNames.authBox).put('magic_link_verified', true);
+              await Hive.box<dynamic>(AppBoxNames.authBox).put('magic_link_verified', true);
             }
             if (context.mounted) context.go(RouteNames.home);
           },
@@ -160,9 +160,7 @@ final GoRouter appRouter = GoRouter(
             await SharedPrefServices.setMagicLinkAuthCompleted(true);
             await SharedPrefServices.setGuestMode(true);
             if (Hive.isBoxOpen(AppBoxNames.authBox)) {
-              final box = Hive.box<dynamic>(AppBoxNames.authBox);
-              box.put('magic_link_verified', true);
-              box.put('guest_mode', true);
+              await Hive.box<dynamic>(AppBoxNames.authBox).put('magic_link_verified', true);
             }
             if (context.mounted) context.go(RouteNames.home);
           },
@@ -338,7 +336,7 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   // If the box is not open (startup race before Hive init), allow through.
   if (Hive.isBoxOpen(AppBoxNames.authBox)) {
     final box = Hive.box<dynamic>(AppBoxNames.authBox);
-    final bool hiveVerified = box.get('magic_link_verified', defaultValue: false) as bool;
+    final bool hiveVerified = box.get('magic_link_verified', defaultValue: false) == true;
     if (!hiveVerified) {
       return currentPath == RouteNames.magicLink ? null : RouteNames.magicLink;
     }
@@ -378,7 +376,7 @@ String? _globalRedirect(BuildContext context, GoRouterState state) {
   }
 
   final box = Hive.box<dynamic>(AppBoxNames.authBox);
-  final bool pinIsSetUp = box.get('pin_is_setup', defaultValue: false) as bool;
+  final bool pinIsSetUp = box.get('pin_is_setup', defaultValue: false) == true;
   if (!pinIsSetUp) {
     return RouteNames.pinSetup;
   }

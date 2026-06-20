@@ -272,7 +272,9 @@ class AuthNotifier extends Notifier<AuthState> {
     // Clear Magic Link session token and flag so the next cold start requires
     // identity re-verification.
     await _box.delete(SecurityKeys.authMagicLinkSessionToken);
+    await _box.delete('magic_link_verified');
     await SharedPrefServices.setMagicLinkAuthCompleted(false);
+    await SharedPrefServices.setGuestMode(false);
 
     if (!_mounted) return;
     state = AuthState(

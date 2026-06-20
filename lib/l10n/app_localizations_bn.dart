@@ -61,6 +61,9 @@ class AppLocalizationsBn extends AppLocalizations {
   String get errorEnterEmail => 'আপনার ইমেইল ঠিকানা দিন';
 
   @override
+  String get errorInvalidEmail => 'সঠিক ইমেইল ঠিকানা দিন';
+
+  @override
   String get errorTooManyRequests =>
       'অনেকবার চেষ্টা করা হয়েছে। একটু পরে আবার লিংক চান।';
 

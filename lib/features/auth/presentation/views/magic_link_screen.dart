@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/core/utils/input_validator.dart';
 import 'package:helm/core/widgets/buttons/button_multiple_types.dart';
 import 'package:helm/features/auth/presentation/providers/magic_link_provider.dart';
 import 'package:helm/l10n/app_localization.dart';
@@ -18,8 +19,8 @@ import 'package:helm/l10n/app_localization.dart';
 enum _MagicLinkStep { emailInput, verifying }
 
 class MagicLinkScreen extends ConsumerStatefulWidget {
-  final VoidCallback onAuthenticated;
-  final VoidCallback onGuest;
+  final Future<void> Function() onAuthenticated;
+  final Future<void> Function() onGuest;
 
   const MagicLinkScreen({
     super.key,
@@ -50,6 +51,10 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
     final email = _emailCtrl.text.trim();
     if (email.isEmpty) {
       setState(() => _error = l10n.errorEnterEmail);
+      return;
+    }
+    if (InputValidator.normalizeEmail(email) == null) {
+      setState(() => _error = l10n.errorInvalidEmail);
       return;
     }
 
@@ -94,7 +99,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
     if (!mounted) return;
 
     if (session != null) {
-      widget.onAuthenticated();
+      await widget.onAuthenticated();
     } else {
       setState(() {
         _error = l10n.errorInvalidCode;
@@ -180,7 +185,7 @@ class _MagicLinkScreenState extends ConsumerState<MagicLinkScreen> {
         const SizedBox(height: HelmSpacing.s4),
         AppButton(
           label: l10n.useAsGuest,
-          onPressed: widget.onGuest,
+          onPressed: () => widget.onGuest(),
           type: AppButtonType.outline,
         ),
       ],

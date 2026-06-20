@@ -194,6 +194,12 @@ abstract class AppLocalizations {
   /// **'Please enter your email address'**
   String get errorEnterEmail;
 
+  /// Validation: email format invalid
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email address'**
+  String get errorInvalidEmail;
+
   /// Rate-limited error message
   ///
   /// In en, this message translates to:

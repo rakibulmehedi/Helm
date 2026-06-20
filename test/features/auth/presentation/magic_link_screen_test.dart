@@ -31,7 +31,7 @@ void main() {
   });
 
   group('MagicLinkScreen — email step', () {
-    Widget buildTestWidget({VoidCallback? onAuthenticated, VoidCallback? onGuest}) {
+    Widget buildTestWidget({Future<void> Function()? onAuthenticated, Future<void> Function()? onGuest}) {
       return ProviderScope(
         child: MaterialApp(
           theme: AppTheme.light,
@@ -44,8 +44,8 @@ void main() {
             GlobalCupertinoLocalizations.delegate,
           ],
           home: MagicLinkScreen(
-            onAuthenticated: onAuthenticated ?? () {},
-            onGuest: onGuest ?? () {},
+            onAuthenticated: onAuthenticated ?? () async {},
+            onGuest: onGuest ?? () async {},
           ),
         ),
       );
@@ -131,7 +131,7 @@ void main() {
     testWidgets('calls onGuest when "Use as Guest" is tapped', (tester) async {
       var guestTapped = false;
       await tester.pumpWidget(buildTestWidget(
-        onGuest: () => guestTapped = true,
+        onGuest: () async { guestTapped = true; },
       ));
       await tester.tap(find.text('Use as Guest'));
       await tester.pumpAndSettle();
@@ -144,7 +144,7 @@ void main() {
       var wasAuthenticated = false;
 
       await tester.pumpWidget(buildTestWidget(
-        onAuthenticated: () => wasAuthenticated = true,
+        onAuthenticated: () async { wasAuthenticated = true; },
       ));
 
       await tester.enterText(find.byType(TextField), 'freelancer@example.com');
