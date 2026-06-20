@@ -5,6 +5,7 @@
 //   - NO fontWeight outside 400-600
 //   - NO letterSpacing overrides (use default)
 //   - Financial numerals: JetBrains Mono
+//   - Display + heading (Latin): Fraunces
 //   - UI text (Latin): Inter
 //   - Bangla text: Hind Siliguri
 //   - All fonts are bundled as assets — no runtime downloads.
@@ -69,35 +70,35 @@ class HelmTypography extends ThemeExtension<HelmTypography> {
     return HelmTypography(
       // --- Latin UI (Inter) ---
       displayHero: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Fraunces',
         fontSize: 64,
         fontWeight: FontWeight.w600,
         height: 1.05,
         color: ink,
       ),
       displayLarge: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Fraunces',
         fontSize: 40,
         fontWeight: FontWeight.w600,
         height: 1.10,
         color: ink,
       ),
       headingLg: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Fraunces',
         fontSize: 22,
         fontWeight: FontWeight.w600,
         height: 1.25,
         color: ink,
       ),
       headingMd: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Fraunces',
         fontSize: 18,
         fontWeight: FontWeight.w600,
         height: 1.30,
         color: ink,
       ),
       headingSm: TextStyle(
-        fontFamily: 'Inter',
+        fontFamily: 'Fraunces',
         fontSize: 15,
         fontWeight: FontWeight.w600,
         height: 1.35,
