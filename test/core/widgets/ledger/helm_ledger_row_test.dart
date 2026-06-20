@@ -22,4 +22,22 @@ void main() {
     expect(find.byType(HelmLedgerRow), findsOneWidget);
     expect(find.text(r'$600'), findsOneWidget);
   });
+
+  testWidgets('showDivider false renders no Divider', (tester) async {
+    await tester.pumpWidget(_wrap(
+      const HelmLedgerRow(
+        label: 'Reserve',
+        value: '10,000',
+        showDivider: false,
+      ),
+    ));
+    expect(find.byType(Divider), findsNothing);
+  });
+
+  testWidgets('showDivider true (default) renders a Divider', (tester) async {
+    await tester.pumpWidget(_wrap(
+      const HelmLedgerRow(label: 'Reserve', value: '10,000'),
+    ));
+    expect(find.byType(Divider), findsOneWidget);
+  });
 }
