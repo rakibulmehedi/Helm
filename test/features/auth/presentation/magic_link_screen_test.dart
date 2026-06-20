@@ -123,6 +123,21 @@ void main() {
       expect(find.textContaining('Invalid or expired'), findsOneWidget);
     });
 
+    testWidgets('shows "Use as Guest" button on email step', (tester) async {
+      await tester.pumpWidget(buildTestWidget());
+      expect(find.text('Use as Guest'), findsOneWidget);
+    });
+
+    testWidgets('calls onGuest when "Use as Guest" is tapped', (tester) async {
+      var guestTapped = false;
+      await tester.pumpWidget(buildTestWidget(
+        onGuest: () => guestTapped = true,
+      ));
+      await tester.tap(find.text('Use as Guest'));
+      await tester.pumpAndSettle();
+      expect(guestTapped, isTrue);
+    });
+
     testWidgets('calls onAuthenticated when token is valid',
         skip: true, // Hive write inside FutureProvider deadlocks widget pumpAndSettle
         (tester) async {
