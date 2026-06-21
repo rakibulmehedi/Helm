@@ -1939,6 +1939,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save payment. Try again.'**
   String get transactionSaveError;
+
+  /// History integrity strip, intact state
+  ///
+  /// In en, this message translates to:
+  /// **'Ledger verified · {count} records'**
+  String ledgerVerified(int count);
+
+  /// History integrity strip, broken state
+  ///
+  /// In en, this message translates to:
+  /// **'Integrity issue detected'**
+  String get ledgerIntegrityIssue;
+
+  /// History integrity strip, loading state
+  ///
+  /// In en, this message translates to:
+  /// **'Verifying ledger…'**
+  String get ledgerVerifying;
+
+  /// Footer note on History tab about retention
+  ///
+  /// In en, this message translates to:
+  /// **'History keeps the last {days} days'**
+  String historyRetentionNote(int days);
+
+  /// History date group header
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get historyGroupToday;
+
+  /// History date group header
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get historyGroupYesterday;
+
+  /// History date group header
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get historyGroupThisWeek;
+
+  /// History date group header
+  ///
+  /// In en, this message translates to:
+  /// **'Earlier'**
+  String get historyGroupEarlier;
+
+  /// Audit detail sheet, before value label
+  ///
+  /// In en, this message translates to:
+  /// **'Before'**
+  String get auditDetailBefore;
+
+  /// Audit detail sheet, after value label
+  ///
+  /// In en, this message translates to:
+  /// **'After'**
+  String get auditDetailAfter;
+
+  /// Audit detail sheet, description label
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get auditDetailDescription;
+
+  /// Audit detail sheet, timestamp label
+  ///
+  /// In en, this message translates to:
+  /// **'When'**
+  String get auditDetailTimestamp;
+
+  /// Audit detail sheet, entity label
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get auditDetailEntity;
+
+  /// Audit detail sheet, hash label
+  ///
+  /// In en, this message translates to:
+  /// **'Record hash'**
+  String get auditDetailRecordHash;
+
+  /// Relative time, under one minute
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get auditRelativeJustNow;
+
+  /// Relative time in minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes}m ago'**
+  String auditRelativeMinutesAgo(int minutes);
+
+  /// Relative time in hours
+  ///
+  /// In en, this message translates to:
+  /// **'{hours}h ago'**
+  String auditRelativeHoursAgo(int hours);
 }
 
 class _AppLocalizationsDelegate

@@ -1053,5 +1053,52 @@
   "@transactionSaved": { "description": "Transaction screen: success toast in add mode" },
 
   "transactionSaveError": "Could not save payment. Try again.",
-  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" }
+  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" },
+
+  "ledgerVerified": "Ledger verified · {count} records",
+  "@ledgerVerified": {
+    "description": "History integrity strip, intact state",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "ledgerIntegrityIssue": "Integrity issue detected",
+  "@ledgerIntegrityIssue": { "description": "History integrity strip, broken state" },
+  "ledgerVerifying": "Verifying ledger…",
+  "@ledgerVerifying": { "description": "History integrity strip, loading state" },
+  "historyRetentionNote": "History keeps the last {days} days",
+  "@historyRetentionNote": {
+    "description": "Footer note on History tab about retention",
+    "placeholders": { "days": { "type": "int" } }
+  },
+  "historyGroupToday": "Today",
+  "@historyGroupToday": { "description": "History date group header" },
+  "historyGroupYesterday": "Yesterday",
+  "@historyGroupYesterday": { "description": "History date group header" },
+  "historyGroupThisWeek": "This week",
+  "@historyGroupThisWeek": { "description": "History date group header" },
+  "historyGroupEarlier": "Earlier",
+  "@historyGroupEarlier": { "description": "History date group header" },
+  "auditDetailBefore": "Before",
+  "@auditDetailBefore": { "description": "Audit detail sheet, before value label" },
+  "auditDetailAfter": "After",
+  "@auditDetailAfter": { "description": "Audit detail sheet, after value label" },
+  "auditDetailDescription": "Description",
+  "@auditDetailDescription": { "description": "Audit detail sheet, description label" },
+  "auditDetailTimestamp": "When",
+  "@auditDetailTimestamp": { "description": "Audit detail sheet, timestamp label" },
+  "auditDetailEntity": "Record",
+  "@auditDetailEntity": { "description": "Audit detail sheet, entity label" },
+  "auditDetailRecordHash": "Record hash",
+  "@auditDetailRecordHash": { "description": "Audit detail sheet, hash label" },
+  "auditRelativeJustNow": "Just now",
+  "@auditRelativeJustNow": { "description": "Relative time, under one minute" },
+  "auditRelativeMinutesAgo": "{minutes}m ago",
+  "@auditRelativeMinutesAgo": {
+    "description": "Relative time in minutes",
+    "placeholders": { "minutes": { "type": "int" } }
+  },
+  "auditRelativeHoursAgo": "{hours}h ago",
+  "@auditRelativeHoursAgo": {
+    "description": "Relative time in hours",
+    "placeholders": { "hours": { "type": "int" } }
+  }
 }

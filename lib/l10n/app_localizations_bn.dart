@@ -1041,4 +1041,63 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get transactionSaveError =>
       'পেমেন্ট সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String ledgerVerified(int count) {
+    return 'লেজার যাচাই করা হয়েছে · $count টি রেকর্ড';
+  }
+
+  @override
+  String get ledgerIntegrityIssue => 'অখণ্ডতার সমস্যা শনাক্ত হয়েছে';
+
+  @override
+  String get ledgerVerifying => 'লেজার যাচাই করা হচ্ছে…';
+
+  @override
+  String historyRetentionNote(int days) {
+    return 'ইতিহাস সর্বশেষ $days দিন সংরক্ষণ করে';
+  }
+
+  @override
+  String get historyGroupToday => 'আজ';
+
+  @override
+  String get historyGroupYesterday => 'গতকাল';
+
+  @override
+  String get historyGroupThisWeek => 'এই সপ্তাহে';
+
+  @override
+  String get historyGroupEarlier => 'আগের';
+
+  @override
+  String get auditDetailBefore => 'আগে';
+
+  @override
+  String get auditDetailAfter => 'পরে';
+
+  @override
+  String get auditDetailDescription => 'বিবরণ';
+
+  @override
+  String get auditDetailTimestamp => 'কখন';
+
+  @override
+  String get auditDetailEntity => 'রেকর্ড';
+
+  @override
+  String get auditDetailRecordHash => 'রেকর্ড হ্যাশ';
+
+  @override
+  String get auditRelativeJustNow => 'এইমাত্র';
+
+  @override
+  String auditRelativeMinutesAgo(int minutes) {
+    return '$minutes মিনিট আগে';
+  }
+
+  @override
+  String auditRelativeHoursAgo(int hours) {
+    return '$hours ঘণ্টা আগে';
+  }
 }

@@ -921,5 +921,23 @@
   "@transactionSaved": { "description": "Transaction screen: success toast in add mode" },
 
   "transactionSaveError": "পেমেন্ট সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।",
-  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" }
+  "@transactionSaveError": { "description": "Transaction screen: error toast on save failure" },
+
+  "ledgerVerified": "লেজার যাচাই করা হয়েছে · {count} টি রেকর্ড",
+  "ledgerIntegrityIssue": "অখণ্ডতার সমস্যা শনাক্ত হয়েছে",
+  "ledgerVerifying": "লেজার যাচাই করা হচ্ছে…",
+  "historyRetentionNote": "ইতিহাস সর্বশেষ {days} দিন সংরক্ষণ করে",
+  "historyGroupToday": "আজ",
+  "historyGroupYesterday": "গতকাল",
+  "historyGroupThisWeek": "এই সপ্তাহে",
+  "historyGroupEarlier": "আগের",
+  "auditDetailBefore": "আগে",
+  "auditDetailAfter": "পরে",
+  "auditDetailDescription": "বিবরণ",
+  "auditDetailTimestamp": "কখন",
+  "auditDetailEntity": "রেকর্ড",
+  "auditDetailRecordHash": "রেকর্ড হ্যাশ",
+  "auditRelativeJustNow": "এইমাত্র",
+  "auditRelativeMinutesAgo": "{minutes} মিনিট আগে",
+  "auditRelativeHoursAgo": "{hours} ঘণ্টা আগে"
 }

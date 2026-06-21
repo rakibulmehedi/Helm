@@ -1052,4 +1052,63 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get transactionSaveError => 'Could not save payment. Try again.';
+
+  @override
+  String ledgerVerified(int count) {
+    return 'Ledger verified · $count records';
+  }
+
+  @override
+  String get ledgerIntegrityIssue => 'Integrity issue detected';
+
+  @override
+  String get ledgerVerifying => 'Verifying ledger…';
+
+  @override
+  String historyRetentionNote(int days) {
+    return 'History keeps the last $days days';
+  }
+
+  @override
+  String get historyGroupToday => 'Today';
+
+  @override
+  String get historyGroupYesterday => 'Yesterday';
+
+  @override
+  String get historyGroupThisWeek => 'This week';
+
+  @override
+  String get historyGroupEarlier => 'Earlier';
+
+  @override
+  String get auditDetailBefore => 'Before';
+
+  @override
+  String get auditDetailAfter => 'After';
+
+  @override
+  String get auditDetailDescription => 'Description';
+
+  @override
+  String get auditDetailTimestamp => 'When';
+
+  @override
+  String get auditDetailEntity => 'Record';
+
+  @override
+  String get auditDetailRecordHash => 'Record hash';
+
+  @override
+  String get auditRelativeJustNow => 'Just now';
+
+  @override
+  String auditRelativeMinutesAgo(int minutes) {
+    return '${minutes}m ago';
+  }
+
+  @override
+  String auditRelativeHoursAgo(int hours) {
+    return '${hours}h ago';
+  }
 }
