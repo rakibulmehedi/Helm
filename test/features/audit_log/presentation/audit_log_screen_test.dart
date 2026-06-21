@@ -1,0 +1,74 @@
+// test/features/audit_log/presentation/audit_log_screen_test.dart
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:helm/core/themes/app_theme.dart';
+import 'package:helm/features/audit_log/data/services/audit_chain_service.dart';
+import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/presentation/providers/audit_providers.dart';
+import 'package:helm/features/audit_log/presentation/views/audit_log_screen.dart';
+import 'package:helm/features/audit_log/presentation/widgets/audit_event_card.dart';
+import 'package:helm/l10n/app_localizations.dart';
+
+Widget _host(List<Override> overrides) => ProviderScope(
+      overrides: overrides,
+      child: MaterialApp(
+        theme: AppTheme.light,
+        locale: const Locale('en'),
+        supportedLocales: const [Locale('en'), Locale('bn')],
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        home: const AuditLogScreen(),
+      ),
+    );
+
+void main() {
+  testWidgets('empty state shows empty copy', (tester) async {
+    await tester.pumpWidget(_host([
+      auditEventsProvider.overrideWith((ref) async => <AuditEvent>[]),
+      auditIntegrityProvider.overrideWith(
+        (ref) async =>
+            const ChainVerification(isIntact: true, verifiedCount: 0),
+      ),
+    ]));
+    await tester.pump();
+    expect(find.byType(AuditEventCard), findsNothing);
+  });
+
+  testWidgets('renders grouped cards for events', (tester) async {
+    final events = [
+      AuditEvent(
+        id: 'a',
+        timestamp: DateTime.now().subtract(const Duration(hours: 1)),
+        eventType: AuditEventType.created,
+        entityType: AuditEntityType.income,
+        entityId: 'e1',
+        description: 'd1',
+      ),
+      AuditEvent(
+        id: 'b',
+        timestamp: DateTime.now().subtract(const Duration(days: 10)),
+        eventType: AuditEventType.updated,
+        entityType: AuditEntityType.transaction,
+        entityId: 'e2',
+        description: 'd2',
+      ),
+    ];
+    await tester.pumpWidget(_host([
+      auditEventsProvider.overrideWith((ref) async => events),
+      auditIntegrityProvider.overrideWith(
+        (ref) async =>
+            const ChainVerification(isIntact: true, verifiedCount: 0),
+      ),
+    ]));
+    await tester.pump();
+    expect(find.byType(AuditEventCard), findsNWidgets(2));
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.text('Earlier'), findsOneWidget);
+  });
+}
