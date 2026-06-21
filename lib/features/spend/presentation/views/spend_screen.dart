@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
@@ -44,6 +45,21 @@ class SpendScreen extends ConsumerWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
+        actions: [
+          if (!SharedPrefServices.getGuestMode())
+            IconButton(
+              key: const ValueKey('spend-audit-link'),
+              tooltip: 'View audit trail',
+              icon: const HelmIcon(LucideIcons.history, size: HelmIconSize.lg),
+              onPressed: () => context.push(RouteNames.trace),
+            ),
+          IconButton(
+            key: const ValueKey('spend-settings-gear'),
+            tooltip: l10n.settings,
+            icon: const HelmIcon(LucideIcons.settings, size: HelmIconSize.lg),
+            onPressed: () => context.push(RouteNames.settings),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push(RouteNames.addTransaction),

@@ -245,6 +245,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         actions: [
+          if (!SharedPrefServices.getGuestMode())
+            IconButton(
+              key: const ValueKey('dashboard-audit-link'),
+              tooltip: 'View audit trail',
+              icon: const HelmIcon(LucideIcons.history, size: HelmIconSize.lg),
+              onPressed: () => context.push(RouteNames.trace),
+            ),
           IconButton(
             key: const ValueKey('dashboard-settings-gear'),
             tooltip: context.l10n.settings,

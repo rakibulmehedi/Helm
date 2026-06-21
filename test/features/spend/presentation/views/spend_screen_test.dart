@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/app_theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:helm/core/widgets/helm_amount.dart';
 import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 import 'package:helm/features/transactions/domain/entities/transaction_entity.dart';
@@ -46,6 +48,11 @@ TransactionEntity _tx(String id, double amt, TransactionType type) =>
     );
 
 void main() {
+  setUp(() async {
+    SharedPreferences.setMockInitialValues({});
+    await SharedPrefServices.init();
+  });
+
   testWidgets('shows only expense transactions, not income', (tester) async {
     await tester.pumpWidget(_app([
       _tx('1', 500, TransactionType.expense),

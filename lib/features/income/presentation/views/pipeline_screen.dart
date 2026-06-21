@@ -97,6 +97,12 @@ class PipelineScreen extends ConsumerWidget {
               icon: const HelmIcon(LucideIcons.history, size: HelmIconSize.lg),
               onPressed: () => context.push(RouteNames.trace),
             ),
+          IconButton(
+            key: const ValueKey('pipeline-settings-gear'),
+            tooltip: l10n.settings,
+            icon: const HelmIcon(LucideIcons.settings, size: HelmIconSize.lg),
+            onPressed: () => context.push(RouteNames.settings),
+          ),
         ],
       ),
       floatingActionButton: _PipelineFab(entryCount: entries.length),
