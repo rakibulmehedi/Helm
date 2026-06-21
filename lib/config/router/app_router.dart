@@ -15,16 +15,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+import 'package:helm/core/widgets/helm_nav_bar.dart';
+import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 
 import 'package:helm/config/router/route_names.dart';
 import 'package:helm/core/constants/app_box_names.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/utils/input_validator.dart';
-import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/features/auth/presentation/providers/auth_provider.dart'
     show authRefreshListenable, isSessionAuthenticated;
 import 'package:helm/features/auth/presentation/views/magic_link_screen.dart';
-import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/auth/presentation/views/pin_entry_screen.dart';
 import 'package:helm/features/auth/presentation/views/pin_setup_screen.dart';
 import 'package:helm/features/dashboard/presentation/views/dashboard_screen.dart';
@@ -64,7 +66,7 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const OnboardingScreen(),
     ),
 
-    // ── Shell: 4-tab main app (UX-1.07) ──────────────────────────────────────
+    // ── Shell: 3-tab main app (UX-1.07) ──────────────────────────────────────
     ShellRoute(
       builder: (context, state, child) =>
           _AppShell(location: state.matchedLocation, child: child),
@@ -80,14 +82,9 @@ final GoRouter appRouter = GoRouter(
           builder: (context, state) => const PipelineScreen(),
         ),
         GoRoute(
-          path: RouteNames.trace,
-          name: 'trace',
-          builder: (context, state) => const AuditLogScreen(),
-        ),
-        GoRoute(
-          path: RouteNames.settings,
-          name: 'settings',
-          builder: (context, state) => const StsSettingsScreen(),
+          path: RouteNames.spend,
+          name: 'spend',
+          builder: (context, state) => const SpendScreen(),
         ),
       ],
     ),
@@ -214,27 +211,21 @@ class _TabItem {
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: Icons.home_rounded,
+    icon: LucideIcons.house,
     label: 'Home',
     tooltip: 'Safe-to-Spend',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: Icons.account_balance_wallet_rounded,
+    icon: LucideIcons.arrowUpDown,
     label: 'Pipeline',
     tooltip: 'Income pipeline',
   ),
   _TabItem(
-    path: RouteNames.trace,
-    icon: Icons.receipt_long_rounded,
-    label: 'History',
-    tooltip: 'History and audit trail',
-  ),
-  _TabItem(
-    path: RouteNames.settings,
-    icon: Icons.settings_rounded,
-    label: 'Settings',
-    tooltip: 'Settings',
+    path: RouteNames.spend,
+    icon: LucideIcons.wallet,
+    label: 'Spend',
+    tooltip: 'Money spent',
   ),
 ];
 
@@ -255,30 +246,14 @@ class _AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.colors;
-    final typography = context.textStyles;
-
     return Scaffold(
       body: child,
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: HelmNavBar(
+        items: _tabs
+            .map((t) => HelmNavItem(icon: t.icon, label: t.label))
+            .toList(growable: false),
         currentIndex: _currentIndex,
         onTap: (i) => context.go(_tabs[i].path),
-        selectedItemColor: colors.interactive,
-        unselectedItemColor: colors.inkTertiary,
-        backgroundColor: colors.surface,
-        type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: typography.labelSm,
-        unselectedLabelStyle: typography.labelSm,
-        elevation: 0,
-        items: _tabs
-            .map(
-              (t) => BottomNavigationBarItem(
-                icon: Icon(t.icon),
-                label: t.label,
-                tooltip: t.tooltip,
-              ),
-            )
-            .toList(),
       ),
     );
   }
