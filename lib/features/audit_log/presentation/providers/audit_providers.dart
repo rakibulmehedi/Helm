@@ -6,6 +6,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:helm/features/audit_log/data/datasources/audit_local_data_source.dart';
+import 'package:helm/features/audit_log/data/services/audit_chain_service.dart';
 import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
 
 /// Provides the [AuditLocalDataSourceImpl] singleton.
@@ -19,4 +20,16 @@ final auditLocalDataSourceProvider = Provider<AuditLocalDataSourceImpl>((ref) {
 final auditEventsProvider = FutureProvider<List<AuditEvent>>((ref) async {
   final ds = ref.read(auditLocalDataSourceProvider);
   return ds.getAllEvents();
+});
+
+/// Shared chain service for verification.
+final auditChainServiceProvider = Provider<AuditChainService>((ref) {
+  return AuditChainService();
+});
+
+/// Verifies the audit hash chain once on read. Re-runs when events change.
+final auditIntegrityProvider = FutureProvider<ChainVerification>((ref) async {
+  final events = await ref.watch(auditEventsProvider.future);
+  final service = ref.read(auditChainServiceProvider);
+  return service.verifyChain(events);
 });
