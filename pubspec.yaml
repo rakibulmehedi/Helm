@@ -29,6 +29,7 @@ dependencies:
   jailbreak_root_detection: ^1.1.1
   http: ^1.6.0
   supabase_flutter: ^2.15.0
+  lucide_icons_flutter: ^3.1.14
 
 dev_dependencies:
   flutter_test:
