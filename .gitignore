@@ -72,3 +72,4 @@ app.*.map.json
 .github-audit/
 .superpowers/
 .worktrees/
+test/golden/failures/
