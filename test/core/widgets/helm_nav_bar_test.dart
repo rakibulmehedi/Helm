@@ -64,7 +64,7 @@ void main() {
     final handle = tester.ensureSemantics();
     expect(
       tester.getSemantics(find.text('Home')),
-      matchesSemantics(label: 'Home', isButton: true, isSelected: true),
+      matchesSemantics(label: 'Home', isButton: true, isSelected: true, hasSelectedState: true),
     );
     handle.dispose();
   });
