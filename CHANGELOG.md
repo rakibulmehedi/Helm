@@ -7,6 +7,27 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [0.5.0-beta.1] — 2026-06-21
+
+### Added
+- **History tab — Paper Ledger reskin**: `AuditLogScreen` rebuilt to Paper Ledger standard with date-grouped event cards, tappable before→after detail sheet (`AuditEventDetailSheet`), and ledger integrity strip
+- **Chain re-verification**: `AuditChainService.verifyChain` recomputes SHA-256 over the full event history at read time; `ChainVerification` result surfaced in `LedgerIntegrityStrip`
+- **Paper Ledger widget system**: `HelmLedgerHero`, `HelmLedgerRow`, `HelmNextEventCard`, `LedgerState` — shared ledger primitives used across Dashboard and History tab
+- **Audit presentation utils**: pure helpers `auditIconFor`, `auditColorFor`, `auditEntityLabel`, `auditTitleFor` covering all 6 event types and 5 entity types
+- **History grouping**: date-bucket grouping (Today / This Week / Earlier) with full unit-test coverage
+- `auditIntegrityProvider` — chain integrity verified on History tab open, result shown in `LedgerIntegrityStrip`
+- Fraunces font family (Regular, Medium, SemiBold) added for Paper Ledger display typography
+- Golden baselines for History tab (light + dark)
+
+### Changed
+- **Dashboard reskin**: Signal Deck replaced by Paper Ledger widgets (`HelmLedgerHero`, `HelmNextEventCard`); ledger state drives safe/tight/atRisk/empty color logic
+- **Income list screen removed**: standalone income list and pipeline summary deleted; income managed via pipeline and add-income routes
+
+### Removed
+- Signal Deck widget family (`HelmSignalHero`, `HelmDecisionDeck`, `HelmFlowRoute`, `HelmSignalHorizon`) and associated tests
+
+---
+
 ## [0.4.0-beta.1] — 2026-06-20
 
 ### Added

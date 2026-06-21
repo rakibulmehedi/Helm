@@ -1,4 +1,6 @@
 // test/features/audit_log/presentation/audit_log_screen_test.dart
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,6 +40,33 @@ void main() {
     ]));
     await tester.pump();
     expect(find.byType(AuditEventCard), findsNothing);
+  });
+
+  testWidgets('loading state shows CircularProgressIndicator', (tester) async {
+    final completer = Completer<List<AuditEvent>>();
+    await tester.pumpWidget(_host([
+      auditEventsProvider.overrideWith((ref) => completer.future),
+      auditIntegrityProvider.overrideWith(
+        (ref) async =>
+            const ChainVerification(isIntact: true, verifiedCount: 0),
+      ),
+    ]));
+    await tester.pump(); // single frame — future not yet resolved
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    completer.complete([]); // clean up
+  });
+
+  testWidgets('error state shows error message widget', (tester) async {
+    await tester.pumpWidget(_host([
+      auditEventsProvider.overrideWith((ref) async => throw Exception('Hive unavailable')),
+      auditIntegrityProvider.overrideWith(
+        (ref) async =>
+            const ChainVerification(isIntact: true, verifiedCount: 0),
+      ),
+    ]));
+    await tester.pump(); // kick async provider
+    await tester.pump(); // resolve future
+    expect(find.byIcon(Icons.error_outline), findsOneWidget);
   });
 
   testWidgets('renders grouped cards for events', (tester) async {

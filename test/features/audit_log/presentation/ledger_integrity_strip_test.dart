@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,5 +45,25 @@ void main() {
     ));
     await tester.pump();
     expect(find.textContaining('Integrity issue'), findsOneWidget);
+  });
+
+  testWidgets('loading state shows hourglass icon', (tester) async {
+    final completer = Completer<ChainVerification>();
+    await tester.pumpWidget(_host(
+      auditIntegrityProvider.overrideWith((ref) => completer.future),
+    ));
+    await tester.pump(); // single frame — future not resolved
+    expect(find.byIcon(Icons.hourglass_empty), findsOneWidget);
+    completer.complete(const ChainVerification(isIntact: true, verifiedCount: 0));
+  });
+
+  testWidgets('error state shows warning icon', (tester) async {
+    await tester.pumpWidget(_host(
+      auditIntegrityProvider.overrideWith(
+          (ref) async => throw Exception('chain error')),
+    ));
+    await tester.pump();
+    await tester.pump();
+    expect(find.byIcon(Icons.warning_amber_rounded), findsOneWidget);
   });
 }
