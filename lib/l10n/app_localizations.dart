@@ -2063,7 +2063,7 @@ abstract class AppLocalizations {
   /// Spend tab empty-state teaching body
   ///
   /// In en, this message translates to:
-  /// **'Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.'**
+  /// **'Record money you have already paid out — each payment updates your Safe-to-Spend.'**
   String get spendEmptyBody;
 
   /// Spend tab add-payment FAB label

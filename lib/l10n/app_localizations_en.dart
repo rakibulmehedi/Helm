@@ -1123,7 +1123,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spendEmptyBody =>
-      'Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.';
+      'Record money you have already paid out — each payment updates your Safe-to-Spend.';
 
   @override
   String get spendFabLabel => 'Add a payment';

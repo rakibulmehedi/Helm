@@ -1102,18 +1102,18 @@ class AppLocalizationsBn extends AppLocalizations {
   }
 
   @override
-  String get spendTitle => 'খরচ';
+  String get spendTitle => 'ব্যয়';
 
   @override
-  String get spendSummaryLabel => 'এই মাসে খরচ · Safe-to-Spend কমায়';
+  String get spendSummaryLabel => 'এই মাসে ব্যয় · Safe-to-Spend কমায়';
 
   @override
-  String get spendEmptyTitle => 'এখনো কিছু খরচ হয়নি';
+  String get spendEmptyTitle => 'এখনো কিছু ব্যয় হয়নি';
 
   @override
   String get spendEmptyBody =>
-      'আপনি ইতিমধ্যে যে টাকা খরচ করেছেন তা যোগ করুন। প্রতিটি খরচ আপনার Safe-to-Spend কমায়, তাই সংখ্যাটি সঠিক থাকে।';
+      'আপনি যে অর্থ ইতিমধ্যে পরিশোধ করেছেন তা রেকর্ড করুন — প্রতিটি পেমেন্ট আপনার Safe-to-Spend আপডেট করে।';
 
   @override
-  String get spendFabLabel => 'খরচ যোগ করুন';
+  String get spendFabLabel => 'পেমেন্ট যোগ করুন';
 }
