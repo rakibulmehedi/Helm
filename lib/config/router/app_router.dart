@@ -29,7 +29,6 @@ import 'package:helm/features/auth/presentation/views/pin_entry_screen.dart';
 import 'package:helm/features/auth/presentation/views/pin_setup_screen.dart';
 import 'package:helm/features/dashboard/presentation/views/dashboard_screen.dart';
 import 'package:helm/features/income/presentation/views/add_income_screen.dart';
-import 'package:helm/features/income/presentation/views/income_list_screen.dart';
 import 'package:helm/features/income/presentation/views/pipeline_screen.dart';
 import 'package:helm/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:helm/features/onboarding/presentation/views/welcome_screen.dart';
@@ -106,19 +105,6 @@ final GoRouter appRouter = GoRouter(
         final id = state.pathParameters['id'];
         final safeId = InputValidator.isValidId(id) ? id : null;
         return AddTransactionScreen(transactionId: safeId);
-      },
-    ),
-    GoRoute(
-      path: RouteNames.income,
-      name: 'income',
-      builder: (context, state) {
-        final extra = state.extra;
-        final filter = extra is String ? extra.trim().toLowerCase() : null;
-        const validFilters = {'all', 'expected', 'pending', 'received'};
-        final safeFilter = filter != null && validFilters.contains(filter)
-            ? filter
-            : null;
-        return IncomeListScreen(initialFilter: safeFilter);
       },
     ),
     GoRoute(
