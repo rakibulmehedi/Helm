@@ -209,7 +209,7 @@
 
 ## Recently Completed
 
-**Income View Consolidation — Decision 040** ✅ [2026-06-21] — `dart analyze` 0/0/0, 372/372 tests pass (branch: `paper-ledger-reskin`)
+**Income View Consolidation — Decision 040** ✅ [2026-06-21] — `dart analyze` 0/0/0, 422 tests pass (1 skipped) (branch: `paper-ledger-reskin`)
 - [x] Task 1 (c22cffc): deleted orphaned `IncomePipelineSummary` widget
 - [x] Task 2 (dd44f56): removed `/income` GoRoute, `IncomeListScreen`, `RouteNames.income`; added permanent guard test (`test/config/router/income_route_removed_test.dart`)
 - [x] Task 3 (8d12cd2): removed 15 income-list-only l10n keys from en/bn ARB files + regenerated
