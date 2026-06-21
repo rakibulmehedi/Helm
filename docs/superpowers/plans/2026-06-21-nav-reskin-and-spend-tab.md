@@ -4,9 +4,9 @@
 
 **Goal:** Replace the Material `BottomNavigationBar` with a design-system-correct `HelmNavBar`, restructure the primary tabs to Home·Pipeline·Spend, demote Settings and History out of the nav, and add a doctrine-safe Spend (outflows) tab.
 
-**Architecture:** Add `phosphor_flutter` + a `HelmIcon` wrapper as the icon foundation. Build a self-contained `HelmNavBar` enforcing the VIS-024 color+underline active state. Rewire the existing `ShellRoute` in `app_router.dart` to 3 tabs. Settings becomes a Dashboard app-bar gear (push overlay); History becomes a guest-gated "View audit trail" action inside Pipeline. The new `SpendScreen` reuses the existing `transactionsProvider` filtered to expenses — no new data layer.
+**Architecture:** Add `lucide_icons_flutter` + a `HelmIcon` wrapper as the icon foundation. Build a self-contained `HelmNavBar` enforcing the VIS-024 color+underline active state. Rewire the existing `ShellRoute` in `app_router.dart` to 3 tabs. Settings becomes a Dashboard app-bar gear (push overlay); History becomes a guest-gated "View audit trail" action inside Pipeline. The new `SpendScreen` reuses the existing `transactionsProvider` filtered to expenses — no new data layer.
 
-**Tech Stack:** Flutter (Dart ^3.7.2), Riverpod, GoRouter, Hive (hive_ce), `phosphor_flutter` (new), flutter gen-l10n (ARB).
+**Tech Stack:** Flutter (Dart ^3.7.2), Riverpod, GoRouter, Hive (hive_ce), `lucide_icons_flutter` (new), flutter gen-l10n (ARB).
 
 ## Global Constraints
 
@@ -20,7 +20,7 @@
 - New user-facing strings are localized via ARB (en + bn) — no new English-only hardcoded copy.
 - Spend tab copy MUST NOT use "expense"/"track expenses"/category language. Frame as money spent that reduces Safe-to-Spend. No category UI, charts, or budgets.
 - Commit message format: `type(scope): description` (types: feat, fix, refactor, docs, chore, style). No attribution footer.
-- Phosphor icons are referenced via the `PhosphorIconsRegular.*` (outline) constant set only — never filled/bold/duotone sets.
+- Lucide icons are referenced via the `LucideIcons.*` (outline) constant set only — never filled/bold/duotone sets.
 
 ---
 
@@ -28,7 +28,7 @@
 
 | File | Responsibility | Action |
 |---|---|---|
-| `pubspec.yaml` | Add `phosphor_flutter` dependency | Modify |
+| `pubspec.yaml` | Add `lucide_icons_flutter` dependency | Modify |
 | `lib/core/widgets/helm_icon.dart` | Outline-only, token-sized icon wrapper | Create |
 | `lib/core/widgets/helm_nav_bar.dart` | 3-tab bottom nav with VIS-024 active state | Create |
 | `lib/config/router/route_names.dart` | Add `spend` route constant | Modify |
@@ -42,7 +42,7 @@
 | `test/core/widgets/helm_nav_bar_test.dart` | HelmNavBar behavior | Create |
 | `test/features/spend/spend_screen_test.dart` | SpendScreen behavior + doctrine guard | Create |
 | `test/config/router/app_shell_tabs_test.dart` | Tab labels (3) | Modify |
-| `test/config/router/app_shell_signal_nav_test.dart` | Tab source assertions (Phosphor, 3 tabs) | Modify |
+| `test/config/router/app_shell_signal_nav_test.dart` | Tab source assertions (Lucide, 3 tabs) | Modify |
 | `test/features/dashboard/dashboard_settings_gear_test.dart` | Gear pushes /settings | Create |
 | `test/features/income/pipeline_audit_link_test.dart` | Guest-gated audit link | Create |
 | `test/golden/nav_bar_golden_test.dart` | HelmNavBar goldens | Create |
@@ -51,51 +51,51 @@
 
 ---
 
-## Task 1: Add `phosphor_flutter` dependency
+## Task 1: Add `lucide_icons_flutter` dependency
 
 **Files:**
 - Modify: `pubspec.yaml` (dependencies block, after `supabase_flutter`)
-- Test: `test/core/widgets/phosphor_smoke_test.dart`
+- Test: `test/core/widgets/lucide_smoke_test.dart`
 
 **Interfaces:**
-- Produces: `PhosphorIconsRegular.house`, `PhosphorIconsRegular.arrowsDownUp`, `PhosphorIconsRegular.wallet`, `PhosphorIconsRegular.gear`, `PhosphorIconsRegular.listMagnifyingGlass` — all `IconData` from `package:phosphor_flutter/phosphor_flutter.dart`.
+- Produces: `LucideIcons.house`, `LucideIcons.arrowUpDown`, `LucideIcons.wallet`, `LucideIcons.settings`, `LucideIcons.history` — all `IconData` from `package:lucide_icons_flutter/lucide_icons.dart`.
 
 - [ ] **Step 1: Write the failing smoke test**
 
 ```dart
-// test/core/widgets/phosphor_smoke_test.dart
+// test/core/widgets/lucide_smoke_test.dart
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 void main() {
-  test('phosphor regular outline icons resolve to IconData', () {
-    expect(PhosphorIconsRegular.house, isA<IconData>());
-    expect(PhosphorIconsRegular.arrowsDownUp, isA<IconData>());
-    expect(PhosphorIconsRegular.wallet, isA<IconData>());
-    expect(PhosphorIconsRegular.gear, isA<IconData>());
+  test('lucide regular outline icons resolve to IconData', () {
+    expect(LucideIcons.house, isA<IconData>());
+    expect(LucideIcons.arrowUpDown, isA<IconData>());
+    expect(LucideIcons.wallet, isA<IconData>());
+    expect(LucideIcons.settings, isA<IconData>());
   });
 }
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `fvm flutter test test/core/widgets/phosphor_smoke_test.dart`
-Expected: FAIL — compile error, `package:phosphor_flutter` not found.
+Run: `fvm flutter test test/core/widgets/lucide_smoke_test.dart`
+Expected: FAIL — compile error, `package:lucide_icons_flutter` not found.
 
 - [ ] **Step 3: Add the dependency**
 
 In `pubspec.yaml`, under `dependencies:`, add after the `supabase_flutter: ^2.15.0` line:
 
 ```yaml
-  phosphor_flutter: ^2.1.0
+  lucide_icons_flutter: ^3.1.14
 ```
 
 - [ ] **Step 4: Resolve and verify**
 
 Run: `fvm flutter pub get`
 Expected: resolves successfully.
-Run: `fvm flutter test test/core/widgets/phosphor_smoke_test.dart`
+Run: `fvm flutter test test/core/widgets/lucide_smoke_test.dart`
 Expected: PASS.
 Run: `fvm dart analyze`
 Expected: 0/0/0.
@@ -103,8 +103,8 @@ Expected: 0/0/0.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add pubspec.yaml pubspec.lock test/core/widgets/phosphor_smoke_test.dart
-git commit -m "chore(deps): add phosphor_flutter for design-system icons"
+git add pubspec.yaml pubspec.lock test/core/widgets/lucide_smoke_test.dart
+git commit -m "chore(deps): add lucide_icons_flutter for design-system icons"
 ```
 
 ---
@@ -116,7 +116,7 @@ git commit -m "chore(deps): add phosphor_flutter for design-system icons"
 - Test: `test/core/widgets/helm_icon_test.dart`
 
 **Interfaces:**
-- Consumes: `context.colors.inkPrimary` (HelmColors), `PhosphorIconsRegular.*` (Task 1).
+- Consumes: `context.colors.inkPrimary` (HelmColors), `LucideIcons.*` (Task 1).
 - Produces:
   - `enum HelmIconSize { sm, md, lg, xl }` → 16/20/24/28 pt
   - `class HelmIcon extends StatelessWidget` with `HelmIcon(IconData icon, {HelmIconSize size = HelmIconSize.md, Color? color})`
@@ -130,7 +130,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/core/widgets/helm_icon.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 Widget _host(Widget child) => MaterialApp(
       theme: AppTheme.light,
@@ -147,15 +147,15 @@ void main() {
 
   testWidgets('renders the given IconData at the resolved size', (tester) async {
     await tester.pumpWidget(
-      _host(const HelmIcon(PhosphorIconsRegular.house, size: HelmIconSize.lg)),
+      _host(const HelmIcon(LucideIcons.house, size: HelmIconSize.lg)),
     );
     final icon = tester.widget<Icon>(find.byType(Icon));
-    expect(icon.icon, PhosphorIconsRegular.house);
+    expect(icon.icon, LucideIcons.house);
     expect(icon.size, 24);
   });
 
   testWidgets('defaults color to inkPrimary when none provided', (tester) async {
-    await tester.pumpWidget(_host(const HelmIcon(PhosphorIconsRegular.gear)));
+    await tester.pumpWidget(_host(const HelmIcon(LucideIcons.settings)));
     final icon = tester.widget<Icon>(find.byType(Icon));
     expect(icon.color, AppTheme.light.extension<HelmColors>()!.inkPrimary);
   });
@@ -174,7 +174,7 @@ Expected: FAIL — `helm_icon.dart` does not exist.
 ```dart
 // lib/core/widgets/helm_icon.dart
 // VIS-041 / VIS-023 — Outline-only, token-sized icon wrapper.
-// Single icon entry point for the app. Pass PhosphorIconsRegular.* (outline) only.
+// Single icon entry point for the app. Pass LucideIcons.* (outline) only.
 
 import 'package:flutter/material.dart';
 
@@ -197,7 +197,7 @@ double helmIconSizePt(HelmIconSize size) {
   }
 }
 
-/// Outline-only icon. Always pass a `PhosphorIconsRegular.*` constant.
+/// Outline-only icon. Always pass a `LucideIcons.*` constant.
 class HelmIcon extends StatelessWidget {
   final IconData icon;
   final HelmIconSize size;
@@ -260,12 +260,12 @@ import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/widgets/helm_icon.dart';
 import 'package:helm/core/widgets/helm_nav_bar.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 const _items = [
-  HelmNavItem(icon: PhosphorIconsRegular.house, label: 'Home'),
-  HelmNavItem(icon: PhosphorIconsRegular.arrowsDownUp, label: 'Pipeline'),
-  HelmNavItem(icon: PhosphorIconsRegular.wallet, label: 'Spend'),
+  HelmNavItem(icon: LucideIcons.house, label: 'Home'),
+  HelmNavItem(icon: LucideIcons.arrowUpDown, label: 'Pipeline'),
+  HelmNavItem(icon: LucideIcons.wallet, label: 'Spend'),
 ];
 
 Widget _host({required int index, required ValueChanged<int> onTap}) =>
@@ -708,7 +708,7 @@ import 'package:helm/features/transactions/domain/entities/transaction_entity.da
 import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 import 'package:helm/features/transactions/presentation/providers/transaction_provider.dart';
 import 'package:helm/l10n/app_localization.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class SpendScreen extends ConsumerWidget {
   const SpendScreen({super.key});
@@ -743,7 +743,7 @@ class SpendScreen extends ConsumerWidget {
         foregroundColor: colors.surface,
         elevation: 0,
         tooltip: l10n.spendFabLabel,
-        child: const HelmIcon(PhosphorIconsRegular.plus,
+        child: const HelmIcon(LucideIcons.plus,
             size: HelmIconSize.lg, color: Colors.white),
       ),
       body: SafeArea(
@@ -864,7 +864,7 @@ git commit -m "feat(spend): add doctrine-safe Spend tab (outflows that reduce S2
 - Modify: `test/config/router/app_shell_signal_nav_test.dart`
 
 **Interfaces:**
-- Consumes: `HelmNavBar`, `HelmNavItem` (Task 3), `SpendScreen` + `RouteNames.spend` (Task 5), `PhosphorIconsRegular.*`.
+- Consumes: `HelmNavBar`, `HelmNavItem` (Task 3), `SpendScreen` + `RouteNames.spend` (Task 5), `LucideIcons.*`.
 - Produces: `debugAppShellTabLabels == ['Home', 'Pipeline', 'Spend']`; `/spend` shell route → `SpendScreen`.
 
 - [ ] **Step 1: Update the tab-label test**
@@ -893,7 +893,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/config/router/route_names.dart';
 
 void main() {
-  test('shell exposes Home Pipeline Spend tabs with Phosphor icons', () {
+  test('shell exposes Home Pipeline Spend tabs with Lucide icons', () {
     expect(RouteNames.home, equals('/home'));
     expect(RouteNames.pipeline, equals('/pipeline'));
     expect(RouteNames.spend, equals('/spend'));
@@ -905,15 +905,15 @@ void main() {
 
     expect(tabsSource, contains('RouteNames.home'));
     expect(tabsSource, contains("label: 'Home'"));
-    expect(tabsSource, contains('PhosphorIconsRegular.house'));
+    expect(tabsSource, contains('LucideIcons.house'));
 
     expect(tabsSource, contains('RouteNames.pipeline'));
     expect(tabsSource, contains("label: 'Pipeline'"));
-    expect(tabsSource, contains('PhosphorIconsRegular.arrowsDownUp'));
+    expect(tabsSource, contains('LucideIcons.arrowUpDown'));
 
     expect(tabsSource, contains('RouteNames.spend'));
     expect(tabsSource, contains("label: 'Spend'"));
-    expect(tabsSource, contains('PhosphorIconsRegular.wallet'));
+    expect(tabsSource, contains('LucideIcons.wallet'));
 
     // History and Settings are no longer primary tabs.
     expect(tabsSource, isNot(contains('RouteNames.trace')));
@@ -932,7 +932,7 @@ Expected: FAIL — old `_tabs` still has 4 entries / Material icons.
 Add imports near the top:
 
 ```dart
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:helm/core/widgets/helm_nav_bar.dart';
 import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 ```
@@ -943,19 +943,19 @@ Replace the entire `const List<_TabItem> _tabs = [ ... ];` block with:
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: PhosphorIconsRegular.house,
+    icon: LucideIcons.house,
     label: 'Home',
     tooltip: 'Safe-to-Spend',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: PhosphorIconsRegular.arrowsDownUp,
+    icon: LucideIcons.arrowUpDown,
     label: 'Pipeline',
     tooltip: 'Income pipeline',
   ),
   _TabItem(
     path: RouteNames.spend,
-    icon: PhosphorIconsRegular.wallet,
+    icon: LucideIcons.wallet,
     label: 'Spend',
     tooltip: 'Money spent',
   ),
@@ -1029,7 +1029,7 @@ git commit -m "feat(nav): restructure shell to Home/Pipeline/Spend with HelmNavB
 - Test: `test/features/dashboard/dashboard_settings_gear_test.dart`
 
 **Interfaces:**
-- Consumes: `HelmIcon`, `PhosphorIconsRegular.gear`, `RouteNames.settings`, `context.push`.
+- Consumes: `HelmIcon`, `LucideIcons.settings`, `RouteNames.settings`, `context.push`.
 - Produces: an `IconButton` keyed `ValueKey('dashboard-settings-gear')` that pushes `/settings`.
 
 - [ ] **Step 1: Write the failing test**
@@ -1046,7 +1046,7 @@ void main() {
       'lib/features/dashboard/presentation/views/dashboard_screen.dart',
     ).readAsStringSync();
     expect(src, contains("ValueKey('dashboard-settings-gear')"));
-    expect(src, contains('PhosphorIconsRegular.gear'));
+    expect(src, contains('LucideIcons.settings'));
     expect(src, contains('RouteNames.settings'));
   });
 }
@@ -1067,7 +1067,7 @@ In `dashboard_screen.dart`, ensure imports include:
 
 ```dart
 import 'package:helm/core/widgets/helm_icon.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 ```
 
 (`RouteNames` and `go_router` are already imported.) In the `AppBar(actions: [ ... ])`, add as the first action (before the `if (kDebugMode)` block):
@@ -1076,7 +1076,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
           IconButton(
             key: const ValueKey('dashboard-settings-gear'),
             tooltip: context.l10n.settingsTitle,
-            icon: const HelmIcon(PhosphorIconsRegular.gear,
+            icon: const HelmIcon(LucideIcons.settings,
                 size: HelmIconSize.lg),
             onPressed: () => context.push(RouteNames.settings),
           ),
@@ -1107,7 +1107,7 @@ git commit -m "feat(dashboard): add settings gear to app bar (Settings demoted f
 - Test: `test/features/income/pipeline_audit_link_test.dart`
 
 **Interfaces:**
-- Consumes: `SharedPrefServices.getGuestMode()`, `HelmIcon`, `PhosphorIconsRegular.listMagnifyingGlass`, `RouteNames.trace`, `context.push`.
+- Consumes: `SharedPrefServices.getGuestMode()`, `HelmIcon`, `LucideIcons.history`, `RouteNames.trace`, `context.push`.
 - Produces: an audit `IconButton` keyed `ValueKey('pipeline-audit-link')`, rendered only when `getGuestMode()` is false.
 
 - [ ] **Step 1: Write the failing test**
@@ -1126,7 +1126,7 @@ void main() {
     expect(src, contains("ValueKey('pipeline-audit-link')"));
     expect(src, contains('SharedPrefServices.getGuestMode()'));
     expect(src, contains('RouteNames.trace'));
-    expect(src, contains('PhosphorIconsRegular.listMagnifyingGlass'));
+    expect(src, contains('LucideIcons.history'));
   });
 }
 ```
@@ -1145,7 +1145,7 @@ In `pipeline_screen.dart`, add imports:
 ```dart
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/widgets/helm_icon.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 ```
 
 (`go_router` and `RouteNames` are already imported.) In the `AppBar(...)`, add an `actions:` list (or extend the existing one) with:
@@ -1156,7 +1156,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
             IconButton(
               key: const ValueKey('pipeline-audit-link'),
               tooltip: l10n.historyTitle,
-              icon: const HelmIcon(PhosphorIconsRegular.listMagnifyingGlass,
+              icon: const HelmIcon(LucideIcons.history,
                   size: HelmIconSize.lg),
               onPressed: () => context.push(RouteNames.trace),
             ),
@@ -1207,12 +1207,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/core/widgets/helm_nav_bar.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 const _items = [
-  HelmNavItem(icon: PhosphorIconsRegular.house, label: 'Home'),
-  HelmNavItem(icon: PhosphorIconsRegular.arrowsDownUp, label: 'Pipeline'),
-  HelmNavItem(icon: PhosphorIconsRegular.wallet, label: 'Spend'),
+  HelmNavItem(icon: LucideIcons.house, label: 'Home'),
+  HelmNavItem(icon: LucideIcons.arrowUpDown, label: 'Pipeline'),
+  HelmNavItem(icon: LucideIcons.wallet, label: 'Spend'),
 ];
 
 Widget _app(ThemeData theme) => MediaQuery(
@@ -1363,7 +1363,7 @@ Append under the appropriate backlog/section:
 ```markdown
 ### Nav Reskin — Follow-ups (filed 2026-06-21)
 - [ ] Reskin `AddTransactionScreen` — replace legacy "cash out" language (UX-P5), align to Spend framing ("Add a payment"), reconsider `categoryId` exposure per Final Doctrine.
-- [ ] App-wide Phosphor migration — migrate remaining ~24 Material-icon files to `HelmIcon`/`PhosphorIconsRegular`.
+- [ ] App-wide Lucide migration — migrate remaining ~24 Material-icon files to `HelmIcon`/`LucideIcons`.
 - [ ] Route de-duplication — collapse `/settings` vs `/sts-settings`.
 - [ ] Behavioral widget tests for Dashboard gear + Pipeline audit link once Dashboard initState (AR-P1) and income provider gain test seams.
 ```
@@ -1375,11 +1375,11 @@ Append a new decision entry (match the existing numbering/format in that file):
 ```markdown
 ## Decision 042 — Nav restructure to Home/Pipeline/Spend + HelmNavBar (2026-06-21)
 
-**Context:** 4-tab Material `BottomNavigationBar` did not adopt VIS-024 (color+underline active state) or VIS-022 (Phosphor outline icons). Settings and History occupied primary tab slots despite low daily frequency.
+**Context:** 4-tab Material `BottomNavigationBar` did not adopt VIS-024 (color+underline active state) or VIS-022 (Lucide outline icons). Settings and History occupied primary tab slots despite low daily frequency.
 
-**Decision:** 3 primary tabs (Home, Pipeline, Spend) via custom `HelmNavBar` + `HelmIcon`. Settings → Dashboard app-bar gear (push). History → guest-gated Pipeline action (push). Added `phosphor_flutter`. New Spend tab reuses the transaction repository, framed as outflows that reduce Safe-to-Spend — NOT an expense tracker (no categories/charts/budgets), per Final Doctrine.
+**Decision:** 3 primary tabs (Home, Pipeline, Spend) via custom `HelmNavBar` + `HelmIcon`. Settings → Dashboard app-bar gear (push). History → guest-gated Pipeline action (push). Added `lucide_icons_flutter`. New Spend tab reuses the transaction repository, framed as outflows that reduce Safe-to-Spend — NOT an expense tracker (no categories/charts/budgets), per Final Doctrine.
 
-**Scope guard:** `AddTransactionScreen` internals, app-wide Phosphor migration, and `/settings` vs `/sts-settings` de-dup are filed as follow-ups (TASKS.md), not in this change.
+**Scope guard:** `AddTransactionScreen` internals, app-wide Lucide migration, and `/settings` vs `/sts-settings` de-dup are filed as follow-ups (TASKS.md), not in this change.
 ```
 
 - [ ] **Step 6: Commit**
@@ -1393,7 +1393,7 @@ git commit -m "docs(tracking): record Decision 042 (nav restructure) + nav follo
 
 ## Self-Review Notes (already applied)
 
-- **Spec coverage:** §4.1 HelmIcon → T2; §4.2 HelmNavBar → T3; §5 routing/shell → T6; §5 dead theme → T6/S7; §5 guest gating → T8; §6 SpendScreen → T4+T5; §8 tests → T2/T3/T5/T6/T7/T8/T9; §9 follow-ups → T10. Phosphor dep → T1.
+- **Spec coverage:** §4.1 HelmIcon → T2; §4.2 HelmNavBar → T3; §5 routing/shell → T6; §5 dead theme → T6/S7; §5 guest gating → T8; §6 SpendScreen → T4+T5; §8 tests → T2/T3/T5/T6/T7/T8/T9; §9 follow-ups → T10. Lucide dep → T1.
 - **Adjustment from spec:** §6 item 4 said "Trust Strip (VISR-013)". `HelmTrustStrip` is timestamp/l10n-driven and cannot render arbitrary summary text, so the Spend summary uses trust-strip *styling* (`labelSm`/`inkSecondary`) via `_SummaryStrip` instead of that widget. Documented here intentionally.
 - **Type consistency:** `transactionsProvider`, `TransactionsNotifier.test`, `HelmNavItem`, `HelmIconSize`, `RouteNames.spend`, `helmIconSizePt` used identically across tasks.
 - **Source-assertion tests (T7/T8):** chosen deliberately for entry-point additions on screens with heavy provider/initState setup; behavioral follow-ups filed in T10.
