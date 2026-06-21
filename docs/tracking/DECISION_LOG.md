@@ -692,4 +692,6 @@ re-introduction of the `/income` route.
 **Spec:** `docs/superpowers/specs/2026-06-21-history-tab-paper-ledger-trust-design.md`
 **Plan:** `docs/superpowers/plans/2026-06-21-history-tab-paper-ledger-trust.md`
 
-**Verification:** `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden); 2 new History goldens added (dark mode).
+**Verification:** `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden); 2 new History goldens added (light + dark).
+
+**Known limitation (tracked):** `verifyChain` re-bases from an empty genesis hash, but `AuditLocalDataSourceImpl._pruneOldEvents` deletes events past `kAuditRetentionDays` without re-basing the hash chain. Once any event ages past retention, an honest ledger will report a **false** "Integrity issue detected" (a false alarm, never a false "verified" — the fail-loud guarantee holds). Cannot fire within the closed-beta horizon. Fix touches the audit-write/retention path (a Non-Goal of this sub-project) and awaits Chief Architect direction. See LESSONS.md §35.
