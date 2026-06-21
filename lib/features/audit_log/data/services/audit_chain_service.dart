@@ -110,4 +110,74 @@ class AuditChainService {
       ..write(event.description);
     return buffer.toString();
   }
+
+  /// Recomputes the chain over [eventsNewestFirst] and compares each event's
+  /// recomputed hash against the stored hash.
+  ///
+  /// Assumes events were appended in ascending-timestamp order (true in
+  /// practice — every event is appended at creation time), so reversing to
+  /// oldest-first reconstructs the original append order and chain.
+  /// Re-uses [_canonicalPayload] so verification and append stay in lockstep.
+  /// Any storage failure is surfaced as a non-intact result, never thrown.
+  Future<ChainVerification> verifyChain(
+    List<AuditEvent> eventsNewestFirst,
+  ) async {
+    if (eventsNewestFirst.isEmpty) {
+      return const ChainVerification(isIntact: true, verifiedCount: 0);
+    }
+    try {
+      final box = await _chainBox;
+      final chronological = eventsNewestFirst.reversed.toList();
+      var previousHash = '';
+      var verified = 0;
+      for (final event in chronological) {
+        final payload = _canonicalPayload(event, previousHash);
+        final recomputed = sha256.convert(utf8.encode(payload)).toString();
+        final stored = box.get(event.id);
+        if (stored == null || stored != recomputed) {
+          return ChainVerification(
+            isIntact: false,
+            verifiedCount: verified,
+            firstBrokenEventId: event.id,
+          );
+        }
+        previousHash = recomputed;
+        verified++;
+      }
+      // Confirm the terminal hash matches the last recomputed hash.
+      final terminal = box.get(_lastHashKey) ?? '';
+      if (terminal != previousHash) {
+        return ChainVerification(
+          isIntact: false,
+          verifiedCount: verified,
+          firstBrokenEventId: chronological.last.id,
+        );
+      }
+      return ChainVerification(isIntact: true, verifiedCount: verified);
+    } on Exception catch (_) {
+      return const ChainVerification(
+        isIntact: false,
+        verifiedCount: 0,
+        firstBrokenEventId: null,
+      );
+    }
+  }
+}
+
+/// Result of re-verifying the audit hash chain.
+class ChainVerification {
+  /// True when every recomputed hash matches the stored hash.
+  final bool isIntact;
+
+  /// id of the first event whose recomputed hash != stored hash; null if intact.
+  final String? firstBrokenEventId;
+
+  /// Number of events that were verified before stopping (or all, if intact).
+  final int verifiedCount;
+
+  const ChainVerification({
+    required this.isIntact,
+    required this.verifiedCount,
+    this.firstBrokenEventId,
+  });
 }
