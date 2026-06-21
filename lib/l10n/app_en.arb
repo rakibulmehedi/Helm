@@ -1107,7 +1107,7 @@
   "@spendSummaryLabel": { "description": "Spend tab summary strip label" },
   "spendEmptyTitle": "Nothing spent yet",
   "@spendEmptyTitle": { "description": "Spend tab empty-state title" },
-  "spendEmptyBody": "Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.",
+  "spendEmptyBody": "Record money you have already paid out — each payment updates your Safe-to-Spend.",
   "@spendEmptyBody": { "description": "Spend tab empty-state teaching body" },
   "spendFabLabel": "Add a payment",
   "@spendFabLabel": { "description": "Spend tab add-payment FAB label" }

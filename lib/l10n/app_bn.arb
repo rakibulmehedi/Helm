@@ -940,9 +940,9 @@
   "auditRelativeJustNow": "এইমাত্র",
   "auditRelativeMinutesAgo": "{minutes} মিনিট আগে",
   "auditRelativeHoursAgo": "{hours} ঘণ্টা আগে",
-  "spendTitle": "খরচ",
-  "spendSummaryLabel": "এই মাসে খরচ · Safe-to-Spend কমায়",
-  "spendEmptyTitle": "এখনো কিছু খরচ হয়নি",
-  "spendEmptyBody": "আপনি ইতিমধ্যে যে টাকা খরচ করেছেন তা যোগ করুন। প্রতিটি খরচ আপনার Safe-to-Spend কমায়, তাই সংখ্যাটি সঠিক থাকে।",
-  "spendFabLabel": "খরচ যোগ করুন"
+  "spendTitle": "ব্যয়",
+  "spendSummaryLabel": "এই মাসে ব্যয় · Safe-to-Spend কমায়",
+  "spendEmptyTitle": "এখনো কিছু ব্যয় হয়নি",
+  "spendEmptyBody": "আপনি যে অর্থ ইতিমধ্যে পরিশোধ করেছেন তা রেকর্ড করুন — প্রতিটি পেমেন্ট আপনার Safe-to-Spend আপডেট করে।",
+  "spendFabLabel": "পেমেন্ট যোগ করুন"
 }
