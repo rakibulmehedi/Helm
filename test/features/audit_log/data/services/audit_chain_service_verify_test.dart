@@ -61,4 +61,35 @@ void main() {
     expect(result.isIntact, isFalse);
     expect(result.firstBrokenEventId, 'b');
   });
+
+  test('reordering is detected via per-event hash mismatch', () async {
+    final a = _event('a', 1, next: '100');
+    final b = _event('b', 2, prev: '100', next: '200');
+    final c = _event('c', 3, prev: '200', next: '300');
+    for (final e in [a, b, c]) {
+      await service.appendAndHash(e);
+    }
+    // Pass events in wrong order: [b, c, a] (newest-first claim).
+    // verifyChain reverses to chronological: [a, c, b].
+    // 'a' verifies OK (first in chain, previousHash='').
+    // 'c' is then expected to chain off a's hash, but was originally chained
+    // off b's hash — so its stored hash does not match the recomputed one.
+    final result = await service.verifyChain([b, c, a]);
+    expect(result.isIntact, isFalse);
+  });
+
+  test('terminal-hash mismatch detected when newest event is omitted', () async {
+    final a = _event('a', 1, next: '100');
+    final b = _event('b', 2, prev: '100', next: '200');
+    final c = _event('c', 3, prev: '200', next: '300');
+    for (final e in [a, b, c]) {
+      await service.appendAndHash(e);
+    }
+    // Verify only [b, a] (omit the newest event c).
+    // verifyChain reverses to [a, b]; each per-event hash matches (they were
+    // appended first). But the stored last_hash equals c's hash, not b's, so
+    // the terminal-hash check fails — exercising that branch specifically.
+    final result = await service.verifyChain([b, a]);
+    expect(result.isIntact, isFalse);
+  });
 }

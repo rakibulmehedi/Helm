@@ -35,7 +35,7 @@ List<MapEntry<HistoryBucket, List<AuditEvent>>> groupByRecency(
       .toList();
 }
 
-/// Returns a locale-free token: 'justNow', `'mAgo:<n>'`, `'hAgo:<n>'`, or 'date'.
+/// Returns a locale-free token: `'justNow'`, `'mAgo:<n>'`, `'hAgo:<n>'`, or `'date'`.
 String relativeTimeLabel(DateTime eventTime, DateTime now) {
   if (bucketFor(eventTime, now) != HistoryBucket.today) return 'date';
   final diff = now.difference(eventTime);
