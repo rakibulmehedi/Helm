@@ -2041,6 +2041,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{hours}h ago'**
   String auditRelativeHoursAgo(int hours);
+
+  /// Spend tab screen title
+  ///
+  /// In en, this message translates to:
+  /// **'Spend'**
+  String get spendTitle;
+
+  /// Spend tab summary strip label
+  ///
+  /// In en, this message translates to:
+  /// **'Spent this month · reduces Safe-to-Spend'**
+  String get spendSummaryLabel;
+
+  /// Spend tab empty-state title
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing spent yet'**
+  String get spendEmptyTitle;
+
+  /// Spend tab empty-state teaching body
+  ///
+  /// In en, this message translates to:
+  /// **'Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.'**
+  String get spendEmptyBody;
+
+  /// Spend tab add-payment FAB label
+  ///
+  /// In en, this message translates to:
+  /// **'Add a payment'**
+  String get spendFabLabel;
 }
 
 class _AppLocalizationsDelegate

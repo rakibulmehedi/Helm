@@ -1111,4 +1111,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String auditRelativeHoursAgo(int hours) {
     return '${hours}h ago';
   }
+
+  @override
+  String get spendTitle => 'Spend';
+
+  @override
+  String get spendSummaryLabel => 'Spent this month · reduces Safe-to-Spend';
+
+  @override
+  String get spendEmptyTitle => 'Nothing spent yet';
+
+  @override
+  String get spendEmptyBody =>
+      'Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.';
+
+  @override
+  String get spendFabLabel => 'Add a payment';
 }

@@ -1100,4 +1100,20 @@ class AppLocalizationsBn extends AppLocalizations {
   String auditRelativeHoursAgo(int hours) {
     return '$hours ঘণ্টা আগে';
   }
+
+  @override
+  String get spendTitle => 'খরচ';
+
+  @override
+  String get spendSummaryLabel => 'এই মাসে খরচ · Safe-to-Spend কমায়';
+
+  @override
+  String get spendEmptyTitle => 'এখনো কিছু খরচ হয়নি';
+
+  @override
+  String get spendEmptyBody =>
+      'আপনি ইতিমধ্যে যে টাকা খরচ করেছেন তা যোগ করুন। প্রতিটি খরচ আপনার Safe-to-Spend কমায়, তাই সংখ্যাটি সঠিক থাকে।';
+
+  @override
+  String get spendFabLabel => 'খরচ যোগ করুন';
 }

@@ -1100,5 +1100,15 @@
   "@auditRelativeHoursAgo": {
     "description": "Relative time in hours",
     "placeholders": { "hours": { "type": "int" } }
-  }
+  },
+  "spendTitle": "Spend",
+  "@spendTitle": { "description": "Spend tab screen title" },
+  "spendSummaryLabel": "Spent this month · reduces Safe-to-Spend",
+  "@spendSummaryLabel": { "description": "Spend tab summary strip label" },
+  "spendEmptyTitle": "Nothing spent yet",
+  "@spendEmptyTitle": { "description": "Spend tab empty-state title" },
+  "spendEmptyBody": "Record money you have already paid out. Each payment lowers your Safe-to-Spend so the number stays honest.",
+  "@spendEmptyBody": { "description": "Spend tab empty-state teaching body" },
+  "spendFabLabel": "Add a payment",
+  "@spendFabLabel": { "description": "Spend tab add-payment FAB label" }
 }

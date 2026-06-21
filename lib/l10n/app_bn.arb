@@ -939,5 +939,10 @@
   "auditDetailRecordHash": "রেকর্ড হ্যাশ",
   "auditRelativeJustNow": "এইমাত্র",
   "auditRelativeMinutesAgo": "{minutes} মিনিট আগে",
-  "auditRelativeHoursAgo": "{hours} ঘণ্টা আগে"
+  "auditRelativeHoursAgo": "{hours} ঘণ্টা আগে",
+  "spendTitle": "খরচ",
+  "spendSummaryLabel": "এই মাসে খরচ · Safe-to-Spend কমায়",
+  "spendEmptyTitle": "এখনো কিছু খরচ হয়নি",
+  "spendEmptyBody": "আপনি ইতিমধ্যে যে টাকা খরচ করেছেন তা যোগ করুন। প্রতিটি খরচ আপনার Safe-to-Spend কমায়, তাই সংখ্যাটি সঠিক থাকে।",
+  "spendFabLabel": "খরচ যোগ করুন"
 }
