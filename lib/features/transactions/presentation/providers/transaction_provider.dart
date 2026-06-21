@@ -5,6 +5,7 @@
 // Phase 7f — Provider now exposes TransactionEntity (domain type).
 // TransactionModel is no longer imported in the presentation layer.
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/datasources/transaction_local_data_source.dart';
@@ -36,6 +37,12 @@ class TransactionsNotifier
   TransactionsNotifier(this._repository) : super(const AsyncValue.loading()) {
     loadTransactions();
   }
+
+  /// Test-only seed constructor — sets state directly, no repository load.
+  @visibleForTesting
+  TransactionsNotifier.test(List<TransactionEntity> seed)
+      : _repository = _UnusedRepository(),
+        super(AsyncValue.data(seed));
 
   Future<void> loadTransactions() async {
     state = const AsyncValue.loading();
@@ -94,4 +101,27 @@ class TransactionsNotifier
       state = AsyncValue.error(e, st);
     }
   }
+}
+
+/// Test-only no-op repository stub. All methods throw [UnimplementedError].
+class _UnusedRepository implements TransactionRepository {
+  @override
+  Future<void> addTransaction(TransactionEntity transaction) =>
+      throw UnimplementedError('test stub repository');
+
+  @override
+  Future<void> updateTransaction(TransactionEntity transaction) =>
+      throw UnimplementedError('test stub repository');
+
+  @override
+  Future<List<TransactionEntity>> getTransactions() =>
+      throw UnimplementedError('test stub repository');
+
+  @override
+  Future<void> deleteTransaction(String id) =>
+      throw UnimplementedError('test stub repository');
+
+  @override
+  Future<void> clearTransactions() =>
+      throw UnimplementedError('test stub repository');
 }

@@ -14,6 +14,7 @@ abstract final class RouteNames {
   static const String dashboard = '/home';
   static const String home = '/home';
   static const String pipeline = '/pipeline';
+  static const String spend = '/spend';
   static const String trace = '/trace';
   static const String settings = '/settings';
 
