@@ -22,8 +22,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import 'package:helm/config/router/route_names.dart';
+import 'package:helm/core/widgets/helm_icon.dart';
 import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
@@ -243,6 +245,12 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         elevation: 0,
         scrolledUnderElevation: 0,
         actions: [
+          IconButton(
+            key: const ValueKey('dashboard-settings-gear'),
+            tooltip: context.l10n.settings,
+            icon: const HelmIcon(LucideIcons.settings, size: HelmIconSize.lg),
+            onPressed: () => context.push(RouteNames.settings),
+          ),
           // UX-1.11 — dev reset gated to debug builds only.
           if (kDebugMode)
             IconButton(
