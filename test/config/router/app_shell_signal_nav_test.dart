@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:helm/config/router/route_names.dart';
 
 void main() {
-  test('shell exposes Home Pipeline Spend tabs with Lucide icons', () {
+  test('shell exposes Home Pipeline Spend tabs with Material icons', () {
     expect(RouteNames.home, equals('/home'));
     expect(RouteNames.pipeline, equals('/pipeline'));
     expect(RouteNames.spend, equals('/spend'));
@@ -16,17 +16,17 @@ void main() {
 
     expect(tabsSource, contains('RouteNames.home'));
     expect(tabsSource, contains("label: 'Home'"));
-    expect(tabsSource, contains('LucideIcons.house'));
+    expect(tabsSource, contains('Icons.home_rounded'));
 
     expect(tabsSource, contains('RouteNames.pipeline'));
     expect(tabsSource, contains("label: 'Pipeline'"));
-    expect(tabsSource, contains('LucideIcons.arrowUpDown'));
+    expect(tabsSource, contains('Icons.account_balance_wallet_rounded'));
 
     expect(tabsSource, contains('RouteNames.spend'));
     expect(tabsSource, contains("label: 'Spend'"));
-    expect(tabsSource, contains('LucideIcons.wallet'));
+    expect(tabsSource, contains('Icons.wallet_rounded'));
 
-    // History and Settings are no longer primary tabs.
+    // History and Settings are not primary tabs — they live as AppBar actions.
     expect(tabsSource, isNot(contains('RouteNames.trace')));
     expect(tabsSource, isNot(contains('RouteNames.settings')));
   });

@@ -15,9 +15,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-import 'package:helm/core/widgets/helm_nav_bar.dart';
+import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 
 import 'package:helm/config/router/route_names.dart';
@@ -227,19 +227,19 @@ class _TabItem {
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: LucideIcons.house,
+    icon: Icons.home_rounded,
     label: 'Home',
     tooltip: 'Safe-to-Spend',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: LucideIcons.arrowUpDown,
+    icon: Icons.account_balance_wallet_rounded,
     label: 'Pipeline',
     tooltip: 'Income pipeline',
   ),
   _TabItem(
     path: RouteNames.spend,
-    icon: LucideIcons.wallet,
+    icon: Icons.wallet_rounded,
     label: 'Spend',
     tooltip: 'Money spent',
   ),
@@ -262,14 +262,30 @@ class _AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typography = context.textStyles;
+
     return Scaffold(
       body: child,
-      bottomNavigationBar: HelmNavBar(
-        items: _tabs
-            .map((t) => HelmNavItem(icon: t.icon, label: t.label))
-            .toList(growable: false),
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (i) => context.go(_tabs[i].path),
+        selectedItemColor: colors.interactive,
+        unselectedItemColor: colors.inkTertiary,
+        backgroundColor: colors.surface,
+        type: BottomNavigationBarType.fixed,
+        selectedLabelStyle: typography.labelSm,
+        unselectedLabelStyle: typography.labelSm,
+        elevation: 0,
+        items: _tabs
+            .map(
+              (t) => BottomNavigationBarItem(
+                icon: Icon(t.icon),
+                label: t.label,
+                tooltip: t.tooltip,
+              ),
+            )
+            .toList(),
       ),
     );
   }
