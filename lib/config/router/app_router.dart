@@ -7,7 +7,7 @@
 //   - If onboarding IS completed     → redirect / and /welcome to /home
 //
 // Shell structure (UX-1.07):
-//   ShellRoute wraps the 3 primary tabs (Signal, Flow, Trace).
+//   ShellRoute wraps the 3 primary tabs (Home, Pipeline, Spend).
 //   Splash, Welcome, Onboarding, and modal routes live outside the shell.
 //
 // All route paths live in RouteNames — never duplicate strings here.
