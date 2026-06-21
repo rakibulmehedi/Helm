@@ -424,7 +424,6 @@ See `docs/planning/TDD_DISPATCH_PHASE_6_V2_FEATURES.md`
 - [ ] App-wide Lucide migration — migrate remaining ~24 Material-icon files to `HelmIcon`/`LucideIcons`.
 - [ ] Route de-duplication — collapse `/settings` vs `/sts-settings`.
 - [ ] Behavioral widget tests for Dashboard gear + Pipeline audit link once Dashboard initState (AR-P1) and income provider gain test seams.
-- [ ] AddTransactionScreen reskin (out of scope for nav-reskin sprint — filed as follow-up per Chief Architect decision)
 
 - [ ] Virtual Wallets (V1 — after beta clears)
 - [ ] Tax reserve (V2)
