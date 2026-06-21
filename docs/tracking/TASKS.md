@@ -209,6 +209,13 @@
 
 ## Recently Completed
 
+**Income View Consolidation — Decision 040** ✅ [2026-06-21] — `dart analyze` 0/0/0, 372/372 tests pass (branch: `paper-ledger-reskin`)
+- [x] Task 1 (c22cffc): deleted orphaned `IncomePipelineSummary` widget
+- [x] Task 2 (dd44f56): removed `/income` GoRoute, `IncomeListScreen`, `RouteNames.income`; added permanent guard test (`test/config/router/income_route_removed_test.dart`)
+- [x] Task 3 (8d12cd2): removed 15 income-list-only l10n keys from en/bn ARB files + regenerated
+- [x] Task 4: recorded Decision 040, updated `PROJECT_STATE.md` + `TASKS.md`
+- See `docs/tracking/DECISION_LOG.md` Decision 040
+
 **UI/UX Migration — P6 Final Coherence** ✅ [2026-06-20] — `dart analyze` 0/0/0, 325/325 tests pass (branch: `feat/ui-ux-migration`)
 - [x] P6a: Currency symbol centralization (`NumberFormatter.symbolForCode/prefixForCode/defaultCurrencyCode`) — 7 hardcoded `৳` across 6 files eliminated (commit `7abc03d`)
 - [x] P6b: Typography token purity (3 screens) — 5 raw `TextStyle(...)` replaced with `HelmTypography` tokens in audit_log, sts_settings, add_income (commit `2add3fc`)

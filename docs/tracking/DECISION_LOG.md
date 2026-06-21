@@ -655,3 +655,24 @@ Material Badge uses 10pt by design. HelmTypography's smallest token (labelSm) is
 **Signal Deck code removed**, not hidden. 10 files deleted (5 lib + 5 test).
 
 **Spec:** `docs/superpowers/plans/2026-06-21-paper-ledger-redesign.md`
+
+---
+
+## Decision 040 — Income View Consolidated onto Pipeline Tab (2026-06-21)
+
+**Decision:** Removed the superseded `IncomeListScreen`, its orphaned entry widget
+`IncomePipelineSummary`, the `/income` route + `RouteNames.income`, and 15 income-list-only
+l10n strings. The Pipeline tab (`PipelineScreen`) is now the single income view.
+
+**Why:** `pipeline_screen.dart` already "Replaces IncomeListScreen"; the list screen was
+reachable only via the orphaned `IncomePipelineSummary` (dropped from the dashboard during the
+Paper Ledger migration `3450a89`, never deleted). Reskinning unreachable code is wasted work.
+Consistent with Decision 039's "removed, not hidden" precedent. Also cleared a 757-line
+file-limit violation.
+
+**Scope:** No user-facing behaviour change; no business-logic/persistence/Pipeline changes.
+A permanent guard test (`test/config/router/income_route_removed_test.dart`) prevents
+re-introduction of the `/income` route.
+
+**Spec:** `docs/superpowers/specs/2026-06-21-income-list-consolidation-design.md`
+**Plan:** `docs/superpowers/plans/2026-06-21-income-list-consolidation.md`

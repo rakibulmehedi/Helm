@@ -34,6 +34,7 @@
 - **UI/UX migration complete** (2026-06-20, branch `feat/ui-ux-migration`: all deprecated Flutter APIs removed (`withOpacity` → `withValues`, legacy ThemeExtension patterns); HelmColors ThemeExtension, HelmSpacing, HelmTypography token system fully operational; HelmAmount widget, HelmCalculationTrace, NumberFormatter (lakh/crore BDT + USD); currency symbol boundary (`symbolForCode`/`prefixForCode`/`defaultCurrencyCode`); 5 remaining raw TextStyle usages replaced with HelmTypography tokens; Reality Stack dashboard with S2S hero, 4 tiers, calculation trace, analytics; 19 GoRoute declarations, 21 route-name constants; en/bn 320/320 ARB keys, parity complete; `dart analyze` 0/0/0, 325 tests pass)
 - **global product blueprint committed** (2026-06-20, commit `74cfb11`: 28-section synthesis, decision-grade — prototype/pilot work NOT authorized pending founder ratification)
 - **Experiment 16.1 falsification protocol committed** (2026-06-20, commit `3081bfd`: 3-variant temporal S2S protocol, n=12 cohort — awaiting founder authorization before prototype phase begins)
+- **income view consolidated onto Pipeline tab** (2026-06-21, Decision 040: `IncomeListScreen` + `IncomePipelineSummary` + `/income` route + `RouteNames.income` deleted; 15 orphaned l10n strings removed; 757-line file-limit violation cleared; `PipelineScreen` is now the single income view; permanent guard test at `test/config/router/income_route_removed_test.dart`; `dart analyze` 0/0/0, 372 tests pass)
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*
