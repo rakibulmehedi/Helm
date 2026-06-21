@@ -123,6 +123,14 @@ final GoRouter appRouter = GoRouter(
       name: 'stsSettings',
       builder: (context, state) => const StsSettingsScreen(),
     ),
+    // /settings is the canonical push-overlay alias for /sts-settings.
+    // Kept separate so existing callers (Dashboard gear, notification centre,
+    // next-best-action card) and future deep-links all resolve correctly.
+    GoRoute(
+      path: RouteNames.settings,
+      name: 'settings',
+      builder: (context, state) => const StsSettingsScreen(),
+    ),
 
     // ── Auth routes (D1 Trust Layer) ──────────────────────────────────────────
     GoRoute(
@@ -165,6 +173,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteNames.auditLog,
       name: 'auditLog',
+      builder: (context, state) => const AuditLogScreen(),
+    ),
+    // /trace is the canonical push-overlay alias for /audit-log.
+    // _identityRoutes guest-gating uses RouteNames.trace, so this must stay
+    // registered as a standalone route.
+    GoRoute(
+      path: RouteNames.trace,
+      name: 'trace',
       builder: (context, state) => const AuditLogScreen(),
     ),
 
