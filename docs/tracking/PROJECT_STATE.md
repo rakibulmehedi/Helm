@@ -35,6 +35,7 @@
 - **global product blueprint committed** (2026-06-20, commit `74cfb11`: 28-section synthesis, decision-grade — prototype/pilot work NOT authorized pending founder ratification)
 - **Experiment 16.1 falsification protocol committed** (2026-06-20, commit `3081bfd`: 3-variant temporal S2S protocol, n=12 cohort — awaiting founder authorization before prototype phase begins)
 - **income view consolidated onto Pipeline tab** (2026-06-21, Decision 040: `IncomeListScreen` + `IncomePipelineSummary` + `/income` route + `RouteNames.income` deleted; 15 orphaned l10n strings removed; 757-line file-limit violation cleared; `PipelineScreen` is now the single income view; permanent guard test at `test/config/router/income_route_removed_test.dart`; `dart analyze` 0/0/0, 422 tests pass (1 skipped))
+- **History tab brought to Paper Ledger + Trust Layer surfaced** (2026-06-21, Decision 041: `AuditLogScreen` reskinned to Paper Ledger idiom (canvas appbar, date-grouped tappable cards, themed states). Per-event detail sheet exposes description + before→after diff + record hash (previously discarded). `AuditChainService.verifyChain()` added; `auditIntegrityProvider` + `LedgerIntegrityStrip` surface verify-on-open tamper-evidence for first time. Retention footer driven by `kAuditRetentionDays`. Filters/search/pull-to-refresh/tap-to-re-verify deferred. Dark-mode goldens added. `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden))
 
 ## 2. Frozen Systems
 *(Do NOT heavily refactor without explicit approval)*

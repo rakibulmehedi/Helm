@@ -209,6 +209,12 @@
 
 ## Recently Completed
 
+**Sub-Project B: History Tab Paper Ledger + Trust Layer Surfacing** ✅ [2026-06-21] — `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden) (branch: `paper-ledger-reskin`)
+- [x] Task 1–9 (implementation commits 449fb56..b19a28f): `AuditLogScreen` reskinned to Paper Ledger (canvas appbar, date-grouped tappable cards, themed loading/error/empty). Per-event detail sheet with description, before→after diff, record hash. `AuditChainService.verifyChain()`, `auditIntegrityProvider`, `LedgerIntegrityStrip` (verify-on-open tamper-evidence). Retention footer. Dark-mode goldens (2 new).
+- [x] Task 10 (docs): recorded Decision 041, updated `DECISION_LOG.md`, `PROJECT_STATE.md`, `TASKS.md`, verified `ROADMAP.md`
+- See `docs/tracking/DECISION_LOG.md` Decision 041
+- See `docs/superpowers/plans/2026-06-21-history-tab-paper-ledger-trust.md`
+
 **Income View Consolidation — Decision 040** ✅ [2026-06-21] — `dart analyze` 0/0/0, 422 tests pass (1 skipped) (branch: `paper-ledger-reskin`)
 - [x] Task 1 (c22cffc): deleted orphaned `IncomePipelineSummary` widget
 - [x] Task 2 (dd44f56): removed `/income` GoRoute, `IncomeListScreen`, `RouteNames.income`; added permanent guard test (`test/config/router/income_route_removed_test.dart`)

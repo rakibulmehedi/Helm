@@ -676,3 +676,19 @@ re-introduction of the `/income` route.
 
 **Spec:** `docs/superpowers/specs/2026-06-21-income-list-consolidation-design.md`
 **Plan:** `docs/superpowers/plans/2026-06-21-income-list-consolidation.md`
+
+---
+
+## Decision 041 — History Tab Brought to Paper Ledger Standard + Trust Layer Surfaced (2026-06-21)
+
+**Decision:** `AuditLogScreen` reskinned to Paper Ledger idiom (canvas appbar, date-grouped tappable cards, themed loading/error/empty states). Per-event detail sheet now exposes `description` + before→after diff + record hash (previously discarded). `AuditChainService.verifyChain()` added; `auditIntegrityProvider` + `LedgerIntegrityStrip` surface verify-on-open tamper-evidence for the first time, making the Doctrine's non-negotiable Trust Layer user-visible. Retention footer driven by `kAuditRetentionDays`. Filters/search/pull-to-refresh/tap-to-re-verify deferred. Supersedes the pre–Paper Ledger History UI.
+
+**Why:** History tab was last major surface left in legacy shell. Paper Ledger reskin unifies all user-facing screens. Trust Layer visibility (verify-on-open chain integrity check) satisfies Doctrine §3 requirement — "Trust Layer is non-negotiable from MVP." Surfacing tamper-evidence directly in the UI is the first concrete user-facing audit assurance.
+
+**Scope:** Visual only — no business-logic, persistence, or routing changes. Events now date-grouped (Today/Yesterday/This week/Earlier) into tappable `AuditEventCard`s. Tapping a card opens `AuditEventDetailSheet` with description, before→after state diff, record hash, and chain-integrity visual indicator. Dark-mode goldens added.
+
+**Deferred:** Filter chips, search, pull-to-refresh, tap-to-re-verify. These are non-goals per sub-project spec.
+
+**Spec:** `docs/superpowers/plans/2026-06-21-history-tab-paper-ledger-trust.md`
+
+**Verification:** `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden); 2 new History goldens added (dark mode). Total test count 446 / 1 skip across all suites.
