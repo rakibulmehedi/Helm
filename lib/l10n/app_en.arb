@@ -207,9 +207,6 @@
   "ifAllCounted": "If all counted:",
   "@ifAllCounted": { "description": "Horizon number label in not-counted section" },
 
-  "incomePipeline": "Income Pipeline",
-  "@incomePipeline": { "description": "Income list screen app bar title" },
-
   "addIncome": "Add Income",
   "@addIncome": { "description": "Add income screen title and empty state button" },
 
@@ -312,41 +309,8 @@
   "goBack": "Go Back",
   "@goBack": { "description": "Go back button in error state" },
 
-  "filterAll": "All",
-  "@filterAll": { "description": "Income list filter chip: all" },
-
   "excluded": "Excluded",
   "@excluded": { "description": "Badge on excluded income card" },
-
-  "trackIncomePipeline": "Track your income pipeline",
-  "@trackIncomePipeline": { "description": "Income list first-time empty state title" },
-
-  "addFirstExpectedPayment": "Add your first expected payment to see\nwhen money is coming in.",
-  "@addFirstExpectedPayment": { "description": "Income list first-time empty state body" },
-
-  "noExpectedPayments": "No expected payments",
-  "@noExpectedPayments": { "description": "Income list filter empty: expected" },
-
-  "noPaymentsInTransit": "No payments in transit",
-  "@noPaymentsInTransit": { "description": "Income list filter empty: pending" },
-
-  "noReceivedPaymentsYet": "No received payments yet",
-  "@noReceivedPaymentsYet": { "description": "Income list filter empty: received" },
-
-  "nothingHere": "Nothing here",
-  "@nothingHere": { "description": "Income list filter empty: all" },
-
-  "addOneForNewProject": "Add one when you start a new project.",
-  "@addOneForNewProject": { "description": "Empty state subtitle: expected" },
-
-  "noPaymentsInTransitNow": "No payments in transit right now.",
-  "@noPaymentsInTransitNow": { "description": "Empty state subtitle: pending" },
-
-  "noPaymentsReceivedThisMonth": "No payments received this month yet.",
-  "@noPaymentsReceivedThisMonth": { "description": "Empty state subtitle: received" },
-
-  "useButtonToAdd": "Use the + button to add an income entry.",
-  "@useButtonToAdd": { "description": "Empty state subtitle: all" },
 
   "undo": "Undo",
   "@undo": { "description": "Undo action label in toasts and snackbars" },
@@ -594,30 +558,6 @@
 
   "pipelineOverdueAttention": "Overdue — needs attention",
   "@pipelineOverdueAttention": { "description": "Pipeline screen: section header for overdue items" },
-
-  "incomeEntryCount": "{count, plural, =1{1 entry} other{{count} entries}}",
-  "@incomeEntryCount": {
-    "description": "Income list: entry count subtitle",
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
-
-  "incomeByDate": "By {date}",
-  "@incomeByDate": {
-    "description": "Income list card: expected by date",
-    "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
-
-  "incomeReceivedDate": "Received {date}",
-  "@incomeReceivedDate": {
-    "description": "Income list card: received on date",
-    "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
 
   "fxRateInvalid": "Enter a valid positive rate",
   "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },

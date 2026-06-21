@@ -233,9 +233,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ifAllCounted => 'If all counted:';
 
   @override
-  String get incomePipeline => 'Income Pipeline';
-
-  @override
   String get addIncome => 'Add Income';
 
   @override
@@ -339,42 +336,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goBack => 'Go Back';
 
   @override
-  String get filterAll => 'All';
-
-  @override
   String get excluded => 'Excluded';
-
-  @override
-  String get trackIncomePipeline => 'Track your income pipeline';
-
-  @override
-  String get addFirstExpectedPayment =>
-      'Add your first expected payment to see\nwhen money is coming in.';
-
-  @override
-  String get noExpectedPayments => 'No expected payments';
-
-  @override
-  String get noPaymentsInTransit => 'No payments in transit';
-
-  @override
-  String get noReceivedPaymentsYet => 'No received payments yet';
-
-  @override
-  String get nothingHere => 'Nothing here';
-
-  @override
-  String get addOneForNewProject => 'Add one when you start a new project.';
-
-  @override
-  String get noPaymentsInTransitNow => 'No payments in transit right now.';
-
-  @override
-  String get noPaymentsReceivedThisMonth =>
-      'No payments received this month yet.';
-
-  @override
-  String get useButtonToAdd => 'Use the + button to add an income entry.';
 
   @override
   String get undo => 'Undo';
@@ -633,27 +595,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pipelineOverdueAttention => 'Overdue — needs attention';
-
-  @override
-  String incomeEntryCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count entries',
-      one: '1 entry',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String incomeByDate(String date) {
-    return 'By $date';
-  }
-
-  @override
-  String incomeReceivedDate(String date) {
-    return 'Received $date';
-  }
 
   @override
   String get fxRateInvalid => 'Enter a valid positive rate';

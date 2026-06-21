@@ -135,8 +135,6 @@
 
   "ifAllCounted": "সব গণনায় ধরলে:",
 
-  "incomePipeline": "আয়ের পাইপলাইন",
-
   "addIncome": "আয় যোগ করুন",
 
   "editIncome": "আয় সম্পাদনা করুন",
@@ -205,29 +203,7 @@
 
   "goBack": "ফিরে যান",
 
-  "filterAll": "সব",
-
   "excluded": "বাদ দেওয়া হয়েছে",
-
-  "trackIncomePipeline": "আপনার আয়ের পাইপলাইন ট্র্যাক করুন",
-
-  "addFirstExpectedPayment": "প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন — কখন টাকা আসবে দেখতে পাবেন।",
-
-  "noExpectedPayments": "কোনো প্রত্যাশিত পেমেন্ট নেই",
-
-  "noPaymentsInTransit": "ট্রানজিটে কোনো পেমেন্ট নেই",
-
-  "noReceivedPaymentsYet": "এখনো কোনো পেমেন্ট প্রাপ্ত হয়নি",
-
-  "nothingHere": "এখানে কিছু নেই",
-
-  "addOneForNewProject": "নতুন প্রজেক্ট শুরু করলে একটি যোগ করুন।",
-
-  "noPaymentsInTransitNow": "এখন ট্রানজিটে কোনো পেমেন্ট নেই।",
-
-  "noPaymentsReceivedThisMonth": "এই মাসে এখনো কোনো পেমেন্ট পাননি।",
-
-  "useButtonToAdd": "+ বোতাম ব্যবহার করে আয় যোগ করুন।",
 
   "undo": "পূর্বাবস্থায় ফেরান",
 
@@ -450,30 +426,6 @@
 
   "pipelineOverdueAttention": "ওভারডিউ — মনোযোগ প্রয়োজন",
   "@pipelineOverdueAttention": { "description": "Pipeline screen: section header for overdue items" },
-
-  "incomeEntryCount": "{count, plural, =1{১টি এন্ট্রি} other{{count}টি এন্ট্রি}}",
-  "@incomeEntryCount": {
-    "description": "Income list: entry count subtitle",
-    "placeholders": {
-      "count": { "type": "int" }
-    }
-  },
-
-  "incomeByDate": "{date} এর মধ্যে",
-  "@incomeByDate": {
-    "description": "Income list card: expected by date",
-    "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
-
-  "incomeReceivedDate": "{date} তারিখে রিসিভ হয়েছে",
-  "@incomeReceivedDate": {
-    "description": "Income list card: received on date",
-    "placeholders": {
-      "date": { "type": "String" }
-    }
-  },
 
   "fxRateInvalid": "একটি বৈধ পজিটিভ রেট দিন",
   "@fxRateInvalid": { "description": "Validation: FX rate must be positive number" },

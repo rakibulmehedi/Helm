@@ -500,12 +500,6 @@ abstract class AppLocalizations {
   /// **'If all counted:'**
   String get ifAllCounted;
 
-  /// Income list screen app bar title
-  ///
-  /// In en, this message translates to:
-  /// **'Income Pipeline'**
-  String get incomePipeline;
-
   /// Add income screen title and empty state button
   ///
   /// In en, this message translates to:
@@ -710,77 +704,11 @@ abstract class AppLocalizations {
   /// **'Go Back'**
   String get goBack;
 
-  /// Income list filter chip: all
-  ///
-  /// In en, this message translates to:
-  /// **'All'**
-  String get filterAll;
-
   /// Badge on excluded income card
   ///
   /// In en, this message translates to:
   /// **'Excluded'**
   String get excluded;
-
-  /// Income list first-time empty state title
-  ///
-  /// In en, this message translates to:
-  /// **'Track your income pipeline'**
-  String get trackIncomePipeline;
-
-  /// Income list first-time empty state body
-  ///
-  /// In en, this message translates to:
-  /// **'Add your first expected payment to see\nwhen money is coming in.'**
-  String get addFirstExpectedPayment;
-
-  /// Income list filter empty: expected
-  ///
-  /// In en, this message translates to:
-  /// **'No expected payments'**
-  String get noExpectedPayments;
-
-  /// Income list filter empty: pending
-  ///
-  /// In en, this message translates to:
-  /// **'No payments in transit'**
-  String get noPaymentsInTransit;
-
-  /// Income list filter empty: received
-  ///
-  /// In en, this message translates to:
-  /// **'No received payments yet'**
-  String get noReceivedPaymentsYet;
-
-  /// Income list filter empty: all
-  ///
-  /// In en, this message translates to:
-  /// **'Nothing here'**
-  String get nothingHere;
-
-  /// Empty state subtitle: expected
-  ///
-  /// In en, this message translates to:
-  /// **'Add one when you start a new project.'**
-  String get addOneForNewProject;
-
-  /// Empty state subtitle: pending
-  ///
-  /// In en, this message translates to:
-  /// **'No payments in transit right now.'**
-  String get noPaymentsInTransitNow;
-
-  /// Empty state subtitle: received
-  ///
-  /// In en, this message translates to:
-  /// **'No payments received this month yet.'**
-  String get noPaymentsReceivedThisMonth;
-
-  /// Empty state subtitle: all
-  ///
-  /// In en, this message translates to:
-  /// **'Use the + button to add an income entry.'**
-  String get useButtonToAdd;
 
   /// Undo action label in toasts and snackbars
   ///
@@ -1225,24 +1153,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Overdue — needs attention'**
   String get pipelineOverdueAttention;
-
-  /// Income list: entry count subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{1 entry} other{{count} entries}}'**
-  String incomeEntryCount(int count);
-
-  /// Income list card: expected by date
-  ///
-  /// In en, this message translates to:
-  /// **'By {date}'**
-  String incomeByDate(String date);
-
-  /// Income list card: received on date
-  ///
-  /// In en, this message translates to:
-  /// **'Received {date}'**
-  String incomeReceivedDate(String date);
 
   /// Validation: FX rate must be positive number
   ///
