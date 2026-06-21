@@ -5,7 +5,7 @@
 // Verifies:
 //   - English locale → Inter font for body/label tokens
 //   - Bangla locale  → HindSiliguri font for body/label tokens
-//   - Bangla locale  → Inter font for heading tokens (locale-invariant)
+//   - Bangla locale  → Fraunces font for heading tokens (locale-invariant)
 //   - Bangla locale  → JetBrains Mono for mono tokens (locale-invariant)
 //   - colorOverride is applied correctly
 //   - Text content is rendered
@@ -163,50 +163,50 @@ void main() {
   });
 
   // -------------------------------------------------------------------------
-  group('HelmLocaleText — heading tokens stay Inter regardless of locale', () {
-    testWidgets('headingLg stays Inter in bn locale', (tester) async {
+  group('HelmLocaleText — heading tokens stay Fraunces regardless of locale', () {
+    testWidgets('headingLg stays Fraunces in bn locale', (tester) async {
       await pumpBn(
         tester,
         const HelmLocaleText('Heading', token: HelmTextToken.headingLg),
       );
       final style = _resolvedStyle(tester);
-      expect(style.fontFamily, equals('Inter'));
+      expect(style.fontFamily, equals('Fraunces'));
       expect(style.fontSize, equals(22));
     });
 
-    testWidgets('headingMd stays Inter in bn locale', (tester) async {
+    testWidgets('headingMd stays Fraunces in bn locale', (tester) async {
       await pumpBn(
         tester,
         const HelmLocaleText('Section', token: HelmTextToken.headingMd),
       );
-      expect(_resolvedStyle(tester).fontFamily, equals('Inter'));
+      expect(_resolvedStyle(tester).fontFamily, equals('Fraunces'));
       expect(_resolvedStyle(tester).fontSize, equals(18));
     });
 
-    testWidgets('headingSm stays Inter in bn locale', (tester) async {
+    testWidgets('headingSm stays Fraunces in bn locale', (tester) async {
       await pumpBn(
         tester,
         const HelmLocaleText('Card title', token: HelmTextToken.headingSm),
       );
-      expect(_resolvedStyle(tester).fontFamily, equals('Inter'));
+      expect(_resolvedStyle(tester).fontFamily, equals('Fraunces'));
       expect(_resolvedStyle(tester).fontSize, equals(15));
     });
 
-    testWidgets('displayHero stays Inter in bn locale', (tester) async {
+    testWidgets('displayHero stays Fraunces in bn locale', (tester) async {
       await pumpBn(
         tester,
         const HelmLocaleText('Hero', token: HelmTextToken.displayHero),
       );
-      expect(_resolvedStyle(tester).fontFamily, equals('Inter'));
+      expect(_resolvedStyle(tester).fontFamily, equals('Fraunces'));
       expect(_resolvedStyle(tester).fontSize, equals(64));
     });
 
-    testWidgets('displayLarge stays Inter in bn locale', (tester) async {
+    testWidgets('displayLarge stays Fraunces in bn locale', (tester) async {
       await pumpBn(
         tester,
         const HelmLocaleText('Total', token: HelmTextToken.displayLarge),
       );
-      expect(_resolvedStyle(tester).fontFamily, equals('Inter'));
+      expect(_resolvedStyle(tester).fontFamily, equals('Fraunces'));
       expect(_resolvedStyle(tester).fontSize, equals(40));
     });
 

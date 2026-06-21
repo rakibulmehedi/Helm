@@ -36,7 +36,8 @@
 ### Phase 0 — Beta Launch Readiness (🔄 IN PROGRESS)
 - Sprint A5: Bangla strings + Release APK + Device testing (parallel with S1)
 - Sprint S1-W6: QA Pre-Release Fixes (9 findings from 10-gate QA execution on 2026-06-15)
-- Helm Signal Deck UI slice merged 2026-06-16: Signal Hero, Signal Horizon, Decision Deck, Flow/Trace shell
+- Helm Signal Deck UI slice merged 2026-06-16: Signal Hero, Signal Horizon, Decision Deck, Flow/Trace shell — **superseded**
+- **Paper Ledger visual reskin complete 2026-06-21** (Decision 039): warm paper/espresso palette, Fraunces display, terracotta accent, Signal Deck code removed, 4-tab nav, dark-mode goldens. `dart analyze` 0/0/0, 372 tests pass.
 - Effort: ~10 hours total (A5 ~4h + S1-W6 ~6h)
 - Gate: Release APK signs with release keystore. All 9 QA findings resolved. APK runs on reference device. Bangla authored.
 
@@ -46,7 +47,7 @@
 - **S1-W6**: QA Pre-Release Fixes — 9 findings (2 BLOCKER, 4 HIGH, 2 MEDIUM, 1 LOW). Dispatch: `docs/planning/QA_FIX_DISPATCH.md`
 - Effort: ~46 hours (base ~40h + S1-W6 ~6h)
 - Gate: 52/97 critical+high resolved. Hive encrypted. Release signing. FLAG_SECURE. Bundle ID. CSV guard. QA re-run clean. Re-audit ≤10 LOW.
-- Trust Layer target: 23→33/35
+- Trust Layer target: 23→33/35 — **audit-chain integrity now user-visible (verify-on-open strip in History tab, Decision 041)**
 
 ### Phase 1 — Behavioral Foundation (✅ COMPLETE) [2026-06-13]
 - Wire 4 boundary events, add haptics, fix 3 contrast ratios, button active states, slider steppers, quiet affirmations, global onboarding skip

@@ -639,3 +639,59 @@ Material system-widget sizing constraints are exempt from HelmTypography token r
 
 Reason:
 Material Badge uses 10pt by design. HelmTypography's smallest token (labelSm) is 11pt. Forcing labelSm breaks badge proportions. System-widget sizing contracts take precedence over Helm design tokens.
+
+---
+
+## Decision 039 — Paper Ledger Visual Direction (2026-06-21)
+
+**Supersedes:** Decision 036 (Signal Deck).
+
+**Decision:** Adopt Paper Ledger — warm paper (`#F3ECE0`) / warm espresso (`#1E1813`) dual mode, terracotta (`#C2603F`) accent, Fraunces display + Inter UI + JetBrains Mono money + Hind Siliguri Bangla. Latin numerals for all money.
+
+**Why:** "calm & human" product feeling target; terracotta owns no state meaning so it never collides with semantic state colors; warm espresso preserves human feeling at night. stateSafe darkened from #5E7C63 → #567059, stateTight from #9A7B2F → #7A6024 for WCAG AA on warm paper canvas.
+
+**Scope:** Visual only — no business-logic, persistence, or routing-guard changes. Bottom nav expanded to 4 tabs (Home/Pipeline/History/Settings) — founder-approved exception.
+
+**Signal Deck code removed**, not hidden. 10 files deleted (5 lib + 5 test).
+
+**Spec:** `docs/superpowers/plans/2026-06-21-paper-ledger-redesign.md`
+
+---
+
+## Decision 040 — Income View Consolidated onto Pipeline Tab (2026-06-21)
+
+**Decision:** Removed the superseded `IncomeListScreen`, its orphaned entry widget
+`IncomePipelineSummary`, the `/income` route + `RouteNames.income`, and 15 income-list-only
+l10n strings. The Pipeline tab (`PipelineScreen`) is now the single income view.
+
+**Why:** `pipeline_screen.dart` already "Replaces IncomeListScreen"; the list screen was
+reachable only via the orphaned `IncomePipelineSummary` (dropped from the dashboard during the
+Paper Ledger migration `3450a89`, never deleted). Reskinning unreachable code is wasted work.
+Consistent with Decision 039's "removed, not hidden" precedent. Also cleared a 757-line
+file-limit violation.
+
+**Scope:** No user-facing behaviour change; no business-logic/persistence/Pipeline changes.
+A permanent guard test (`test/config/router/income_route_removed_test.dart`) prevents
+re-introduction of the `/income` route.
+
+**Spec:** `docs/superpowers/specs/2026-06-21-income-list-consolidation-design.md`
+**Plan:** `docs/superpowers/plans/2026-06-21-income-list-consolidation.md`
+
+---
+
+## Decision 041 — History Tab Brought to Paper Ledger Standard + Trust Layer Surfaced (2026-06-21)
+
+**Decision:** `AuditLogScreen` reskinned to Paper Ledger idiom (canvas appbar, date-grouped tappable cards, themed loading/error/empty states). Per-event detail sheet now exposes `description` + before→after diff + record hash (previously discarded). `AuditChainService.verifyChain()` added; `auditIntegrityProvider` + `LedgerIntegrityStrip` surface verify-on-open tamper-evidence for the first time, making the Doctrine's non-negotiable Trust Layer user-visible. Retention footer driven by `kAuditRetentionDays`. Filters/search/pull-to-refresh/tap-to-re-verify deferred. Supersedes the pre–Paper Ledger History UI.
+
+**Why:** History tab was last major surface left in legacy shell. Paper Ledger reskin unifies all user-facing screens. Trust Layer visibility (verify-on-open chain integrity check) satisfies Doctrine §3 requirement — "Trust Layer is non-negotiable from MVP." Surfacing tamper-evidence directly in the UI is the first concrete user-facing audit assurance.
+
+**Scope:** Presentation reskin plus one domain addition (`AuditChainService.verifyChain()` + `auditIntegrityProvider`); no persistence-schema, audit-write, retention-policy, or routing changes. Events now date-grouped (Today/Yesterday/This week/Earlier) into tappable `AuditEventCard`s. Tapping a card opens `AuditEventDetailSheet` with description, before→after state diff, record hash, and chain-integrity visual indicator. Dark-mode goldens added.
+
+**Deferred:** Filter chips, search, pull-to-refresh, tap-to-re-verify. These are non-goals per sub-project spec.
+
+**Spec:** `docs/superpowers/specs/2026-06-21-history-tab-paper-ledger-trust-design.md`
+**Plan:** `docs/superpowers/plans/2026-06-21-history-tab-paper-ledger-trust.md`
+
+**Verification:** `dart analyze` 0/0/0, 444 pass / 1 skip (non-golden); 2 new History goldens added (light + dark).
+
+**Known limitation (tracked):** `verifyChain` re-bases from an empty genesis hash, but `AuditLocalDataSourceImpl._pruneOldEvents` deletes events past `kAuditRetentionDays` without re-basing the hash chain. Once any event ages past retention, an honest ledger will report a **false** "Integrity issue detected" (a false alarm, never a false "verified" — the fail-loud guarantee holds). Cannot fire within the closed-beta horizon. Fix touches the audit-write/retention path (a Non-Goal of this sub-project) and awaits Chief Architect direction. See LESSONS.md §35.

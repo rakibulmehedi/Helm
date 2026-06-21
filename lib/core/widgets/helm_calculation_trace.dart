@@ -8,7 +8,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:helm/core/themes/helm_colors.dart';
-import 'package:helm/core/themes/helm_signal_theme.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/themes/helm_motion.dart';
@@ -192,12 +191,18 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
       builder: (context, scrollController) {
         return Container(
           key: const Key('signal_trace_sheet'),
-          decoration: const BoxDecoration(
-            color: HelmSignalTheme.signalDeck,
-            borderRadius: BorderRadius.vertical(
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: const BorderRadius.vertical(
               top: Radius.circular(HelmSpacing.sheetTopRadius),
             ),
-            boxShadow: [HelmSignalTheme.floatingSheetShadow],
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x22000000),
+                offset: Offset(0, -8),
+                blurRadius: 32,
+              ),
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -210,7 +215,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
                     width: 40,
                     height: 4,
                     decoration: BoxDecoration(
-                      color: HelmSignalTheme.signalInkMuted,
+                      color: colors.inkTertiary,
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),
@@ -231,14 +236,14 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
                     Text(
                       context.l10n.calcTraceTitle,
                       style: typography.headingMd.copyWith(
-                        color: HelmSignalTheme.signalInkPrimary,
+                        color: colors.inkPrimary,
                       ),
                     ),
                     const SizedBox(height: HelmSpacing.s1),
                     Text(
                       context.l10n.calcTraceSubtitle,
                       style: typography.labelSm.copyWith(
-                        color: HelmSignalTheme.signalInkMuted,
+                        color: colors.inkTertiary,
                       ),
                     ),
                   ],
@@ -249,7 +254,7 @@ class _HelmCalculationTraceState extends State<HelmCalculationTrace>
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: HelmSpacing.s4),
                 child: Divider(
-                  color: HelmSignalTheme.signalInkMuted,
+                  color: colors.divider,
                   height: HelmSpacing.s4,
                 ),
               ),
@@ -311,23 +316,14 @@ class _TraceLineRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isFinal = line.isFinal;
-    final amountTheme = Theme.of(context).copyWith(
-      extensions: <ThemeExtension<dynamic>>[
-        colors.copyWith(
-          inkPrimary: HelmSignalTheme.signalInkPrimary,
-          inkTertiary: HelmSignalTheme.signalInkMuted,
-        ),
-        typography,
-      ],
-    );
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Divider above final row
+        // Divider above final row — terracotta accent
         if (isFinal)
-          const Divider(
-            color: HelmSignalTheme.signalGlow,
+          Divider(
+            color: colors.interactive,
             height: HelmSpacing.s4,
           ),
 
@@ -344,22 +340,19 @@ class _TraceLineRow extends StatelessWidget {
                   line.label,
                   style: isFinal
                       ? typography.headingSm.copyWith(
-                          color: HelmSignalTheme.signalInkPrimary,
+                          color: colors.inkPrimary,
                         )
                       : typography.bodyMd.copyWith(
-                          color: HelmSignalTheme.signalInkSecondary,
+                          color: colors.inkSecondary,
                         ),
                 ),
               ),
 
               // Amount
-              Theme(
-                data: amountTheme,
-                child: HelmAmount(
-                  amount: line.amount,
-                  size: isFinal ? AmountSize.lg : AmountSize.md,
-                  semanticLabel: '${line.label}: ${line.amount}',
-                ),
+              HelmAmount(
+                amount: line.amount,
+                size: isFinal ? AmountSize.lg : AmountSize.md,
+                semanticLabel: '${line.label}: ${line.amount}',
               ),
             ],
           ),

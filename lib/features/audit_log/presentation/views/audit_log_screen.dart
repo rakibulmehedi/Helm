@@ -1,16 +1,19 @@
 // lib/features/audit_log/presentation/views/audit_log_screen.dart
 //
-// Displays the append-only audit trail for all financial changes.
-//
-// D1.07 — Trust Layer: Audit Log Display
+// History tab — Paper Ledger reskin.
+// Integrity strip → date-grouped event cards → retention footer.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+
 import 'package:helm/core/themes/helm_colors.dart';
+import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
-import 'package:helm/features/audit_log/domain/entities/audit_event.dart';
+import 'package:helm/features/audit_log/core/audit_log_constants.dart';
 import 'package:helm/features/audit_log/presentation/providers/audit_providers.dart';
+import 'package:helm/features/audit_log/presentation/utils/audit_history_grouping.dart';
+import 'package:helm/features/audit_log/presentation/widgets/audit_event_card.dart';
+import 'package:helm/features/audit_log/presentation/widgets/ledger_integrity_strip.dart';
 import 'package:helm/l10n/app_localization.dart';
 
 class AuditLogScreen extends ConsumerWidget {
@@ -18,38 +21,55 @@ class AuditLogScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final eventsAsync = ref.watch(auditEventsProvider);
+    final colors = context.colors;
+    final typo = context.textStyles;
     final l10n = context.l10n;
+    final eventsAsync = ref.watch(auditEventsProvider);
 
     return Scaffold(
+      backgroundColor: colors.canvas,
       appBar: AppBar(
-        title: Text(l10n.changeHistory),
+        backgroundColor: colors.canvas,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+        title: Text(l10n.changeHistory,
+            style: typo.headingSm.copyWith(color: colors.inkPrimary)),
       ),
       body: eventsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, _) => Center(
-          child: Text(
-            l10n.auditLogLoadError,
-            style: context.textStyles.bodyMd.copyWith(
-              color: context.colors.stateAtRisk,
-            ),
-          ),
-        ),
+        error: (_, _) => _StateMessage(
+            icon: Icons.error_outline, message: l10n.auditLogLoadError),
         data: (events) {
           if (events.isEmpty) {
-            return Center(
-              child: Text(l10n.auditLogEmpty),
-            );
+            return _StateMessage(
+                icon: Icons.history, message: l10n.auditLogEmpty);
           }
-          return ListView.separated(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            itemCount: events.length,
-            separatorBuilder: (_, _) => const Divider(height: 1, indent: 72),
-            itemBuilder: (context, index) {
-              final event = events[index];
-              return _AuditEventTile(event: event);
-            },
+          final groups = groupByRecency(events, DateTime.now());
+          return ListView(
+            padding: const EdgeInsets.fromLTRB(
+                HelmSpacing.screenEdge,
+                0,
+                HelmSpacing.screenEdge,
+                HelmSpacing.s6),
+            children: [
+              const LedgerIntegrityStrip(),
+              for (final group in groups) ...[
+                _GroupHeader(bucket: group.key, count: group.value.length),
+                const SizedBox(height: HelmSpacing.s2),
+                ...group.value.map((e) => Padding(
+                      padding: const EdgeInsets.only(bottom: HelmSpacing.s2),
+                      child: AuditEventCard(event: e),
+                    )),
+                const SizedBox(height: HelmSpacing.s3),
+              ],
+              const SizedBox(height: HelmSpacing.s2),
+              Text(
+                l10n.historyRetentionNote(kAuditRetentionDays),
+                style: typo.labelSm.copyWith(color: colors.inkTertiary),
+                textAlign: TextAlign.center,
+              ),
+            ],
           );
         },
       ),
@@ -57,103 +77,57 @@ class AuditLogScreen extends ConsumerWidget {
   }
 }
 
-// ── Tile ─────────────────────────────────────────────────────────────────────
-
-class _AuditEventTile extends StatelessWidget {
-  const _AuditEventTile({required this.event});
-
-  final AuditEvent event;
+class _GroupHeader extends StatelessWidget {
+  const _GroupHeader({required this.bucket, required this.count});
+  final HistoryBucket bucket;
+  final int count;
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typo = context.textStyles;
     final l10n = context.l10n;
-    return ListTile(
-      leading: Icon(
-        _iconFor(event.eventType),
-        color: _colorFor(context, event.eventType),
-      ),
-      title: Text(
-        _titleFor(event, l10n),
-        style: context.textStyles.bodyMd.copyWith(fontWeight: FontWeight.w500),
-      ),
-      subtitle: Text(
-        _formatTimestamp(event.timestamp),
-        style: context.textStyles.labelSm.copyWith(
-          color: context.colors.inkTertiary,
+    final label = switch (bucket) {
+      HistoryBucket.today => l10n.historyGroupToday,
+      HistoryBucket.yesterday => l10n.historyGroupYesterday,
+      HistoryBucket.thisWeek => l10n.historyGroupThisWeek,
+      HistoryBucket.earlier => l10n.historyGroupEarlier,
+    };
+    return Row(
+      children: [
+        Container(width: 3, height: 14, color: colors.inkSecondary),
+        const SizedBox(width: HelmSpacing.s2),
+        Text(label, style: typo.labelMd.copyWith(color: colors.inkSecondary)),
+        const Spacer(),
+        Text('$count', style: typo.labelSm.copyWith(color: colors.inkTertiary)),
+      ],
+    );
+  }
+}
+
+class _StateMessage extends StatelessWidget {
+  const _StateMessage({required this.icon, required this.message});
+  final IconData icon;
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    final typo = context.textStyles;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(HelmSpacing.s5),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 48, color: colors.inkTertiary),
+            const SizedBox(height: HelmSpacing.s3),
+            Text(message,
+                style: typo.bodyMd.copyWith(color: colors.inkSecondary),
+                textAlign: TextAlign.center),
+          ],
         ),
       ),
     );
-  }
-
-  IconData _iconFor(AuditEventType type) {
-    switch (type) {
-      case AuditEventType.created:
-        return Icons.add_circle_outline;
-      case AuditEventType.updated:
-        return Icons.edit_outlined;
-      case AuditEventType.deleted:
-        return Icons.delete_outline;
-      case AuditEventType.confirmed:
-        return Icons.check_circle_outline;
-      case AuditEventType.exported:
-        return Icons.upload_outlined;
-      case AuditEventType.unknown:
-        return Icons.help_outline;
-    }
-  }
-
-  Color _colorFor(BuildContext context, AuditEventType type) {
-    final colors = context.colors;
-    switch (type) {
-      case AuditEventType.created:
-        return colors.stateSafe;
-      case AuditEventType.updated:
-        return colors.interactive;
-      case AuditEventType.deleted:
-        return colors.stateAtRisk;
-      case AuditEventType.confirmed:
-        return colors.stateSafe;
-      case AuditEventType.exported:
-        return colors.stateTight;
-      case AuditEventType.unknown:
-        return colors.inkTertiary;
-    }
-  }
-
-  String _titleFor(AuditEvent event, AppLocalizations l10n) {
-    final entityLabel = _entityLabel(event.entityType, l10n);
-    switch (event.eventType) {
-      case AuditEventType.created:
-        return l10n.auditEventAdded(entityLabel);
-      case AuditEventType.updated:
-        return l10n.auditEventUpdated(entityLabel);
-      case AuditEventType.deleted:
-        return l10n.auditEventDeleted(entityLabel);
-      case AuditEventType.confirmed:
-        return l10n.auditEventConfirmed(entityLabel);
-      case AuditEventType.exported:
-        return l10n.auditEventExported(entityLabel);
-      case AuditEventType.unknown:
-        return l10n.auditEventChanged(entityLabel);
-    }
-  }
-
-  String _entityLabel(AuditEntityType type, AppLocalizations l10n) {
-    switch (type) {
-      case AuditEntityType.income:
-        return l10n.auditEntityIncome;
-      case AuditEntityType.transaction:
-        return l10n.auditEntityTransaction;
-      case AuditEntityType.stsSettings:
-        return l10n.auditEntitySettings;
-      case AuditEntityType.fixedCost:
-        return l10n.auditEntityFixedCost;
-      case AuditEntityType.unknown:
-        return l10n.auditEntityRecord;
-    }
-  }
-
-  String _formatTimestamp(DateTime dt) {
-    return DateFormat('MMM d, yyyy · h:mm a').format(dt);
   }
 }

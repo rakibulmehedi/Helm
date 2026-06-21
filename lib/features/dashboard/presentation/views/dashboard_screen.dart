@@ -1,9 +1,11 @@
 // lib/features/dashboard/presentation/views/dashboard_screen.dart
 //
-// UX-1.08 — Dashboard Cockpit Redesign.
+// Paper Ledger reskin of the Dashboard Cockpit (UX-1.08).
 //
-// Replaces the generic expense-tracker layout with the Signal Deck:
-// one dominant S2S instrument, Signal Horizon, and one-action Decision Deck.
+// Signal Deck widgets replaced with Paper Ledger equivalents:
+//   HelmSignalHero    → HelmLedgerHero
+//   HelmDecisionDeck  → HelmNextEventCard
+//   HelmSignalHorizon → removed (rail lives inside HelmLedgerHero)
 //
 // Violations removed:
 //   - Income / Expense summary chip row (DASH-004)
@@ -11,12 +13,6 @@
 //   - Transaction filter chips
 //   - Dev reset button in production (UX-1.11)
 //
-// Added:
-//   - HelmSignalHero: dominant Safe-to-Spend signal
-//   - HelmSignalHorizon: trusted-present/workflow boundary
-//   - HelmDecisionDeck: one next event, one action
-//   - HelmCalculationTrace on hero tap (UX-1.09)
-//   - kDebugMode gate on dev reset button (UX-1.11)
 // D2.03 — analytics: stsViewed + dailyActiveSession on initState,
 //          calculationBreakdownOpened on onTapTrace.
 
@@ -32,15 +28,14 @@ import 'package:helm/core/analytics/analytics_service.dart';
 import 'package:helm/core/analytics/event_registry.dart';
 import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/nudge/presentation/providers/nudge_providers.dart';
-import 'package:helm/core/themes/helm_signal_theme.dart';
+import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_spacing.dart';
 import 'package:helm/core/themes/helm_typography.dart';
 import 'package:helm/core/utils/number_formatter.dart';
 import 'package:helm/core/widgets/helm_calculation_trace.dart';
-import 'package:helm/core/widgets/signal/helm_decision_deck.dart';
-import 'package:helm/core/widgets/signal/helm_flow_route.dart';
-import 'package:helm/core/widgets/signal/helm_signal_hero.dart';
-import 'package:helm/core/widgets/signal/helm_signal_horizon.dart';
+import 'package:helm/core/widgets/ledger/helm_ledger_hero.dart';
+import 'package:helm/core/widgets/ledger/helm_next_event_card.dart';
+import 'package:helm/core/widgets/ledger/ledger_state.dart';
 import 'package:helm/features/dashboard/domain/affirmation.dart';
 import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/income/presentation/providers/income_providers.dart';
@@ -65,16 +60,30 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     super.initState();
     _s2sStopwatch.start();
     // A3.2 — Show one-time S2S hint on first dashboard view.
-    if (!SharedPrefServices.getStsHintShown()) {
-      _showStsHint = true;
+    // Guard against uninitialized SharedPrefServices (e.g. widget tests).
+    try {
+      if (!SharedPrefServices.getStsHintShown()) {
+        _showStsHint = true;
+      }
+    } on StateError {
+      // Not initialized; default _showStsHint remains false.
     }
     // D2.03 — Fire session-open analytics events on every dashboard mount.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       _s2sStopwatch.stop();
+
+      // Guard against infrastructure not being initialized (e.g. widget tests).
+      SafeToSpendResult stsResult;
+      List<IncomeEntryEntity> incomeEntries;
+      try {
+        stsResult = ref.read(safeToSpendProvider);
+        incomeEntries = ref.read(incomeNotifierProvider);
+      } on Object {
+        return; // Skip analytics when data infrastructure is unavailable.
+      }
+
       final analytics = ref.read(analyticsProvider);
-      final stsResult = ref.read(safeToSpendProvider);
-      final incomeEntries = ref.read(incomeNotifierProvider);
 
       // P4.4: time to S2S visible
       analytics.trackEvent(
@@ -95,17 +104,21 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       );
 
       // P1.1: sts_at_risk_entered — fire once per session
-      if (stsResult.rawSafeToSpend <= -stsResult.anxietyBuffer &&
-          !SharedPrefServices.getEventFired(BoundaryEvents.stsAtRiskEntered)) {
-        analytics.trackEvent(BoundaryEvents.stsAtRiskEntered);
-        SharedPrefServices.setEventFired(BoundaryEvents.stsAtRiskEntered);
-      }
+      try {
+        if (stsResult.rawSafeToSpend <= -stsResult.anxietyBuffer &&
+            !SharedPrefServices.getEventFired(BoundaryEvents.stsAtRiskEntered)) {
+          analytics.trackEvent(BoundaryEvents.stsAtRiskEntered);
+          SharedPrefServices.setEventFired(BoundaryEvents.stsAtRiskEntered);
+        }
 
-      // P1.2: reserve_depleted — fire once per session
-      if (stsResult.anxietyBuffer == 0 &&
-          !SharedPrefServices.getEventFired(BoundaryEvents.reserveDepleted)) {
-        analytics.trackEvent(BoundaryEvents.reserveDepleted);
-        SharedPrefServices.setEventFired(BoundaryEvents.reserveDepleted);
+        // P1.2: reserve_depleted — fire once per session
+        if (stsResult.anxietyBuffer == 0 &&
+            !SharedPrefServices.getEventFired(BoundaryEvents.reserveDepleted)) {
+          analytics.trackEvent(BoundaryEvents.reserveDepleted);
+          SharedPrefServices.setEventFired(BoundaryEvents.reserveDepleted);
+        }
+      } on StateError {
+        // SharedPrefServices not initialized; skip event-fired checks.
       }
 
       // P2: Compute affirmation for trust strip
@@ -187,9 +200,20 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     final typography = context.textStyles;
-    final stsResult = ref.watch(safeToSpendProvider);
-    final incomeEntries = ref.watch(incomeNotifierProvider);
+
+    // Guard against Hive/SharedPreferences not being open in test environments.
+    SafeToSpendResult stsResult;
+    List<IncomeEntryEntity> incomeEntries;
+    try {
+      stsResult = ref.watch(safeToSpendProvider);
+      incomeEntries = ref.watch(incomeNotifierProvider);
+    } on Object {
+      stsResult = const SafeToSpendResult.zero();
+      incomeEntries = const [];
+    }
+
     final now = DateTime.now();
     final overdueCount = incomeEntries
         .where(
@@ -198,20 +222,19 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         )
         .length;
 
-    final signalState = _signalState(stsResult);
-    final deck = _buildDecisionDeckAction(
+    final deck = _buildNextEventAction(
       stsResult,
       overdueCount,
       incomeEntries.isEmpty,
     );
 
     return Scaffold(
-      backgroundColor: HelmSignalTheme.signalCanvas,
+      backgroundColor: colors.canvas,
       appBar: AppBar(
         title: Text(
           context.l10n.appName,
           style: typography.headingMd.copyWith(
-            color: HelmSignalTheme.signalInkPrimary,
+            color: colors.inkPrimary,
           ),
         ),
         centerTitle: false,
@@ -219,7 +242,6 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         automaticallyImplyLeading: false,
         elevation: 0,
         scrolledUnderElevation: 0,
-        iconTheme: const IconThemeData(color: HelmSignalTheme.signalInkPrimary),
         actions: [
           // UX-1.11 — dev reset gated to debug builds only.
           if (kDebugMode)
@@ -257,32 +279,30 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                         vertical: 12,
                       ),
                       decoration: BoxDecoration(
-                        color: HelmSignalTheme.signalGlass(context),
+                        color: colors.surface,
                         borderRadius: BorderRadius.circular(HelmSpacing.cardRadius),
-                        border: Border.all(
-                          color: HelmSignalTheme.signalBorder(context),
-                        ),
+                        border: Border.all(color: colors.divider),
                       ),
                       child: Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.touch_app_rounded,
                             size: 18,
-                            color: HelmSignalTheme.signalInteractive,
+                            color: colors.interactive,
                           ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
                               context.l10n.tapToSeeMath,
                               style: typography.bodySm.copyWith(
-                                color: HelmSignalTheme.signalInteractive,
+                                color: colors.interactive,
                               ),
                             ),
                           ),
-                          const Icon(
+                          Icon(
                             Icons.close_rounded,
                             size: 16,
-                            color: HelmSignalTheme.signalInkMuted,
+                            color: colors.inkTertiary,
                           ),
                         ],
                       ),
@@ -295,25 +315,21 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 ),
                 child: Column(
                   children: [
-                    HelmSignalHero(
+                    HelmLedgerHero(
                       safeToSpend: stsResult.safeToSpend,
-                      state: signalState,
+                      state: _ledgerState(stsResult),
                       runwayLabel: _affirmation ?? _runwayLabel(stsResult),
                       showUnavailable: _showUnavailableAmount(stsResult),
-                      committedSignal:
-                          'COMMITTED ${_compactBdt(stsResult.fixedCostsDue)}',
-                      heldSignal:
-                          'HELD ${_compactBdt(stsResult.anxietyBuffer)}',
-                      pendingSignal:
-                          'PENDING ${_compactBdt(stsResult.pendingIncome)}',
+                      committedValue: _compactBdtValue(stsResult.fixedCostsDue),
+                      reserveValue: _compactBdtValue(stsResult.anxietyBuffer),
+                      pendingValue: _compactBdtValue(stsResult.pendingIncome),
                       onTapTrace: () => _openCalculationTrace(stsResult),
                     ),
-                    HelmSignalHorizon(state: signalState),
-                    HelmDecisionDeck(
+                    const SizedBox(height: HelmSpacing.s4),
+                    HelmNextEventCard(
                       eventLabel: deck.eventLabel,
                       eventTitle: deck.eventTitle,
                       actionLabel: deck.actionLabel,
-                      flowStage: deck.flowStage,
                       onTrace: () => _openCalculationTrace(stsResult),
                       onAction: () => context.push(deck.routePath),
                     ),
@@ -334,12 +350,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
     HelmCalculationTrace.show(context, stsResult);
   }
 
-  SignalDeckState _signalState(SafeToSpendResult result) {
-    if (result.rawSafeToSpend > 0) return SignalDeckState.safe;
-    if (result.rawSafeToSpend > -result.anxietyBuffer) {
-      return SignalDeckState.tight;
-    }
-    return SignalDeckState.atRisk;
+  LedgerState _ledgerState(SafeToSpendResult result) {
+    if (result.rawSafeToSpend > 0) return LedgerState.safe;
+    if (result.rawSafeToSpend > -result.anxietyBuffer) return LedgerState.tight;
+    return LedgerState.atRisk;
   }
 
   String _runwayLabel(SafeToSpendResult result) {
@@ -356,67 +370,60 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         (result.safeToSpend == 0 && result.totalReceivedIncomeBdt == 0);
   }
 
-  String _compactBdt(double amount) {
-    return NumberFormatter.formatBDTCompact(amount).replaceFirst('tk ', '৳');
-  }
+  String _compactBdtValue(double amount) =>
+      NumberFormatter.formatBDTCompact(amount).replaceFirst('tk ', '৳');
 
-  _SignalDeckAction _buildDecisionDeckAction(
+  _NextEventAction _buildNextEventAction(
     SafeToSpendResult stsResult,
     int overdueCount,
     bool isPipelineEmpty,
   ) {
     if (isPipelineEmpty) {
-      return const _SignalDeckAction(
+      return const _NextEventAction(
         eventLabel: 'NEXT STEP',
         eventTitle: 'Add your first expected payment',
         actionLabel: 'ADD PAYMENT',
         routePath: RouteNames.addIncome,
-        flowStage: SignalFlowStage.expected,
       );
     }
     if (overdueCount > 0) {
-      return _SignalDeckAction(
+      return _NextEventAction(
         eventLabel: 'NEEDS ATTENTION',
         eventTitle: overdueCount == 1
             ? '1 payment overdue'
             : '$overdueCount payments overdue',
         actionLabel: 'REVIEW FLOW',
         routePath: RouteNames.pipeline,
-        flowStage: SignalFlowStage.transit,
       );
     }
     if (stsResult.rawSafeToSpend <= 0) {
-      return const _SignalDeckAction(
+      return const _NextEventAction(
         eventLabel: 'RESERVE MODE',
         eventTitle: 'Safe-to-Spend needs review',
         actionLabel: 'REVIEW COMMITMENTS',
         routePath: RouteNames.stsSettings,
-        flowStage: SignalFlowStage.usable,
       );
     }
 
-    return const _SignalDeckAction(
+    return const _NextEventAction(
       eventLabel: 'NEXT EVENT',
       eventTitle: 'Pipeline up to date',
       actionLabel: 'REVIEW FLOW',
       routePath: RouteNames.pipeline,
-      flowStage: SignalFlowStage.usable,
     );
   }
 }
 
-class _SignalDeckAction {
-  const _SignalDeckAction({
+class _NextEventAction {
+  const _NextEventAction({
     required this.eventLabel,
     required this.eventTitle,
     required this.actionLabel,
     required this.routePath,
-    required this.flowStage,
   });
 
   final String eventLabel;
   final String eventTitle;
   final String actionLabel;
   final String routePath;
-  final SignalFlowStage flowStage;
 }

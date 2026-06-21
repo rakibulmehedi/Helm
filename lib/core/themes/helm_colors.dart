@@ -41,38 +41,38 @@ class HelmColors extends ThemeExtension<HelmColors> {
   // All text colors are solid pre-resolved hex (no alpha for text).
   // ---------------------------------------------------------------------------
   static const HelmColors light = HelmColors(
-    canvas:         Color(0xFFFAFAF6), // warm white background
-    surface:        Color(0xFFFFFFFC), // card surfaces (warmer than pure white)
-    inkPrimary:     Color(0xFF141413), // all numbers, critical text — 14.8:1 AAA
-    inkSecondary:   Color(0xFF3B3A36), // solid equivalent of 60% — labels, timestamps
-    inkTertiary:    Color(0xFF6A6760), // solid equivalent of 38% — helper text
-    interactive:    Color(0xFF255E5B), // deep teal — every tappable affordance
-    divider:        Color(0xFFD8D3C8), // card borders (~12% equivalent)
-    hairline:       Color(0xFFE9E5DB), // internal dividers (~8% equivalent)
-    stateSafe:      Color(0xFF3D6B3C), // WCAG AA 4.7:1 on #FAFAF6
-    stateTight:     Color(0xFF8B6500), // WCAG AA 4.6:1 on #FAFAF6
-    stateAtRisk:    Color(0xFF984635), // slightly deeper brick red
-    stateHope:      Color(0xFF5A7585), // solid for text (not alpha)
-    stateHopeMuted: Color(0xFF9BAAB2), // decorative — expected dots, low-emphasis markers
+    canvas:         Color(0xFFF3ECE0), // warm paper
+    surface:        Color(0xFFEAE0D0), // cards, elevated panels
+    inkPrimary:     Color(0xFF2B2521), // numbers, critical text
+    inkSecondary:   Color(0xFF5C5247), // labels, timestamps
+    inkTertiary:    Color(0xFF8A7A5E), // helper text, metadata
+    interactive:    Color(0xFFC2603F), // terracotta — tappable affordances
+    divider:        Color(0xFFDED2BF), // card borders
+    hairline:       Color(0xFFE8DECB), // internal dividers
+    stateSafe:      Color(0xFF567059), // stable signal, runway rail (darkened from 5E7C63 for WCAG AA on paper)
+    stateTight:     Color(0xFF7A6024), // reduced runway (darkened from 9A7B2F for WCAG AA on paper)
+    stateAtRisk:    Color(0xFFA8443A), // imminent harm only
+    stateHope:      Color(0xFF5A7585), // uncertain/pending money text
+    stateHopeMuted: Color(0xFF8A9DA6), // pending decorative markers
   );
 
   // ---------------------------------------------------------------------------
   // Dark mode — hand-tuned for contrast on dark canvases
   // ---------------------------------------------------------------------------
   static const HelmColors dark = HelmColors(
-    canvas:         Color(0xFF0E0E0C),
-    surface:        Color(0xFF161614),
-    inkPrimary:     Color(0xFFF2F1ED), // 15.1:1 contrast
-    inkSecondary:   Color(0xFFB0ADA6), // resolved from F2F1ED @60%
-    inkTertiary:    Color(0xFF857F77), // resolved from F2F1ED @38%
-    interactive:    Color(0xFF4DA09C), // WCAG AA 5.0:1 on #0E0E0C
-    divider:        Color(0xFF2A2925), // resolved from F2F1ED @10% darker
-    hairline:       Color(0xFF232220), // internal dividers dark
-    stateSafe:      Color(0xFF82A887),
+    canvas:         Color(0xFF1E1813), // warm espresso (NOT black)
+    surface:        Color(0xFF271F18),
+    inkPrimary:     Color(0xFFF3EAD9),
+    inkSecondary:   Color(0xFFC7B9A2),
+    inkTertiary:    Color(0xFF9A8A70),
+    interactive:    Color(0xFFD8744F), // terracotta, lifted for dark
+    divider:        Color(0xFF3A2F25),
+    hairline:       Color(0xFF332A21),
+    stateSafe:      Color(0xFF86A88A),
     stateTight:     Color(0xFFD4A668),
     stateAtRisk:    Color(0xFFC56A58),
-    stateHope:      Color(0xFF7A95A8), // dark mode solid for text
-    stateHopeMuted: Color(0xFF5A6E77), // dark mode decorative
+    stateHope:      Color(0xFF7A95A8),
+    stateHopeMuted: Color(0xFF5A6E77),
   );
 
   // ---------------------------------------------------------------------------

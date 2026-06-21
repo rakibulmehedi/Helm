@@ -29,7 +29,6 @@ import 'package:helm/features/auth/presentation/views/pin_entry_screen.dart';
 import 'package:helm/features/auth/presentation/views/pin_setup_screen.dart';
 import 'package:helm/features/dashboard/presentation/views/dashboard_screen.dart';
 import 'package:helm/features/income/presentation/views/add_income_screen.dart';
-import 'package:helm/features/income/presentation/views/income_list_screen.dart';
 import 'package:helm/features/income/presentation/views/pipeline_screen.dart';
 import 'package:helm/features/onboarding/presentation/views/onboarding_screen.dart';
 import 'package:helm/features/onboarding/presentation/views/welcome_screen.dart';
@@ -106,19 +105,6 @@ final GoRouter appRouter = GoRouter(
         final id = state.pathParameters['id'];
         final safeId = InputValidator.isValidId(id) ? id : null;
         return AddTransactionScreen(transactionId: safeId);
-      },
-    ),
-    GoRoute(
-      path: RouteNames.income,
-      name: 'income',
-      builder: (context, state) {
-        final extra = state.extra;
-        final filter = extra is String ? extra.trim().toLowerCase() : null;
-        const validFilters = {'all', 'expected', 'pending', 'received'};
-        final safeFilter = filter != null && validFilters.contains(filter)
-            ? filter
-            : null;
-        return IncomeListScreen(initialFilter: safeFilter);
       },
     ),
     GoRoute(
@@ -228,23 +214,33 @@ class _TabItem {
 const List<_TabItem> _tabs = [
   _TabItem(
     path: RouteNames.home,
-    icon: Icons.radar_rounded,
-    label: 'Signal',
-    tooltip: 'Safe-to-Spend signal',
+    icon: Icons.home_rounded,
+    label: 'Home',
+    tooltip: 'Safe-to-Spend',
   ),
   _TabItem(
     path: RouteNames.pipeline,
-    icon: Icons.route_rounded,
-    label: 'Flow',
-    tooltip: 'Income flow',
+    icon: Icons.account_balance_wallet_rounded,
+    label: 'Pipeline',
+    tooltip: 'Income pipeline',
   ),
   _TabItem(
     path: RouteNames.trace,
     icon: Icons.receipt_long_rounded,
-    label: 'Trace',
-    tooltip: 'Calculation trace and audit log',
+    label: 'History',
+    tooltip: 'History and audit trail',
+  ),
+  _TabItem(
+    path: RouteNames.settings,
+    icon: Icons.settings_rounded,
+    label: 'Settings',
+    tooltip: 'Settings',
   ),
 ];
+
+/// Test-only accessor for the bottom-nav tab labels.
+List<String> get debugAppShellTabLabels =>
+    _tabs.map((t) => t.label).toList(growable: false);
 
 class _AppShell extends StatelessWidget {
   final String location;

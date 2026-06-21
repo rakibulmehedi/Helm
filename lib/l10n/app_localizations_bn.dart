@@ -232,9 +232,6 @@ class AppLocalizationsBn extends AppLocalizations {
   String get ifAllCounted => 'সব গণনায় ধরলে:';
 
   @override
-  String get incomePipeline => 'আয়ের পাইপলাইন';
-
-  @override
   String get addIncome => 'আয় যোগ করুন';
 
   @override
@@ -339,41 +336,7 @@ class AppLocalizationsBn extends AppLocalizations {
   String get goBack => 'ফিরে যান';
 
   @override
-  String get filterAll => 'সব';
-
-  @override
   String get excluded => 'বাদ দেওয়া হয়েছে';
-
-  @override
-  String get trackIncomePipeline => 'আপনার আয়ের পাইপলাইন ট্র্যাক করুন';
-
-  @override
-  String get addFirstExpectedPayment =>
-      'প্রথম প্রত্যাশিত পেমেন্ট যোগ করুন — কখন টাকা আসবে দেখতে পাবেন।';
-
-  @override
-  String get noExpectedPayments => 'কোনো প্রত্যাশিত পেমেন্ট নেই';
-
-  @override
-  String get noPaymentsInTransit => 'ট্রানজিটে কোনো পেমেন্ট নেই';
-
-  @override
-  String get noReceivedPaymentsYet => 'এখনো কোনো পেমেন্ট প্রাপ্ত হয়নি';
-
-  @override
-  String get nothingHere => 'এখানে কিছু নেই';
-
-  @override
-  String get addOneForNewProject => 'নতুন প্রজেক্ট শুরু করলে একটি যোগ করুন।';
-
-  @override
-  String get noPaymentsInTransitNow => 'এখন ট্রানজিটে কোনো পেমেন্ট নেই।';
-
-  @override
-  String get noPaymentsReceivedThisMonth => 'এই মাসে এখনো কোনো পেমেন্ট পাননি।';
-
-  @override
-  String get useButtonToAdd => '+ বোতাম ব্যবহার করে আয় যোগ করুন।';
 
   @override
   String get undo => 'পূর্বাবস্থায় ফেরান';
@@ -619,27 +582,6 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get pipelineOverdueAttention => 'ওভারডিউ — মনোযোগ প্রয়োজন';
-
-  @override
-  String incomeEntryCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$countটি এন্ট্রি',
-      one: '১টি এন্ট্রি',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String incomeByDate(String date) {
-    return '$date এর মধ্যে';
-  }
-
-  @override
-  String incomeReceivedDate(String date) {
-    return '$date তারিখে রিসিভ হয়েছে';
-  }
 
   @override
   String get fxRateInvalid => 'একটি বৈধ পজিটিভ রেট দিন';
@@ -1099,4 +1041,63 @@ class AppLocalizationsBn extends AppLocalizations {
   @override
   String get transactionSaveError =>
       'পেমেন্ট সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।';
+
+  @override
+  String ledgerVerified(int count) {
+    return 'লেজার যাচাই করা হয়েছে · $count টি রেকর্ড';
+  }
+
+  @override
+  String get ledgerIntegrityIssue => 'অখণ্ডতার সমস্যা শনাক্ত হয়েছে';
+
+  @override
+  String get ledgerVerifying => 'লেজার যাচাই করা হচ্ছে…';
+
+  @override
+  String historyRetentionNote(int days) {
+    return 'ইতিহাস সর্বশেষ $days দিন সংরক্ষণ করে';
+  }
+
+  @override
+  String get historyGroupToday => 'আজ';
+
+  @override
+  String get historyGroupYesterday => 'গতকাল';
+
+  @override
+  String get historyGroupThisWeek => 'এই সপ্তাহে';
+
+  @override
+  String get historyGroupEarlier => 'আগের';
+
+  @override
+  String get auditDetailBefore => 'আগে';
+
+  @override
+  String get auditDetailAfter => 'পরে';
+
+  @override
+  String get auditDetailDescription => 'বিবরণ';
+
+  @override
+  String get auditDetailTimestamp => 'কখন';
+
+  @override
+  String get auditDetailEntity => 'রেকর্ড';
+
+  @override
+  String get auditDetailRecordHash => 'রেকর্ড হ্যাশ';
+
+  @override
+  String get auditRelativeJustNow => 'এইমাত্র';
+
+  @override
+  String auditRelativeMinutesAgo(int minutes) {
+    return '$minutes মিনিট আগে';
+  }
+
+  @override
+  String auditRelativeHoursAgo(int hours) {
+    return '$hours ঘণ্টা আগে';
+  }
 }

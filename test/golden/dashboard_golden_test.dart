@@ -112,6 +112,31 @@ Widget buildTestWidget({required Widget child}) {
   );
 }
 
+Widget buildDarkTestWidget({required Widget child}) {
+  return MediaQuery(
+    data: const MediaQueryData(disableAnimations: true),
+    child: MaterialApp(
+      theme: AppTheme.dark,
+      locale: const Locale('en'),
+      supportedLocales: const [Locale('en'), Locale('bn')],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: child,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Tests
 // ---------------------------------------------------------------------------
@@ -552,6 +577,52 @@ void main() {
       await expectLater(
         find.byType(NextBestActionCard),
         matchesGoldenFile('goldens/next_best_action_card_relief.png'),
+      );
+    });
+  });
+
+  group('S2sHeroBlock dark golden', () {
+    testWidgets('s2s_hero_block - safe state (dark)', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(400, 800));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
+      await tester.pumpWidget(
+        buildDarkTestWidget(
+          child: S2sHeroBlock(
+            result: _safeResult,
+            updatedAt: _referenceTime,
+            onTapTrace: null,
+            affirmation: null,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(S2sHeroBlock),
+        matchesGoldenFile('goldens/s2s_hero_block_safe_dark.png'),
+      );
+    });
+
+    testWidgets('s2s_hero_block - atRisk state (dark)', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(400, 800));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+
+      await tester.pumpWidget(
+        buildDarkTestWidget(
+          child: S2sHeroBlock(
+            result: _atRiskResult,
+            updatedAt: _referenceTime,
+            onTapTrace: null,
+            affirmation: null,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await expectLater(
+        find.byType(S2sHeroBlock),
+        matchesGoldenFile('goldens/s2s_hero_block_at_risk_dark.png'),
       );
     });
   });
