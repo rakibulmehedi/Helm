@@ -18,12 +18,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:helm/core/local_storage/shared_pref_service.dart';
 import 'package:helm/core/themes/app_theme.dart';
 import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 import 'package:helm/features/transactions/domain/entities/transaction_entity.dart';
 import 'package:helm/features/transactions/domain/entities/transaction_type.dart';
 import 'package:helm/features/transactions/presentation/providers/transaction_provider.dart';
 import 'package:helm/l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 List<TransactionEntity> _seed() => [
       TransactionEntity(
@@ -81,6 +83,11 @@ Widget _app(ThemeData theme, List<TransactionEntity> txns) {
 }
 
 void main() {
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+    await SharedPrefServices.init();
+  });
+
   testWidgets('spend populated light golden', (tester) async {
     await tester.binding.setSurfaceSize(const Size(400, 800));
     addTearDown(() => tester.binding.setSurfaceSize(null));
