@@ -1,4 +1,4 @@
-package co.helm.finance
+package com.safetospends.helm
 
 import android.content.pm.PackageManager
 import android.os.Build
@@ -13,8 +13,8 @@ import java.security.MessageDigest
 
 class MainActivity : FlutterActivity() {
     companion object {
-        private const val BACKUP_CHANNEL = "co.helm.finance/backup"
-        private const val SIGNATURE_CHANNEL = "co.helm.finance/signature"
+        private const val BACKUP_CHANNEL = "com.safetospends.helm/backup"
+        private const val SIGNATURE_CHANNEL = "com.safetospends.helm/signature"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
