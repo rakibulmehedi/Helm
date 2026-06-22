@@ -1116,4 +1116,44 @@ class AppLocalizationsBn extends AppLocalizations {
 
   @override
   String get spendFabLabel => 'পেমেন্ট যোগ করুন';
+
+  @override
+  String get tabHome => 'হোম';
+
+  @override
+  String get tabPipeline => 'পাইপলাইন';
+
+  @override
+  String get tabSpend => 'ব্যয়';
+
+  @override
+  String get tabHomeTip => 'নিরাপদ ব্যয়সীমা';
+
+  @override
+  String get tabPipelineTip => 'আয়ের পাইপলাইন';
+
+  @override
+  String get tabSpendTip => 'ব্যয় হয়েছে';
+
+  @override
+  String get viewAuditTrail => 'অডিট ট্রেইল দেখুন';
+
+  @override
+  String get viewTrace => 'ট্রেস দেখুন';
+
+  @override
+  String get compromisedDeviceTitle => 'এই ডিভাইসটি ঝুঁকিপূর্ণ মনে হচ্ছে';
+
+  @override
+  String get compromisedDeviceBody =>
+      'রুটেড বা জেলব্রেক করা ডিভাইসে হেল্ম চলতে পারে না কারণ আপনার স্থানীয় আর্থিক ডেটা প্রকাশ হয়ে যেতে পারে। অনুগ্রহ করে একটি অপরিবর্তিত ডিভাইস ব্যবহার করুন।';
+
+  @override
+  String get closeHelm => 'হেল্ম বন্ধ করুন';
+
+  @override
+  String get cautionCritical => 'সংকটজনক';
+
+  @override
+  String get cautionWarning => 'সতর্কতা';
 }

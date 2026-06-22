@@ -2071,6 +2071,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a payment'**
   String get spendFabLabel;
+
+  /// Bottom navigation tab label: home / dashboard
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get tabHome;
+
+  /// Bottom navigation tab label: income pipeline
+  ///
+  /// In en, this message translates to:
+  /// **'Pipeline'**
+  String get tabPipeline;
+
+  /// Bottom navigation tab label: spend / cash-out
+  ///
+  /// In en, this message translates to:
+  /// **'Spend'**
+  String get tabSpend;
+
+  /// Bottom navigation tab tooltip: home
+  ///
+  /// In en, this message translates to:
+  /// **'Safe-to-Spend'**
+  String get tabHomeTip;
+
+  /// Bottom navigation tab tooltip: pipeline
+  ///
+  /// In en, this message translates to:
+  /// **'Income pipeline'**
+  String get tabPipelineTip;
+
+  /// Bottom navigation tab tooltip: spend
+  ///
+  /// In en, this message translates to:
+  /// **'Money spent'**
+  String get tabSpendTip;
+
+  /// Tooltip on history icon buttons in app bar
+  ///
+  /// In en, this message translates to:
+  /// **'View audit trail'**
+  String get viewAuditTrail;
+
+  /// Label on the trace TextButton inside HelmNextEventCard
+  ///
+  /// In en, this message translates to:
+  /// **'View trace'**
+  String get viewTrace;
+
+  /// Heading on the non-dismissible compromised-device blocking screen
+  ///
+  /// In en, this message translates to:
+  /// **'This device appears to be compromised'**
+  String get compromisedDeviceTitle;
+
+  /// Body copy on the compromised-device blocking screen
+  ///
+  /// In en, this message translates to:
+  /// **'Helm cannot run on rooted or jailbroken devices because your local financial data could be exposed. Please use an unmodified device.'**
+  String get compromisedDeviceBody;
+
+  /// Button label on the compromised-device blocking screen
+  ///
+  /// In en, this message translates to:
+  /// **'Close Helm'**
+  String get closeHelm;
+
+  /// Severity word used in HelmCautionCard semantics label when isCritical=true
+  ///
+  /// In en, this message translates to:
+  /// **'Critical'**
+  String get cautionCritical;
+
+  /// Severity word used in HelmCautionCard semantics label when isCritical=false
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get cautionWarning;
 }
 
 class _AppLocalizationsDelegate

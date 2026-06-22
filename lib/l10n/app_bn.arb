@@ -944,5 +944,44 @@
   "spendSummaryLabel": "এই মাসে ব্যয় · Safe-to-Spend কমায়",
   "spendEmptyTitle": "এখনো কিছু ব্যয় হয়নি",
   "spendEmptyBody": "আপনি যে অর্থ ইতিমধ্যে পরিশোধ করেছেন তা রেকর্ড করুন — প্রতিটি পেমেন্ট আপনার Safe-to-Spend আপডেট করে।",
-  "spendFabLabel": "পেমেন্ট যোগ করুন"
+  "spendFabLabel": "পেমেন্ট যোগ করুন",
+
+  "tabHome": "হোম",
+  "@tabHome": { "description": "Bottom navigation tab label: home / dashboard" },
+
+  "tabPipeline": "পাইপলাইন",
+  "@tabPipeline": { "description": "Bottom navigation tab label: income pipeline" },
+
+  "tabSpend": "ব্যয়",
+  "@tabSpend": { "description": "Bottom navigation tab label: spend / cash-out" },
+
+  "tabHomeTip": "নিরাপদ ব্যয়সীমা",
+  "@tabHomeTip": { "description": "Bottom navigation tab tooltip: home" },
+
+  "tabPipelineTip": "আয়ের পাইপলাইন",
+  "@tabPipelineTip": { "description": "Bottom navigation tab tooltip: pipeline" },
+
+  "tabSpendTip": "ব্যয় হয়েছে",
+  "@tabSpendTip": { "description": "Bottom navigation tab tooltip: spend" },
+
+  "viewAuditTrail": "অডিট ট্রেইল দেখুন",
+  "@viewAuditTrail": { "description": "Tooltip on history icon buttons in app bar" },
+
+  "viewTrace": "ট্রেস দেখুন",
+  "@viewTrace": { "description": "Label on the trace TextButton inside HelmNextEventCard" },
+
+  "compromisedDeviceTitle": "এই ডিভাইসটি ঝুঁকিপূর্ণ মনে হচ্ছে",
+  "@compromisedDeviceTitle": { "description": "Heading on the non-dismissible compromised-device blocking screen" },
+
+  "compromisedDeviceBody": "রুটেড বা জেলব্রেক করা ডিভাইসে হেল্ম চলতে পারে না কারণ আপনার স্থানীয় আর্থিক ডেটা প্রকাশ হয়ে যেতে পারে। অনুগ্রহ করে একটি অপরিবর্তিত ডিভাইস ব্যবহার করুন।",
+  "@compromisedDeviceBody": { "description": "Body copy on the compromised-device blocking screen" },
+
+  "closeHelm": "হেল্ম বন্ধ করুন",
+  "@closeHelm": { "description": "Button label on the compromised-device blocking screen" },
+
+  "cautionCritical": "সংকটজনক",
+  "@cautionCritical": { "description": "Severity word used in HelmCautionCard semantics label when isCritical=true" },
+
+  "cautionWarning": "সতর্কতা",
+  "@cautionWarning": { "description": "Severity word used in HelmCautionCard semantics label when isCritical=false" }
 }

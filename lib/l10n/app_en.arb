@@ -1110,5 +1110,44 @@
   "spendEmptyBody": "Record money you have already paid out — each payment updates your Safe-to-Spend.",
   "@spendEmptyBody": { "description": "Spend tab empty-state teaching body" },
   "spendFabLabel": "Add a payment",
-  "@spendFabLabel": { "description": "Spend tab add-payment FAB label" }
+  "@spendFabLabel": { "description": "Spend tab add-payment FAB label" },
+
+  "tabHome": "Home",
+  "@tabHome": { "description": "Bottom navigation tab label: home / dashboard" },
+
+  "tabPipeline": "Pipeline",
+  "@tabPipeline": { "description": "Bottom navigation tab label: income pipeline" },
+
+  "tabSpend": "Spend",
+  "@tabSpend": { "description": "Bottom navigation tab label: spend / cash-out" },
+
+  "tabHomeTip": "Safe-to-Spend",
+  "@tabHomeTip": { "description": "Bottom navigation tab tooltip: home" },
+
+  "tabPipelineTip": "Income pipeline",
+  "@tabPipelineTip": { "description": "Bottom navigation tab tooltip: pipeline" },
+
+  "tabSpendTip": "Money spent",
+  "@tabSpendTip": { "description": "Bottom navigation tab tooltip: spend" },
+
+  "viewAuditTrail": "View audit trail",
+  "@viewAuditTrail": { "description": "Tooltip on history icon buttons in app bar" },
+
+  "viewTrace": "View trace",
+  "@viewTrace": { "description": "Label on the trace TextButton inside HelmNextEventCard" },
+
+  "compromisedDeviceTitle": "This device appears to be compromised",
+  "@compromisedDeviceTitle": { "description": "Heading on the non-dismissible compromised-device blocking screen" },
+
+  "compromisedDeviceBody": "Helm cannot run on rooted or jailbroken devices because your local financial data could be exposed. Please use an unmodified device.",
+  "@compromisedDeviceBody": { "description": "Body copy on the compromised-device blocking screen" },
+
+  "closeHelm": "Close Helm",
+  "@closeHelm": { "description": "Button label on the compromised-device blocking screen" },
+
+  "cautionCritical": "Critical",
+  "@cautionCritical": { "description": "Severity word used in HelmCautionCard semantics label when isCritical=true" },
+
+  "cautionWarning": "Warning",
+  "@cautionWarning": { "description": "Severity word used in HelmCautionCard semantics label when isCritical=false" }
 }

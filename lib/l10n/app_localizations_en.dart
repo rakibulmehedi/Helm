@@ -1127,4 +1127,44 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spendFabLabel => 'Add a payment';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get tabPipeline => 'Pipeline';
+
+  @override
+  String get tabSpend => 'Spend';
+
+  @override
+  String get tabHomeTip => 'Safe-to-Spend';
+
+  @override
+  String get tabPipelineTip => 'Income pipeline';
+
+  @override
+  String get tabSpendTip => 'Money spent';
+
+  @override
+  String get viewAuditTrail => 'View audit trail';
+
+  @override
+  String get viewTrace => 'View trace';
+
+  @override
+  String get compromisedDeviceTitle => 'This device appears to be compromised';
+
+  @override
+  String get compromisedDeviceBody =>
+      'Helm cannot run on rooted or jailbroken devices because your local financial data could be exposed. Please use an unmodified device.';
+
+  @override
+  String get closeHelm => 'Close Helm';
+
+  @override
+  String get cautionCritical => 'Critical';
+
+  @override
+  String get cautionWarning => 'Warning';
 }

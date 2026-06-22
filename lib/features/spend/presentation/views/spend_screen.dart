@@ -49,7 +49,7 @@ class SpendScreen extends ConsumerWidget {
           if (!SharedPrefServices.getGuestMode())
             IconButton(
               key: const ValueKey('spend-audit-link'),
-              tooltip: 'View audit trail',
+              tooltip: l10n.viewAuditTrail,
               icon: const HelmIcon(LucideIcons.history, size: HelmIconSize.lg),
               onPressed: () => context.push(RouteNames.trace),
             ),

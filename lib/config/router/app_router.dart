@@ -18,6 +18,7 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
 import 'package:helm/core/themes/helm_colors.dart';
 import 'package:helm/core/themes/helm_typography.dart';
+import 'package:helm/l10n/app_localization.dart';
 import 'package:helm/features/spend/presentation/views/spend_screen.dart';
 
 import 'package:helm/config/router/route_names.dart';
@@ -264,6 +265,11 @@ class _AppShell extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.colors;
     final typography = context.textStyles;
+    final l10n = context.l10n;
+
+    // Localized label / tooltip pairs — same order as _tabs.
+    final tabLabels = [l10n.tabHome, l10n.tabPipeline, l10n.tabSpend];
+    final tabTips = [l10n.tabHomeTip, l10n.tabPipelineTip, l10n.tabSpendTip];
 
     return Scaffold(
       body: child,
@@ -277,15 +283,14 @@ class _AppShell extends StatelessWidget {
         selectedLabelStyle: typography.labelSm,
         unselectedLabelStyle: typography.labelSm,
         elevation: 0,
-        items: _tabs
-            .map(
-              (t) => BottomNavigationBarItem(
-                icon: Icon(t.icon),
-                label: t.label,
-                tooltip: t.tooltip,
-              ),
-            )
-            .toList(),
+        items: List.generate(
+          _tabs.length,
+          (i) => BottomNavigationBarItem(
+            icon: Icon(_tabs[i].icon),
+            label: tabLabels[i],
+            tooltip: tabTips[i],
+          ),
+        ),
       ),
     );
   }
