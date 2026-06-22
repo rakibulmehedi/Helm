@@ -223,7 +223,7 @@ P1: Security → P2: QA → P3: Closed Beta → P4: Store Listing → P5: Launch
 ### App Configuration
 | Item | Required Value |
 |------|---------------|
-| `applicationId` | `com.helm.app` (confirm before publish) |
+| `applicationId` | `com.safetospends.helm` |
 | `versionName` | `1.0.0` |
 | `versionCode` | `1` |
 | `minSdkVersion` | `21` |
