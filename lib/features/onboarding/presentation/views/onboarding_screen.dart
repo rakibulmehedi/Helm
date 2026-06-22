@@ -116,26 +116,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final stsNotifier = ref.read(stsSettingsProvider.notifier);
     await stsNotifier.updateBufferPercent(_draft.bufferPercent.toDouble());
 
-    // Auto-create initial balance as a received income entry so it appears
-    // in the Income pipeline dashboard and Safe-to-Spend calculation.
-    if (_draft.liquidBalanceBdt > 0) {
-      final now = DateTime.now();
-      final initialBalanceEntry = IncomeEntryEntity(
-        id: IdGenerator.uniqueId(),
-        clientName: 'Initial Balance',
-        projectName: 'Starting cash from onboarding',
-        amount: _draft.liquidBalanceBdt,
-        currency: 'BDT',
-        status: IncomeStatus.received,
-        expectedDate: now,
-        receivedDate: now,
-        createdAt: now,
-        updatedAt: now,
-        notes: 'Liquid balance set during onboarding',
-      );
-      await ref.read(incomeNotifierProvider.notifier).addIncome(initialBalanceEntry);
-    }
-
     await SharedPrefServices.setOnboardingCompleted(true);
     ref.read(analyticsProvider).trackEvent(BoundaryEvents.onboardingCompleted);
     if (mounted) {
