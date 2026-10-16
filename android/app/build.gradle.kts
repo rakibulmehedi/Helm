@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         applicationId = "com.safetospends.helm"
-        minSdk = 21 // pinned — flutter.minSdkVersion resolves to 24 via plugin merge
+        minSdk = flutter.minSdkVersion // Flutter 3.44.1 engine minimum = API 24; migration enforces this
         targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
