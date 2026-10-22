@@ -4,9 +4,9 @@
 
 # Helm - Safe-to-spend cash flow clarity for freelancers
 
-[![CI](https://github.com/rakibulmehedi/Helm-V2/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Helm-V2/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Helm-V2)](https://github.com/rakibulmehedi/Helm-V2/releases)
-[![License](https://img.shields.io/github/license/rakibulmehedi/Helm-V2)](https://github.com/rakibulmehedi/Helm-V2/blob/main/LICENSE)
+[![CI](https://github.com/rakibulmehedi/Helm/actions/workflows/ci.yml/badge.svg)](https://github.com/rakibulmehedi/Helm/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/release/rakibulmehedi/Helm)](https://github.com/rakibulmehedi/Helm/releases)
+[![License](https://img.shields.io/github/license/rakibulmehedi/Helm)](https://github.com/rakibulmehedi/Helm/blob/main/LICENSE)
 [![Flutter](https://img.shields.io/badge/Flutter-3.7%2B-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.7%2B-0175C2?logo=dart)](https://dart.dev)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-7C4DFF)](https://riverpod.dev)
@@ -91,8 +91,8 @@ Current workflow covers:
 ### Run locally
 
 ```bash
-git clone https://github.com/rakibulmehedi/Helm-V2.git
-cd Helm-V2
+git clone https://github.com/rakibulmehedi/Helm.git
+cd Helm
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 flutter run
