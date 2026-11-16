@@ -1,6 +1,6 @@
 {
   "name": "helm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helm - Safe-to-spend cash flow clarity for freelancers",
   "main": "index.js",
   "scripts": {

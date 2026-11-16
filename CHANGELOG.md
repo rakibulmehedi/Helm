@@ -1,11 +1,24 @@
 # Changelog
 
-All notable changes to Helm are documented here.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
-Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### [1.0.1](https://github.com/MehedisGits/Helm/compare/v0.9.0...v1.0.1) (2026-11-16)
 
----
+
+### 🐞 Bug Fixes
+
+* **onboarding:** remove Skip for now button + fix local_auth 3.x API ([bf15ff2](https://github.com/MehedisGits/Helm/commit/bf15ff21a90235574d658e48c226eb47a77b1c15))
+
+
+### 📝 Documentation
+
+* **changelog:** consolidate beta entries into v0.9.0 release ([be37bb7](https://github.com/MehedisGits/Helm/commit/be37bb77a4f19935e7401f782c0a4d7d19c1bad5))
+* **readme:** point badges and clone instructions at this repository ([a8bcf60](https://github.com/MehedisGits/Helm/commit/a8bcf6051669f2f11be2db64e0872ae45cb8c447))
+
+
+### ✅ Tests
+
+* **audit:** use a relative timestamp in the integrity provider test ([9b23ce9](https://github.com/MehedisGits/Helm/commit/9b23ce9de469674123fe040e4ea03fa83d3897d8))
 
 ## [0.9.0] — 2026-06-29
 
