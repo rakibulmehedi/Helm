@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the version commit and tag (was failing with 403)
 
     steps:
       - name: ⬇️ Checkout Repo

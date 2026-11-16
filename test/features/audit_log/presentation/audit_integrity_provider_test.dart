@@ -28,7 +28,9 @@ void main() {
     final ds = container.read(auditLocalDataSourceProvider);
     await ds.addEvent(AuditEvent(
       id: 'a',
-      timestamp: DateTime(2026, 6, 1, 10),
+      // Relative to now: a fixed date ages past the 90-day retention window
+      // (kAuditRetentionDays) and is pruned on append, emptying the chain.
+      timestamp: DateTime.now().subtract(const Duration(hours: 1)),
       eventType: AuditEventType.created,
       entityType: AuditEntityType.income,
       entityId: 'e1',
